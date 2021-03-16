@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>个人历史交易详情</title>
+    <meta charset="utf-8">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<#include "/common/weUIcss.html">
+<#include "/common/weUIjs.html">
+<#include "/common/indexPrepaylist.html">
+<#include "/common/indexPrepaylistCSS.html">
+<script>
+function isEmptyObject(e) {  
+    var t;  
+    for (t in e)  
+        return !1;  
+    return !0  
+}
+$(document).ready(function(){
+    var ClearStatus =  ${historicalTxnQuery.t_Txn_PrepayClear_his};
+    
+    if (ClearStatus === 1){
+    	document.getElementById("Cleared").style.visibility="hidden";
+    	document.getElementById("NonCleared").style.visibility="visible";
+    }else{
+    	document.getElementById("NonCleared").style.visibility="hidden";
+    	document.getElementById("Cleared").style.visibility="visible";
+    }
+    
+    if (console.log(isEmptyObject(${historicalTxnQuery.t_P_VendorEmployeeName_his}))){
+    	document.getElementById("AgentName").style.visibility="visible";
+    }else{
+    	document.getElementById("AgentName").style.visibility="hidden";
+    }
+});
+
+
+    $(function () {
+        FastClick.attach(document.body);
+    });
+    
+	jsBridge.onClose(function(appData){
+		  console.log(JSON.stringify(appData));
+		window.parent.location.href = "${ctx}/login";
+		});
+</script>
+</head>
+
+<body ontouchstart>
+
+<!-- 标题区 -->
+<div class="detail_hd">
+    <p class="detail_title">
+        <img src="${ctx}/metronic/global/plugins/weUI/img/shouqian5.jpg" alt="">
+        ${historicalTxnQuery.t_Txn_ProdName_his}
+    </p>
+    <h1 class="detail_money">￥${historicalTxnQuery.t_Txn_ApplyPrepayAmount_his}</h1>
+    <p id="Cleared" class="detail_stauts pd_success">已结算</p>
+    <p id="NonCleared" class="detail_stauts pd_success">未结算</p>
+</div>
+
+<!-- 数据区 -->
+<div class="weui-cells">
+	<@shiro.hasPermission name="FINANCEPRODUCT_SEARCH">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">交易费</div>
+        <div class="weui-cell__ft">￥${historicalTxnQuery.t_Txn_Interest_his}</div>
+    </div>
+    </@shiro.hasPermission>	
+    <div class="weui-cell">
+        <div class="weui-cell__bd">平台使用费</div>
+        <div class="weui-cell__ft">￥${historicalTxnQuery.t_Txn_Poundage_his}</div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__bd">服务费</div>
+        <div class="weui-cell__ft">￥${historicalTxnQuery.t_Txn_ServiceFee_his}</div>
+    </div>
+</div>
+<div class="weui-cells">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">姓名</div>
+        <div class="weui-cell__ft">${historicalTxnQuery.t_Txn_PrepayApplierName_his}</div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__bd">手机号</div>
+        <div class="weui-cell__ft">${historicalTxnQuery.t_Txn_Mobil_his}</div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__bd">身份证</div>
+        <div class="weui-cell__ft">${historicalTxnQuery.t_Txn_PrepayApplierPID_his}</div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__bd">银行卡号</div>
+        <div class="weui-cell__ft">${historicalTxnQuery.t_Txn_BankAcc_his}</div>
+    </div>
+</div>
+<div class="weui-cells">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">公司名</div>
+        <div class="weui-cell__ft">${historicalTxnQuery.t_P_Company_his}</div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__bd">发薪日</div>
+        <div class="weui-cell__ft">${historicalTxnQuery.t_P_PayrollDate_his}</div>
+    </div>
+</div>
+<div class="weui-cells">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">交易时间</div>
+        <div class="weui-cell__ft">${historicalTxnQuery.t_Txn_PrepayDate_his?string("yyyy-MM-dd HH:mm:ss")}</div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__bd">交易单号</div>
+        <div class="weui-cell__ft">${historicalTxnQuery.t_Txn_Num_his}</div>
+    </div>
+</div>
+<div  id="AgentName" class="weui-cells">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">代理商公司名</div>
+        <div class="weui-cell__ft">${historicalTxnQuery.t_P_VendorEmployeeName_his}</div>
+    </div>
+</div>
+<div class="weui-footer">
+    <!-- 更多链接，根据需要增加a标签 -->
+    <p class="weui-footer__links">
+        <a href="javascript:void(0);" class="weui-footer__link">58工资</a>
+    </p>
+    <p class="weui-footer__text">2020 @ Goldman Fuks Information and Technology Services Co., ltd</p>
+</div>
+
+</body>
+</html>

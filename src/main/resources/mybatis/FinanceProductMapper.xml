@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qucai.sample.dao.FinanceProductDao">
+
+	<resultMap id="BaseResultMap" type="com.qucai.sample.entity.FinanceProduct">
+		<result column="t_FProd_ID" property="t_FProd_ID" jdbcType="VARCHAR" />
+		<result column="t_FProd_Name" property="t_FProd_Name" jdbcType="VARCHAR" />
+		<result column="t_FProd_Interest" property="t_FProd_Interest" jdbcType="DECIMAL" />
+		<result column="t_FProd_OverdueInt" property="t_FProd_OverdueInt" jdbcType="DECIMAL" />
+		<result column="t_FProd_ServiceFee" property="t_FProd_ServiceFee" jdbcType="DECIMAL" />
+		<result column="t_FProd_Poundage" property="t_FProd_Poundage" jdbcType="DECIMAL" />
+		<result column="t_FProd_ETxnAmtLimit" property="t_FProd_ETxnAmtLimit" jdbcType="DECIMAL" />
+		<result column="t_FProd_TierPoundage" property="t_FProd_TierPoundage" jdbcType="VARCHAR" />
+		<result column="t_FProd_Status" property="t_FProd_Status" jdbcType="VARCHAR" />
+		<result column="t_FProd_SysupdateDate" property="t_FProd_SysupdateDate" jdbcType="TIMESTAMP" />
+		<result column="t_FProd_category" property="t_FProd_category" jdbcType="VARCHAR" />
+		<result column="t_FProd_CorpPool" property="t_FProd_CorpPool" jdbcType="VARCHAR" />
+		<result column="t_FProd_PersPool" property="t_FProd_PersPool" jdbcType="VARCHAR" />						
+		<result column="platform" property="platform" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="creator" property="creator" jdbcType="VARCHAR" />
+		<result column="create_time" property="create_time" jdbcType="TIMESTAMP" />
+		<result column="modifier" property="modifier" jdbcType="VARCHAR" />
+		<result column="modify_time" property="modify_time" jdbcType="TIMESTAMP" />	
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		a.t_FProd_ID, 
+		a.t_FProd_Name, 
+		a.t_FProd_Interest, 
+		a.t_FProd_OverdueInt, 
+		a.t_FProd_ServiceFee, 
+		a.t_FProd_Poundage,
+		a.t_FProd_ETxnAmtLimit,  
+		a.t_FProd_TierPoundage, 
+		a.t_FProd_Status,
+		a.t_FProd_SysupdateDate,
+		a.t_FProd_category,
+		a.t_FProd_CorpPool,
+		a.t_FProd_PersPool,
+		a.platform,
+		a.remark,
+		a.creator,
+		a.create_time,
+		a.modifier,
+		a.modify_time
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_fproduct_info a
+		where a.t_FProd_ID = #{t_FProd_ID,jdbcType=VARCHAR}
+		order by a.create_time
+	</select>
+	
+	<select id="findSearchList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_fproduct_info a
+		<if test="batch_PB_company != 'ALL'">
+		where 
+		</if>	
+		<if test="t_FProd_Name != null">
+		a.t_FProd_Name like CONCAT('%',#{t_FProd_Name},'%')
+		</if>	
+		<if test="t_FProd_CorpPool != null">
+		a.t_FProd_CorpPool like CONCAT('%',#{t_FProd_CorpPool},'%')
+		</if>	
+		<if test="create_time != null">
+		and a.create_time like CONCAT('%',DATE(#{create_time}),'%')
+		</if>
+		<if test="remark != null">
+		and a.remark like CONCAT('%',#{remark},'%')
+		</if>
+		order by a.create_time
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from t_fproduct_info
+		where t_FProd_ID = #{t_FProd_ID,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="insertSelective" parameterType="com.qucai.sample.entity.FinanceProduct">
+		insert into t_fproduct_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="t_FProd_ID != null">
+				t_FProd_ID,
+			</if>
+			<if test="t_FProd_Name != null">
+				t_FProd_Name,
+			</if>
+			<if test="t_FProd_Interest != null">
+				t_FProd_Interest,
+			</if>
+			<if test="t_FProd_OverdueInt != null">
+				t_FProd_OverdueInt,
+			</if>
+			<if test="t_FProd_ServiceFee != null">
+				t_FProd_ServiceFee,
+			</if>
+			<if test="t_FProd_Poundage != null">
+				t_FProd_Poundage,
+			</if>
+			<if test="t_FProd_ETxnAmtLimit != null">
+				t_FProd_ETxnAmtLimit,
+			</if>
+			<if test="t_FProd_TierPoundage != null">
+				t_FProd_TierPoundage,
+			</if>
+			<if test="t_FProd_Status != null">
+				t_FProd_Status,
+			</if>
+			<if test="t_FProd_SysupdateDate != null">
+				t_FProd_SysupdateDate,
+			</if>
+			<if test="t_FProd_category != null">
+				t_FProd_category,
+			</if>
+			<if test="t_FProd_CorpPool != null">
+				t_FProd_CorpPool,
+			</if>
+			<if test="t_FProd_PersPool != null">
+				t_FProd_PersPool,
+			</if>
+			<if test="platform != null">
+				platform,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="creator != null">
+				creator,
+			</if>
+			<if test="create_time != null">
+				create_time,
+			</if>
+			<if test="modifier != null">
+				modifier,
+			</if>
+			<if test="modify_time != null">
+				modify_time
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="t_FProd_ID != null">
+				#{t_FProd_ID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_FProd_Name != null">
+				#{t_FProd_Name,jdbcType=VARCHAR},
+			</if>
+			<if test="t_FProd_Interest != null">
+				#{t_FProd_Interest,jdbcType=DECIMAL},
+			</if>
+			<if test="t_FProd_OverdueInt != null">
+				#{t_FProd_OverdueInt,jdbcType=DECIMAL},
+			</if>
+			<if test="t_FProd_ServiceFee != null">
+				#{t_FProd_ServiceFee,jdbcType=DECIMAL},
+			</if>
+			<if test="t_FProd_Poundage != null">
+				#{t_FProd_Poundage,jdbcType=DECIMAL},
+			</if>
+			<if test="t_FProd_ETxnAmtLimit != null">
+				#{t_FProd_ETxnAmtLimit,jdbcType=DECIMAL},
+			</if>
+			<if test="t_FProd_TierPoundage != null">
+				#{t_FProd_TierPoundage,jdbcType=VARCHAR},
+			</if>
+			<if test="t_FProd_Status != null">
+				#{t_FProd_Status,jdbcType=VARCHAR},
+			</if>
+			<if test="t_FProd_SysupdateDate != null">
+				#{t_FProd_SysupdateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="t_FProd_category != null">
+				#{t_FProd_category,jdbcType=VARCHAR},
+			</if>
+			<if test="t_FProd_CorpPool != null">
+				#{t_FProd_CorpPool,jdbcType=VARCHAR},
+			</if>
+			<if test="t_FProd_PersPool != null">
+				#{t_FProd_PersPool,jdbcType=VARCHAR},
+			</if>
+			<if test="platform != null">
+				#{platform,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				#{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="create_time != null">
+				#{create_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifier != null">
+				#{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="modify_time != null">
+				#{modify_time,jdbcType=TIMESTAMP}
+			</if>
+		</trim>
+	</insert>
+	
+	<select id="findAllList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_fproduct_info a
+		where 1=1
+		<if test="typeEnd != null">
+			<![CDATA[ and type <= #{typeEnd} ]]>
+		</if>
+		order by a.create_time
+	</select>
+
+<!-- 
+	<select id="findEntResourceGrantAllList" resultMap="ResourceGrantMap"
+		parameterType="java.lang.String">
+		SELECT
+			<include refid="Base_Column_List" />, 
+			(
+				SELECT
+					count(1)
+				FROM
+					tr_role_resource
+				WHERE
+					resource_id = a.id
+				AND role_id = #{roleId}
+			) AS selected
+		FROM
+			t_resource a
+		WHERE a.platform = 1
+		order by IFNULL(a.parent_id, ''), a.idx
+	</select>
+ -->			
+	<update id="updateByPrimaryKeySelective" parameterType="com.qucai.sample.entity.FinanceProduct">
+		update t_fproduct_info
+		<set>
+			<if test="t_FProd_ID != null">
+				t_FProd_ID = #{t_FProd_ID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_FProd_Name != null">
+				t_FProd_Name = #{t_FProd_Name,jdbcType=VARCHAR},
+			</if>
+			<if test="t_FProd_Interest != null">
+				t_FProd_Interest = #{t_FProd_Interest,jdbcType=DECIMAL},
+			</if>
+			<if test="t_FProd_OverdueInt != null">
+				t_FProd_OverdueInt = #{t_FProd_OverdueInt,jdbcType=DECIMAL},
+			</if>
+			<if test="t_FProd_ServiceFee != null">
+				t_FProd_ServiceFee = #{t_FProd_ServiceFee,jdbcType=DECIMAL},
+			</if>
+			<if test="t_FProd_Poundage != null">
+				t_FProd_Poundage = #{t_FProd_Poundage,jdbcType=DECIMAL},
+			</if>
+			<if test="t_FProd_ETxnAmtLimit != null">
+				t_FProd_ETxnAmtLimit = #{t_FProd_ETxnAmtLimit,jdbcType=DECIMAL},
+			</if>
+			<if test="t_FProd_TierPoundage != null">
+				t_FProd_TierPoundage = #{t_FProd_TierPoundage,jdbcType=VARCHAR},
+			</if>
+			<if test="t_FProd_Status != null">
+				t_FProd_Status = #{t_FProd_Status,jdbcType=VARCHAR},
+			</if>
+			<if test="t_FProd_SysupdateDate != null">
+				t_FProd_SysupdateDate = #{t_FProd_SysupdateDate,jdbcType=TIMESTAMP},
+			</if>
+		    <if test="t_FProd_category != null">
+				t_FProd_category = #{t_FProd_category,jdbcType=VARCHAR},
+			</if>
+			<if test="t_FProd_CorpPool != null">
+				t_FProd_CorpPool = #{t_FProd_CorpPool,jdbcType=VARCHAR},
+			</if>
+			<if test="t_FProd_PersPool != null">
+				t_FProd_PersPool = #{t_FProd_PersPool,jdbcType=VARCHAR},
+			</if>
+			<if test="platform != null">
+				platform = #{platform,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				creator = #{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="create_time != null">
+				create_time = #{create_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifier != null">
+				modifier = #{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="modify_time != null">
+				modify_time = #{modify_time,jdbcType=TIMESTAMP}
+			</if>
+		</set>
+		where t_FProd_ID = #{t_FProd_ID,jdbcType=VARCHAR}
+	</update>
+
+   <select id="existFinanceProductName" resultType="Integer"
+		parameterType="map">
+		select
+		count(1)
+		from t_fproduct_info a
+		where a.t_FProd_ID = #{t_FProd_ID}
+		<if test="t_FProd_ID != null">
+			and a.t_FProd_ID != #{t_FProd_ID}
+		</if>
+		and a.t_FProd_Name = #{t_FProd_Name}
+	</select>
+</mapper>
+ 

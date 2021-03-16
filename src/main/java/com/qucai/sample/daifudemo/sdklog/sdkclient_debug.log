@@ -1,0 +1,378 @@
+[DEBUG]2019-06-24 14:44:24,130 MESSAGE : Setting default value: false
+[DEBUG]2019-06-24 14:44:24,131 MESSAGE : Converting 'Boolean' value 'false' to type 'Boolean'
+[DEBUG]2019-06-24 14:44:24,131 MESSAGE :     No conversion required, value is already a Boolean
+[DEBUG]2019-06-24 14:44:24,232 MESSAGE : Setting default value: 0
+[DEBUG]2019-06-24 14:44:24,232 MESSAGE : Converting 'Integer' value '0' to type 'Byte'
+[DEBUG]2019-06-24 14:44:24,233 MESSAGE :     Converted to Byte value '0'
+[DEBUG]2019-06-24 14:44:24,236 MESSAGE : Setting default value:  
+[DEBUG]2019-06-24 14:44:24,237 MESSAGE : Converting 'Character' value ' ' to type 'Character'
+[DEBUG]2019-06-24 14:44:24,237 MESSAGE :     No conversion required, value is already a Character
+[DEBUG]2019-06-24 14:44:24,240 MESSAGE : Setting default value: 0
+[DEBUG]2019-06-24 14:44:24,241 MESSAGE : Converting 'Integer' value '0' to type 'Double'
+[DEBUG]2019-06-24 14:44:24,241 MESSAGE :     Converted to Double value '0.0'
+[DEBUG]2019-06-24 14:44:24,244 MESSAGE : Setting default value: 0
+[DEBUG]2019-06-24 14:44:24,245 MESSAGE : Converting 'Integer' value '0' to type 'Float'
+[DEBUG]2019-06-24 14:44:24,245 MESSAGE :     Converted to Float value '0.0'
+[DEBUG]2019-06-24 14:44:24,247 MESSAGE : Setting default value: 0
+[DEBUG]2019-06-24 14:44:24,247 MESSAGE : Converting 'Integer' value '0' to type 'Integer'
+[DEBUG]2019-06-24 14:44:24,248 MESSAGE :     No conversion required, value is already a Integer
+[DEBUG]2019-06-24 14:44:24,249 MESSAGE : Setting default value: 0
+[DEBUG]2019-06-24 14:44:24,250 MESSAGE : Converting 'Integer' value '0' to type 'Long'
+[DEBUG]2019-06-24 14:44:24,250 MESSAGE :     Converted to Long value '0'
+[DEBUG]2019-06-24 14:44:24,251 MESSAGE : Setting default value: 0
+[DEBUG]2019-06-24 14:44:24,252 MESSAGE : Converting 'Integer' value '0' to type 'Short'
+[DEBUG]2019-06-24 14:44:24,252 MESSAGE :     Converted to Short value '0'
+[DEBUG]2019-06-24 14:44:24,255 MESSAGE : Setting default value: 0.0
+[DEBUG]2019-06-24 14:44:24,256 MESSAGE : Converting 'BigDecimal' value '0.0' to type 'BigDecimal'
+[DEBUG]2019-06-24 14:44:24,256 MESSAGE :     No conversion required, value is already a BigDecimal
+[DEBUG]2019-06-24 14:44:24,258 MESSAGE : Setting default value: 0
+[DEBUG]2019-06-24 14:44:24,258 MESSAGE : Converting 'BigInteger' value '0' to type 'BigInteger'
+[DEBUG]2019-06-24 14:44:24,258 MESSAGE :     No conversion required, value is already a BigInteger
+[DEBUG]2019-06-24 14:44:24,259 MESSAGE : Setting default value: false
+[DEBUG]2019-06-24 14:44:24,259 MESSAGE : Converting 'Boolean' value 'false' to type 'Boolean'
+[DEBUG]2019-06-24 14:44:24,259 MESSAGE :     No conversion required, value is already a Boolean
+[DEBUG]2019-06-24 14:44:24,259 MESSAGE : Setting default value: 0
+[DEBUG]2019-06-24 14:44:24,260 MESSAGE : Converting 'Integer' value '0' to type 'Byte'
+[DEBUG]2019-06-24 14:44:24,260 MESSAGE :     Converted to Byte value '0'
+[DEBUG]2019-06-24 14:44:24,260 MESSAGE : Setting default value:  
+[DEBUG]2019-06-24 14:44:24,261 MESSAGE : Converting 'Character' value ' ' to type 'Character'
+[DEBUG]2019-06-24 14:44:24,261 MESSAGE :     No conversion required, value is already a Character
+[DEBUG]2019-06-24 14:44:24,261 MESSAGE : Setting default value: 0
+[DEBUG]2019-06-24 14:44:24,261 MESSAGE : Converting 'Integer' value '0' to type 'Double'
+[DEBUG]2019-06-24 14:44:24,262 MESSAGE :     Converted to Double value '0.0'
+[DEBUG]2019-06-24 14:44:24,262 MESSAGE : Setting default value: 0
+[DEBUG]2019-06-24 14:44:24,262 MESSAGE : Converting 'Integer' value '0' to type 'Float'
+[DEBUG]2019-06-24 14:44:24,263 MESSAGE :     Converted to Float value '0.0'
+[DEBUG]2019-06-24 14:44:24,263 MESSAGE : Setting default value: 0
+[DEBUG]2019-06-24 14:44:24,263 MESSAGE : Converting 'Integer' value '0' to type 'Integer'
+[DEBUG]2019-06-24 14:44:24,263 MESSAGE :     No conversion required, value is already a Integer
+[DEBUG]2019-06-24 14:44:24,264 MESSAGE : Setting default value: 0
+[DEBUG]2019-06-24 14:44:24,264 MESSAGE : Converting 'Integer' value '0' to type 'Long'
+[DEBUG]2019-06-24 14:44:24,264 MESSAGE :     Converted to Long value '0'
+[DEBUG]2019-06-24 14:44:24,265 MESSAGE : Setting default value: 0
+[DEBUG]2019-06-24 14:44:24,265 MESSAGE : Converting 'Integer' value '0' to type 'Short'
+[DEBUG]2019-06-24 14:44:24,265 MESSAGE :     Converted to Short value '0'
+[DEBUG]2019-06-24 14:44:24,267 MESSAGE : Setting default value: 
+[DEBUG]2019-06-24 14:44:24,267 MESSAGE : Converting 'String' value '' to type 'String'
+[DEBUG]2019-06-24 14:44:24,287 MESSAGE : Setting default value: [Z@78578f77
+[DEBUG]2019-06-24 14:44:24,287 MESSAGE : Converting 'boolean[]' value '[Z@78578f77' to type 'boolean[]'
+[DEBUG]2019-06-24 14:44:24,287 MESSAGE :     No conversion required, value is already a boolean[]
+[DEBUG]2019-06-24 14:44:24,287 MESSAGE : Setting default value: [B@3c8c0b5a
+[DEBUG]2019-06-24 14:44:24,288 MESSAGE : Converting 'byte[]' value '[B@3c8c0b5a' to type 'byte[]'
+[DEBUG]2019-06-24 14:44:24,288 MESSAGE :     No conversion required, value is already a byte[]
+[DEBUG]2019-06-24 14:44:24,288 MESSAGE : Setting default value: [C@e3d60c4
+[DEBUG]2019-06-24 14:44:24,288 MESSAGE : Converting 'char[]' value '[C@e3d60c4' to type 'char[]'
+[DEBUG]2019-06-24 14:44:24,288 MESSAGE :     No conversion required, value is already a char[]
+[DEBUG]2019-06-24 14:44:24,288 MESSAGE : Setting default value: [D@5f9beb29
+[DEBUG]2019-06-24 14:44:24,289 MESSAGE : Converting 'double[]' value '[D@5f9beb29' to type 'double[]'
+[DEBUG]2019-06-24 14:44:24,289 MESSAGE :     No conversion required, value is already a double[]
+[DEBUG]2019-06-24 14:44:24,289 MESSAGE : Setting default value: [F@756c01c8
+[DEBUG]2019-06-24 14:44:24,289 MESSAGE : Converting 'float[]' value '[F@756c01c8' to type 'float[]'
+[DEBUG]2019-06-24 14:44:24,289 MESSAGE :     No conversion required, value is already a float[]
+[DEBUG]2019-06-24 14:44:24,290 MESSAGE : Setting default value: [I@5e92db2
+[DEBUG]2019-06-24 14:44:24,290 MESSAGE : Converting 'int[]' value '[I@5e92db2' to type 'int[]'
+[DEBUG]2019-06-24 14:44:24,290 MESSAGE :     No conversion required, value is already a int[]
+[DEBUG]2019-06-24 14:44:24,290 MESSAGE : Setting default value: [J@fb70426
+[DEBUG]2019-06-24 14:44:24,290 MESSAGE : Converting 'long[]' value '[J@fb70426' to type 'long[]'
+[DEBUG]2019-06-24 14:44:24,290 MESSAGE :     No conversion required, value is already a long[]
+[DEBUG]2019-06-24 14:44:24,291 MESSAGE : Setting default value: [S@387162d9
+[DEBUG]2019-06-24 14:44:24,291 MESSAGE : Converting 'short[]' value '[S@387162d9' to type 'short[]'
+[DEBUG]2019-06-24 14:44:24,291 MESSAGE :     No conversion required, value is already a short[]
+[DEBUG]2019-06-24 14:44:24,291 MESSAGE : Setting default value: [Ljava.math.BigDecimal;@1c10b182
+[DEBUG]2019-06-24 14:44:24,291 MESSAGE : Converting 'BigDecimal[]' value '[Ljava.math.BigDecimal;@1c10b182' to type 'BigDecimal[]'
+[DEBUG]2019-06-24 14:44:24,292 MESSAGE :     No conversion required, value is already a BigDecimal[]
+[DEBUG]2019-06-24 14:44:24,292 MESSAGE : Setting default value: [Ljava.math.BigInteger;@3a4b9e67
+[DEBUG]2019-06-24 14:44:24,292 MESSAGE : Converting 'BigInteger[]' value '[Ljava.math.BigInteger;@3a4b9e67' to type 'BigInteger[]'
+[DEBUG]2019-06-24 14:44:24,292 MESSAGE :     No conversion required, value is already a BigInteger[]
+[DEBUG]2019-06-24 14:44:24,292 MESSAGE : Setting default value: [Ljava.lang.Boolean;@64d87a08
+[DEBUG]2019-06-24 14:44:24,293 MESSAGE : Converting 'Boolean[]' value '[Ljava.lang.Boolean;@64d87a08' to type 'Boolean[]'
+[DEBUG]2019-06-24 14:44:24,293 MESSAGE :     No conversion required, value is already a Boolean[]
+[DEBUG]2019-06-24 14:44:24,293 MESSAGE : Setting default value: [Ljava.lang.Byte;@4033d6f1
+[DEBUG]2019-06-24 14:44:24,293 MESSAGE : Converting 'Byte[]' value '[Ljava.lang.Byte;@4033d6f1' to type 'Byte[]'
+[DEBUG]2019-06-24 14:44:24,293 MESSAGE :     No conversion required, value is already a Byte[]
+[DEBUG]2019-06-24 14:44:24,294 MESSAGE : Setting default value: [Ljava.lang.Character;@7567e1fa
+[DEBUG]2019-06-24 14:44:24,294 MESSAGE : Converting 'Character[]' value '[Ljava.lang.Character;@7567e1fa' to type 'Character[]'
+[DEBUG]2019-06-24 14:44:24,294 MESSAGE :     No conversion required, value is already a Character[]
+[DEBUG]2019-06-24 14:44:24,294 MESSAGE : Setting default value: [Ljava.lang.Double;@266bdc57
+[DEBUG]2019-06-24 14:44:24,294 MESSAGE : Converting 'Double[]' value '[Ljava.lang.Double;@266bdc57' to type 'Double[]'
+[DEBUG]2019-06-24 14:44:24,295 MESSAGE :     No conversion required, value is already a Double[]
+[DEBUG]2019-06-24 14:44:24,295 MESSAGE : Setting default value: [Ljava.lang.Float;@48b14117
+[DEBUG]2019-06-24 14:44:24,295 MESSAGE : Converting 'Float[]' value '[Ljava.lang.Float;@48b14117' to type 'Float[]'
+[DEBUG]2019-06-24 14:44:24,295 MESSAGE :     No conversion required, value is already a Float[]
+[DEBUG]2019-06-24 14:44:24,295 MESSAGE : Setting default value: [Ljava.lang.Integer;@7a674e9b
+[DEBUG]2019-06-24 14:44:24,296 MESSAGE : Converting 'Integer[]' value '[Ljava.lang.Integer;@7a674e9b' to type 'Integer[]'
+[DEBUG]2019-06-24 14:44:24,296 MESSAGE :     No conversion required, value is already a Integer[]
+[DEBUG]2019-06-24 14:44:24,296 MESSAGE : Setting default value: [Ljava.lang.Long;@1459e0e5
+[DEBUG]2019-06-24 14:44:24,296 MESSAGE : Converting 'Long[]' value '[Ljava.lang.Long;@1459e0e5' to type 'Long[]'
+[DEBUG]2019-06-24 14:44:24,296 MESSAGE :     No conversion required, value is already a Long[]
+[DEBUG]2019-06-24 14:44:24,296 MESSAGE : Setting default value: [Ljava.lang.Short;@57abe554
+[DEBUG]2019-06-24 14:44:24,297 MESSAGE : Converting 'Short[]' value '[Ljava.lang.Short;@57abe554' to type 'Short[]'
+[DEBUG]2019-06-24 14:44:24,297 MESSAGE :     No conversion required, value is already a Short[]
+[DEBUG]2019-06-24 14:44:24,297 MESSAGE : Setting default value: [Ljava.lang.String;@7a882480
+[DEBUG]2019-06-24 14:44:24,297 MESSAGE : Converting 'String[]' value '[Ljava.lang.String;@7a882480' to type 'String[]'
+[DEBUG]2019-06-24 14:44:24,297 MESSAGE :     No conversion required, value is already a String[]
+[DEBUG]2019-06-24 14:44:24,298 MESSAGE : Setting default value: [Ljava.lang.Class;@148e59
+[DEBUG]2019-06-24 14:44:24,298 MESSAGE : Converting 'Class[]' value '[Ljava.lang.Class;@148e59' to type 'Class[]'
+[DEBUG]2019-06-24 14:44:24,298 MESSAGE :     No conversion required, value is already a Class[]
+[DEBUG]2019-06-24 14:44:24,298 MESSAGE : Setting default value: [Ljava.util.Date;@4a02dffb
+[DEBUG]2019-06-24 14:44:24,298 MESSAGE : Converting 'Date[]' value '[Ljava.util.Date;@4a02dffb' to type 'Date[]'
+[DEBUG]2019-06-24 14:44:24,299 MESSAGE :     No conversion required, value is already a Date[]
+[DEBUG]2019-06-24 14:44:24,299 MESSAGE : Setting default value: [Ljava.util.Calendar;@1f45dbcd
+[DEBUG]2019-06-24 14:44:24,299 MESSAGE : Converting 'Calendar[]' value '[Ljava.util.Calendar;@1f45dbcd' to type 'Calendar[]'
+[DEBUG]2019-06-24 14:44:24,299 MESSAGE :     No conversion required, value is already a Calendar[]
+[DEBUG]2019-06-24 14:44:24,300 MESSAGE : Setting default value: [Ljava.io.File;@560b70a8
+[DEBUG]2019-06-24 14:44:24,300 MESSAGE : Converting 'java.io.File[]' value '[Ljava.io.File;@560b70a8' to type 'java.io.File[]'
+[DEBUG]2019-06-24 14:44:24,300 MESSAGE :     No conversion required, value is already a java.io.File[]
+[DEBUG]2019-06-24 14:44:24,300 MESSAGE : Setting default value: [Ljava.sql.Date;@500c8efc
+[DEBUG]2019-06-24 14:44:24,300 MESSAGE : Converting 'java.sql.Date[]' value '[Ljava.sql.Date;@500c8efc' to type 'java.sql.Date[]'
+[DEBUG]2019-06-24 14:44:24,300 MESSAGE :     No conversion required, value is already a java.sql.Date[]
+[DEBUG]2019-06-24 14:44:24,301 MESSAGE : Setting default value: [Ljava.sql.Time;@3d56cce6
+[DEBUG]2019-06-24 14:44:24,301 MESSAGE : Converting 'java.sql.Time[]' value '[Ljava.sql.Time;@3d56cce6' to type 'java.sql.Time[]'
+[DEBUG]2019-06-24 14:44:24,301 MESSAGE :     No conversion required, value is already a java.sql.Time[]
+[DEBUG]2019-06-24 14:44:24,301 MESSAGE : Setting default value: [Ljava.sql.Timestamp;@37015590
+[DEBUG]2019-06-24 14:44:24,302 MESSAGE : Converting 'java.sql.Timestamp[]' value '[Ljava.sql.Timestamp;@37015590' to type 'java.sql.Timestamp[]'
+[DEBUG]2019-06-24 14:44:24,302 MESSAGE :     No conversion required, value is already a java.sql.Timestamp[]
+[DEBUG]2019-06-24 14:44:24,302 MESSAGE : Setting default value: [Ljava.net.URL;@234066d1
+[DEBUG]2019-06-24 14:44:24,302 MESSAGE : Converting 'java.net.URL[]' value '[Ljava.net.URL;@234066d1' to type 'java.net.URL[]'
+[DEBUG]2019-06-24 14:44:24,302 MESSAGE :     No conversion required, value is already a java.net.URL[]
+[DEBUG]2019-06-24 14:44:24,343 MESSAGE : Convert string '0' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:44:24,344 MESSAGE : Converting 'String' value '0' to type 'String'
+[DEBUG]2019-06-24 14:44:28,406 MESSAGE : Convert string 'ppdtimbpc1' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:44:28,407 MESSAGE : Converting 'String' value 'ppdtimbpc1' to type 'String'
+[DEBUG]2019-06-24 14:44:30,428 MESSAGE : Convert string 'ppdRefundTimer' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:44:30,429 MESSAGE : Converting 'String' value 'ppdRefundTimer' to type 'String'
+[DEBUG]2019-06-24 14:44:31,682 MESSAGE : Convert string 'text/etf' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:44:31,683 MESSAGE : Converting 'String' value 'text/etf' to type 'String'
+[DEBUG]2019-06-24 14:44:32,652 MESSAGE : Convert string '' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:44:32,653 MESSAGE : Converting 'String' value '' to type 'String'
+[DEBUG]2019-06-24 14:44:33,651 MESSAGE : Convert string '' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:44:33,652 MESSAGE : Converting 'String' value '' to type 'String'
+[DEBUG]2019-06-24 14:44:34,731 MESSAGE : Convert string '' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:44:34,732 MESSAGE : Converting 'String' value '' to type 'String'
+[DEBUG]2019-06-24 14:44:35,797 MESSAGE : Convert string '0' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:44:35,798 MESSAGE : Converting 'String' value '0' to type 'String'
+[DEBUG]2019-06-24 14:44:36,845 MESSAGE : Convert string '/30' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:44:36,845 MESSAGE : Converting 'String' value '/30' to type 'String'
+[DEBUG]2019-06-24 14:44:38,001 MESSAGE : Convert string '*' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:44:38,001 MESSAGE : Converting 'String' value '*' to type 'String'
+[DEBUG]2019-06-24 14:44:39,434 MESSAGE : Convert string '*' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:44:39,434 MESSAGE : Converting 'String' value '*' to type 'String'
+[DEBUG]2019-06-24 14:44:39,435 MESSAGE : Convert string '*' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:44:39,435 MESSAGE : Converting 'String' value '*' to type 'String'
+[DEBUG]2019-06-24 14:44:39,436 MESSAGE : Convert string '1' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:44:39,436 MESSAGE : Converting 'String' value '1' to type 'String'
+[DEBUG]2019-06-24 14:44:39,471 MESSAGE : Convert string '0' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:44:39,471 MESSAGE : Converting 'String' value '0' to type 'String'
+[DEBUG]2019-06-24 14:44:39,472 MESSAGE : Convert string 'ppdtimbpc1' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:44:39,472 MESSAGE : Converting 'String' value 'ppdtimbpc1' to type 'String'
+[DEBUG]2019-06-24 14:44:39,473 MESSAGE : Convert string 'ppdOrdQryTimer' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:44:39,473 MESSAGE : Converting 'String' value 'ppdOrdQryTimer' to type 'String'
+[DEBUG]2019-06-24 14:44:39,473 MESSAGE : Convert string 'text/etf' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:44:39,474 MESSAGE : Converting 'String' value 'text/etf' to type 'String'
+[DEBUG]2019-06-24 14:44:39,474 MESSAGE : Convert string '' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:44:39,474 MESSAGE : Converting 'String' value '' to type 'String'
+[DEBUG]2019-06-24 14:44:39,474 MESSAGE : Convert string '' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:44:39,475 MESSAGE : Converting 'String' value '' to type 'String'
+[DEBUG]2019-06-24 14:44:39,475 MESSAGE : Convert string '' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:44:39,475 MESSAGE : Converting 'String' value '' to type 'String'
+[DEBUG]2019-06-24 14:44:39,476 MESSAGE : Convert string '0' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:44:39,476 MESSAGE : Converting 'String' value '0' to type 'String'
+[DEBUG]2019-06-24 14:44:39,476 MESSAGE : Convert string '10' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:44:39,476 MESSAGE : Converting 'String' value '10' to type 'String'
+[DEBUG]2019-06-24 14:44:39,477 MESSAGE : Convert string '/1' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:44:39,477 MESSAGE : Converting 'String' value '/1' to type 'String'
+[DEBUG]2019-06-24 14:44:39,477 MESSAGE : Convert string '*' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:44:39,478 MESSAGE : Converting 'String' value '*' to type 'String'
+[DEBUG]2019-06-24 14:44:39,478 MESSAGE : Convert string '*' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:44:39,478 MESSAGE : Converting 'String' value '*' to type 'String'
+[DEBUG]2019-06-24 14:44:39,479 MESSAGE : Convert string '1' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:44:39,479 MESSAGE : Converting 'String' value '1' to type 'String'
+[DEBUG]2019-06-24 14:48:15,777 MESSAGE : Setting default value: false
+[DEBUG]2019-06-24 14:48:15,777 MESSAGE : Converting 'Boolean' value 'false' to type 'Boolean'
+[DEBUG]2019-06-24 14:48:15,777 MESSAGE :     No conversion required, value is already a Boolean
+[DEBUG]2019-06-24 14:48:15,811 MESSAGE : Setting default value: 0
+[DEBUG]2019-06-24 14:48:15,811 MESSAGE : Converting 'Integer' value '0' to type 'Byte'
+[DEBUG]2019-06-24 14:48:15,811 MESSAGE :     Converted to Byte value '0'
+[DEBUG]2019-06-24 14:48:15,812 MESSAGE : Setting default value:  
+[DEBUG]2019-06-24 14:48:15,813 MESSAGE : Converting 'Character' value ' ' to type 'Character'
+[DEBUG]2019-06-24 14:48:15,813 MESSAGE :     No conversion required, value is already a Character
+[DEBUG]2019-06-24 14:48:15,813 MESSAGE : Setting default value: 0
+[DEBUG]2019-06-24 14:48:15,813 MESSAGE : Converting 'Integer' value '0' to type 'Double'
+[DEBUG]2019-06-24 14:48:15,814 MESSAGE :     Converted to Double value '0.0'
+[DEBUG]2019-06-24 14:48:15,814 MESSAGE : Setting default value: 0
+[DEBUG]2019-06-24 14:48:15,815 MESSAGE : Converting 'Integer' value '0' to type 'Float'
+[DEBUG]2019-06-24 14:48:15,815 MESSAGE :     Converted to Float value '0.0'
+[DEBUG]2019-06-24 14:48:15,815 MESSAGE : Setting default value: 0
+[DEBUG]2019-06-24 14:48:15,815 MESSAGE : Converting 'Integer' value '0' to type 'Integer'
+[DEBUG]2019-06-24 14:48:15,816 MESSAGE :     No conversion required, value is already a Integer
+[DEBUG]2019-06-24 14:48:15,816 MESSAGE : Setting default value: 0
+[DEBUG]2019-06-24 14:48:15,816 MESSAGE : Converting 'Integer' value '0' to type 'Long'
+[DEBUG]2019-06-24 14:48:15,817 MESSAGE :     Converted to Long value '0'
+[DEBUG]2019-06-24 14:48:15,817 MESSAGE : Setting default value: 0
+[DEBUG]2019-06-24 14:48:15,817 MESSAGE : Converting 'Integer' value '0' to type 'Short'
+[DEBUG]2019-06-24 14:48:15,817 MESSAGE :     Converted to Short value '0'
+[DEBUG]2019-06-24 14:48:15,819 MESSAGE : Setting default value: 0.0
+[DEBUG]2019-06-24 14:48:15,819 MESSAGE : Converting 'BigDecimal' value '0.0' to type 'BigDecimal'
+[DEBUG]2019-06-24 14:48:15,820 MESSAGE :     No conversion required, value is already a BigDecimal
+[DEBUG]2019-06-24 14:48:15,820 MESSAGE : Setting default value: 0
+[DEBUG]2019-06-24 14:48:15,820 MESSAGE : Converting 'BigInteger' value '0' to type 'BigInteger'
+[DEBUG]2019-06-24 14:48:15,820 MESSAGE :     No conversion required, value is already a BigInteger
+[DEBUG]2019-06-24 14:48:15,820 MESSAGE : Setting default value: false
+[DEBUG]2019-06-24 14:48:15,821 MESSAGE : Converting 'Boolean' value 'false' to type 'Boolean'
+[DEBUG]2019-06-24 14:48:15,821 MESSAGE :     No conversion required, value is already a Boolean
+[DEBUG]2019-06-24 14:48:15,821 MESSAGE : Setting default value: 0
+[DEBUG]2019-06-24 14:48:15,821 MESSAGE : Converting 'Integer' value '0' to type 'Byte'
+[DEBUG]2019-06-24 14:48:15,821 MESSAGE :     Converted to Byte value '0'
+[DEBUG]2019-06-24 14:48:15,821 MESSAGE : Setting default value:  
+[DEBUG]2019-06-24 14:48:15,821 MESSAGE : Converting 'Character' value ' ' to type 'Character'
+[DEBUG]2019-06-24 14:48:15,821 MESSAGE :     No conversion required, value is already a Character
+[DEBUG]2019-06-24 14:48:15,821 MESSAGE : Setting default value: 0
+[DEBUG]2019-06-24 14:48:15,821 MESSAGE : Converting 'Integer' value '0' to type 'Double'
+[DEBUG]2019-06-24 14:48:15,821 MESSAGE :     Converted to Double value '0.0'
+[DEBUG]2019-06-24 14:48:15,821 MESSAGE : Setting default value: 0
+[DEBUG]2019-06-24 14:48:15,821 MESSAGE : Converting 'Integer' value '0' to type 'Float'
+[DEBUG]2019-06-24 14:48:15,821 MESSAGE :     Converted to Float value '0.0'
+[DEBUG]2019-06-24 14:48:15,822 MESSAGE : Setting default value: 0
+[DEBUG]2019-06-24 14:48:15,822 MESSAGE : Converting 'Integer' value '0' to type 'Integer'
+[DEBUG]2019-06-24 14:48:15,822 MESSAGE :     No conversion required, value is already a Integer
+[DEBUG]2019-06-24 14:48:15,822 MESSAGE : Setting default value: 0
+[DEBUG]2019-06-24 14:48:15,822 MESSAGE : Converting 'Integer' value '0' to type 'Long'
+[DEBUG]2019-06-24 14:48:15,822 MESSAGE :     Converted to Long value '0'
+[DEBUG]2019-06-24 14:48:15,822 MESSAGE : Setting default value: 0
+[DEBUG]2019-06-24 14:48:15,822 MESSAGE : Converting 'Integer' value '0' to type 'Short'
+[DEBUG]2019-06-24 14:48:15,822 MESSAGE :     Converted to Short value '0'
+[DEBUG]2019-06-24 14:48:15,823 MESSAGE : Setting default value: 
+[DEBUG]2019-06-24 14:48:15,823 MESSAGE : Converting 'String' value '' to type 'String'
+[DEBUG]2019-06-24 14:48:15,828 MESSAGE : Setting default value: [Z@7eea8370
+[DEBUG]2019-06-24 14:48:15,829 MESSAGE : Converting 'boolean[]' value '[Z@7eea8370' to type 'boolean[]'
+[DEBUG]2019-06-24 14:48:15,829 MESSAGE :     No conversion required, value is already a boolean[]
+[DEBUG]2019-06-24 14:48:15,829 MESSAGE : Setting default value: [B@cded763
+[DEBUG]2019-06-24 14:48:15,829 MESSAGE : Converting 'byte[]' value '[B@cded763' to type 'byte[]'
+[DEBUG]2019-06-24 14:48:15,829 MESSAGE :     No conversion required, value is already a byte[]
+[DEBUG]2019-06-24 14:48:15,829 MESSAGE : Setting default value: [C@5908979c
+[DEBUG]2019-06-24 14:48:15,829 MESSAGE : Converting 'char[]' value '[C@5908979c' to type 'char[]'
+[DEBUG]2019-06-24 14:48:15,829 MESSAGE :     No conversion required, value is already a char[]
+[DEBUG]2019-06-24 14:48:15,829 MESSAGE : Setting default value: [D@4b8e282c
+[DEBUG]2019-06-24 14:48:15,829 MESSAGE : Converting 'double[]' value '[D@4b8e282c' to type 'double[]'
+[DEBUG]2019-06-24 14:48:15,829 MESSAGE :     No conversion required, value is already a double[]
+[DEBUG]2019-06-24 14:48:15,829 MESSAGE : Setting default value: [F@34a602e7
+[DEBUG]2019-06-24 14:48:15,829 MESSAGE : Converting 'float[]' value '[F@34a602e7' to type 'float[]'
+[DEBUG]2019-06-24 14:48:15,829 MESSAGE :     No conversion required, value is already a float[]
+[DEBUG]2019-06-24 14:48:15,829 MESSAGE : Setting default value: [I@10f7ef9f
+[DEBUG]2019-06-24 14:48:15,829 MESSAGE : Converting 'int[]' value '[I@10f7ef9f' to type 'int[]'
+[DEBUG]2019-06-24 14:48:15,829 MESSAGE :     No conversion required, value is already a int[]
+[DEBUG]2019-06-24 14:48:15,830 MESSAGE : Setting default value: [J@66d7fef7
+[DEBUG]2019-06-24 14:48:15,830 MESSAGE : Converting 'long[]' value '[J@66d7fef7' to type 'long[]'
+[DEBUG]2019-06-24 14:48:15,830 MESSAGE :     No conversion required, value is already a long[]
+[DEBUG]2019-06-24 14:48:15,830 MESSAGE : Setting default value: [S@611c1cdf
+[DEBUG]2019-06-24 14:48:15,830 MESSAGE : Converting 'short[]' value '[S@611c1cdf' to type 'short[]'
+[DEBUG]2019-06-24 14:48:15,830 MESSAGE :     No conversion required, value is already a short[]
+[DEBUG]2019-06-24 14:48:15,830 MESSAGE : Setting default value: [Ljava.math.BigDecimal;@6931bf42
+[DEBUG]2019-06-24 14:48:15,830 MESSAGE : Converting 'BigDecimal[]' value '[Ljava.math.BigDecimal;@6931bf42' to type 'BigDecimal[]'
+[DEBUG]2019-06-24 14:48:15,830 MESSAGE :     No conversion required, value is already a BigDecimal[]
+[DEBUG]2019-06-24 14:48:15,830 MESSAGE : Setting default value: [Ljava.math.BigInteger;@5c2c48a6
+[DEBUG]2019-06-24 14:48:15,830 MESSAGE : Converting 'BigInteger[]' value '[Ljava.math.BigInteger;@5c2c48a6' to type 'BigInteger[]'
+[DEBUG]2019-06-24 14:48:15,830 MESSAGE :     No conversion required, value is already a BigInteger[]
+[DEBUG]2019-06-24 14:48:15,830 MESSAGE : Setting default value: [Ljava.lang.Boolean;@7509cdd5
+[DEBUG]2019-06-24 14:48:15,830 MESSAGE : Converting 'Boolean[]' value '[Ljava.lang.Boolean;@7509cdd5' to type 'Boolean[]'
+[DEBUG]2019-06-24 14:48:15,830 MESSAGE :     No conversion required, value is already a Boolean[]
+[DEBUG]2019-06-24 14:48:15,831 MESSAGE : Setting default value: [Ljava.lang.Byte;@56502388
+[DEBUG]2019-06-24 14:48:15,831 MESSAGE : Converting 'Byte[]' value '[Ljava.lang.Byte;@56502388' to type 'Byte[]'
+[DEBUG]2019-06-24 14:48:15,831 MESSAGE :     No conversion required, value is already a Byte[]
+[DEBUG]2019-06-24 14:48:15,831 MESSAGE : Setting default value: [Ljava.lang.Character;@2888bd33
+[DEBUG]2019-06-24 14:48:15,831 MESSAGE : Converting 'Character[]' value '[Ljava.lang.Character;@2888bd33' to type 'Character[]'
+[DEBUG]2019-06-24 14:48:15,831 MESSAGE :     No conversion required, value is already a Character[]
+[DEBUG]2019-06-24 14:48:15,831 MESSAGE : Setting default value: [Ljava.lang.Double;@391c5c5c
+[DEBUG]2019-06-24 14:48:15,831 MESSAGE : Converting 'Double[]' value '[Ljava.lang.Double;@391c5c5c' to type 'Double[]'
+[DEBUG]2019-06-24 14:48:15,831 MESSAGE :     No conversion required, value is already a Double[]
+[DEBUG]2019-06-24 14:48:15,831 MESSAGE : Setting default value: [Ljava.lang.Float;@280352ec
+[DEBUG]2019-06-24 14:48:15,831 MESSAGE : Converting 'Float[]' value '[Ljava.lang.Float;@280352ec' to type 'Float[]'
+[DEBUG]2019-06-24 14:48:15,831 MESSAGE :     No conversion required, value is already a Float[]
+[DEBUG]2019-06-24 14:48:15,831 MESSAGE : Setting default value: [Ljava.lang.Integer;@275ea85
+[DEBUG]2019-06-24 14:48:15,831 MESSAGE : Converting 'Integer[]' value '[Ljava.lang.Integer;@275ea85' to type 'Integer[]'
+[DEBUG]2019-06-24 14:48:15,831 MESSAGE :     No conversion required, value is already a Integer[]
+[DEBUG]2019-06-24 14:48:15,831 MESSAGE : Setting default value: [Ljava.lang.Long;@63a4c4cb
+[DEBUG]2019-06-24 14:48:15,831 MESSAGE : Converting 'Long[]' value '[Ljava.lang.Long;@63a4c4cb' to type 'Long[]'
+[DEBUG]2019-06-24 14:48:15,832 MESSAGE :     No conversion required, value is already a Long[]
+[DEBUG]2019-06-24 14:48:15,832 MESSAGE : Setting default value: [Ljava.lang.Short;@61809f0f
+[DEBUG]2019-06-24 14:48:15,832 MESSAGE : Converting 'Short[]' value '[Ljava.lang.Short;@61809f0f' to type 'Short[]'
+[DEBUG]2019-06-24 14:48:15,832 MESSAGE :     No conversion required, value is already a Short[]
+[DEBUG]2019-06-24 14:48:15,832 MESSAGE : Setting default value: [Ljava.lang.String;@617c66f0
+[DEBUG]2019-06-24 14:48:15,832 MESSAGE : Converting 'String[]' value '[Ljava.lang.String;@617c66f0' to type 'String[]'
+[DEBUG]2019-06-24 14:48:15,832 MESSAGE :     No conversion required, value is already a String[]
+[DEBUG]2019-06-24 14:48:15,832 MESSAGE : Setting default value: [Ljava.lang.Class;@ee1fdae
+[DEBUG]2019-06-24 14:48:15,832 MESSAGE : Converting 'Class[]' value '[Ljava.lang.Class;@ee1fdae' to type 'Class[]'
+[DEBUG]2019-06-24 14:48:15,832 MESSAGE :     No conversion required, value is already a Class[]
+[DEBUG]2019-06-24 14:48:15,832 MESSAGE : Setting default value: [Ljava.util.Date;@16a1c9f2
+[DEBUG]2019-06-24 14:48:15,832 MESSAGE : Converting 'Date[]' value '[Ljava.util.Date;@16a1c9f2' to type 'Date[]'
+[DEBUG]2019-06-24 14:48:15,832 MESSAGE :     No conversion required, value is already a Date[]
+[DEBUG]2019-06-24 14:48:15,832 MESSAGE : Setting default value: [Ljava.util.Calendar;@fea9776
+[DEBUG]2019-06-24 14:48:15,832 MESSAGE : Converting 'Calendar[]' value '[Ljava.util.Calendar;@fea9776' to type 'Calendar[]'
+[DEBUG]2019-06-24 14:48:15,832 MESSAGE :     No conversion required, value is already a Calendar[]
+[DEBUG]2019-06-24 14:48:15,832 MESSAGE : Setting default value: [Ljava.io.File;@20e5488e
+[DEBUG]2019-06-24 14:48:15,833 MESSAGE : Converting 'java.io.File[]' value '[Ljava.io.File;@20e5488e' to type 'java.io.File[]'
+[DEBUG]2019-06-24 14:48:15,833 MESSAGE :     No conversion required, value is already a java.io.File[]
+[DEBUG]2019-06-24 14:48:15,833 MESSAGE : Setting default value: [Ljava.sql.Date;@25771302
+[DEBUG]2019-06-24 14:48:15,833 MESSAGE : Converting 'java.sql.Date[]' value '[Ljava.sql.Date;@25771302' to type 'java.sql.Date[]'
+[DEBUG]2019-06-24 14:48:15,833 MESSAGE :     No conversion required, value is already a java.sql.Date[]
+[DEBUG]2019-06-24 14:48:15,833 MESSAGE : Setting default value: [Ljava.sql.Time;@357185c8
+[DEBUG]2019-06-24 14:48:15,833 MESSAGE : Converting 'java.sql.Time[]' value '[Ljava.sql.Time;@357185c8' to type 'java.sql.Time[]'
+[DEBUG]2019-06-24 14:48:15,833 MESSAGE :     No conversion required, value is already a java.sql.Time[]
+[DEBUG]2019-06-24 14:48:15,833 MESSAGE : Setting default value: [Ljava.sql.Timestamp;@5d769b56
+[DEBUG]2019-06-24 14:48:15,833 MESSAGE : Converting 'java.sql.Timestamp[]' value '[Ljava.sql.Timestamp;@5d769b56' to type 'java.sql.Timestamp[]'
+[DEBUG]2019-06-24 14:48:15,833 MESSAGE :     No conversion required, value is already a java.sql.Timestamp[]
+[DEBUG]2019-06-24 14:48:15,833 MESSAGE : Setting default value: [Ljava.net.URL;@2208f8b6
+[DEBUG]2019-06-24 14:48:15,833 MESSAGE : Converting 'java.net.URL[]' value '[Ljava.net.URL;@2208f8b6' to type 'java.net.URL[]'
+[DEBUG]2019-06-24 14:48:15,833 MESSAGE :     No conversion required, value is already a java.net.URL[]
+[DEBUG]2019-06-24 14:48:15,846 MESSAGE : Convert string '0' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:48:15,846 MESSAGE : Converting 'String' value '0' to type 'String'
+[DEBUG]2019-06-24 14:48:15,847 MESSAGE : Convert string 'ppdtimbpc1' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:48:15,848 MESSAGE : Converting 'String' value 'ppdtimbpc1' to type 'String'
+[DEBUG]2019-06-24 14:48:15,848 MESSAGE : Convert string 'ppdRefundTimer' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:48:15,848 MESSAGE : Converting 'String' value 'ppdRefundTimer' to type 'String'
+[DEBUG]2019-06-24 14:48:15,848 MESSAGE : Convert string 'text/etf' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:48:15,848 MESSAGE : Converting 'String' value 'text/etf' to type 'String'
+[DEBUG]2019-06-24 14:48:15,848 MESSAGE : Convert string '' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:48:15,848 MESSAGE : Converting 'String' value '' to type 'String'
+[DEBUG]2019-06-24 14:48:15,848 MESSAGE : Convert string '' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:48:15,848 MESSAGE : Converting 'String' value '' to type 'String'
+[DEBUG]2019-06-24 14:48:15,848 MESSAGE : Convert string '' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:48:15,848 MESSAGE : Converting 'String' value '' to type 'String'
+[DEBUG]2019-06-24 14:48:15,848 MESSAGE : Convert string '0' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:48:15,848 MESSAGE : Converting 'String' value '0' to type 'String'
+[DEBUG]2019-06-24 14:48:15,849 MESSAGE : Convert string '/30' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:48:15,849 MESSAGE : Converting 'String' value '/30' to type 'String'
+[DEBUG]2019-06-24 14:48:15,849 MESSAGE : Convert string '*' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:48:15,849 MESSAGE : Converting 'String' value '*' to type 'String'
+[DEBUG]2019-06-24 14:48:15,849 MESSAGE : Convert string '*' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:48:15,849 MESSAGE : Converting 'String' value '*' to type 'String'
+[DEBUG]2019-06-24 14:48:15,849 MESSAGE : Convert string '*' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:48:15,849 MESSAGE : Converting 'String' value '*' to type 'String'
+[DEBUG]2019-06-24 14:48:15,849 MESSAGE : Convert string '1' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:48:15,849 MESSAGE : Converting 'String' value '1' to type 'String'
+[DEBUG]2019-06-24 14:48:15,854 MESSAGE : Convert string '0' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:48:15,855 MESSAGE : Converting 'String' value '0' to type 'String'
+[DEBUG]2019-06-24 14:48:15,855 MESSAGE : Convert string 'ppdtimbpc1' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:48:15,855 MESSAGE : Converting 'String' value 'ppdtimbpc1' to type 'String'
+[DEBUG]2019-06-24 14:48:15,855 MESSAGE : Convert string 'ppdOrdQryTimer' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:48:15,855 MESSAGE : Converting 'String' value 'ppdOrdQryTimer' to type 'String'
+[DEBUG]2019-06-24 14:48:15,855 MESSAGE : Convert string 'text/etf' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:48:15,855 MESSAGE : Converting 'String' value 'text/etf' to type 'String'
+[DEBUG]2019-06-24 14:48:15,855 MESSAGE : Convert string '' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:48:15,855 MESSAGE : Converting 'String' value '' to type 'String'
+[DEBUG]2019-06-24 14:48:15,855 MESSAGE : Convert string '' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:48:15,855 MESSAGE : Converting 'String' value '' to type 'String'
+[DEBUG]2019-06-24 14:48:15,855 MESSAGE : Convert string '' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:48:15,855 MESSAGE : Converting 'String' value '' to type 'String'
+[DEBUG]2019-06-24 14:48:15,855 MESSAGE : Convert string '0' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:48:15,855 MESSAGE : Converting 'String' value '0' to type 'String'
+[DEBUG]2019-06-24 14:48:15,856 MESSAGE : Convert string '10' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:48:15,856 MESSAGE : Converting 'String' value '10' to type 'String'
+[DEBUG]2019-06-24 14:48:15,856 MESSAGE : Convert string '/1' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:48:15,856 MESSAGE : Converting 'String' value '/1' to type 'String'
+[DEBUG]2019-06-24 14:48:15,856 MESSAGE : Convert string '*' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:48:15,856 MESSAGE : Converting 'String' value '*' to type 'String'
+[DEBUG]2019-06-24 14:48:15,856 MESSAGE : Convert string '*' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:48:15,856 MESSAGE : Converting 'String' value '*' to type 'String'
+[DEBUG]2019-06-24 14:48:15,856 MESSAGE : Convert string '1' to class 'java.lang.String'
+[DEBUG]2019-06-24 14:48:15,856 MESSAGE : Converting 'String' value '1' to type 'String'

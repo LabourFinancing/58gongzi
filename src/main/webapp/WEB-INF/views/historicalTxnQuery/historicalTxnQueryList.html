@@ -1,0 +1,445 @@
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+<head>
+<meta charset="utf-8" />
+<title>工资产品管理</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+<meta content="" name="description" />
+<meta content="" name="author" />
+<script src="${ctx}/metronic/global/plugins/loading.js" type="text/javascript"></script>
+<#include "/common/cssResource.html">
+<#include "/common/jsResource.html">
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	var form = $('#searchForm');
+	form.validate({
+		errorElement: 'span', //default input error message container
+		errorClass: 'help-block help-block-error', // default input error message class
+		focusInvalid: true, // do not focus the last invalid input
+		rules: {
+			
+			begin_date: {
+				required: true
+			},
+			
+			end_date: {
+				required: true
+			}
+			
+		},
+		
+		invalidHandler: function(event, validator) { //display error alert on form submit              
+			App.scrollTo(form, 0);
+		},
+
+		highlight: function(element) { // hightlight error inputs
+			$(element).closest('.form-group').removeClass(
+				"has-success").addClass('has-error'); // set error class to the control group   
+		},
+
+		unhighlight: function(element) { // revert the change done by hightlight
+
+		},
+
+		success: function(label, element) {
+			var icon = $(element).parent('.input-icon').children(
+				'i');
+			$(element).closest('.form-group').removeClass(
+				'has-error').addClass('has-success'); // set success class to the control group
+			icon.removeClass("fa-warning").addClass("fa-check");
+		}
+	});
+});
+	
+function printbill(){
+	var SandeUrl = "https://merchantservice.sandpay.com.cn/deal/print?id=";
+	var printbillNum = document.getElementById("printID").value;
+	var BillUrl =  printbillNum + SandeUrl;
+	document.getElementById('printbill').href="BillUrl";
+}
+
+
+//download excel
+var idTmr;  
+function  getExplorer() {  
+    var explorer = window.navigator.userAgent ;  
+    //ie  
+    if (explorer.indexOf("MSIE") >= 0) {  
+        return 'ie';  
+    }  
+    //firefox  
+    else if (explorer.indexOf("Firefox") >= 0) {  
+        return 'Firefox';  
+    }  
+    //Chrome  
+    else if(explorer.indexOf("Chrome") >= 0){  
+        return 'Chrome';  
+    }  
+    //Opera  
+    else if(explorer.indexOf("Opera") >= 0){  
+        return 'Opera';  
+    }  
+    //Safari  
+    else if(explorer.indexOf("Safari") >= 0){  
+        return 'Safari';  
+    }  
+}  
+function Download(histxnlist) {  
+    if(getExplorer()=='ie')  
+    {  
+        var curTbl = document.getElementById(histxnlist);  
+        var oXL = new ActiveXObject("Excel.Application");  
+        var oWB = oXL.Workbooks.Add();  
+        var xlsheet = oWB.Worksheets(1); 
+        xlsheet.Columns(8).NumberFormatLocal="@"   //设置本文格式
+        xlsheet.Columns(9).NumberFormatLocal="@"   //设置本文格式
+        var sel = document.body.createTextRange();  
+        sel.moveToElementText(curTbl);
+        sel.select();  
+        sel.execCommand("Copy");  
+        xlsheet.Paste();  
+        oXL.Visible = true; 
+        try {  
+            var fname = oXL.Application.GetSaveAsFilename("hisTxn.xls", "Excel Spreadsheets (*.xls), *.xls");  
+        } catch (e) {  
+            print("Nested catch caught " + e);  
+        } finally {  
+            oWB.SaveAs(fname);  
+            oWB.Close(savechanges = false);  
+            oXL.Quit();  
+            oXL = null;  
+            idTmr = window.setInterval("Cleanup();", 1);  
+        }  
+
+    }  
+    else  
+    {  
+        tableToExcel(histxnlist)  
+    }  
+}  
+function Cleanup() {  
+    window.clearInterval(idTmr);  
+    CollectGarbage();  
+}  
+var tableToExcel = (function() {  
+    var uri = 'data:application/vnd.ms-excel;base64,',  
+            template = '<html><head><meta charset="UTF-8"></head><body><table>{table}</table></body></html>',  
+            base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) },  
+            format = function(s, c) {  
+                return s.replace(/{(\w+)}/g,  
+                        function(m, p) { return c[p]; }) }  
+    return function(table, name) {  
+        if (!table.nodeType) table = document.getElementById(table)  
+        var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML} 
+        var blob = new Blob([format(template, ctx)], {type: "application/vnd.ms-excel"});
+        window.location.href = URL.createObjectURL(blob);
+    }  
+})()
+
+// select all
+
+
+function checkAll() {  
+    var isChecked = !$('#SelectAll').parent().hasClass('checked');
+    
+   	$('input[name=ClearPaid]').each(function () {
+   		$(this).attr('checked', isChecked).parent().toggleClass("checked", isChecked);
+   	})
+}
+	
+
+//submit for clearpay
+function ClearAll(ClearSubmit){
+ 
+        var HisTxnClearID = {};
+        var HisTxnSelectedIDs = [];
+ 
+        $("input[name=ClearPaid]").parent('.checked').each(function () {
+          	HisTxnSelectedIDs.push($(this).find("input[name=ClearPaid]").val());
+     	});
+        
+        $.ajax({
+            url: "${ctx}/HistoricalTxnQueryController/ClearPayList?operationType=Clear",
+            data : {"HisTxnSelectedIDs":HisTxnSelectedIDs},
+            dataType: "json",
+            traditional: true,
+            type: "POST",
+            async : false,
+            cache : false,
+            //traditional: true,  
+            success: function (responseJSON) {
+                // your logic  
+                alert('结算完成');
+                window.location.reload();
+            },
+            error : function() {// 请求失败处理函数
+                alert('结算失败');
+            }
+        });
+    }
+    
+//submit for Duepay
+function DueAll(DueSubmit){
+ 
+	  var HisTxnClearID = {};
+      var HisTxnSelectedIDs = [];
+
+      $("input[name=ClearPaid]").parent('.checked').each(function () {
+        	HisTxnSelectedIDs.push($(this).find("input[name=ClearPaid]").val());
+   	});
+      
+      $.ajax({
+          url: "${ctx}/HistoricalTxnQueryController/DuePayList?operationType=DUE",
+          data : {"HisTxnSelectedIDs":HisTxnSelectedIDs},
+          dataType: "json",
+          traditional: true,
+          type: "POST",
+          async : false,
+          cache : false,
+          //traditional: true,  
+          success: function (responseJSON) {
+              // your logic  
+              alert('解除结算完成');
+              window.location.reload();
+          },
+          error : function() {// 请求失败处理函数
+              alert('解除结算失败');
+          }
+      });
+  }
+
+function page(n,s){
+	$("#pageNum").val(n);
+	$("#pageSize").val(s);
+	$("#searchForm").submit();
+	return false;
+}
+
+</script>
+
+</head>
+<body>
+	<!-- BEGIN PAGE BASE CONTENT -->
+	<div class="row">
+		<div class="col-xs-push-12">
+			<!-- BEGIN EXAMPLE TABLE PORTLET-->
+			<div class="portlet light portlet-fit bordered">
+				<div class="portlet-title">
+					<ul class="page-breadcrumb breadcrumb">
+						<li><a>个人服务台</a> <i class="fa fa-circle"></i></li>
+						<li><a>历史交易管理</a> <i class="fa fa-circle"></i></li>
+						<li><span class="active">个人历史交易查询</span></li>
+					</ul>
+				</div>
+				<div class="portlet-body">
+					<form id="searchForm" method="post" action="${ctx}/HistoricalTxnQueryController/historicalTxnQuerySearchList" class="form-horizontal">
+						<input id="pageNum" name="pageNum" type="hidden" value="${page.pageNum}" />
+						<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}" />
+						<input id="begin_date_input" name="begin_date_input" type="hidden">
+						<input id="end_date_input" name="end_date_input" type="hidden">
+						<div class="form-body">
+							<div class="row">
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label class="control-label col-sm-5" style="padding-left: 0">
+							            <span class="required"> * </span>起始日期：</label>
+							            <div class="col-sm-6" style="padding-left: 0">
+								        <i class="fa"></i> <input name="begin_date" id="begin_date" class="form-control form-control-inline date-picker" type="text" style="width: 200px" placeholder="例：2020-01-01" 
+	                                     data-date-format="yyyy-mm-dd"/>
+							            </div>
+									</div>
+								</div>
+								<div class="col-sm-4">
+								   <div class="form-group">
+								   	<label class="control-label col-sm-5" style="padding-left: 0">
+								   	<span class="required"> * </span>结束日期：</label>
+							        <div class="col-sm-6" style="padding-left: 0">
+								        <i class="fa"></i> <input name="end_date" id="end_date" class="form-control form-control-inline date-picker" type="text" style="width: 200px" placeholder="例：2020-01-01" 
+	                                     data-date-format="yyyy-mm-dd"/>
+							        </div>
+						           </div>
+								</div>
+								<@shiro.hasPermission name="PERSONALINFO_EDIT">
+								<div class="col-sm-4">
+							      <div class="form-group">
+										<label class="control-label col-sm-5" style="padding-left: 0">产品名:</label>
+										<div class="col-sm-6" style="padding-left: 0;">
+										<input type="text" class="form-control" name="t_Txn_ProdName_his" value="${t_Txn_ProdName_his}"/>
+										</div>
+								   </div>
+						         </div>
+						         </div>
+						        </@shiro.hasPermission>
+						        <div class="row">
+							    <@shiro.hasPermission name="FINANCEPRODUCT_SEARCH">
+								<div class="col-sm-4">
+							      <div class="form-group">
+										<label class="control-label col-sm-5" style="padding-left: 0">经销商公司名:</label>
+										<div class="col-sm-7" style="padding-left: 0;">
+										<input type="text" class="form-control" name="t_P_VendorEmployeeName_his" value="${t_P_VendorEmployeeName_his}"/>
+										</div>
+								   </div>
+						         </div>
+						        </@shiro.hasPermission>
+						        <@shiro.hasPermission name="PERSONALINFO_EDIT">
+								<div class="col-sm-4">
+							      <div class="form-group">
+										<label class="control-label col-sm-5" style="padding-left: 0">姓名:</label>
+										<div class="col-sm-7" style="padding-left: 0;">
+										<input type="text" class="form-control" name="t_Txn_PrepayApplierName_his" value="${t_Txn_PrepayApplierName_his}"/>
+										</div>
+								   </div>
+						        </div>
+						        </@shiro.hasPermission>
+						        <@shiro.hasPermission name="PERSONALINFO_EDIT">
+								<div class="col-sm-4">
+							      <div class="form-group">
+										<label class="control-label col-sm-5" style="padding-left: 0">公司名:</label>
+										<div class="col-sm-7" style="padding-left: 0;">
+										<input type="text" class="form-control" name="t_P_Company_his" value="${t_P_Company_his}"/>
+										</div>
+								   </div>
+						         </div>
+						        </@shiro.hasPermission>
+							 </div>
+							 <div class="row">
+						        <@shiro.hasPermission name="FINANCEPRODUCT_SEARCH">
+						        <div class="col-sm-4">
+							      <div class="form-group">
+										<label class="control-label col-sm-5">结算状态:</label>
+										<div class="col-sm-4" style="padding-left: 0;">
+										<select class="bs-select form-control" name="t_Txn_PrepayClear_his">
+									          <option value="ALL">全部</option>
+									          <option value="0">已结算</option>
+									          <option value="1">未结算</option>
+									          <option value="2">失败交易</option>
+								         </select>
+										</div>
+								   </div>
+						         </div>
+						         </@shiro.hasPermission>
+						    </div>
+					     <div class="row">
+					    	<div class="form-actions">
+								<div class="col-xs-push-12">
+									<div class="btn-group pull-right" style="padding-right: 15">
+										<input type="button" onclick="Download('histxnlist')" class="btn green" name="Downloadbutton" value="下载"></button>
+									</div>
+								</div>
+						     </div>
+						    <div class="form-actions">
+								<div class="col-xs-push-12">
+									<div class="btn-group pull-right">&nbsp
+										<button type="submit" class="btn green">查询</button>
+									</div>
+								</div>
+						    </div>
+						 </div>
+					   </div>
+					   <div>
+					   <@shiro.hasPermission name="TREASURYDBINFO_OVERVIEW">	
+                        <input id="ClearSubmit" name="ClearSubmit" type="button" class="btn green" onclick="ClearAll(this)" value="已结清"></button>
+                        <input id="DueSubmit" name="DueSubmit" type="button" class="btn red" onclick="DueAll(this)" value="未结清"></button>
+                        </@shiro.hasPermission>	
+                      </div>
+					  <div class="table-toolbar">
+					</form>
+				</div>
+             <div class="row ls-change-tit">
+                <div class="ls-seaarch-result">
+                    <div class="table-responsive">
+                    <lable>&nbsp&nbsp&nbsp&nbsp查询结果:</lable>
+                    <div style="width:99.5%; height:608px; overflow:scroll;">
+					 <table id="histxnlist" class="table table-bordered" id="historicalTxnQueryTable" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+						<thead>
+							<tr>		
+								<@shiro.hasPermission name="TREASURYDBINFO_OVERVIEW">				    
+								<th><input type="checkbox" name="SelectAll" id="SelectAll" onclick="checkAll(this)"></th>
+								</@shiro.hasPermission>	
+								<th>交易单号</th>
+								<th>交易产品名称</th>
+								<th>支取金额</th>
+								<th>实付金额</th>
+								<th>剩余额度</th>
+								<@shiro.hasPermission name="FINANCEPRODUCT_SEARCH">
+								<th>日计费率</th>
+								</@shiro.hasPermission>	
+								<th>平台使用费</th>
+								<th>服务费</th>
+								<th>区间费率</th>
+								<th>姓名</th>
+								<th>身份证</th>
+								<th>银行卡号</th>
+								<th>手机号</th>
+								<th>公司名</th>
+								<th>代理商公司名</th>
+								<th>交易时间</th>
+								<th>发薪日</th>
+								<@shiro.hasPermission name="TREASURYDBINFO_OVERVIEW">
+								<th>结算状态</th>
+								<th>打印凭证</th>
+								</@shiro.hasPermission>	
+							</tr>
+						</thead>
+						<tbody>
+							<!-- <#list HistoricalTxnQuery as HistoricalTxnQuery> -->
+							<c:forEach var="HisTxn" items="${HistoricalTxnQuery.list}" varStatus="st">
+								<tr>
+								    <@shiro.hasPermission name="TREASURYDBINFO_OVERVIEW">
+								    <div><i class="fa"></i></div>
+								    <td><input type="checkbox" name="ClearPaid" id="ClearPaid" value="${HistoricalTxnQuery.t_Txn_ID_his}" /></td>
+								    </@shiro.hasPermission>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;mso-number-format:'\@';"><div id="printID" value="${HistoricalTxnQuery.t_Txn_Num_his}">${HistoricalTxnQuery.t_Txn_Num_his}</div> </td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${HistoricalTxnQuery.t_Txn_ProdName_his}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${HistoricalTxnQuery.t_Txn_ApplyPrepayAmount_his.toString()}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${HistoricalTxnQuery.t_Txn_TotalPrepayNum_his.toString()}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${HistoricalTxnQuery.t_Txn_CreditPrepayBalanceNum_his.toString()}</td>
+									<@shiro.hasPermission name="FINANCEPRODUCT_SEARCH">
+								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${HistoricalTxnQuery.t_Txn_Interest_his.toString()}</td>
+								    </@shiro.hasPermission>	
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${HistoricalTxnQuery.t_Txn_ServiceFee_his.toString()}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${HistoricalTxnQuery.t_Txn_Poundage_his.toString()}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${HistoricalTxnQuery.t_Txn_TierPoundage_his.toString()}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${HistoricalTxnQuery.t_Txn_PrepayApplierName_his}</td>
+								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;mso-number-format:'\@';">${HistoricalTxnQuery.t_Txn_PrepayApplierPID_his}</td>
+								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;mso-number-format:'\@';">${HistoricalTxnQuery.t_Txn_BankAcc_his}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${HistoricalTxnQuery.t_Txn_Mobil_his}</td>																	
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${HistoricalTxnQuery.t_P_Company_his}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${HistoricalTxnQuery.t_P_VendorEmployeeName_his}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${HistoricalTxnQuery.t_Txn_PrepayDate_his?string("yyyy-MM-dd HH:mm:ss")}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${HistoricalTxnQuery.t_P_PayrollDate_his}</td>
+									<@shiro.hasPermission name="TREASURYDBINFO_OVERVIEW">
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${HistoricalTxnQuery.t_Txn_PrepayClear_his}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;"><a title="个人用户后期开放" target="_blank" href="https://merchantservice.sandpay.com.cn/deal/print?id=${HistoricalTxnQuery.t_Txn_Num_his}"><input id="print" value="打印" type="button" id="printbill"> 
+									</input></a></td>
+									</@shiro.hasPermission>
+								</tr>
+							 </c:forEach>
+							<!-- </#list>  -->
+						</tbody>
+					</table>
+					</div>
+		         </div>
+			    </div>
+			   </div>
+		     </div>
+			</div>
+			<!-- END EXAMPLE TABLE PORTLET-->
+		</div>
+	<!-- 
+	END PAGE BASE CONTENT 
+    -->
+	<!--  
+	<form id="searchForm" action="${ctx}/managerController/managerList" method="post">
+		<input id="pageNum" name="pageNum" type="hidden" value="${page.pageNum}" />
+		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}" />
+	</form>
+	-->
+</body>
+</html>

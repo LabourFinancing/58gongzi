@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qucai.sample.dao.TrRoleResourceDao">
+
+	<resultMap id="BaseResultMap" type="com.qucai.sample.entity.TrRoleResource">
+		<id column="resource_id" property="resourceId" jdbcType="VARCHAR" />
+		<id column="role_id" property="roleId" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<delete id="deleteByPrimaryKey" parameterType="map">
+		delete from tr_role_resource
+		where 1 = 1
+		<if test="resourceId != null">
+			and resource_id = #{resourceId,jdbcType=VARCHAR}
+		</if>
+		<if test="roleId != null">
+			and role_id = #{roleId,jdbcType=VARCHAR}
+		</if>
+	</delete>
+	
+	<insert id="insertSelective" parameterType="com.qucai.sample.entity.TrRoleResource">
+		insert into tr_role_resource
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="resourceId != null">
+				resource_id,
+			</if>
+			<if test="roleId != null">
+				role_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="resourceId != null">
+				#{resourceId,jdbcType=VARCHAR},
+			</if>
+			<if test="roleId != null">
+				#{roleId,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<delete id="deleteByResourceIdStr" parameterType="java.lang.String">
+		delete from tr_role_resource
+		where find_in_set(resource_id, #{resourceIdStr})
+	</delete>
+	
+</mapper>

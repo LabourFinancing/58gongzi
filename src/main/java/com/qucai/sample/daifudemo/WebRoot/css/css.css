@@ -1,0 +1,53 @@
+
+th strong {
+    color: #fff;
+}
+th {
+    background: #306bc1 url(../img/menu_bg_1.gif) repeat-x 0 0;
+    height: 28px;
+    padding-left: 12px;
+    padding-right: 12px;
+    color: #fff;
+    text-align: left;
+    border: 1px solid #306bc1;
+    border-bottom-width: 2px;
+    FONT-SIZE:10pt;	
+	font-family:"微软雅黑", "宋体", Tahoma, Arial;
+}
+
+td {
+	FONT-SIZE:11pt; LINE-HEIGHT:150%; COLOR: #353535
+}
+
+a:link {
+	text-decoration: underline;
+}
+a:visited {
+	text-decoration: underline;
+	color: #0000FF;
+}
+a:hover {
+	text-decoration: underline;
+}
+a:active {
+	text-decoration: underline;
+} 
+
+A:unknown LINK {
+	TEXT-DECORATION: none
+}
+
+.tableBorder {
+	BORDER-RIGHT: #AAAAE0 1px solid; 
+	BORDER-TOP: #AAAAE0  1px solid; 
+	BORDER-LEFT: #AAAAE0 1px solid; 
+	WIDTH: 90%; 
+	BORDER-BOTTOM: #AAAAE0 1px solid; 
+	border:1px solid #99b3e7;
+	border-collapse:collapse;
+	
+}
+
+
+
+

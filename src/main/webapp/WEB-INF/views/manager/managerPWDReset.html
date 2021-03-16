@@ -1,0 +1,173 @@
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8" />
+<title>编辑资源</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+<meta content="" name="description" />
+<meta content="" name="author" />
+<#include "/common/cssResource.html"> 
+<#include "/common/jsResource.html">
+
+<script type="text/javascript">
+
+function fun(obj){
+    obj.value = "";
+    obj.type = "password";
+}
+
+function funReinput(obj1){
+    obj1.value = "";
+    obj1.type = "password";
+}
+
+	$(document).ready(function() {
+		
+		var form = $('#inputForm');
+		
+		form.validate({
+			errorElement : 'span', //default input error message container
+			errorClass : 'help-block help-block-error', // default input error message class
+			focusInvalid : false, // do not focus the last invalid input
+			rules : {
+				passwordNew : {
+					maxlength : 20
+				},
+		
+		passwordNewReinput : {
+					maxlength : 20
+				}
+			},
+	
+			invalidHandler : function(event, validator) { //display error alert on form submit              
+				App.scrollTo(form, 0);
+			},
+	
+			highlight : function(element) { // hightlight error inputs
+				$(element).closest('.form-group').removeClass(
+						"has-success").addClass('has-error'); // set error class to the control group   
+			},
+	
+			unhighlight : function(element) { // revert the change done by hightlight
+	
+			},
+	
+			success : function(label, element) {
+				var icon = $(element).parent('.input-icon').children(
+						'i');
+				$(element).closest('.form-group').removeClass(
+						'has-error').addClass('has-success'); // set success class to the control group
+				icon.removeClass("fa-warning").addClass("fa-check");
+			},
+			
+			submitHandler : function(form) {
+				var formData = new FormData($('#inputForm')[0]); 
+				var reg = /^[A-Za-z0-9]{6,20}$/;
+				if(!reg.test($("input#passwordNew").val()) || !reg.test($("input#passwordNewReinput").val())){
+		            alert("请正确输入 密码（密码必须为 6-20 位字母数字组合）")
+					document.getElementById("passwordNew").value = "";
+					document.getElementById("passwordNewReinput").value = "";
+					return;
+				}
+				
+				if($("input#passwordNew").val() != $("input#passwordNewReinput").val()){
+		            alert("输入的两次新密码不一致，请重新输入")
+					document.getElementById("passwordNew").value = "";
+					document.getElementById("passwordNewReinput").value = "";
+					return;
+				}
+				
+				$.ajax({
+					url: "${ctx}/managerController/managerPWDReset",
+					type: 'POST',  
+					data: formData,  
+					async: true,  
+					cache: false,  
+					contentType: false,  
+					processData: false,  
+					success: function (data) { 
+						var result = eval("("+data+")");
+				    	alert(result.msg);
+						parent.window.location.reload();
+					   	var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+					   	parent.layer.close(index);
+					},  
+					error: function (data) {  
+						var result = eval("("+data+")");
+				    	alert(result.msg);
+						document.getElementById("passwordNew").value = "";
+						document.getElementById("passwordNewReinput").value = "";
+					}  
+	            });
+			}
+		});
+		
+		$("#dirParent").hide();
+		$("#menuParent").hide();
+		$("#linkDiv").hide();
+		
+	})
+	
+</script>
+
+</head>
+<body>
+	<div class="portlet light bordered">
+		<div class="portlet-body form">
+			<!-- BEGIN FORM-->
+			<form id="inputForm" class="form-horizontal form-row-seperated">
+				<input type="hidden" name="id" value="${t_manager.id}" />
+				<input type="hidden" name="platform" value="${platform}">
+				<div class="form-body">				
+					<div class="form-group">
+						<label class="control-label col-sm-3">当前密码<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control" id="password"
+									name="password" value="${manager.password}" readonly/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">设置新密码<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control" id="passwordNew"
+									name="passwordNew" value="请输入密码" onclick="fun(this)"/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">再次输入新密码</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control" id="passwordNewReinput"
+									name="passwordNewReinput" value="请输入密码" onclick="funReinput(this)"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-actions">
+					<div class="row">
+						<div class="col-sm-3">
+						</div>
+						<div class="col-sm-9">
+							<button type="submit" class="btn green">提交</button>
+							<button type="button" class="btn default" onclick="parent.layer.closeAll();">取消</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<!-- END FORM-->
+	</div>
+</body>
+</html>

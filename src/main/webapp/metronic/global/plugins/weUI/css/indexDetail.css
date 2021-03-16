@@ -1,0 +1,52 @@
+body, html {
+  height: 100%;
+  -webkit-tap-highlight-color: transparent;
+  background: #f8f8f8;
+}
+
+/* 标题 */
+.detail_hd {
+  padding: 30px 40px 15px;
+  text-align: center;
+}
+.detail_title {
+  font-size: 14px;
+  line-height: 1.5;
+}
+.detail_title img {
+  vertical-align: -5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+}
+.detail_money {
+  font-size: 32px;
+  font-weight: 400;
+}
+.detail_stauts {
+  margin-top: 5px;
+  color: #888;
+  font-size: 14px;
+}
+/* 几种状态颜色 */
+.detail_stauts.pd_success {
+  color: #3cc51f;
+}
+.detail_stauts.pd_fail {
+  color: #e64340;
+}
+
+/* 数据区 */
+.weui-cells {
+  margin: 0 0 1.17647059em;
+  font-size: 15px;
+}
+.weui-cell {
+  padding: 5px 15px;
+}
+.weui-cell__bd {
+  color: #999999;
+}
+.weui-cell__ft {
+  color: #000;
+}

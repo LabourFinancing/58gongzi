@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<!-- [if IE 8]> <html lang="en" class="ie8 no-js"> <![endif] -->
+<!-- [if IE 9]> <html lang="en" class="ie9 no-js"> <![endif] -->
+<!-- [if !IE]><! -->
+<!-- <html lang="en" class="pixel-ratio-2 retina ios ios-11 ios-11-0 ios-gt-10 ios-gt-9 ios-gt-8 ios-gt-7 ios-gt-6"> -->
+<!-- <![endif] -->
+<!-- BEGIN HEAD -->
+
+
+    
+<head>
+    <title>个人历史交易查询</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<#include "/common/commonContext.html">
+<script src="${ctx}/metronic/global/plugins/loading.js" type="text/javascript"></script>
+<!-----------------------------------       Common Call      --------------------------->
+<link href="${ctx}/metronic/mobile/css/weui.css" rel="stylesheet" type="text/css">
+<link href="${ctx}/metronic/mobile/css/jquery-weui.css" rel="stylesheet" type="text/css">
+<link href="${ctx}/metronic/mobile/css/jquery-weui.min.css" rel="stylesheet" type="text/css">
+<link href="${ctx}/metronic/mobile/user/indexPrepaylist.css" rel="stylesheet" type="text/css">
+<link href="${ctx}/metronic/mobile/css/uniform.default.css" rel="stylesheet" type="text/css">
+<!-- 自定义脚本 -->
+<script type="text/javascript">
+function dateFormate(date, fmt) {
+    const D = new Date(date)
+    const o = {
+      'M+': D.getMonth() + 1,
+      'd+': D.getDate(),
+      'h+': D.getHours(),
+      'm+': D.getMinutes(),
+      's+': D.getSeconds(),
+      'q+': Math.floor((D.getMonth() + 3) / 3),
+      'S': D.getMilliseconds()
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (D.getFullYear() + '').substr(4 - RegExp.$1.length));
+    for (let k in o) {
+      if (new RegExp('(' + k + ')').test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (('00' + o[k]).substr(('' + o[k]).length)));
+    }
+    return fmt;
+  }	
+
+function getBeforeDate(n){
+    var n = n;
+    var d = new Date();
+    var year = d.getFullYear();
+    var mon=d.getMonth()+1;
+    var day=d.getDate();
+    if(day <= n){
+            if(mon>1) {
+               mon=mon-1;
+            }
+           else {
+             year = year-1;
+             mon = 12;
+             }
+           }
+          d.setDate(d.getDate()-n);
+          year = d.getFullYear();
+          mon=d.getMonth()+1;
+          day=d.getDate();
+     s = year+"-"+(mon<10?('0'+mon):mon)+"-"+(day<10?('0'+day):day);
+     return s;
+}
+
+function HisPeriodSearch(period){
+  var form = $('#HisPeriodSearchForm');
+
+	if (period == "today") {
+	    var start_time = getBeforeDate(0).replace(/-/g,"/");
+	    var end_time = getBeforeDate(-1).replace(/-/g,"/");
+	    $("input#begin_date").val(getBeforeDate(0).replace(/-/g,"/"));
+	    $("input#end_date").val(getBeforeDate(-1).replace(/-/g,"/"));
+	    TodayClick(start_time, end_time);
+	    var S_tag = "period";
+	}
+    if (period == "OneWeekBefore") {
+        var start_time = getBeforeDate(7).replace(/-/g,"/");
+        var end_time = getBeforeDate(-1).replace(/-/g,"/");
+        $("input#begin_date").val(getBeforeDate(7).replace(/-/g,"/"));
+        $("input#end_date").val(getBeforeDate(-1).replace(/-/g,"/"));
+        OneWeekBeforeClick(start_time, end_time);
+        var S_tag = "period";
+    }
+    if (period == "OneMonthBefore") {
+        var start_time = getBeforeDate(30).replace(/-/g,"/");
+        var end_time = getBeforeDate(0).replace(/-/g,"/");
+        $("input#begin_date").val(getBeforeDate(7).replace(/-/g,"/"));
+        $("input#end_date").val(getBeforeDate(-1).replace(/-/g,"/"));
+        OneMonthBeforeClick(start_time, end_time);
+        var S_tag = "period";
+        OneWeekBeforeClick(start_time, end_time);
+    }
+    if (period == "ThreeMonthBefore") {
+        var start_time = getBeforeDate(90).replace(/-/g,"/");
+        var end_time = getBeforeDate(0).replace(/-/g,"/");
+        $("input#begin_date").val(getBeforeDate(7).replace(/-/g,"/"));
+        $("input#end_date").val(getBeforeDate(-1).replace(/-/g,"/"));
+        ThreeMonthBeforeClick(start_time, end_time);
+        var S_tag = "period";
+    }
+    if (period == "Manual") {
+      var start_Time = $("#startTime").val();
+      var end_time = $("#endTime").val();
+      var S_tag = "manual";
+      if (start_Time === "" || end_time < 10 ){
+        $.toptip('请选择日期', 'error');
+        alert("请选择日期");
+        $("#startTime").focus();
+        return;
+  	  }
+    }
+  search(start_time,end_time,S_tag);
+}
+
+function search(start_Time,end_time,S_tag) {
+	if (S_tag !== "manual"){
+	    $("#startTime").val(start_Time);
+	    $("#endTime").val(end_time)
+	}
+  console.log($("#startTime").val());
+  console.log($("#endTime").val());
+	
+	$.ajax({
+		url: "${ctx}/HistoricalTxnQueryController/historicalTxnQuerySearchListMobile?startTime=" +  $("#startTime").val() +
+		     "&endTime=" + $("#endTime").val(),
+		type: 'POST',
+		async: false,
+		cache: false,
+		contentType: false,
+		processData: false,
+		ifModified: true,
+
+		success: function (data) {
+			//console.log();
+            $("#dataLists").empty();
+            const jsonData = $.parseJSON(data);
+            jsonData.length && jsonData.map(item => {
+            	const t_Txn_PrepayClear_his = item.t_Txn_PrepayClear_his;
+                let start = '';
+                switch (t_Txn_PrepayClear_his) {
+                  case '0':
+                    start = '已结算';
+                    break;
+                  case '1':
+                    start = '未结算';
+                    break;
+                }
+                const newDate = dateFormate(item.t_Txn_PrepayDate_his, 'yyyy-MM-dd hh:mm:ss');
+                console.log(item.t_Txn_ID_his);
+               
+              $("#dataLists").append(
+                '<a href=' + '"' + '${ctx}/HistoricalTxnQueryController/form?t_Txn_ID_his='  + item.t_Txn_ID_his + '" ' + 'class="data_list" target="_blank">' +
+                '<div style="display:none" id="t_Txn_ID_his">' + item.t_Txn_ID_his + '</div>' +
+                '<div class="data_list_img"><img src="${ctx}/metronic/global/plugins/weUI/img/2_prepayList.png" alt=""></div>' +
+                '<div class="data_list_l">' +
+                '<div class="dl_title">' + item.t_Txn_ProdName_his + '</div>' +
+                '<div class="dl_comment">' + '交易时间:' + '</div>' +
+                '<div class="dl_time">' + newDate + '</div>' +
+                '</div>' +
+                '<div class="data_list_r">' +
+                '<div class="dl_moeny">￥' + item.t_Txn_ApplyPrepayAmount_his + '</div>' +
+                '<div class="dl_status" id="ClearStatus">' + start + '</div>' +
+                '</div>' +
+                '</a>'
+              );
+            });
+          },
+
+		error: function (data) {
+			try {
+				var result = eval("("+data+")");
+				$.toast(result.msg, "cancel");
+			} catch(e) {
+				$.toast('系统异常', "cancel");
+			}
+		}
+	});
+}
+
+</script>
+<link rel="stylesheet" href="${ctx}/metronic/mobile/layer/skin/layer.css" id="layui_layer_skinlayercss" style=""></head>
+
+<body ontouchstart="">
+<!-- 标题区 -->
+<div class="header">
+<div class="page__hd">
+    <h1 class="page__title">历史交易查询</h1>
+    <div class="button_sp_area">
+	<button class="weui-btn weui-btn_mini " id="OneWeekBefore" onclick="HisPeriodSearch('OneWeekBefore')">近一周</button>  <button class="weui-btn weui-btn_mini" id="OneMonthBefore" onclick="HisPeriodSearch('OneMonthBefore')">近一月</button>  <button class="weui-btn weui-btn_mini" id="ThreeMonthBefore" onclick="HisPeriodSearch('ThreeMonthBefore')">近三月</button>
+	</div>
+</div>
+
+<!-- 查询区 -->
+<!-- <div class="weui-cells__title">查询条件</div> -->
+<div class="weui_cells">
+    <div class="weui-cell search_wrap">
+        <div class="weui-cell__bd">
+            <input name="startTime" id="startTime" class="weui-input time_input" type="text" readonly="" placeholder="">
+        </div>	
+        <div class="weui-cell__bd line">
+            <input name="endTime" id="endTime" class="weui-input time_input" type="text" readonly="" placeholder="">
+        </div>
+        <div class="form-actions">
+        <a href="javascript:HisPeriodSearch('Manual');" id="HisPeriodSearch" class="weui-btn weui-btn_mini weui-btn_primary" type="submit">查询</a>
+        </div>
+    </div>
+</div>
+</div>
+<!-- 数据区 -->
+<div class="data_wrap">
+    <!-- 空数据占位 -->
+    <!-- <div id="noData" class="no_data_holder">暂无数据</div> -->
+
+    <div id="loadMore" class="weui-loadmore">
+        <i class="weui-loading"></i>
+        <span class="weui-loadmore__tips">正在加载</span>
+    </div>
+
+    <!-- 列表项 -->
+    <div id="dataLists" class="data_lists">
+        <!-- TODO 遍历查询结果数据进行创建 -->
+        <!-- detail页路由，并添加参数用于标明list-ID，用于详情页打开时的数据查询主键 -->
+        <!--  
+         <a href='${ctx}/HistoricalTxnQueryController/form?t_Txn_ID_his=" + $("#t_Txn_ID_his").val()' class="data_list" target="_blank">
+
+            <div type="hidden" id="t_Txn_ID_his" value="">
+            </div>
+            <div class="data_list_img">
+                <img src="./imgs/hostory-item.png" alt="">
+            </div>
+            <div class="data_list_l">
+                <div class="dl_title">随薪得</div>
+                <div class="dl_comment">交易时间:</div>
+                <div class="dl_time">2020-08-04 15:29:44</div>
+            </div>
+            <div class="data_list_r">
+                <div class="dl_moeny">￥50</div>
+                <div class="dl_status" id="ClearStatus">已结算</div>
+            </div>
+       	 </a>
+
+            <a href='${ctx}/HistoricalTxnQueryController/form?t_Txn_ID_his=" + $("#t_Txn_ID_his").val()' class="data_list" target="_blank">
+
+                <div type="hidden" id="t_Txn_ID_his" value="">
+                </div>
+                <div class="data_list_img">
+                    <img src="./imgs/hostory-item.png" alt="">
+                </div>
+                <div class="data_list_l">
+                    <div class="dl_title">随薪得</div>
+                    <div class="dl_comment">交易时间:</div>
+                    <div class="dl_time">2020-07-22 11:05:52</div>
+                </div>
+                <div class="data_list_r">
+                    <div class="dl_moeny">￥50</div>
+                    <div class="dl_status" id="ClearStatus">未结算</div>
+                </div>
+                </a>
+        -->
+        <!-- 滚动加载样式区，需要数据内容有溢出显示区才添加这个，比如数据超过10条 TODO 暂时不需要 -->
+        <!--<div class="weui-loadmore">-->
+            <!--<i class="weui-loading"></i>-->
+            <!--<span class="weui-loadmore__tips">正在加载</span>-->
+        <!--</div>-->
+    </div>
+</div>
+<!-- 基础依赖脚本 -->
+<!-- 
+<script src="/metronic/global/plugins/jquery.min.js" type="text/javascript"></script>
+ -->
+<script src="${ctx}/metronic/mobile/js//jquery-2.1.4.js" type="text/javascript"></script>
+<script src="${ctx}/metronic/mobile/js/fastclick.js" type="text/javascript"></script>
+
+<script>
+    $(function () {
+        FastClick.attach(document.body);
+    });
+</script>
+
+<!-- UI 库依赖脚本 -->
+
+<script src="${ctx}/metronic/mobile/js/jquery-weui.js" type="text/javascript"></script>
+<script src="${ctx}/metronic/mobile/user/indexPrepaylist.js" type="text/javascript"></script>
+<script src="${ctx}/metronic/mobile/user/indexPrepaylistTrigger.js" type="text/javascript"></script>
+<script src="${ctx}/metronic/mobile/js/jquery-weui.min.js" type="text/javascript"></script>
+<script src="${ctx}/metronic/mobile/layer/layer.js" type="text/javascript"></script>
+<script type="text/javascript">
+function add0(m){return m<10?'0'+m:m }
+function realSysTime(){ 
+	var now=new Date(); //创建Date对象 
+	var year=now.getFullYear(); //获取年份 
+	var month=now.getMonth(); //获取月份 
+	var date=now.getDate(); //获取日期 
+	var day=now.getDay(); //获取星期 
+	var hour=now.getHours(); //获取小时 
+	var minu=now.getMinutes(); //获取分钟 
+	var sec=now.getSeconds(); //获取秒钟 
+	month=month+1; 
+	//var arr_week = new Array("星期日","星期一","星期二","星期三","星期四","星期五","星期六");
+	var arr_week = new Array("周日","周一","周二","周三","周四","周五","周六");
+	var week = arr_week[day]; //获取中文的星期 
+	//var time = year+"年"+add0(month)+"月"+add0(date)+"日"+" "+week+" "+add0(hour)+":"+add0(minu)+":"+add0(sec); //组合系统时间 
+	var time = year+"-"+add0(month)+"-"+add0(date) //组合系统时间 
+	return time; //显示系统时间 
+}
+$(function(){
+    $("#startTime").attr("placeholder",realSysTime)
+    $("#endTime").attr("placeholder",realSysTime)
+    // console.log(  $("#startTime").attr("placeholder"))
+})
+</script>
+</body></html>

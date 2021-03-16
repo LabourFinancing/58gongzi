@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qucai.sample.dao.HistoricalTxnQueryDao">
+
+	<resultMap id="BaseResultMap" type="com.qucai.sample.entity.HistoricalTxnQuery">
+      <result column="t_Txn_ID_his" property="t_Txn_ID_his" jdbcType="VARCHAR"/>
+      <result column="t_Txn_Num_his" property="t_Txn_Num_his" jdbcType="VARCHAR" />
+      <result column="t_Txn_ClearNum_his" property="t_Txn_ClearNum_his" jdbcType="VARCHAR" />
+      <result column="t_Txn_ClearOrg_his" property="t_Txn_ClearOrg_his" jdbcType="VARCHAR" />
+      <result column="t_Txn_PrepayApplierName_his" property="t_Txn_PrepayApplierName_his" jdbcType="VARCHAR" />
+      <result column="t_Txn_PrepayApplierPID_his" property="t_Txn_PrepayApplierPID_his" jdbcType="VARCHAR" />
+      <result column="t_Txn_Mobil_his" property="t_Txn_Mobil_his" jdbcType="VARCHAR" />
+      <result column="t_Txn_PrepayDate_his" property="t_Txn_PrepayDate_his" jdbcType="TIMESTAMP" />
+      <result column="t_Txn_ProdName_his" property="t_Txn_ProdName_his" jdbcType="VARCHAR" />
+      <result column="t_Txn_PrepayDays_his" property="t_Txn_PrepayDays_his" jdbcType="INTEGER" />
+      <result column="t_Txn_CreditPrepayCurrentNum_his" property="t_Txn_CreditPrepayCurrentNum_his" jdbcType="DECIMAL" />
+      <result column="t_Txn_ApplyPrepayAmount_his" property="t_Txn_ApplyPrepayAmount_his" jdbcType="DECIMAL" />
+      <result column="t_Txn_CreditPrepayBalanceNum_his" property="t_Txn_CreditPrepayBalanceNum_his" jdbcType="DECIMAL" />
+      <result column="t_Txn_TotalPrepayNum_his" property="t_Txn_TotalPrepayNum_his" jdbcType="DECIMAL" />
+      <result column="t_Txn_TotalInterestDays_his" property="t_Txn_TotalInterestDays_his" jdbcType="INTEGER" />
+      <result column="t_Txn_PrepayCounts_his" property="t_Txn_PrepayCounts_his" jdbcType="INTEGER" />
+      <result column="t_Txn_Interest_his" property="t_Txn_Interest_his" jdbcType="DECIMAL" />
+      <result column="t_Txn_BalanceCreditNum_his" property="t_Txn_BalanceCreditNum_his" jdbcType="DECIMAL" />
+      <result column="t_Txn_OverdueRepaymentDate_his" property="t_Txn_OverdueRepaymentDate_his" jdbcType="TIMESTAMP" />
+      <result column="t_Txn_PrepayClear_his" property="t_Txn_PrepayClear_his" jdbcType="VARCHAR" />
+      <result column="t_Txn_Overdue_his" property="t_Txn_Overdue_his" jdbcType="VARCHAR" />
+      <result column="t_Txn_OverdueDays_his" property="t_Txn_OverdueDays_his" jdbcType="INTEGER" />
+      <result column="t_Txn_OverdueTotalAmount_his" property="t_Txn_OverdueTotalAmount_his" jdbcType="DECIMAL" />
+      <result column="t_Txn_FinancialInterest_his" property="t_Txn_FinancialInterest_his" jdbcType="DECIMAL" />
+      <result column="t_Txn_ServiceFee_his" property="t_Txn_ServiceFee_his" jdbcType="DECIMAL" />
+      <result column="t_Txn_Poundage_his" property="t_Txn_Poundage_his" jdbcType="DECIMAL" />
+      <result column="t_Txn_TierPoundage_his" property="t_Txn_TierPoundage_his" jdbcType="DECIMAL" />
+      <result column="t_Txn_InterestMargin_his" property="t_Txn_InterestMargin_his" jdbcType="DECIMAL" />
+      <result column="t_Txn_BankAccName_his" property="t_Txn_BankAccName_his" jdbcType="VARCHAR" />
+      <result column="t_Txn_BankAcc_his" property="t_Txn_BankAcc_his" jdbcType="VARCHAR" />
+      <result column="t_Txn_SysUpdateDate_his" property="t_Txn_SysUpdateDate_his" jdbcType="TIMESTAMP" />
+      <result column="t_Txn_Paystatus_his" property="t_Txn_Paystatus_his" jdbcType="VARCHAR" />
+      <result column="t_Txn_SMS_his" property="t_Txn_SMS_his" jdbcType="VARCHAR" />
+      <result column="t_Txn_SMSRec_his" property="t_Txn_SMSRec_his" jdbcType="VARCHAR" />
+      <result column="platform_his" property="platform_his" jdbcType="VARCHAR" />
+      <result column="remark_his" property="remark_his" jdbcType="VARCHAR" />
+      <result column="creator_his" property="creator_his" jdbcType="VARCHAR" />
+      <result column="create_time_his" property="create_time_his" jdbcType="TIMESTAMP" />
+      <result column="agreement_his" property="agreement_his" jdbcType="VARCHAR" />
+      <result column="modify_time_his" property="modify_time_his" jdbcType="TIMESTAMP" />
+      <result column="t_P_id_his" property="t_P_id_his" jdbcType="VARCHAR" />
+      <result column="t_P_Name_his" property="t_P_Name_his" jdbcType="VARCHAR" />
+      <result column="t_P_Sex_his" property="t_P_Sex_his" jdbcType="VARCHAR" />
+      <result column="t_P_Age_his" property="t_P_Age_his" jdbcType="INTEGER" />
+      <result column="t_P_PID_his" property="t_P_PID_his" jdbcType="VARCHAR" />
+      <result column="t_P_Marriage_his" property="t_P_Marriage_his" jdbcType="VARCHAR" />
+      <result column="t_P_HomeAddress_his" property="t_P_HomeAddress_his" jdbcType="VARCHAR" />
+      <result column="t_P_Mobil_his" property="t_P_Mobil_his" jdbcType="VARCHAR" />
+      <result column="t_P_Phone_his" property="t_P_Phone_his" jdbcType="VARCHAR" />
+      <result column="t_P_Spouse_his" property="t_P_Spouse_his" jdbcType="VARCHAR" />
+      <result column="t_P_Spouse_Phone_his" property="t_P_Spouse_Phone_his" jdbcType="VARCHAR" />
+      <result column="t_P_Contact1_his" property="t_P_Contact1_his" jdbcType="VARCHAR" />
+      <result column="t_P_Contact1Mobil_his" property="t_P_Contact1Mobil_his" jdbcType="VARCHAR" />
+      <result column="t_P_Contact2_his" property="t_P_Contact2_his" jdbcType="VARCHAR" />
+      <result column="t_P_Contact2Mobil_his" property="t_P_Contact2Mobil_his" jdbcType="VARCHAR" />
+      <result column="t_P_Company_his" property="t_P_Company_his" jdbcType="VARCHAR" />
+      <result column="t_P_CompanyNum_his" property="t_P_CompanyNum_his" jdbcType="VARCHAR" />
+      <result column="t_P_SocialSecurityBaseAmount_his" property="t_P_SocialSecurityBaseAmount_his" jdbcType="DECIMAL" />
+      <result column="t_P_ProvidentFund_his" property="t_P_ProvidentFund_his" jdbcType="DECIMAL" />
+      <result column="t_P_Employmentstatus_his" property="t_P_Employmentstatus_his" jdbcType="VARCHAR" />
+      <result column="t_P_EmploymentCategory_his" property="t_P_EmploymentCategory_his" jdbcType="VARCHAR" />
+      <result column="t_P_WorkYears_his" property="t_P_WorkYears_his" jdbcType="INTEGER" />
+      <result column="t_P_Probation_his" property="t_P_Probation_his" jdbcType="VARCHAR" />
+      <result column="t_P_VendorEmployment_his" property="t_P_VendorEmployment_his" jdbcType="VARCHAR" />
+      <result column="t_P_VendorEmployeeName_his" property="t_P_VendorEmployeeName_his" jdbcType="VARCHAR" />
+      <result column="t_P_PayrollDebitcardBankName_his" property="t_P_PayrollDebitcardBankName_his" jdbcType="VARCHAR" />
+      <result column="t_P_PayrollDebitcardNum_his" property="t_P_PayrollDebitcardNum_his" jdbcType="VARCHAR" />
+      <result column="t_P_NetBaseSalary_his" property="t_P_NetBaseSalary_his" jdbcType="DECIMAL" />
+      <result column="t_P_CreditPrepaySalaryAmount_his" property="t_P_CreditPrepaySalaryAmount_his" jdbcType="DECIMAL" />
+      <result column="t_P_PayrollDate_his" property="t_P_PayrollDate_his" jdbcType="INTEGER" />
+      <result column="t_P_NetMonthlyBonusAmount_his" property="t_P_NetMonthlyBonusAmount_his" jdbcType="DECIMAL" />
+      <result column="t_P_NetBonusPayDate_his" property="t_P_NetBonusPayDate_his" jdbcType="INTEGER" />
+      <result column="t_P_SocialSecurityDate_his" property="t_P_SocialSecurityDate_his" jdbcType="INTEGER" />
+      <result column="t_P_SysUpdateDate_his" property="t_P_SysUpdateDate_his" jdbcType="TIMESTAMP" />
+      <result column="platform_P_his" property="platform_P_his" jdbcType="VARCHAR" />
+      <result column="remark_P_his" property="remark_P_his" jdbcType="VARCHAR" />
+      <result column="creator_P_his" property="creator_P_his" jdbcType="VARCHAR" />
+      <result column="create_time_P_his" property="create_time_P_his" jdbcType="TIMESTAMP" />
+      <result column="modifier_P_his" property="modifier_P_his" jdbcType="VARCHAR" />
+      <result column="modify_time_P_his" property="modify_time_P_his" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">	
+	  a.t_Txn_ID_his,
+      CONCAT('\t',a.t_Txn_Num_his) as t_Txn_Num_his,
+      a.t_Txn_ClearNum_his,
+      a.t_Txn_ClearOrg_his,
+      a.t_Txn_PrepayApplierName_his,
+      CONCAT('\t',a.t_Txn_PrepayApplierPID_his) as t_Txn_PrepayApplierPID_his,
+      a.t_Txn_Mobil_his,
+      a.t_Txn_PrepayDate_his,
+      a.t_Txn_ProdName_his,
+      a.t_Txn_PrepayDays_his,
+      a.t_Txn_CreditPrepayCurrentNum_his,
+      a.t_Txn_ApplyPrepayAmount_his,
+      a.t_Txn_CreditPrepayBalanceNum_his,
+      a.t_Txn_TotalPrepayNum_his,
+      a.t_Txn_TotalInterestDays_his,
+      a.t_Txn_PrepayCounts_his,
+      a.t_Txn_Interest_his,
+      a.t_Txn_BalanceCreditNum_his,
+      a.t_Txn_OverdueRepaymentDate_his,
+      a.t_Txn_PrepayClear_his,
+      a.t_Txn_Overdue_his,
+      a.t_Txn_OverdueDays_his,
+      a.t_Txn_OverdueTotalAmount_his,
+      a.t_Txn_FinancialInterest_his,
+      a.t_Txn_ServiceFee_his,
+      a.t_Txn_Poundage_his,
+      a.t_Txn_TierPoundage_his,
+      a.t_Txn_InterestMargin_his,
+      a.t_Txn_BankAccName_his,
+      CONCAT('\t',a.t_Txn_BankAcc_his) as t_Txn_BankAcc_his,
+      a.t_Txn_SysUpdateDate_his,
+      a.t_Txn_Paystatus_his,
+      a.t_Txn_SMS_his,
+      a.t_Txn_SMSRec_his,
+      a.platform_his,
+      a.remark_his,
+      a.creator_his,
+      a.create_time_his,
+      a.agreement_his,
+      a.modify_time_his,
+      a.t_P_id_his,
+      a.t_P_Name_his,
+      a.t_P_Sex_his,
+      a.t_P_Age_his,
+      a.t_P_PID_his,
+      a.t_P_Marriage_his,
+      a.t_P_HomeAddress_his,
+      a.t_P_Mobil_his,
+      a.t_P_Phone_his,
+      a.t_P_Spouse_his,
+      a.t_P_Spouse_Phone_his,
+      a.t_P_Contact1_his,
+      a.t_P_Contact1Mobil_his,
+      a.t_P_Contact2_his,
+      a.t_P_Contact2Mobil_his,
+      a.t_P_Company_his,
+      a.t_P_CompanyNum_his,
+      a.t_P_SocialSecurityBaseAmount_his,
+      a.t_P_ProvidentFund_his,
+      a.t_P_Employmentstatus_his,
+      a.t_P_EmploymentCategory_his,
+      a.t_P_WorkYears_his,
+      a.t_P_Probation_his,
+      a.t_P_VendorEmployment_his,
+      a.t_P_VendorEmployeeName_his,
+      a.t_P_PayrollDebitcardBankName_his,
+      a.t_P_PayrollDebitcardNum_his,
+      a.t_P_NetBaseSalary_his,
+      a.t_P_CreditPrepaySalaryAmount_his,
+      a.t_P_PayrollDate_his,
+      a.t_P_NetMonthlyBonusAmount_his,
+      a.t_P_NetBonusPayDate_his,
+      a.t_P_SocialSecurityDate_his,
+      a.t_P_SysUpdateDate_his,
+      a.platform_P_his,
+      a.remark_P_his,
+      a.creator_P_his,
+      a.create_time_P_his,
+      a.modifier_P_his,
+      a.modify_time_P_his
+	</sql>
+	
+	
+	<resultMap id="personalTxnStatisSearch" type="com.qucai.sample.vo.PersonalTxnStatic">
+	       <result column="t_Txn_Static_PerName" property="t_Txn_Static_PerName" jdbcType="VARCHAR" />	
+	       <result column="t_Txn_Static_PerID;" property="t_Txn_Static_PerID" jdbcType="VARCHAR" />	
+	       <result column="t_Txn_Static_PerCreditCard" property="t_Txn_Static_PerCreditCard" jdbcType="VARCHAR" />	
+	       <result column="t_Txn_Static_TotTxnAmt" property="t_Txn_Static_TotTxnAmt" jdbcType="DECIMAL" />	
+	       <result column="t_Txn_Static_TotTxnActAmt" property="t_Txn_Static_TotTxnActAmt" jdbcType="DECIMAL" />	
+	       <result column="t_Txn_Static_TotInterest" property="t_Txn_Static_TotInterest" jdbcType="DECIMAL" />	
+	       <result column="t_Txn_Static_TotServiceFee" property="t_Txn_Static_TotServiceFee" jdbcType="DECIMAL" />	
+	       <result column="t_Txn_Static_TotPoundageFee" property="t_Txn_Static_TotPoundageFee" jdbcType="DECIMAL" />	
+	       <result column="t_Txn_Static_TotTierFee" property="t_Txn_Static_TotTierFee" jdbcType="DECIMAL" />	
+	       <result column="t_Txn_Static_TotChargeFee" property="t_Txn_Static_TotChargeFee" jdbcType="DECIMAL" />	
+	       <result column="t_Txn_Static_TotTxnCount" property="t_Txn_Static_TotTxnCount" jdbcType="INTEGER" />	
+	       <result column="t_Txn_Static_Company" property="t_Txn_Static_Company" jdbcType="VARCHAR" />
+	       <result column="t_Txn_Static_VendorCompany" property="t_Txn_Static_VendorCompany" jdbcType="VARCHAR" />	
+	       <result column="t_Txn_Static_BeginDate" property="t_Txn_Static_BeginDate" jdbcType="TIMESTAMP" />	
+	       <result column="t_Txn_Static_EndDate" property="t_Txn_Static_EndDate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<select id="personalTxnStatic" resultMap="personalTxnStatisSearch">
+		select
+		t_Txn_PrepayApplierName_his,
+		t_Txn_PrepayApplierPID_his,
+		t_Txn_BankAcc_his,
+		SUM(t_Txn_ApplyPrepayAmount_his),
+		SUM(t_Txn_TotalPrepayNum_his),
+		SUM(t_Txn_Interest_his),
+		SUM(t_Txn_ServiceFee_his),
+		SUM(t_Txn_Poundage_his),
+		SUM(t_Txn_TierPoundage_his),
+		SUM(t_Txn_Interest_his)+sum(t_Txn_ServiceFee_his)+sum(t_Txn_Poundage_his)+sum(t_Txn_TierPoundage_his),	
+		COUNT(t_Txn_Num_his),
+		t_P_CreditPrepaySalaryAmount_his,
+		t_P_NetMonthlyBonusAmount_his,
+		t_P_Company_his,
+		t_P_VendorEmployment_his,
+		#{begin_date},
+		#{end_date}
+		from t_transaction_his a
+		where 
+		a.t_Txn_PrepayDate_his
+		between #{begin_date} and #{end_date}
+		<if test="SessionPID != null">
+		 and a.t_Txn_PrepayApplierPID_his LIKE CONCAT('%',#{SessionPID},'%')
+		</if>
+		<if test="t_Txn_PrepayApplierName_his != null">
+		 and a.t_Txn_PrepayApplierName_his LIKE CONCAT('%',#{t_Txn_PrepayApplierName_his},'%')
+		</if>
+		<if test="t_Txn_PrepayClear_his != 'ALL' and t_Txn_PrepayClear_his != null">
+		 and a.t_Txn_PrepayClear_his = #{t_Txn_PrepayClear_his,jdbcType=VARCHAR}
+		</if>
+		<if test="t_Txn_ProdName_his != 'ALL' and t_Txn_ProdName_his != null">
+		 and a.t_Txn_ProdName_his LIKE CONCAT('%',#{t_Txn_ProdName_his},'%')
+		</if>
+		<if test="t_P_Company_his != 'ALL' and t_P_Company_his != null">
+		 and a.t_P_Company_his LIKE CONCAT('%',#{t_P_Company_his},'%')
+		</if>
+		<if test="t_P_VendorEmployeeName_his != null and t_P_VendorEmployeeName_his != 'ALL' ">
+		 and a.t_P_VendorEmployeeName_his LIKE CONCAT('%',#{t_P_VendorEmployeeName_his},'%')
+		</if>
+		GROUP BY a.t_Txn_PrepayApplierName_his
+	</select>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_transaction_his a
+		where a.t_Txn_ID_his = #{t_Txn_ID_his,jdbcType=VARCHAR}
+		order by a.create_time_his
+	</select>
+	
+	<select id="selectByOrderCode" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_transaction_his a
+		where a.t_Txn_Num_his = #{OrderCode}
+	</select>
+	
+	<select id="findSearchList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_transaction_his a
+		where 
+		a.t_Txn_PrepayDate_his
+		between #{begin_date} and #{end_date}
+		<if test="SessionPID != null">
+		 and a.t_Txn_PrepayApplierPID_his LIKE CONCAT('%',#{SessionPID},'%')
+		</if>
+		<if test="t_Txn_PrepayApplierName_his != null">
+		 and a.t_Txn_PrepayApplierName_his LIKE CONCAT('%',#{t_Txn_PrepayApplierName_his},'%')
+		</if>
+		<if test="t_Txn_PrepayClear_his != 'ALL' and t_Txn_PrepayClear_his != null">
+		 and a.t_Txn_PrepayClear_his = #{t_Txn_PrepayClear_his,jdbcType=VARCHAR}
+		</if>
+		<if test="t_Txn_ProdName_his != 'ALL' and t_Txn_ProdName_his != null">
+		 and a.t_Txn_ProdName_his LIKE CONCAT('%',#{t_Txn_ProdName_his},'%')
+		</if>
+		<if test="t_P_Company_his != 'ALL' and t_P_Company_his != null">
+		 and a.t_P_Company_his LIKE CONCAT('%',#{t_P_Company_his},'%')
+		</if>
+		<if test="t_P_VendorEmployeeName_his != null and t_P_VendorEmployeeName_his != 'ALL' ">
+		 and a.t_P_VendorEmployeeName_his LIKE CONCAT('%',#{t_P_VendorEmployeeName_his},'%')
+		</if>
+		order by a.t_Txn_PrepayDate_his desc
+	</select>
+	
+	<select id="findAllList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_transaction_his a
+		where 1=1
+		<if test="typeEnd != null">
+			<![CDATA[ and type <= #{typeEnd} ]]>
+		</if>
+		<if test="t_P_Company != 'ALL' and t_P_Company != null">
+		   and a.t_P_Company_his = #{t_P_Company}
+		</if>
+		order by a.create_time_his
+	</select>
+	
+	<insert id="insertSelective" parameterType="com.qucai.sample.entity.HistoricalTxnQuery">
+		insert into t_organization_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="t_O_ID != null">
+				t_O_ID,
+			</if>
+			<if test="t_O_CertificationCode != null">
+				t_O_CertificationCode,
+			</if>
+			<if test="t_O_OrgName != null">
+				t_O_OrgName,
+			</if>
+			<if test="t_O_EmployeeAmount != null">
+				t_O_EmployeeAmount,
+			</if>
+			<if test="t_O_Category != null">
+				t_O_Category,
+			</if>
+			<if test="t_O_listOrg != null">
+				t_O_listOrg,
+			</if>
+			<if test="t_O_OrgRepresentative != null">
+				t_O_OrgRepresentative,
+			</if>
+			<if test="t_O_OrgPayrollBankaccount != null">
+				t_O_OrgPayrollBankaccount,
+			</if>
+			<if test="t_O_OrgStatus != null">
+				t_O_OrgStatus,
+			</if>
+			<if test="t_O_SysUpdateDate != null">
+				t_O_SysUpdateDate,
+			</if>
+			<if test="platform != null">
+				platform,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="creator != null">
+				creator,
+			</if>
+			<if test="create_time != null">
+				create_time,
+			</if>
+			<if test="modifier != null">
+				modifier,
+			</if>
+			<if test="modify_time != null">
+				modify_time
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="t_O_ID != null">
+				#{t_O_ID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_CertificationCode != null">
+				#{t_O_CertificationCode,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_OrgName != null">
+				#{t_O_OrgName,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_EmployeeAmount != null">
+				#{t_O_EmployeeAmount,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_Category != null">
+				#{t_O_Category,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_listOrg != null">
+				#{t_O_listOrg,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_OrgRepresentative != null">
+				#{t_O_OrgRepresentative,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_OrgPayrollBankaccount != null">
+				#{t_O_OrgPayrollBankaccount,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_OrgStatus != null">
+				#{t_O_OrgStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_SysUpdateDate != null">
+				#{t_O_SysUpdateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="platform != null">
+				#{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				#{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="create_time != null">
+				#{create_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifier != null">
+				#{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="modify_time != null">
+				#{modify_time,jdbcType=TIMESTAMP}
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="ClearHisTxnPay" parameterType="java.util.ArrayList">
+		update t_transaction_his a
+        set t_Txn_PrepayClear_his = 0
+		where a.t_Txn_ID_his in 
+		<foreach collection="array" item="id" index="index" open="(" separator="," close=")">
+             #{id}
+        </foreach> 
+	</update>
+	
+	<update id="DueHisTxnPay" parameterType="java.util.ArrayList">
+		update t_transaction_his a
+        set t_Txn_PrepayClear_his = 1
+		where a.t_Txn_ID_his in 
+		<foreach collection="array" item="id" index="index" open="(" separator="," close=")">
+             #{id}
+        </foreach> 
+	</update>
+	
+	<update id="MarkFailedPayment" parameterType="com.qucai.sample.entity.HistoricalTxnQuery">
+		update t_transaction_his
+        set t_Txn_PrepayClear_his = 2
+		where 
+		<if test="OrderCode != null">
+		a.t_Txn_Num_his = #{OrderCode}
+		</if>
+	</update>
+<!-- 
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_fproduct_info a
+		where a.t_FProd_ID = #{t_FProd_ID,jdbcType=VARCHAR}
+		order by a.create_time
+	</select>
+	
+	<select id="findEntResourceGrantAllList" resultMap="ResourceGrantMap"
+		parameterType="java.lang.String">
+		SELECT
+			<include refid="Base_Column_List" />, 
+			(
+				SELECT
+					count(1)
+				FROM
+					tr_role_resource
+				WHERE
+					resource_id = a.id
+				AND role_id = #{roleId}
+			) AS selected
+		FROM
+			t_resource a
+		WHERE a.platform = 1
+		order by IFNULL(a.parent_id, ''), a.idx
+	</select>
+ -->			
+</mapper>
+ 

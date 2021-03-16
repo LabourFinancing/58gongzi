@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qucai.sample.dao.PaymentvendormgtDao">
+
+	<resultMap id="BaseResultMap" type="com.qucai.sample.entity.Paymentvendormgt">
+		<result column="t_Pymt_ID" property="t_Pymt_ID" jdbcType="VARCHAR"/>
+		<result column="t_Pymt_CertificationCode" property="t_Pymt_CertificationCode" jdbcType="VARCHAR" />
+		<result column="t_Pymt_Name" property="t_Pymt_Name" jdbcType="VARCHAR" />
+		<result column="t_Pymt_OrgInfo" property="t_Pymt_OrgInfo" jdbcType="VARCHAR" />
+		<result column="t_Pymt_API" property="t_Pymt_API" jdbcType="VARCHAR" />
+		<result column="t_Pymt_Status" property="t_Pymt_Status" jdbcType="VARCHAR" />
+		<result column="platform" property="platform" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="creator" property="creator" jdbcType="VARCHAR" />
+		<result column="create_time" property="create_time" jdbcType="TIMESTAMP" />
+		<result column="modifier" property="modifier" jdbcType="VARCHAR" />
+		<result column="modify_time" property="modify_time" jdbcType="TIMESTAMP" />	
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		a.t_Pymt_ID, 
+		a.t_Pymt_CertificationCode, 
+		a.t_Pymt_Name, 
+		a.t_Pymt_OrgInfo, 
+		a.t_Pymt_API,
+		a.t_Pymt_Status,
+		a.platform,
+		a.remark,
+		a.creator,
+		a.create_time,
+		a.modifier,
+		a.modify_time
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_paymentvendormgt a
+		where a.t_Pymt_ID = #{t_Pymt_ID,jdbcType=VARCHAR}
+		order by a.create_time
+	</select>
+	
+	<select id="findOrgTreasuryCurrBalance" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_paymentvendormgt a
+		where a.t_Pymt_Name = #{t_Pymt_Name,jdbcType=VARCHAR} 
+		for update
+	</select>
+	
+	
+	<select id="findSearchList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_paymentvendormgt a
+		where 
+		<if test="t_Pymt_Name != null">
+		a.t_Pymt_Name like CONCAT('%',#{t_Pymt_Name},'%')
+		</if>
+		<if test="t_Pymt_API != null">
+		and a.t_Pymt_API like CONCAT('%',#{t_Pymt_API},'%')
+		</if>
+		<if test="t_Pymt_Status != null">
+		and a.t_Pymt_Status like CONCAT('%',#{t_Pymt_Status},'%')
+		</if>
+		<if test="remark != null">
+		and a.remark like CONCAT('%',#{remark},'%')
+		</if>
+        order by a.create_time
+	</select>
+
+	
+	<insert id="insertSelective" parameterType="com.qucai.sample.entity.Paymentvendormgt">
+		insert into t_paymentvendormgt
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="t_Pymt_ID != null">
+				t_Pymt_ID,
+			</if>
+			<if test="t_Pymt_CertificationCode != null">
+				t_Pymt_CertificationCode,
+			</if>
+			<if test="t_Pymt_Name != null">
+				t_Pymt_Name,
+			</if>
+			<if test="t_Pymt_OrgInfo != null">
+				t_Pymt_OrgInfo,
+			</if>
+			<if test="t_Pymt_API != null">
+				t_Pymt_API,
+			</if>
+			<if test="t_Pymt_Status != null">
+				t_Pymt_Status,
+			</if>
+			<if test="platform != null">
+				platform,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="creator != null">
+				creator,
+			</if>
+			<if test="create_time != null">
+				create_time,
+			</if>
+			<if test="modifier != null">
+				modifier,
+			</if>
+			<if test="modify_time != null">
+				modify_time
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="t_Pymt_ID != null">
+				#{t_Pymt_ID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Pymt_CertificationCode != null">
+				#{t_Pymt_CertificationCode,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Pymt_Name != null">
+				#{t_Pymt_Name,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Pymt_OrgInfo != null">
+				#{t_Pymt_OrgInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Pymt_API != null">
+				#{t_Pymt_API,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Pymt_Status != null">
+				#{t_Pymt_Status,jdbcType=VARCHAR},
+			</if>
+			<if test="platform != null">
+				#{platform,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				#{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="create_time != null">
+				#{create_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifier != null">
+				#{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="modify_time != null">
+				#{modify_time,jdbcType=TIMESTAMP}
+			</if>
+		</trim>
+	</insert>
+
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.qucai.sample.entity.Paymentvendormgt">
+		update t_paymentvendormgt
+		<set>
+			<if test="t_Pymt_ID != null">
+				t_Pymt_ID = #{t_Pymt_ID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Pymt_CertificationCode != null">
+				t_Pymt_CertificationCode = #{t_Pymt_CertificationCode,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Pymt_Name">
+				t_Pymt_Name = #{t_Pymt_Name,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Pymt_OrgInfo != null">
+				t_Pymt_OrgInfo = #{t_Pymt_OrgInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Pymt_API != null">
+				t_Pymt_API = #{t_Pymt_API,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Pymt_Status != null">
+				t_Pymt_Status = #{t_Pymt_Status,jdbcType=VARCHAR},
+			</if>
+			<if test="platform != null">
+				platform = #{platform,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				creator = #{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="create_time != null">
+				create_time = #{create_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifier != null">
+				modifier = #{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="modify_time != null">
+				modify_time = #{modify_time,jdbcType=TIMESTAMP}
+			</if>
+		</set>
+		where t_TreasuryDB_OrgName = #{t_TreasuryDB_OrgName,jdbcType=VARCHAR}
+	</update>
+	
+
+	<select id="findAllList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_paymentvendormgt a
+		<!-- 
+		<if test="t_Pymt_Name = 'ALL' ">
+		where a.t_Pymt_Name = #{t_Pymt_Name,jdbcType=VARCHAR}
+		</if>
+		-->
+		order by a.create_time
+	</select>
+
+<!-- 
+	<select id="findEntResourceGrantAllList" resultMap="ResourceGrantMap"
+		parameterType="java.lang.String">
+		SELECT
+			<include refid="Base_Column_List" />, 
+			(
+				SELECT
+					count(1)
+				FROM
+					tr_role_resource
+				WHERE
+					resource_id = a.id
+				AND role_id = #{roleId}
+			) AS selected
+		FROM
+			t_resource a
+		WHERE a.platform = 1
+		order by IFNULL(a.parent_id, ''), a.idx
+	</select>
+ -->		
+    <select id="existTreasuryDBInfoName" resultType="Integer"
+		parameterType="map">
+		select
+		count(1)
+		from t_paymentvendormgt a
+		where a.t_Pymt_Name = #{t_Pymt_Name}
+	</select>
+	
+</mapper>
+ 

@@ -1,0 +1,55 @@
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8" />
+<title>编辑员工</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+<meta content="" name="description" />
+<meta content="" name="author" />
+<#include "/common/cssResource.html"> <#include
+"/common/jsResource.html">
+
+<script>
+function closeme()
+{
+	window.location.href="${ctx}/login"
+}
+</script>
+
+</head>
+<body>
+	<div class="portlet light bordered">
+		<div class="portlet-body form">
+			<!-- BEGIN FORM-->
+			<table class="table table-striped table-bordered table-hover" id="prepayApplicationListTable">
+						<thead>
+							<tr>
+								<th>预支日期</th>
+								<th>预支金额 </th>
+								<th>预支交易费</th>
+								<th>预支平台使用费</th>
+								<th>预支服务费</th>
+							</tr>
+						</thead>
+						<form id="QueryData">
+						<tbody>
+							<#list page.list as txnQuery>
+								<tr>
+								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all"><input type="hidden" name="t_TxnQuery_ID" id="t_TxnQuery_ID" value="${staffprepayApplicationList.t_TxnQuery_ID}">${txnQuery.t_TxnQuery_ID}</input></td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all"><input type="hidden" name="t_TxnQuery_PID" id="t_TxnQuery_PID" value="${staffprepayApplicationList.t_TxnQuery_PID}">${txnQuery.t_TxnQuery_PID}</input></td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all"><input type="hidden" name="t_TxnQuery_Mobil" id="t_TxnQuery_Mobil" value="${staffprepayApplicationList.t_TxnQuery_Mobil}">${txnQuery.t_TxnQuery_Mobil}</input></td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all"><input type="hidden" name="t_TxnQuery_Date" id="t_TxnQuery_Date">${staffprepayApplicationList.t_TxnQuery_Date?string("yyyy-MM-dd HH:mm:ss")}</input></td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all">${txnQuery.t_TxnQuery_ApprovalStatus}</td>						
+								</tr>
+							</#list>
+						</tbody>
+					</table>
+		</div>
+		<!-- END FORM-->
+	</div>
+</body>
+</html>

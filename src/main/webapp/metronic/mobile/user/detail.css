@@ -1,0 +1,282 @@
+body, html {
+    height: 100%;
+    -webkit-tap-highlight-color: transparent;
+    background: #fff;
+  }
+  
+  /* 头部 logo */
+  .form-title {
+    margin: 0 3%;
+    height: 55px;
+    text-align: center;
+    font-size: 38px;
+    color: #1890ff;
+    font-weight: 700;
+    line-height: 55px;
+    background: url('../img/5.jpg') left center/45px 45px  no-repeat;
+  }
+  
+  /* 灰色表示自动填写，不可选 */
+  .cannot_set {
+    color: #666666;
+  }
+  
+  /* 金额总数 */
+  .total {
+    color: #3cc51f;
+  }
+  /* 金额剩余 */
+  .balance {
+    color: #e64340;
+  }
+  /* 金额输入框 */
+  .money {
+    position: relative;
+    padding-left: 20px;
+  }
+  .money::before {
+    content: '￥';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    font-family:Arial;
+    transform: translateY(-53%);
+  }
+  
+  /* label 自适应*/
+  .weui-cell__hd {
+    width: 37%;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .weui-label {
+    width: 100%;
+  }
+  
+  /* tips报错提示 */
+  .weui-cell__bd {
+    position: relative;
+    color: #A5A5A5;
+  }
+  .weui-cell.weui-cell_vcode .weui-icon-warn {
+    display: none;
+  }
+  .weui-cell.weui-cell_warn .weui-icon-warn {
+    display: inline-block;
+  }
+  .weui-icon-warn {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-55%);
+  }
+  
+  /* 部分重置 */
+  .weui-cell_select {
+    padding: 0 15px;
+  }
+  .weui-cells {
+    margin-top: 0;
+    font-size: 15px;
+    width: 100%;
+    background-color: rgba(255,255,255,1);
+    padding: 10px 15px 50px;
+    box-sizing: border-box;
+  }
+  
+  /* 协议阅读 */
+  .agree {
+    height: 33px;
+  }
+  .weui-agree {
+    padding-left: 0;
+    padding-right: 0;
+    float: left;
+  }
+  .agree_l {
+    padding-left: 15px;
+  }
+  .checker {
+    display: inline-block;
+  }
+  
+  /* 协议内容 */
+  #showAgree {
+    height: 50%;
+  }
+  #showAgree .modal-content {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  #showAgree .weui-popup__modal {
+    height: 100%;
+  }
+  #showAgree h3 {
+    line-height: 48px;
+    text-align: center;
+  }
+  #showAgree h4 {
+    line-height: 42px;
+  }
+  #showAgree p {
+    margin-bottom: 8px;
+    text-indent: 16px;
+  }
+  .agree_footer {
+    margin: 20px 0;
+    display: flex;
+  }
+  .agree_footer span {
+    width: 50%;
+    text-indent: 0px;
+  }
+  
+  /* 操作按钮 */
+  .weui-btn-area {
+    display: flex;
+  }
+  .weui-btn-area .weui-btn {
+    width: 45%;
+    margin-top: 0px;
+    line-height: 1.8;
+  }
+  #Prepaybutton {
+    background: #1890ff;
+  }
+  
+  .weui-footer {
+    margin-top: 5px;
+  }
+  
+  /* 以下为新增样式 */
+  /* 顶部灰色间隔，看下html中加入下面类名的地方，对比添加到模板中 */
+  .top-border {
+    border-top: 10px solid #fafafa;
+  }
+  /* 字体加粗 */
+  .font-weight{
+    font-weight: 700;
+  }
+  /* 文本右对齐 */
+  .text-right {
+    text-align: right;
+  }
+  /* 灰色字体 */
+  .font-hui {
+    color: #959595;
+  }
+  /* 紫色字体 */
+  .font-zi {
+    color: #656892;
+  }
+  /* 紫色字体 */
+  .font-lan {
+    color: #1890ff;
+  }
+  /* 小字体 */
+  .font-12 {
+    font-size: 12px;
+  }
+  
+  /* 新版样式重置 */
+  .weui-cell {
+    padding: 0 10px 0 0;
+  }
+  .weui-cell::before {
+    left: 0;
+  }
+  .weui-input {
+    height: 3em;
+    line-height: 3em;
+    text-align: right;
+  }
+  .weui-select, .weui-vcode-btn {
+    height: 30px;
+    line-height: 30px;
+  }
+  .weui-cell__ft {
+    background: #fff;
+  }
+  .weui-vcode-btn {
+    color: #1890ff;
+    border: display;
+  }
+  
+  .bgPic{
+      color:#080808;
+      filter:"progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='scale')";  
+      -moz-background-size:100% 100%;  
+      background-size:100% 100%;  
+      border: 1px solid #f2f2f2;
+  }
+  
+  .bgPic1{
+      background-size: cover;
+      color:#080808;
+      border:3px dotted #333;
+      padding:1px;
+      background: url('../img/IDV1.jpg') center center no-repeat;
+  }
+  .spanyen {
+      padding-top:0px;
+      padding-bottom:0px; 
+      margin-left:0px; 
+      border:none;
+  }
+
+  /* 添加、覆盖 */
+  .weui-head {
+    background-color: #1490FF;
+    position: fixed;
+    width: 100%;
+  }
+  .weui-head__links{
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    line-height: 22px;
+  }
+  .weui-head__link{
+    color: #fff;
+    font-size: 14px;
+  }
+  .weui-help__link{
+    position: absolute;
+    top: 15px;
+    right: 0;
+    font-size: 12px;
+    background-color: rgb(235, 243, 250);
+    color: #1490FF;
+    padding: 2px 0 2px 10px;
+    border-radius: 10px 0 0 10px;
+    z-index: 100;
+  }
+  .whltitle{
+    font-size: 16px;
+  }
+  .weui-cells:before {
+    border-top:none;
+}
+.wc{
+  border: 1px solid #f2f2f2;
+  border-left: none;
+  border-right: none;
+  padding-left: 15px;
+  border-bottom: 15px solid #f8f8f8;
+}
+.totalmoney{
+  color: #fff;
+    width: 100%;
+    padding: 42px 0 0 9%;
+    font-size: 13px;
+    height: 149px;
+    background-color: #1490FF;
+    box-sizing: border-box;
+}
+.totalmoney .totalnums{
+    font-size: 43px;
+    font-weight: 700;
+}
+.totalmoney .statenum{
+    padding-left: 10px;
+}

@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qucai.sample.dao.OrganizationInfoDao">
+
+	<resultMap id="BaseResultMap" type="com.qucai.sample.entity.OrganizationInfo">
+		<result column="t_O_ID" property="t_O_ID" jdbcType="VARCHAR" />
+		<result column="t_O_CertificationCode" property="t_O_CertificationCode" jdbcType="VARCHAR" />
+		<result column="t_O_OrgName" property="t_O_OrgName" jdbcType="VARCHAR" />
+		<result column="t_O_EmployeeAmount" property="t_O_EmployeeAmount" jdbcType="VARCHAR" />
+		<result column="t_O_Category" property="t_O_Category" jdbcType="VARCHAR" />
+		<result column="t_O_listOrg" property="t_O_listOrg" jdbcType="VARCHAR" />
+		<result column="t_O_OrgRepresentative" property="t_O_OrgRepresentative" jdbcType="VARCHAR" />
+		<result column="t_O_OrgPayrollBankaccount" property="t_O_OrgPayrollBankaccount" jdbcType="VARCHAR" />
+		<result column="t_O_OrgChinaebiAcc" property="t_O_OrgChinaebiAcc" jdbcType="VARCHAR" />
+		<result column="t_O_OrgSandeAcc" property="t_O_OrgSandeAcc" jdbcType="VARCHAR" />
+		<result column="t_O_OrgStatus" property="t_O_OrgStatus" jdbcType="VARCHAR" />
+		<result column="t_O_OrgPending" property="t_O_OrgPending" jdbcType="VARCHAR" />
+		<result column="t_O_SysUpdateDate" property="t_O_SysUpdateDate" jdbcType="TIMESTAMP" />
+		<result column="platform" property="platform" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="creator" property="creator" jdbcType="VARCHAR" />
+		<result column="create_time" property="create_time" jdbcType="TIMESTAMP" />
+		<result column="modifier" property="modifier" jdbcType="VARCHAR" />
+		<result column="modify_time" property="modify_time" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		a.t_O_ID,
+		a.t_O_CertificationCode, 
+		a.t_O_OrgName, 
+		a.t_O_EmployeeAmount, 
+		a.t_O_Category,
+		a.t_O_listOrg,
+		a.t_O_OrgRepresentative,
+		a.t_O_OrgPayrollBankaccount,
+		a.t_O_OrgChinaebiAcc,
+		a.t_O_OrgSandeAcc,
+		a.t_O_OrgStatus,
+		a.t_O_OrgPending,
+		a.t_O_SysUpdateDate,
+		a.platform,
+		a.remark,
+		a.creator,
+		a.create_time,
+		a.modifier,
+		a.modify_time
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_organization_info a
+		where a.t_O_ID = #{t_O_ID,jdbcType=VARCHAR}
+		order by a.create_time
+	</select>
+	
+	<select id="selectAgencyName" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_organization_info a
+		where 
+		a.t_O_OrgName = #{t_O_OrgName,jdbcType=VARCHAR}
+		order by a.create_time
+	</select>
+	
+	
+	<select id="findSearchList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_organization_info a
+		where
+		<if test="t_O_OrgName != null">
+		a.t_O_OrgName like CONCAT('%',#{t_O_OrgName},'%')
+		</if>	
+		<if test="t_O_Category != null">
+		and a.t_O_Category like CONCAT('%',#{t_O_Category},'%')
+		</if>	
+		<if test="t_O_OrgStatus != null">
+		and a.t_O_OrgStatus like CONCAT('%',#{t_O_OrgStatus},'%')
+		</if>
+		<if test="remark != null">
+		and a.remark like CONCAT('%',#{remark},'%')
+		</if>
+		<if test="create_time != null">
+		and a.create_time like CONCAT('%',DATE(#{create_time}),'%')
+		</if>
+		order by create_time
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from t_organization_info
+		where t_O_ID = #{t_O_ID,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="insertSelective" parameterType="com.qucai.sample.entity.OrganizationInfo">
+		insert into t_organization_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="t_O_ID != null">
+				t_O_ID,
+			</if>
+			<if test="t_O_CertificationCode != null">
+				t_O_CertificationCode,
+			</if>
+			<if test="t_O_OrgName != null">
+				t_O_OrgName,
+			</if>
+			<if test="t_O_EmployeeAmount != null">
+				t_O_EmployeeAmount,
+			</if>
+			<if test="t_O_Category != null">
+				t_O_Category,
+			</if>
+			<if test="t_O_listOrg != null">
+				t_O_listOrg,
+			</if>
+			<if test="t_O_OrgRepresentative != null">
+				t_O_OrgRepresentative,
+			</if>
+			<if test="t_O_OrgPayrollBankaccount != null">
+				t_O_OrgPayrollBankaccount,
+			</if>
+			<if test="t_O_OrgChinaebiAcc != null">
+				t_O_OrgChinaebiAcc,
+			</if>
+			<if test="t_O_OrgSandeAcc != null">
+				t_O_OrgSandeAcc,
+			</if>
+			<if test="t_O_OrgStatus != null">
+				t_O_OrgStatus,
+			</if>
+			<if test="t_O_OrgPending != null">
+				t_O_OrgPending,
+			</if>
+			<if test="t_O_SysUpdateDate != null">
+				t_O_SysUpdateDate,
+			</if>
+			<if test="platform != null">
+				platform,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="creator != null">
+				creator,
+			</if>
+			<if test="create_time != null">
+				create_time,
+			</if>
+			<if test="modifier != null">
+				modifier,
+			</if>
+			<if test="modify_time != null">
+				modify_time
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="t_O_ID != null">
+				#{t_O_ID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_CertificationCode != null">
+				#{t_O_CertificationCode,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_OrgName != null">
+				#{t_O_OrgName,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_EmployeeAmount != null">
+				#{t_O_EmployeeAmount,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_Category != null">
+				#{t_O_Category,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_listOrg != null">
+				#{t_O_listOrg,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_OrgRepresentative != null">
+				#{t_O_OrgRepresentative,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_OrgPayrollBankaccount != null">
+				#{t_O_OrgPayrollBankaccount,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_OrgChinaebiAcc != null">
+				#{t_O_OrgChinaebiAcc,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_OrgSandeAcc != null">
+				#{t_O_OrgSandeAcc,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_OrgStatus != null">
+				#{t_O_OrgStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_OrgPending != null">
+				#{t_O_OrgPending,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_SysUpdateDate != null">
+				#{t_O_SysUpdateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="platform != null">
+				#{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				#{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="create_time != null">
+				#{create_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifier != null">
+				#{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="modify_time != null">
+				#{modify_time,jdbcType=TIMESTAMP}
+			</if>
+		</trim>
+	</insert>
+	
+	<select id="findAllList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_organization_info a
+		where 1=1
+		<if test="typeEnd != null">
+			<![CDATA[ and type <= #{typeEnd} ]]>
+		</if>
+		order by a.create_time
+	</select>
+	
+   <select id="findAllName" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_organization_info a
+		where 
+		t_O_OrgStatus = "on"
+		order by a.create_time
+	</select>
+
+<!-- 
+	<select id="findEntResourceGrantAllList" resultMap="ResourceGrantMap"
+		parameterType="java.lang.String">
+		SELECT
+			<include refid="Base_Column_List" />, 
+			(
+				SELECT
+					count(1)
+				FROM
+					tr_role_resource
+				WHERE
+					resource_id = a.id
+				AND role_id = #{roleId}
+			) AS selected
+		FROM
+			t_resource a
+		WHERE a.platform = 1
+		order by IFNULL(a.parent_id, ''), a.idx
+	</select>
+ -->			
+	<update id="updateByPrimaryKeySelective" parameterType="com.qucai.sample.entity.OrganizationInfo">
+		update t_organization_info
+		<set>
+			<if test="t_O_ID != null">
+				t_O_ID = #{t_O_ID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_CertificationCode != null">
+				t_O_CertificationCode = #{t_O_CertificationCode,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_OrgName != null">
+				t_O_OrgName = #{t_O_OrgName,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_EmployeeAmount != null">
+				t_O_EmployeeAmount = #{t_O_EmployeeAmount,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_Category != null">
+				t_O_Category = #{t_O_Category,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_listOrg != null">
+				t_O_listOrg = #{t_O_listOrg,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_OrgRepresentative != null">
+				t_O_OrgRepresentative = #{t_O_OrgRepresentative,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_OrgPayrollBankaccount != null">
+				t_O_OrgPayrollBankaccount = #{t_O_OrgPayrollBankaccount,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_OrgChinaebiAcc != null">
+				t_O_OrgChinaebiAcc = #{t_O_OrgChinaebiAcc,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_OrgSandeAcc != null">
+				t_O_OrgSandeAcc = #{t_O_OrgSandeAcc,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_OrgStatus != null">
+				t_O_OrgStatus = #{t_O_OrgStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_OrgPending != null">
+				t_O_OrgPending = #{t_O_OrgPending,jdbcType=VARCHAR},
+			</if>
+			<if test="t_O_SysUpdateDate != null">
+				t_O_SysUpdateDate = #{t_O_SysUpdateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="platform != null">
+				platform = #{platform,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				creator = #{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="create_time != null">
+				create_time = #{create_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifier != null">
+				modifier = #{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="modify_time != null">
+				modify_time = #{modify_time,jdbcType=TIMESTAMP}
+			</if>
+		</set>
+		where t_O_ID = #{t_O_ID,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateByPymtswitch" parameterType="com.qucai.sample.entity.OrganizationInfo">
+		update t_organization_info
+		<set>
+			<if test="t_O_OrgPayrollBankaccount != null">
+				t_O_OrgPayrollBankaccount = #{t_O_OrgPayrollBankaccount,jdbcType=VARCHAR},
+			</if>
+			<if test="platform != null">
+				platform = #{platform,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				creator = #{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="create_time != null">
+				create_time = #{create_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifier != null">
+				modifier = #{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="modify_time != null">
+				modify_time = #{modify_time,jdbcType=TIMESTAMP}
+			</if>
+		</set>
+		where t_O_ID = #{t_O_ID,jdbcType=VARCHAR}
+	</update>
+
+   <select id="existOrganizationInfoName" resultType="Integer"
+		parameterType="map">
+		select
+		count(1)
+		from t_organization_info a
+		where a.t_O_ID = #{t_O_ID}
+		<if test="t_O_ID != null">
+			and a.t_O_ID != #{t_O_ID}
+		</if>
+		and a.t_O_OrgName = #{t_O_OrgName}
+	</select>
+	
+	<select id="findOrgName" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		t_O_OrgName
+		from t_organization_info a
+		where
+        a.t_O_OrgName = #{t_P_Company,jdbcType=VARCHAR}
+        <if test="t_O_listOrg != null">
+			and a.t_O_listOrg = #{t_O_listOrg,jdbcType=VARCHAR}
+		</if>
+		UNION select DISTINCT t_P_Company from t_personal_info where t_P_VendorEmployeeName = #{t_P_Company,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="findOrgNameAgency" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		t_O_OrgName
+		from t_organization_info a
+		where
+		a.t_O_listOrg = #{t_O_listOrg,jdbcType=VARCHAR}
+	</select>
+</mapper>
+ 

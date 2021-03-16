@@ -1,0 +1,218 @@
+body, html {
+    height: 100%;
+    -webkit-tap-highlight-color: transparent;
+    background: #fff;
+  }
+  
+  /* 顶部固定区 */
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    height: 150px;
+    background: #f8f8f8;
+  }
+  
+  /* 标题 */
+  .page__hd {
+    padding: 47px 0 0 0;
+  }
+  .page__title {
+    width: 100%;
+    text-align: center;
+    font-weight: 400;
+    position: fixed;
+    top: 0;
+    height: 47px;
+    line-height: 47px;
+    background: #1490FF;
+    color: #fff;
+    font-size: 17px;
+  }
+  .button_sp_area{
+    padding-left: 13px;
+  }
+  .page__desc {
+    margin-top: 5px;
+    color: #888;
+    text-align: left;
+    font-size: 14px;
+  }
+  .weui-cell__bd {
+    /* position: relative; */
+}
+  .form-actions{
+    /* width: 62px; */
+  }
+  .weui_cells {
+    position: relative;
+  }
+  .weui_cells::before {
+    /* content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 1px;
+    border-top: 1px solid #e5e5e5;
+    color: #e5e5e5;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+    z-index: 2; */
+  }
+  
+  /* 查询条件 */
+  .search_wrap {
+    /* background: #eee; */
+  }
+  .time_input {
+    text-align: left;
+    font-size: 14px;
+  }
+  .line::before{
+    content: " ";
+    position: absolute;
+    left: 33%;
+    bottom: 25px;
+    right: 0;
+    height: 1px;
+    border-top: 1px solid #000;
+    color: #000;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+    z-index: 2;
+    width: 10px;
+  }
+  .line::after{
+    content: " ";
+    display: inline-block;
+    height: 0px;
+    width: 0px;
+    border: 6px solid #000;
+    border-color: transparent transparent transparent #000;
+    position: absolute;
+    top: 22px;
+    right: 27%;
+  }
+  #search {
+    width: 85px;
+  }
+  
+  /* 暂无数据占位 */
+  .no_data_holder {
+    text-align: center;
+    line-height: 10;
+    font-size: 30px;
+    color: #888;
+  }
+  
+  /* 加载中 */
+  #loadMore {
+    display: none;
+  }
+  
+  .data_wrap {
+    padding-top: 150px;
+  }
+  
+  /* 数据列表 */
+  .data_lists {
+    /* display: none;  默认不显示 */
+    margin-top: .77rem;
+  }
+  
+  .data_list {
+    position: relative;
+    display: flex;
+    padding: 10px 15px;
+    line-height: 1.47058824;
+    overflow: hidden;
+    color: #000;
+    background: #fff;
+  }
+  .data_list::after {
+    content: " ";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    right: 0;
+    height: 1px;
+    border-top: 1px solid #e5e5e5;
+    color: #e5e5e5;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+    z-index: 2;
+  }
+  
+  .data_list_img {
+  
+  }
+  .data_list_img img {
+    display: block;
+    margin: 8px 15px 8px 0;
+    width: 45px;
+    height: 45px;
+    border-radius: 45px;
+  }
+  
+  .data_list_l {
+    flex: 1;
+  }
+  .dl_title {
+    font-size: 17px;
+  }
+  .dl_comment {
+    font-size: 14px;
+  }
+  .dl_time {
+    font-size: 14px;
+    color: #999999;
+  }
+  
+  .data_list_r {
+    text-align: right;
+  }
+  .dl_moeny {
+    font-size: 22px;
+  }
+  .dl_status {
+    margin-top: 10px;
+    font-size: 15px;
+    color: #ccc;
+  }
+  /* 几种状态颜色 */
+  .dl_status.dl_success {
+    color: #3cc51f;
+  }
+  .dl_status.dl_fail {
+    color: #e64340;
+  }
+  
+  .weui-btn {
+    background: #1890ff;
+  }
+  
+  .button.gray{
+  
+    color: #8c96a0;
+    
+    text-shadow:1px 1px 1px #fff;
+    
+    border:1px solid #dce1e6;
+    
+    box-shadow: 0 1px 2px #fff inset,0 -1px 0 #a8abae inset;
+    
+    background: -webkit-linear-gradient(top,#f2f3f7,#e4e8ec);
+    
+    background: -moz-linear-gradient(top,#f2f3f7,#e4e8ec);
+    
+    background: linear-gradient(top,#f2f3f7,#e4e8ec);
+    
+    }

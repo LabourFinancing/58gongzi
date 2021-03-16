@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qucai.sample.dao.TreasuryDBInfoDao">
+
+	<resultMap id="BaseResultMap" type="com.qucai.sample.entity.TreasuryDBInfo">
+		<result column="t_TreasuryDB_ID" property="t_TreasuryDB_ID" jdbcType="VARCHAR"/>
+		<result column="t_TreasuryDB_OrgName" property="t_TreasuryDB_OrgName" jdbcType="VARCHAR" />
+		<result column="t_TreasuryDB_Balance" property="t_TreasuryDB_Balance" jdbcType="DECIMAL" />
+		<result column="t_TreasuryDB_TotAmtMth" property="t_TreasuryDB_TotAmtMth" jdbcType="DECIMAL" />
+		<result column="t_TreasuryDB_BoPRatio" property="t_TreasuryDB_BoPRatio" jdbcType="DECIMAL" />
+		<result column="t_TreasuryDB_PoPRatio" property="t_TreasuryDB_PoPRatio" jdbcType="DECIMAL" />
+		<result column="t_TreasuryDB_RiskMargin" property="t_TreasuryDB_RiskMargin" jdbcType="DECIMAL" />
+		<result column="t_TreasuryDB_Prooffund" property="t_TreasuryDB_Prooffund" jdbcType="DECIMAL" />
+		<result column="t_TreasuryDB_TotAmtDaily" property="t_TreasuryDB_TotAmtDaily" jdbcType="DECIMAL" />
+		<result column="t_TreasuryDB_TotAmtDailySucc" property="t_TreasuryDB_TotAmtDailySucc" jdbcType="DECIMAL" />
+		<result column="t_TreasuryDB_TotAmtDailyFail" property="t_TreasuryDB_TotAmtDailyFail" jdbcType="DECIMAL" />
+		<result column="t_TreasuryDB_Fee" property="t_TreasuryDB_Fee" jdbcType="DECIMAL" />
+		<result column="t_TreasuryDB_OverdueInt" property="t_TreasuryDB_OverdueInt" jdbcType="DECIMAL" />
+		<result column="t_TreasuryDB_PayrollDate" property="t_TreasuryDB_PayrollDate" jdbcType="INTEGER" />
+		<result column="t_TreasuryDB_Comment" property="t_TreasuryDB_Comment" jdbcType="VARCHAR" />
+		<result column="platform" property="platform" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="creator" property="creator" jdbcType="VARCHAR" />
+		<result column="create_time" property="create_time" jdbcType="TIMESTAMP" />
+		<result column="modifier" property="modifier" jdbcType="VARCHAR" />
+		<result column="modify_time" property="modify_time" jdbcType="TIMESTAMP" />	
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		a.t_TreasuryDB_ID, 
+		a.t_TreasuryDB_OrgName, 
+		a.t_TreasuryDB_Balance, 
+		a.t_TreasuryDB_TotAmtMth, 
+		a.t_TreasuryDB_BoPRatio,
+		a.t_TreasuryDB_PoPRatio,
+		a.t_TreasuryDB_RiskMargin,
+		a.t_TreasuryDB_Prooffund,
+		a.t_TreasuryDB_TotAmtDaily,
+		a.t_TreasuryDB_TotAmtDailySucc,
+		a.t_TreasuryDB_TotAmtDailyFail,
+		a.t_TreasuryDB_Fee,
+		a.t_TreasuryDB_OverdueInt,
+		a.t_TreasuryDB_PayrollDate,
+		a.t_TreasuryDB_Comment,
+		a.platform,
+		a.remark,
+		a.creator,
+		a.create_time,
+		a.modifier,
+		a.modify_time
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_treasurydb_info a
+		where a.t_TreasuryDB_ID = #{t_TreasuryDB_ID,jdbcType=VARCHAR}
+		order by a.t_TreasuryDB_PayrollDate
+	</select>
+	
+	<select id="findOrgTreasuryCurrBalance" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_treasurydb_info a
+		where a.t_TreasuryDB_OrgName = #{t_TreasuryDB_OrgName,jdbcType=VARCHAR} 
+		for update
+	</select>
+	
+	
+	<select id="findSearchList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_treasurydb_info a
+		where 
+		<if test="t_TreasuryDB_OrgName != null">
+		a.t_TreasuryDB_OrgName like CONCAT('%',#{t_TreasuryDB_OrgName},'%')
+		</if>
+		<if test="t_TreasuryDB_Comment != null">
+		and a.t_TreasuryDB_Comment like CONCAT('%',#{t_TreasuryDB_Comment},'%')
+		</if>
+		<if test="remark != null">
+		and a.remark like CONCAT('%',#{remark},'%')
+		</if>
+		<if test="t_TreasuryDB_PayrollDate != null">
+		and a.t_TreasuryDB_PayrollDate like CONCAT('%',#{t_TreasuryDB_PayrollDate},'%')
+		</if>
+		<if test="t_TreasuryDB_AgencyName != null ">
+		and a.t_TreasuryDB_OrgName in (select t_P_VendorEmployeeName from t_personal_info b where b.t_P_VendorEmployeeName = #{t_TreasuryDB_AgencyName,jdbcType=VARCHAR})
+		</if>
+        order by a.t_TreasuryDB_PayrollDate
+	</select>
+
+	
+	<insert id="insertSelective" parameterType="com.qucai.sample.entity.TreasuryDBInfo">
+		insert into t_treasurydb_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="t_TreasuryDB_ID != null">
+				t_TreasuryDB_ID,
+			</if>
+			<if test="t_TreasuryDB_OrgName != null">
+				t_TreasuryDB_OrgName,
+			</if>
+			<if test="t_TreasuryDB_Balance != null">
+				t_TreasuryDB_Balance,
+			</if>
+			<if test="t_TreasuryDB_TotAmtMth != null">
+				t_TreasuryDB_TotAmtMth,
+			</if>
+			<if test="t_TreasuryDB_BoPRatio != null">
+				t_TreasuryDB_BoPRatio,
+			</if>
+			<if test="t_TreasuryDB_PoPRatio != null">
+				t_TreasuryDB_PoPRatio,
+			</if>
+			<if test="t_TreasuryDB_RiskMargin != null">
+				t_TreasuryDB_RiskMargin,
+			</if>
+			<if test="t_TreasuryDB_Prooffund != null">
+				t_TreasuryDB_Prooffund,
+			</if>
+			<if test="t_TreasuryDB_TotAmtDaily != null">
+				t_TreasuryDB_TotAmtDaily,
+			</if>
+			<if test="t_TreasuryDB_TotAmtDailySucc != null">
+				t_TreasuryDB_TotAmtDailySucc,
+			</if>
+			<if test="t_TreasuryDB_TotAmtDailyFail != null">
+				t_TreasuryDB_TotAmtDailyFail,
+			</if>
+			<if test="t_TreasuryDB_Fee != null">
+				t_TreasuryDB_Fee,
+			</if>
+			<if test="t_TreasuryDB_OverdueInt != null">
+				t_TreasuryDB_OverdueInt,
+			</if>
+			<if test="t_TreasuryDB_PayrollDate != null">
+				t_TreasuryDB_PayrollDate,
+			</if>
+			<if test="t_TreasuryDB_Comment != null">
+				t_TreasuryDB_Comment,
+			</if>
+			<if test="platform != null">
+				platform,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="creator != null">
+				creator,
+			</if>
+			<if test="create_time != null">
+				create_time,
+			</if>
+			<if test="modifier != null">
+				modifier,
+			</if>
+			<if test="modify_time != null">
+				modify_time
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="t_TreasuryDB_ID != null">
+				#{t_TreasuryDB_ID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_TreasuryDB_OrgName != null">
+				#{t_TreasuryDB_OrgName,jdbcType=VARCHAR},
+			</if>
+			<if test="t_TreasuryDB_Balance != null">
+				#{t_TreasuryDB_Balance,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_TotAmtMth != null">
+				#{t_TreasuryDB_TotAmtMth,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_BoPRatio != null">
+				#{t_TreasuryDB_BoPRatio,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_PoPRatio != null">
+				#{t_TreasuryDB_PoPRatio,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_RiskMargin != null">
+				#{t_TreasuryDB_RiskMargin,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_Prooffund != null">
+				#{t_TreasuryDB_Prooffund,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_TotAmtDaily != null">
+				#{t_TreasuryDB_TotAmtDaily,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_TotAmtDailySucc != null">
+				#{t_TreasuryDB_TotAmtDailySucc,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_TotAmtDailyFail != null">
+				#{t_TreasuryDB_TotAmtDailyFail,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_Fee != null">
+				#{t_TreasuryDB_Fee,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_OverdueInt != null">
+				#{t_TreasuryDB_OverdueInt,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_PayrollDate != null">
+				#{t_TreasuryDB_PayrollDate,jdbcType=INTEGER},
+			</if>
+			<if test="t_TreasuryDB_Comment != null">
+				#{t_TreasuryDB_Comment,jdbcType=VARCHAR},
+			</if>
+			<if test="platform != null">
+				#{platform,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				#{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="create_time != null">
+				#{create_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifier != null">
+				#{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="modify_time != null">
+				#{modify_time,jdbcType=TIMESTAMP}
+			</if>
+		</trim>
+	</insert>
+
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.qucai.sample.entity.TreasuryDBInfo">
+		update t_treasurydb_info
+		<set>
+			<if test="t_TreasuryDB_ID != null">
+				t_TreasuryDB_ID = #{t_TreasuryDB_ID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_TreasuryDB_OrgName != null">
+				t_TreasuryDB_OrgName = #{t_TreasuryDB_OrgName,jdbcType=VARCHAR},
+			</if>
+			<if test="t_TreasuryDB_Balance">
+				t_TreasuryDB_Balance = #{t_TreasuryDB_Balance,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_TotAmtMth != null">
+				t_TreasuryDB_TotAmtMth = #{t_TreasuryDB_TotAmtMth,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_BoPRatio != null">
+				t_TreasuryDB_BoPRatio = #{t_TreasuryDB_BoPRatio,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_PoPRatio != null">
+				t_TreasuryDB_PoPRatio = #{t_TreasuryDB_PoPRatio,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_RiskMargin != null">
+				t_TreasuryDB_RiskMargin = #{t_TreasuryDB_RiskMargin,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_Prooffund != null">
+				t_TreasuryDB_Prooffund = #{t_TreasuryDB_Prooffund,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_TotAmtDaily != null">
+				t_TreasuryDB_TotAmtDaily = #{t_TreasuryDB_TotAmtDaily,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_TotAmtDailySucc != null">
+				t_TreasuryDB_TotAmtDailySucc = #{t_TreasuryDB_TotAmtDailySucc,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_TotAmtDailyFail != null">
+				t_TreasuryDB_TotAmtDailyFail = #{t_TreasuryDB_TotAmtDailyFail,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_Fee != null">
+				t_TreasuryDB_Fee = #{t_TreasuryDB_Fee,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_OverdueInt != null">
+				t_TreasuryDB_OverdueInt = #{t_TreasuryDB_OverdueInt,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_PayrollDate != null">
+				t_TreasuryDB_PayrollDate = #{t_TreasuryDB_PayrollDate,jdbcType=INTEGER},
+			</if>
+			<if test="t_TreasuryDB_Comment != null">
+				t_TreasuryDB_Comment = #{t_TreasuryDB_Comment,jdbcType=VARCHAR},
+			</if>
+			<if test="platform != null">
+				platform = #{platform,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				creator = #{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="create_time != null">
+				create_time = #{create_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifier != null">
+				modifier = #{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="modify_time != null">
+				modify_time = #{modify_time,jdbcType=TIMESTAMP}
+			</if>
+		</set>
+		where t_TreasuryDB_OrgName = #{t_TreasuryDB_OrgName,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateByCreditRefresh" parameterType="com.qucai.sample.entity.TreasuryDBInfo">
+		update t_treasurydb_info
+		<set>
+			<if test="t_TreasuryDB_ID != null">
+				t_TreasuryDB_ID = #{t_TreasuryDB_ID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_TreasuryDB_OrgName != null">
+				t_TreasuryDB_OrgName = #{t_TreasuryDB_OrgName,jdbcType=VARCHAR},
+			</if>
+			<if test="t_TreasuryDB_Balance">
+				t_TreasuryDB_Balance = #{t_TreasuryDB_Balance,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_TotAmtMth != null">
+				t_TreasuryDB_TotAmtMth = #{t_TreasuryDB_TotAmtMth,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_BoPRatio != null">
+				t_TreasuryDB_BoPRatio = #{t_TreasuryDB_BoPRatio,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_PoPRatio != null">
+				t_TreasuryDB_PoPRatio = #{t_TreasuryDB_PoPRatio,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_RiskMargin != null">
+				t_TreasuryDB_RiskMargin = #{t_TreasuryDB_RiskMargin,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_Prooffund != null">
+				t_TreasuryDB_Prooffund = #{t_TreasuryDB_Prooffund,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_TotAmtDaily != null">
+				t_TreasuryDB_TotAmtDaily = #{t_TreasuryDB_TotAmtDaily,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_TotAmtDailySucc != null">
+				t_TreasuryDB_TotAmtDailySucc = #{t_TreasuryDB_TotAmtDailySucc,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_TotAmtDailyFail != null">
+				t_TreasuryDB_TotAmtDailyFail = #{t_TreasuryDB_TotAmtDailyFail,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_Fee != null">
+				t_TreasuryDB_Fee = #{t_TreasuryDB_Fee,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_OverdueInt != null">
+				t_TreasuryDB_OverdueInt = #{t_TreasuryDB_OverdueInt,jdbcType=DECIMAL},
+			</if>
+			<if test="t_TreasuryDB_PayrollDate != null">
+				t_TreasuryDB_PayrollDate = #{t_TreasuryDB_PayrollDate,jdbcType=INTEGER},
+			</if>
+			<if test="t_TreasuryDB_Comment != null">
+				t_TreasuryDB_Comment = #{t_TreasuryDB_Comment,jdbcType=VARCHAR},
+			</if>
+			<if test="platform != null">
+				platform = #{platform,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				creator = #{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="create_time != null">
+				create_time = #{create_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifier != null">
+				modifier = #{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="modify_time != null">
+				modify_time = #{modify_time,jdbcType=TIMESTAMP}
+			</if>
+		</set>
+		where t_TreasuryDB_OrgName = #{t_TreasuryDB_OrgName,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateCreditStatus" parameterType="com.qucai.sample.entity.TreasuryDBInfo">
+	    update t_treasurydb_info,(select CASE t_P_Employmentstatus 
+	    WHEN "PENDING" THEN "授额部分暂停状态"
+	    WHEN "onjob" THEN "授额开启状态" 
+	    ELSE "授额状态异常" END as tmp
+	    from ((select t_P_Employmentstatus,count(*) AS count from t_personal_info where t_P_Company = #{t_TreasuryDB_OrgName_get,jdbcType=VARCHAR} 
+	    group by t_P_Employmentstatus ORDER BY count DESC LIMIT 1)) as t1) as t2
+        set t_treasurydb_info.t_TreasuryDB_Comment = t2.tmp where t_treasurydb_info.t_TreasuryDB_OrgName = #{t_TreasuryDB_OrgName_get,jdbcType=VARCHAR}
+	</update>
+	
+    <update id="updateCreditRefresh" parameterType="com.qucai.sample.entity.TreasuryDBInfo">
+            update t_treasurydb_info a set t_TreasuryDB_TotAmtMth = (select sum(t_P_CreditPrepaySalaryAmount)
+	    	from t_personal_info where t_P_Company = #{t_TreasuryDB_OrgName_get,jdbcType=VARCHAR})
+	    	where a.t_TreasuryDB_OrgName = #{t_TreasuryDB_OrgName_get,jdbcType=VARCHAR}
+	</update>
+	
+	<select id="findAllList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_treasurydb_info a
+		where 1=1
+		<if test="typeEnd != null">
+			<![CDATA[ and type <= #{typeEnd} ]]>
+		</if>
+		<if test="t_TreasuryDB_OrgName != 'ALL' ">
+		and a.t_TreasuryDB_OrgName = #{t_TreasuryDB_OrgName,jdbcType=VARCHAR}
+		</if>
+		<if test="t_TreasuryDB_AgencyName != null ">
+		and a.t_TreasuryDB_OrgName in (select t_P_VendorEmployeeName from t_personal_info b where b.t_P_VendorEmployeeName = #{t_TreasuryDB_AgencyName,jdbcType=VARCHAR})
+		</if>
+		order by a.t_TreasuryDB_PayrollDate
+	</select>
+
+	<select id="findAgencyAllList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_treasurydb_info a
+		where 
+		<if test="t_TreasuryDB_OrgName != 'ALL' and t_TreasuryDB_AgencyName != null ">
+		a.t_TreasuryDB_OrgName in (select t_P_Company from t_personal_info b where b.t_P_VendorEmployeeName = #{t_TreasuryDB_AgencyName,jdbcType=VARCHAR})
+		</if>
+		<if test="t_TreasuryDB_Comment != null ">
+		and a.t_TreasuryDB_Comment like #{t_TreasuryDB_Comment,jdbcType=VARCHAR}
+		</if>
+		order by a.t_TreasuryDB_PayrollDate
+	</select>
+
+
+<!-- 
+	<select id="findEntResourceGrantAllList" resultMap="ResourceGrantMap"
+		parameterType="java.lang.String">
+		SELECT
+			<include refid="Base_Column_List" />, 
+			(
+				SELECT
+					count(1)
+				FROM
+					tr_role_resource
+				WHERE
+					resource_id = a.id
+				AND role_id = #{roleId}
+			) AS selected
+		FROM
+			t_resource a
+		WHERE a.platform = 1
+		order by IFNULL(a.parent_id, ''), a.idx
+	</select>
+ -->		
+    <select id="existTreasuryDBInfoName" resultType="Integer"
+		parameterType="map">
+		select
+		count(1)
+		from t_treasurydb_info a
+		where a.t_TreasuryDB_OrgName = #{t_TreasuryDB_OrgName,jdbcType=VARCHAR}
+	</select>
+		
+   <select id="StatisticOverall"  resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+	    <include refid="Base_Column_List" />
+		from t_treasurydb_info a
+		where a.t_TreasuryDB_OrgName = #{t_TreasuryDB_OrgName,jdbcType=VARCHAR}
+	</select>
+
+<!-- mass update payment acc balance -->
+
+	<update id="updateByBalanceRefresh" parameterType="java.util.List">
+    	update t_treasurydb_info a
+        <trim prefix="set" suffixOverrides=",">
+            a.t_TreasuryDB_BoPRatio = 
+    	    <foreach collection="list" item="paramSQLmap" open="case " close=" end,">
+    		when t_TreasuryDB_OrgName = #{paramSQLmap.CompanyName,jdbcType=VARCHAR} then #{paramSQLmap.ChinaebiBalance}
+    	    </foreach>
+            a.t_TreasuryDB_RiskMargin = 
+    	    <foreach collection="list" item="paramSQLmap" open="case " close=" end,">
+    		when t_TreasuryDB_OrgName = #{paramSQLmap.CompanyName,jdbcType=VARCHAR} then #{paramSQLmap.SandeBalance}
+    	    </foreach>	
+    	    a.platform = 
+    	    <foreach collection="list" item="paramSQLmap" open="case " close=" end,">
+    		when t_TreasuryDB_OrgName = #{paramSQLmap.CompanyName,jdbcType=VARCHAR} and a.platform is NULL then  #{paramSQLmap.PayrollChannel}
+    	    </foreach>
+        </trim>
+    	<where>
+    		<foreach collection="list" item="paramSQLmap" open="( " separator=") or (" close=" )">
+    		a.t_TreasuryDB_OrgName = #{paramSQLmap.CompanyName,jdbcType=VARCHAR}
+    	</foreach>
+    	</where>
+    </update>
+	
+</mapper>
+ 

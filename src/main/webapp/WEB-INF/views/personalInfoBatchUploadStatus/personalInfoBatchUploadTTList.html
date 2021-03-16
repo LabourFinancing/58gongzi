@@ -1,0 +1,597 @@
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+<head>
+<meta charset="utf-8" />
+<title>企业员工管理</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+<meta content="" name="description" />
+<meta content="" name="author" />
+<#include "/common/cssResource.html">
+<link href="${ctx}/metronic/global/plugins/jquery-treetable/css/jquery.treetable.css" rel="stylesheet" type="text/css" />
+<link href="${ctx}/metronic/global/plugins/jquery-treetable/css/jquery.treetable.theme.default.css" rel="stylesheet" type="text/css" />
+<link href="${ctx}/metronic/global/new_modules/app_info.css" rel="stylesheet">
+<link href="${ctx}/metronic/global/metronic/mobile/css/bootstrap.min.css" rel="stylesheet">
+<link href="${ctx}/metronic/global/metronic/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<#include "/common/jsResource.html">
+<script src="${ctx}/metronic/global/plugins/jquery-treetable/jquery.treetable.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+
+/* $(document).ready(function() {
+	$("#financeProductTable").treetable({clickableNodeNames : true, expandable : true}).treetable("expandAll");
+
+});
+*/
+
+/*
+*参考 http://blog.csdn.net/lzwglory/article/details/17549725
+**/
+function page(n,s){
+	$("#pageNum").val(n);
+	$("#pageSize").val(s);
+	$("#searchForm").submit();
+	return false;
+}
+
+function openNew(obj){
+	var openWindowWidth = $(document).width() * 0.8 + "px";
+	var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
+	layer.open({
+		type: 2,
+		area: openWindowWidth,
+		offset : offsetH,
+		fix: false, //不固定	
+		maxmin: true,
+		content: '${ctx}/PersonalInfoController/form?operationType=new&platform=0',
+		success: function(layero, index){
+		    layer.iframeAuto(index);
+		}
+	});
+}
+
+
+function openEdit(personalInfoId){
+	var openWindowWidth = $(document).width() * 0.8 + "px";
+	var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
+	layer.open({
+		type: 2,
+		area: openWindowWidth,
+		offset : offsetH,
+		fix: false, //不固定
+		maxmin: true,
+		content: '${ctx}/PersonalInfoController/form?t_P_id='+personalInfoId+'&operationType=edit&platform=0',
+		success: function(layero, index){
+		    layer.iframeAuto(index);
+		}
+	});
+}
+
+function editCreditBalance(personalInfoId){
+	var openWindowWidth = $(document).width() * 0.8 + "px";
+	var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
+	layer.open({
+		type: 2,
+		area: openWindowWidth,
+		offset : offsetH,
+		fix: false, //不固定
+		maxmin: true,
+		content: '${ctx}/PersonalInfoController/form?t_P_id='+personalInfoId+'&operationType=openCreditBalance&platform=0',
+		success: function(layero, index){
+		    layer.iframeAuto(index);
+		}
+	});
+}
+
+function openView(personalInfoId){
+	var openWindowWidth = $(document).width() * 0.8 + "px";
+	var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
+	layer.open({
+		type: 2,
+		area: openWindowWidth,
+		offset : offsetH,
+		fix: false, //不固定
+		maxmin: true,
+		content: '${ctx}/PersonalInfoController/form?t_P_id='+personalInfoId+'&operationType=view&platform=0',
+		success: function(layero, index){
+		    layer.iframeAuto(index);
+		}
+	});
+}
+</script>
+<style type="text/css">
+.divcss1 {width:1500px; 
+		  height:1000px; 
+		  float:left; 
+		  border:1px solid #F00
+		 }
+.font-size {
+font-size:11px;
+}
+</style>
+
+</head>
+
+<body>
+
+    <div id="notIE9">
+        <div id="layout" class="layout-wrap relative" style="min-height: 552px;">
+            <div class="page-send-record">
+                <div class="p-20 mt10">
+                    <div class="clearfix grid-list-head" style="border-bottom: 0px;"></div>
+                </div>
+                <div class="page-customerFinance p10">
+                    <div class="grid-list-head">
+                        <div class="grid-tab active">发送任务</div>
+                    </div>
+                    <div class="page-smsTask">
+                      
+                        <div class="clearfix  mt10">
+                            <div class="search-box clearfix fl">
+                                <div class="clearfix fl mb10">
+
+                                    <div class="clearfix fl item mt10"><span class="fl title">任务ID：</span><input
+                                            type="text" placeholder="任务ID" class="fl  input">
+                                    </div>
+                                    <div class="clearfix fl item mt10">
+                                        <span class="fl title">创建者：</span>
+                                        <input type="text" placeholder="创建者" class="fl  input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-v-5a="" class="clearfix fl search-box2  mt10">
+                                <span data-v-5a="" class="fl" style="line-height: 36px;">创建时间：</span>
+                                <input autocomplete="off" placeholder="请选择开始日期" type="text" rows="2"
+                                    class="date-editor input-datepicker fl border input date-editor--date">
+                                <span data-v-5a="" class="fl p-5" style="line-height: 36px;">至</span>
+                                <input autocomplete="off" placeholder="请选择结束日期" type="text" rows="2"
+                                    class="date-editor input-datepicker fl border input date-editor--date">
+                            </div>
+                        </div>
+
+                        <div class="clearfix  mt10">
+                            <span class="fl title" style="line-height: 36px;">变量短信：</span>
+                            <div class="dropdown fl" style="min-width: 130px;">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    全部
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li><a href="#">全部</a></li>
+                                    <li><a href="#">变量短信</a></li>
+                                    <li><a href="#">固定短信</a></li>
+                                </ul>
+                            </div>
+                            <div class="clearfix fl item">
+                                <span class="fl title" style="line-height: 36px;">短信类型：</span>
+                                <div class="dropdown fl" style="min-width: 130px;">
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        全部
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        <li><a href="#">全部</a></li>
+                                        <li><a href="#">通知</a></li>
+                                        <li><a href="#">验证码</a></li>
+                                        <li><a href="#">营销</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="search-box clearfix mt20 mb20">
+                            <div class="clearfix fl ">
+                                <div class="clearfix fl  ">
+                                    <span class="fl title">短信签名：</span>
+                                    <input type="text" placeholder="短信签名" class="fl input-md input">
+                                </div>
+                                <div class="clearfix fl  ">
+                                    <span class="fl title">发送内容：</span>
+                                    <input type="text" placeholder="发送内容：" class="fl input-md input">
+                                </div>
+                                <a href="javascript:;" class="fl btn btn-md search-btn ml10 btn-green">查询</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-20">
+                        <div class="table table--fit table--enable-row-hover table--enable-row-transition"
+                            style="width: 100%;">
+                            <div class="table__body-wrapper">
+                                <table cellspacing="0" cellpadding="0" border="0" class="table__body"
+                                    style="width: 100%;">
+                                    <colgroup>
+                                        <col name="table_1_column_18" width="40">
+                                        <col name="table_1_column_19" width="120">
+                                        <col name="table_1_column_20" width="80">
+                                        <col name="table_1_column_21" width="80">
+                                        <col name="table_1_column_22" width="80">
+                                        <col name="table_1_column_23" width="80">
+                                        <col name="table_1_column_24" width="80">
+                                        <col name="table_1_column_25" width="450">
+                                        <col name="table_1_column_26" width="180">
+                                        <col name="table_1_column_27" width="140">
+                                        <col name="table_1_column_28" width="80">
+                                        <col name="table_1_column_29" width="160">
+                                    </colgroup>
+
+                                    <tbody id="table">
+                                        <tr>
+                                            <th colspan="1" rowspan="1" class="table_1_column_18 is-leaf">
+                                                <div class="cell">序号</div>
+                                            </th>
+                                            <th colspan="1" rowspan="1" class="table_1_column_19 is-leaf">
+                                                <div class="cell">任务ID</div>
+                                            </th>
+                                            <th colspan="1" rowspan="1" class="table_1_column_20 is-leaf">
+                                                <div class="cell">发送账户</div>
+                                            </th>
+                                            <th colspan="1" rowspan="1" class="table_1_column_21 is-leaf">
+                                                <div class="cell">总计费数</div>
+                                            </th>
+                                            <th colspan="1" rowspan="1" class="table_1_column_22 is-leaf">
+                                                <div class="cell">变量短信</div>
+                                            </th>
+                                            <th colspan="1" rowspan="1" class="table_1_column_23 is-leaf">
+                                                <div class="cell">短信类型</div>
+                                            </th>
+                                            <th colspan="1" rowspan="1" class="table_1_column_24 is-leaf">
+                                                <div class="cell">短信签名</div>
+                                            </th>
+                                            <th colspan="1" rowspan="1" class="table_1_column_25 is-leaf">
+                                                <div class="cell">短信内容/模板内容</div>
+                                            </th>
+                                            <th colspan="1" rowspan="1" class="table_1_column_26 is-leaf">
+                                                <div class="cell">任务进度</div>
+                                            </th>
+                                            <th colspan="1" rowspan="1" class="table_1_column_27 is-leaf">
+                                                <div class="cell">创建时间</div>
+                                            </th>
+                                            <th colspan="1" rowspan="1" class="table_1_column_28 is-leaf">
+                                                <div class="cell">创建者</div>
+                                            </th>
+                                            <th colspan="1" rowspan="1" class="table_1_column_29 is-leaf">
+                                                <div class="cell">操作</div>
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="dialog__wrapper page-recharge" width="80%" style="z-index: 2001;display: none;">
+                        <div class="dialog dialog--small" style="top: 15%;">
+                            <div class="dialog__header"><span class="dialog__title">任务详情</span><button type="button"
+                                    aria-label="Close" class="dialog__headerbtn"><i
+                                        class="dialog__close icon icon-close" onclick="setMas()"></i></button></div>
+                            <div class="dialog__body">
+                                <div class="clearfix"></div>
+                                <div class="table table--fit table--enable-row-hover table--enable-row-transition"
+                                    element-loading-text="数据量较大，请耐心等待..." style="width: 100%; position: relative;">
+                                    <div class="table__body-wrapper">
+                                        <table cellspacing="0" cellpadding="0" border="0" class="table__body"
+                                            style="width: 1560px;">
+                                            <colgroup>
+                                                <col name="table_1_column_13" width="40">
+                                                <col name="table_1_column_14" width="120">
+                                                <col name="table_1_column_15" width="80">
+                                                <col name="table_1_column_16" width="80">
+                                                <col name="table_1_column_17" width="80">
+                                                <col name="table_1_column_18" width="80">
+                                                <col name="table_1_column_19" width="80">
+                                                <col name="table_1_column_20" width="200">
+                                                <col name="table_1_column_21" width="180">
+                                                <col name="table_1_column_22" width="80">
+                                                <col name="table_1_column_23" width="80">
+                                                <col name="table_1_column_24" width="80">
+                                                <col name="table_1_column_25" width="80">
+                                                <col name="table_1_column_26" width="80">
+                                                <col name="table_1_column_27" width="140">
+                                                <col name="table_1_column_28" width="80">
+                                            </colgroup>
+                                            <tbody>
+                                                <tr>
+                                                    <th colspan="1" rowspan="1" class="table_1_column_13 is-leaf">
+                                                        <div class="cell">序号</div>
+                                                    </th>
+                                                    <th colspan="1" rowspan="1" class="table_1_column_14 is-leaf">
+                                                        <div class="cell">任务ID</div>
+                                                    </th>
+                                                    <th colspan="1" rowspan="1" class="table_1_column_15 is-leaf">
+                                                        <div class="cell">发送账户</div>
+                                                    </th>
+                                                    <th colspan="1" rowspan="1" class="table_1_column_16 is-leaf">
+                                                        <div class="cell">总计费数</div>
+                                                    </th>
+                                                    <th colspan="1" rowspan="1" class="table_1_column_17 is-leaf">
+                                                        <div class="cell">变量短信</div>
+                                                    </th>
+                                                    <th colspan="1" rowspan="1" class="table_1_column_18 is-leaf">
+                                                        <div class="cell">短信类型</div>
+                                                    </th>
+                                                    <th colspan="1" rowspan="1" class="table_1_column_19 is-leaf">
+                                                        <div class="cell">短信签名</div>
+                                                    </th>
+                                                    <th colspan="1" rowspan="1" class="table_1_column_20 is-leaf">
+                                                        <div class="cell">短信内容/模板内容</div>
+                                                    </th>
+                                                    <th colspan="1" rowspan="1" class="table_1_column_21 is-leaf">
+                                                        <div class="cell">任务进度</div>
+                                                    </th>
+                                                    <th colspan="1" rowspan="1" class="table_1_column_22 is-leaf">
+                                                        <div class="cell">待发送条数</div>
+                                                    </th>
+                                                    <th colspan="1" rowspan="1" class="table_1_column_23 is-leaf">
+                                                        <div class="cell">成功条数</div>
+                                                    </th>
+                                                    <th colspan="1" rowspan="1" class="table_1_column_24 is-leaf">
+                                                        <div class="cell">失败条数</div>
+                                                    </th>
+                                                    <th colspan="1" rowspan="1" class="table_1_column_25 is-leaf">
+                                                        <div class="cell">未知条数</div>
+                                                    </th>
+                                                    <th colspan="1" rowspan="1" class="table_1_column_26 is-leaf">
+                                                        <div class="cell">拦截条数</div>
+                                                    </th>
+                                                    <th colspan="1" rowspan="1" class="table_1_column_27 is-leaf">
+                                                        <div class="cell">创建时间</div>
+                                                    </th>
+                                                    <th colspan="1" rowspan="1" class="table_1_column_28 is-leaf">
+                                                        <div class="cell">创建者</div>
+                                                    </th>
+                                                </tr>
+                                                <tr class="table__row">
+                                                    <td class="table_1_column_13">
+                                                        <div class="cell">1</div>
+                                                    </td>
+                                                    <td class="table_1_column_14">
+                                                        <div class="cell">49638</div>
+                                                    </td>
+                                                    <td class="table_1_column_15">
+                                                        <div class="cell">b03xx8</div>
+                                                    </td>
+                                                    <td class="table_1_column_16">
+                                                        <div class="cell">639</div>
+                                                    </td>
+                                                    <td class="table_1_column_17">
+                                                        <div class="cell">变量短信</div>
+                                                    </td>
+                                                    <td class="table_1_column_18">
+                                                        <div class="cell">营销</div>
+                                                    </td>
+                                                    <td class="table_1_column_19">
+                                                        <div class="cell">高孚信科</div>
+                                                    </td>
+                                                    <td class="table_1_column_20">
+                                                        <div class="cell">
+                                                            <div class="content ellipsis">
+                                                                尊敬的{}，您所供职的{}已为您开通了灵活薪酬福利服务，请登录应用宝下载‘58工资’，用户名:
+                                                                {},密码: {} ,登录。也可通过手机浏览器登录:
+                                                                www.58gongzi.com.cn, 下载链接:
+                                                                https://a.app.qq.com/o/simple.jsp?pkgname=pp.gz58.v1，退订td
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="table_1_column_21">
+                                                        <div class="cell">
+                                                            <div class="p-10">
+                                                                <div class="progress tx-c"><span>100
+                                                                        %</span>
+                                                                    <div class="bar" style="width: 100%;">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="table_1_column_22">
+                                                        <div class="cell">0</div>
+                                                    </td>
+                                                    <td class="table_1_column_23">
+                                                        <div class="cell">197</div>
+                                                    </td>
+                                                    <td class="table_1_column_24">
+                                                        <div class="cell">15</div>
+                                                    </td>
+                                                    <td class="table_1_column_25">
+                                                        <div class="cell">0</div>
+                                                    </td>
+                                                    <td class="table_1_column_26">
+                                                        <div class="cell">1</div>
+                                                    </td>
+                                                    <td class="table_1_column_27">
+                                                        <div class="cell">2020-10-10 20:25:14</div>
+                                                    </td>
+                                                    <td class="table_1_column_28">
+                                                        <div class="cell">高孚（上海）信息科技服务有限公司</div>
+                                                    </td>
+                                                </tr>
+                                                <!---->
+                                            </tbody>
+                                        </table>
+                                        <!---->
+                                    </div>
+                             
+                                    <div class="table__column-resize-proxy" style="display: none;"></div>
+                                    <div class="resize-triggers">
+                                        <div class="expand-trigger">
+                                            <div style="width: 1112px; height: 133px;"></div>
+                                        </div>
+                                        <div class="contract-trigger"></div>
+                                    </div>
+                                    <div class="loading-mask" style="display: none;">
+                                        <div class="loading-spinner"><svg viewBox="25 25 50 50" class="circular">
+                                                <circle cx="50" cy="50" r="20" fill="none" class="path">
+                                                </circle>
+                                            </svg>
+                                            <p class="loading-text">数据量较大，请耐心等待...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!---->
+                                <div style="margin: 55px 0px;"></div>
+                                <div class="content-item">
+                                    <div class="check-box-area">
+                                        <div class="col col-24 col-xs-2 col-sm-2 col-md-2 col-lg-2" xl="2">
+                                            <div class="clearfix fl mb10">
+                                                <div class="clearfix fl item"><span class="fl title">导出号码包：</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="col col-24 col-xs-2 col-sm-2 col-md-2 col-lg-2" xl="2"><label
+                                                class="checkbox"><span class="checkbox__input"><span
+                                                        class="checkbox__inner"></span><input type="checkbox"
+                                                        class="checkbox__original" value=""></span><span
+                                                    class="checkbox__label">全部状态
+                                                    <!----></span></label></div>
+                                        <div class="checkbox-group">
+                                            <div class="col col-24 col-xs-2 col-sm-2 col-md-2 col-lg-2" xl="2"><label
+                                                    class="checkbox"><span class="checkbox__input"><span
+                                                            class="checkbox__inner"></span><input type="checkbox"
+                                                            class="checkbox__original" value="1"></span><span
+                                                        class="checkbox__label">成功
+                                                        <!----></span></label></div>
+                                            <div class="col col-24 col-xs-2 col-sm-2 col-md-2 col-lg-2" xl="2"><label
+                                                    class="checkbox"><span class="checkbox__input"><span
+                                                            class="checkbox__inner"></span><input type="checkbox"
+                                                            class="checkbox__original" value="2"></span><span
+                                                        class="checkbox__label">失败
+                                                        <!----></span></label></div>
+                                            <div class="col col-24 col-xs-2 col-sm-2 col-md-2 col-lg-2" xl="2"><label
+                                                    class="checkbox"><span class="checkbox__input"><span
+                                                            class="checkbox__inner"></span><input type="checkbox"
+                                                            class="checkbox__original" value="3"></span><span
+                                                        class="checkbox__label">未知
+                                                        <!----></span></label></div>
+                                            <div class="col col-24 col-xs-2 col-sm-2 col-md-2 col-lg-2" xl="2"><label
+                                                    class="checkbox"><span class="checkbox__input"><span
+                                                            class="checkbox__inner"></span><input type="checkbox"
+                                                            class="checkbox__original" value="4"></span><span
+                                                        class="checkbox__label">拦截
+                                                        <!----></span></label></div>
+                                            <div class="col col-24 col-xs-2 col-sm-2 col-md-2 col-lg-2" xl="2"><label
+                                                    class="checkbox"><span class="checkbox__input"><span
+                                                            class="checkbox__inner"></span><input type="checkbox"
+                                                            class="checkbox__original" value="5"></span><span
+                                                        class="checkbox__label">待发送
+                                                        <!----></span></label></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="margin: 65px 0px;"></div><input type="hidden" class="fl input-md input"
+                                    value="49638">
+                            </div>
+                            <div class="dialog__footer"><span class="dialog-footer"><button type="button"
+                                        class="button button--success">
+                                        <!---->
+                                        <!----><span>导出号码包</span></button><button type="button"
+                                        class="button button--default" onclick="setMas()">
+                                        <!---->
+                                        <!----><span>关闭</span></button></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    </div>
+    </div>
+    <!-- /复制功能插件/ -->
+    <script type="text/javascript" src="./new_modules/clipboard.min.js"></script>
+    <!-- 图表 -->
+    <script type="text/javascript" src="./new_modules/echarts.common.min.js"></script>
+    <script type="text/javascript" src="/metronic/mobile/js/jquery.min.js"></script>
+    <script script src="/metronic/mobile/js/bootstrap.min.js" type="text/javascript"></script>
+    <script script src="/metronic/mobile/js/moment-with-locales.js" type="text/javascript"></script>
+    <!-- // 日期插件 -->
+    <script src="./new_modules/bootstrap-datetimepicker.min.js"></script>
+    <script>
+        $(function () {
+            $(".input-datepicker").datetimepicker({
+                format: 'YYYY-MM-DD',
+                locale: moment.locale('zh-cn')
+            });
+        });
+        //弹窗开关
+        var setMas = function () {
+            const a = document.getElementsByClassName('page-recharge')[0]
+            const visible = getComputedStyle(a).display != 'none' && getComputedStyle(a).visibility != 'hidden';
+            console.log(visible, "????")
+            if (visible) {
+                a.style.display = 'none'
+            } else {
+                a.style.display = 'inline-block'
+            }
+
+        }
+        window.onload = function () {
+            const as = [
+                {
+                    id: '1',
+                    a: '49638',
+                    b: 'b03xx8',
+                    c: '639',
+                    d: '变量短信',
+                    e: '营销',
+                    f: '高孚信科',
+                    g: '  尊敬的{}，您所供职的{}已为您开通了灵活薪酬福利服务，请登录应用宝下载‘58工资’，用户名:{},密码: {} ,登录。也可通过手机浏览器登录: www.58gongzi.com.cn,下载链接:https://a.app.qq.com/o/simple.jsp?pkgname=pp.gz58.v1，退订td',
+                    x: '100',
+                    h: '2020-10-10 20:25:14',
+                    i: '高孚（上海）信息科技服务有限公司',
+                    j: '任务详情'
+                },
+                {
+                    id: '1',
+                    a: '49638',
+                    b: 'b03xx8',
+                    c: '639',
+                    d: '变量短信',
+                    e: '营销',
+                    f: '高孚信科',
+                    g: '  尊敬的{}，您所供职的{}已为您开通了灵活薪酬福利服务，请登录应用宝下载‘58工资’，用户名:{},密码: {} ,登录。也可通过手机浏览器登录: www.58gongzi.com.cn,下载链接:https://a.app.qq.com/o/simple.jsp?pkgname=pp.gz58.v1，退订td',
+                    x: '70',
+                    h: '2020-10-10 20:25:14',
+                    i: '高孚（上海）信息科技服务有限公司',
+                    j: '任务详情'
+                }
+            ]
+            let domList = ''
+            as.map(items => {
+                let list = ''
+                Object.keys(items).forEach((item, i) => {
+                    const dom = ((18 + i) == 29 && `<a data-v-e="" class="link-green ml10" onclick="setMas()">${items[item]}</a>` || `<div class="cell">${items[item]}</div>`)
+                    if ((18 + i) == 25) {
+                        list = list + `<td class="table_1_column_${18 + i}"><div class="cell"> <div class="content ellipsis">${items[item]}</div></div></td>`
+                    } else if ((18 + i) == 26) {
+                        list = list + `<td class="table_1_column_26">
+                                                <div class="cell">
+                                                    <div class="p-10 page-smsTask">
+                                                        <div class="progress tx-c"><span>${items[item]} %</span>
+                                                            <div class="bar" style="width: ${items[item]}%;"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>`
+                    } else {
+                        list = list + `<td class="table_1_column_${18 + i}">` + dom + `</td>`
+                    }
+                });
+                domList = domList + ` <tr>${list}</tr>`
+            })
+            $("#table").append(domList);
+            // form重置，清除刚才表单填写的内容
+        }
+    </script>
+</body>
+
+</html>

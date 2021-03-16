@@ -1,0 +1,69 @@
+<style>
+
+.content {
+
+    width: 800px;
+
+    height: 200px;
+
+    background: #fdfdfd;
+
+    margin: 0px auto;
+
+    position: relative;
+
+    top: 40px;
+
+    border: 1px solid #aaaaaa;
+
+}
+
+.content .content-header {
+
+    width: 100%;
+
+    height: 40px;
+
+    background-color:#aaa;
+
+    background-image:-moz-linear-gradient(top,#eeeeee,#cccccc);
+
+    background-image:-webkit-gradient(linear,0 0,0 100%,from(#eeeeee),to(#cccccc));
+
+    background-image:-webkit-linear-gradient(top,#eeeeee,#cccccc);
+
+    background-image:-o-linear-gradient(top,#eeeeee,#cccccc);
+
+    background-image:linear-gradient(to bottom,#eeeeee,#cccccc);
+
+    border-bottom: 1px solid #aaaaaa;
+
+}
+
+.content-loader {
+
+    overflow: scroll;
+
+}
+
+.content-loader table {
+
+    width: auto;
+
+    background: #aaa;
+
+}
+
+.content-loader table tr {
+
+    background: #eee;
+
+}
+
+.content-loader tr td {
+
+    white-space: nowrap;
+
+}
+
+</style>

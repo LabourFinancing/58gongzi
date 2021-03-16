@@ -1,0 +1,259 @@
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+<head>
+<meta charset="utf-8" />
+<title>交易管理</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+<meta content="" name="description" />
+<meta content="" name="author" />
+<#include "/common/cssResource.html">
+<#include "/common/jsResource.html">
+
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	var form = $('#searchForm');
+	form.validate({
+		errorElement: 'span', //default input error message container
+		errorClass: 'help-block help-block-error', // default input error message class
+		focusInvalid: true, // do not focus the last invalid input
+		rules: {
+			
+			begin_date: {
+				required: true
+			},
+			
+			end_date: {
+				required: true
+			}
+			
+		},
+		
+		invalidHandler: function(event, validator) { //display error alert on form submit              
+			App.scrollTo(form, 0);
+		},
+
+		highlight: function(element) { // hightlight error inputs
+			$(element).closest('.form-group').removeClass(
+				"has-success").addClass('has-error'); // set error class to the control group   
+		},
+
+		unhighlight: function(element) { // revert the change done by hightlight
+
+		},
+
+		success: function(label, element) {
+			var icon = $(element).parent('.input-icon').children(
+				'i');
+			$(element).closest('.form-group').removeClass(
+				'has-error').addClass('has-success'); // set success class to the control group
+			icon.removeClass("fa-warning").addClass("fa-check");
+		}
+		
+	});
+});
+
+
+//download excel
+var idTmr;  
+function  getExplorer() {  
+    var explorer = window.navigator.userAgent ;  
+    //ie  
+    if (explorer.indexOf("MSIE") >= 0) {  
+        return 'ie';  
+    }  
+    //firefox  
+    else if (explorer.indexOf("Firefox") >= 0) {  
+        return 'Firefox';  
+    }  
+    //Chrome  
+    else if(explorer.indexOf("Chrome") >= 0){  
+        return 'Chrome';  
+    }  
+    //Opera  
+    else if(explorer.indexOf("Opera") >= 0){  
+        return 'Opera';  
+    }  
+    //Safari  
+    else if(explorer.indexOf("Safari") >= 0){  
+        return 'Safari';  
+    }  
+}  
+function Download(exceptTxnList) {  
+    if(getExplorer()=='ie')  
+    {  
+        var curTbl = document.getElementById(exceptTxnList);  
+        var oXL = new ActiveXObject("Excel.Application");  
+        var oWB = oXL.Workbooks.Add();  
+        var xlsheet = oWB.Worksheets(1); 
+        xlsheet.Columns(8).NumberFormatLocal="@"   //设置本文格式
+        xlsheet.Columns(9).NumberFormatLocal="@"   //设置本文格式
+        var sel = document.body.createTextRange();  
+        sel.moveToElementText(curTbl);
+        sel.select();  
+        sel.execCommand("Copy");  
+        xlsheet.Paste();  
+        oXL.Visible = true; 
+        try {  
+            var fname = oXL.Application.GetSaveAsFilename("FailTxn.xls", "Excel Spreadsheets (*.xls), *.xls");  
+        } catch (e) {  
+            print("Nested catch caught " + e);  
+        } finally {  
+            oWB.SaveAs(fname);  
+            oWB.Close(savechanges = false);  
+            oXL.Quit();  
+            oXL = null;  
+            idTmr = window.setInterval("Cleanup();", 1);  
+        }  
+
+    }  
+    else  
+    {  
+        tableToExcel(exceptTxnList)  
+    }  
+}  
+function Cleanup() {  
+    window.clearInterval(idTmr);  
+    CollectGarbage();  
+}  
+var tableToExcel = (function() {  
+    var uri = 'data:application/vnd.ms-excel;base64,',  
+            template = '<html><head><meta charset="UTF-8"></head><body><table>{table}</table></body></html>',  
+            base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) },  
+            format = function(s, c) {  
+                return s.replace(/{(\w+)}/g,  
+                        function(m, p) { return c[p]; }) }  
+    return function(table, name) {  
+        if (!table.nodeType) table = document.getElementById(table)  
+        var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}  
+        window.location.href = uri + base64(format(template, ctx))  
+    }  
+})()
+
+
+</script>
+
+</head>
+<body>
+	<!-- BEGIN PAGE BASE CONTENT -->
+	<div class="row">
+		<div class="col-xs-push-12">
+			<!-- BEGIN EXAMPLE TABLE PORTLET-->
+			<div class="portlet light portlet-fit bordered">
+				<div class="portlet-title">
+					<ul class="page-breadcrumb breadcrumb">
+						<li><a>个人服务台</a> <i class="fa fa-circle"></i></li>
+						<li><a>历史交易管理</a> <i class="fa fa-circle"></i></li>
+						<li><span class="active">异常交易查询</span></li>
+					</ul>
+				</div>
+				<div class="portlet-body">
+					<form id="searchForm" method="post" action="${ctx}/HistoricalTxnQueryController/exceptTxnSearchListSearchList" class="form-horizontal">
+						<div class="form-body">
+							<div class="row">
+						        <@shiro.hasPermission name="PERSONALINFO_EDIT">
+								<div class="col-sm-3">
+							      <div class="form-group">
+										 <label class="control-label col-sm-3" style="padding-left: 0">姓名:</label>
+										<div class="col-sm-8" style="padding-left: 0;">
+										<input type="text" class="form-control" name="name" value="${name}"/>
+										</div>
+								   </div>
+						        </div>
+						        </@shiro.hasPermission>
+						        <@shiro.hasPermission name="PERSONALINFO_EDIT">
+								<div class="col-sm-3">
+							      <div class="form-group">
+										<label class="control-label col-sm-3" style="padding-left: 0">公司名:</label>
+										<div class="col-sm-9" style="padding-left: 0;">
+										<input type="text" class="form-control" name="company" value="${company}"/>
+										</div>
+								   </div>
+						         </div>
+						        </@shiro.hasPermission>
+						     </div>
+					     <div class="row">
+					    	<div class="form-actions">
+								<div class="col-xs-push-12">
+									<div class="btn-group pull-right">
+										<input type="button" onclick="Download('exceptTxnList')" class="btn green" name="Downloadbutton" value="下载"></button>
+									</div>
+								</div>
+						     </div>
+						    <div class="form-actions">
+								<div class="col-xs-push-12">
+									<div class="btn-group pull-right">&nbsp
+										<button type="submit" class="btn green">查询</button>
+									</div>
+								</div>
+						    </div>
+						 </div>
+					   </div>
+					  <div class="table-toolbar">
+					</form>
+				</div>
+             <div class="row ls-change-tit">
+                <div class="ls-seaarch-result">
+                    <div class="table-responsive">
+                    <lable>&nbsp&nbsp&nbsp&nbsp查询结果:</lable>
+                    <div style="width:99.5%; height:608px; overflow:scroll;">
+					 <table id="exceptTxnList" class="table table-bordered" id="exceptTxnListTable" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+						<thead>
+							<tr>
+								<th>交易单号</th>
+								<th>交易时间</th>
+								<th>姓名</th>
+								<th>公司</th>
+								<th>身份证</th>
+								<th>交易金额</th>
+								<th>银行卡号</th>
+								<th>手机号</th>
+								<th>返回码</th>
+								<th>返回错误码</th>
+								<th>返回信息</th>
+								<th>备注</th>
+							</tr>
+						</thead>
+					  <tbody>
+							<#list StaffPrepayApplicationPaymentFailed as StaffPrepayApplicationPaymentFailedList>
+								<tr>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.orderCode}</td>
+								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.tranTime}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.name}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.company}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.certNo}</td>
+								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${StaffPrepayApplicationPaymentFailedList.tranAmt}</td>
+								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.accNo}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.phone}</td>																	
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.returnPic}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.RCcode}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.remark}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.reqReserved}</td>
+								</tr>
+							</#list>
+						</tbody>
+					</table>
+					</div>
+		         </div>
+			    </div>
+			   </div>
+		     </div>
+			</div>
+			<!-- END EXAMPLE TABLE PORTLET-->
+		</div>
+	<!-- 
+	END PAGE BASE CONTENT 
+    -->
+	<!--  
+	<form id="searchForm" action="${ctx}/managerController/managerList" method="post">
+		<input id="pageNum" name="pageNum" type="hidden" value="${page.pageNum}" />
+		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}" />
+	</form>
+	-->
+</body>
+</html>

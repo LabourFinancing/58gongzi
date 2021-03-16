@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qucai.sample.dao.RoleDao">
+
+	<resultMap id="BaseResultMap" type="com.qucai.sample.entity.Role">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="platform" property="platform" jdbcType="INTEGER" />
+		<result column="enterprise_id" property="enterpriseId" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="creator" property="creator" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="modifier" property="modifier" jdbcType="VARCHAR" />
+		<result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<resultMap id="RoleGrantMap" type="com.qucai.sample.vo.RoleGrant" extends="BaseResultMap">
+		<result column="selected" property="selected" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		a.id, a.name, a.status, a.platform, a.enterprise_id, a.remark, a.creator, a.create_time, a.modifier, a.modify_time
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_role a
+		where a.id = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from t_role
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="insertSelective" parameterType="com.qucai.sample.entity.Role">
+		insert into t_role
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="platform != null">
+				platform,
+			</if>
+			<if test="enterpriseId != null">
+				enterprise_id,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="creator != null">
+				creator,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="modifier != null">
+				modifier,
+			</if>
+			<if test="modifyTime != null">
+				modify_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+			<if test="platform != null">
+				#{platform,jdbcType=INTEGER},
+			</if>
+			<if test="enterpriseId != null">
+				#{enterpriseId,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				#{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifier != null">
+				#{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				#{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.qucai.sample.entity.Role">
+		update t_role
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="platform != null">
+				platform = #{platform,jdbcType=INTEGER},
+			</if>
+			<if test="enterpriseId != null">
+				enterprise_id = #{enterpriseId,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				creator = #{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifier != null">
+				modifier = #{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<select id="findAllList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_role a
+		where 1=1
+		<if test="platform != null">
+			and platform = #{platform,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="findAuthRoleListByManagerId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_role a
+		left join tr_manager_role mr on a.id = mr.role_id
+		left join t_manager m on mr.manager_id = m.id
+		where m.id = #{managerId}
+	</select>
+	
+	<select id="findManagerRoleGrantAllList" resultMap="RoleGrantMap"
+		parameterType="java.lang.String">
+		SELECT
+			<include refid="Base_Column_List" />, 
+			(
+				SELECT
+					count(1)
+				FROM
+					tr_manager_role
+				WHERE
+					role_id = a.id
+				AND manager_id = #{managerId}
+			) AS selected
+		FROM
+			t_role a
+		WHERE a.platform = 0
+	</select>
+
+	<select id="existRoleName" resultType="Integer"
+		parameterType="map">
+		select
+		count(1)
+		from t_role a
+		where a.name = #{name}
+		<if test="id != null">
+			and a.id != #{id}
+		</if>
+		and a.platform = #{platform}
+	</select>
+	
+	<select id="findEntRoleGrantAllList" resultMap="RoleGrantMap"
+		parameterType="java.util.Map">
+		SELECT
+			<include refid="Base_Column_List" />, 
+			(
+				SELECT
+					count(1)
+				FROM
+					tr_enterprise_user_role
+				WHERE
+					role_id = a.id
+				AND enterprise_user_id = #{enterpriseUserId}
+			) AS selected
+		FROM
+			t_role a
+		WHERE a.platform = 1
+		and a.creator in (SELECT id from t_manager)
+	</select>
+	
+	<select id="selectByName" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select 
+			<include refid="Base_Column_List" />
+		from t_role a
+		where name = #{name,jdbcType=VARCHAR}
+	</select>
+</mapper>

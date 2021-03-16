@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jQuery WeUI</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <link rel="stylesheet" href="./lib/weui.css">
+    <link rel="stylesheet" href="./lib/jquery-weui.min.css">
+    <link rel="stylesheet" href="./css/index.css">
+
+</head>
+
+<body ontouchstart>
+
+<!-- 框架连接 https://jqweui.cn/components#preview -->
+<h1 class="form-title">工资预支</h1>
+
+<div class="weui-cells weui-cells_form">
+    <div class="weui-cell cannot_set">
+        <div class="weui-cell__hd"><label class="weui-label">用户名：</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" value="阿柴" readonly>
+        </div>
+    </div>
+    <div class="weui-cell cannot_set">
+        <div class="weui-cell__hd"><label class="weui-label">身份证：</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" value="31011519830805251X" disabled>
+        </div>
+    </div>
+    <div class="weui-cell cannot_set">
+        <div class="weui-cell__hd"><label class="weui-label">公司名：</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" value="云开源人力资源" disabled>
+        </div>
+    </div>
+    <div class="weui-cell cannot_set">
+        <div class="weui-cell__hd"><label class="weui-label">工资卡号：</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" value="6228480031725525211" disabled>
+        </div>
+    </div>
+    <div class="weui-cell cannot_set">
+        <div class="weui-cell__hd"><label class="weui-label">手机号：</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" value="18001869161" disabled>
+        </div>
+    </div>
+    <div class="weui-cell cannot_set">
+        <div class="weui-cell__hd"><label class="weui-label">预支工资基数：</label></div>
+        <!-- 有 money 类名，表示该内容会自动显示￥，不适用于金额显示的话，请去掉该类名 -->
+        <div class="weui-cell__bd money">
+            <input class="weui-input" type="text" value="8888.00" disabled>
+        </div>
+    </div>
+    <div class="weui-cell cannot_set">
+        <div class="weui-cell__hd"><label class="weui-label">当前可预支数：</label></div>
+        <div class="weui-cell__bd money">
+            <!-- total 表示金额用绿色 -->
+            <input class="weui-input total" type="text" value="8888.00" disabled>
+        </div>
+    </div>
+    <div class="weui-cell cannot_set">
+        <div class="weui-cell__hd"><label class="weui-label">剩余可预支数：</label></div>
+        <div class="weui-cell__bd money">
+            <!-- balance 表示金额用红色 -->
+            <input class="weui-input balance" type="text" value="0.00" disabled>
+        </div>
+    </div>
+
+    <div class="weui-cell weui-cell_select weui-cell_select-after">
+        <div class="weui-cell__hd">
+            <label for="select" class="weui-label">产品名：</label>
+        </div>
+        <div class="weui-cell__bd">
+            <!-- 根据需要修改表单name -->
+            <select class="weui-select" name="select">
+                <!-- 根据需要增加选项和对应值 -->
+                <option value="1">随薪得</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- weui-cell_warn 为报错提示类，增加后 -->
+    <div class="weui-cell " id="wantMoney">
+        <div class="weui-cell__hd">
+            <label for="money"  class="weui-label">预支金额：</label>
+        </div>
+        <div class="weui-cell__bd">
+            <!-- 预设正则 -->
+            <input name="money" class="weui-input" type="number" pattern="^[1-9]\d*\.\d*|0\.\d*[1-9]\d*$" placeholder="请输入预支金额">
+            <i class="weui-icon-warn"></i>
+        </div>
+    </div>
+    <div class="weui-cell weui-cell_vcode ">
+        <div class="weui-cell__hd">
+            <label for="SMScode" class="weui-label">验证码：</label>
+        </div>
+        <div class="weui-cell__bd">
+            <input name="SMScode" class="weui-input" type="number" placeholder="">
+            <!-- 容器添加 weui-cell_warn 类时，该 icon 显示  -->
+            <i class="weui-icon-warn"></i>
+        </div>
+        <div class="weui-cell__ft">
+            <!-- js交互请自行添加 -->
+            <button class="weui-vcode-btn" id="getSMS">获取验证码</button>
+        </div>
+    </div>
+</div>
+<div class="agree">
+    <label class="weui-agree agree_l">
+        <!-- 该选择内容不需要加在表单内，请单独处理交互 -->
+        <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox">
+        <span class="weui-agree__text">已阅读并同意</span>
+    </label>
+    <span class="weui-agree weui-agree__text">
+        <!-- 协议不需要自己写交互，已处理 -->
+        <a href="javascript:return;" class="open-popup show_agree" data-target="#showAgree">《相关协议与条例》</a>
+    </span>
+</div>
+
+
+<div class="weui-btn-area">
+    <a class="weui-btn weui-btn_primary" href="javascript:" id="submit">支取</a>
+    <a class="weui-btn weui-btn_default" href="javascript:" id="cancle">取消</a>
+</div>
+
+<!-- 协议内容弹层，有调整的话，修改下面的内容即可，不需要 iframe 引入 -->
+<div id="showAgree" class="weui-popup__container popup-bottom">
+    <div class="weui-popup__overlay"></div>
+    <div class="weui-popup__modal">
+        <div class="toolbar">
+            <div class="toolbar-inner">
+                <a href="javascript:;" class="picker-button close-popup">关闭</a>
+                <h1 class="title">相关协议与条例</h1>
+            </div>
+        </div>
+        <div class="modal-content">
+
+            <h3>员工预支（灵活薪酬)工资规则</h3>
+
+            <p>本协议为申请人认可工资预支之以下条条款，并遵守企业财务与人事制度下的预支工资制度。</p>
+            <p>如申请人在企业服务期间有任何不符合用人单位要求或违反用人单位规章制度的，都将不适用此员工资产品。</p>
+            <p>为关心和支持公司员工的日常生活，让员工能安心努力的工作，特制定以下本司员工预支工资规则：</p>
+            <h4>一、预支条件：</h4>
+            <p>1、入职我公司且过试用期后的一年及一年以上合同员工;</p>
+            <p>2、入职以来无不良影响或旷工记录的；</p>
+            <h4>二、允许预支金额：</h4>
+            <p>每位符合以上条件的员工，一个月预支金额不得超过本人当前（当月未发）工资的100%，且最高限额为10000元。</p>
+            <p>例：员工张三4月份未发工资为5000元，每月发薪日为25日.</p>
+            <p>当前为4月1日，则张三如选择"随薪得"产品且预支一个月全额(可以根据实际情况填写预支数额)工资,</p>
+            <p>当天可预支金额为：5000-216（费用）= 4784元。</p>
+            <p>如预支数额小于一月工资，系统将会根据填入的具体预支金额数,自动扣去服务费、平台使用费、交易费（如有）,计算后显示所剩可预支金额数。</p>
+            <h4>三、预支时间：</h4>
+            <p>前一月发薪日后一天开始可以预支下一月的工资直至下月发薪日截止。最长为31天。</p>
+            <h4>四、预支方式：</h4>
+            <p>1.登陆企业微信号,或网站自行申请。</p>
+            <p>2.发放工资日,前往财务，由财务登陆系统代为填写暂支单并打印明细由财务告知、预支工资员工本人的邮箱或短信通知。</p>
+            <p>3.如去除各项费用后已预支完当月工资数额，则当月发薪日不再发放工资。如已预支金额不满的当月税后工资,余额部分将会在发薪日自动发放到工资卡。</p>
+
+            <p class="agree_footer">
+                <span>制定：长河人资</span>
+                <span>核实：企业人事,财务</span>
+            </p>
+
+        </div>
+    </div>
+</div>
+
+<div class="weui-footer">
+    <!-- 更多链接，根据需要增加a标签 -->
+    <p class="weui-footer__links">
+        <a href="javascript:void(0);" class="weui-footer__link">历史记录</a>
+        <a href="javascript:void(0);" class="weui-footer__link">使用帮助</a>
+    </p>
+    <p class="weui-footer__text">2017 © FuJian Changehe HR ltd</p>
+</div>
+
+<!-- 基础依赖脚本 -->
+<script src="./lib/jquery-2.1.4.js"></script>
+<script src="./lib/fastclick.js"></script>
+<script>
+    $(function () {
+        FastClick.attach(document.body);
+    });
+</script>
+
+<!-- UI 库依赖脚本 -->
+<script src="./lib/jquery-weui.js"></script>
+
+<!-- 自定义脚本 -->
+<script>
+    // 表单提交
+    $("#submit").click(function () {
+        // 指定输入框报错
+        $('#wantMoney').addClass('weui-cell_warn');
+
+        return false;
+    });
+    // 输入验证
+    $('#wantMoney input').keyup(function () {
+        // 增加该类名显示报错提示（红色感叹号）
+        $('#wantMoney')[this.value.length > 0 ? 'removeClass' : 'addClass']('weui-cell_warn');
+        if(this.value.length == 0) {
+            // 如果需要显示区顶部进行文字提示，调用下面方法即可
+            $.toptip('请输入正确金额', 'error');
+        }
+    })
+
+    // 提示
+    // $.alert({
+    //     title: '提示标题',
+    //     text: '提示内容',
+    //     onOK: function () {
+    //         //点击确认
+    //         console.log('do something');
+    //     }
+    // });
+
+    // 操作对话框
+    // $.confirm({
+    //     title: '标题',
+    //     text: '内容文案',
+    //     onOK: function () {
+    //         //点击确认
+    //     },
+    //     onCancel: function () {
+    //     }
+    // });
+
+    // $.toast("操作成功", "sucess");
+    // $.toast("取消操作", "cancel");
+
+    // $.toptip('请输入正确金额', 'error');
+
+</script>
+</body>
+</html>

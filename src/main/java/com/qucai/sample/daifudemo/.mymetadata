@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="demo"
+  id="myeclipse.1319445866750"
+  context-root="/daifudemo"
+  j2ee-spec="5.0"
+  archive="daifudemo.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="gbk"?>
+<cycles>
+	<!-- 批量退款 -->
+	<cycleItem istxn='0' objsvr="ppdtimbpc1" txncod='ppdRefundTimer'
+		txndatatype='text/etf' txndat='' funcname='' funcpath='' sndflag='0'
+		minute='/30' hour='*' monthday='*' month='*' trace="1">
+		<data><root><gda><sys_cnl>SYS</sys_cnl><bus_cnl>SYS</bus_cnl></gda><ppd_rfd_mod>S</ppd_rfd_mod></root>
+		</data>
+	</cycleItem>
+	
+	<!-- 订单定时查询 -->
+	<cycleItem istxn='0' objsvr="ppdtimbpc1" txncod='ppdOrdQryTimer'
+		txndatatype='text/etf' txndat='' funcname='' funcpath='' sndflag='0'
+		minute='10' hour='/1' monthday='*' month='*' trace="1">
+		<data><root><gda><sys_cnl>SYS</sys_cnl><bus_cnl>SYS</bus_cnl></gda></root></data>
+	</cycleItem>
+</cycles>
+

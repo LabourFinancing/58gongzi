@@ -1,0 +1,434 @@
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+<head>
+<meta charset="utf-8" />
+<title>企业资金管理</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+<meta content="" name="description" />
+<meta content="" name="author" />
+<#include "/common/commonContext.html">
+<script src="${ctx}/metronic/global/plugins/loading.js" type="text/javascript"></script>
+<#include "/common/cssResource.html">
+<link href="${ctx}/metronic/global/plugins/jquery-treetable/css/jquery.treetable.css" rel="stylesheet" type="text/css" />
+<link href="${ctx}/metronic/global/plugins/jquery-treetable/css/jquery.treetable.theme.default.css" rel="stylesheet" type="text/css" />
+<#include "/common/jsResource.html">
+<script src="${ctx}/metronic/global/plugins/jquery-treetable/jquery.treetable.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+
+/* $(document).ready(function() {
+	$("#financeProductTable").treetable({clickableNodeNames : true, expandable : true}).treetable("expandAll");
+
+});
+*/
+
+function openEdit(t_TreasuryDB_ID){
+	var openWindowWidth = $(document).width() * 0.8 + "px";
+	var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
+	layer.open({
+		type: 2,
+		area: openWindowWidth,
+		offset : offsetH,
+		fix: false, //不固定	
+		maxmin: true,
+		content: '${ctx}/TreasuryDBInfoController/form?t_TreasuryDB_ID='+t_TreasuryDB_ID+'&operationType=edit&platform=0',
+		success: function(layero, index){
+		    layer.iframeAuto(index);
+		}
+	});
+}
+
+function openPymtSwitch(t_TreasuryDB_OrgName){
+	var openWindowWidth = $(document).width() * 0.8 + "px";
+	var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
+	layer.open({
+		type: 2,
+		area: openWindowWidth,
+		offset : offsetH,
+		fix: false, //不固定	
+		maxmin: true,
+		contentType: "application/x-www-form-urlencoded; charset=utf-8",
+		content: '${ctx}/TreasuryDBInfoController/form?t_TreasuryDB_OrgName='+encodeURI(encodeURI(t_TreasuryDB_OrgName))+'&operationType=pymtswitch&platform=0',
+		success: function(layero, index){
+		    layer.iframeAuto(index);	
+		}
+	});
+}
+
+
+function creditCtrlOn(t_TreasuryDB_OrgName){
+	$.ajax({
+		url: '${ctx}/TreasuryDBInfoController/creditCtrl?t_TreasuryDB_OrgName='+encodeURI(encodeURI(t_TreasuryDB_OrgName))+'&operationType=on',
+		type: 'POST',
+		async: true,
+		cache: false,
+		contentType: "application/x-www-form-urlencoded; charset=utf-8", 
+		processData: false,
+		success: function(dataFP) {
+		    alert("授额开启");
+			window.location.reload();
+		},
+		error: function(dataFP) {
+			alert("授额开启失败");
+		}
+	});
+}
+
+function creditCtrlOff(t_TreasuryDB_OrgName){
+	$.ajax({
+		url: '${ctx}/TreasuryDBInfoController/creditCtrl?t_TreasuryDB_OrgName='+encodeURI(encodeURI(t_TreasuryDB_OrgName))+'&operationType=off',
+		type: 'POST',
+		async: true,
+		cache: false,
+		contentType: "application/x-www-form-urlencoded; charset=utf-8", 
+		processData: false,
+		success: function(dataFP) {
+		    alert("授额关闭");
+			window.location.reload();
+		},
+		error: function(dataFP) {
+			alert("授额关闭失败");
+		}
+	});
+}
+
+function creditRefresh(t_TreasuryDB_OrgName){
+	if(window.confirm('你确定要刷新授额吗？')){
+        //alert("确定");
+    	$.ajax({
+    		url: '${ctx}/TreasuryDBInfoController/creditCtrl?t_TreasuryDB_OrgName='+encodeURI(encodeURI(t_TreasuryDB_OrgName))+'&operationType=Refresh',
+    		type: 'POST',
+    		async: true,
+    		cache: false,
+    		contentType: "application/x-www-form-urlencoded; charset=utf-8", 
+    		processData: false,
+    		success: function(dataFP) {
+    			var result = eval("(" + dataFP + ")");
+    			if(result.ret == "0") {
+    			    alert("授额刷新成功");
+    			} else {
+    			    alert("授额刷新失败");
+    			}
+
+    			window.location.reload();
+    		},
+    		error: function(dataFP) {
+    			alert("授额刷新异常");
+    		}
+    	});
+     }else{
+        //alert("取消");
+        return;
+    }
+
+}
+
+//download excel
+var idTmr;  
+function  getExplorer() {  
+    var explorer = window.navigator.userAgent ;  
+    //ie  
+    if (explorer.indexOf("MSIE") >= 0) {  
+        return 'ie';  
+    }  
+    //firefox  
+    else if (explorer.indexOf("Firefox") >= 0) {  
+        return 'Firefox';  
+    }  
+    //Chrome  
+    else if(explorer.indexOf("Chrome") >= 0){  
+        return 'Chrome';  
+    }  
+    //Opera  
+    else if(explorer.indexOf("Opera") >= 0){  
+        return 'Opera';  
+    }  
+    //Safari  
+    else if(explorer.indexOf("Safari") >= 0){  
+        return 'Safari';  
+    }  
+}  
+function Download(TreasuryRec) {  
+    if(getExplorer()=='ie')  
+    {  
+        var curTbl = document.getElementById(TreasuryRec);  
+        var oXL = new ActiveXObject("Excel.Application");  
+        var oWB = oXL.Workbooks.Add();  
+        var xlsheet = oWB.Worksheets(1); 
+        xlsheet.Columns(8).NumberFormatLocal="@"   //设置本文格式
+        xlsheet.Columns(9).NumberFormatLocal="@"   //设置本文格式
+        var sel = document.body.createTextRange();  
+        sel.moveToElementText(curTbl);
+        sel.select();  
+        sel.execCommand("Copy");  
+        xlsheet.Paste();  
+        oXL.Visible = true; 
+        try {  
+            var fname = oXL.Application.GetSaveAsFilename("hisTxn.xls", "Excel Spreadsheets (*.xls), *.xls");  
+        } catch (e) {  
+            print("Nested catch caught " + e);  
+        } finally {  
+            oWB.SaveAs(fname);  
+            oWB.Close(savechanges = false);  
+            oXL.Quit();  
+            oXL = null;  
+            idTmr = window.setInterval("Cleanup();", 1);  
+        }  
+
+    }  
+    else  
+    {  
+        tableToExcel(TreasuryRec)  
+    }  
+}  
+function Cleanup() {  
+    window.clearInterval(idTmr);  
+    CollectGarbage();  
+}  
+var tableToExcel = (function() {  
+    var uri = 'data:application/vnd.ms-excel;base64,',  
+            template = '<html><head><meta charset="UTF-8"></head><body><table>{table}</table></body></html>',  
+            base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) },  
+            format = function(s, c) {  
+                return s.replace(/{(\w+)}/g,  
+                        function(m, p) { return c[p]; }) }  
+    return function(table, name) {  
+        if (!table.nodeType) table = document.getElementById(table)  
+        var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}  
+        window.location.href = uri + base64(format(template, ctx))  
+    }  
+})()
+
+</script>
+<style type="text/css">
+.btn-fixed {
+-webkit-border-radius: 20px;
+-moz-border-radius: 20px;
+border-radius: 10px;
+}
+.font-opstyle:hover {
+font-size:12px;
+}
+input.font-opstyle:hover{color:red}
+</style>
+</head>
+<body>
+	<!-- BEGIN PAGE BASE CONTENT -->
+	<div class="row">
+		<div class="col-xs-push-12">
+			<!-- BEGIN EXAMPLE TABLE PORTLET-->
+			<div class="portlet light portlet-fit bordered">
+				<div class="portlet-title">
+					<ul class="page-breadcrumb breadcrumb">
+						<li><a>企业服务台</a> <i class="fa fa-circle"></i></li>
+						<li><a>企业资金管理</a> <i class="fa fa-circle"></i></li>
+						<li><span class="active">资金账户管理</span></li>
+					</ul>
+				</div>	
+				<div class="table-responsive">
+	                   	<table class="table table-bordered">
+	                    	<thead>
+	                    	   <tr bgcolor="#006b8e" style="color:white">
+	                                <th>&nbsp;&nbsp;商户名称</th>
+	                                <th>总账户可用余额</th>
+	                                <th>冻结金额</th>
+	                                <th>押金（机构收取）</th>
+	                                <th>应收平台使用费</th>
+	                                <th>当月交易总金额</th>
+	                                <th>当日成功交易总金额</th>
+	                                <th>当日问题交易总金额</th>
+	                            </tr>
+	                            <@shiro.hasPermission name="TREASURYDBINFO_OVERVIEW">
+	                            <tr>
+	                            	<td>&nbsp;&nbsp;预支工资平台</td>
+	                            	<td style="width:18px;height:18px"><span id="t_TreasuryDB_Balance" ><span>￥ </span>${TreasuryDBStatisticOverAll.t_TreasuryDB_Balance}<span>元</span></span></td>
+	                            	<td style="width:18px;height:18px"><span id="t_TreasuryDB_RiskMargin"><span>￥ </span>${TreasuryDBStatisticOverAll.t_TreasuryDB_RiskMargin}<span>元</span></td>
+	                            	<td style="width:18px;height:18px"><span id="t_TreasuryDB_Prooffund"><span>￥ </span>${TreasuryDBStatisticOverAll.t_TreasuryDB_Prooffund}<span>元</span></td>
+	                            	<td style="width:18px;height:18px"><span id="t_TreasuryDB_Fee"><span>￥ </span>${TreasuryDBStatisticOverAll.t_TreasuryDB_Fee}<span>元</span></td>
+	                            	<td style="width:18px;height:18px"><span id="t_TreasuryDB_TotAmtDaily"><span>￥ </span>${TreasuryDBStatisticOverAll.t_TreasuryDB_TotAmtDaily}<span>元</span></td>
+	                            	<td style="width:18px;height:18px"><span id="t_TreasuryDB_TotAmtDailySucc"><span>￥ </span>${TreasuryDBStatisticOverAll.t_TreasuryDB_TotAmtDailySucc}<span>元</span></td>
+	                            	<td style="width:18px;height:18px"><span id="t_TreasuryDB_TotAmtDailyFail"><span>￥ </span>${TreasuryDBStatisticOverAll.t_TreasuryDB_TotAmtDailyFail}<span>元</span></td>
+	                            </tr>
+	                            </@shiro.hasPermission>
+	                            <tr>
+	                            	<td>&nbsp;&nbsp;${TreasuryDBStatisticOverAll.t_TreasuryDB_Name}杉德支付平台</td>
+	                            	<td><span id="18554095zhyes">￥  ${TreasuryDBStatisticOverAll.t_TreasuryDB_RiskMargin}元</span></td>
+	                            	<td><span id="18554095ywdjsyjes">￥   ${TreasuryDBStatisticOverAll.t_TreasuryDB_RiskMargin} (授额)元</span></td>
+	                            	<td><span id="18554095fxbzjs">￥  元</span></td>
+	                            	<td><span id="18554095yysxfs">￥ 元</span></td>
+	                            	<td><span id="18554095drjyzjes">￥ 元</span></td>
+	                            	<td><span id="18554095drcgjyzjes">￥ 元</span></td>
+	                            	<td><span id="18554095drsbjyzjes">￥  元</span></td>
+	                            </tr>
+	                            <tr>
+	                            	<td>&nbsp;&nbsp;${TreasuryDBStatisticOverAll.t_TreasuryDB_Name}电银支付平台</td>
+	                            	<td><span id="Chinaebizhyes">￥  ${TreasuryDBStatisticOverAll.t_TreasuryDB_BoPRatio}元</span></td>
+	                            	<td><span id="Chinaebiywdjsyjes">￥   ${treasuryDBInfo.t_TreasuryDB_BoPRatio} (授额)元</span></td>
+	                            	<td><span id="Chinaebifxbzjs">￥  元</span></td>
+	                            	<td><span id="Chinaebiyysxfs">￥ 元</span></td>
+	                            	<td><span id="Chinaebidrjyzjes">￥ 元</span></td>
+	                            	<td><span id="Chinaebidrcgjyzjes">￥ 元</span></td>
+	                            	<td><span id="Chinaebidrsbjyzjes">￥  元</span></td>
+	                            </tr>
+	                        </thead>
+	                    </table>
+	                </div>				
+				<div class="portlet-body">
+					<form id="searchForm" method="post" action="${ctx}/TreasuryDBInfoController/treasuryDBInfoSearchList" class="form-horizontal">
+						<div class="form-body">
+						 <table class="table table-bordered">
+	                           <tr>
+	                           <td>
+							   <div class="row">
+									<div class="form-group">
+										<label class="control-label col-sm-3" style="padding-right: 0">公司/经销商名称:</label>
+										<div class="col-sm-5" style="padding-left: 1;">
+											<input type="text" class="form-control" name="t_TreasuryDB_OrgName" value="${treasuryDBInfo.t_TreasuryDB_OrgName}" />
+										</div>
+									</div>
+								 </div>
+								 </td>
+								 <@shiro.hasPermission name="TREASURYDBINFO_EDIT">
+								 <td>
+								 <div class="row">
+									<div class="form-group">
+										<label class="control-label col-sm-3" style="padding-right: 0">资金账户备注:</label>
+										<div class="col-sm-8" style="padding-left: 1;">
+											<input type="text" class="form-control" name="t_TreasuryDB_Comment" value="${treasuryDBInfo.t_TreasuryDB_Comment}" />
+										</div>
+									</div>
+								 </div>
+								 </td>
+								 </tr>
+								 </@shiro.hasPermission>
+								 <tr>
+								 <td>
+								 <div class="row">
+									<div class="form-group">
+										<label class="control-label col-sm-3" style="padding-right: 0">备注:</label>
+										<div class="col-sm-8" style="padding-left: 1;">
+											<input type="text" class="form-control" name="remark" value="${treasuryDBInfo.remark}" />
+										</div>
+									</div>
+								 </div>
+								 </td>
+								 <td>
+								 <div class="row">
+									<div class="form-group">
+										<label class="control-label col-sm-3" style="padding-right: 0">发薪日:</label>
+										<div class="col-sm-4" style="padding-left: 1;">
+											<input type="text" class="form-control" name="t_TreasuryDB_PayrollDate" value="${treasuryDBInfo.t_TreasuryDB_PayrollDate}" />
+										</div>
+									</div>
+								 </div>
+								 </td>
+							</tr>
+						</table>
+						<div class="row">
+						   <div class="form-actions">
+								<div class="col-xs-push-12">
+									<div class="btn-group pull-right">
+										<button type="submit" class="btn green">查询</button>
+									</div>
+								</div>
+							</div>
+						    <div class="form-actions">
+								<div class="col-xs-push-12">
+									<div class="btn-group pull-right">&nbsp
+										<input type="button" onclick="Download('TreasuryRec')" class="btn yellow" name="Downloadbutton" value="下载"></button>
+									</div>
+								</div>
+							</div>
+						</div>
+                      </div>
+					</form>
+				</div>
+            <div class="row ls-change-tit">
+                 <div class="ls-seaarch-result">
+                    <div class="table-responsive">
+                     <div style="width:1638px; height:588px; overflow:scroll;">
+					   <table class="table table-bordered" id="TreasuryRec" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+						 <thead>
+							<tr bgcolor="#006b8e" style="color:white">
+								<th>&nbsp</th>
+								<th>公司名</th>
+								<th>预支账户余额</th>
+								<th>本月授额总数</th>
+								<@shiro.hasPermission name="TREASURYINFO_PAYMENTNEW">
+								<th>电银支付账户余额</th>
+								</@shiro.hasPermission>
+								<@shiro.hasPermission name="TREASURYINFO_PAYMENTNEW">
+								<th>杉德账户余额</th>
+								</@shiro.hasPermission>
+								<th>当前扣款账户(电银/杉德)</th>
+								<th>已预支总数/发放工资数</th>
+								<th>冻结金额</th>
+								<th>当月交易总金额</th>
+								<th>今日交易总金额</th>
+								<th>应收平台使用费</th>
+								<th>超期总额</th>
+								<th>发薪日</th>
+								<th>资金账户备注</th>
+								<th>备注</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<#list TreasuryDBStatisticOverAllList as treasuryDBInfo>
+								<tr>
+								    <td>&nbsp</td>
+									<td><input name="t_TreasuryDB_OrgName" id="t_TreasuryDB_OrgName" type="hidden" value="${treasuryDBInfo.t_TreasuryDB_OrgName}"/>${treasuryDBInfo.t_TreasuryDB_OrgName}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBInfo.t_TreasuryDB_Balance}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBInfo.t_TreasuryDB_TotAmtMth}</td>
+									<@shiro.hasPermission name="TREASURYINFO_PAYMENTNEW">
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBInfo.t_TreasuryDB_BoPRatio}</td>
+									</@shiro.hasPermission>
+									<@shiro.hasPermission name="TREASURYINFO_PAYMENTNEW">
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBInfo.t_TreasuryDB_RiskMargin}</td>
+									</@shiro.hasPermission>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBInfo.platform}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBInfo.t_TreasuryDB_PoPRatio}%</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBInfo.t_TreasuryDB_Prooffund}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBInfo.t_TreasuryDB_TotAmtDaily}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBInfo.t_TreasuryDB_TotAmtDailySucc}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBInfo.t_TreasuryDB_Fee}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBInfo.t_TreasuryDB_OverdueInt}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBInfo.t_TreasuryDB_PayrollDate}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBInfo.t_TreasuryDB_Comment}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBInfo.remark}</td>									
+									<td class="col-xs-push-2" style="word-wrap:break-word;word-break:break-all;">
+										<@shiro.hasPermission name="TREASURYDBINFO_EDIT">
+										<input type="button" href="#" onclick="creditCtrlOn('${treasuryDBInfo.t_TreasuryDB_OrgName}')" class="btn btn-link btn-xs font-opstyle" value="开启授额">
+										</@shiro.hasPermission>
+										<@shiro.hasPermission name="TREASURYDBINFO_EDIT">
+										<input type="button" href="#" onclick="creditCtrlOff('${treasuryDBInfo.t_TreasuryDB_OrgName}')" class="btn btn-link btn-xs font-opstyle" value="关闭授额">
+										</@shiro.hasPermission>
+										<@shiro.hasPermission name="TREASURYDBINFO_EDIT">
+										<input type="button" href="#" onclick="openEdit('${treasuryDBInfo.t_TreasuryDB_ID}')" class="btn btn-link btn-xs font-opstyle" value="编辑"><br>
+										</@shiro.hasPermission>
+									    <@shiro.hasPermission name="TREASURYINFO_PAYMENTNEW">
+										<input type="button" href="#" onclick="creditRefresh('${treasuryDBInfo.t_TreasuryDB_OrgName}')" class="btn btn-link btn-xs font-opstyle" value="结算完刷新">
+										</@shiro.hasPermission>
+										<@shiro.hasPermission name="TREASURYDBINFO_EDIT">
+										<input type="button" href="#" onclick="openPymtSwitch('${treasuryDBInfo.t_TreasuryDB_OrgName}')" class="btn btn-link btn-xs font-opstyle" value="切换支付账户">
+										</@shiro.hasPermission>
+									</td>
+								</tr>
+							</#list>
+						</tbody>
+				    </table>
+			      </div>
+		        </div>
+			   </div>
+			   </div>
+		     </div>
+			</div>
+			<!-- END EXAMPLE TABLE PORTLET-->
+		</div>
+</body>
+</html>

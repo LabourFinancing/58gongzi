@@ -1,0 +1,208 @@
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+<head>
+<meta charset="utf-8" />
+<title>工资产品管理</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+<meta content="" name="description" />
+<meta content="" name="author" />
+<#include "/common/cssResource.html">
+<link href="${ctx}/metronic/global/plugins/jquery-treetable/css/jquery.treetable.css" rel="stylesheet" type="text/css" />
+<link href="${ctx}/metronic/global/plugins/jquery-treetable/css/jquery.treetable.theme.default.css" rel="stylesheet" type="text/css" />
+<#include "/common/jsResource.html">
+<script src="${ctx}/metronic/global/plugins/jquery-treetable/jquery.treetable.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+
+/* $(document).ready(function() {
+	$("#financeProductTable").treetable({clickableNodeNames : true, expandable : true}).treetable("expandAll");
+
+});
+*/
+
+/*
+*参考 http://blog.csdn.net/lzwglory/article/details/17549725
+**/
+function page(n,s){
+	$("#pageNum").val(n);
+	$("#pageSize").val(s);
+	$("#searchForm").submit();
+	return false;
+}
+
+function openNew(obj){
+	var openWindowWidth = $(document).width() * 0.8 + "px";
+	var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
+	layer.open({
+		type: 2,
+		area: openWindowWidth,
+		offset : offsetH,
+		fix: false, //不固定	
+		maxmin: true,
+		content: '${ctx}/FinanceProductController/form?operationType=new&platform=0',
+		success: function(layero, index){
+		    layer.iframeAuto(index);
+		}
+	});
+}
+
+
+function openEdit(financeProductId){
+	var openWindowWidth = $(document).width() * 0.8 + "px";
+	var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
+	layer.open({
+		type: 2,
+		area: openWindowWidth,
+		offset : offsetH,
+		fix: false, //不固定
+		maxmin: true,
+		content: '${ctx}/FinanceProductController/form?t_FProd_ID='+financeProductId+'&operationType=edit&platform=0',
+		success: function(layero, index){
+		    layer.iframeAuto(index);
+		}
+	});
+}
+
+</script>
+
+</head>
+<body>
+	<!-- BEGIN PAGE BASE CONTENT -->
+	<div class="row">
+		<div class="col-xs-push-12">
+			<!-- BEGIN EXAMPLE TABLE PORTLET-->
+			<div class="portlet light portlet-fit bordered">
+				<div class="portlet-title">
+					<ul class="page-breadcrumb breadcrumb">
+						<li><a>企业服务台</a> <i class="fa fa-circle"></i></li>
+						<li><a>员工薪酬福利产品</a> <i class="fa fa-circle"></i></li>
+						<li><span class="active">员工薪酬福利产品管理</span></li>
+					</ul>
+				</div>
+				<div class="portlet-body">
+					<form id="searchForm" method="post" action="${ctx}/FinanceProductController/financeProductSearchList" class="form-horizontal">
+						<input id="pageNum" name="pageNum" type="hidden" value="${page.pageNum}" /> 
+						<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}" />
+						<div class="form-body">
+							<div class="row">
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label class="control-label col-sm-3" style="padding-right: 0">工资产品名：</label>
+										<div class="col-sm-6" style="padding-left: 0;">
+											<input type="text" class="form-control" name="t_FProd_Name" value="${financeProduct.t_FProd_Name}" />
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-4">
+								   <div class="form-group">
+								   	<label class="control-label col-sm-3" style="padding-right: 0">创建日期：</label>
+							        <div class="input-icon right" style="padding-left: 0">
+								        <i class="fa"></i> <input class="form-control form-control-inline date-picker" type="text" style="width: 300px" placeholder="例：2017-01-01" 
+	                                     data-date-format="yyyy-mm-dd" name="create_time"/>
+							        </div>
+						           </div>
+								</div>
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label class="control-label col-sm-3" style="padding-right: 0">备注：</label>
+										<div class="col-sm-8" style="padding-left: 0;">
+											<input type="text" class="form-control" name="remark" value="${financeProduct.remark}" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-actions">
+							<div class="row">
+								<div class="col-xs-push-12">
+									<div class="btn-group pull-right">
+										<button type="submit" class="btn green">查询</button>
+									</div>
+								</div>
+							</div>
+						</div> 
+					  <div class="table-toolbar">
+					</form>
+					</div>
+					<div class="table-toolbar">
+						<div class="row">
+							<div class="col-xs-push-12">
+								<div class="btn-group pull-right">
+                                    <@shiro.hasPermission name="FINANCEPRODUCT_ADD">
+									<button id="sample_editable_1_new" class="btn green" onclick="openNew('0')">新增</button>
+                                    </@shiro.hasPermission>
+								</div>
+							</div>
+						</div>
+					</div>
+			<div class="row ls-change-tit">
+                <div class="ls-seaarch-result">
+                   <div class="table-responsive">
+					 <table class="table table-bordered" id="financeProductTable" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+						<thead>
+							<tr>
+								<th>产品名称</th>
+								<th>预支定价费率(日)</th>
+								<th>预支超期费率</th>
+								<th>交易费</th>
+								<th>平台使用费</th>
+								<th>单笔最高限额</th>
+								<th>区间平台使用费</th>
+								<th>产品类型</th>
+								<th>产品状态</th>
+								<th>产品适用企业</th>
+								<th>产品适用人群</th>
+								<th>备注</th>
+								<th>创建日期</th>
+								<th>最后更新日期</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<#list page.list as financeProduct>
+								<tr>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_Name}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_Interest.toString()}</td>
+								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_OverdueInt.toString()}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_ServiceFee.toString()}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_Poundage}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_ETxnAmtLimit}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_TierPoundage}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_category}</td>
+								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_Status}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_CorpPool}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_PersPool}</td>	
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.remark}</td>																		
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.create_time?string("yyyy-MM-dd HH:mm:ss")}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_SysupdateDate?string("yyyy-MM-dd HH:mm:ss")}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">
+										<@shiro.hasPermission name="FINANCEPRODUCT_EDIT">
+										<a href="#" onclick="openEdit('${financeProduct.t_FProd_ID}')">编辑</a>
+										</@shiro.hasPermission>
+										<@shiro.hasPermission name="FINANCEPRODUCT_DELETE">
+										<a href="${ctx}/FinanceProductController/deleteFinanceProduct?t_FProd_ID=${financeProduct.t_FProd_ID}&platform=0" onclick="return confirm('确认要执行 删除 操作吗？', this.href)">删除</a>
+										</@shiro.hasPermission>
+									</td>
+								</tr>
+							</#list>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!-- END EXAMPLE TABLE PORTLET-->
+		</div>
+	<!-- END PAGE BASE CONTENT -->
+	<@sc.pagination page=page />
+	<!--  
+	<form id="searchForm" action="${ctx}/managerController/managerList" method="post">
+		<input id="pageNum" name="pageNum" type="hidden" value="${page.pageNum}" />
+		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}" />
+	</form>
+	-->
+</body>
+</html>

@@ -1,0 +1,374 @@
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8" />
+<title>查看充值</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+<meta content="" name="description" />
+<meta content="" name="author" />
+<#include "/common/cssResource.html"> <#include
+"/common/jsResource.html">
+
+<script type="text/javascript">	
+	$(document).ready(function() {
+		
+		var form = $('#inputForm');
+		form.validate({
+			errorElement : 'span', //default input error message container
+			errorClass : 'help-block help-block-error', // default input error message class
+			focusInvalid : false, // do not focus the last invalid input
+			rules : {
+				name : {
+					maxlength : 50,
+					required : true,
+					remote : {
+				        url: "${ctx}/jqueryValidateController/checkFinanceProductName?platform=${platform}",
+				        type: "post"
+					}
+				},
+				t_Treasury_OrgPayAmnt : {
+					required : true
+				},
+				t_Treasury_PayDate : {
+					required : true
+				},
+				t_Treasury_AccPayDate : {
+					required : true
+				},
+				type : {
+					required : true
+				},
+				link : {
+					required : true,
+					maxlength : 100
+				},
+				idx : {
+					maxlength : 10,
+					digits : true,
+					required : true
+				},
+				shiroPermission : {
+					maxlength : 50
+				}
+			},
+			messages: {
+				name: {remote : "产品名称已存在"}
+			},
+	
+			invalidHandler : function(event, validator) { //display error alert on form submit              
+				App.scrollTo(form, 0);
+			},
+	
+			highlight : function(element) { // hightlight error inputs
+				$(element).closest('.form-group').removeClass(
+						"has-success").addClass('has-error'); // set error class to the control group   
+			},
+	
+			unhighlight : function(element) { // revert the change done by hightlight
+	
+			},
+	
+			success : function(label, element) {
+				var icon = $(element).parent('.input-icon').children(
+						'i');
+				$(element).closest('.form-group').removeClass(
+						'has-error').addClass('has-success'); // set success class to the control group
+				icon.removeClass("fa-warning").addClass("fa-check");
+			},
+			
+			submitHandler : function(form) {
+				var formData = new FormData($('#inputForm')[0]); 
+				var index = layer.load(2, {shade: [0.8, '#393D49']});
+				$.ajax({
+					url: "${ctx}/TreasuryInfoController/addTreasuryPaymentInfo",
+					type: 'POST',  
+					data: formData,  
+					async: true,  
+					cache: false,  
+					contentType: false,  
+					processData: false,  
+					success: function (data) { 
+						var result = eval("("+data+")");
+						alert(result.msg);
+						parent.window.location.reload();
+					   	var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+					   	parent.layer.close(index);
+					},  
+					error: function (data) {  
+						var result = eval("("+data+")");
+				    	alert(result.msg);
+					},
+			        complete:function(XMLHttpRequest,textStatus){
+			            if(textStatus=='timeout'){  
+			                var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");  
+			                xmlhttp.abort();   
+			                $(".box").html("网络超时,请稍后再试!");
+			            }
+				        console.log(XMLHttpRequest);
+						console.log(textStatus);
+					    layer.close(index);
+						window.location.reload();
+			        } 
+	            });
+			}
+		});
+		
+		$("#dirParent").hide();
+		$("#menuParent").hide();
+		$("#linkDiv").hide();
+		
+	});
+	
+	function typeSelector(selector){
+		var typeSelect = $(selector).find("option:selected").val();
+		if (typeSelect == "" || typeSelect == "0") {
+			$("#dirParent").hide();
+			$("#menuParent").hide();
+			$("#parentId").val("");
+			$("#linkDiv").hide();
+			$("#link").val("");
+		} else if (typeSelect == "1") {
+			$("#dirParent").show();
+			$("#menuParent").hide();
+			setParentId($("#dirParentSelector"));
+			$("#linkDiv").show();
+		} else if (typeSelect == "2") {
+			$("#dirParent").hide();
+			$("#menuParent").show();
+			setParentId($("#menuParentSelector"));
+			$("#linkDiv").hide();
+			$("#link").val("");
+		}
+	}
+
+	function setParentId(selector) {
+		$("#parentId").val($(selector).find("option:selected").val());
+	}
+	
+
+	
+</script>
+</head>
+<body>
+	<div class="portlet light bordered">
+		<div class="portlet-body form">
+			<!-- BEGIN FORM-->
+			<form id="inputForm" class="form-horizontal form-row-seperated">
+<!--				<input type="hidden" id="parentId" name="parentId"> -->
+				<input type="hidden" name="platform" value="${platform}">
+				<div class="form-body">
+					<div class="form-group">
+					<!-- Company Name List pickup from Company table , dropdownlist -->
+						<label class="control-label col-sm-3">公司名 <span
+							class="required"> * </span>
+						</label>
+							<div class="col-sm-3">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_Treasury_OrgName" value="${treasuryInfo.t_Treasury_OrgName}" readonly/>
+							</div>
+					</div>					
+					<div class="form-group">
+						<label class="control-label col-sm-3">性客户公司机构组织代码证 <span
+							class="required"> * </span>
+						</label>
+							<div class="col-sm-3">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_Treasury_OrgNum" value="${treasuryInfo.t_Treasury_OrgNum}" readonly/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">客户公司银行账号<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_Treasury_OrgBankNum" value="${treasuryInfo.t_Treasury_OrgBankNum}" readonly/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">银行到款日期 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right" style="padding-left: 0">
+								       <i class="fa"></i> <input class="form-control" type="text" style="width: 300px" name="t_Treasury_PayDate" value="${treasuryInfo.t_Treasury_PayDate?string('yyyy-MM-dd HH:mm:ss')}" readonly/>
+							 </div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">资金数额(充值总数) <span
+							class="required"> * </span>
+						</label>
+                        <div class="col-sm-9">
+                            <div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_Treasury_PayAmount" value="${treasuryInfo.t_Treasury_PayAmount}" readonly/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">客户公司出资额<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_Treasury_OrgPayAmnt"  value="${treasuryInfo.t_Treasury_OrgPayAmnt}" readonly/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">本公司出资额 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" id="t_P_Mobil" class="form-control"
+									name="t_Treasury_AccPayAmt"  value="${treasuryInfo.t_Treasury_AccPayAmt}" readonly/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">本公司出款日期<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right" style="padding-left: 0">
+								   <i class="fa"></i> <inputclass="form-control" type="text" name="t_Treasury_AccPayDate" value="${treasuryInfo.t_Treasury_AccPayDate?string('yyyy-MM-dd HH:mm:ss')}" readonly/>
+							 </div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">本公司银行账号<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_Treasury_AccBankNum" value="${treasuryInfo.t_Treasury_AccBankNum}" readonly/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">预支企业账户<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" if="checklen" class="form-control"
+									name="t_Treasury_PrepayAccNum" id="t_Treasury_PrepayAccNum" value="${treasuryInfo.t_Treasury_PrepayAccNum}" readonly/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">融资数额(充值总数内含)<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_Treasury_FinanceAmt" value="${treasuryInfo.t_Treasury_FinanceAmt}" readonly/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">融资银行/企业名<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" id="checklen" class="form-control"
+									name="t_Treasury_FinanceOrgName" id="t_Treasury_FinanceOrgName" value="${treasuryInfo.t_Treasury_FinanceOrgName}" readonly/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">融资企业银行账号 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_Treasury_FinanceOrgBankNum" value="${treasuryInfo.t_Treasury_FinanceOrgBankNum}" readonly/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">融资利息<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" id="checklen" class="form-control"
+									name="t_Treasury_FinanceInterest" id="t_Treasury_FinanceInterest" value="${treasuryInfo.t_Treasury_FinanceInterest}" readonly/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">利润分成比例(含平台使用费)<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_Treasury_ProfitSharePct" value="${treasuryInfo.t_Treasury_ProfitSharePct}" readonly/>
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label col-sm-3">利差总(产品/总成本)<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_Treasury_TotIntMargin" value="${treasuryInfo.t_Treasury_TotIntMargin}" readonly/>
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label col-sm-3">利差(融资/成本) <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_Treasury_FinanceMargin" value="${treasuryInfo.t_Treasury_FinanceMargin}" readonly/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">注释<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_Treasury_Remark" id="t_Treasury_Remark" value="${treasuryInfo.t_Treasury_Remark}" readonly/>
+							</div>
+						</div>
+					</div>
+				<div class="form-actions">
+					<div class="row">
+						<div class="col-sm-3">
+						</div>
+						<div class="col-sm-9">
+							<button type="button" class="btn default" onclick="parent.layer.closeAll();">取消</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<!-- END FORM-->
+	</div>
+</body>
+</html>

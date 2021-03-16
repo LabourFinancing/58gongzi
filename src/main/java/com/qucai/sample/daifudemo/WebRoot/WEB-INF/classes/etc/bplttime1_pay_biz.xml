@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="gbk"?>
+<cycles>
+
+  <include file="etc/timcon_ppd.xml" desc="充值轮询触发" />
+
+</cycles>

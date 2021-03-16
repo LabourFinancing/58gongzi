@@ -1,0 +1,55 @@
+<#macro pagination page>
+
+<#assign funcName="page">
+<#assign funcParam="">
+<#assign message="">
+
+<div class="dataTables_paginate">
+<ul class="pagination">
+
+<#if page.isFirstPage>
+<li class="disabled"><a href="javascript:">&#171; 上一页</a></li>
+<#else>
+<li><a href="javascript:" onclick="${funcName}(${page.prePage},${page.pageSize},'${funcParam}');">&#171; 上一页</a></li>
+</#if>
+
+<#if (page.firstPage == 2)>
+<li><a href="javascript:" onclick="${funcName}(1,${page.pageSize},'${funcParam}');">1</a></li>
+</#if>
+
+<#if (page.firstPage > 2)>
+<li><a href="javascript:" onclick="${funcName}(1,${page.pageSize},'${funcParam}');">1</a></li>
+<li class="disabled"><a href="javascript:">...</a></li>
+</#if>
+
+<#list page.navigatepageNums as n>
+<#if n == page.pageNum>
+<li><a href="javascript:" onclick="${funcName}(${n},${page.pageSize},'${funcParam}');" style="background-color:#f2f6f9"><b>${n}</b></a></li>
+<#else>
+<li><a href="javascript:" onclick="${funcName}(${n},${page.pageSize},'${funcParam}');">${n}</a></li>
+</#if>
+</#list>
+
+<#if (page.lastPage + 1 == page.pages)>
+<li><a href="javascript:" onclick="${funcName}(${page.pages},${page.pageSize},'${funcParam}');">${page.pages}</a></li>
+</#if>
+
+<#if (page.lastPage + 1 < page.pages)>
+<li class="disabled"><a href="javascript:">...</a></li>
+<li><a href="javascript:" onclick="${funcName}(${page.pages},${page.pageSize},'${funcParam}');">${page.pages}</a></li>
+</#if>
+
+<#if page.isLastPage>
+<li class="disabled"><a href="javascript:">下一页 &#187;</a></li>
+<#else>
+<li><a href="javascript:" onclick="${funcName}(${page.nextPage},${page.pageSize},'${funcParam}');">下一页 &#187;</a></li>
+</#if>
+
+<li class="disabled controls"><a href="javascript:">当前 
+<input type="text" value="${page.pageNum}" onkeypress="var e=window.event||this;var c=e.keyCode||e.which;if(c==13)${funcName}(this.value,${page.pageSize},'${funcParam}');" onclick="this.select();"/> / 
+<input type="text" value="${page.pageSize}" onkeypress="var e=window.event||this;var c=e.keyCode||e.which;if(c==13)${funcName}(${page.pageNum},this.value,'${funcParam}');" onclick="this.select();"/> 条，共 ${page.total} 条${message!}</a></li>
+
+</ul>
+</div>
+
+</#macro>

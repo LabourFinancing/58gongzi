@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qucai.sample.dao.PersonalInfoBatchUploadDao">
+
+	<resultMap id="BaseResultMap" type="com.qucai.sample.entity.PersonalInfoBatchUpload">
+		<result column="batch_PB_ID" property="batch_PB_ID" jdbcType="VARCHAR" />
+		<result column="batch_PB_batchID" property="batch_PB_batchID" jdbcType="VARCHAR" />
+		<result column="batch_PB_Name" property="batch_PB_Name" jdbcType="VARCHAR" />
+		<result column="batch_PB_PID" property="batch_PB_PID" jdbcType="VARCHAR" />
+		<result column="batch_PB_company" property="batch_PB_company" jdbcType="VARCHAR" />
+		<result column="batch_PB_vendorcompany" property="batch_PB_vendorcompany" jdbcType="VARCHAR" />
+		<result column="batch_PB_fprod" property="batch_PB_fprod" jdbcType="VARCHAR" />
+		<result column="batch_PB_payrolldate" property="batch_PB_payrolldate" jdbcType="INTEGER" />
+		<result column="batch_PB_creditCard" property="batch_PB_creditCard" jdbcType="VARCHAR" />
+		<result column="batch_PB_mobile" property="batch_PB_mobile" jdbcType="VARCHAR" />
+		<result column="batch_PB_credit" property="batch_PB_credit" jdbcType="DECIMAL" />
+		<result column="batch_PB_balance" property="batch_PB_balance" jdbcType="DECIMAL" />
+		<result column="batch_PB_clearCategory" property="batch_PB_clearCategory" jdbcType="VARCHAR" />
+		<result column="batch_PB_effectDate" property="batch_PB_effectDate" jdbcType="TIMESTAMP" />	
+		<result column="batch_PB_endDate" property="batch_PB_endDate" jdbcType="TIMESTAMP" />
+		<result column="batch_PB_flag" property="batch_PB_flag" jdbcType="VARCHAR" />
+		<result column="batch_PB_uploadRemark" property="batch_PB_uploadRemark" jdbcType="VARCHAR" />
+		<result column="batch_creator" property="batch_creator" jdbcType="VARCHAR" />
+		<result column="batch_createtime" property="batch_createtime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		a.batch_PB_ID,
+		a.batch_PB_batchID, 
+		a.batch_PB_Name, 
+		a.batch_PB_PID, 
+		a.batch_PB_company, 
+		a.batch_PB_vendorcompany, 
+		a.batch_PB_fprod,
+		a.batch_PB_payrolldate, 
+		a.batch_PB_creditCard,
+		a.batch_PB_mobile,
+		a.batch_PB_credit,
+		a.batch_PB_balance,
+		a.batch_PB_clearCategory,
+		a.batch_PB_effectDate,
+		a.batch_PB_endDate, 
+		a.batch_PB_flag,
+		a.batch_PB_uploadRemark,
+		a.batch_creator,
+		a.batch_createtime
+	</sql>
+
+	<insert id="insertCustomerMachineByBatch"  parameterType="java.util.List">
+        insert into t_batch_personupload 
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+		batch_PB_ID, 
+		batch_PB_batchID, 
+		batch_PB_Name, 
+		batch_PB_PID, 
+		batch_PB_company, 
+		batch_PB_vendorcompany, 
+		batch_PB_fprod,
+		batch_PB_payrolldate, 
+		batch_PB_creditCard, 
+		batch_PB_mobile, 
+		batch_PB_credit, 
+		batch_PB_balance, 
+		batch_PB_clearCategory, 
+		batch_PB_effectDate, 
+		batch_PB_endDate, 
+		batch_PB_flag, 
+		batch_PB_uploadRemark, 
+		batch_creator, 
+		batch_createtime
+		</trim>
+        values 
+        <foreach collection="list" separator="," item="cell">
+            (#{cell.batch_PB_ID,jdbcType=VARCHAR},
+            #{cell.batch_PB_batchID,jdbcType=VARCHAR},
+            #{cell.batch_PB_Name,jdbcType=VARCHAR},
+            #{cell.batch_PB_PID,jdbcType=VARCHAR},
+            #{cell.batch_PB_company,jdbcType=VARCHAR},
+            #{cell.batch_PB_vendorcompany,jdbcType=VARCHAR},
+            #{cell.batch_PB_fprod,jdbcType=VARCHAR},
+            #{cell.batch_PB_payrolldate,jdbcType=INTEGER},
+            #{cell.batch_PB_creditCard,jdbcType=VARCHAR},
+            #{cell.batch_PB_mobile,jdbcType=VARCHAR},
+            #{cell.batch_PB_credit,jdbcType=DECIMAL},
+            #{cell.batch_PB_balance,jdbcType=DECIMAL},
+            #{cell.batch_PB_clearCategory,jdbcType=VARCHAR},
+            #{cell.batch_PB_effectDate,jdbcType=TIMESTAMP},
+            #{cell.batch_PB_endDate,jdbcType=TIMESTAMP},
+            #{cell.batch_PB_flag,jdbcType=VARCHAR},
+            #{cell.batch_PB_uploadRemark,jdbcType=VARCHAR},
+            #{cell.batch_creator,jdbcType=VARCHAR},
+            #{cell.batch_createtime,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
+	
+	<select id="SelectAllBatchList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_batch_personupload a 
+		where a.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}
+	</select>
+	    
+    <select id="SelectAllBatch" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_batch_personupload a
+		GROUP BY a.batch_PB_batchID
+	</select>
+	
+	<select id="SelectCompanyBatch" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_batch_personupload a
+		<if test="batch_PB_company != 'ALL' ">
+		where a.batch_PB_company = #{batch_PB_company,jdbcType=VARCHAR)
+		</if>
+		<if test="batch_PB_vendorcompany != 'ALL'" >
+		and a.batch_PB_vendorcompany = #{batch_PB_vendorcompany,jdbcType=VARCHAR}
+		</if>
+        GROUP BY a.batch_PB_batchID
+	</select>
+
+<!--  delete batch -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from t_batch_personupload
+		where batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}
+	</delete>
+<!-- 
+	<select id="selectTotalCredit" resultType="String"
+		parameterType="java.lang.String">
+		select
+		sum(t_P_CreditPrepayAmount)
+		from t_batch_personupload a
+		where a.t_P_Company = #{t_P_Company,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="findSearchList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_batch_personupload a
+		where 
+		<if test="t_P_Name != null">
+		a.t_P_Name like CONCAT('%',#{t_P_Name},'%')
+		</if>	
+		<if test="t_P_PID != null" >
+		and a.t_P_PID like CONCAT('%',#{t_P_PID},'%')
+		</if>
+		<if test="t_P_Mobil != null">
+		and a.t_P_Mobil like CONCAT('%',#{t_P_Mobil},'%')
+		</if>
+		<if test="t_P_Company != 'ALL' ">
+		and a.t_P_Company like CONCAT('%',#{t_P_Company},'%')
+		</if>
+		<if test="t_P_VendorEmployeeName != null" >
+		and a.t_P_VendorEmployeeName like CONCAT('%',#{t_P_VendorEmployeeName},'%')
+		</if>
+		<if test="remark != null" >
+		and a.remark like CONCAT('%',#{remark},'%')
+		</if>
+        order by a.create_time
+	</select>
+	
+
+-->
+<!--  Check New Persons Insert Num
+select REPLACE(UUID(),"-",""),batch_mobile,substring(MD5(RAND()),1,6),batch_Name,"三耀买菜",batch_mobile,batch_PID,"test@test.com","","1",NOW(),"" from credit_upload where batch_PID NOT IN (select t_P_PID from t_personal_info a JOIN credit_upload b on a.t_P_PID = b.batch_PID where b.batch_batchID = "2021011901") and batch_batchID = "2021011901"; 
+ -->
+<!-- 
+Find the duplicated mobile Number with different Personal Identify Document number
+-->
+
+	<select id="duplicateMobileChkTmanager" resultMap="BaseResultMap">
+		 select
+		 <include refid="Base_Column_List" />
+		 from t_batch_personupload a where a.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}
+		 and a.batch_PB_mobile not in 
+		 ( select mobile from t_manager where t_manager.telephone in ( select batch_PB_PID from t_batch_personupload where batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}) )
+	</select>
+	
+	<select id="duplicateMobileChkTperson" resultMap="BaseResultMap">
+	     select
+		 <include refid="Base_Column_List" />
+		 from t_batch_personupload a where a.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}
+		 and a.batch_PB_mobile not in 
+		 ( select t_P_Mobil from t_personal_info where t_personal_info.t_P_PID in ( select batch_PB_PID from t_batch_personupload where batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}))
+	</select>
+
+	<select id="checkDuplicateBatchUploadMobil" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+         FROM t_batch_personupload a where a.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}
+         GROUP BY a.batch_PB_mobile HAVING COUNT(1) > 1
+	</select>
+<!-- 
+Find the duplicated personal ID number with new upload sheet
+SELECT * FROM t_batch_personupload where batch_PB_PID in (SELECT batch_PB_PID FROM (SELECT batch_PB_PID, COUNT(batch_PB_PID) AS ct FROM t_batch_personupload where batch_PB_batchID = "2020120902" GROUP BY batch_PB_PID ) AS nt WHERE nt.ct>1); 查看上传新增人员身份证是否与已存在重复
+-->
+	<select id="duplicatePIDChk" resultMap="BaseResultMap">
+		 select
+		 <include refid="Base_Column_List" />
+		 from t_batch_personupload a where a.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}
+		 and a.batch_PB_PID not in 
+		 ( select telephone from t_manager where t_manager.mobile in ( select batch_PB_mobile from t_batch_personupload where batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}) )
+	</select>
+	
+	<select id="checkDuplicateBatchUploadPID" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+         FROM t_batch_personupload a where a.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}
+         GROUP BY a.batch_PB_PID HAVING COUNT(1) > 1
+	</select>
+
+<!-- 
+ Find the duplicated personal ID number with new upload sheet
+SELECT * FROM t_batch_personupload where batch_PB_creditCard in (SELECT batch_PB_creditCard FROM (SELECT batch_PB_creditCard, COUNT(batch_PB_creditCard) AS ct FROM t_batch_personupload where batch_PB_batchID = "2020120902" GROUP BY batch_PB_creditCard) AS nt WHERE nt.ct>1) 查看上传新增人员银行卡号是否与已存在重复
+-->
+	<select id="duplicateDebitCardChk" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_batch_personupload a where a.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}
+		and a.batch_PB_creditCard in (SELECT batch_PB_creditCard FROM (SELECT batch_PB_creditCard, COUNT(batch_PB_creditCard) AS ct FROM t_batch_personupload where batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR} GROUP BY batch_PB_creditCard) AS nt WHERE nt.ct>1)
+	</select>
+
+	<select id="checkDuplicateBatchUploadDebitCard" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+         FROM t_batch_personupload a where a.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}
+         GROUP BY a.batch_PB_creditCard HAVING COUNT(1) > 1
+	</select>
+ 	
+<!-- 
+insert new personal info into manager table
+insert into t_manager ( select REPLACE(UUID(),"-",""),batch_mobile,substring(MD5(RAND()),1,6),batch_Name,"美团买菜",batch_mobile,batch_PB_PID,"test@test.com","","1",NOW(),NOW() from t_batch_personupload where batch_PB_PID NOT IN (select t_P_PID from t_personal_info a JOIN t_batch_personupload b on a.t_P_PID = b.batch_PB_PID where b.batch_PB_batchID = "2020120902") and batch_PB_batchID = "2020120902");
+ -->
+	<insert id="insertManagerInfo"  parameterType="java.util.Map">
+        insert into t_manager 
+        (select REPLACE(UUID(),"-",""),
+        batch_PB_mobile,
+        substring(MD5(RAND()),1,6),
+        batch_PB_Name,
+        batch_PB_company,
+        batch_PB_mobile,
+        batch_PB_PID,
+        "test@test.com",
+        "",
+        "1",
+        NOW(),
+        NOW() from t_batch_personupload
+        where batch_PB_PID NOT IN (select t_P_PID from t_personal_info a JOIN t_batch_personupload b on a.t_P_PID = b.batch_PB_PID where b.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR} ) and batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR} )
+    </insert>
+<!-- 
+insert role manager info into tr_manager_role table
+insert into tr_manager_role ( select id, "36e49be8d13e4a2081968148176a082c" from t_manager where telephone in (select batch_PB_PID from t_batch_personupload where batch_PB_PID NOT IN (select t_P_PID from t_personal_info a JOIN t_batch_personupload b on a.t_P_PID = b.batch_PB_PID where b.batch_PB_batchID = "2021011901") and batch_PB_batchID = "2021011901"));
+ -->    
+ 	<insert id="insertRoleTrManagerInfoTxn"  parameterType="java.util.Map">
+        insert into tr_manager_role 
+         ( select id, 
+         "36e49be8d13e4a2081968148176a082c" 
+         from t_manager 
+         where telephone in
+         (select batch_PB_PID from t_batch_personupload where batch_PB_PID NOT IN (select t_P_PID from t_personal_info a JOIN t_batch_personupload b on a.t_P_PID = b.batch_PB_PID where b.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}) and batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}));
+    </insert>
+<!-- 
+insert role manager info into tr_manager_role table
+insert into tr_manager_role ( select id, "a4ce0bbea6404a4ea4cab9b95ef53fa5" from t_manager where telephone in (select batch_PB_PID from t_batch_personupload where batch_PB_PID NOT IN (select t_P_PID from t_personal_info a JOIN t_batch_personupload b on a.t_P_PID = b.batch_PB_PID where b.batch_PB_batchID = "2021011901") and batch_PB_batchID = "2021011901"));
+ -->    
+ 	<insert id="insertRoleTrManagerInfoTxnview"  parameterType="java.util.Map">
+        insert into tr_manager_role 
+         ( select id, 
+         "a4ce0bbea6404a4ea4cab9b95ef53fa5" 
+         from t_manager 
+         where telephone in
+         (select batch_PB_PID from t_batch_personupload where batch_PB_PID NOT IN (select t_P_PID from t_personal_info a JOIN t_batch_personupload b on a.t_P_PID = b.batch_PB_PID where b.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}) and batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}));
+    </insert>
+    
+<!-- 
+insert role manager info into tr_manager_role table
+insert into t_personal_info (select REPLACE(UUID(),"-",""),batch_Name,"","0",batch_PB_PID,"","",batch_mobile,batch_mobile,"",batch_mobile,"",batch_mobile,"",batch_mobile,"三耀买菜","1",batch_credit,batch_credit,"onjob","vendor","1",batch_creator,"是","美团买菜","",batch_creditcard,batch_credit,batch_credit,"15",batch_credit,"15","15",NOW(),"0","","system",NOW(),"system",NOW() from t_batch_personupload where batch_PB_PID NOT IN (select t_P_PID from t_personal_info a JOIN t_batch_personupload b on a.t_P_PID = b.batch_PB_PID where b.batch_PB_batchID = "2021011901") and batch_PB_batchID = "2021011901");
+ -->    
+ 	<insert id="insertBatchPersonalInfo"  parameterType="java.util.Map">
+        insert into t_personal_info 
+		(select REPLACE(UUID(),"-",""),
+		batch_PB_Name,
+		"",
+		"0",
+		batch_PB_PID,
+		"",
+		"",
+		batch_PB_mobile,
+		batch_PB_mobile,
+		"",
+		batch_PB_mobile,
+		"",
+		batch_PB_mobile,
+		"",
+		batch_PB_mobile,
+		#{t_P_Company,jdbcType=VARCHAR},
+		"1",
+		batch_PB_credit,
+		batch_PB_credit,
+		"pending",
+		"vendor",
+		"1",
+		batch_PB_fprod,
+		"是",
+		#{t_P_VendorCompany,jdbcType=VARCHAR},
+		"",
+		batch_PB_creditCard,
+		batch_PB_credit,
+		batch_PB_credit,
+		#{payrollDate,jdbcType=VARCHAR},
+		batch_PB_credit,
+		#{payrollDate,jdbcType=VARCHAR},
+		#{payrollDate,jdbcType=VARCHAR},
+		NOW(),
+		"0",
+		"",
+		"system",
+		NOW(),
+		"system",
+		NOW() 
+		from t_batch_personupload
+		where batch_PB_PID NOT IN (select t_P_PID from t_personal_info a JOIN t_batch_personupload b on a.t_P_PID = b.batch_PB_PID where b.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}) and batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR})
+    </insert>
+
+<!-- 
+Update t_personal_info personal status to close
+UPDATE t_personal_info a JOIN t_batch_personupload b on a.t_P_PID = b.batch_PB_PID SET a.t_P_Employmentstatus = "pending" where b.batch_PB_batchID = "2021011901" 
+-->
+	<update id="updateBatchPersonalStatusClose" parameterType="java.util.Map">
+		update t_personal_info a,t_batch_personupload b,t_batch_personupload_status c
+ 		SET a.t_P_Employmentstatus = "pending",
+ 		c.t_batch_comment = "关闭状态"
+		where a.t_P_PID = b.batch_PB_PID 
+		AND b.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR} 
+		AND c.t_batch_perslUploadStatus_batchid = #{batch_PB_batchID,jdbcType=VARCHAR}
+		<if test="batch_PB_fprod !=null">
+		and b.batch_PB_fprod = #{batch_PB_fprod,jdbcTypeVARCHAR}
+		</if>
+	</update>
+	
+<!-- 
+Update t_personal_info personal status to open
+UPDATE t_personal_info a JOIN t_batch_personupload b on a.t_P_PID = b.batch_PB_PID SET a.t_P_Employmentstatus = "pending" where b.batch_PB_batchID = "2021011901" 
+-->
+	<update id="updateBatchPersonalStatusOpen" parameterType="java.util.Map">
+		update t_personal_info a,t_batch_personupload b,t_batch_personupload_status c
+ 		SET a.t_P_Employmentstatus = "onjob",
+ 		c.t_batch_comment = "开启状态"
+		where a.t_P_PID = b.batch_PB_PID 
+		AND b.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR} 
+		AND c.t_batch_perslUploadStatus_batchid = #{batch_PB_batchID,jdbcType=VARCHAR}
+		<if test="batch_PB_fprod !=null">
+		and b.batch_PB_fprod = #{batch_PB_fprod,jdbcTypeVARCHAR}
+		</if>
+	</update>	
+
+<!-- 
+Update t_personal_info credit, payrolldate,product_info
+UPDATE t_personal_info a JOIN t_batch_personupload b on a.t_P_PID = b.batch_PB_PID SET a.t_P_CreditPrepaySalaryAmount = b.batch_credit where b.batch_PB_batchID = "2021011901";  
+-->
+	<update id="updateBatchPersonalInfo" parameterType="java.util.Map">
+		update t_personal_info a 
+		JOIN t_batch_personupload b on a.t_P_PID = b.batch_PB_PID 
+		SET a.t_P_CreditPrepaySalaryAmount = b.batch_PB_credit,
+		a.t_P_Probation = b.batch_PB_fprod,
+		a.t_P_PayrollDate = b.batch_PB_payrolldate
+		where b.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}
+	</update>
+	
+<!-- 
+Update t_personal_info credit, payrolldate,product_info
+UPDATE t_personal_info a JOIN t_batch_personupload b on a.t_P_PID = b.batch_PB_PID SET a.t_P_CreditPrepaySalaryAmount = b.batch_credit where b.batch_PB_batchID = "2021011901";  
+-->
+	<update id="updateBatchPersonalTxnClearing" parameterType="java.util.List">
+		UPDATE t_transaction_his JOIN t_batch_personupload on t_transaction_his.t_P_PID_his = t_batch_personupload.batch_PB_PID SET t_transaction_his.t_Txn_PrepayClear_his = "0" 
+		where t_batch_personupload.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR} 
+		<if test="batch_PB_effectDate != null" >
+		and t_transaction_his.t_Txn_ PrepayDate_his greater than #{batch_PB_effectDate,jdbcType=TIMESTAMP} 
+		</if>
+	    <if test="batch_PB_endDate != null" >
+		and t_transaction_his.t_Txn_PrepayDate_his less than #{batch_PB_endDate,jdbcType=TIMESTAMP}
+		</if>
+	</update>
+	
+<!-- 
+refresh delagation 
+delete from t_transaction_info where t_transaction_info.t_Txn_PrepayApplierPID in (select batch_PB_PID from t_batch_personupload where batch_PB_batchID = "2021011901")
+-->	
+	
+	<delete id="deleteByRefreshBatchPersonalCredit" parameterType="java.lang.String">
+		DELETE from t_transaction_info
+		where t_transaction_info.t_Txn_PrepayApplierPID in 
+		(select batch_PB_PID from t_batch_personupload where batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR})
+	</delete>
+	
+	<!-- 
+	<select id="findAllList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_batch_personupload a
+		where 1=1
+		<if test="typeEnd != null">
+			<![CDATA[ and type <= #{typeEnd} ]]>
+		</if>
+		<if test="t_P_Company != 'ALL' and t_P_Company != null">
+		   and a.t_P_Company = #{t_P_Company,jdbcType=VARCHAR}
+		</if>
+		<if test="t_P_VendorEmployeeName != null" >
+		   and a.t_P_VendorEmployeeName like CONCAT('%',#{t_P_VendorEmployeeName},'%')
+		</if>
+		order by a.create_time
+	</select>
+
+
+	<select id="findEntResourceGrantAllList" resultMap="ResourceGrantMap"
+		parameterType="java.lang.String">
+		SELECT
+			<include refid="Base_Column_List" />, 
+			(
+				SELECT
+					count(1)
+				FROM
+					tr_role_resource
+				WHERE
+					resource_id = a.id
+				AND role_id = #{roleId}
+			) AS selected
+		FROM
+			t_resource a
+		WHERE a.platform = 1
+		order by IFNULL(a.parent_id, ''), a.idx
+	</select>
+ -->	
+ <!-- 	
+	<update id="updateByPrimaryKeySelective" parameterType="com.qucai.sample.entity.PersonalInfoBatchUpload">
+		update t_batch_personupload
+		<set>
+			<if test="t_P_id != null">
+				t_P_id = #{t_P_id,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Name != null">
+				t_P_Name = #{t_P_Name,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Sex != null">
+				t_P_Sex = #{t_P_Sex,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Age != null">
+				t_P_Age = #{t_P_Age,jdbcType=INTEGER},
+			</if>
+			<if test="t_P_PID != null">
+				t_P_PID = #{t_P_PID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Marriage != null">
+				t_P_Marriage = #{t_P_Marriage,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_HomeAddress != null">
+				t_P_HomeAddress = #{t_P_HomeAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Mobil != null">
+				t_P_Mobil = #{t_P_Mobil,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Phone != null">
+				t_P_Phone = #{t_P_Phone,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Spouse != null">
+				t_P_Spouse = #{t_P_Spouse,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Spouse_Phone != null">
+				t_P_Spouse_Phone = #{t_P_Spouse_Phone,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Contact1 != null">
+				t_P_Contact1 = #{t_P_Contact1,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Contact1Mobil != null">
+				t_P_Contact1Mobil = #{t_P_Contact1Mobil,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Contact2 != null">
+				t_P_Contact2 = #{t_P_Contact2,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Contact2Mobil != null">
+				t_P_Contact2Mobil = #{t_P_Contact2Mobil,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Company != null">
+				t_P_Company = #{t_P_Company,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_CompanyNum != null">
+				t_P_CompanyNum = #{t_P_CompanyNum,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_SocialSecurityBaseAmount != null">
+				t_P_SocialSecurityBaseAmount = #{t_P_SocialSecurityBaseAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="t_P_ProvidentFund != null">
+				t_P_ProvidentFund = #{t_P_ProvidentFund,jdbcType=DECIMAL},
+			</if>
+			<if test="t_P_Employmentstatus != null">
+				t_P_Employmentstatus = #{t_P_Employmentstatus,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_EmploymentCategory != null">
+				t_P_EmploymentCategory = #{t_P_EmploymentCategory,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_WorkYears != null">
+				t_P_WorkYears = #{t_P_WorkYears,jdbcType=INTEGER},
+			</if>
+			<if test="t_P_Probation != null">
+				t_P_Probation = #{t_P_Probation,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_VendorEmployment != null">
+				t_P_VendorEmployment = #{t_P_VendorEmployment,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_VendorEmployeeName != null">
+				t_P_VendorEmployeeName = #{t_P_VendorEmployeeName,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_PayrollDebitcardBankName != null">
+				t_P_PayrollDebitcardBankName = #{t_P_PayrollDebitcardBankName,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_PayrollDebitcardNum != null">
+				t_P_PayrollDebitcardNum = #{t_P_PayrollDebitcardNum,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_NetBaseSalary != null">
+				t_P_NetBaseSalary = #{t_P_NetBaseSalary,jdbcType=DECIMAL},
+			</if>
+			<if test="t_P_CreditPrepaySalaryAmount != null">
+				t_P_CreditPrepaySalaryAmount = #{t_P_CreditPrepaySalaryAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="t_P_PayrollDate != null">
+				t_P_PayrollDate = #{t_P_PayrollDate,jdbcType=INTEGER},
+			</if>
+			<if test="t_P_NetMonthlyBonusAmount != null">
+				t_P_NetMonthlyBonusAmount = #{t_P_NetMonthlyBonusAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="t_P_NetBonusPayDate != null">
+				t_P_NetBonusPayDate = #{t_P_NetBonusPayDate,jdbcType=INTEGER},
+			</if>
+			<if test="t_P_SocialSecurityDate != null">
+				t_P_SocialSecurityDate = #{t_P_SocialSecurityDate,jdbcType=INTEGER},
+			</if>
+			<if test="t_P_SysUpdateDate != null">
+				t_P_SysUpdateDate = #{t_P_SysUpdateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="platform != null">
+				platform = #{platform,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				creator = #{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="create_time != null">
+				create_time = #{create_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifier != null">
+				modifier = #{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="modify_time != null">
+				modify_time = #{modify_time,jdbcType=TIMESTAMP}
+			</if>
+		</set>
+		where t_P_id = #{t_P_id,jdbcType=VARCHAR}
+	</update>
+
+   <select id="existPersonalInfoBatchUploadName" resultType="Integer"
+		parameterType="map">
+		select
+		count(1)
+		from t_batch_personupload a
+		where a.t_P_PID = #{t_P_PID}
+		<if test="t_P_id != null">
+			and a.t_P_id != #{t_P_id}
+		</if>
+	</select>
+	
+
+	
+	<update id="updateCompanyStaffsCreditOn" parameterType="com.qucai.sample.entity.PersonalInfoBatchUpload">
+		update t_batch_personupload
+		<set>
+		t_P_Employmentstatus = "onjob"
+		</set>
+		where t_batch_personupload.t_P_Company = #{t_TreasuryDB_OrgName_get,jdbcType=VARCHAR} 
+		and t_batch_personupload.t_P_Mobil not in ( select mobile from t_manager where t_manager.`status` = 0 ) 
+		and t_batch_personupload.t_P_Employmentstatus = "PENDING"
+	</update>
+	
+	<update id="updateCompanyStaffsCreditOff" parameterType="com.qucai.sample.entity.PersonalInfoBatchUpload">
+		update t_batch_personupload
+		<set>
+		t_P_Employmentstatus = "PENDING"
+		</set>
+		where t_P_Company = #{t_TreasuryDB_OrgName_get,jdbcType=VARCHAR} and t_P_Employmentstatus = "onjob" 
+	</update>
+	 -->	
+</mapper>
+ 

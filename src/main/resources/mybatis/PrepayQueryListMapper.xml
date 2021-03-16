@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qucai.sample.dao.TxnQueryDao">
+
+    <resultMap id="BaseResultMap" type="com.qucai.sample.entity.TxnQuery">
+		<result column="t_TxnQuery_ID" property="t_TxnQuery_ID" jdbcType="VARCHAR" />
+		<result column="t_TxnQuery_PID" property="t_TxnQuery_PID" jdbcType="VARCHAR" />
+		<result column="t_TxnQuery_Mobil" property="t_TxnQuery_Mobil" jdbcType="VARCHAR" />
+		<result column="t_TxnQuery_Date" property="t_TxnQuery_Date" jdbcType="TIMESTAMP" />
+		<result column="t_TxnQuery_ApprovalStatus" property="t_TxnQuery_ApprovalStatus" jdbcType="VARCHAR" />
+		<result column="t_TxnQuery_CompanyName" property="t_TxnQuery_CompanyName" jdbcType="VARCHAR" />
+		<result column="platform" property="platform" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="creator" property="creator" jdbcType="VARCHAR" />
+		<result column="create_time" property="create_time" jdbcType="TIMESTAMP" />
+		<result column="modifier" property="modifier" jdbcType="VARCHAR" />
+		<result column="modify_time" property="modify_time" jdbcType="TIMESTAMP" />	
+	</resultMap>
+
+    <sql id="Base_Column_List">
+        a.t_TxnQuery_ID,
+        a.t_TxnQuery_PID,
+        a.t_TxnQuery_Mobil,
+        a.t_TxnQuery_Date,
+        a.t_TxnQuery_ApprovalStatus,
+        a.t_TxnQuery_CompanyName,
+        a.platform,
+        a.remark,
+        a.creator,
+        a.create_time,
+        a.modifier,
+        a.modify_time
+    </sql>
+    
+	<resultMap id="SearchResultMap" type="com.qucai.sample.entity.StaffPrepayApplicationList">
+		<result column="t_Txn_ID" property="t_Txn_ID" jdbcType="VARCHAR" />
+		<result column="t_Txn_Num" property="t_Txn_Num" jdbcType="VARCHAR" />
+		<result column="t_Txn_ClearNum" property="t_Txn_ClearNum" jdbcType="VARCHAR" />
+		<result column="t_Txn_ClearOrg" property="t_Txn_ClearOrg" jdbcType="VARCHAR" />
+		<result column="t_Txn_PrepayApplierName" property="t_Txn_PrepayApplierName" jdbcType="VARCHAR" />
+		<result column="t_Txn_PrepayApplierPID" property="t_Txn_PrepayApplierPID" jdbcType="VARCHAR" />
+		<result column="t_Txn_Mobil" property="t_Txn_Mobil" jdbcType="VARCHAR" />
+		<result column="t_Txn_PrepayDate" property="t_Txn_PrepayDate" jdbcType="TIMESTAMP" />
+		<result column="t_Txn_ProdName" property="t_Txn_ProdName" jdbcType="VARCHAR" />
+		<result column="t_Txn_PrepayDays" property="t_Txn_PrepayDays" jdbcType="INTEGER" />
+		<result column="t_Txn_CreditPrepayCurrentNum" property="t_Txn_CreditPrepayCurrentNum" jdbcType="DECIMAL" />
+		<result column="t_Txn_ApplyPrepayAmount" property="t_Txn_ApplyPrepayAmount" jdbcType="DECIMAL" />
+		<result column="t_Txn_CreditPrepayBalanceNum" property="t_Txn_CreditPrepayBalanceNum" jdbcType="DECIMAL" />
+		<result column="t_Txn_TotalPrepayNum" property="t_Txn_TotalPrepayNum" jdbcType="DECIMAL" />
+		<result column="t_Txn_TotalInterestDays" property="t_Txn_TotalInterestDays" jdbcType="INTEGER" />
+		<result column="t_Txn_PrepayCounts" property="t_Txn_PrepayCounts" jdbcType="INTEGER" />
+		<result column="t_Txn_Interest" property="t_P_Company" jdbcType="DECIMAL" />
+		<result column="t_Txn_BalanceCreditNum" property="t_Txn_BalanceCreditNum" jdbcType="DECIMAL" />
+		<result column="t_Txn_OverdueRepaymentDate" property="t_Txn_OverdueRepaymentDate" jdbcType="TIMESTAMP" />
+		<result column="t_Txn_PrepayClear" property="t_Txn_PrepayClear" jdbcType="VARCHAR" />
+		<result column="t_Txn_Overdue" property="t_Txn_Overdue" jdbcType="VARCHAR" />
+		<result column="t_Txn_OverdueDays" property="t_Txn_OverdueDays" jdbcType="INTEGER" />
+		<result column="t_Txn_OverdueTotalAmount" property="t_Txn_OverdueTotalAmount" jdbcType="DECIMAL" />
+		<result column="t_Txn_FinancialInterest" property="t_Txn_FinancialInterest" jdbcType="DECIMAL" />
+		<result column="t_Txn_ServiceFee" property="t_Txn_ServiceFee" jdbcType="DECIMAL" />
+		<result column="t_Txn_Poundage" property="t_Txn_Poundage" jdbcType="DECIMAL" />
+		<result column="t_Txn_InterestMargin" property="t_Txn_InterestMargin" jdbcType="DECIMAL" />
+		<result column="t_Txn_SysUpdateDate" property="t_Txn_SysUpdateDate" jdbcType="TIMESTAMP" />
+		<result column="t_Txn_paystatus" property="t_Txn_Paystatus" jdbcType="VARCHAR" />
+		<result column="platform" property="platform" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="creator" property="creator" jdbcType="VARCHAR" />
+		<result column="create_time" property="create_time" jdbcType="TIMESTAMP" />
+		<result column="modifier" property="modifier" jdbcType="VARCHAR" />
+		<result column="modify_time" property="modify_time" jdbcType="TIMESTAMP" />	
+	</resultMap>
+		
+	<sql id="Search_Column_List">
+		b.t_Txn_ID, 
+		b.t_Txn_Num, 
+		b.t_Txn_ClearNum, 
+		b.t_Txn_ClearOrg, 
+		b.t_Txn_PrepayApplierName,
+		b.t_Txn_PrepayApplierPID,
+		b.t_Txn_Mobil,
+		b.t_Txn_PrepayDate,
+		b.t_Txn_ProdName,
+		b.t_Txn_PrepayDays,
+		b.t_Txn_CreditPrepayCurrentNum,
+		b.t_Txn_ApplyPrepayAmount,
+		b.t_Txn_CreditPrepayBalanceNum,
+		b.t_Txn_TotalPrepayNum, 
+		b.t_Txn_TotalInterestDays, 
+		b.t_Txn_PrepayCounts, 
+		b.t_Txn_Interest, 
+		b.t_Txn_BalanceCreditNum,
+		b.t_Txn_OverdueRepaymentDate,
+		b.t_Txn_PrepayClear,
+		b.t_Txn_Overdue,
+		b.t_Txn_OverdueDays,
+		b.t_Txn_OverdueTotalAmount,
+		b.t_Txn_FinancialInterest,
+		b.t_Txn_ServiceFee,
+		b.t_Txn_Poundage, 
+		b.t_Txn_InterestMargin, 
+		b.t_Txn_SysUpdateDate, 
+		b.t_Txn_paystatus, 
+		b.platform,
+		b.remark,
+		b.creator,
+		b.create_time,
+		b.modifier,
+		b.modify_time
+	 </sql>
+
+	<select id="findSearchList" resultMap="SearchResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Search_Column_List" />
+		from t_transaction_info b
+		where 
+		<if test="t_Txn_PrepayApplierPID != null">
+		b.t_Txn_PrepayApplierPID = #{t_TxnQuery_PID}
+		</if>	
+		<if test="t_Txn_Mobil != null">
+		and b.t_Txn_Mobil = #{t_TxnQuery_Mobil}
+		</if>
+		<if test="t_Txn_PrepayDate != null" >
+		and b.t_Txn_PrepayDate = #{t_TxnQuery_Date}
+		</if>
+		order by b.create_time DESC limit 1
+	</select>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_txnquery a
+		where a.t_TxnQuery_ID = #{t_TxnQuery_ID,jdbcType=VARCHAR}
+		order by a.create_time
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from t_txnquery
+		where t_TxnQuery_ID = #{t_TxnQuery_ID,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="insertSelective" parameterType="com.qucai.sample.entity.TxnQuery">
+		insert into t_txnquery
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="t_TxnQuery_ID != null">
+				t_TxnQuery_ID,
+			</if>
+			<if test="t_TxnQuery_PID != null">
+				t_TxnQuery_PID,
+			</if>
+			<if test="t_TxnQuery_Mobil != null">
+				t_TxnQuery_Mobil,
+			</if>
+			<if test="t_TxnQuery_Date != null">
+				t_TxnQuery_Date,
+			</if>
+			<if test="t_TxnQuery_ApprovalStatus != null">
+				t_TxnQuery_ApprovalStatus,
+			</if>
+			<if test="t_TxnQuery_CompanyName != null">
+				t_TxnQuery_CompanyName,
+			</if>
+			<if test="platform != null">
+				platform,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="creator != null">
+				creator,
+			</if>
+			<if test="create_time != null">
+				create_time,
+			</if>
+			<if test="modifier != null">
+				modifier,
+			</if>
+			<if test="modify_time != null">
+				modify_time
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="t_TxnQuery_ID != null">
+				#{t_TxnQuery_ID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_TxnQuery_PID != null">
+				#{t_TxnQuery_PID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_TxnQuery_Mobil != null">
+				#{t_TxnQuery_Mobil,jdbcType=VARCHAR},
+			</if>
+			<if test="t_TxnQuery_Date != null">
+				#{t_TxnQuery_Date,jdbcType=INTEGER},
+			</if>
+			<if test="t_TxnQuery_ApprovalStatus != null">
+				#{t_TxnQuery_ApprovalStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="t_TxnQuery_CompanyName != null">
+				#{t_TxnQuery_CompanyName,jdbcType=VARCHAR},
+			</if>
+			<if test="platform != null">
+				#{platform,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				#{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="create_time != null">
+				#{create_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifier != null">
+				#{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="modify_time != null">
+				#{modify_time,jdbcType=TIMESTAMP}
+			</if>
+		</trim>
+	</insert>
+	
+	<select id="findAllList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_txnquery a
+		where 1=1
+		<if test="typeEnd != null">
+			<![CDATA[ and type <= #{typeEnd} ]]>
+		</if>
+		<if test="t_TxnQuery_CompanyName != null">
+			and b.t_TxnQuery_CompanyName != #{t_P_Company}
+		</if>
+		order by a.t_TxnQuery_ApprovalStatus,a.create_time
+	</select>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.qucai.sample.entity.TxnQuery">
+		update t_txnquery
+		<set>
+			<if test="t_TxnQuery_ApprovalStatus != null">
+				t_TxnQuery_ApprovalStatus = "Approved",
+			</if>
+			<if test="platform != null">
+				platform = #{platform,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				creator = #{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="create_time != null">
+				create_time = #{create_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifier != null">
+				modifier = #{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="modify_time != null">
+				modify_time = #{modify_time,jdbcType=TIMESTAMP}
+			</if>
+		</set>
+		where t_TxnQuery_ID = #{t_TxnQuery_ID,jdbcType=VARCHAR}
+  </update>
+</mapper>
+ 

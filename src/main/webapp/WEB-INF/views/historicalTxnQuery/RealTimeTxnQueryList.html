@@ -1,0 +1,304 @@
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+<head>
+<meta charset="utf-8" />
+<title>工资产品管理</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+<meta content="" name="description" />
+<meta content="" name="author" />
+<#include "/common/cssResource.html">
+<link href="${ctx}/metronic/global/plugins/jquery-treetable/css/jquery.treetable.css" rel="stylesheet" type="text/css" />
+<link href="${ctx}/metronic/global/plugins/jquery-treetable/css/jquery.treetable.theme.default.css" rel="stylesheet" type="text/css" />
+<#include "/common/jsResource.html">
+<script src="${ctx}/metronic/global/plugins/jquery-treetable/jquery.treetable.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	var form = $('#searchForm');
+	form.validate({
+		errorElement: 'span', //default input error message container
+		errorClass: 'help-block help-block-error', // default input error message class
+		focusInvalid: true, // do not focus the last invalid input
+		rules: {
+			
+			begin_date: {
+				required: true
+			},
+			
+			end_date: {
+				required: true
+			}
+			
+		},
+		
+		invalidHandler: function(event, validator) { //display error alert on form submit              
+			App.scrollTo(form, 0);
+		},
+
+		highlight: function(element) { // hightlight error inputs
+			$(element).closest('.form-group').removeClass(
+				"has-success").addClass('has-error'); // set error class to the control group   
+		},
+
+		unhighlight: function(element) { // revert the change done by hightlight
+
+		},
+
+		success: function(label, element) {
+			var icon = $(element).parent('.input-icon').children(
+				'i');
+			$(element).closest('.form-group').removeClass(
+				'has-error').addClass('has-success'); // set success class to the control group
+			icon.removeClass("fa-warning").addClass("fa-check");
+		}
+		
+	});
+});
+	
+function printbill(){
+	var SandeUrl = "https://merchantservice.sandpay.com.cn/deal/print?id=";
+	var printbillNum = document.getElementById("printID").value;
+	var BillUrl =  printbillNum + SandeUrl;
+	document.getElementById('printbill').href="BillUrl";
+}
+
+//download excel
+var idTmr;  
+function  getExplorer() {  
+    var explorer = window.navigator.userAgent ;  
+    //ie  
+    if (explorer.indexOf("MSIE") >= 0) {  
+        return 'ie';  
+    }  
+    //firefox  
+    else if (explorer.indexOf("Firefox") >= 0) {  
+        return 'Firefox';  
+    }  
+    //Chrome  
+    else if(explorer.indexOf("Chrome") >= 0){  
+        return 'Chrome';  
+    }  
+    //Opera  
+    else if(explorer.indexOf("Opera") >= 0){  
+        return 'Opera';  
+    }  
+    //Safari  
+    else if(explorer.indexOf("Safari") >= 0){  
+        return 'Safari';  
+    }  
+}  
+function Download(histxnlist) {  
+    if(getExplorer()=='ie')  
+    {  
+        var curTbl = document.getElementById(histxnlist);  
+        var oXL = new ActiveXObject("Excel.Application");  
+        var oWB = oXL.Workbooks.Add();  
+        var xlsheet = oWB.Worksheets(1);  
+        var sel = document.body.createTextRange();  
+        xlSheet.Cells(num,8).NumberFormatLocal = "@";//设置导出为文本
+        xlSheet.Cells(num, 9).Value = "‘"+agencyname; //加半角符号
+        sel.moveToElementText(curTbl);  
+        sel.select();  
+        sel.execCommand("Copy");  
+        xlsheet.Paste();  
+        oXL.Visible = true;  
+
+        try {  
+            var fname = oXL.Application.GetSaveAsFilename("hisTxn.xls", "Excel Spreadsheets (*.xls), *.xls");  
+        } catch (e) {  
+            print("Nested catch caught " + e);  
+        } finally {  
+            oWB.SaveAs(fname);  
+            oWB.Close(savechanges = false);  
+            oXL.Quit();  
+            oXL = null;  
+            idTmr = window.setInterval("Cleanup();", 1);  
+        }  
+
+    }  
+    else  
+    {  
+        tableToExcel(histxnlist)  
+    }  
+}  
+function Cleanup() {  
+    window.clearInterval(idTmr);  
+    CollectGarbage();  
+}  
+var tableToExcel = (function() {  
+    var uri = 'data:application/vnd.ms-excel;base64,',  
+            template = '<html><head><meta charset="UTF-8"></head><body><table>{table}</table></body></html>',  
+            base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) },  
+            format = function(s, c) {  
+                return s.replace(/{(\w+)}/g,  
+                        function(m, p) { return c[p]; }) }  
+    return function(table, name) {  
+        if (!table.nodeType) table = document.getElementById(table)  
+        var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}  
+        window.location.href = uri + base64(format(template, ctx))  
+    }  
+})()
+
+function page(n,s){
+	$("#pageNum").val(n);
+	$("#pageSize").val(s);
+	$("#searchForm").submit();
+	return false;
+}
+/* $(document).ready(function() {
+	$("#StaffPrepayApplicationListTable").treetable({clickableNodeNames : true, expandable : true}).treetable("expandAll");
+	.href="return function(){this.href='https://merchantservice.sandpay.com.cn/deal/print?id='+document.getElementById('printID').value+'.html';return true}";
+
+});
+
+function page(n,s){
+	$("#pageNum").val(n);
+	$("#pageSize").val(s);
+	$("#searchForm").submit();
+	return false;
+}
+*/
+</script>
+
+</head>
+<body>
+	<!-- BEGIN PAGE BASE CONTENT -->
+	<div class="row">
+		<div class="col-xs-push-12">
+			<!-- BEGIN EXAMPLE TABLE PORTLET-->
+			<div class="portlet light portlet-fit bordered">
+				<div class="portlet-title">
+					<ul class="page-breadcrumb breadcrumb">
+						<li><a>个人服务台</a> <i class="fa fa-circle"></i></li>
+						<li><a>历史交易管理</a> <i class="fa fa-circle"></i></li>
+						<li><span class="active">实时交易查询</span></li>
+					</ul>
+				</div>
+				<div class="portlet-body">
+					<form id="searchForm" method="post" action="${ctx}/RealTimeTxnQueryController/realTimeTxnQuerySearchList" class="form-horizontal">
+						<div class="form-body">
+							<div class="row">
+								<div class="col-sm-3">
+							      <div class="form-group">
+										<label class="control-label col-sm-3" style="padding-right: 0">公司名称:</label>
+										<div class="col-sm-9" style="padding-left: 0;">
+										<input type="text" class="form-control" name=t_Txn_Paystatus value="${t_Txn_Paystatus}"/>
+										</div>
+								   </div>
+						         </div>
+								<div class="col-sm-3">
+							      <div class="form-group">
+										<label class="control-label col-sm-3" style="padding-right: 0">手机号:</label>
+										<div class="col-sm-9" style="padding-left: 0;">
+										<input type="text" class="form-control" name="t_Txn_Mobil" value="${t_Txn_Mobil}"/>
+										</div>
+								   </div>
+						         </div>
+								<div class="col-sm-3">
+							      <div class="form-group">
+										 <label class="control-label col-sm-3" style="padding-right: 0">姓名:</label>
+										<div class="col-sm-9" style="padding-left: 0;">
+										<input type="text" class="form-control" name="t_Txn_PrepayApplierName" value="${t_Txn_PrepayApplierName}"/>
+										</div>
+								   </div>
+						        </div>
+						     </div>
+					     <div class="row">
+					    	<div class="form-actions">
+								<div class="col-xs-push-12">
+									<div class="btn-group pull-right" style="padding-right: 15">
+									 <@shiro.hasPermission name="MANAGER_EDIT">
+										<input type="button" onclick="Download('histxnlist')" class="btn green" name="Downloadbutton" value="下载"></button>
+									 </@shiro.hasPermission>
+									</div>
+								</div>
+						     </div>
+						    <div class="form-actions">
+								<div class="col-xs-push-12">
+									<div class="btn-group pull-right">&nbsp
+										<button type="submit" class="btn green">查询</button>
+									</div>
+								</div>
+						    </div>
+						 </div>
+					   </div>
+					  <div class="table-toolbar">
+					</form>
+				</div>
+             <div class="row ls-change-tit">
+                <div class="ls-seaarch-result">
+                    <div class="table-responsive">
+                    <lable>&nbsp&nbsp&nbsp&nbsp查询结果:</lable>
+                    <div style="width:1620px; height:593px; overflow:scroll;">
+					 <table id="histxnlist" class="table table-bordered" id="StaffPrepayApplicationListTable" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+						<thead>
+							<tr>
+								<th>交易单号</th>
+								<th>交易产品名称</th>
+								<th>支取金额</th>
+								<th>实付金额</th>
+								<th>剩余额度</th>
+								<th>日计费率</th>
+								<th>平台使用费</th>
+								<th>服务费</th>
+								<th>区间费率</th>
+								<th>姓名</th>
+								<th>身份证</th>
+								<th>银行卡号</th>
+								<th>手机号</th>
+								<th>公司名</th>
+								<th>交易时间</th>
+								<th>计费天数</th>
+								<th>打印凭证</th>
+							</tr>
+						</thead>
+						<tbody>
+							<#list StaffPrepayApplicationListAll as StaffPrepayApplicationList>
+								<tr>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;mso-number-format:'\@';"><div id="printID" value="${StaffPrepayApplicationList.t_Txn_Num}" type="hidden">${StaffPrepayApplicationList.t_Txn_Num}</div> </td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationList.t_Txn_ProdName}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${StaffPrepayApplicationList.t_Txn_ApplyPrepayAmount.toString()}</td>
+								  	<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${StaffPrepayApplicationList.t_Txn_TotalPrepayNum.toString()}</td> 
+								  	<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${StaffPrepayApplicationList.t_Txn_CreditPrepayBalanceNum.toString()}</td>   
+								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationList.t_Txn_Interest.toString()}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${StaffPrepayApplicationList.t_Txn_ServiceFee.toString()}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${StaffPrepayApplicationList.t_Txn_Poundage.toString()}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${StaffPrepayApplicationList.t_Txn_TierPoundage.toString()}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationList.t_Txn_PrepayApplierName}</td>
+								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;mso-number-format:'\@';">${StaffPrepayApplicationList.t_Txn_PrepayApplierPID}</td>
+								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;mso-number-format:'\@';">${StaffPrepayApplicationList.t_Txn_BankAcc}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationList.t_Txn_Mobil}</td>																	
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationList.t_Txn_Paystatus}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationList.t_Txn_PrepayDate?string("yyyy-MM-dd HH:mm:ss")}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationList.t_Txn_PrepayDays}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;"><a title="个人用户后期开放" target="_blank" href="https://merchantservice.sandpay.com.cn/deal/print?id=${StaffPrepayApplicationList.t_Txn_Num}"><input id="print" value="打印" type="button" id="printbill"> 
+									</input></a></td>
+								</tr>
+							</#list>
+						</tbody>
+					</table>
+					</div>
+		         </div>
+			    </div>
+			   </div>
+		     </div>
+			</div>
+			<!-- END EXAMPLE TABLE PORTLET-->
+		</div>
+	<!-- 
+	END PAGE BASE CONTENT 
+    -->
+	<!--  
+	<form id="searchForm" action="${ctx}/managerController/managerList" method="post">
+		<input id="pageNum" name="pageNum" type="hidden" value="${page.pageNum}" />
+		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}" />
+	</form>
+	-->
+</body>
+</html>

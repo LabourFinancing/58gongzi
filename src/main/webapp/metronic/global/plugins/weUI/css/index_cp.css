@@ -1,0 +1,191 @@
+body, html {
+  height: 100%;
+  -webkit-tap-highlight-color: transparent;
+  background: #fff;
+}
+
+/* 头部 logo */
+.form-title {
+  margin: 0 3%;
+  height: 55px;
+  text-align: center;
+  font-size: 26px;
+  color: #1890ff;
+  font-weight: 700;
+  line-height: 55px;
+  background: url('../img/5.jpg') left center/45px 45px  no-repeat;
+}
+
+/* 灰色表示自动填写，不可选 */
+.cannot_set {
+  color: #666666;
+}
+
+/* 金额总数 */
+.total {
+  color: #3cc51f;
+}
+/* 金额剩余 */
+.balance {
+  color: #e64340;
+}
+/* 金额输入框 */
+.money {
+  position: relative;
+  padding-left: 20px;
+}
+.money::before {
+  content: '￥';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-53%);
+}
+
+/* label 自适应*/
+.weui-cell__hd {
+  width: 37%;
+}
+.weui-label {
+  width: 100%;
+}
+
+/* tips报错提示 */
+.weui-cell__bd {
+  position: relative;
+}
+.weui-cell.weui-cell_vcode .weui-icon-warn {
+  display: none;
+}
+.weui-cell.weui-cell_warn .weui-icon-warn {
+  display: inline-block;
+}
+.weui-icon-warn {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-55%);
+}
+
+/* 部分重置 */
+.weui-cell_select {
+  padding: 0 15px;
+}
+.weui-cells {
+  margin-top: 0;
+  font-size: 15px;
+}
+
+/* 协议阅读 */
+.agree {
+  height: 33px;
+}
+.weui-agree {
+  padding-left: 0;
+  padding-right: 0;
+  float: left;
+}
+.agree_l {
+  padding-left: 15px;
+}
+.checker {
+  display: inline-block;
+}
+
+/* 协议内容 */
+#showAgree {
+  height: 50%;
+}
+#showAgree .modal-content {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+#showAgree .weui-popup__modal {
+  height: 100%;
+}
+#showAgree h3 {
+  line-height: 48px;
+  text-align: center;
+}
+#showAgree h4 {
+  line-height: 42px;
+}
+#showAgree p {
+  margin-bottom: 8px;
+  text-indent: 16px;
+}
+.agree_footer {
+  margin: 20px 0;
+  display: flex;
+}
+.agree_footer span {
+  width: 50%;
+  text-indent: 0px;
+}
+
+/* 操作按钮 */
+.weui-btn-area {
+  display: flex;
+  margin-top: 0px;
+}
+.weui-btn-area .weui-btn {
+  width: 45%;
+  margin-top: 0px;
+  line-height: 1.8;
+}
+#Prepaybutton {
+  background: #1890ff;
+}
+
+.weui-footer {
+  margin-top: 5px;
+}
+
+/* 以下为新增样式 */
+/* 顶部灰色间隔，看下html中加入下面类名的地方，对比添加到模板中 */
+.top-border {
+  border-top: 10px solid #fafafa;
+}
+/* 字体加粗 */
+.font-weight{
+  font-weight: 700;
+}
+/* 文本右对齐 */
+.text-right {
+  text-align: right;
+}
+/* 灰色字体 */
+.font-hui {
+  color: #959595;
+}
+/* 紫色字体 */
+.font-zi {
+  color: #656892;
+}
+/* 小字体 */
+.font-12 {
+  font-size: 12px;
+}
+
+/* 新版样式重置 */
+.weui-cell {
+  padding: 0 8px;
+}
+.weui-cell::before {
+  left: 0;
+}
+.weui-input {
+  height: 3em;
+  line-height: 3em;
+}
+.weui-select, .weui-vcode-btn {
+  height: 30px;
+  line-height: 30px;
+}
+.weui-cell__ft {
+  background: #1890ff;
+}
+.weui-vcode-btn {
+  color: #fff;
+  border: none;
+}

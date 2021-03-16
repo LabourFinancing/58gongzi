@@ -1,0 +1,200 @@
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8" />
+<title>编辑员工</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+<meta content="" name="description" />
+<meta content="" name="author" />
+<#include "/common/cssResource.html"> <#include
+"/common/jsResource.html">
+
+<script type="text/javascript">
+</script>
+
+</script>
+</head>
+<body>
+	<div class="portlet light bordered">
+		<div class="portlet-body form">
+			<!-- BEGIN FORM-->
+			<form id="inputForm" class="form-horizontal form-row-seperated">
+				<input type="hidden" name="t_TreasuryDB_ID" id="t_TreasuryDB_ID" value="${treasuryDBInfo.t_TreasuryDB_ID}"/>	
+				<input type="hidden" name="platform" id="platform" value="${platform}">
+                    <div class="form-group">
+						<label class="control-label col-sm-3">公司/经销商名称 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_TreasuryDB_OrgName" value="${treasuryDBInfo.t_TreasuryDB_OrgName}" readonly/>
+							</div>
+						</div>
+					</div>					
+					<div class="form-group">
+						<label class="control-label col-sm-3">账户可用余额<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_TreasuryDB_Balance" value="${treasuryDBInfo.t_TreasuryDB_Balance}" readonly/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">本月已充总数 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_TreasuryDB_TotAmtMth" id="t_TreasuryDB_TotAmtMth" value="${treasuryDBInfo.t_TreasuryDB_TotAmtMth}" readonly/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">余额/预期预支<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_TreasuryDB_BoPRatio" value="${treasuryDBInfo.t_TreasuryDB_BoPRatio}" readonly/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">已预支总数/发放工资数 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_TreasuryDB_PoPRatio" id="t_TreasuryDB_PoPRatio" value="${treasuryDBInfo.t_TreasuryDB_PoPRatio}" readonly/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">押金（机构收取）<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_TreasuryDB_RiskMargin" value="${treasuryDBInfo.t_TreasuryDB_RiskMargin}" readonly/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">冻结金额<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_TreasuryDB_Prooffund" value="${treasuryDBInfo.t_TreasuryDB_Prooffund}" readonly/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">当日交易总金额<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_TreasuryDB_TotAmtDaily" value="${treasuryDBInfo.t_TreasuryDB_TotAmtDaily}" readonly/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">当日成功交易总金额 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_TreasuryDB_TotAmtDailySucc" value="${treasuryDBInfo.t_TreasuryDB_TotAmtDailySucc}" readonly/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">当日失败交易总金额 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_TreasuryDB_TotAmtDailyFail" value="${treasuryDBInfo.t_TreasuryDB_TotAmtDailyFail}" readonly/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">应收平台使用费<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_TreasuryDB_Fee" value="${treasuryDBInfo.t_TreasuryDB_Fee}" readonly/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">超期费率总额 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_TreasuryDB_OverdueInt" value="${treasuryDBInfo.t_TreasuryDB_OverdueInt}" readonly/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">资金账户备注 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<@shiro.hasPermission name="TREASURYDBINFO_OVEREDIT">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_TreasuryDB_Comment" value="${treasuryDBInfo.t_TreasuryDB_Comment}" readonly/>
+							</div>
+							</@shiro.hasPermission>
+						</div>
+					</div>
+<!-- Company Name List pickup from Company table , droplist -->
+					<div class="form-group">
+						<label class="control-label col-sm-3">备注<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="remark" value="${treasuryDBInfo.remark}" readonly/>
+							</div>
+						</div>
+					</div>
+				  </div>
+				<div class="form-actions">
+					<div class="row">
+						<div class="col-sm-3">
+						</div>
+						<div class="col-sm-9">
+							<button type="button" class="btn default" onclick="parent.layer.closeAll();">取消</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<!-- END FORM-->
+	</div>
+</body>
+</html>

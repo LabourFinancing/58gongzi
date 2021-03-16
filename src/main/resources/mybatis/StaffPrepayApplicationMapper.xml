@@ -1,0 +1,815 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qucai.sample.dao.StaffPrepayApplicationDao">
+
+	<resultMap id="BaseResultMap" type="com.qucai.sample.entity.StaffPrepayApplicationList">
+		<result column="t_Txn_ID" property="t_Txn_ID" jdbcType="VARCHAR" />
+		<result column="t_Txn_Num" property="t_Txn_Num" jdbcType="VARCHAR" />
+		<result column="t_Txn_ClearNum" property="t_Txn_ClearNum" jdbcType="VARCHAR" />
+		<result column="t_Txn_ClearOrg" property="t_Txn_ClearOrg" jdbcType="VARCHAR" />
+		<result column="t_Txn_PrepayApplierName" property="t_Txn_PrepayApplierName" jdbcType="VARCHAR" />
+		<result column="t_Txn_PrepayApplierPID" property="t_Txn_PrepayApplierPID" jdbcType="VARCHAR" />
+		<result column="t_Txn_Mobil" property="t_Txn_Mobil" jdbcType="VARCHAR" />
+		<result column="t_Txn_PrepayDate" property="t_Txn_PrepayDate" jdbcType="TIMESTAMP" />
+		<result column="t_Txn_ProdName" property="t_Txn_ProdName" jdbcType="VARCHAR" />
+		<result column="t_Txn_PrepayDays" property="t_Txn_PrepayDays" jdbcType="INTEGER" />
+		<result column="t_Txn_CreditPrepayCurrentNum" property="t_Txn_CreditPrepayCurrentNum" jdbcType="DECIMAL" />
+		<result column="t_Txn_ApplyPrepayAmount" property="t_Txn_ApplyPrepayAmount" jdbcType="DECIMAL" />
+		<result column="t_Txn_CreditPrepayBalanceNum" property="t_Txn_CreditPrepayBalanceNum" jdbcType="DECIMAL" />
+		<result column="t_Txn_TotalPrepayNum" property="t_Txn_TotalPrepayNum" jdbcType="DECIMAL" />
+		<result column="t_Txn_TotalInterestDays" property="t_Txn_TotalInterestDays" jdbcType="INTEGER" />
+		<result column="t_Txn_PrepayCounts" property="t_Txn_PrepayCounts" jdbcType="INTEGER" />
+		<result column="t_Txn_Interest" property="t_Txn_Interest" jdbcType="DECIMAL" />
+		<result column="t_Txn_BalanceCreditNum" property="t_Txn_BalanceCreditNum" jdbcType="DECIMAL" />
+		<result column="t_Txn_OverdueRepaymentDate" property="t_Txn_OverdueRepaymentDate" jdbcType="TIMESTAMP" />
+		<result column="t_Txn_PrepayClear" property="t_Txn_PrepayClear" jdbcType="VARCHAR" />
+		<result column="t_Txn_Overdue" property="t_Txn_Overdue" jdbcType="VARCHAR" />
+		<result column="t_Txn_OverdueDays" property="t_Txn_OverdueDays" jdbcType="INTEGER" />
+		<result column="t_Txn_OverdueTotalAmount" property="t_Txn_OverdueTotalAmount" jdbcType="DECIMAL" />
+		<result column="t_Txn_FinancialInterest" property="t_Txn_FinancialInterest" jdbcType="DECIMAL" />
+		<result column="t_Txn_ServiceFee" property="t_Txn_ServiceFee" jdbcType="DECIMAL" />
+		<result column="t_Txn_Poundage" property="t_Txn_Poundage" jdbcType="DECIMAL" />
+		<result column="t_Txn_TierPoundage" property="t_Txn_TierPoundage" jdbcType="DECIMAL" />
+		<result column="t_Txn_InterestMargin" property="t_Txn_InterestMargin" jdbcType="DECIMAL" />
+		<result column="t_Txn_BankAccName" property="t_Txn_BankAccName" jdbcType="VARCHAR" />
+		<result column="t_Txn_BankAcc" property="t_Txn_BankAcc" jdbcType="VARCHAR" />
+		<result column="t_Txn_SysUpdateDate" property="t_Txn_SysUpdateDate" jdbcType="TIMESTAMP" />
+		<result column="t_Txn_Paystatus" property="t_Txn_Paystatus" jdbcType="VARCHAR" />
+		<result column="t_Txn_SMS" property="t_Txn_SMS" jdbcType="VARCHAR" />
+		<result column="t_Txn_SMSRec" property="t_Txn_SMSRec" jdbcType="VARCHAR" />
+		<result column="platform" property="platform" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="creator" property="creator" jdbcType="VARCHAR" />
+		<result column="create_time" property="create_time" jdbcType="TIMESTAMP" />
+		<result column="agreement" property="agreement" jdbcType="VARCHAR" />
+		<result column="modify_time" property="modify_time" jdbcType="TIMESTAMP" />	
+	</resultMap>
+		
+		<sql id="Base_Column_List">
+		a.t_Txn_ID, 
+		a.t_Txn_Num, 
+		a.t_Txn_ClearNum, 
+		a.t_Txn_ClearOrg, 
+		a.t_Txn_PrepayApplierName,
+		a.t_Txn_PrepayApplierPID,
+		a.t_Txn_Mobil,
+		a.t_Txn_PrepayDate,
+		a.t_Txn_ProdName,
+		a.t_Txn_PrepayDays,
+		a.t_Txn_CreditPrepayCurrentNum,
+		a.t_Txn_ApplyPrepayAmount,
+		a.t_Txn_CreditPrepayBalanceNum,
+		a.t_Txn_TotalPrepayNum, 
+		a.t_Txn_TotalInterestDays, 
+		a.t_Txn_PrepayCounts, 
+		a.t_Txn_Interest, 
+		a.t_Txn_BalanceCreditNum,
+		a.t_Txn_OverdueRepaymentDate,
+		a.t_Txn_PrepayClear,
+		a.t_Txn_Overdue,
+		a.t_Txn_OverdueDays,
+		a.t_Txn_OverdueTotalAmount,
+		a.t_Txn_FinancialInterest,
+		a.t_Txn_ServiceFee,
+		a.t_Txn_Poundage, 
+		a.t_Txn_TierPoundage, 
+		a.t_Txn_InterestMargin, 
+		a.t_Txn_BankAccName, 
+		a.t_Txn_BankAcc, 
+		a.t_Txn_SysUpdateDate, 
+		a.t_Txn_Paystatus, 
+		a.t_Txn_SMS, 
+		a.t_Txn_SMSRec, 
+		a.platform,
+		a.remark,
+		a.creator,
+		a.create_time,
+		a.agreement,
+		a.modify_time
+	    </sql>
+
+<!-- Get Personal Key data -->
+
+	<resultMap id="findAuthPrepayApplierMap" type="com.qucai.sample.vo.StaffPrepayApplicationNew">
+	       <result column="t_P_Name" property="t_P_Name" jdbcType="VARCHAR" />	
+	       <result column="t_P_PID" property="t_P_PID" jdbcType="VARCHAR" />	
+	       <result column="t_P_Company" property="t_P_Company" jdbcType="VARCHAR" />	
+	       <result column="t_P_CompanyNum" property="t_P_CompanyNum" jdbcType="VARCHAR" />	
+	       <result column="t_P_Mobil" property="t_P_Mobil" jdbcType="VARCHAR" />	
+	       <result column="t_P_CreditPrepaySalaryAmount" property="t_P_CreditPrepaySalaryAmount" jdbcType="DECIMAL" />	
+	       <result column="t_P_PayrollDate" property="t_P_PayrollDate" jdbcType="INTEGER" />	
+	       <result column="t_P_Employmentstatus" property="t_P_Employmentstatus" jdbcType="VARCHAR" />	
+	       <result column="t_P_EmploymentCategory" property="t_P_EmploymentCategory" jdbcType="VARCHAR" />	
+	       <result column="t_P_PayrollDebitcardBankName" property="t_P_PayrollDebitcardBankName" jdbcType="VARCHAR" />	
+	       <result column="t_P_Probation" property="t_P_Probation" jdbcType="VARCHAR" />	
+	       <result column="t_P_PayrollDebitcardNum" property="t_P_PayrollDebitcardNum" jdbcType="VARCHAR" />	
+	</resultMap>
+	
+	<sql id="findAuthPrepayApplier_Column_List">
+		t_P_Name, 
+		t_P_PID, 
+		t_P_Company, 
+		t_P_CompanyNum, 
+		t_P_Mobil,
+		t_P_CreditPrepaySalaryAmount,
+		t_P_PayrollDate,
+		t_P_Employmentstatus,
+		t_P_EmploymentCategory,
+		t_P_PayrollDebitcardBankName,
+		t_P_PayrollDebitcardNum,
+		t_P_Probation,
+		t_P_SocialSecurityBaseAmount
+	</sql>
+	
+	<resultMap id="RecordPayment" type="com.qucai.sample.entity.StaffPrepayApplicationPayment">
+	       <result column="ID" property="ID" jdbcType="VARCHAR" />	
+	       <result column="orderCode" property="orderCode" jdbcType="VARCHAR" />	
+	       <result column="version" property="version" jdbcType="VARCHAR" />	
+	       <result column="productId" property="productId" jdbcType="VARCHAR" />	
+	       <result column="tranTime" property="tranTime" jdbcType="VARCHAR" />	
+	       <result column="name" property="name" jdbcType="VARCHAR" />	
+	       <result column="company" property="company" jdbcType="VARCHAR" />	
+	       <result column="certType" property="certType" jdbcType="VARCHAR" />	
+	       <result column="certNo" property="certNo" jdbcType="VARCHAR" />	
+	       <result column="returnPic" property="returnPic" jdbcType="VARCHAR" />	
+	       <result column="accNo" property="accNo" jdbcType="VARCHAR" />	
+	       <result column="accName" property="accName" jdbcType="VARCHAR" />	
+	       <result column="accAttr" property="accAttr" jdbcType="VARCHAR" />	
+	       <result column="accType" property="accType" jdbcType="VARCHAR" />	
+	       <result column="phone" property="phone" jdbcType="VARCHAR" />	
+	       <result column="currencyCode" property="currencyCode" jdbcType="VARCHAR" />	
+	       <result column="tranAmt" property="tranAmt" jdbcType="VARCHAR" />	
+	       <result column="RCcode" property="RCcode" jdbcType="VARCHAR" />	
+	       <result column="remark" property="remark" jdbcType="VARCHAR" />	
+	       <result column="reqReserved" property="reqReserved" jdbcType="VARCHAR" />	
+	</resultMap>
+	
+	<sql id="RecourdPaymentList">
+	        ID,
+            orderCode,
+            version,
+            productId,
+            tranTime,
+            name,
+            company,
+            certType,
+            certNo,
+            returnPic,
+            accNo,
+            accName,
+            accAttr,
+            accType,
+            phone,
+            currencyCode,
+            tranAmt,
+            RCcode,
+            remark,
+            reqReserved
+	</sql>	
+	
+	<select id="findAuthPrepayApplier" resultMap="findAuthPrepayApplierMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="findAuthPrepayApplier_Column_List" />
+		from t_personal_info a
+		left join t_manager m on a.t_P_Mobil = m.mobile
+    	where a.t_P_Mobil = #{SeesionLoginMobil}
+	</select>
+
+<!-- Get Initial Txn data on Refresh Month Creditline -->
+
+	<select id="findPrepayApplierCredit" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_transaction_info a
+		join t_personal_info m on m.t_P_Mobil = a.t_Txn_Mobil
+		where a.t_Txn_Mobil = m.t_P_Mobil
+		and m.t_P_Mobil = #{SeesionLoginMobil}
+		order by a.create_time DESC limit 1
+	</select>
+	
+	<select id="findPrepayApplierCreditBalance" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_transaction_info a
+		where a.t_Txn_Mobil = #{SeesionLoginMobil}
+		order by a.create_time DESC limit 1
+		for update
+	</select>
+	
+   <delete id="deleteFailedPayment" parameterType="java.lang.String">
+		delete from t_transaction_info
+		where t_Txn_Num = #{OrderCode}
+	</delete>
+	
+	<delete id="deleteTxnPayment" parameterType="java.lang.String">
+		delete from t_transaction_info 
+		where t_Txn_PrepayApplierName = #{t_Txn_PrepayApplierName} 
+		and t_Txn_PrepayApplierPID = #{t_Txn_PrepayApplierPID} 
+		and t_Txn_Paystatus = #{t_Txn_Paystatus}
+	</delete>
+	
+	<select id="FindFailedPayment"  resultMap="BaseResultMap" 
+	    parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_transaction_info a
+		where
+		t_Txn_Num = #{OrderCode}
+	</select>
+	
+<!-- Get finance prod data -->
+
+	<resultMap id="findAuthFinanceProdMap" type="com.qucai.sample.vo.StaffPrepayApplicationNew">
+	       <result column="t_FProd_ID" property="t_FProd_ID" jdbcType="VARCHAR" />	
+	       <result column="t_FProd_Name" property="t_FProd_Name" jdbcType="VARCHAR" />	
+	       <result column="t_FProd_Interest" property="t_FProd_Interest" jdbcType="DECIMAL" />	
+	       <result column="t_FProd_OverdueInt" property="t_FProd_OverdueInt" jdbcType="DECIMAL" />	
+	       <result column="t_FProd_ServiceFee" property="t_FProd_ServiceFee" jdbcType="DECIMAL" />	
+	       <result column="t_FProd_Poundage" property="t_FProd_Poundage" jdbcType="DECIMAL" />	
+	       <result column="t_FProd_ETxnAmtLimit" property="t_FProd_ETxnAmtLimit" jdbcType="DECIMAL" />	
+	       <result column="t_FProd_TierPoundage" property="t_FProd_TierPoundage" jdbcType="VARCHAR" />	
+	       <result column="t_FProd_Status" property="t_FProd_Status" jdbcType="VARCHAR" />	
+	       <result column="t_FProd_SysupdateDate" property="t_FProd_SysupdateDate" jdbcType="TIMESTAMP" />	
+	       <result column="t_FProd_category" property="t_FProd_category" jdbcType="VARCHAR" />	
+	       <result column="t_FProd_CorpPool" property="t_FProd_CorpPool" jdbcType="VARCHAR" />	
+	       <result column="t_FProd_PersPool" property="t_FProd_PersPool" jdbcType="VARCHAR" />	
+	</resultMap>
+	
+	<sql id="findAuthFinanceProd_Column_List">
+		t_FProd_ID, 
+		t_FProd_Name, 
+		t_FProd_Interest, 
+		t_FProd_OverdueInt, 
+		t_FProd_ServiceFee,
+		t_FProd_Poundage,
+		t_FProd_ETxnAmtLimit,
+		t_FProd_TierPoundage,
+		t_FProd_Status,
+		t_FProd_SysupdateDate,
+		t_FProd_category,
+		t_FProd_CorpPool,
+		t_FProd_PersPool
+	</sql>	
+	
+	<select id="findAuthFinanceProd" resultMap="findAuthFinanceProdMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="findAuthFinanceProd_Column_List" />
+		from t_fproduct_info f join t_organization_info on f.t_FProd_CorpPool = t_organization_info.t_O_Category 
+		JOIN t_personal_info on f.t_FProd_category = t_personal_info.t_P_EmploymentCategory
+		where t_FProd_Status = "on"
+		and f.t_FProd_CorpPool = t_organization_info.t_O_Category
+		and f.t_FProd_category = t_personal_info.t_P_EmploymentCategory
+		and f.t_FProd_PersPool = #{t_P_Probation,jdbcType=VARCHAR}
+		GROUP BY t_FProd_Name
+	</select>
+	
+<!-- old version, without VIP and Identify control
+	<select id="findAuthFinanceProd" resultMap="findAuthFinanceProdMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="findAuthFinanceProd_Column_List" />
+		from t_fproduct_info
+		where t_FProd_Status = "on"
+	</select> 
+-->	
+	<select id="findSelectedByFProdName" resultMap="findAuthFinanceProdMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="findAuthFinanceProd_Column_List" />
+		from t_fproduct_info
+		where t_FProd_Status = "on" and t_FProd_ID = #{t_FProd_Name}
+	</select>
+	
+	<select id="findFailedPaymentList" resultMap="RecordPayment"
+		parameterType="java.lang.String">
+		select
+		<include refid="RecourdPaymentList" />
+		from t_payment_list a
+		where RCcode != "0000"
+		<if test="company != null">
+		 and a.company LIKE CONCAT('%',#{company},'%')
+		</if>
+		order by tranTime
+	</select>
+	
+	<select id="findSearchFailedPaymentList"  resultMap="RecordPayment" 
+	     parameterType="java.lang.String">
+		select
+		<include refid="RecourdPaymentList" />
+		from t_payment_list a
+	    where
+	    <if test="name != null">
+		 a.name LIKE CONCAT('%',#{name},'%')
+		</if>
+		<if test="company != null">
+		 and a.company LIKE CONCAT('%',#{company},'%')
+		</if>
+		order by tranTime
+	</select>
+
+<!-- New submitted transaction -->
+	<insert id="insertSelective" parameterType="com.qucai.sample.entity.StaffPrepayApplicationList">
+		insert into t_transaction_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="t_Txn_ID != null">
+				t_Txn_ID,
+			</if>
+			<if test="t_Txn_Num != null">
+				t_Txn_Num,
+			</if>
+			<if test="t_Txn_ClearNum != null">
+				t_Txn_ClearNum,
+			</if>
+			<if test="t_Txn_ClearOrg != null">
+				t_Txn_ClearOrg,
+			</if>
+			<if test="t_Txn_PrepayApplierName != null">
+				t_Txn_PrepayApplierName,
+			</if>
+			<if test="t_Txn_PrepayApplierPID != null">
+				t_Txn_PrepayApplierPID,
+			</if>
+			<if test="t_Txn_Mobil != null">
+				t_Txn_Mobil,
+			</if>
+			<if test="t_Txn_PrepayDate != null">
+				t_Txn_PrepayDate,
+			</if>
+			<if test="t_Txn_ProdName != null">
+				t_Txn_ProdName,
+			</if>
+			<if test="t_Txn_PrepayDays != null">
+				t_Txn_PrepayDays,
+			</if>
+			<if test="t_Txn_CreditPrepayCurrentNum != null">
+				t_Txn_CreditPrepayCurrentNum,
+			</if>
+			<if test="t_Txn_ApplyPrepayAmount != null">
+				t_Txn_ApplyPrepayAmount,
+			</if>
+			<if test="t_Txn_CreditPrepayBalanceNum != null">
+				t_Txn_CreditPrepayBalanceNum,
+			</if>
+			<if test="t_Txn_TotalPrepayNum != null">
+				t_Txn_TotalPrepayNum,
+			</if>
+			<if test="t_Txn_TotalInterestDays != null">
+				t_Txn_TotalInterestDays,
+			</if>
+			<if test="t_Txn_PrepayCounts != null">
+				t_Txn_PrepayCounts,
+			</if>
+			<if test="t_Txn_Interest != null">
+				t_Txn_Interest,
+			</if>
+			<if test="t_Txn_BalanceCreditNum != null">
+				t_Txn_BalanceCreditNum,
+			</if>
+			<if test="t_Txn_OverdueRepaymentDate != null">
+				t_Txn_OverdueRepaymentDate,
+			</if>
+			<if test="t_Txn_PrepayClear != null">
+				t_Txn_PrepayClear,
+			</if>
+			<if test="t_Txn_Overdue != null">
+				t_Txn_Overdue,
+			</if>
+			<if test="t_Txn_OverdueDays != null">
+				t_Txn_OverdueDays,
+			</if>
+			<if test="t_Txn_OverdueTotalAmount != null">
+				t_Txn_OverdueTotalAmount,
+			</if>
+			<if test="t_Txn_FinancialInterest != null">
+				t_Txn_FinancialInterest,
+			</if>
+			<if test="t_Txn_ServiceFee != null">
+				t_Txn_ServiceFee,
+			</if>
+			<if test="t_Txn_Poundage != null">
+				t_Txn_Poundage,
+			</if>
+			<if test="t_Txn_TierPoundage != null">
+				t_Txn_TierPoundage,
+			</if>
+			<if test="t_Txn_InterestMargin != null">
+				t_Txn_InterestMargin,
+			</if>
+			<if test="t_Txn_BankAccName != null">
+				t_Txn_BankAccName,
+			</if>
+			<if test="t_Txn_BankAcc != null">
+				t_Txn_BankAcc,
+			</if>
+			<if test="t_Txn_SysUpdateDate != null">
+				t_Txn_SysUpdateDate,
+			</if>
+			<if test="t_Txn_Paystatus != null">
+				t_Txn_Paystatus,
+			</if>
+			<if test="t_Txn_SMS != null">
+				t_Txn_SMS,
+			</if>
+			<if test="t_Txn_SMSRec != null">
+				t_Txn_SMSRec,
+			</if>
+			<if test="platform != null">
+				platform,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="creator != null">
+				creator,
+			</if>
+			<if test="create_time != null">
+				create_time,
+			</if>
+			<if test="agreement != null">
+				agreement,
+			</if>
+			<if test="modify_time != null">
+				modify_time
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="t_Txn_ID != null">
+				#{t_Txn_ID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Txn_Num != null">
+				#{t_Txn_Num,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Txn_ClearNum != null">
+				#{t_Txn_ClearNum,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Txn_ClearOrg != null">
+				#{t_Txn_ClearOrg,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Txn_PrepayApplierName != null">
+				#{t_Txn_PrepayApplierName,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Txn_PrepayApplierPID != null">
+				#{t_Txn_PrepayApplierPID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Txn_Mobil != null">
+				#{t_Txn_Mobil,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Txn_PrepayDate != null">
+				#{t_Txn_PrepayDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="t_Txn_ProdName != null">
+				#{t_Txn_ProdName,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Txn_PrepayDays != null">
+				#{t_Txn_PrepayDays,jdbcType=INTEGER},
+			</if>
+			<if test="t_Txn_CreditPrepayCurrentNum != null">
+				#{t_Txn_CreditPrepayCurrentNum,jdbcType=DECIMAL},
+			</if>
+			<if test="t_Txn_ApplyPrepayAmount != null">
+				#{t_Txn_ApplyPrepayAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="t_Txn_CreditPrepayBalanceNum != null">
+				#{t_Txn_CreditPrepayBalanceNum,jdbcType=DECIMAL},
+			</if>
+			<if test="t_Txn_TotalPrepayNum != null">
+				#{t_Txn_TotalPrepayNum,jdbcType=DECIMAL},
+			</if>
+			<if test="t_Txn_TotalInterestDays != null">
+				#{t_Txn_TotalInterestDays,jdbcType=INTEGER},
+			</if>
+			<if test="t_Txn_PrepayCounts != null">
+				#{t_Txn_PrepayCounts,jdbcType=INTEGER},
+			</if>
+			<if test="t_Txn_Interest != null">
+				#{t_Txn_Interest,jdbcType=DECIMAL},
+			</if>
+			<if test="t_Txn_BalanceCreditNum != null">
+				#{t_Txn_BalanceCreditNum,jdbcType=DECIMAL},
+			</if>
+			<if test="t_Txn_OverdueRepaymentDate != null">
+				#{t_Txn_OverdueRepaymentDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="t_Txn_PrepayClear != null">
+				#{t_Txn_PrepayClear,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Txn_Overdue != null">
+				#{t_Txn_Overdue,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Txn_OverdueDays != null">
+				#{t_Txn_OverdueDays,jdbcType=INTEGER},
+			</if>
+			<if test="t_Txn_OverdueTotalAmount != null">
+				#{t_Txn_OverdueTotalAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="t_Txn_FinancialInterest != null">
+				#{t_Txn_FinancialInterest,jdbcType=DECIMAL},
+			</if>
+			<if test="t_Txn_ServiceFee != null">
+				#{t_Txn_ServiceFee,jdbcType=DECIMAL},
+			</if>
+			<if test="t_Txn_Poundage != null">
+				#{t_Txn_Poundage,jdbcType=DECIMAL},
+			</if>
+			<if test="t_Txn_TierPoundage != null">
+				#{t_Txn_TierPoundage,jdbcType=DECIMAL},
+			</if>
+			<if test="t_Txn_InterestMargin != null">
+				#{t_Txn_InterestMargin,jdbcType=DECIMAL},
+			</if>
+			<if test="t_Txn_BankAccName != null">
+				#{t_Txn_BankAccName,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Txn_BankAcc != null">
+				#{t_Txn_BankAcc,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Txn_SysUpdateDate != null">
+				#{t_Txn_SysUpdateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="t_Txn_Paystatus != null">
+				#{t_Txn_Paystatus,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Txn_SMS != null">
+				#{t_Txn_SMS,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Txn_SMSRec != null">
+				#{t_Txn_SMSRec,jdbcType=VARCHAR},
+			</if>
+			<if test="platform != null">
+				#{platform,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				#{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="create_time != null">
+				#{create_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="agreement != null">
+				#{agreement,jdbcType=VARCHAR},
+			</if>
+			<if test="modify_time != null">
+				#{modify_time,jdbcType=TIMESTAMP}
+			</if>
+		</trim>
+	</insert>
+	
+	
+<!--  Insert Payment record -->	
+
+<insert id="insertPayment" parameterType="com.qucai.sample.entity.StaffPrepayApplicationPayment">
+		insert into t_payment_list
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="ID != null">
+				ID,
+			</if>
+			<if test="orderCode != null">
+				orderCode,
+			</if>
+			<if test="version != null">
+				version,
+			</if>
+			<if test="productId != null">
+				productId,
+			</if>
+			<if test="tranTime != null">
+				tranTime,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="certType != null">
+				certType,
+			</if>
+			<if test="certNo != null">
+				certNo,
+			</if>
+			<if test="returnPic != null">
+				returnPic,
+			</if>
+			<if test="accNo != null">
+				accNo,
+			</if>
+			<if test="accName != null">
+				accName,
+			</if>
+			<if test="accAttr != null">
+				accAttr,
+			</if>
+			<if test="accType != null">
+				accType,
+			</if>
+			<if test="phone != null">
+				phone,
+			</if>
+			<if test="currencyCode != null">
+				currencyCode,
+			</if>
+			<if test="tranAmt != null">
+				tranAmt,
+			</if>
+			<if test="RCcode != null">
+				RCcode,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="reqReserved != null">
+				reqReserved,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="ID != null">
+				#{ID,jdbcType=VARCHAR},
+			</if>
+			<if test="orderCode != null">
+				#{orderCode,jdbcType=VARCHAR},
+			</if>
+			<if test="version != null">
+				#{version,jdbcType=VARCHAR},
+			</if>
+			<if test="productId != null">
+				#{productId,jdbcType=VARCHAR},
+			</if>
+			<if test="tranTime != null">
+				#{tranTime,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="certType != null">
+				#{certType,jdbcType=VARCHAR},
+			</if>
+			<if test="certNo != null">
+				#{certNo,jdbcType=VARCHAR},
+			</if>
+			<if test="returnPic != null">
+				#{returnPic,jdbcType=VARCHAR},
+			</if>
+			<if test="accNo != null">
+				#{accNo,jdbcType=VARCHAR},
+			</if>
+			<if test="accName != null">
+				#{accName,jdbcType=VARCHAR},
+			</if>
+			<if test="accAttr != null">
+				#{accAttr,jdbcType=VARCHAR},
+			</if>
+			<if test="accType != null">
+				#{accType,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="currencyCode != null">
+				#{currencyCode,jdbcType=VARCHAR},
+			</if>
+			<if test="tranAmt != null">
+				#{tranAmt,jdbcType=VARCHAR},
+			</if>
+			<if test="RCcode != null">
+				#{RCcode,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="reqReserved != null">
+				#{reqReserved,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.qucai.sample.entity.StaffPrepayApplicationPayment">
+		update t_payment_list
+		<set>
+			remark = "patch failed"
+		</set>
+		where OrderCode = #{OrderCode,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateCreditBalanceAmt" parameterType="com.qucai.sample.entity.StaffPrepayApplicationList">
+		update t_transaction_info a
+		<set>
+		  a.t_Txn_CreditPrepayBalanceNum = #{CreditBalanceAmtRefund,jdbcType=DECIMAL},
+		  a.remark = #{OrderCodeUpdate,jdbcType=VARCHAR}
+		</set>
+		where a.t_Txn_Num = #{OrderCodeUpdate,jdbcType=VARCHAR}
+	</update>
+	
+	
+   <update id="RestStatusToFailed" parameterType="com.qucai.sample.entity.StaffPrepayApplicationPayment">
+		update t_payment_list
+		<set>
+			RCcode = "0003"
+		</set>
+		where orderCode = #{OrderCode,jdbcType=VARCHAR}
+	</update>
+	
+
+	<select id="findAllList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_transaction_info a
+		where 1=1
+		order by a.create_time DESC
+	</select>
+	
+   <select id="findAllNowList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_transaction_info a
+		where 1=1
+		and a.t_Txn_PrepayDate LIKE CONCAT('%',CURDATE(),'%')
+		order by a.create_time DESC
+	</select>
+
+
+<!-- 
+
+		<select id="finaAuthPrepayApplier" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+	   select
+				<include refid="Base_Column_List" />
+		 from t_manager a
+		left join t_personal_info m on a.mobile = m.t_P_Mobil
+         WHERE a.mobile  = m.t_P_Mobil
+		</select>
+
+	<select id="DropdownlistOrg" resultMap="DropdownlistOrgMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="DropdownlistOrg" />
+		from t_organization_info
+	</select>
+-->
+<!-- 
+	<select id="findEntResourceGrantAllList" resultMap="ResourceGrantMap"
+		parameterType="java.lang.String">
+		SELECT
+			<include refid="Base_Column_List" />, 
+			(
+				SELECT
+					count(1)
+				FROM
+					tr_role_resource
+				WHERE
+					resource_id = a.id
+				AND role_id = #{roleId}
+			) AS selected
+		FROM
+			t_resource a
+		WHERE a.platform = 1
+		order by IFNULL(a.parent_id, ''), a.idx
+	</select>
+ -->			
+
+   <select id="existStaffPrepayApplicationName" resultType="Integer"
+		parameterType="map">
+		select
+		count(1)
+		from t_transaction_info a
+		where a.t_Txn_ID = #{t_Txn_ID}
+		<if test="t_Txn_ID != null">
+			and a.t_Txn_ID != #{t_Txn_ID}
+		</if>
+	</select>
+	
+    <select id="findRealTimeSearchList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_transaction_info a
+		where 
+		a.t_Txn_PrepayDate LIKE CONCAT('%',CURDATE(),'%') 
+		<if test="t_Txn_Paystatus != null">
+		 and a.t_Txn_Paystatus LIKE CONCAT('%',#{t_Txn_Paystatus},'%')
+		</if>
+		<if test="SeesionLoginMobil != null">
+		 and a.t_Txn_Mobil LIKE CONCAT('%',#{SeesionLoginMobil},'%')
+		</if>
+		<if test="t_Txn_PrepayApplierName != null">
+		 and a.t_Txn_PrepayApplierName LIKE CONCAT('%',#{t_Txn_PrepayApplierName},'%')
+		</if>
+		order by a.t_Txn_PrepayDate DESC
+	</select>
+		
+	<delete id="refreshCredit" parameterType="java.lang.String">
+		delete from t_transaction_info
+		where t_Txn_PrepayApplierPID in (select t_P_PID from t_personal_info where t_personal_info.t_P_Company = #{t_TreasuryDB_OrgName_get,jdbcType=VARCHAR})
+	</delete>
+	
+    <delete id="paymentSuccCheck" parameterType="java.lang.String">
+		delete from t_payment_list
+		where orderCode = #{OrderCode,jdbcType=VARCHAR}
+	</delete>
+</mapper>
+ 

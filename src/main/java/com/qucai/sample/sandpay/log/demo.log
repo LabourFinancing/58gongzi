@@ -1,0 +1,1428 @@
+[INFO ] 2018-04-30 09:26:42,414 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 09:26:42,416 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 09:26:42,419 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 09:26:42,420 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000056 已加载
+[INFO ] 2018-04-30 09:26:42,420 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 09:26:42,421 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 09:26:42,422 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 09:26:42,617 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"accType":"4","tranTime":"20180430092642","areaFlag":"","accNo":"6216261000000000018","channelType":"","currencyCode":"156","tranAmt":"000000000012","orderCode":"2018043009264247","extend":"","accAttr":"0","productId":"00000004","version":"01"}
+[INFO ] 2018-04-30 09:26:42,724 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=B7fYzaOhRyM4UWCKbGMcyVHCUCjSiGCBynWkfJrWsXlOhEwsgqQZXEjLYF6pVQAnFeptV7j8T2on9BNPDCuC4SN6nyUC2xEg0U3pvM68YB0sOiBKfdYY8dLeVIYoD3x7uPZtDEY1NXyRDV77ZsRH4K/0BJqCY9oP+cR89UUKn7/e9thTWZGEDE7lLKeF82G1jjB5SycePp7ElgfSx4DneHCVjI4Aw28Ixvy2AkIhe83r9Hp9hrhXVesvKNHv10lgBdK3UdljE2TdpinPJ1e6OFzhQRTLlxBeMozX9gQ1qtKfzu7IZOE1QFRfRnJMdutRnb9a6IKEU/hqCUSm9vKUvA==, encryptData=JYVYOq/HFPQ/ot96D8VGDY5gpDUU5ZUEpxRl4VGFWnI9/+BHZBeFGQpRjaO4OTAEWfZQSoPAF62bHsHVPe3rHF1H6GnQikBsYHuCdPxty+Qg4+X0Bft9CyInuCPq2XvksHryELJh69LDVxE+gRrek6tOWBfTC06Y7Jxf9HI1QrvPU2sLs6Ulap2Bun1X0Mpj1WnmC0ecX0MTx9lBhl3DoTenoucYZchtLafNApuUagpIeUC+s+v8T1d4b/Qo3d0XMWw/7P0JwGwHnq9pwWy9A95dvo5Yc9ZE2+AncpPx9TYrefIwid6bRL853MiftynjFup5PMsvfLjOfckUX2iTSw==, encryptKey=tinUxqQE/19sim4AuQqlTTFRe0HR1nKzbMH3Nlal+nj7tWS4aVxWpTzHb8i538gXqDh4Ws2TtmBjBLuWPYveXQoTDpUcJpGRvQYjhkCvJnVUGeRrxd2M8v1SCnzWwRUoexJCCoXsf69nhv9GIAyRX9KjuwPBCEBT8YoOWMIW0iQF/BhysIK+d6DGUCPpvV1Hel89UrUi7VR/yicatWSNdT9UzpqzYCcbSCy2J8YsVZ5KiL3kPUv2NENFlwTKAm+JofzU8hyhn/ZMSr2P5cR2czfWOe0bLc8GXcA+XF1nPRSc14m4CH1Jz6uEJFWtm3FpRr+fXGcxywg2x9NJmknRaQ==, extend=, merId=90000056, plId=null, accessType=0, transCode=PTFQ}
+[INFO ] 2018-04-30 09:26:42,747 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//queryAgentpayFee
+[INFO ] 2018-04-30 09:26:43,746 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[200]
+[INFO ] 2018-04-30 09:26:43,748 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+"transCode=PTFQ&accessPlatform=&merId=90000056&accessType=0&plId=&encryptKey=o5tJt7aGlDAKAp0VYxjoYRZDnGo7+ixuNI7DDKyy+VosJT4AVjVMezYL2YqQsmMAgmBavFafemTXYJlq566AkckQqCMPSG2739MuXZJgftFdnZlUWsjfsjU1pbRGSj6VpoSW0OUKIfQbtBd6AaMbJcWyCjeJ8PawIrntoqwYJ3x7VYrixkerreJqwzQIi9utD8+H/X4idEhkhcdTj6J+BDSDHb3mLUx38/tq6M0Nd8cUpJMkJWAZy9sclMPtBRGwwk8tZx19GY9i4M88+9Wkp0beEphpAwcYoS8hQl362V6ucEUtaIjyQnJYlURgevqEFiHC2Wh0zcOOhft/wAAWIQ==&encryptData=yAYOa/GrD2gCGSV1c5iR0fBTwWlOPfCeI8yI5pyM19Q14Absolob5Rlh4kNiY/y17v3kTXJBHIOMdbenfb4XDY0mRM075cnfJJnJjt7Osbz0+zjTx4Fn5qesiMlBHEmDOgCgpwjzWrX8v7XOi7mHrA==&sign=SF8guYbuK1/nfFOtCnMiK0hk+jjJh1cHe6EESI9Ucjlko0GqNrDSra7NFG/OV+TTkyufq+n0929NkGQ8mzG1xWeI9lfbLr0vZm0tCdise0jaIpTKNr2RiIULBEH2NDbyuM2FAyh8mJVbdRu0+gHB6pe4zR3d/nkta8xbvrUEg3kAvRP8euiBK7jkT/tXaDReV9rG9UBt8IwMnt5GiH0kNthY/kHuKuFUdjoJCuUf7Og3VKtXzKbN0FqpYTBM9uJ0q/rX6XME7mA95Tkuba7yLmXoh0R0ILdNWG/H8X6z86cOLkyCEK2Z55kPz+4rX4BUm7C1LE2paRt/0cA+aU5wLQ=="
+[INFO ] 2018-04-30 09:26:43,755 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:178)
+retData:[{"orderCode":"2018043009264247","respCode":"3004","respDesc":"账户属性错误","tranTime":"20180430092642"}]
+[INFO ] 2018-04-30 09:26:43,756 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:190)
+verify sign success
+[INFO ] 2018-04-30 09:26:43,777 method:cn.com.sandpay.dsf.demo.AgentPayFeeQuery.main(AgentPayFeeQuery.java:57)
+响应码：[3004]
+[INFO ] 2018-04-30 09:26:43,777 method:cn.com.sandpay.dsf.demo.AgentPayFeeQuery.main(AgentPayFeeQuery.java:58)
+响应描述：[账户属性错误]
+[INFO ] 2018-04-30 09:26:43,777 method:cn.com.sandpay.dsf.demo.AgentPayFeeQuery.main(AgentPayFeeQuery.java:59)
+手续费：[null]
+[INFO ] 2018-04-30 15:59:40,421 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 15:59:40,433 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 15:59:40,436 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 15:59:40,436 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000056 已加载
+[INFO ] 2018-04-30 15:59:40,436 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 15:59:40,438 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 15:59:40,438 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 15:59:40,741 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"accType":"4","tranTime":"20180430155940","areaFlag":"","accNo":"6216261000000000018","channelType":"07","currencyCode":"156","tranAmt":"000000000012","orderCode":"2018043015594080","extend":"","accAttr":"0","productId":"00000004","version":"01"}
+[INFO ] 2018-04-30 15:59:40,924 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=drvmpiGajEVRXxw/5RfQVtOt0LwgOh10NpismPMU/Tr3iSkfkLauER0jVgWJF6UGD1bQ0vNmcxmHSgdzo3e6Whbq89jgOMpgQ8murWfDb5vlgmrIixv4jLrwn8Q26kjMYHuEFn/Y/0Ztej1r7Vm9Oh/PYjU8wyYcJ0F9kv6pXC1kSGzGTG9Jp4X4uXT9qdvH4k3bTPTMv2W2yQyxCy1ejrrYa/W5vBIJj4L3p2dPCuWSyhnSDtdV6PKvBPxzLmIKzsFskocK0H5aJBuLIBQ6kED1i+q1hQIZ1hXO78sBF91SjPRBMSpYupbgzFSUeooPuQ3qc3p3G1BiOlwwSHGdOg==, encryptData=8Pwvwcn4jkRuifot0Ujx97KMllwV/SJW1Rjaugz/PwwiuD/bW00hOhLNKZtuNVkzV/FS/EMR/bO+Jt9DfHaKUW/p1Nkayw1gFo1OG1NYdy4I/fNHJ5zhwgbdbaAoXvBnCo/gR4+yBFWTmgbSmuzZy4cl0nNC7XsHLVK4k0otDUfJ854YJCVWnnic5lLXfWdwImdR6/gox0AezDAdu+Q9dqNujpmh9NN0bBI2SrOcMRDuZmjZy0KUVA5kZUu29C+yx5Gnn9bdjtQ2+sWBQe+XEIf2jRnAmdxc6kcoJa/J+OKr7krNY2D2pzPQTI3rgIT2ILHuW0v2RWatA1ign/nxkw==, encryptKey=LEU79eJ04RDfG5d3OvO2SiTJoP85Du2BxlqHB9g61ow76CFTfVaDF8b7binVaDTkp5KMb+95ZK62Ro2kNoUaIjvAldplIMs+FQ52Cj8pQPJxqY8uUrrHXros4h071i60bbcIzjMaF1/czfb5nOc6dPWBbg0x4dufYR+HzCiR5L7EWkw6uzw36wPwnqrTw5c28im4EHJFcMOhFoplpC0nhQJ4azalikfG9lewGJ0CPDlUsY0d0tyHbrj3QsNmJ9vUM92uJDLlGYNJ39z8NuLha8mHMZx3sBtuvbhHiLpjUH0e9f/X22MpWBmy52H4Fc+mxCuyKqvLewd5gkajIl82rQ==, extend=, merId=90000056, plId=null, accessType=0, transCode=PTFQ}
+[INFO ] 2018-04-30 15:59:41,020 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//queryAgentpayFee
+[INFO ] 2018-04-30 15:59:41,577 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[200]
+[INFO ] 2018-04-30 15:59:41,578 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+"transCode=PTFQ&accessPlatform=&merId=90000056&accessType=0&plId=&encryptKey=EyKS8/scY4nj66x7VIwkQ1dzwiAp/y2nyBHNJkl4UY9Xz+hjDTrAZV0swDxSMGWfoqKf3S0o3U34otLQddsVuOtgS2nFXmFgIM1CUpFlLuxLyXcfA552wQv1sN+UixGn62TGzogd0RxyIiNAuOAyn2RBfnznc8wqkAJVFfbIBjOdoQPw6lWGTBNWvSXPXtCZNCJTyQhAb9YDKaSbvJc4JQLm2xnNBUzFUrubAKNWmfGPH6Y5abvVaQIOHD2H16Aw6y7UEMRAyRcCr1YTAdM6c4dq17ptRGfsmABwCJ5nBusT8R+oyX+SBr+W8UX71d+xW/xHWHGOa8zFo0o7d6CT9A==&encryptData=TlL2nQ3z1+MLbd3Kj5Gu5d3IOV9g/65+5ClovIHKlZSP2Ts8IM7QWljT/hij6FfZJTp/yoSgiuayShGWxegbXpHBQTFE930q/KlooVbeQue/I0jxYfybFFKPGtCzQ90l/9YNOI0fyodgqfcUPLm7AA==&sign=CXuokgYwI2jYHyWsWt6AexqSAyrWXyWuby+p/hLUCtgeeui0eRv+GSIOng2IUjnfBPdBWs77+fn73vabP9XVD8A1Zw237M5xjIQeWss1NuVfxU6HgmIfJ64BSuq1XsjCsvNEl3Yk5cVCPbYgQtDt+ZDSI8olIcghQTJKsP0Agw2yplHR8neMKQBd33TROQdyZLmYn1D2f3yAwSw9wNsY0McvpsrIbZSZ0+kqe/vThGIcAgt+Yg06pWCYnalGn01OkBtFxyOLanF8M3BLIh6SjoEqOBJUJ6UxVt1HxYkiZ1gsObqgU0m36QD5uQ9L91/Q/WPeE0Klj4VxqOr09wXF/A=="
+[INFO ] 2018-04-30 15:59:41,591 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:178)
+retData:[{"orderCode":"2018043015594080","respCode":"3004","respDesc":"账户属性错误","tranTime":"20180430155940"}]
+[INFO ] 2018-04-30 15:59:41,592 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:190)
+verify sign success
+[INFO ] 2018-04-30 15:59:41,613 method:cn.com.sandpay.dsf.demo.AgentPayFeeQuery.main(AgentPayFeeQuery.java:77)
+响应码：[3004]
+[INFO ] 2018-04-30 15:59:41,614 method:cn.com.sandpay.dsf.demo.AgentPayFeeQuery.main(AgentPayFeeQuery.java:78)
+响应描述：[账户属性错误]
+[INFO ] 2018-04-30 15:59:41,614 method:cn.com.sandpay.dsf.demo.AgentPayFeeQuery.main(AgentPayFeeQuery.java:79)
+手续费：[null]
+[INFO ] 2018-04-30 16:02:14,102 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 16:02:14,104 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 16:02:14,107 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 16:02:14,107 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000056 已加载
+[INFO ] 2018-04-30 16:02:14,107 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 16:02:14,108 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 16:02:14,108 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 16:02:14,289 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"accType":"4","tranTime":"20180430160214","areaFlag":"","accNo":"6216261000000000018","channelType":"07","currencyCode":"156","tranAmt":"000000000012","orderCode":"2018043016021487","extend":"","accAttr":"0","productId":"00000004","version":"01"}
+[INFO ] 2018-04-30 16:02:14,407 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=j9rXWYlyYS9Evm+hzw67ITRUqt2B9xdjZh74IjXE+xr2Ur3uZaL7kigJeyz0C9GIitXlOtDjAxNggRt2YtBDWjsLjybgPaVJAa9wAVkoDvk1DAs+/snhubU/8VXAdCEUfPHDCN1HmdNKCZV+zqrM6Xc/t5KYlShEcJv8v+dnAowo/RfilDUnRjSFnrnVLLPHNi+mn05SC8AuUPaV7/Vtm7fQLyy6as8bPjsYa+RKDOKKKUDq7b6wDso7YW4RbA+hdf2t59puTPJuFT50t2XqXKf2QgbHQGU1kqEupX4nNf9+Q/04HAtD2Ot3WWaRx8I+mdyaO3KIrdd4XpjTALnlzw==, encryptData=C2pta0qKHypG4X4jt6D4RB9gBt9xvwfXxyan3VG2ej4jywZJvJXZj1L4jnkilj8mDKTgIfhCMk/zURALpi/WLLtR6sXSpi/cCbU/MhgJuSsnxOfEDPrPd4tzgjvAYc1K4kIEdwqnXTqrdXP1A8AdMdx89PVZnmsuSt7oRoneHO8RTif7gZpgQs0mp8/v0V7JSnxVhokhp2tPhQJsbuUARcUenlf+VLhabVRF7d3/BrEBcU+iWYgqh74gbg+U1ELE5FqJrlnKiWWHe/juded+XwpAHSJZWTMLMjVRdpT0UJNxmphGZtl54nF/IfgFNlMjnc1mhGXzwP/KwwojzJG5OQ==, encryptKey=WBG/32B9jghBrQXk8Vsyq61fl6x4DS56iv6wUwZJcoVSoqDDug5saDH49Qho2+ucu8chOxRkg58PGwKm2PGj2tPqmWo0JC7+q1hy1Lg9SIYxxMLJy9ne7Sv4ZediPkcmIuSLrOb2mzXwC8lfE2XuLKLAo/qFmD5X9TE1wIFS8p8fB+tnRMYCo+adSDIQlKd8+4a0J3kgv9yr7ITsOQOvJn0HIrnplXpXkGujiCCawePjrRVb3aQiuOC04FhmUlSwwUmmMhb1Bp9gZeqhwgFsmOoE7RmLqfluqjU+8KSahc04PVYTwcycQcPCZLWLSY1CoNOL4SEWxXkWbf79UrBgFQ==, extend=, merId=90000056, plId=null, accessType=0, transCode=PTFQ}
+[INFO ] 2018-04-30 16:02:14,428 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//queryAgentpayFee
+[INFO ] 2018-04-30 16:02:14,797 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[200]
+[INFO ] 2018-04-30 16:02:14,799 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+"transCode=PTFQ&accessPlatform=&merId=90000056&accessType=0&plId=&encryptKey=lhL2WZsxlT1Ps/s7qdR/9TBEQ6fLh16G46Zl0GoeMgYNf9pS7oYLSs2GdFE4k1vTqIf1t3PUFhjiOB5AYB0A4R2LmVdVnfN3s3juPN/IeGE+KWHRN5aRYH7Q+NekvYXbtGDIOQ7g4K8BDpo65m3DYYgWPH2Ptc9YJfzyXaAHaCuvNOg0GCy506rc62hlSussMEj25Rrjskd/LHFDIU4YNBa1anBMQnqlv7e2+6jst++B3ugvsf4PpI1fiDGxqC7vMPPgy8LBoRiUFTUV546hzS2sJwXM0+14p5j/PJavw2m1AVp7esUG9UEh2+1TwQs52mSXSnQdBF8aidHQ+0h2Kw==&encryptData=T2U71B79cnHv9qX5p8ajSoSTddwEVz/znzKadozJZxsbqskVMKQUZlkvo+yhkijY8BWzl64AHuxXkOiv8x+ZKXPT4grWKwwjGbxrK5oe7b2f6IaVM7FMJDtxwW23bppcLXulW2QYTcov8p8ARl7uAw==&sign=ZIuaW1E2i4am3cDwOhhABww1u9BGRALMOhV5J+HDIQHnGh51nvzvizH2S11tOVhEyVTPntuWVyxWLTfpqWSyEezjkxTojVQkzEP4bDaq0m5CKme5kuyw8SSRmkMrHq0jFd0p5LjVMy7SOBV3m9iARYdfeie5+O8clJs1yvLzDAEV7l9Nv7lhQf0wz8w4LP5Hmtn33SBY+k6Cv2gF40odOIfO0NLyqyrgClHw7AMFE21YlgttXUVWR9DpOn0Rri44l2IA1J/RR1T4OFrIyAxOoN/QRVArFunLfsX1I4hHa+lBDvNF7xJkjuI2kJrBBQO086eFbaLk45+UnjRxVktBQw=="
+[INFO ] 2018-04-30 16:02:14,806 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:178)
+retData:[{"orderCode":"2018043016021487","respCode":"3004","respDesc":"账户属性错误","tranTime":"20180430160214"}]
+[INFO ] 2018-04-30 16:02:14,807 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:190)
+verify sign success
+[INFO ] 2018-04-30 16:02:14,830 method:cn.com.sandpay.dsf.demo.AgentPayFeeQuery.main(AgentPayFeeQuery.java:77)
+响应码：[3004]
+[INFO ] 2018-04-30 16:02:14,830 method:cn.com.sandpay.dsf.demo.AgentPayFeeQuery.main(AgentPayFeeQuery.java:78)
+响应描述：[账户属性错误]
+[INFO ] 2018-04-30 16:02:14,831 method:cn.com.sandpay.dsf.demo.AgentPayFeeQuery.main(AgentPayFeeQuery.java:79)
+手续费：[null]
+[INFO ] 2018-04-30 16:39:24,591 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 16:39:24,594 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 16:39:24,598 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 16:39:24,598 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000056 已加载
+[INFO ] 2018-04-30 16:39:24,598 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 16:39:24,600 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 16:39:24,600 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 16:39:24,878 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"accType":"4","tranTime":"20180430163924","areaFlag":"","accNo":"6216261000000000018","channelType":"07","currencyCode":"156","tranAmt":"000000000012","orderCode":"2018043016392435","extend":"","accAttr":"0","productId":"00000004","version":"01"}
+[INFO ] 2018-04-30 16:39:25,026 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=PQ6XbWoTt3VOf5esVstoZ2jq9CjTfQse1VBqOgbVnNSpaOUlIAcBYibBSRmHWuMwRNuZ3R2f6HXj2lFkNcg5vlj3IJ0p+hRTPkm+iSgxonT7RiLbHSY+cqqKhbMstYOpjo2sNvpsF8dTNQM4/RvVK8J8tBjQVT2xkEj405p9wkvFGyLLglLh4/UeorPwJLiAdWiGVBR56PdDSJmrME/KUjeNnW2V9hJ2cp4NY2Cgk+71UB9E5bn8lXxR3xESBR7uYzgtXPdyddFGi0xNjsX2DNkkbXvKWHZIkUuOYNLNx1dHl/1lPEu/2ZsmaGeMXlMujpzlQHpFTohMAB9WIjAByA==, encryptData=qOwJXuOT/KspfPJ5LDHZbj0wdH2EGi1nND2Sdy6yjGyVuTAsBzO8c/o4bjUzuOkhPmw5vWxb8FhChstZh40/gs3YCuELgqAIypw93m2wWb+SBoTQBHqiAllFPWUNRmaX5bkAcZ8Nd2O+6Fuf+CbrlZO/yIf5TzJMvFwr4o9yTBCknXbo4XLYi+QEaf6Kqo5eBKk5DDol30MI8JI1N7KGNvXvnv9PyZFFvWRQUTd8Rmc5di1QyYUsN9w+SJJ2boAvBltynbQ1RCKYEd7EvYCAnCSE0HMl53LeXZNklXkswPgEmnpSg1ucX3x1RMyxKvRJiP+Ybsc7pM8TXbypu/AgRg==, encryptKey=K1bE83CK3RTsuaXm7WkwRhcPdSdI9yFO9x56NBkapvssaf9t7mNxB3faADXYZaJNL5+Hh8PKEImNy1m2xUMu300zIQsYCVIltWab1geScHv/qh/3BKN6bQFgaA/LkkdFl5MsuwMLpF2n2vC8crV1P0qABOfp54dl/x8Tbdnm3VA8RaTHVaBzajVyOLU85STkHpwqeiBneRhuXFHkvoRChDXq4Z3891Jj5DaNPub29eEYt3Hp+ElMZKgY6VNcL0c9Lr0nSjOKNJQNTMvd6jS3IBvl0Xiwuy6wvdAKXUA6es3ZaLo0X2eyXWZedmMyWunuKxwwENHyoVNQv4EYLsIZmw==, extend=, merId=90000056, plId=null, accessType=0, transCode=PTFQ}
+[INFO ] 2018-04-30 16:39:25,061 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//queryAgentpayFee
+[INFO ] 2018-04-30 16:39:25,601 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[200]
+[INFO ] 2018-04-30 16:39:25,603 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+"transCode=PTFQ&accessPlatform=&merId=90000056&accessType=0&plId=&encryptKey=ObNOeUhMcZeEWkHgQcXNGV5SQe65mkzwBUCLdId4Qy8NNW53ESHzqiMTzp+rYukkKOeynVysuRO7hDyC7FLDbA+roCQQryhkXNhBYyXbR97XplwsLEVyS/e9C5zNX8YaRK9kKSuZ3/TseqAeYyYpfirTrz0sGNC3qGOQYLM+MeUEiXyA9iqmt2qt61puGHs5OGpkjnw3eBJ+htx06JyanYAjWM+zUOdzPo3Zlh1uhoS8oELi4fUftFBSasDZuGlmKCOoWY4BZrCsbV/XbjA/zvVea38NQbWH9r7Zwa4j0OUlecx+H9TbY7z3TVfL2mpc3ZfDxBP/QOQ9JzECNagprQ==&encryptData=0X2+Sj2RqaA9gGbgvO23WlGp9kqufIiU25qJM2gkjV7KxDoO1HBJWYyJTjbzR9EYDz4atrYZLtJTIa6b/t4JBkVZCZWNOV7DPj3XBBNfYTvXA13JpyzaLM+f7jn3RQyDjJZ11GohGWA12tkD4C2RRMHWqmik0PYoh1SwNwORb8U=&sign=HoAdxKCOUscfou5jVSuPxXuaPesmn0UOEnjR/yXuaM8Z5JDYSf/xmtLVApno2eF+1cwkf8Mc0v3xQ5es/79W/xtdZ5O3M6iDZ5SqyY7KTk1fStztFsr2/sz0ydhuaJcOTi/Zcp7SEOic1JUqubIaFGPN8HazfSp25jDu8800786DKHSahFB9sW9TTPlaisVBvJCipMbVowZ7t6wr5nfBetCeEZ6Y4qJG/eM2Gd8RiMXWHi8R6vq+OK0+9XS3yBBvC7jo1Xz9mf5Hu4SGAaHYKncJ1wxos/KFmB2sApZhrC7Dee4MO4x27/JhuWMrVN+ArBAtS/8jVg+blACwNhzH9Q=="
+[INFO ] 2018-04-30 16:39:25,616 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:178)
+retData:[{"orderCode":"2018043016392435","respCode":"0000","respDesc":"成功","tranFee":"000000000050","tranTime":"20180430163924"}]
+[INFO ] 2018-04-30 16:39:25,617 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:190)
+verify sign success
+[INFO ] 2018-04-30 16:39:25,642 method:cn.com.sandpay.dsf.demo.AgentPayFeeQuery.main(AgentPayFeeQuery.java:77)
+响应码：[0000]
+[INFO ] 2018-04-30 16:39:25,642 method:cn.com.sandpay.dsf.demo.AgentPayFeeQuery.main(AgentPayFeeQuery.java:78)
+响应描述：[成功]
+[INFO ] 2018-04-30 16:39:25,644 method:cn.com.sandpay.dsf.demo.AgentPayFeeQuery.main(AgentPayFeeQuery.java:79)
+手续费：[000000000050]
+[INFO ] 2018-04-30 16:41:17,347 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 16:41:17,350 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 16:41:17,353 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 16:41:17,353 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000057 已加载
+[INFO ] 2018-04-30 16:41:17,353 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 16:41:17,355 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 16:41:17,356 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 16:41:17,555 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"accType":"4","tranTime":"20180430164117","areaFlag":"","accNo":"6216261000000000018","channelType":"07","currencyCode":"156","tranAmt":"000000000012","orderCode":"2018043016411796","extend":"","accAttr":"0","productId":"00000004","version":"01"}
+[INFO ] 2018-04-30 16:41:17,673 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=oPej2PvwD7S3XuABNOGvsTmBujI+0V5Qy4ITvhTGpzjtUlnq2dpFCxtGsw1731Ea2PEzAErOANGzGEh1+vgMD5rEDEXf6bd7oWwa2B83ABbCxq9RycfTRlhoZPmUWClDIEC3oDPx7E3OEpPZKfyeiU5ZHw5/tp/elqtLXLzFyxT0QkeeOiMaoe+KRaJUFF3OWxsoBDmnnWNeIKo+jHuHPOLGp/HppjNxiGHymBaRPrBoAcA1yAIVn6IMUsVFu6TBNmvWIfTDuNqFB4jhLoYUltWYQUdyPlxBZgeGN4xHK5Fi80Ifdohicv5jQ0Jf51jHXQ6oRQYwrs/1KQDtXFP/6w==, encryptData=GuEwgGCYd8Vxqo65ZMw8kN2PuJwwfU4kuxWN0Ym+O1LCxIbgXoS1R4Wn3ygvhCwAp1KEHBWbqwS6X+tH1P/0930PzZKlFozrSwrVT5bZxBAY06F0cXeQBf/VY85L4dPdtgG5RcUTQSf/EQH9A38cHqiCE1kPI/0Mxn1ovtFk+Ookhk1cRjDXUm0BKyrbUGudSpIjpNMa2edBElT9hW43wBsAX6uciEho3A94hzcTveWS0hpXTMf8ZFPiZXwZh+wI9JdK9/gbJex02DpeFeOaKTdwDoitJJa8whvSTVYDYEUCfsyarrRVe2VCbOcn/tAR2cRy/1HaMDHwVQTsP0/nGg==, encryptKey=mob1DyAVEzZs+9Pdhyq+tRKV9nxr3gLCdN/pBSlKlbImMU5UB8iCKh8BObLpA/mIxDmyWsfrwBg1nF19bYpevivLHblbmC6J0Za4AIRy9/7kS3HxWnf1csEmcaQZYuT3LZGz6HZ52P56iGx1CQkYllL6/j8rQbXsVt2sutycoPi5kwAtjNMo+YfmH9SNM4zEyso1QTVw/qq+mNqXgEUkskTPQFKrHoha1Np/KGRBpr/q2iXaxGwOkK43APbDeJssGP+t0TaOkKweHAnVIWL5MEhtPja/kEWrBGUJU+0pxpfzYIgiO8+S1natPCJHzbP5W50u39O4dTviZME9Mq37Dw==, extend=, merId=90000057, plId=null, accessType=0, transCode=PTFQ}
+[INFO ] 2018-04-30 16:41:17,701 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//queryAgentpayFee
+[INFO ] 2018-04-30 16:41:17,935 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[200]
+[INFO ] 2018-04-30 16:41:17,937 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+transCode=PTFQ&accessPlatform=&merId=90000057&accessType=0&plId=&encryptKey=oj8kIKaSznKnpLR2JofFGuopjMdYT6eMXz4jni1n4J73Ha7O6KRDwE8MkeHXKMNM8Ag6YqwwfDcAWRFj5TE/gA7b8h9j7MlPOA4zbkDkayOLAk8RESpOUOKmdUhcggRRr1a29S4VHqTTpb+FHCAS5rjPYpYGaTYGO1Cpl4rBsRN0V9FqO682FeNChtqwSiUfMQpoAISJkY7omxvZBTOxXclZNR/UvebGo5cMDVnpEzojmCE1uyV9r6swUtvSn/zOV6QvMMLHzFvfjtC3O3iCouq7CKL1SvqVEJAvsnqFhQ6B5UWyr+C4xXdIcMl88nmG+aAmvrB2O4Hhs6oqjGBYUA==&encryptData=LivGB+PT74mrs3yd4v5Y+phMvTxkGeEItpSkps/3dOwa2r2yiEXNxqSoXB8v6yoVdnp+BYJ7XE/Jhg/2FoCSeg==&sign=LDyrEhLn29CXL9TgES3hFH1oRS2pRlgCOqysOP5T+AU0nivr4UvKOtiMrpkVqB686cDd2TtRXRjorEtgHXB9uZ+qlkYB3duiro/KWpez/BL9SUaT2NrLiCdx7qfbtcikK26hsNWyXa2CP6opmtzkJhD7w2TdvyjUGxFLpTukm3/o14KotqvVPDbird50Ip7VjzhE/6nrd+1DsJwjnHE/FjM0LDukjEgsaY0OyKUuSXWRwY0aJ4ytqtqW8UJ+pIPQdiPILIjyf0zxVXnPWHrqy/fVWlJ+P97GUQD1w9X8dW44R7IVwoCdnSBU5uzxyzpydYNpmQ3QTnVxpiVYzdh8xg==
+[INFO ] 2018-04-30 16:41:17,946 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:178)
+retData:[{"respDesc":"商户IP不合法","respCode":"1005"}]
+[INFO ] 2018-04-30 16:41:17,947 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:190)
+verify sign success
+[INFO ] 2018-04-30 16:41:17,970 method:cn.com.sandpay.dsf.demo.AgentPayFeeQuery.main(AgentPayFeeQuery.java:77)
+响应码：[1005]
+[INFO ] 2018-04-30 16:41:17,970 method:cn.com.sandpay.dsf.demo.AgentPayFeeQuery.main(AgentPayFeeQuery.java:78)
+响应描述：[商户IP不合法]
+[INFO ] 2018-04-30 16:41:17,970 method:cn.com.sandpay.dsf.demo.AgentPayFeeQuery.main(AgentPayFeeQuery.java:79)
+手续费：[null]
+[INFO ] 2018-04-30 16:47:27,260 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 16:47:27,262 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 16:47:27,266 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 16:47:27,266 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000057 已加载
+[INFO ] 2018-04-30 16:47:27,266 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 16:47:27,268 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 16:47:27,268 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 16:47:27,460 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"accType":"4","tranTime":"20180430164727","areaFlag":"","accNo":"6216261000000000018","channelType":"07","currencyCode":"156","tranAmt":"000000000012","orderCode":"2018043016472758","extend":"","accAttr":"0","productId":"00000004","version":"01"}
+[INFO ] 2018-04-30 16:47:27,590 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=Ch2jEWXJ/lTbVwz7/xDEGJqID1AVlKW5j7usCj81Q5rYE6swipUY3HM9OtPFCKgmt87J2dGgjQrPSuhaV35dwrW6kAbeZBbyLAw8Q2SN9Jf6l28mSf1PHlyaZHVlw8qpDxaBNC2OHeD2s2TjtW7g+C15jd7TJFws0OxasPMGtImyNB9xc0q3iHY6glGIMkCdvg8tnAVSdhUa2pBcXWf9x4JYDzzp4ozIC+LEEIf+dvnFj5rmf9oDmx119VZDgRJCI6SAsio2sEyUaKEiqEWl/7J+BhbQaIuj7Fa+35jvnKXQLSaOtlOqvXPC2mWlpvRq5fU3GWBtOTFrSyOP+1YTxg==, encryptData=LOMIENegbPw9IKp5DfJt3FpRrpNVeMQQsULy5O+88+w4HzPzuU8qLBf1Tl4oUnRstpd8RrJuLXUWr54qpqLaKeliIBrDY+tVByTrYfe934cfgMm4v6Bw6NgDlUCLer6ph+fUBfkP+ykcXOL/NFBcJFoMuZmVkBWFc4baNuRpoY8gvgdTX5mrrh/isi77ISzHogOXPTqU5xS5D6/xy9Bi9wqnTcY2KmzzCSZHlZ6L64ShdiIU4mFHSpqFyAWxk+h2/QGojauxv80Nocqg9jBc2ixKv3KShwE3Xg1vezoVJDYghu1XsPJORGeOmAwPBRrGeEfGSohdE7yY8ooEB2rbSg==, encryptKey=PLsahyk7HTxjssCtQO11vDXeV6Jt3fkMGMwe4XUCURAaYexRipqkIcpLh8qxStVOLmW9cWvRPn+CMa63psRPQsG+SOPCfQuu5qtK9/FYJyycyUpJ4soZHh3P12nLxA3Y0/ENtRoiULhPgGKH2DMTancLSyWjf5Sw87uK12lWWfNfNg0WxMfoHPnyan1JFyPpHZglvAOhLeN7e1r1iwspOLWB2zz4q+EUPR1RYL6DNkSF1GFYcvYF1Q5j6m6Jp7MA/0GnIME/T8OHBA0EOrIB+jpQDjXKyNQ9L6H+WuFBg29nlegvSVflZHNri4vJxZy2IONp72Q5Vm1GYkhqV57rUw==, extend=, merId=90000057, plId=null, accessType=0, transCode=PTFQ}
+[INFO ] 2018-04-30 16:47:27,612 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//queryAgentpayFee
+[INFO ] 2018-04-30 16:47:28,104 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[200]
+[INFO ] 2018-04-30 16:47:28,106 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+"transCode=PTFQ&accessPlatform=&merId=90000057&accessType=0&plId=&encryptKey=Z09AC2vvDWapCyb65L7ctVsG62CtnZW2iMMatNpnCg98gYvfuctmfPQDvFwOjd/5kxy4FVWfLLCKVI0TdLl/bF4BXPpQdlJjCNX08Ep9WhY5jYqH39fr1F+C8Mm23azsq7tcfOf2V5JifCxI4cu++UVvrmYwGZQiQgFMgKRtykWKppV2Ftx7zK1TtYfiYNqhMXwXxOzOQ/4n3eoJnjYejEaLQGvAVf0nt5aUro8tU2rzxv8Qcsoq67lWI/Jeem+avkVdIjVq4gp4pCja6dF57p10JrlOVnXAYe0F+ZqKEYYCffysHKP8bqXafAPGaC6v4Oqs2BsOe6EnzaVn3iaBxQ==&encryptData=VP95sqtoF1yCNKopRDGV1b0eD4eytNdcrAgrNpo4Lhp3r6fa1YKnU2rYrn0n2pAGCJhxp5/43wthnTOhUr4C5geJdkxwyzihd4qof0Qiiqbum/Z9Nu1B3FjdNm5OY86FG/+J477xcXNuoTUSXbkiUahdPqfhccKdiQe5n37gG6I=&sign=x+g4ZXQ18llgzFO9RpKwDsmxKbKsNA9O+BsTD+KZHA/oZZ2diHRwvVn3bhVs0u0hs6ex5xpPG+33gYQplawaKBgBq9QuoFWZBtubLcbnUGnhjrQ22RHBsCx6tItwYulXsgOlHvAQQNdwfNGmlKRyl29k3JYXqcyVLJ/vgmD7lLIvPJMKJtY++ovnOMcKQhZ5pqYn7aokKh/gJEDCwa+XyxXAjM+hrwHZWJ7Ccnj3wbu8BATHOCVtEb9KDspUIilsHnL+8LEQZ9JdAiqSIcEd7S7o5uJ/VwZSr958TDEd+o1WejdohdpEqRafNFYQCXvSUFFXYh7J6bfzopPPntcTww=="
+[INFO ] 2018-04-30 16:47:28,114 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:178)
+retData:[{"orderCode":"2018043016472758","respCode":"0000","respDesc":"成功","tranFee":"000000000050","tranTime":"20180430164727"}]
+[INFO ] 2018-04-30 16:47:28,115 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:190)
+verify sign success
+[INFO ] 2018-04-30 16:47:28,141 method:cn.com.sandpay.dsf.demo.AgentPayFeeQuery.main(AgentPayFeeQuery.java:77)
+响应码：[0000]
+[INFO ] 2018-04-30 16:47:28,142 method:cn.com.sandpay.dsf.demo.AgentPayFeeQuery.main(AgentPayFeeQuery.java:78)
+响应描述：[成功]
+[INFO ] 2018-04-30 16:47:28,142 method:cn.com.sandpay.dsf.demo.AgentPayFeeQuery.main(AgentPayFeeQuery.java:79)
+手续费：[000000000050]
+[INFO ] 2018-04-30 16:48:50,626 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 16:48:50,629 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 16:48:50,633 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 16:48:50,633 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000057 已加载
+[INFO ] 2018-04-30 16:48:50,633 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 16:48:50,634 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 16:48:50,635 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 16:48:50,829 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"tranTime":"20180430164850","channelType":"","currencyCode":"156","remark":"代付","orderCode":"2018043016485025","tranAmt":"000000000012","extend":"","bankName":"","provNo":"","version":"01","productId":"00000004","accType":"4","accNo":"6216261000000000018","timeOut":"20180501164850","bankType":"123456123456","accName":"全渠道","cityNo":"","reqReserved":"","accAttr":"0"}
+[INFO ] 2018-04-30 16:48:50,954 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=f4FpU521Ekhnm1GqRLB354SistpXUHlO+5IGIWEVtrkvAc7i331HGBM6hqA9opUorpDdcBbB+yHlz9yZW5YW2IAzCTBBH9v8fwBAs7kBacqzX1YK2s2RND0FWVBa2i1aVBKGTx1moJXJ1YbTo8JfTMbMoTtXPbFhrwTPlyfLAbNMOkwgSD5iGgmeTpT2z0MDVU6d9HNmjqeONd2TB6eVUZFLjgB39gZTDiG23H//GcZ3XX2/h47BSPO5fokCNX3SR4tiM8RC79/ng2mjs+irqes5X3lGZ7rTzQBp27CqoM+W1tcO6IxZ0Tmk9/m8pjP2elzL+M2BMpwsfTPtz10YtA==, encryptData=F/a4M9CHLLNHe2iFZRBElOYc7SIRND6ZgPk7op7KRld1DKOuGhWWa8gljjYxYUvyPKgnTrsP3hvWEY/8HJiUsy2s2NSrfv/DUOF20hqXtfxOAr5X9wK7h06ncrDc8wPAGaB9qEWDHWoW8N2tMUuLFLAwRtKwNCW7PD7dCE71OAeOG1i8dCwsppdGvakLY+jfP2WIZdXyr6jMyLSc0MeEGeqq01ZHk6iv7e36/qL2+MZZcNbQ6ADOVQ2MZ8kgMPXL52vrEElhFrocxf7jHi8l9+1mgFTpAsxqdiJKVH+6GKaXleSYvdfI/EBYxHsErkdI91wdyzPH/EadfsJxtECqGIE5LPBXYy7jhFkBRXmkHub5KVifshG/JgFveQETdNU5IltAlR2grKCJxNi4o7/EgyO4JstfaephcXfzOqSHKj5e9vgQ840m+BVBrbcKgAXG1aR6zsUOuVjAiKAuXsPp2AwvsKNwYFry052O0GcaEtvdh2dYVF44dcZiuO++tcOl, encryptKey=sykhbdFxMayckv3K1gqtpZYItvC1sId9PBRJus58yS37C8fC/vkccoxfO7uvh7ZVjmJk388qbnC+j/DT2Mc8o1c0Kafx9T1io91CTw1fHAkosfv8dGQpT+L8NG+kzVxORwqZ+CMNUvEP4+p/C8ePcCvZ/0twlSdQtuhEjlDfGAyKbdw7//5dRtdGYzFM8ApMWp2expDOUSQMjX6WikqdfC1agvmweHNYhzrzOIWX3Roy1o4pgI5zmkb272Dj9aa/P4QqG/+zFm5B1JICXfk8G/Tab1aBkkzUrptnuRRfyhqwxSBZfoNpPjrMRTQx8ezuzNsvVCu3ujonXPxI8EF8eQ==, extend=, merId=90000057, plId=null, accessType=0, transCode=RTPM}
+[INFO ] 2018-04-30 16:48:50,975 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//agentpay
+[INFO ] 2018-04-30 16:48:53,817 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[200]
+[INFO ] 2018-04-30 16:48:53,818 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+"transCode=RTPM&accessPlatform=&merId=90000057&accessType=0&plId=&encryptKey=Qg2lbb5+9a/rxAQsK1hPLbECs4thpVt1VUpIL6aD2KpEx1815Zo+4mONz+AcHxG/FtcZr6RUYLAmtCNbu22WmbD6vpPkzojq1OJSZDA0USwxfGeYx2aKuWwuQ1Jxcquv1+EYb6kTcz8KvnfllrkIrcDXVbcWMKtuZUMW31O/WdgBozw6Lt4MWfF5ofdtcdjJSHfjosTGdKzJsRPQNs9Pl2dR+tWdDgzg0iFB3cD7b9piE8jZPOrM8IxHQlCaxXWFjFYYZvYfbVBmJO8b1JefFOCCYwJD33e56Tkm/sc5RPLSN6JhfoCRvJm9Zga1PRvP35m+UrDC/Am6/T5o9dyFtg==&encryptData=9UwLeSQJ1Kbdnh1bx0TCMt4f+8bLCohx1yaXieadR6fDgA9tFUSOzMU/D7MQjAFy3hp18rUYvMVyOHZcbt1Czu2UZlSSL5oRwGDwAVQu3IP/AEIs0kLOW8sFTVgLbj+Dg2/ugF7t9APKiC3liKFHDI8VStWE+s0L+VDLAtZBohysHbJDgrdWrxe6PhhD7rhSzVFNnazlkrTGmk6gQKHM5A==&sign=xRzmAT2GnQYtDmBS9nivTQfFbDfAvAMndEx2TAfhfHywtLYAIhFF7aLTgORYwqE1/mkfJTztq4UopupjJ7gIRX88tUIfxFIlIi79wlSnrkOgfcHb96ELImrKOIGpgx81RqbZb5/FjloPhEMq/PJVZfPGgdF5DDH2jHIkme68DXe42IvDpSlxbaXHelkTBqe+uua5IPBIDvN0Hc/l2A0TvueO4Fsd3F+phyaFAG0rHqP0vSJq1RBKhLNeR0b/nE/JvIFqJLu1gelvD4gXqwNXwkW7/glqe9vHdDr6PzM45vkO1hvm8rVGeFgV2ZRMN482dfBKk+ZiU3gMFB/4qHlVew=="
+[INFO ] 2018-04-30 16:48:53,827 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:178)
+retData:[{"orderCode":"2018043016485025","reqReserved":"","respCode":"4006","respDesc":"账户余额不足","resultFlag":"1","tranTime":"20180430164850"}]
+[INFO ] 2018-04-30 16:48:53,828 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:190)
+verify sign success
+[INFO ] 2018-04-30 16:48:53,852 method:cn.com.sandpay.dsf.demo.AgentPayDemo.main(AgentPayDemo.java:84)
+响应码：[4006]
+[INFO ] 2018-04-30 16:48:53,852 method:cn.com.sandpay.dsf.demo.AgentPayDemo.main(AgentPayDemo.java:85)
+响应描述：[账户余额不足]
+[INFO ] 2018-04-30 16:48:53,853 method:cn.com.sandpay.dsf.demo.AgentPayDemo.main(AgentPayDemo.java:86)
+处理状态：[1]
+[INFO ] 2018-04-30 20:31:41,229 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 20:31:41,231 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 20:31:41,235 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 20:31:41,235 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000060 已加载
+[INFO ] 2018-04-30 20:31:41,235 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 20:31:41,236 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 20:31:41,237 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 20:31:41,422 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"accType":"4","tranTime":"20180430203141","areaFlag":"","accNo":"6216261000000000018","channelType":"07","currencyCode":"156","tranAmt":"000000000012","orderCode":"2018043020314196","extend":"","accAttr":"0","productId":"00000004","version":"01"}
+[INFO ] 2018-04-30 20:31:41,536 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=SzszR0az3M/x1qaKCXM01txA07/BD9OjR3m4kgQv9gwZ19XbfTWBKs/BgL1OByIGk1uV70taNydTzvEdDPblKCurU/iPZTJZnnIh480mamSnvzXsZMa/taGwohDrrt9xdd3QPbmEbxf33z4SeYL5kNkoO3dTD7QVRmkTUVqhWtNarauTnRL7i7utCgByUKyMtfqkL6Q4YKP2Kkb6qeW6v/rKo8j8bsmEfGQrPtHXZr1/h9bDAGJkGeA3QuOHRT9APDJQonfl+d/KyE56LTdmp84hLhr0pt4IXXC+n0VnG9IX2yqmdpmnhsFBmppHd9IrZ7R98LqTXsCvULTv3t27Hg==, encryptData=qcuKkGaCwX6RNtd3oHDRyLEfEPmLoBumN0fVTYbu0+4bAKmmGDnotXWejkDA9yU8cFf8fqCMLBuQkncYuYBGtd3eXEXiCYFykaahuAS1qJFSYAgaN7sk6QjlR2ziFj19btPC5w9QbKdcdIB1Mkc4GrHEZwd5pkwidsablF160Y5wejbGVfjQTqrpbdwHDApRWqw5D/yY2spyB8OKDVsqXkZKPpdnaGD59Mgdp9w4nv38bkMiVKJsRCP/a2utlu/UyfptVe45hr35IMyK3k1YBAJSHPt6rjPZ0p6PZAR4/k1aZwWzRQWTmoNXiLE16+Mc79u3fyCnciCrxsQRbOC1Zg==, encryptKey=HdtB5Xs93JRzt9zogxIO0mNJDmVwbvsOEtP5q76PKqm8AbCU89Lvan5CUblqZKc7EEBJGprbXswtVDDmB2FCosc+LH+JI4fajjgkP1RiulQ3LSg2c1dD765lQ0ATe+cKpvkkfINk4ulXJDme2alDGPFPb9CyZOtkCNam3oy6Dd2UxeGhIQQB8yBTKY8MpFY9js2Nzn3xC/zufXR4FgxZE7JQOrlgglT2T11sxoHEb0nVf4QSD9kIXZ8FSd0cVU+AeQxzld/sOD5rBDkN0dtNDed2pONMzPCYJ+iJh8VES847ssSe/+Hf2FU1fNYVzYX0GZwn9OP0Xv8TOKtfyenzXA==, extend=, merId=90000060, plId=null, accessType=0, transCode=PTFQ}
+[INFO ] 2018-04-30 20:31:41,557 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//queryAgentpayFee
+[INFO ] 2018-04-30 20:31:41,997 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[200]
+[INFO ] 2018-04-30 20:31:41,999 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+"transCode=PTFQ&accessPlatform=&merId=90000060&accessType=0&plId=&encryptKey=Trf8sbO6JBzBQX9qCULQJVrYPD48BucLiRDuJbJMRToNVVziXuy6I7CeNHd/h5IelZ39W4uq/tZR+m7b9hLL6OQ/vVN7xNxTgQ9Ygn9G584aZoavPqXBGfHJwC4bnfn4hkbgHRt/5FGXqBSdhwcfDvHa4I/ad3ORhf/3m8TRkgGHWnx0+Lcwenq9cRrrUZynec735cTahUBy3j7tZDjOOhkaf55bFbG1Zy7JX+PVnPWquBrN2tMFm8DpPbYlQmnEeR6g4Rcu4YzjK9L1tpbL4zfa2+dEc2jdMM3h/HcUrC9GvdErOvXGSDfZSufUSyDY0nLtas9yH4wjWCckILCMqA==&encryptData=rB9xuXgWhcwpE327F0tRuMLHQ4xwY4QdJbt7EeJfvObW2d2g8mFhoA64eRjdosOMTsqA1NaARmotHb97+bH77CKmbV4897wPvc06f8/ei+UpcpO6nCWUgWxzdi+e9EofTRUATD34w0VB5uETekarrArVpTXqbVxXtIcY9mufRVQ=&sign=i5ImE9rT+L8KTBaD/rMVydWG64PWIvu4OzCYFuya6ZMUd0wCHkF/lsVPvr+kGoMmGUJiX36DKmgUa9ERaumwmNJ/P9pm3NVXbGXZaNLKffs0XYmBtofxS+dESoE4I2Kevz0GaPtfHy8XfZUwiE/hTQhqLWYUGpQbHADuOI5fRlGbi95ny8bDvT7pYBcgY4qvx6rOln0YSVzEtiye6tRRC6ogCIPTkE2wPXLVcqSgUXxXnlweRAFFVzJrxGaN6r68xfF/eTd6u8rT9RFeuETkAtv9pNaYUZyivtwoU6WJ0yth1tUd+eg4QFWgqb1h4nEHT3OJsWwoqDxYqzGBkuyFOA=="
+[INFO ] 2018-04-30 20:31:42,007 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:178)
+retData:[{"orderCode":"2018043020314196","respCode":"0000","respDesc":"成功","tranFee":"000000000050","tranTime":"20180430203141"}]
+[INFO ] 2018-04-30 20:31:42,008 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:190)
+verify sign success
+[INFO ] 2018-04-30 20:31:42,031 method:cn.com.sandpay.dsf.demo.AgentPayFeeQuery.main(AgentPayFeeQuery.java:77)
+响应码：[0000]
+[INFO ] 2018-04-30 20:31:42,031 method:cn.com.sandpay.dsf.demo.AgentPayFeeQuery.main(AgentPayFeeQuery.java:78)
+响应描述：[成功]
+[INFO ] 2018-04-30 20:31:42,032 method:cn.com.sandpay.dsf.demo.AgentPayFeeQuery.main(AgentPayFeeQuery.java:79)
+手续费：[000000000050]
+[INFO ] 2018-04-30 20:31:48,885 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 20:31:48,888 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 20:31:48,891 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 20:31:48,891 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000060 已加载
+[INFO ] 2018-04-30 20:31:48,891 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 20:31:48,893 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 20:31:48,893 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 20:31:49,084 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"tranTime":"20180430203149","channelType":"","currencyCode":"156","remark":"代付","orderCode":"2018043020314910","tranAmt":"000000000012","extend":"","bankName":"","provNo":"","version":"01","productId":"00000004","accType":"4","accNo":"6216261000000000018","timeOut":"20180501203149","bankType":"123456123456","accName":"全渠道","cityNo":"","reqReserved":"","accAttr":"0"}
+[INFO ] 2018-04-30 20:31:49,194 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=OdVD74xfFIWGHEWBEVxaY/zoqihebbGRtRfcBWR+I5peZbH5d8QxjhRtRsxun4/BN8UCUbYtc7PjzzAkXfiPqSRbr8x1/5nhNh+1TA1ppLrtLHnnNWiyCvaVS/8bVD9GRYQs6VioELX0uPh4eXVpHXyjBg1gdJbmQwKG7dVDRHOq7wpBX128KfzppTHL4l3goOro1DRJxNvKLiSjCW/3NaaN7k/Cn3alw3oHpviw2MWehQLpOKbk/vBafpIjWnfFOK8p8JqxubIJcVj/OY1/x9ETEhlJOhejgNoCbZuM5KeXGIYkQ2ssA4ug7NUMnwq1WWY51oQbAlpAkDtLJbcUHQ==, encryptData=6odwEx0jblHfjPA9aKTqqrTUDbMIrW6CmbaBCe6LkmgOARmgc6ibBPwSLgLdaPVNLWJRv85fLqeMmRY0wONlo3+W53+RZLn6ykdKYneq2H8ahJIpBcHAwwZuhfqK/2GCRpPdF9emWqQW188iX6/fiHKZUCzXhLzQpLg6plwUFyZwVae/i2Z1encE8+cps5yyUMzaoYvUHi/q4Ffxhf+8Q18UAo/L4cxFDPeSvi5CxWRLMJ8gMQyI1u55yVly1zAg86srrIndjpW7DKYUS0MXo6B8Hm9g7r+r6xkRfrYI24FtlUxIGJqsSACF7pSgqASJBO5GxGYgIuVdDI3UF6YOKJH76A8B4aymXF41JmO4MgvKf1GehUgLVaohmIcX5yRy8W77l7I1U7ohohgDn4sK98QB44N5466jTU7eD+v7I29ufrSGcDpgEgHwkxSlDNmDpYpesET4YZRGmcvKUK90JtDI3usBL6bCVlrASEwMAtUM6YJivWmH8XkuP7BEWbB+, encryptKey=mhDldGOAQB337gzGr8rOTpDB71r1gaUFIRo9GicaW55nHWG0OwzEgGECgo3DkjYqxKaXPEkwbWYVkgkKR6IN4ELqNLHfGkxXhv+5BoH0bohDv0v8L7Bxe3MzR2rNW/X68fbKGbYvG75/e5AJEruaa8miQFKSTLTP/qS27heY8SQTYuwmP3H4PXU21DyA5PF8GH+kGaZxagHDUDdtnAoHbzD02DTYmorSSqKs5w5Fmzd/mPihFAQZ6RBnVY8kCrt8NP0HpzwmkESMY3kkz6S87Dp8nDWEeFIbOSkfXL5eCG2rzI4qCDMUEF71S7iZ7KWQuhDjwz4bmz9Jce48FcVD9Q==, extend=, merId=90000060, plId=null, accessType=0, transCode=RTPM}
+[INFO ] 2018-04-30 20:31:49,217 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//agentpay
+[INFO ] 2018-04-30 20:31:54,485 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[200]
+[INFO ] 2018-04-30 20:31:54,696 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+"transCode=RTPM&accessPlatform=&merId=90000060&accessType=0&plId=&encryptKey=OWwzViHGSASWOdvXr3I/dD24fDhAYL9SK6fMeRtRvk6vcQyzWmEPstwhwFbREt+pRU3QYsVWqLSnGDNoLGrnlH3N/2hv5f4MffxQFmtfZTUcKS2WOaiQsZWaXtaKp/KoDt3MtZ3fisUt9LWR3xWwmT3b/0ofW7XtF/05Mlyi5keWMRGrSk9BgMOoHHG5hAGkocAg1vkDlBso7UI5H+uz+mpRXpfY7WWcCQoxDe5cVuSnlBFG4ojybbYHpspKxYushA9s5Sl5aaJVuEhENRLQ0vf9aVsH8TwjOxvOFbhiomfTWEqmwjj1hQ/7cMAV1G3L/Yj9SBM0TOaeF1cuG4qQ6g==&encryptData=p9QTGnMMJqlI3+C9xMFEEA6/69lg+vz0JPcAWo8i0biSCiDzYPOnAVUMPuA7iHp059LqIAIgiXT22ZMsu9us21H0n5ZnPql+829bplYu84ABV/XbsGSShNvtOpPT9JNdv0UYIeFm0aZcBRWq9VgZtNmNTlbONb+h76AZ8PVE70/GpUeRlFmTWlU2/5G+7HZJQt4zfJdU/9gGcUCO88xpT2s2qPM7SeGmQsLlxvKA8deXT0QS5ekuWuSxU4gLqtDEjJGsNw5du7rZTehj3GOpQH40iw2OrHk/kbsIpKFTKgg=&sign=o7Pjzso9YbhSZVgIThhxXE7CYaTpEG1YY6wYXF4RQfXyPacsxjayhikLuSjUYDS6VhiwgwVKaNUxkX/btkxoYfkUUg57pikPdyzmb68EA60zrJ+vmJLj3+v6vNi72WcgDc9tHudrXUlR5mOfs+QwopR0S2BupZ/Ub4pfld47A8acTh/N0gOrg3OFTODb6ZD8MBMIPHX36/tPNcVb0PystxtAe/NykIuGvX4Ml4RTZk0sJL4mQ93Ticl63ohiZ6UzhEohwwNLaZ/kXjOx2V1DX38OxYBntXItUnBXBtlhKfd7G3aASJa3x9ldoGRT5SIT7PLnVv3hPTmTXWQVTxWPTg=="
+[INFO ] 2018-04-30 20:31:54,705 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:178)
+retData:[{"orderCode":"2018043020314910","reqReserved":"","respCode":"0000","respDesc":"成功","resultFlag":"0","sandSerial":"2018043020314708880010154736","tranDate":"20180430","tranFee":"000000000050","tranTime":"20180430203149"}]
+[INFO ] 2018-04-30 20:31:54,706 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:190)
+verify sign success
+[INFO ] 2018-04-30 20:31:54,732 method:cn.com.sandpay.dsf.demo.AgentPayDemo.main(AgentPayDemo.java:84)
+响应码：[0000]
+[INFO ] 2018-04-30 20:31:54,733 method:cn.com.sandpay.dsf.demo.AgentPayDemo.main(AgentPayDemo.java:85)
+响应描述：[成功]
+[INFO ] 2018-04-30 20:31:54,733 method:cn.com.sandpay.dsf.demo.AgentPayDemo.main(AgentPayDemo.java:86)
+处理状态：[0]
+[INFO ] 2018-04-30 20:35:44,736 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 20:35:44,738 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 20:35:44,742 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 20:35:44,742 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000060 已加载
+[INFO ] 2018-04-30 20:35:44,742 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 20:35:44,743 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 20:35:44,744 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 20:35:44,929 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"fileType":"1","busiType":"2","clearDate":"20180430","version":"01"}
+[INFO ] 2018-04-30 20:35:45,041 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=ElQ/Wi2xUUxLuNPvL/Pa3BF/rI5JANkOS+MCVnmb7aUL+rRop3wFo7iYUjQS69AkMsiRPPIkLgYWwQSz5/jjui29bWgw0l7r8hNvTvT9XxJ/GfQLwd29YoQwpaeFurbBKHR6XaLA9zzUEHzV6+odUwnrHGNif4wGwDPEjKUkj2EBtxY/JQ6M9zCBVFJB9vV8XWrpF2Ti8ACdIe/896gRFK+odw5TBM9Uvf2Wwyb8uAlRwdWAXXA7CuGyK5D+O/p9xAIVyAe8Mu3ahCKOHpQ/SIpzmeUerkdLwBQWgLVHQXeIa5GuYf5Upf9tKSqT67xOXSkxp+//U+wy9/Kklq2+SA==, encryptData=jrbZZDSs5qtUXAtXg1oO3sEfNv2ArzCLMLsq2EBbkLjA9tb8EpbQp0e0WAybF110ot3uJSgUH7ovXNftHWuBkmQdDFX6rqUB8Ja8GGKnik0=, encryptKey=lsgY++Ehc4d9RqL7DYyRS3lIWdsk4xGqOhiUtG3CNqDBHtYfi2bkE3nI1/NsmszTZ+6uQzfQs41+ig0zAmqZ0obxC8205dyyYejJTJKievQkbv8b+wRdXwt45xb++RRagZC4yXauN4FSMOns6P1g2ZTHaD+r2QSSjWI1oz4PMILubUKRB/FM9R6T4WyLiykLS0Zv6NnNLblE4NaPcppg2LPrlcHm05eOo8KvNWFO1R/gQMfUdvZE4RZajCCF2h2tqKRoAyMjQ+3BAY0YIhKkFPvLXpKIUIFmH8ZkJVy2YZJVqAMNkjxoUmTqKCKJBAydBBKWbmzrtg4BPnENdhX9Uw==, extend=, merId=90000060, plId=null, accessType=0, transCode=CFCT}
+[INFO ] 2018-04-30 20:35:45,063 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//getClearFileContent
+[INFO ] 2018-04-30 20:35:45,318 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[200]
+[INFO ] 2018-04-30 20:35:45,320 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+"transCode=CFCT&accessPlatform=&merId=90000060&accessType=0&plId=&encryptKey=ZV69tD6TyMU1rtUO/50zcHKj9Mox57m/evMRK8Co1ZOY9uhHQST3/VXMDQ9N0YmzLwGnM2OjYENTUfM6JFkFRvy0VNpQvXzRbk6kkVT3s9QSdSEFZjQ7eifJP3GwNwoFv38eZM6rNi2FRJ87K/9mWG7sChLZb5KOenYcX9U0+hR6qZgu3M9NWTQvtK+ioSzYvCEBQAHf9rCSyDIiNYmM5M47vWfX5ZaeMKBc1XSpAdjO7b9eI8YyX/CVK2gliSFtVfO4V1DyCmKYsYHZA7g70BfUHeNDwd5VtI1ASMSWTmHc50oo0Ul4RJF78AEBdXd5Rw3u/rtWninKWN1fbS9+pA==&encryptData=tnQ+p6PZxP73fGz+1E66vQ==&sign=NzRbFaSiNbNi8UUjRSJYKNv6ul9uH+r+Gf3I/xXm8ZR1INldfONd912/Zwc7kdhLxcCz2eHpPsaHrj3CvheiaDvxVUOP4QhzffPv0YW31USfawvc2+YJUIreffDckOzobnZVlGp2/3HbOhPCWens991uAsLXtVr7tp576iuIgrKoWuRJqiDcopj9vAydxP7j8s37WU06j3Qg5HL4Y94EFmxQ/QFqf3h++vZt9YtxopVY4xDn8ai/a5MaZPuqY6xeysPUhcc6fMwbTNcKJ0DUXw9maxglQScRxMfQQR7fdKukiAcWtUhWqN/DQJu1602CWCSyOIf48qrQZ4Mygx6/sA=="
+[INFO ] 2018-04-30 20:35:45,327 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:178)
+retData:[null]
+[INFO ] 2018-04-30 20:35:45,328 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:190)
+verify sign success
+[ERROR] 2018-04-30 20:35:45,352 method:cn.com.sandpay.dsf.demo.ClearFileContextDemo.main(ClearFileContextDemo.java:71)
+服务器请求异常！！！
+[INFO ] 2018-04-30 20:37:03,727 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 20:37:03,729 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 20:37:03,733 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 20:37:03,733 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000060 已加载
+[INFO ] 2018-04-30 20:37:03,733 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 20:37:03,735 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 20:37:03,735 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 20:37:03,919 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"fileType":"1","busiType":"2","clearDate":"20180430","version":"01"}
+[INFO ] 2018-04-30 20:37:04,046 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=ElQ/Wi2xUUxLuNPvL/Pa3BF/rI5JANkOS+MCVnmb7aUL+rRop3wFo7iYUjQS69AkMsiRPPIkLgYWwQSz5/jjui29bWgw0l7r8hNvTvT9XxJ/GfQLwd29YoQwpaeFurbBKHR6XaLA9zzUEHzV6+odUwnrHGNif4wGwDPEjKUkj2EBtxY/JQ6M9zCBVFJB9vV8XWrpF2Ti8ACdIe/896gRFK+odw5TBM9Uvf2Wwyb8uAlRwdWAXXA7CuGyK5D+O/p9xAIVyAe8Mu3ahCKOHpQ/SIpzmeUerkdLwBQWgLVHQXeIa5GuYf5Upf9tKSqT67xOXSkxp+//U+wy9/Kklq2+SA==, encryptData=hajtQsiPkZVVtHiiPvIFySc6VIUQX0Zy6XIxuJ5pUQu7g1d3ppO4Eqf8rjB8D+3CqNBsxUVVfKlMsu//63YTyklIwo7FRxVD/BfO3ylMcvc=, encryptKey=QP/F/yHRkQ1kk3V8jEFFlX8xguwOsuBaxfu5Ze1MgPvWwwhoY8NkElaWHNVzGCQ8nMTERdx2mu4m9z4dRaZjadD2CpOSCCYNaRPONbjfaJf+FvNmURfBj95jeOP8yFpo+1cazeB1gqDk/Oo9XKhCemHHUazvYwEzlgk6aVsCRyYO2ZpA5vU7b2fTZsJNQr2BU5czKn1dHQgF8EdSduw/8Chzl3PqT6etmvUCutA4zb0rFON1iM+b5Wp1P6cXelq1XJYElwNF87CJ4aPC8C5nqPJerhKDa12i6zO9Y1OnmDSbW3yeMi5J+t/zCPwaS1oDnnBmmHCpY/OwMggCyg7HZw==, extend=, merId=90000060, plId=null, accessType=0, transCode=CFCT}
+[INFO ] 2018-04-30 20:37:04,065 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//getClearFileContent
+[INFO ] 2018-04-30 20:37:04,310 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[200]
+[INFO ] 2018-04-30 20:37:04,312 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+"transCode=CFCT&accessPlatform=&merId=90000060&accessType=0&plId=&encryptKey=CGMYF0NuyR1tlfsOlc0BeYvrhS+AnB1vMoa/9/rClqZg4JatmvtrvVf6+HEYgRQ3Cz1bvAOqc/l9nUyWSqEeryZhxeRFLMcs2v13AlwR7ZKCiF1Uoif5jLV/iywroju8DnORw4qmDbBiyXF2VFvEc08E2mEXGRhBeXUYO3tcp9PitDYf/kRH8B0tJ2rNog3bF7sSog088x/uwWBGat9gw1Y41xkTeC1LuSSJhmgtBgfoFimFe5tiW5mLYxK6nT4tdGIDGf8DDq70YGWyINaIMblSm9DHPkcBH1m0XM8dDi//1QXHkE/9WlFCgkzIKG0adaXw2yRKbsMl39czx4bqBA==&encryptData=FVIQAqXTroqRxU5S3WnIWQ==&sign=NzRbFaSiNbNi8UUjRSJYKNv6ul9uH+r+Gf3I/xXm8ZR1INldfONd912/Zwc7kdhLxcCz2eHpPsaHrj3CvheiaDvxVUOP4QhzffPv0YW31USfawvc2+YJUIreffDckOzobnZVlGp2/3HbOhPCWens991uAsLXtVr7tp576iuIgrKoWuRJqiDcopj9vAydxP7j8s37WU06j3Qg5HL4Y94EFmxQ/QFqf3h++vZt9YtxopVY4xDn8ai/a5MaZPuqY6xeysPUhcc6fMwbTNcKJ0DUXw9maxglQScRxMfQQR7fdKukiAcWtUhWqN/DQJu1602CWCSyOIf48qrQZ4Mygx6/sA=="
+[INFO ] 2018-04-30 20:37:04,322 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:178)
+retData:[null]
+[INFO ] 2018-04-30 20:37:04,323 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:190)
+verify sign success
+[ERROR] 2018-04-30 20:37:04,350 method:cn.com.sandpay.dsf.demo.ClearFileContextDemo.main(ClearFileContextDemo.java:71)
+服务器请求异常！！！
+[INFO ] 2018-04-30 20:40:12,807 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 20:40:12,809 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 20:40:12,812 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 20:40:12,812 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000060 已加载
+[INFO ] 2018-04-30 20:40:12,812 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 20:40:12,814 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 20:40:12,814 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 20:40:12,997 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"phone":"15721447947","channelType":"","orderCode":"2018043020401219","certType":"0101","purpose":"collection","version":"01","requestReserved":"","bankInsCode":"","cityNo":"350200","riskRateInfo":"","accAttr":"0","extendParams":"","contractId":"","tranTime":"20180430204012","cardId":"35210119770917002X","currencyCode":"156","tranAmt":"000000000012","extend":"","bankName":"农业银行","clearCycle":"","provNo":"350000","productId":"00000002","accType":"4","accNo":"6226220209634996","accName":"蒙世花","certNo":"35210119770917002X","royaltyInfo":""}
+[INFO ] 2018-04-30 20:40:13,113 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=P/k2aXHaGHaGS6yABIYf52n4YP0Kh8vt2Xy6srdVygfIfqD9r4j1i+aNO4xJT5tjjPkdvWFMMsDC3t4RKtWrBsOKM0f89vnAzRPjQfNoyLPKfNWVx06hDmkciZ4zZprukDWCZg0mcr7hGlTbra0HQEX4Gqz4hTnV5bctxWZaHCRSEiCVfCgp8qKEbPxpLx5soJB5Phakez1ZMzyJ0JQau/h5Xv5RoWIEQP+twoWiTHJTr2VLU+AlxynVilm8yhCV0zkuYjdGf/H2ek6dUGOvdrdhUGl6fNfLGKcUxVuWCiAMJuPyfjrhI5HOAgesojr3Atn/ViZKbuwfn67ux4frOg==, encryptData=ZFv/DoVyQjkAtSwO4ubSmrtnUxlcBAqInrd7DveOj2fBtcVUDTjDzfZxgy4Gpw2kAeEviK55dNnNTHkxqaCZtCfQyXtVAtMjwiX5zWXQx7sKQpUsAjIQ8yuNn4c+a1P0nzLnGcnGIsIl5zo2U5zTBDjvBd4qphh/bG9d/iCTOYmghhTMfLAnVO4JWjSGN4KOJ6BJV5bZ8e3/LTT+n9zJqTy3S6kZ4NVNz9wxj952jGPEw19aTwVzwNAzUeOh9eiAAYMc59BtMXXKPVlePGOjLBIwaA/PNV7+yisPl/cUd9S9apj7wxIONe8bthaZbWY2+hdhf8N62co6CAb/C4x0hbpD7FXWNB1Ko9p/QVhtOzCP7liRj6rRF8kLRT91W+TxtsUgtQ2Qy9SHDAvSvFnBWp4n5w+Tys0YU53yDn4tgm5+RlUEZ8xw+7QEfWdGn7/6qzLimDLTx1mILMHIGBeGUWouymDqci0Gv8ApC8fbiNWAeyA5VADko+z9b7SHEMbIamS4a39aLKMdiw4/62UfWprByG/iOwRlyszpzBQv7NaBpoCHG82Y+v2MhQYpq+Q/6egyPfcCpBJQjo/i2/ode4skjs00nUxIhj2rtPhl84VRgJHOhfscyMAO484dtObWaFWK5+NkxPjS8Zch/9wLwSFKoFJvR+ncfS8XE+6wEqHho/TG6dfTZQPgNjhRTVYGIcMMSzubcJwbR+nqR76otKKvGSrSaQ3x+3sdTeqMDAI=, encryptKey=JD4K92pCc7LMQcNLr6tZ1LB33Tmk41arOZ+B+VmsDWkbY5IOZyXiKk/Y6jA7dumzmEPdqNGXwz82oX+ma1gC+bxoSV68/pmvaW4mXZ8DXno9dz2Qyk/3V29/Z0K5CHTCoxkrzGUFIzqOmXpey6i+JPHHrWOTr6UAoJ7vtvez6z8NwW7VzFHFaLMmoNC9n2cpG9v3jsgchJSgbpcHAzQtEoSrJbZOCDq+F1CU3AgoTkb9ez2F96rhGgch3Wl/21C9iqE8YB4FjABA72jjxqaxt7+r0XX4oVj7EWrpHip1O0KsbFVdXZDOs3WEXD9HEQDG11XQcGsKLN3F5xiRxALc9g==, extend=, merId=90000060, plId=null, accessType=0, transCode=RTCO}
+[INFO ] 2018-04-30 20:40:13,135 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//collection
+[INFO ] 2018-04-30 20:40:15,382 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[404]
+[INFO ] 2018-04-30 20:40:15,383 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+
+[ERROR] 2018-04-30 20:40:15,384 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:197)
+
+[ERROR] 2018-04-30 20:40:15,384 method:cn.com.sandpay.dsf.demo.CollectDemo.main(CollectDemo.java:93)
+服务器请求异常！！！
+[INFO ] 2018-04-30 20:40:44,072 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 20:40:44,076 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 20:40:44,080 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 20:40:44,080 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000060 已加载
+[INFO ] 2018-04-30 20:40:44,080 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 20:40:44,082 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 20:40:44,082 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 20:40:44,295 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"phone":"15721447947","channelType":"","orderCode":"2018043020404449","certType":"0101","purpose":"collection","version":"01","requestReserved":"","bankInsCode":"","cityNo":"350200","riskRateInfo":"","accAttr":"0","extendParams":"","contractId":"","tranTime":"20180430204044","cardId":"35210119770917002X","currencyCode":"156","tranAmt":"000000000012","extend":"","bankName":"农业银行","clearCycle":"","provNo":"350000","productId":"00000002","accType":"4","accNo":"6226220209634996","accName":"蒙世花","certNo":"35210119770917002X","royaltyInfo":""}
+[INFO ] 2018-04-30 20:40:44,420 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=XLnehtwgExULxseVhG8JVGBydt6UqcmQhCeczaXNEbsf8qkVjfxevlGLWc4RrAgq0W547TswBWs7fjIioQBnCd1XGQktFbxofJHRqzWXsM+jddU+kBJAweIy1dQLh2vR3T4fbKHlp4ql8mBiR5ilxBo84CKdBfmPV3Azr3PCpqeM0Lsrnvm8OpKgqlgWR3Xp2kxL7yh3+RbnO8DJkRX+8MglvN33oL4znWR1JIq14ERa/13DUOz+xLDAEyivgy4eH/0qWaiKSWWPdvTdNDGcUDlIwTUQHBlAaekWuJlyAxCvze6C42GxOjZHvtrotBJCbadaLLRHxxuve8VVLB7G/g==, encryptData=DXeiOsdFNlg/5h2pdikj8GZkRF5YjvYsY4r/1YDrswvdikZf6jlCtiTINxawQ07aikLsB3zCA+5BLZNEV8M1E/n4heLIaVQJGtm20fX73+moPWba2EsVgsF6mZlGRdswrtdwoz6vBblQhv0gbl6+S4fKQLBLiaYGMA5Zs6WPta5skRLzGuEeuQ3MJNCocBqXsmjSdaA6yuNMmZWSQ3HOpUnxwpcSamzMvV42w78SkcLck98pVuyVe2ldYzGQHSTptm2FlUWCaMXRNDbXwQk2M1MHt5R2PW3Lz8EyPp2r4quDaI7oE3kj/5bR2QgoAMhu4CitRLzx+m/L/5cNmzY9M+4bvj20KVIr1ASlHf5J/Zuez87GXnEZz3pJdYziDqSljfHCN2INbHUeu66i/HsQYPyg1LgbBgayGvleRbAeJQzRQVJe0oqKnk5QuJT2IekxqS7AkhAqkYSnk/qKbh+YDKGPAdwK1+G+gdXYUXyEjsW6w6MWkSm2E0Us2uUeTjC5iiF+GD9HUwffP+CxmNPxDim0rfCxsDynvkzmWti72QMHIGezERV2BKPm+X4YFjVbocacngKCLK6szMrBLlFTDkOePO6RUhUaKoUAmbFJz9Mp4xqTK2KLqNzjTnUL9ax2T4fAKOKGZY0/V4twox1eKb2mxYTs481EXnghejzkttLx3f93RYOorG28jHJPqV1OJbog7YHkL0aW/5OvNGYQlYcppP2cawRhSByV/lM2GCI=, encryptKey=BT45e8jPUgC4qMuiUDPQ45KBe84StiHenayD27/Z7N7eUpT9/icKBTHdlR3ZFRxTpEs32pMJzcZ79J7IgEaiuIsNjwbgXyQN1B6HEBbPDnwCpdrES886IrmdFPMyOAJpyykbZfZrrIdvrKsZhsMEEbw5owbAf7fNPYKiDnLuwelwrhu61jlGvdEfjNAB9prpsUJfecVAJ0JE5VkVbk4MkORrbrJXJzJqGUD0abYdQP45vx6l3L1c/U/GOvnF1AupUNazSQF5YpEgpiEX32LdF+NExjS3r7Z8KtuHuIoC9DQu7vxpKkySAWEqjDGtnjsZOJF51WXlaeOQgNC6cFK+UQ==, extend=, merId=90000060, plId=null, accessType=0, transCode=RTCO}
+[INFO ] 2018-04-30 20:40:44,441 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//collection
+[INFO ] 2018-04-30 20:40:44,683 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[404]
+[INFO ] 2018-04-30 20:40:44,685 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+
+[ERROR] 2018-04-30 20:40:44,686 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:197)
+
+[ERROR] 2018-04-30 20:40:44,686 method:cn.com.sandpay.dsf.demo.CollectDemo.main(CollectDemo.java:93)
+服务器请求异常！！！
+[INFO ] 2018-04-30 20:42:06,265 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 20:42:06,267 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 20:42:06,270 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 20:42:06,271 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000060 已加载
+[INFO ] 2018-04-30 20:42:06,271 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 20:42:06,272 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 20:42:06,272 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 20:42:06,464 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"phone":"15721447947","channelType":"","orderCode":"201804302042063","certType":"0101","purpose":"collection","version":"01","requestReserved":"","bankInsCode":"","cityNo":"350200","riskRateInfo":"","accAttr":"0","extendParams":"","contractId":"","tranTime":"20180430204206","cardId":"35210119770917002X","currencyCode":"156","tranAmt":"000000000012","extend":"","bankName":"农业银行","clearCycle":"","provNo":"350000","productId":"00000002","accType":"4","accNo":"6226220209634996","accName":"蒙世花","certNo":"35210119770917002X","royaltyInfo":""}
+[INFO ] 2018-04-30 20:42:06,595 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=kZkARuILEwG77Xm8nlM6aYMXSQFn/xAeExrBzR0aT/xlHMysJ2PjmBjA0U2LCIIOoCDLCstRIUAEDQXGIxoFZYI5g8YgJ+hIm09rHoiRKRgwJvLOLyObQKIP5hC4GK2CzdfZtpUNCJHe07ik7xHi1Vuvmf9kdZdOG9og2RX2iBBdLn/w4TAVLs3KVFitWtwZIbQ3nNXECU49wL//vsRf71/dYel45s7UzYqCO080pCSgys/FnEEidgrZ5Pw0o8jYlYJMcyfnmDTy5Jvd3uBpCDKN0YuyLGvzXoUNhCMIiA1NopnQKpV4oQhPl72b5EmWKoFENuowS3jZ5F01Tns05g==, encryptData=u00Q0YFuXWyADPcNuckwpHx3+rTG9+zTeWfn0GBtOjydM9pwTfQDoNs0IJS7Qo+Gu+eQTR4zW+b4Un51qBXDAScFU8/D7HR2qjhYFvzILz9aKK/2TQYmEQG45SRr1Ynce27cv0yUwX/CL0KEa8f0ddByRWftj7Hk7fxqQA2P2hAGsNUqD45IOFlo01tl/7TMt6CgHJLsD01kVn2xTPmjIvUx7OPvN9rPGgVS3PwX/ZfIAKFg4Iw64d21LYx68PDtf7bYk9E5O4+inzZkmY4chcOg4x19/6ghgBbn5n6+iLqlTk0c7/scXykQWIYv14xAf8pTxbogtBfvIoKo5R86TKKA93DPzbCaspCC/X9Pon+8wppD6HEZMVokcAbpq1IK/kHWqVooKOQHDDPMbwWeeGlOaCh0ZrgVPpbkaWZaNpYANoluGi1LvvNhanZKQGaDca5eV1lZK+/jVuZJGlRunSM5Bf602aQYpA5cpJCh8gRrf4ytMyXnrsdiKSVgouV/4K46WlnuqFNdtq2HMulLF9h9BZEKBDMSSuackWXCQzZqs3EunBuwj31qUsDdzKCDo7hBEAU/twNmeCHmg5Xs5xe+3k9LRfV4w78y+tenZ84dfxUFbp05gBJTNs670fW/sIEkBzt7mEBwUnCgfzyuEWsyRY/sDLRqtNIMp5josskwlxUbqfGcRiW2AvEIJjtNbvaW8gMo/sIGk9L9Z7O+/jCaebZp9kcf4w3ynipl9GU=, encryptKey=d9VDxW485bLAtjzj/l35vdiywqK6isKYKGS24Okzu6ReSnGHiZfYvAgSKtJTCZxeLCHIIOrO/D6j1Gc7/f6zvBlx9FwrZOWn0IOyNemY97ZJgDVRSf6GkyYZ6cX3I5I4Gzt1D7Dj7BdD/d4YCDld7ii/A01dhM0es4YVa4ga5Ir1sS6ST2IuIvaY5mi5YSIA9e8MxNuvRv0XMaOJrM4OpGC98Q9Ir8A2URX/UAX8U8yz655AgSwUMfSeFG1H4AS/Ww96/J/BPbd/h12/qptopF9r7bvhlrzs+BJgMYLrtjR/OGVKC6ohY0uSRN4IxYqbV/3mQ3pDoDOTXCr7jI2CkQ==, extend=, merId=90000060, plId=null, accessType=0, transCode=RTCO}
+[INFO ] 2018-04-30 20:42:06,616 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//collection
+[INFO ] 2018-04-30 20:42:06,840 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[404]
+[INFO ] 2018-04-30 20:42:06,841 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+
+[ERROR] 2018-04-30 20:42:06,841 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:197)
+
+[ERROR] 2018-04-30 20:42:06,842 method:cn.com.sandpay.dsf.demo.CollectDemo.main(CollectDemo.java:93)
+服务器请求异常！！！
+[INFO ] 2018-04-30 20:43:49,044 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 20:43:49,046 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 20:43:49,050 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 20:43:49,051 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000060 已加载
+[INFO ] 2018-04-30 20:43:49,051 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 20:43:49,053 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 20:43:49,053 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 20:43:49,251 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"phone":"15721447947","channelType":"","orderCode":"2018043020434977","certType":"0101","purpose":"collection","version":"01","requestReserved":"","bankInsCode":"","cityNo":"350200","riskRateInfo":"","accAttr":"0","extendParams":"","contractId":"","tranTime":"20180430204349","cardId":"35210119770917002X","currencyCode":"156","tranAmt":"000000000012","extend":"","bankName":"农业银行","clearCycle":"","provNo":"350000","productId":"00000002","accType":"4","accNo":"6226220209634996","accName":"蒙世花","certNo":"35210119770917002X","royaltyInfo":""}
+[INFO ] 2018-04-30 20:43:49,365 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=btmLYrygLUKtPo02/cD5Sluw9p3b88gfVGXIbw5LQ6QRB6QRNTdY7uc2EcMoQk+fKItswEIfi3AEC0suImj22ZLPNSRoWumFeIsPJOBjG+HtJkTqgbGdPPyL9tN2UJ3SmYfoWCuwSsUokIOXzzH1LKInheKBUPwb+wvPY3WpLhMKWfT/jexBYFAm6xtwocRwhZjy2FC+AyCG4A9IEYeQCdDcWLWKCUZoS/R7wI/AeCrZa0HEhEwUVy5gmaEG3JTirrYwqwZYoQP/ZCI6nvz5xJQvkAxW+fHtT7srD59fTRAq5uKRiwHYH9jzGDF4JtxrFrUkR/uLln6pkpXNZx8Kqw==, encryptData=MKGm1tU7UxOJUBbmLQPS/yYGuTKVTP8BB5gHmNX++Z83dOFP1uvdKOx4UaSS0kN+COX2JcJILamgFxDWwE7sJwYVfeRIShoMjBkw08lm/YPExXHLFb7yEjt/CpHOuW31G6yRT7a/zV7ZN/9y7O0yL0nmAPBYV9A4bWG+FySq3oNxwEL3rxh4A4eOz9bDxOyeDZFEIY+rjYRsI87arMv+tdjSJzE5lRMcuqyOu0wXly0kvbxH2T1i5OeCIQlQKIZn0/XKUDc+DF85XjuxcaQg5m1dy8TRqCjqS5gtKPaQHKRG79kMtjtMSjt8XbhUUvSq5we9ujk7QyNroZiQu7qHxTErfw6wYGuPwP8XNp5b3e4i/0Vkvo8A2pPdeuhrKkO+3f1otsIJlbm98AUhzVFbl+BCgW/CiPwnM/QYvNlnhc0MfNItsaGTwL/wab6dXLXobL9YuIG7fOto8/gqriFsvNBCcuM62vZrReIZnXVW3csz3RqcfG11B5qmZ3p7e6LldemPB6zB3cuJPxf4LSvod3xtw/RDwzCngtQM4KIb72tk4vQ0K6oFgIqd7k3ZEu7FNfpSo6kouzcUks7Kt5CUnUiZim1qFUIUfTzZ/izD/MWNniey9w5rH7v2tAIrlEQ4YN5HVHSvdAhf+4QX6p2qJjbk2CMOsuGP/iCvPlH6HFTs0JN+D8c9FIfAWYqj9hxtQK/nIAppgXWW+FtYxE/obRG/0M2Wtnz+OedoQvkAqTs=, encryptKey=JZctIA3c+YsXEsEjowvBtHCTKwup3OxOsEF09U3osEXaUMgvAjoyu7Ta1iKrN8JGipOBPolcUYq0ry39fOfo7uz2rYbwtqUNCXEUNmqbeyldIN1MoERmYeatjXG5Vp0yg6u6LxO1Rs30u/0CBWqlMEqockY+qEHULHAKd555zfUYMu/IfrbV5Kq27I9dD+GJqVMNklskWNVt6y//pDY5aiyJtbJdyaqO5HBXlpWFoIswTxtaWnPl1g+Xl3mwoeYTLM0akZCoyNLSsPndOxqyGKyz6FFxhgwkhLE78XqI/lcDXm4Tkkz3E0qUrUvBla+orxmqyatSMnkpAy6eeDbDxQ==, extend=, merId=90000060, plId=null, accessType=0, transCode=RTCO}
+[INFO ] 2018-04-30 20:43:49,387 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//collection
+[INFO ] 2018-04-30 20:43:49,617 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[404]
+[INFO ] 2018-04-30 20:43:49,618 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+
+[ERROR] 2018-04-30 20:43:49,619 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:197)
+
+[ERROR] 2018-04-30 20:43:49,619 method:cn.com.sandpay.dsf.demo.CollectDemo.main(CollectDemo.java:93)
+服务器请求异常！！！
+[INFO ] 2018-04-30 20:44:54,796 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 20:44:54,798 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 20:44:54,801 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 20:44:54,802 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000060 已加载
+[INFO ] 2018-04-30 20:44:54,802 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 20:44:54,804 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 20:44:54,804 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 20:44:54,983 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"phone":"15721447947","channelType":"","orderCode":"2018043020445450","certType":"0101","purpose":"collection","version":"01","requestReserved":"","bankInsCode":"","cityNo":"350200","riskRateInfo":"","accAttr":"0","extendParams":"","contractId":"","tranTime":"20180430204454","cardId":"35210119770917002X","currencyCode":"156","tranAmt":"000000000012","extend":"","bankName":"农业银行","clearCycle":"","provNo":"350000","productId":"00000002","accType":"4","accNo":"6226220209634996","accName":"蒙世花","certNo":"35210119770917002X","royaltyInfo":""}
+[INFO ] 2018-04-30 20:44:55,119 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=RBOwI+IBsHdJY1a2DuuCaM6P4QiMlfO0PIDcPdrkU1AE5PFzHTDbAde08wDPRbWdHIQDog/0Yw8l1pbHcj2pOyRVT0R8YqOANiEkCvE+jgM/SwN0cGgOITtv4tHApGVRM27SL46+Ol77r4NRRHfYB/VFmx4wGbIrgE1RotSkS1SIgAI33+RTjrnDDh4HaExSKfZIJjgXXaxxbIe2y+ZA9dUEGQgTklYI69wDOmltgkKebrPE4jYSX9//xPURBTI/qFdHFe5UPNVwCf8kN3BJjza7ZG16a6C+rlEz3Li3vFMpd9IyDMFeERpLBd12xXCsHloJBXGx/lUfMMU68+VTzw==, encryptData=DlkltjOYkt1wLufsLrHIXO29N2n4ft82XLe1+TFRWHtBx95HYx/ZlUqtmKQnkyQmTkn+YJKa7WcTx4QFsD6z5TrmXqNHll2FzIAvJZV8AB1PANE/XTyuYgbqEhIe/GuNjZiXH4xP4CeG4nnQ4sn9/kbJKSreHi7aAcbV4iT0qhRnJob2WqDqzy9pP2dCD0MGgbhdJn/omafsitbodALNvltgQWNYXXoN3n7a0qgwursfQOEL4BmFXw81lZyQTBP2RQmLuTmU7cjV8fq9GSJ66/6DnzV67Zn8DO8spr16aCDCmyoEHjXTnCYl8Cn7vdiWxh70bhbp8udJsTmwvOj0QZw0QshViAVde28kjXJcozIE5rYdn0GDYKA4f79tU34UnvwcdnLr1mA0mRoNWPAnbz5jlAJ43pzNGdcG/LoiH/5g+gXQQMCw7ZW7x9JvJSVHRfNuZLKLJiFiJBgeNoR/tHtV9Idr13oQWmgxCT7yGGBkV3RkzUVm/G1O9OMe/Lvc/nkfNcUtrNBAQx7wuBBnRzi3XF22pD1vkvX7Bz6fB4etEVA+UV1VZYq5tWXtqzdvMfaIFBPkvZ5ZYOFP+DInJZSw72b7YQpQGvw/7R3Na9ifieBbLh1KF3lBc82ZI+PfxEkIpYpqWuRTOVQdfyEiVvE/KFl8B+kkOsxHqIgeFl2KoHss3V5SaYZAHZefly+MUS0AaSeLSkPyraSWodf99AW+ka7TfKU+VTSUlfqRDMQ=, encryptKey=cEs3xEn83Xb43dymxIhnN5eLAv5JU2jriuzUuNXIhBlDdNZnncTjGE64Ekj2npDW+S9pJRVtf43eWaJBkNpnz/ptnlzctDE0Z/VFhlWdBZEKy5ydZSk66svr4SyEqM1onh6X9W2CizI7uNYXBqWCiRG6eKfF0G4wibbuBbOVO3bHuKA/YHAHV70QgPV3JT0Ojf285zOWriq4c2UEfF8OMQdIsjLKMLmupssukh4WJlfv2yeif4lmNgeryMdwoGJpmSSKtfc1HK/sdZBISXeNMfcXCqqtL714WrQk4XyMbjprLwg3SnARej32OE7uZISaxwzB6+ws6j4MNdvu5Mu3YQ==, extend=, merId=90000060, plId=null, accessType=0, transCode=RTCO}
+[INFO ] 2018-04-30 20:44:55,142 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//collection
+[INFO ] 2018-04-30 20:44:55,373 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[404]
+[INFO ] 2018-04-30 20:44:55,375 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+
+[ERROR] 2018-04-30 20:44:55,376 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:197)
+
+[ERROR] 2018-04-30 20:44:55,376 method:cn.com.sandpay.dsf.demo.CollectDemo.main(CollectDemo.java:93)
+服务器请求异常！！！
+[INFO ] 2018-04-30 20:47:28,664 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 20:47:28,667 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 20:47:28,671 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 20:47:28,671 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000060 已加载
+[INFO ] 2018-04-30 20:47:28,672 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 20:47:28,673 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 20:47:28,673 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 20:47:28,871 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"phone":"15721447947","channelType":"","orderCode":"2018043020472848","certType":"0101","purpose":"collection","version":"01","requestReserved":"","bankInsCode":"","cityNo":"350200","riskRateInfo":"","accAttr":"0","extendParams":"","contractId":"","tranTime":"20180430204728","cardId":"35210119770917002X","currencyCode":"156","tranAmt":"000000000012","extend":"","bankName":"农业银行","clearCycle":"","provNo":"350000","productId":"00000002","accType":"4","accNo":"6226220209634996","accName":"蒙世花","certNo":"35210119770917002X","royaltyInfo":""}
+[INFO ] 2018-04-30 20:47:28,994 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=QjQJ6Avt6jUszIf/oE/zOeVwTZ5JtIgxvV3Lx8nqiBVRUwQqIxgnPamsBbV/vt0Yaj5Sp4AfWhv7mn1z4//QRPwmtXiWQXgyIt1QdNfNqeJ4Qj6kGbLxi/MUjQTIniXbVCQbz6gK5Dgmt7syhCeIqFwgltBgdw4gPSB7j+O8ZBS5qyjMS201kn2B36GPaBV7E39uk2PgrE442gHoh4alerb+hPaG94lOMqazN7R6UsZksNVJ3vEJjo4taX3JwO5UhDwKEmAJhBSA3jdrRqToVnl0lrWZQ35frGtJGxxrrH6hG8XlSScLxMxxz9dZmn74rNJ8Gnn0cogC2HS3jP0Blg==, encryptData=CuTMFlzB4ucYrGw/q10L8OJ4G+xJjp0mTU1sGO/ioBmI4AvjBm20naF1Es9yWwffstp3u4ygnezZAPskpOR4IpHohNEN54roWx4ADY14pqlhQRpSin2mncqazJEPSc4M9U36PRyzhyX+dTExQv/aMpFdN2m/3LoLqa5pPmV08eTff8jHsouC9I6qy6zUDHXOnipEmGjthb6iMLQnCNUxPsoocUJ1KElz/pKgqQYNDQ9NWNmDvM/8uA9PKkV4/azmwbZRbO+roZe/ahbZDrKWNRox13bV/Z+8PWm1e0ZZgNVSPcEb5zujovMfPelTAi+w6lmRj3GSyNmGMQz/hdAXh3lvUvLP/rX3ZO6DEwBywsYWvnG3YC0noTONnQ7PP+8DOw7zKzSUkZKebcaHTaYiz6i5eIuDd+q0NPcsB/Dl51FZddGlFNDVoISromETlqjh/cGnUhIPNCGlQhcoJ4a8jCT1vSHQ7pooyzZt3XPVaI0pSnNxb2zwoLvrAwH1HdlBCv0j7guPLMjOR2dzXtozAFQA7HVGmaDClZS8IIkQsbUPJNdaabk2SqVrDSgCCTL+50oeNhoKui0w0/Yv1bg5M6YtGnNJsHDJsnB0DW/K/JuWWLZ/Jhs1h8iUt9QM1MvQ/IRVork6qbUsqnw83WtMWu/5aSicgbSsXgni7G4XR30e9GeKaDqVLCSAsWMZe/oxaxemghcesem9g0fvNMqLE+YtEtRfIsFbInByZ+LYvuY=, encryptKey=b8iesniCmKa1EUio89rfvZkAYt3bP4AA85oOo4oqTAxIfus8AHQc7G03/raNdjwY9U0VQlBHfAVDx0XlQrwarVB7U3EOUpqHS8BrFAZ4LDl+aoMeYWff3W1cF4xVFkB2IkV5RMvuoDxwjN+MvefK+Q9rdkQaS34KfP6oh4P9vSRjLv4aLGP4jN6Hh7sM03CABt9krMlzzjiG6EHetbTJvbKbKv/4zp2abujhI9BED8QfumMFWsnMkaVFJTLy4cnoGnUqyaIbx/RLzH79IL9daeuzG+EVX8aAigM7UgGbARVKW6Up/OyQlWaHTkHlG1eLy6yNypq4KCt8zWNBW540hw==, extend=, merId=90000060, plId=null, accessType=0, transCode=RTCO}
+[INFO ] 2018-04-30 20:47:29,019 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//collection
+[INFO ] 2018-04-30 20:47:30,002 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[404]
+[INFO ] 2018-04-30 20:47:30,005 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+
+[ERROR] 2018-04-30 20:47:31,278 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:197)
+
+[ERROR] 2018-04-30 20:47:31,278 method:cn.com.sandpay.dsf.demo.CollectDemo.main(CollectDemo.java:93)
+服务器请求异常！！！
+[INFO ] 2018-04-30 20:58:44,515 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 20:58:44,517 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 20:58:44,520 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 20:58:44,521 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000060 已加载
+[INFO ] 2018-04-30 20:58:44,521 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 20:58:44,522 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 20:58:44,522 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 20:58:44,719 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"phone":"15721447947","channelType":"","orderCode":"2018043020584493","certType":"0101","purpose":"collection","version":"01","requestReserved":"","bankInsCode":"","cityNo":"350200","riskRateInfo":"","accAttr":"0","extendParams":"","contractId":"","tranTime":"20180430205844","cardId":"35210119770917002X","currencyCode":"156","tranAmt":"000000000012","extend":"","bankName":"农业银行","clearCycle":"","provNo":"350000","productId":"00000002","accType":"4","accNo":"6226220209634996","accName":"蒙世花","certNo":"35210119770917002X","royaltyInfo":""}
+[INFO ] 2018-04-30 20:58:44,844 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=LHOMHXPAiI0csVz0G2EOy/JABSarcLVY26/3cxw887/ekVL9bCvKtANA80w8gPtFeysPWt9u1c1LhqVI8wBSewx4tnwqxTYXaPGaMYxsYmARngHntqHrBi4cB1UdTU953YV8Cr8+qpwHd6uOmoF5+8uB4BGbUv3XlPMdlSeOzkBLtmp469rYjelAtnHygdx3RcgDixQQlnLMzjZwYZoGcjls+J2HR40LURq48R8jsGmI7QkfbxribIpHpyyGwRsiYhDFCaQo7Myyc0Jiy1srQOUEbTeu4EyjPVC0BoEQvK1d5+K9gGYU3QD1mw07Qr3T4g1JHYiXdSpDgJ2oqG0xfQ==, encryptData=AJmh6xaXEQ81XBjIz+1Zv57VTLN7EHKF2x5h5iJqq27MVxAsYSNBa4RttYyRuRZatxWFwFNB+k0Ur2e+icagLfEwM9KE7naqiGiO9ustTY9U5OkhuZvi0bWs1a4RJzg19ExSABtvdljo2Z42RXsxYxaEV5P+imSvUfbOjvk0MoI2tUgvkK7iQarvIlISjMx4z5bPpocFNl8gRXj/UIDz6iPTmbiS2pTFT+NbPbQkRwzI3aLlyGyoR9/bF0GnbMRVroFeJjFvKH/bdCSYaqS6C6MPKX8Cfk0hWA7EU+UEnTvy3s7kfNhiDqPFRKbssQPBJZGSex/rZTVLXohnYIoLQKXC4IZzUEpmdxzhkbWCyshWR+XIwMjsq6Jpbfr2Lc4nt5S2x/N57ML8XoL7h5DooSRzULUTkB4GlXnSK0vkF3l4CRKl/L9jFzduvdfo+m3p2I/zotUixR0G0jFLJEQXaIJrLwlGY9KfhdyH2ZBYLpuDJAQ0iPgppXc69DwBAd5mIjEx9/Ia3aNSh/WMWmDZO5QDlOlbF5G2gxkUl15ClZBFEx5CAQzX0AXfG8gGZdrEgCY4taA+YmgQXxA2orlbMkomN9eYAEAgEmPJmg8EJFoCltxDCa7ByDsw2VCq+f/kG5MfRtJk1d81A8rXAb2nOg5XPGZR+T+5JbH/28cFBGuC8U0fCl0hl7yyH4us/FVTqFH/bUVvzIwiEbuZbK5wWetttmtVJwdVDdrz4ndUDyM=, encryptKey=Jw0XKcIueRtarLr04koFXRk9+R9KWK/Sj9CI/UYyt/iR7tzH5UPpuSAqjbuGBV1rBLp4o059Q9YoAPAO7Upcymr+xxs3zh0Qc4ukYsqtBsY+7aewZ2pZ8mOQqx4vX3lOsbFNYE90AW9cAl7hByf7jXuunnBNhiayM1OX8dBEbAGih/xMASfCaWE7pAYlG6nlbE5ypJn0ISNRfhF/A5DpJY100Jnw7GfBBHhCgV8MBpQE2EJrE3ahwGKFzRVLC8hFVNlpc0yncWKjMCcwIevEuN3+LlNbIeRLwZLitDRawdKKqOVDK0Gw2WNFILgdv+H041ly7r3TXTzVC3xaXNkpNg==, extend=, merId=90000060, plId=null, accessType=0, transCode=RTCO}
+[INFO ] 2018-04-30 20:58:44,866 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//collection
+[INFO ] 2018-04-30 20:58:45,407 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[404]
+[INFO ] 2018-04-30 20:58:45,409 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+
+[ERROR] 2018-04-30 20:58:45,410 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:197)
+
+[ERROR] 2018-04-30 20:58:45,410 method:cn.com.sandpay.dsf.demo.CollectDemo.main(CollectDemo.java:93)
+服务器请求异常！！！
+[INFO ] 2018-04-30 20:59:22,589 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 20:59:22,591 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 20:59:22,594 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 20:59:22,594 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000060 已加载
+[INFO ] 2018-04-30 20:59:22,594 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 20:59:22,595 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 20:59:22,595 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 20:59:22,785 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"phone":"15721447947","channelType":"","orderCode":"2018043020592210","certType":"0101","purpose":"collection","version":"01","requestReserved":"","bankInsCode":"","cityNo":"350200","riskRateInfo":"","accAttr":"0","extendParams":"","contractId":"","tranTime":"20180430205922","cardId":"35210119770917002X","currencyCode":"156","tranAmt":"000000000012","extend":"","bankName":"农业银行","clearCycle":"","provNo":"350000","productId":"00000002","accType":"4","accNo":"6226220209634996","accName":"蒙世花","certNo":"35210119770917002X","royaltyInfo":""}
+[INFO ] 2018-04-30 20:59:22,913 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=jzZpXKz03Eyo8A0ibrdh/jUBsCaOkcO6M0kWxpfQiPruom2Jv6GRyelUsjISka3b2P2fcbNKA32VVOtIyRILWQ1LUOTyxdv2+geCBlGNekF8+0FnMIyKQHlXFUU3hOxk8TWrRMWa73IIUQkQ0awYqWpFlSWPVjfdpO2tc9oWYRRRcJqsNM/3OCWSQq0mu3PPdzVlwZn76xQrz/qZ9m+/f2/LN/LDx9rEwOzTd3JcymXuMXl88fAyW8tCiqOsLnGW3G6mLJR2gNUUfCgWyhtmr1oUN/5wePTPr1YXwaFXYwT01odPDOuuOeLsFUycB3zBFGUhidaf5yKgYYtr3mjUCQ==, encryptData=SyNixLMEMG5oRRlsQwKuHqxEMixUaw8MRULZsVDtgHPMJsKQNzDS7UW86gP2mqdPi3kxujI9UJzN84y+jrSA8EgxprHx566p0vSA4AfTnf5NntESrzp1Z+pY/O9oTeEL1cPp2HTTuzoZd/kIAwIvJZNFXNK89claC6Fxj4Zczt8JfqSBiNv1fsDNOCiL+X2qQSZznJhttFcnPsGuOYp2m3jncAA2ozr3lYQ+utrdv/PwzKYnCuPpmDup52lQ9TwqXQuH1K1IciAEtPNCfz1gtLtLEvsgG97I4K+/BbQJSmOLoV3zt3FkE6t/s4tMhdaIlhlLgASgGW2dFh2Rfw5D58LhQF+1zq8XBg2h6aeguNzD7BYRIvyCE3OdROZgcuIeWxxP5jzG5XwAlu+SN+XgIW8Op/vaJJ1M8+hA9Z8VaCUzV6Uy/KpV5Yg3hbQta8wr9Qz3H2vWxk3XRrVic16pnfzS2tVz98aP614knCo7u/p6dGdkDnYHsPUjqXVGqoWJZx9wTcVtqLKoWcBJgm1YZ0cYMHCd6UQF1WsNcRg9hmJRgUhYtfYVUtmQQq+Z1hHBRSPcOCZ6GEug/iHqC3WuJ+QkYh9VMILaTjtvCfrQRfLZfoXzO5kRTES60SV2EO1KZMPz5qV55lLQ71MTot6t0tJR6gcsUJr6Rlxvz3KGvQQBnVWRpUv8q4CHU81rOCFAhyPmThCCCi5AF6ajXen0zD62TIpraljBmrlr2+snHp4=, encryptKey=M1aJNWLNsZTFKJ30V4iJy5/ymHr0QXYv4kSdwhvJTwzefXtRGTWr5agb0kySV84Jn3zcvWcCX3wNEmSflk3LSk9oqEfRexP7bWLFrzLo+C3VuVW4FwG9YuBf+9axmswcEQYn2rS+AM4swhk+WpV9NsFKRrj1rqSFe7ZuffSCMl2RkEVcYFKiHJwmzGyV1RbeGI4GiJm78zz8de/HYzP898MrTt2hUiqZ+HlUM10mNKFXRPWilAhl0Sw2rsCzoq5QherlHfXVwEunn3ewekULBq4oXiNMVODVe68R4HP2MhmdbWPGyCrkLJQlPUtAQTzZ8mMT6lAkgiVMpO9fnEL9Jw==, extend=, merId=90000060, plId=null, accessType=0, transCode=RTCO}
+[INFO ] 2018-04-30 20:59:22,935 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//collection
+[INFO ] 2018-04-30 20:59:23,171 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[404]
+[INFO ] 2018-04-30 20:59:23,172 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+
+[ERROR] 2018-04-30 20:59:23,173 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:197)
+
+[ERROR] 2018-04-30 20:59:23,173 method:cn.com.sandpay.dsf.demo.CollectDemo.main(CollectDemo.java:93)
+服务器请求异常！！！
+[INFO ] 2018-04-30 20:59:46,269 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 20:59:46,271 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 20:59:46,275 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 20:59:46,275 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000060 已加载
+[INFO ] 2018-04-30 20:59:46,275 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 20:59:46,276 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 20:59:46,276 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 20:59:46,464 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"phone":"15721447947","channelType":"","orderCode":"2018043020594646","certType":"0101","purpose":"collection","version":"01","requestReserved":"","bankInsCode":"","cityNo":"350200","riskRateInfo":"","accAttr":"0","extendParams":"","contractId":"","tranTime":"20180430205946","cardId":"35210119770917002X","currencyCode":"156","tranAmt":"000000000012","extend":"","bankName":"农业银行","clearCycle":"","provNo":"350000","productId":"00000002","accType":"4","accNo":"6226220209634996","accName":"蒙世花","certNo":"35210119770917002X","royaltyInfo":""}
+[INFO ] 2018-04-30 20:59:46,587 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=gEH7iSF34iIj3L6spKyxoLL8IOThn2O8gkkRqbYXGx+vb1maImv7fQR8q9SFkH3HtOZUMMRh0B4JVl4cL/Tvt+qUgH7HJGQEDHkWWSi7/BM/cclINValIJPfHAlsF5kXk4T/nt7A+mmnQRxdfvjMP9OayPCGjsrHiAj98cuEDQCiU9iC/kAprHinqDNVWl+rlJBLZlcWwos4bNPtpA+jLP5h4PBHSnum9Cd8aBBDBa1inSOLZy+1BqwkhN6fHxrU5XYiV82XPP9R44DTYC3BWGJR22ModZdhpWS0Nsd4iljS/EMuVFj5iWc29fr1vk1NQ02V2aLLpJXXWn0/8emlEQ==, encryptData=E6HwRHlYPB+L72We3s/ddPt+aDOQ/aIeZxqXhjzJ+wrjtdDIT1o4Z3V1FztyVKmz0CEXbbdpCFjnRU0l1HciobBWVfiwBP2tqNH09Jgw+D3Ywv22TnlMb7+alYTFUsFFI/p7lyBsN4oA3AbEQX09AqcUXK3V4riGhKnGFieadk1qvukSwWA8NUEm/QEzlUqsnMgn6cf7ezTXggh+sNDQl6SNzb4ar8tSJkf7MpOj2MrrQM1ruT/BrG19rKjLofIZ1cNNx/8puuNK/R3XULQAmpoPwA9a4Zx1xZRHenQlz2A5/UqqhHhnrC4Kuxcw9Comys46opwfVgT+LmmiofrnePaI2EG/HKTT5r2r3RXLl1+kUAz84qwj4Ws41dOobBMQNBikS+O4j9oE4zqVZPxHz46j/eeuxgm51Y/+Jr+Wz1KiRWo+XUtJrRxpPjkbq7yw8c6HH4BbQAEZLPHVj3O4k/oL9yEM5wJE4b6ywi8V+aOWnlA33SoXs2XIQRw162bRtfW2x2xI3jniOo5Eb8UYLvG5uW1dkmXP3WuLXeQyMCFgQUf/6oGsQq8iRvvv1KnE5UUw2kjH1zHa1OVcxcc9ktXZJDwIvvkDniZTqvy+83+aRyDeI7CrsZMHELoHSc/u1cniK8iXVKE1yTR/40bNOCXzjOj7VpXFWV/spHCoK6jjG3wkA08pZgVewJLH+YHfwlD0C7tZ2u0BvBk8oWiwFMgtZKhoMptW/jDe6V8srUk=, encryptKey=rTfVtMZZVD6PMSkMZaXZkOiWrT2HHG2LNp2cDQMK0Fuef/Zr7BoCAqAtbffzPIiIBtLbMr95O5NxSTx+iwUn3FbqRowj0XBieJ4YRN18tA0dqjAqKaZ7nrW+ToNshDTR0zw76baL/0L1iOhQOOGAnNNuIrPRRXiBwk7ezslmuUeeF24tySAWxQviJA0qw5NusCYhCgaB47jjK4bdpZb/WD6PzjhQpEuan+WozY2RWL6Q6pb+Z1s5h7pjra2g/xANJ4Q4eoOdaPekX9fOca3g5ZzRlKsSkAO26n7yhbugeQCS/0T9ybRLG4BhzzXRxtjc21eg/IMxDHkMIuRHHXT7qA==, extend=, merId=90000060, plId=null, accessType=0, transCode=RTCO}
+[INFO ] 2018-04-30 20:59:46,613 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//collection
+[INFO ] 2018-04-30 20:59:46,853 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[404]
+[INFO ] 2018-04-30 20:59:46,854 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+
+[ERROR] 2018-04-30 20:59:46,854 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:197)
+
+[ERROR] 2018-04-30 20:59:46,855 method:cn.com.sandpay.dsf.demo.CollectDemo.main(CollectDemo.java:93)
+服务器请求异常！！！
+[INFO ] 2018-04-30 21:01:22,818 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 21:01:22,820 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 21:01:22,824 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 21:01:22,824 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000060 已加载
+[INFO ] 2018-04-30 21:01:22,824 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 21:01:22,825 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 21:01:22,825 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 21:01:23,021 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"phone":"15721447947","channelType":"","orderCode":"2018043021012253","certType":"0101","purpose":"collection","version":"01","requestReserved":"","bankInsCode":"","cityNo":"350200","riskRateInfo":"","accAttr":"0","extendParams":"","contractId":"","tranTime":"20180430210122","cardId":"35210119770917002X","currencyCode":"156","tranAmt":"000000000012","extend":"","bankName":"农业银行","clearCycle":"","provNo":"350000","productId":"00000002","accType":"4","accNo":"6226220209634996","accName":"蒙世花","certNo":"35210119770917002X","royaltyInfo":""}
+[INFO ] 2018-04-30 21:01:23,142 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=fNPQdJY2LGQ2DiI6V8Y9h6ffDnTtIpalwChCW7UiMiH+bS8uOQyv07eD8IR1xbPnbtF6d6A6+IIo+4bz/duyln5ct2AMz685m6CChEktkAndmdAcvfA5ItfRe4brHqMGUdA7rEleFh+K31mTVdb2oSCAViYW/I996ls3nmgtKWSUeRVbQuqi8DE2hbKfoxwtGD8g5F+ORHa31UMVNNFionID7Othyk8AvZV5dwuLPN9CpDvi/hrJB69qWgJOGSWLBSWFYNSvoE6UpVyfW81oOBdNygmvybu3uV18+JegS1qNnzq0cXVpuYMNAKBU/yMEAWq07jxV+YpKe+goT0pv8w==, encryptData=J2GUCCMkO4Ci2c3GUkudPWxkzxfdIXINbV2k/HwZ5OPDjcmRHMe8RWg09Vny4kyvcx2c0dq3PkhdqW8Pg358RNMCU+JYiVFo9mbMNxzE7dC7/S+jWcOOgF/8T/nmWyP3QK4Vruvn7Vg/FUPYj3rJyhwC1n9uT3MHJiyh3w5Hk51f8d/CR6pmEYhbkwi0oKb7hnW1tf5OJgg9lm+dqtyl0COObHrsN6qxYLl8Dcwjp0Kd9+k1hZW2jUSKbtBuQ2dHedzZBteXDFwHr+tr3Gpt+nLv3Z8oXXHHaiLe7DJt+upZ3aZLXPIxRbGGVPjoRypEEJhGtPO+y9MXFZFRMx/6VD0uzyVyN+ugN8CU6D84jG93LxAD0VpsCKaBrOrhy0vdxDNSj05SScV0l6KiJOm3/XkoLrHbOuZSYqqXGw3rGphydcZInw5T378UsQJxabOD6k2+3wTFYg263os33mCQvvmNZWQNsEhMelv9a1pye2lkZoFI2AKpZDHjvkhFc/AOqiC1k9GEeAiOYCrhrIn6WCKn//dpFxdTry2W0bTENPcPpnIVN5MJDuE4YW3ZCKCpD41DmD5iofz32B/Z71Iq1yauTZIZUqTrlfplSJrlx1Dw5JIyVIHd2BfvRzBV1j4IK4b5iIXy9uSdQCixbBdCVVK0P2cyJW2GPmVtwzrGXpxsG8JD9GKQcVObJwMd0YDec29lZcL03y0xQAa49HPgRdW3O1RyQB1qsg3RwBQFDyI=, encryptKey=aB9KhZTDI2u2S6zM+ILduygS8Eu36+zTr6o+kuMuPO9NetohMJi+N2c6JfK5RnDrpL+BQBoiQQcrDRFHIYgFXgmYW5hph5671z0ExWpTjsEJ8ujz3gwnMwnCSsKvLaza67WXBuaUnW7J+FwH0adchI0WvZbQ7AahJ2eXdXEn0uvGK9AyS5wonHG6Rc0Xt34U3biHuZdNf2ORt9hINZiCUhqeg36iJHsoPpj7ivajHGd6RPZIKYq36eiJOWOmZdkypfKZV+yn1H88BSEqQEwtnJ0JD4Q9kXsmFLh2mVH5iVgAz82hEfXA+LLQoxvfTc+RCBTeiGrHdOEn5N5vkSo3kQ==, extend=, merId=90000060, plId=null, accessType=0, transCode=RTCO}
+[INFO ] 2018-04-30 21:01:23,166 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//collection
+[INFO ] 2018-04-30 21:01:23,421 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[404]
+[INFO ] 2018-04-30 21:01:23,422 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+
+[ERROR] 2018-04-30 21:01:23,423 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:197)
+
+[ERROR] 2018-04-30 21:01:23,423 method:cn.com.sandpay.dsf.demo.CollectDemo.main(CollectDemo.java:93)
+服务器请求异常！！！
+[INFO ] 2018-04-30 21:03:01,785 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 21:03:01,788 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 21:03:01,791 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 21:03:01,791 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000060 已加载
+[INFO ] 2018-04-30 21:03:01,792 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 21:03:01,793 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 21:03:01,793 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 21:03:01,979 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"phone":"15721447947","channelType":"","orderCode":"2018043021030181","certType":"0101","purpose":"collection","version":"01","requestReserved":"","bankInsCode":"","cityNo":"350200","riskRateInfo":"","accAttr":"0","extendParams":"","contractId":"","tranTime":"20180430210301","cardId":"35210119770917002X","currencyCode":"156","tranAmt":"000000000012","extend":"","bankName":"农业银行","clearCycle":"","provNo":"350000","productId":"00000002","accType":"4","accNo":"6226220209634996","accName":"蒙世花","certNo":"35210119770917002X","royaltyInfo":""}
+[INFO ] 2018-04-30 21:03:02,092 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=mFsm5BsgeR+4AWAy2A6mFerIGmpFmCmKoUI/YL1/P2hE9H9DwaZCvXemU0FqIQGzfejSNvIrr0ipcSirL2vsL1ObjfqwF5hEbj5Au1JK6XFQh6s8rO0HiwuHtIhiRidtDeQ5+fF7B7aVMx2fLWpgqG4UXRbN5Of3S4Vx/cDoOtwH08J2IXuI2JieAJR+meB9ujZtOlLKDO0bnsLlgLwgzOJC8jXxZuoi61/1I7FOA+l8mjvFan0HjhCyAodZtrbb1aH6A12U+0p3CjQ+X3SOGY38qRhLWamfOpcfixqiYOO1bhVKvvLmJZd5tLwrHO7VuaQuTC1cY5xZBdNjh299Tg==, encryptData=c9i6+oD6mX4iFdLCYbti6LAwvwG8WNJ8htpClvDBWKyBmCW/oKiiflojiFvqObxE8WFyt4dYNhz3cBwl/W8rAWQfeXIX/KSNn2//dTaU8w089v5EXCKCl/BBIO6F59yY/3aDu35+VuFmxO1Pj3vfKA6ErBBJAPZtQhApKvu8q0MWMX6xOLN+zhkgTq3jCOn3GUGResb2JSj0pVbHM8TCS3XbOm6tf+B9T4pd8iQJ2XaeVPs4vrPYVKxcuRbLb4kocDxDGse+lH27XHpjUMZ1e/AAElON3l3p1wVuckZIlxh8aDAK21IFy5coSZ8MgpOvaGFiv/3SteqrRh14ahgDqYeumrqWlPRvG2necjMA78/Olf6XBUF9TWzQS8XKV/NhvpVx4rcCP68mMbBAy4yylXHkuiNhfzCQCnfTJjxJizZtgdBY8KwoUlC9h8Fs/vEBNsOSa57IKi5uxbyCdbt6RlWQnwYuRRITJw9gzv+eoea5RegZ+WZmNhiDOregdh9Jw0x+rAiquMPT4zfbprw/Gp9lx5iO7UhYJ/NP754jyK5WQM42RQMJQlsiSA9myXj68QbjoWFPNysa6EadIcS5KeakO1vS+YMcjb49IqAYh5kOYxVANXBNCo3HfshUKzEvIXBBy1ZQu9Nw9gBGR/v1FXChYxou+9vsfUepkplnRIuJJG/bjQpjaTlLXDVG9pvgDGWfjwt1hTIfIHxSBm5FMKsmg2OKiVpr34Gxqvn+kuw=, encryptKey=AClB5pHJUGn4sYF8K7MX+qiLHwiJBIW+rwDu9XfVxAh5s7yNJ4FJV7j6WJnA4VmPMCZ1sKjSyZGfu+X57nlZvdZ1zU7sOgYXgb5t/jqdrp2fYBjXq0k+MbSJ0n4yYN7JETMHThp+F5Qkqq3mN3GWd2b/SO2lM+Hx4MYeQ/u54BCbzeBNPa+WElxsZLK0enAb/KrWxLI7sqtB4+mAIKdxhuFAFPdHa3ylT3qXnDDYu9qeoD7M7INqEfOYpzV+kilTNwRHRZnCGiDwaq8ESrttcBvfEthBm+Bsb4h95gdLoI8r5oH1tddfFB4yBY4ppoC8fWxS2kjTWmtMkJJ2cJf26w==, extend=, merId=90000060, plId=null, accessType=0, transCode=MBQU}
+[INFO ] 2018-04-30 21:03:02,116 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//queryBalance
+[INFO ] 2018-04-30 21:03:02,802 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[200]
+[INFO ] 2018-04-30 21:03:02,804 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+"transCode=MBQU&accessPlatform=&merId=90000060&accessType=0&plId=&encryptKey=iUwvh2zU2e2KX/WoF0vCGwZmlgnOa4WriPa0ImF9UvnfMZ1hul/JbQbG597OV8PLPFDr+f27BeJbuJml0qHPDGzca+7UK054jFyv9L5KbsTArTmx34VrsfTGLP4kXdE9Py0y8+ZxeYM7zGlB48PH58yY9zIfuKbqoT7sRffeFkU9vyDF1xfFSH5cktUsm35PrTGBzVZAM6Cds5KxLJbiopzIe53biFNfPftAqnZTWww5SiMmK9/xca2h3F3m9X6o+jk6TzHjC3V8l/r0eLIW1rHz/MQzaty5Hu1k4O1vEL4SAiwB/forGWMJLS1vXE3qyMHV7r2ScV3NfjxJYeP8Zw==&encryptData=8zcs98J7/leNfeUnJ6vPxt069+d/CkSV9pC2J0g5+PyfoVjp+lx5uT2RTWBxTZ/+SU0kjlBeM+TOp01hCTwdj9pivJsjysZO8S84ltvCUd14fjULMtsz/jJkQ6NbVqf/eOf2+z3nHdoYltO0Fc8xMsYfy6Iv7qBC7i1fIPkXd14=&sign=LQ1fz34tE73jtv+VzFAdNvm4wFV9j4maZeG4xOyhzS2304uRVbYfKHYtTPLPf2GBlx0+MYfl4k9TkkQ5y0ZqNfZZw2ABP0K5RZubPIxVlE9Zkw4x8/HyaWXYgtbY+XFocu/eET+6kjArFDA2mh8u5mDEJQ63UZhxccCkE/iTPcbgKES/1PWOFs44664i7lRium8V1f9BhCwV3UHxfctsaoH6Itrx9acgFLY3wGI5IeQ00fvUrq4iW2fw9BrktE1Tpo7q6OMLvskythj0g6B6KLd3HOyK75wE4wymuA6r5+1pOJuUi/gi0BR3i85lsWZO4eorjWyCwyLd5fcKp7t+3A=="
+[INFO ] 2018-04-30 21:03:02,811 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:178)
+retData:[{"orderCode":"2018043021030181","respCode":"1003","respDesc":"商户未开通此产品","tranTime":"20180430210301"}]
+[INFO ] 2018-04-30 21:03:02,811 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:190)
+verify sign success
+[INFO ] 2018-04-30 21:03:02,835 method:cn.com.sandpay.dsf.demo.MerBalanceQueryDemo.main(MerBalanceQueryDemo.java:67)
+响应码：[1003]
+[INFO ] 2018-04-30 21:03:02,835 method:cn.com.sandpay.dsf.demo.MerBalanceQueryDemo.main(MerBalanceQueryDemo.java:68)
+响应描述：[商户未开通此产品]
+[INFO ] 2018-04-30 21:03:02,836 method:cn.com.sandpay.dsf.demo.MerBalanceQueryDemo.main(MerBalanceQueryDemo.java:69)
+余额：[null]
+[INFO ] 2018-04-30 21:03:39,894 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 21:03:39,897 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 21:03:39,901 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 21:03:39,901 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000060 已加载
+[INFO ] 2018-04-30 21:03:39,901 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 21:03:39,902 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 21:03:39,902 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 21:03:40,083 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"accType":"4","tranTime":"20180430210340","areaFlag":"","accNo":"6216261000000000018","channelType":"07","currencyCode":"156","tranAmt":"000000000012","orderCode":"2018043021034019","extend":"","accAttr":"0","productId":"00000004","version":"01"}
+[INFO ] 2018-04-30 21:03:40,212 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=QRR37uAb63Ej2wBQKG5DzjWL6DdOT++ve0ehbvfRyzfoCChbEHR35YsY9YC7nOGiRcKawpCIX7Jvb6fZeKrXefjwlxF2xSI6ekfWcUUT9P4a/1kr0csa6s6e3bw4WiuiHoW+O5cJs75wyJQly10pcsWpfZzZePM7VAmfuXla9lRRnfky/V3QS2aKSFcXRT0Z3zegH3XpBnOOszMIs1MFIAz6CiWEEEVqEYo40r5lSoF8Gi8tKpmU9iXo5zVH6OMogcl2FpEX2zXh5uQ8fLeL7r3SInPfJuHyEB62i5nF3mnHJb8hAZUCTcI5x18gL8UOtqvNs8MkPDb8NMXlaT1GKQ==, encryptData=vOHk3vNNgi99JIw0RiPgSSl9oLZrp9J7MN1F3h+kOFifHzUyevrJ8v7/XgRbmAqDqlpQTnLG93IjFmQTLhubGTeBAbcFJ5p0K8oA5TrnZq/Zs7CzHUFH0sv0bIaRZoe8Ow+B3dBuRNQcdHAigaYr82pIzD92xIFujXbW9y+ltmd0ysbXqVdDDTFGjNEzdhPynLbvEYISVnZMD4Q0+xKXEbDsv9GCvpRIzHXC7JTuPoj4VVMHuEMwHVHU17Bo+EuqJ4xuBvyNLdjVK6LVox29hzFiF0HEx1sF2YFznuwbS+3HN7g1NEJ8YwJUqXBYhmFm5N/fpqiy1pfHN3YFC0IWXQ==, encryptKey=wKycUjSOhKkyEYhRsdAf+S++lCUZBOy7pe/j3qLBtcrpNBI6MnZkuXZ5J8XllqSrdJoYdByMo+CA+Q3P+ahcu58h0fYjjNOAZMIZv5LqiRbY30b7yV6t4OIxvltBm0wBXTBxXddGKj3dRmSfG7eeDR23Db+KJnBpb/2NnSqNfEDcfbxJwIE1Ii06U7KryC4t7oMowxzXu5a9UOtHv++6M6ksNe0MfAhYCoUrRVhP57tNSeA8eA2MmdTsY26dhXuBK29NV53J/fXEqUWPchfD2U6Yfpkr/+O+KC00XVnUA0jv+cUiio13zuEsNaoX615iajirVCepQZgQpvPpi7KLwA==, extend=, merId=90000060, plId=null, accessType=0, transCode=PTFQ}
+[INFO ] 2018-04-30 21:03:40,232 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//queryAgentpayFee
+[INFO ] 2018-04-30 21:03:40,871 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[200]
+[INFO ] 2018-04-30 21:03:40,873 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+"transCode=PTFQ&accessPlatform=&merId=90000060&accessType=0&plId=&encryptKey=A3j25m9eqdGyNew162Ccbhp7bvPJ2eJgSFo3shDxKiom4pct9JsVUYUEpPIM8+tMgGnECjqULJlzg2+gVYLKI2DnyX3jWzzSMdB3pOa9KQdsgp4m3QHgDNA6WQKkwQ3kr54+MGLMVuuWx0oOaXKE8A470IxgPR3KbCFs+J8GD2yWGpPcZmc22yMieNOtNpHA6znh+uP9wSZaJKKRmsUsOEJ7JNvDRKhO7Kcz0nLVrYS4aRmYBODiAgs1nhEbHv8eAncZPzjgqpBa/DHsBpZ0/iOta2qjEAb4ycJz5LAExRJTvHQbykPHupwjOV7AFw+GLq4gBmZmlT8E0YE5MTFdkQ==&encryptData=bvs45NP2VPbUiBeB18HyckXIjI9R00ip0FR39cJyv4xS1BfxZcrDWOuvWP2OdmkihqIuAR6bA7Se+koYGkXlpzbtMk6Mg4QySoqKKq/rVPC23uUw6RarqvZFZKnCl9cFbBh6+0CiTr09D/mICtzTMunsUlHWwkWDNR8BBgL4moY=&sign=PfYVjzWLhW0OWh8QjcohLvshjg9nH93aAO9ievphCnU2x1wrrtbVIV9SGqrDE5xfMBj4RK/sYjXesS9CVbBpi4D1Wq20JDpDRb5DJBKjCXyH80WgyDKntNHfH5wgH/7/3w6ZUH5dYam8uytfutNibT82U7Ms9EUvaAHFUafhnpgC1/Y5R6J875K14YeSJkr5UD63EiTPudaqqKaxzBbp8EXgbzwx5ncidNPs08SQ1sikE8vj3aaVeWTz3VVe25nPHlLji6PIiXFqeW6sCKBCifkgvbsXaunhv8BqJipdadnyX01/SJfpkLyVL+BBIMxxumjRB7veCbBUM/L5rFZeIA=="
+[INFO ] 2018-04-30 21:03:40,880 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:178)
+retData:[{"orderCode":"2018043021034019","respCode":"0000","respDesc":"成功","tranFee":"000000000050","tranTime":"20180430210340"}]
+[INFO ] 2018-04-30 21:03:40,881 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:190)
+verify sign success
+[INFO ] 2018-04-30 21:03:40,905 method:cn.com.sandpay.dsf.demo.AgentPayFeeQuery.main(AgentPayFeeQuery.java:77)
+响应码：[0000]
+[INFO ] 2018-04-30 21:03:40,905 method:cn.com.sandpay.dsf.demo.AgentPayFeeQuery.main(AgentPayFeeQuery.java:78)
+响应描述：[成功]
+[INFO ] 2018-04-30 21:03:40,906 method:cn.com.sandpay.dsf.demo.AgentPayFeeQuery.main(AgentPayFeeQuery.java:79)
+手续费：[000000000050]
+[INFO ] 2018-04-30 21:03:53,391 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 21:03:53,393 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 21:03:53,397 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 21:03:53,398 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000060 已加载
+[INFO ] 2018-04-30 21:03:53,398 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 21:03:53,399 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 21:03:53,399 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 21:03:53,605 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"phone":"15721447947","channelType":"","orderCode":"2018043021035322","certType":"0101","purpose":"collection","version":"01","requestReserved":"","bankInsCode":"","cityNo":"350200","riskRateInfo":"","accAttr":"0","extendParams":"","contractId":"","tranTime":"20180430210353","cardId":"35210119770917002X","currencyCode":"156","tranAmt":"000000000012","extend":"","bankName":"农业银行","clearCycle":"","provNo":"350000","productId":"00000002","accType":"4","accNo":"6226220209634996","accName":"蒙世花","certNo":"35210119770917002X","royaltyInfo":""}
+[INFO ] 2018-04-30 21:03:53,742 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=lT/uh5Qxb4d9NugEpcLo725OlsxzCYg8gbVTfwTeFfj73UdhviO7liQx3zLSgpt3yZr8RtGTQq3OxHHsmihvwyaAT0nqQ3gZ4T+FWyrKP0ehs3a8kpBNN5jZAB6yCLFPs8iK69sB+tMZ/qvtjasp3e59rSBHc7O8/zhNQGcWF6IG7Pb+CYafQ6ROwOleL82SgRYuLHWAwI7060vVm3DXQmubT6jVK2h1uFdWZmtRCeI99TptpYA/8DM9dPB1Uixf80TCnE4XAyg+K8illPY9nNimAa9aR8A/oyqRwcs2U1GmfCjo0ETSgSMMqrt6T30gd6z/FYpNr5Gj3BoRK19HYg==, encryptData=5DJHmWcYuevpDpfbRD35HYXSXJrEpgZpWMd6kbtc0BoLu+GJR1dc4WAdSWedAU4RJCfmVO4eG3orZDSJdlXeIHHVpTjZ8jYvwUxURapompaQGgzK0y+ESoG84ILF88EuJUCbgzLoWirlXYRrWtblBvMTxAMxh2e6yQ9DjgTZnkfIyAlCNAnnx0/rDTj57z9hVyKpugkvId2GgSKP+PT+aF05Xk4qG5clfpk81Te5Ygva9+MmOFjXAA1XgT7svFlbovkIT7aHAWEqYbA4ByrTr7/8teeb2C2XQ6DwXTN3OWkyZ5vkvJ2wUq7Jo9N8ZNqowQ21dS5XL610LAE5XSrfu7+4QuPNwN0AamOuMqfw3rkR08i9AqoHjukC8qCRZCbvs1UDRbGUfAXH9uQzQ8MftiPYtXp9ep4pFmVXtSCpumkf8HFanrjDakEXZkG7iSkzn/2/kXj7loV0R0JZND09oYxiwAtghGZMszgP5Ym3HOUD7GdQmGoPmz0TFN2vCDiZemIGaBF12y31MuccEoaQxhYxrA2PsR023mUjb70frBNNaC5pCsdiAmQrhcUHtbXJTBa5HcP+V7kku5kGrvI9u5e5zbT4yoKTj5N6s0EkIaHN+2IDDiX/WpZQtApFr9cSIDB83lf20ZYGJ+2jvgCpqQsz8Kif8xWAgLkifsiO4OXMweZbr/XrG4qOrpbQrXKPQLg7EHQCa0xV5g0o7J99CwnbtCPSiWEFidbSPJmxJyg=, encryptKey=Fo/jx5XaAwZVWxhrOxdRrOt0+Hq0Rl8G5IW5yIrF4qG9iRzM0Zg+Og9Wm/dyRDzjgbPaR+yqRWkVf03VDDM+uWQXhfycG12O/9fCapp9JY5jgcJIzaQ2P2akI0h1jzKC54z4BSVcO/oLMCvscyfmH92G+s6z6RbtX4cf+Nemh9wzbEnyfmeHvN1kPzEyT/PpuzsW5XC0QHXLY28UDfTjP8a3fITbbs24ezwJLI0juhWP2NDfZAeFAhcLrCUalcH+TiB+fag5baaxhSmEqITnPVpDkh/O/imFT5I1skfLohAsHR0XWrZhkaAV8UWMQYUW7LFjw6bRdQIPh7EdDlRucQ==, extend=, merId=90000060, plId=null, accessType=0, transCode=MBQU}
+[INFO ] 2018-04-30 21:03:53,766 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//queryBalance
+[INFO ] 2018-04-30 21:03:54,184 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[200]
+[INFO ] 2018-04-30 21:03:54,186 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+"transCode=MBQU&accessPlatform=&merId=90000060&accessType=0&plId=&encryptKey=FE9kjClpZ/f+q7LOvmHIDnQtoAjzut9Zb04Wb4S3dg4WpK16XkzgmCZrV47RwL2WHqlcxQ630XWRFcHne/ayi2zAnGnivOIFpJccykBp3GjlkJ92psGKqSmKiZkKKkxTe+egj0HuwlzDDuKsokhqVYiGmZxKPJfTR6EvFCtd/SgsRQiTM9legdkBVZuTedX/1Jbj7tKyBcCcOoXl4TTOSNbL+0iNa3eJGHH3319fI8GQt4V14VLYGX9k2uVPSUX78DFdsAPYkXB6bET54mjCWE+HZBrK9BoIoykOqeZvEzGySyx1/Xplra+r8MYnMbgOaRZ9UKHcDv5A/8XTGZIncQ==&encryptData=N4xehtZsUPBy54Qn/WdjsA1yPDUKyvK3pxiYifgF/Ycxpm/NgXOCjpT3c6GB9fy6lWSt4PzRIJcC/KJM5/enjpklAys1H3UdGkcUv5N9AG4C6nsTo+uD/Kk79EbwffpXB/OfG6xK3DuATsxzDFsbpg9xhV9fHizP8AIvXFSn0mM=&sign=CGlsMHGd0YDAT1d09eO6DGjDRQ8ccIm3k+IQnZ66y9zlpyi3Lzi81IMl9LdymMQb88rZG+HwoS7WQqjfogZjG10v9BOgLBztAP3hGgj8/sP/7Bj//mqmR4zkEKPHN+MIX59VLKsC4JGk/uI7aHYe5bK2NZ2swSyyyvkMyD9yJyH2b07j/tLF7smPetgMaWD8hKkdzIPFA34WAOED90JBkMu+fp8z6NXFS65zFjJA/ACY6ojKTBpK70EfRnXazCecLRNEvB0KMy+wCGzojH86OiQJCLcA4LAtLTqvD6QM9U4PnUW1GWCUUGOnw6ffLwCH/rbHpXYvcyvc9ouZ+lVipA=="
+[INFO ] 2018-04-30 21:03:54,194 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:178)
+retData:[{"orderCode":"2018043021035322","respCode":"1003","respDesc":"商户未开通此产品","tranTime":"20180430210353"}]
+[INFO ] 2018-04-30 21:03:54,195 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:190)
+verify sign success
+[INFO ] 2018-04-30 21:03:54,220 method:cn.com.sandpay.dsf.demo.MerBalanceQueryDemo.main(MerBalanceQueryDemo.java:67)
+响应码：[1003]
+[INFO ] 2018-04-30 21:03:54,220 method:cn.com.sandpay.dsf.demo.MerBalanceQueryDemo.main(MerBalanceQueryDemo.java:68)
+响应描述：[商户未开通此产品]
+[INFO ] 2018-04-30 21:03:54,221 method:cn.com.sandpay.dsf.demo.MerBalanceQueryDemo.main(MerBalanceQueryDemo.java:69)
+余额：[null]
+[INFO ] 2018-04-30 21:05:52,102 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 21:05:52,104 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 21:05:52,107 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 21:05:52,107 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000060 已加载
+[INFO ] 2018-04-30 21:05:52,107 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 21:05:52,109 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 21:05:52,109 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 21:05:52,303 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"accType":"4","tranTime":"20180430210552","areaFlag":"","accNo":"6216261000000000018","channelType":"07","currencyCode":"156","tranAmt":"000000000012","orderCode":"2018043021055275","extend":"","accAttr":"0","productId":"00000004","version":"01"}
+[INFO ] 2018-04-30 21:05:52,422 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=NYnH2i97xigmeHeGNG0tp786egXOfMSX4M9wB1ReHQMOULrpcYVSEwGyK72iJinQ/mWkVuz2lKEMgU/vReXQzkLtVRQcqyhgwUsEIt8v3/QjI1a8RO174rGthcTYeyhRdloRjTpsec1dehGVz5LcO0etb2/i7uW4+oAEXWdRbZrEb3A+u7x31neA+ywQ8AsbpA9xm6C4A1jbrcNsUMc2+E8BOI2bBz1qRWplAeSTnYdmnKil5cFIdsL3elcfmw0chbEgOVhbaXpEFHeRnZHJw++NIz/ewuTfxvsbK76aqf+vn+F6ws6vt96rqJ6tjF/nTCIQJpxp3nJX3Q5kUYIUVg==, encryptData=PwqooCTibBqK3bAlAjeoKy/TlN8+EdME/UiiEXvfodUGZXyzOl8kcC2J7LGqQuOVRDYWG7Om7qTBB9eDd4TuFN42kJkIzzK4VcW6R1L7MadbQrKjdlIBnFO47d4uAeE/CJDZbpWWkz1hOvowXeWjZzJhN44lFGxQEp0otehlJixeQNSYzRF5UhFlZvCjFs33v50YtllpsmYw3209iq5lSspFI/SDIajhqZKZHdQ1+aeTeQTkr3RBAbxQWA8YyZU8OuTYVZ/XZXxGZoPOt2m1wV+h9BtQ3FhKzrZ02Cud6wm6EuzVTlVYVnoFmmQCvQWHkgz2fvfi4Fyuc3MPI/R0dA==, encryptKey=pPd2hirXzbkZKyY8DYbMjHyqadgup6f0WarmV27az2ulbz7GHSTS6xZL7GWWctd+j53raXIyzJuTOhVCkbIn1BYFMY7ENLQRHEzqGPCmIu08hPOv3iWCAOWscW1+Bd6OCtY+KDJYY4I3PJHIE4b4qaGW8HlPWbW3ChY6ph9hZuD8idEo6dgquoR+nBzV9llbt/mBGIS8IKgFObpVrBUFRyCFGcvAzDioHCtoC5+ltF3EX/QAaqmW5EXaC9AViJOBlvrP+t80mKOdrNwz85Cv+rP75ehDlFo4pdpbFJlFcTCCZjd3TILTdeCprEbi8zY41SU+1w6ogodjFyr+GyKuNg==, extend=, merId=90000060, plId=null, accessType=0, transCode=PTFQ}
+[INFO ] 2018-04-30 21:05:52,448 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//queryAgentpayFee
+[INFO ] 2018-04-30 21:09:52,005 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 21:09:52,009 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 21:09:52,012 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 21:09:52,012 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000060 已加载
+[INFO ] 2018-04-30 21:09:52,012 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 21:09:52,013 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 21:09:52,013 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 21:09:52,197 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"accType":"4","tranTime":"20180430210952","areaFlag":"","accNo":"6216261000000000018","channelType":"07","currencyCode":"156","tranAmt":"000000000012","orderCode":"2018043021095280","extend":"","accAttr":"0","productId":"00000004","version":"01"}
+[INFO ] 2018-04-30 21:09:52,314 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=rEb03Ga0WanTIhOJAtuMEwqbKemrQ+tTC2KZQIgSrpwNBDj7a1XVkhA/T7BJ26I6AuvT0X5Vm1XVBMXfvm0EyYiad6oEYqHrep0XtkZZfud2tZyLHPjJPM3KtpCuvPc2zf0U9TMRZb2swKXCvq8zovx2AJU2kCiUVJUlV0E7P6xZr/p0LJg3Y0GKTOsVcZnfyt7LbtrLH7pBeMnmb7j7C9IGPv6bzi357X8VAqha9D9A4FDCgnUZjIQVDTXhHp4eKae6sXsD6uuc8ARQ0HHZRzhjzxd1jl2OnhckPCXFtz+Djr55NYEHcHM8YrHaCBXmSVX7W8JopPBMnXihu9sQlA==, encryptData=VSgAhVSkfMtq8GeBnOE0EJ3HgqaD2hBQhtXdTuZN2+5aUGQnIRRU9E9ydILvDceLfZHVI5meq+iOUP9I+o0LNmZOP8ErwwbK0YB3Yl7EGZ8ihDQ5fhII2ukmfifCtNCdSeKPuVOgThaaLAhj7ETkjqv9ITr7Xq0awHonxTytFZ5YtjeYONJ8qNAYqJTuPrvSmxFlDASU9MVewweOBOqV1ntmqHl/yPVS9nvBPoK60PfVcTo9cYXV5Fnl1pCA3vnG6OHbESMdQazl8s3Aya7j4rNVZrLZCpsZkCaf6VpxRQcJwbFRJFMHiGD6B1xzyeQO2nSAsiU8x/+tfMZTTd5Thg==, encryptKey=KrmBKkrDe8ef3G4PJ71gBMkBRWzfkuE2FqXOQtVJ8yhcxjk4y8+twOxH6K86cbkXJnD/j0ib6TJnzMPIXRCczLLvc5BYE7z0aj04DjW3NgMUqVs++oP5I/z9EWUYq984lb/fxSCyH0u2fDrMWz0uIlnQFY0qX0fCxSIIevZqQ55UzwV+tItKMHozCCoKe4SXUasj8vfF4vrFfmMDEUomruyblGOiulYhnU/B5Pzc1TrIaEBBwt+5MyGYMeQd7TB3R6k+o09Ka2wNQLwizF1JHSRbIoeuzqz0D5DxVfhrxV0ys4rOWhe5gVZ7+xcJVYYtYDUvrER3sGaJ8DAZRqty6w==, extend=, merId=90000060, plId=null, accessType=0, transCode=PTFQ}
+[INFO ] 2018-04-30 21:09:52,338 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//queryAgentpayFee
+[INFO ] 2018-04-30 21:09:53,023 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[200]
+[INFO ] 2018-04-30 21:09:53,025 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+"transCode=PTFQ&accessPlatform=&merId=90000060&accessType=0&plId=&encryptKey=qitqrvm3mZHweW3G7N7CjS7rYBz+uBIr70U3Ubmy16ZGwbgRwVfHNLv4kp+9nt9iLGSAQd/MZdqH6OJbscQXpgYTuhqxzzR65vQAe2lgzrSRZIWszCO53Ai/LsIwSiG8vMQVnmAxwFbmbm96I6epBJMDaEedEZwH1LPf6oUVB7KwHvCmDQ1srhjN4bdLS7yyMMxHD6wjW/lSdRJ9aDlVLRpXiNGAuh+mYPX/xi5+Phh5Ua6gTv90+3oeCH8V4kZ77EsEcLzn6mMDkSzmGBdrr0nP2U6Kv5IDfhPzPvJRFduLTPiI9CAHyAOmRO1K1Z6zdJDOlJJ0uoGflrdXxdCR3g==&encryptData=yg0IaIOimGs8EvDDVcLTIXFsFvNbRyhz9Mf++vwNHQLnzDYMwK+4cSthK1WnBR4SDmjKx2baLKKGg0B+QBoRyWLO+Jyja97TyhFoja5U+Vr8BE0sXGn2NtNirFiMlk3G1mz5yb0MdBbf2SynTM4W5V/bt6JWY3DcjlwGPJ1noo8=&sign=szpIz/H9agwpPxX+iXUMLOo4JbSUI8Mq1VCXCDKqMwaRuBJTTMb2e1v5JKHYr1bT4wIV8X9SRGMIN/APNvPva8wmX56EWf2s9ARZ5KTbC6UozKYG+enz5WlgDFjHg5CB/uzhppTv+Q9wnTzMGk33Yziyrv4bwsvqeXY8FekZYUBYIYXtDTQNT97Yi4U6jVB/SwPSa44y/Q+JX4fTk5PFjmNfsFPuJUB91jbcojICLDsseC/JYxUskgmTUPJTAbZpBWT9bgSfyvL5hTsKIn4Hpj2t9LAmgjlPK2HASSZsQaq39E10chOufXhl5lpk2I9oikC9Cs3FVBCspZmMNe+JNA=="
+[INFO ] 2018-04-30 21:09:53,032 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:178)
+retData:[{"orderCode":"2018043021095280","respCode":"0000","respDesc":"成功","tranFee":"000000000050","tranTime":"20180430210952"}]
+[INFO ] 2018-04-30 21:09:53,034 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:190)
+verify sign success
+[INFO ] 2018-04-30 21:09:53,056 method:cn.com.sandpay.dsf.demo.AgentPayFeeQuery.main(AgentPayFeeQuery.java:77)
+响应码：[0000]
+[INFO ] 2018-04-30 21:09:53,057 method:cn.com.sandpay.dsf.demo.AgentPayFeeQuery.main(AgentPayFeeQuery.java:78)
+响应描述：[成功]
+[INFO ] 2018-04-30 21:09:53,057 method:cn.com.sandpay.dsf.demo.AgentPayFeeQuery.main(AgentPayFeeQuery.java:79)
+手续费：[000000000050]
+[INFO ] 2018-04-30 21:09:59,210 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 21:09:59,212 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 21:09:59,215 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 21:09:59,215 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000060 已加载
+[INFO ] 2018-04-30 21:09:59,216 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 21:09:59,217 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 21:09:59,217 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 21:09:59,405 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"phone":"15721447947","channelType":"","orderCode":"201804302109594","certType":"0101","purpose":"collection","version":"01","requestReserved":"","bankInsCode":"","cityNo":"350200","riskRateInfo":"","accAttr":"0","extendParams":"","contractId":"","tranTime":"20180430210959","cardId":"35210119770917002X","currencyCode":"156","tranAmt":"000000000012","extend":"","bankName":"农业银行","clearCycle":"","provNo":"350000","productId":"00000002","accType":"4","accNo":"6226220209634996","accName":"蒙世花","certNo":"35210119770917002X","royaltyInfo":""}
+[INFO ] 2018-04-30 21:09:59,530 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=ThjyhpLy5Eq+u+MVCnWdaMPWTerju058K0G57jAeoqKoeSoZRpr3WdwotrNNko2zm2OCWA4FBVLO6cmR17ujwpuGX9xM3yXVZl/6O2mPVOmGOG4YnC2HDSmSmiPLTL/tWYW7E7034hNnkzWVkHFCrt/Levf4v4si5MRRZ+lCZyb5AOio1/CiYuWIprqJFylnhzMy+NKAjfmZhbBVxV9oLKdPmI642hVy4uQa28FAUNsKBwBGhEt1GUf1T3tJbn6vAOADrUtY5aF/kZWKQLNKTdmF2AbgjoXy5+wH6KbHSslWREkK1aWMgVaZ0XrGAVadLi+S56DtdMZ4Eq7tl/PLIw==, encryptData=iEtMY5yGA3mM7UMHk5585X7O/rRh3C3yQT2Yy9SY2J8YUoHDv81MD3wbnQZZJpEl8cGsirza5i4GVj7jDiZENyQNM1Uc/jEU/ok0s27ztRjb1NC0w4b3kd9f9MT2+A0XPH/o1oSOF2V2V/vqhyfCZzd2Br1aWeMtbQ+M3UPl+18EIJ2bxkMrfmFJgZfGM0ELyeRLbe8uvIe0qumlrTzB9PtPnBmMQ50ab79T8akC2Omx3J/lUK778jB0fAIXSLO6sOps6NYQF2u7ov8uGdeEVGH2CRXR7N5iS1HH8LVvkILBILFpDefoxQSajjRFz96VS63flzPVWoI7OPc+Htx2ocwkHZaKxpSz2ZRm2fqKnhQYIkchOvdj1oFhaGBm7ITxOrbxJVvIZgwfNyfq9JNVTqR7crdPVjfLWRVpIbk4rg/jLUIEanLpmHuDpCfqmDGNTL28mu2fdW480EZMGRNNem7kaxzJwhwb7PNoc/xk/Iv/MxfZiseZOFI+1N/g/MwHwiIfepNTazX2EzOHGVZ1f2fwge7EYJUhW2Q6Xhp4N4tnffUOpaGrwa0CDGxtvdaAvXIw7dqZdv0LuUUuV5z36s1sVao7wat+M++kU0zh+HpSy/o7SfyeZyLK8zqChmM21VeAUPZStccJr1pCMnqsY/TyPx12LQCAfUdHidJU3u53F8GX+/KAB68aahw9LmDrJzDPXsj+hJOK/S2u/OVGIga5IslKwgSefCPkyMvPAd0=, encryptKey=winH2hMBKy6XWxGVpzWfjum3peAVOho5f5T4r5ytUgGcUSvHtZBJMdGg7HA9BEByg+FANdsIm7AZ5HMae/BW1HRc2rcBWycJ7ZHDgE9NVUvZVz4nUBlhlGCcLE0/yEWIPEds5fuyHjh6Zd6ZaWY5vB3ndY+5wVUrzcUNR6lYrk6YP4Vd638zOTfGzhLRfycrA7HD+UMdQeF/bx0RCqZzQCj1PcK5up6IVG3NyfrBepuXHv5aKbZdtr9GX43yYlTKN1y99fqS55Amz6MF0ojdXq6eAwLtbZ4rTDxuPxyd3S7lE7hQpMjbDyA+qCVO9D9nFasA8mMbhFL1MI4cZuA/OA==, extend=, merId=90000060, plId=null, accessType=0, transCode=MBQU}
+[INFO ] 2018-04-30 21:09:59,553 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//queryBalance
+[INFO ] 2018-04-30 21:10:00,021 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[200]
+[INFO ] 2018-04-30 21:10:00,023 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+"transCode=MBQU&accessPlatform=&merId=90000060&accessType=0&plId=&encryptKey=M4QfE0MfptGH5BS19iWMW+HkKpFsJxFpOxO2L17ViBKj0dHUetRLk2NGkMfbzjML1Xo4VXRM2H9n+yVdNAW4KkHpvySyBS7wBQ7U0MoclsYDV2DOMAT0r5N2+LxjUq//S8JWdAiVdhhEEoDh1lfbbGs8OxQ2pcTWL3r+RlBfrlqdDFewN4aZCV1OGYBH1OKyvWVsHz5cea2QHQXzVdMY6Wjmx1y0RReGt2TAmja0d9HPNzUHHITKZjNj3vkrPSLloC6lwAmcICn5mLVOz4lu0+b+AQD4qBaYK2MkQsvxGvm3LZmswGZsUfasXJiti6Oa33+sKTyTz57FxDKeD2aKWg==&encryptData=8+CQGW2qxTwHNklhCXlg6YK1ujpMLWOLOAouUsDg6ugUSrxrpT/Mf/RKN41RRq2praxBAsWmBV13JWFmgXCqd1GXqIf7oam58mLUo8F0PHio40vUUXap1dLm+JSXj4kSXSROQUW5iO562qUe5N7/IHf5VYaIP/CoocTpBfMgbf0=&sign=LEYX4Yz04NevhFVXUnB4MirSbJGiAUME9HtO1zuJ6BK5XXwkRZTCfPFhXTn8o5EfQo25EckmOEq0siJ+DzWEwjhlEwQlBzlKJCiSPXb1nvtpRr+BPsgfCHit9jdLAOyqkt7M6sO25hVJRPo0t9XON6iEkg/QX9vOdRDZdnNtwbAsscoJR+qQEx47E0NLFw/kbJ6gO0HL0Y0ab7lgOXsi+hvBdDjJmw1sNRIBUijIgqMNBcjyaJxReOeVA6sKVaPv+q+wjT4oqstgc326MLSG0antaEy0x86pi2NdTWqeNclTpICFGXwqxYloeSIBQFz8C3YU2aWeeYEqpXLm1VYaRQ=="
+[INFO ] 2018-04-30 21:10:00,030 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:178)
+retData:[{"orderCode":"201804302109594","respCode":"1003","respDesc":"商户未开通此产品","tranTime":"20180430210959"}]
+[INFO ] 2018-04-30 21:10:00,031 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:190)
+verify sign success
+[INFO ] 2018-04-30 21:10:00,054 method:cn.com.sandpay.dsf.demo.MerBalanceQueryDemo.main(MerBalanceQueryDemo.java:67)
+响应码：[1003]
+[INFO ] 2018-04-30 21:10:00,054 method:cn.com.sandpay.dsf.demo.MerBalanceQueryDemo.main(MerBalanceQueryDemo.java:68)
+响应描述：[商户未开通此产品]
+[INFO ] 2018-04-30 21:10:00,055 method:cn.com.sandpay.dsf.demo.MerBalanceQueryDemo.main(MerBalanceQueryDemo.java:69)
+余额：[null]
+[INFO ] 2018-04-30 21:11:25,250 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 21:11:25,252 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 21:11:25,256 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 21:11:25,256 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000060 已加载
+[INFO ] 2018-04-30 21:11:25,256 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 21:11:25,258 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 21:11:25,258 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 21:11:25,441 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"accType":"4","tranTime":"20180430211125","areaFlag":"","accNo":"6216261000000000018","channelType":"07","currencyCode":"156","tranAmt":"000000000012","orderCode":"2018043021112534","extend":"","accAttr":"0","productId":"00000004","version":"01"}
+[INFO ] 2018-04-30 21:11:25,565 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=V2a4pQwmsBkut4VYI/N5ndLJ0NqO/eC6ayCZXSXVLFUmhyglzCcaADqENofH8UTcers3qusDn+IH98QmhsOWVRN05KtGnp30SwlhUXCLLBTNGumDYGybgKoZnAZN0z8wDbbQo0Frv1gLULyzoiuHd3/+KinC43oPxbgUTE6ip8VnwKDEiC/hsaoMdlonWFH/TJaWEFmvmX+j0EdzhAVvh1/WPbOM5Ob6jg1gyyCvqXf8mja+FOlFyVZt/pKX1oLHG3gV423gdEKSLF6oJMcUXRpSffNqFgcG9jmlaxC0PePNp8/b4IDAxqeA9hBKzCfvDKTrF4Siao+YJeFiSXDGLQ==, encryptData=iYMj05lBCLwB1DgH/d1Juhizc2jtgKI4BbTAF0rXFGu3l4BMsmGE5/UzfHoAHzCkdYyMmXHEuWOR/+rAG9Jl52YSFS0a7NOpmUEbDrkeTffMpL1EX+fz6/uPmy5LRUW9xtnSTclaiQ/je7EEVRprZLTYH2WPa70LhZuWJfF3u+Lha+tzWlOZKmTJ+IGMZ00PamBZRN+e4vV1dugCEQ6yUaYy+7/CutKtlWB3Ytbs1FcHzz+3XP8/rXRKvoU83RO+/UT+v/fk+ZvvVoNELIqA1s7g3G0xh1ZUfTMsgoXyLjFPWRlqr2QxBO4rmZZmlW0UAmjTE7n+7wBIXqJdNA8daA==, encryptKey=Gr4oXNOcVMPVIRth90TyXVL+QVGcBSB9bY0Q1Zl38hp4R8uvSsVY/UBY+Q3zK8N+QwXjuXoW0YUsTj8prSa9qSWl1MW8785syXATlcuFFq6sYow/aESvVV1VgeV6AxtDBwqvNNY+t/SaqCTaivDtW/7+9oC+5kezZmyc5ru936ZqNVzdNnjfRLWUwX7anWvUEvTto+WAdDpEVA+o1qIsZR63p8wXoRV/U0GsgDSTnNJb2DYh39jaj9rXJOByXpO9H/UdHrF+Lddp4c3VY0dQUYRngXKTT81SAz7uO2eFryDrsCHC6yGZbIpdZJ7E0rpS15bjWBPDAXJpLPFlIWcVAA==, extend=, merId=90000060, plId=null, accessType=0, transCode=PTFQ}
+[INFO ] 2018-04-30 21:11:25,586 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//queryAgentpayFee
+[INFO ] 2018-04-30 21:11:26,072 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[200]
+[INFO ] 2018-04-30 21:11:26,074 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+"transCode=PTFQ&accessPlatform=&merId=90000060&accessType=0&plId=&encryptKey=ENL5PECZ8vVPdH/OmWFUdk1UJMRjOdNHyp4PeNjoFWV4n+7+ocI5AGQgmS0Knyj8lwukVHdW95m5miEuwzimH8lrLB04m+dH36sonHDU2jfmETE8RPRzS33g7UDHVqcVNdQ0u9ulsKaFdy0anvGlGJ0F3QKumg+DiC2+rjeSzNZmG0sxDpj1VINXOpF1CPdE/JAqd/169Sq2nR+J4ErZbD5Fuxp/ruW8jj8cWgaowPsMWrVTmOyMvsROanT6FwD1SEUs7OmEPr6EyZ6tdEguf0KP1W0/cBHrISmtMS76cHaIFAY+mjY77q1/fjDlnPp7mUjWnYZPQzU9ZZ7suPlE4A==&encryptData=v72f4JRTiVaGmo9WojW8jwWID5IWTOcQNl82usTFXYHqp2ayIP1EDDNyHJqsR9bz1/EyYD6WnFWZi+WwBQInTgpDd2N/NBWrvETb2Ut9iohF6xX/hP7fdd6EBgcdcV8M74f2U2g5gwh95Dyb51apQgCeE+T0kjSpykzMX+pOi3o=&sign=xV/rJsb7CrCoB5wzoXYbZBo+AfxEKugK6BgTyCHNQzSry0lO9tyRWSwreOR8+JHxrIlHt1hh3IzWCcvmRq+ieSVIN35b2HhnzVUBCMPJtSUc7zq8x6XbqPPkXgvrtBlz9hXFEjx6AHzDvlNDy4wWtE/TbIpxVnkI+CzNcr1pxpXHgBda5tIAyhV8tnMc1CQqxYXBr7YN0uM5pcSCV0So061BZRRC1y2fKzVhoHRIYiXw95S7lu9n9h1pWYz7Y4inAeWEhLsbpaMQzNncN281nOTmpzFussikH1mO12+Z3P3ZEGXgpRspdfoMlrpAxit47cto+kYd6ntWcV4/X7/28g=="
+[INFO ] 2018-04-30 21:11:26,083 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:178)
+retData:[{"orderCode":"2018043021112534","respCode":"0000","respDesc":"成功","tranFee":"000000000050","tranTime":"20180430211125"}]
+[INFO ] 2018-04-30 21:11:26,084 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:190)
+verify sign success
+[INFO ] 2018-04-30 21:11:26,113 method:cn.com.sandpay.dsf.demo.AgentPayFeeQuery.main(AgentPayFeeQuery.java:77)
+响应码：[0000]
+[INFO ] 2018-04-30 21:11:26,113 method:cn.com.sandpay.dsf.demo.AgentPayFeeQuery.main(AgentPayFeeQuery.java:78)
+响应描述：[成功]
+[INFO ] 2018-04-30 21:11:26,114 method:cn.com.sandpay.dsf.demo.AgentPayFeeQuery.main(AgentPayFeeQuery.java:79)
+手续费：[000000000050]
+[INFO ] 2018-04-30 21:11:40,011 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 21:11:40,014 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 21:11:40,017 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 21:11:40,017 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000060 已加载
+[INFO ] 2018-04-30 21:11:40,017 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 21:11:40,020 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 21:11:40,020 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 21:11:40,217 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"phone":"15721447947","channelType":"","orderCode":"2018043021114025","certType":"0101","purpose":"collection","version":"01","requestReserved":"","bankInsCode":"","cityNo":"350200","riskRateInfo":"","accAttr":"0","extendParams":"","contractId":"","tranTime":"20180430211140","cardId":"35210119770917002X","currencyCode":"156","tranAmt":"000000000012","extend":"","bankName":"农业银行","clearCycle":"","provNo":"350000","productId":"00000002","accType":"4","accNo":"6226220209634996","accName":"蒙世花","certNo":"35210119770917002X","royaltyInfo":""}
+[INFO ] 2018-04-30 21:11:40,343 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=Cv4N0y0Q7QFgqTb6ZCOZcmdLKEqVOMQKr26kEeBa7ug2JYY2fSYr9h5V+DT7fqo9Hes0dYJQ0f0+g9pzBr7U5Uv5rfn65/zrM3epkWLZRMhqLmuqAhDvsi4/aflOJxUbKHnIpaZmxWYtw2OdT6h3c8pO55LALSDAh25lhRYaPbrb8mbKfxK3v/ZHPvvT7ZrkvWp4YqhwFm2tI/vIzvYVoqwH5r6GOI8YKMAAsFEPL21s20ZkcAc8Hlm++532jg/bVcvL+vaFSNS/n8Ffr8a0L+wKT0pt6FEFsy0e02g7pzW6cZgYiSYPJWcqQdkruwKS6rkOwBX+9U2g4ysKWPL0Ig==, encryptData=pDakC/wtOjyYGpwFhWdkdvMDkvQL7Pm+4Eyhcv5KVGwTNveXbSklNLXfrNdDgMmcP7lWzmYEG0MyWK+2ByKWUUAVSBnIZ6iOtkTP/U9xs2raRyK3Jr1gLGaraMg3ri4dksHcA4uy6omjfdT1Tr4GKTIzwx3Dj1Z5/8Mb7cKmBacUfLy9djCXLALx4NyhfB2hU0fwIAYo7/W/nc+QDWvUHxAJZ34FA5SmqtB5+99vZYTK/UySXZhWkYTGLkodRYR80Wpw84ujPzjfpxBQpDcKKnsu8cVFI6EaOJ7t5dMWPRwdqbvwTrLxaCpn5BLF4hpCNqIwnsTrzxhyCAeyPpSYHN5nMz6POC2vBb9496TNEQg2rMIwLH0Ra4BOCpV094nwCrvsI9hEnj5B5I3GF3DwRw0PqtibdFmOvDJaMDj7rAXcRjCohRJ0wwL0HRmEao63pYQNcowFkUvF9JHybM6qUbdRperaA1At/xmP92PMTScyMLXbVc37yl9J6n4y+8xls7SeDyOfHYVX5mtPfhC6b/HIdEsnYxRUpyMm8QTdoINkUNiR7bdMmFswBh1e4Msy/wskyH/QwNo+ngG+vZRDyBx6t3ZKYo5O7+uBAVZTKo7N6A6ndvWxvju76lfFnP+eyYmkVvYZfBOCuZnN52GzCN9HeHDRp4BsbYn+2q4+CzV6r0dhl8CLKF0r3B527vHMqRk7uHLRN8QVTCT5LrCXldIpO+VUfjLUG4sOnHiaKtE=, encryptKey=OiPRMyOHB3fIAVkz6TXLl2EcJp1wO1MkXDbt4NiG+oB808cadBFghwwBIFGz+ok96ErsRwecoHOBShgzJpQH/90EUtZK0u31hRZT28MgLcFFlpkrVwRCdRdla0UgLPox59mupV5piOqQlA0KlzIzfZCMbYP7LFjnCHB6dzZ9DwqrLJ+PsmLVaqyOrb7tQZZRp0Ucdw4dR53AUmkVLmRPdne4ash54jArG/4jwqyXirj2SlIyRrMJpsKf9Q1p/NOrbSmTqeDDlzFkYmSUTTk3bdS54OV0L1k/lpLCu79VK0MovLxFdULqJZOJsMu8XROZjhcBxP5oESH3foUsiW2u8w==, extend=, merId=90000060, plId=null, accessType=0, transCode=MBQU}
+[INFO ] 2018-04-30 21:11:40,366 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//queryBalance
+[INFO ] 2018-04-30 21:11:40,911 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[200]
+[INFO ] 2018-04-30 21:11:40,913 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+"transCode=MBQU&accessPlatform=&merId=90000060&accessType=0&plId=&encryptKey=EEk3nApUnwzSZ8CkT6YLujLp9X9vsUMg6XGaeWtXpI+CI5hnJL/KB/wA8Hn2FOi4LTovAwEzPZTXi7OjYWyIH1uc1EjgIVMjPP/53D+EyjZqvINj0YoOVD8WZa4VZyce96Ww6qNteezAnCHShDbdvsue302rpf6NYSKWeRsCAA2y0m2OVwtA7IWiywoNhyWSwlUtCKGEzmr+YiiBNeUNzdH3ZhG4nX6acT68rId3i4raA4ttOaC9WUjupb7hGo6K2PdOdmPcWdQedl12cgnaoa6jF6RpSFafcnzJsxiB4NNGA1tGaB0+ww51HCJV57QKmw5d6AFqQZH7xDG4sFW8kw==&encryptData=A/z+gIZfF22+974PB3pqrmyD+EBgWuDvYsrfBjKS1/kgmeV/JBQkzwc+0Ukx0Eah/FECIr7YLRxmvfUivKL3jdRRHDjLihJCNRfVLuhzRbltA0DjekWGYrI2sg6M2YXBgtEtA7KzwlP7mRgNvPt6fMbMTme/quojU0Ng4wF9Wfg=&sign=soYNbgj4hvyyn/7E/+w7iPJEODMtieN3qRc1wBXX1WLqG1/3CzkO6ocWltEQddbwL7jq8Z0kVzVRAD7+AjqeINLJ43vKhU+xvrZvUIHtExuOU2Icxj24ea6/eG7JJKTzBGtGEiFV6vu7wiylBzM5/0TaKC4ZoydXFbA7NST+zwaUMTfTMCrfSycehpoUis5pyoEAldOOivIZjVbYnnL9iI7OHodqsbyJxKIdmyoa3srx5mCuhzqh2JhcZzdfH8vSZCOke9SmWZPTCWy9M691dpCGSfI8l90vyrYAokNR38zxlFseKRMXN28aiFxoE1ZKw4nwOwLGuwlFSSnMsaIA0Q=="
+[INFO ] 2018-04-30 21:11:40,923 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:178)
+retData:[{"orderCode":"2018043021114025","respCode":"1003","respDesc":"商户未开通此产品","tranTime":"20180430211140"}]
+[INFO ] 2018-04-30 21:11:40,924 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:190)
+verify sign success
+[INFO ] 2018-04-30 21:11:40,953 method:cn.com.sandpay.dsf.demo.MerBalanceQueryDemo.main(MerBalanceQueryDemo.java:67)
+响应码：[1003]
+[INFO ] 2018-04-30 21:11:40,954 method:cn.com.sandpay.dsf.demo.MerBalanceQueryDemo.main(MerBalanceQueryDemo.java:68)
+响应描述：[商户未开通此产品]
+[INFO ] 2018-04-30 21:11:40,955 method:cn.com.sandpay.dsf.demo.MerBalanceQueryDemo.main(MerBalanceQueryDemo.java:69)
+余额：[null]
+[INFO ] 2018-04-30 21:13:32,413 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 21:13:32,415 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 21:13:32,418 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 21:13:32,418 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000060 已加载
+[INFO ] 2018-04-30 21:13:32,418 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 21:13:32,420 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 21:13:32,420 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 21:13:32,603 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"phone":"15721447947","channelType":"","orderCode":"2018043021133290","certType":"0101","purpose":"collection","version":"01","requestReserved":"","bankInsCode":"","cityNo":"350200","riskRateInfo":"","accAttr":"0","extendParams":"","contractId":"","tranTime":"20180430211332","cardId":"35210119770917002X","currencyCode":"156","tranAmt":"000000000012","extend":"","bankName":"农业银行","clearCycle":"","provNo":"350000","productId":"00000002","accType":"4","accNo":"6226220209634996","accName":"蒙世花","certNo":"35210119770917002X","royaltyInfo":""}
+[INFO ] 2018-04-30 21:13:32,726 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=PT4nxjHcn8TiK/8nqaFKmznm0/bXg7kuVB91W75IoQvCLkyidIvtMI53PQpJU8QnBvSxh5/4y5QYirU2WcHBKvkaa4qyLDsP3ULd8E78w9qDXv/VINqsx8LVa2D/pikaM8kEKo5fxq9ze4PWGlR9rRFDgTUWboqSAfosYEotIbt08ID8QB8yhBwjHcdVB3sCTvt+AaAhFNaqclGd7skhpxn9RS24luS7hQMoRs9hEhU5M364nMPEwboIAXoK790tD74Fe7ChqypJAj8EXO4b/gNuxRbArXHmkzMsBxtG8qb+i2actP73AD+V51m6j5xtAOxFyzK9CxcoMZXmWfhAhA==, encryptData=iroRm/1xKhbRcseJJCcH2oCFod/kTfP8fEmguEUEMIay2pwdEvElLuixRAwriEpiZPd+p97P+EZ/IAmpLIE7JKceVX4a23yCo6GnBurNFtiMGXDiN1317VRYTFMFVpAJBgGiksK8xIeqIdws0q9TdIn6z1CHqRJY7+QHX5Q2kppmIv3XkW3YdoyL5AMzmAKrUjPMKOXRMez6CWd8GH9Ybuu42W6jOhTA9agEkJXuZTE/N2vHuSBtq8ro3yKu/pxI1T5pR0uaqxrZv14DE8TS/ejnYRMe7Q1c7lrNX/HM9r2QN7DaG/JTTh1XGrPQT8v1HxYXLnC/CtuHypg8R4NAOibQAWryur5hctQu8vdOTJIHF7hu3A1ABytPwNJ+3nVOEjWIajp69vlmmsX5FZZnW7gwKvqNayGKZ7Gejtafyh/asNpkYJe4mvi7LVg6YUOZ/arh4kqwF+L3NuCJRrQdk5dBuYJxqS2RF27EADMR2uV0Vmydp3OqxwBJcb9Gy8zIXgv7I9EbsLKZ2U2PPT1AnaGZJcp4j9/QYESPxYiIbfRBctOg0onL7ZYIDDragao/avM+kUXkdKVAmBzyFpF+3lig1DTG2ZVyfP3x4rMTahKhvFYa//fKE3R1WA3TpNyMGF4EYICSlN9Ax98FHuc2sHqOuy1BpDLY5uyqIY5URr4Tu8k1tFkfefnwKZLrYBy3BR1Hsgv6AFkyQCpvUVc9PgkUSEGZGjNxRNEp/WRII10=, encryptKey=PE/hMiCUB11PWWHA3wkJVnVaAFam2s1nMSHt+8gL5XMBWmpwPD1dJi+o7phYZsX/w3h11Dofk3NTxhpt50ehRYVFSPOAPa0PY2w06yW8TH4sVuZ103mMq1Rf9wxAElwDGRHG7VMQ3mSCa556AmIyAMGFcSgjyVinhBRltKOmcWIrX5nS+T4xzfr1gUROFfYguxupnGZvPS3UYtbDJsMc5RVPNmWXjNtoAouzROYUs4KOLFD5zj5T04nV43z58hYOGjI9kJ8WXD+m9Z3baYyZMuJvCpLAqtluPSkZ/Tx2NcvPodgxvMC/Xqb/Aps/FcpJv7yhkytiaBrzwLhmQGSR/Q==, extend=, merId=90000060, plId=null, accessType=0, transCode=MBQU}
+[INFO ] 2018-04-30 21:13:32,753 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//queryBalance
+[INFO ] 2018-04-30 21:13:33,308 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[200]
+[INFO ] 2018-04-30 21:13:33,310 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+"transCode=MBQU&accessPlatform=&merId=90000060&accessType=0&plId=&encryptKey=ODCfz807zWjXLAB6kH96ARVTuC92LZQjb/BlWTMm5srJU5pNihZDHDQt4Tt7jBnVJloCtFV25jKyzEM5z5dnP2dlB9RhDlR/s30er0Natg/yZhs1mgbPXH1huc02tQKYRzgogpZJQkyB6VSKIdewBMNyUW0yX26Flsz80BYGEC/O5aifJ6IlqNmBu18ibbyaBTdinUudD+3OEOqXaNhPBV6gy/fSY+f4iF5K6V08ciPsxNLxKXR6tOTGtCGnb8jdgGGO5G5G29TkvZ1AZrdhuC0oUnOAB3GMWOmX5IkiuKrwdo1VWkTB4HfLviUuyYZgQKhny2qEu1Wyhx+XeVPxag==&encryptData=vHjBYvGKd7nsC+sfy+0RIP5cKiMZQY0zMC0g/pPA6YPEMH4Y7DKZAKnvkE1RkptzptEc6sp9NdLIZqZL0B4VKuqr+soIdnBW9VmitVzoq3Eq9uQG7Plh3gaA6v1CllkoIsLPn1qhSBrCt2ATTAy0C28TRsJH7zhV96F3cv0nH6o=&sign=HCIlmyQ1GC5zU3yKlu6Wa+44WyuBxj8vCSEtpe7BC1uc5xwsdysUbgOKR7D25R9DwHuQpILfrsYxBMOuxKbfwoZI1slvgaZJqtQpCl3N/9IFqzFPkcTNM1q8Ekre940++ikmD1nDHSLjhlXx4IiH/Hu4D6x1FCXCJvxSUA2S4gC+H4xIx2is8tgFT2MvgTAkNRG+mTSxaqu98w/3DH0/EypKFVb9CMLgztCCQ2bttxWMTBy0qnf3lyOgXotLV4uhinJ6BjWXjLo/x8x1nCMfDgOLALDZhkJ+NDMkuEli+7SFTFabNFAEO6aTI+1K69WFUd5WhdULHCvzCPiQj+Mzdw=="
+[INFO ] 2018-04-30 21:13:33,319 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:178)
+retData:[{"orderCode":"2018043021133290","respCode":"1003","respDesc":"商户未开通此产品","tranTime":"20180430211332"}]
+[INFO ] 2018-04-30 21:13:34,919 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:190)
+verify sign success
+[INFO ] 2018-04-30 21:13:34,944 method:cn.com.sandpay.dsf.demo.MerBalanceQueryDemo.main(MerBalanceQueryDemo.java:67)
+响应码：[1003]
+[INFO ] 2018-04-30 21:13:34,944 method:cn.com.sandpay.dsf.demo.MerBalanceQueryDemo.main(MerBalanceQueryDemo.java:68)
+响应描述：[商户未开通此产品]
+[INFO ] 2018-04-30 21:13:34,945 method:cn.com.sandpay.dsf.demo.MerBalanceQueryDemo.main(MerBalanceQueryDemo.java:69)
+余额：[null]
+[INFO ] 2018-04-30 21:14:19,775 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 21:14:19,777 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 21:14:19,781 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 21:14:19,781 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000060 已加载
+[INFO ] 2018-04-30 21:14:19,781 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 21:14:19,783 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 21:14:19,783 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 21:14:19,969 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"tranTime":"20180430211419","channelType":"","orderCode":"2018043021141931","extend":"","productId":"00000004","version":"01"}
+[INFO ] 2018-04-30 21:14:20,092 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=pizs4WfkK0YugPCUAW4g9+XoTW/8+Fr+XHsi0474Kha8YRghWkLOEPJF7SzjnybM+k4AXTv2pHWddjj8kYlvaWqrS1Fdt7vax6GgOkXfUKd+aY9b9obSLGBnfaJ5yAUWy2E8ucEzWYfVD/vJJDQtIc4B5YVDDw+Tadh6YQk8qq+9Rj/2wxf4AJ1N5OB4e6vgKmYy5I6jk73dsOc2WAZHQyVHX5LgGbBNNjRxTv6OSFMl/CcKx/KrT6aRFHFvzaP7avX6hUbD5p0rcdVhRNmU6rsOSFRFhSZLzbW30sUyHcQERxovBXQ2HEIKKkIq4KuTwRA1EYYrZF2gO39jG65haQ==, encryptData=HIpAVzjAck17xld84IQnVvvMNvSNpR1wyYWUJw7Izil14w2tt3l0XdKB/bgNjNqygMPjUO7pInvVuUDEgdEAfsJ+7iQ+8+FAhKBPuLgcBQIbbQWa8r5ppC96jz7XZUmEGmysVZ43yFzvnI5AwDy51eMp3L2Lp+MAfvNv9fjms4I=, encryptKey=GJUznpPOQw5/69mHqFXg9NMGE9jujpvHJ5sL7IeC9PT+5SB8vVYYYwL1DBYr0SNnyp61AfadFbSuIE0rCg8zKCpYvyMAlClW/obRGtYTnJvI42sxVXHARNFrThlErj+Wb8i3UQ3WyADDgNK7p48VA6rDAKzv4HggoeR7v7Ix2aEX4P/Nrb9MFf4LJ9yTWFx62oq5jPU2YtZMA7qvhmVtxkmV+75USgy1uRPUM+dN5SakgfmC12LTsSxRFU0WLrwg0bm1SP4NIgnhZteV6eTz6DfSwkVMlxGDAK6Ylq4WUylljcC/uNeAVOLDQYJgp+EsSw11wp6OaEaJPI2dy6Rprw==, extend=, merId=90000060, plId=null, accessType=0, transCode=MBQU}
+[INFO ] 2018-04-30 21:14:20,115 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//queryBalance
+[INFO ] 2018-04-30 21:14:23,202 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[200]
+[INFO ] 2018-04-30 21:14:23,204 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+"transCode=MBQU&accessPlatform=&merId=90000060&accessType=0&plId=&encryptKey=GuIrpmTAjVG4f0JEDQHupY+rZgT9WpoEItrzSQ70Q0F8W7qiqzYpwx8iGhhwhH3BAxyF9N9ZY3f4hgFTQh9aEWrVpnNRS95ztBfi18EzdrvqgpS5xv+WJNhnD5YWLLa6ZHmTopX/vJNUqlN3j44mcGwrttIYccYeqQPW0oURkJUjPvr46L1Yw8za+hF0uP7GNxTYlExkIamMr/kOQF73XtLglVonEg3ep7eIa2Hemoql4ZH3hYnDt7jBzFjlFPxl4dORLljiHKQy7E4a/EY7+WFcKSCybchVbetXztFrsmYeT/NfahCcYbZxsOGBZVOTKClm2wqW+gTkZgdVql/lvQ==&encryptData=nU/XfeiUgDQ8VgUbC16nqVWzeuwwYymIBy2/mqKY8L6lOGHwQo4ll8tt7YlIyJ3RY+HY1IZviGneIihjCpaPTFI/Wb8R8wSbARUphc/cBM9BRhFslMXM0LMUSHMoLvq56HwzGYnv4HiBo+QCs664yNdIk8br41HKxOtWrj2RNmE=&sign=n/opblZ1kS6ecnZwFxt9khJ9YnnSCktDoHpsk41ucLBd1IlFbpn9Mc6xm6AQ9Agk6I/AHxfugt8YPoNXTeXngctXChQvy4ZSQ7fR+KbMwqVS+0Wuu3CB3FkOJBoLQk4jOnNK//wgckMFqPSa+EHfbU4q56rddGG0mlzCtBBOsEYGNJGjVTsOgs1D3lBgPmiL4FVz+g2v6yqyuIL29I2zr7rTzKDjXgzcYM/CB9KtSxJwVrBiu6UWWjQPhc2S6jkdNlxLsDMA5IBPQOTd+qglEk3SwIJF2UN95m4K1p67UEJksZC5VqcA35gwSaGWFyEZdCt2AzlFpj4ydP2UUR5F8w=="
+[INFO ] 2018-04-30 21:14:23,213 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:178)
+retData:[{"balance":"+000000000000","orderCode":"2018043021141931","respCode":"0000","respDesc":"成功","tranTime":"20180430211419"}]
+[INFO ] 2018-04-30 21:14:23,214 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:190)
+verify sign success
+[INFO ] 2018-04-30 21:14:23,240 method:cn.com.sandpay.dsf.demo.MerBalanceQueryDemo.main(MerBalanceQueryDemo.java:67)
+响应码：[0000]
+[INFO ] 2018-04-30 21:14:23,240 method:cn.com.sandpay.dsf.demo.MerBalanceQueryDemo.main(MerBalanceQueryDemo.java:68)
+响应描述：[成功]
+[INFO ] 2018-04-30 21:14:23,241 method:cn.com.sandpay.dsf.demo.MerBalanceQueryDemo.main(MerBalanceQueryDemo.java:69)
+余额：[+000000000000]
+[INFO ] 2018-04-30 21:27:30,937 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 21:27:30,939 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 21:27:30,943 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 21:27:30,943 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000060 已加载
+[INFO ] 2018-04-30 21:27:30,944 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 21:27:30,945 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 21:27:30,945 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 21:27:31,144 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"tranTime":"20180430212731","channelType":"","orderCode":"2018043021273138","extend":"","productId":"00000004","version":"01"}
+[INFO ] 2018-04-30 21:27:31,257 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=BgdARomEc9wUmJ5JeKYa7aMFV1Sqj2BMQ35ZHJB9/6d7zRUU9cwJ75mb0NximYJjAtyZ4YQPIuJjdW5Kfj+EWMUFqYGPFBFqA96oVoNO3dTKUQERDjzHpadUD/J0kRx85MaxoxA/nUqKlsZ8t0UveeY+gQIE+AKi/PsnOBk/O8frarev0cEDPvyFIelxrj7ErigMvBLGQyW5AxeX0F6C0bAA+ZCo67Tk/ZdTWQ0Y2ZkvrQdxcd1Ft+c+glDWTQlBci/4FIorpqvEaBB7XauhtrMDp5FF9v5n7eYhN66mc/sM8LD0pizrqNnFuvtbhMO9JmV3+UTpW5AWwTdN8okXew==, encryptData=2YkK2LH/BQtqPvjmPWXhJpwYfsIW/J1PjoH3hn/p6J/G/96fxxrLayXl33pCU4xaZiH+7wobeL5RvPuiCvY+eNT7lv275RnANnrZaiguMaeYgEG76sK/HWufEryDYtkH9d10kCAhDQz5/qIjjeQk7nNKVyUePU8boXH42+c2fso=, encryptKey=daGe+4p+CyMldKZgjXwKoOPYi/C4nIDooJrn2JfK0BEM3EZ0GPr/aA370Apeuyof9/1Pl08yABhjM2Jk8UFhrB4vulxrs2ovSf+ylV28stv0k1YvIC4MRYpOQYAD7lm/480hqowZJWPNQty+0NryOi3wArHIahnwuyy86oXf6em1Nvz5Bpvicl4YThNgLwZv60aJRyJEilvOQa1mRQfvXX5IJBL4C/9+DFZB1GJi0md0x8it4OqVltu6zx6vd54F20qzengQkz+/LsGAFAGgh8UawWW/MmdW1gBRL7OfCQN5bOGS/bTNFYecX3W50qRQD+XbrCOTjhllRJ6AhBCv9Q==, extend=, merId=90000060, plId=null, accessType=0, transCode=MBQU}
+[INFO ] 2018-04-30 21:27:31,277 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//queryBalance
+[INFO ] 2018-04-30 21:27:33,108 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[200]
+[INFO ] 2018-04-30 21:27:33,110 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+"transCode=MBQU&accessPlatform=&merId=90000060&accessType=0&plId=&encryptKey=IU5P8x6WYOANCoe1A5+Kbc/LGdOy6l3Sb3B2VS5oh4fDjuwc5ynRVEKdyVquMAXQZsa6lS03kJTPIRNQlFg2vWYXF0YAkmwCs3SId26GfeoCracPLhRhfhD5MzxtZAYEdX4JprnhNB+LtPg33iZyX7LDYE0SnrurnY+TsW9QbRLFd3nvDxGB9cnn1ulP2D8meTOG8x1e7SGvymp7QKr9KwhvCqlkobA3+46a5NfKJmiYccZJxY8/djWMc2Q/h1M8iLU0O9k1lR8pRoGxLqG4T+IBgxpucRg6gU1LVpzvtjEdWNLyhySIjqkbLePEnvTA8vRYQ85xEV9xUXHZh4q64A==&encryptData=YcBLw2XrZjgQOg3gur/9tkvpRHs4JXCdX2Df242bDz76LgaOv+DQc5fklJZ3FELVQYRRhby4uapY3He5TRn7VQhYRdr3/euWioiDDnRp30A8muVVliUSFasYT/rFONJhRne15dup1ZUBhdzT9Xnapp1b+LtNk5MrUQ4jNw6Hg9s=&sign=roefCyCuN6hSFRIzvgOKpc0y6V0HYqTwD61kEzmZGBewdzuQH8BLH5tjEv02kqxApDg3J4d4/O9W/kHALASqohpwvbMrOPFSJXEcCm4lOoJWtkl1Oj8VDmTGj2BVwxp00Ri7rI6XewRCpW+uMesHZzV83tMENcrEMX9uNCrXURhLHblc6jb7mKqaw0uMAEp1vzylzYxX3t5H8xzWKJp0EqdXyfZP3FRna4O/7pgJNsS+qZryV2XdkG3WYjBePRyB7rS4JpeVQXy0l59freTqiy7s5JACve53xaZh6gD4vfdTVaZA1xh6awtffa1vUF2l/B4l0oGSg1iEe4QdOlhLLw=="
+[INFO ] 2018-04-30 21:27:33,118 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:178)
+retData:[{"balance":"+000000000000","orderCode":"2018043021273138","respCode":"0000","respDesc":"成功","tranTime":"20180430212731"}]
+[INFO ] 2018-04-30 21:27:33,119 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:190)
+verify sign success
+[INFO ] 2018-04-30 21:27:33,142 method:cn.com.sandpay.dsf.demo.MerBalanceQueryDemo.main(MerBalanceQueryDemo.java:67)
+响应码：[0000]
+[INFO ] 2018-04-30 21:27:33,142 method:cn.com.sandpay.dsf.demo.MerBalanceQueryDemo.main(MerBalanceQueryDemo.java:68)
+响应描述：[成功]
+[INFO ] 2018-04-30 21:27:33,143 method:cn.com.sandpay.dsf.demo.MerBalanceQueryDemo.main(MerBalanceQueryDemo.java:69)
+余额：[+000000000000]
+[INFO ] 2018-04-30 21:27:40,424 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 21:27:40,427 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 21:27:40,430 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 21:27:40,430 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000060 已加载
+[INFO ] 2018-04-30 21:27:40,430 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 21:27:40,431 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 21:27:40,431 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 21:27:40,616 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"phone":"15721447947","channelType":"","orderCode":"2018043021274018","certType":"0101","purpose":"collection","version":"01","requestReserved":"","bankInsCode":"","cityNo":"350200","riskRateInfo":"","accAttr":"0","extendParams":"","contractId":"","tranTime":"20180430212740","cardId":"35210119770917002X","currencyCode":"156","tranAmt":"000000000012","extend":"","bankName":"农业银行","clearCycle":"","provNo":"350000","productId":"00000002","accType":"4","accNo":"6226220209634996","accName":"蒙世花","certNo":"35210119770917002X","royaltyInfo":""}
+[INFO ] 2018-04-30 21:27:40,732 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=qP50YrPIFQzMPRaxsMHziguQiwDC1oRnRIwSlMdLvthd88rHhSbY3RsJOQtKaKxqoupTiCbnKJVXfSJCjm47V2F05sETjeVJF+jV79KGOy3Zn+Dc3y4fTLs9aI4Tyf9CLzc2yVTj8PYZb9PZstKVOyI1PgvOXuftfZ+Alh3OjhfyJq+8xtUtuP2huBv+d7CbrB9SMwu3K8eDZvNYwpE5ivEtt+OgfZJjzH6IawIVryaEEdHmzDtPFXSZDGibCtNT0dW/O8v1r4cfmHeUEaGi3xPzQH48UVvaZ4tdVNCLWinA9t3KZ7p2iDILUMtfW2dTUkhKFpLLSYQEImZVnk+Cvg==, encryptData=xKTAV7EO7TB/8oLTE/KLwL3Cs6bjTQA5uNkZp/h4+MV+hKqH+DJyPFllBsFBaJZ5Oecwo/mLheFgBxBlmLRlsHcMCzayliyhe2oKRKkDEN57ZFXFFVi020EVhsJnpk8mpUUAipywrwOVQ5V7JvYA02xtzTZRgvdhP50AWPpT20KpjNE2Lh+rAaMkItTm6UNzk27BtLjohrL00oNG5EQJY+xEZIEnzALSIym6B2bwhnvRUI+4mo46LlsU1q6GQ5QXENjjxEr7rudhKAnI0KSaJca0v87c6j0TxcYSjWNv3VT6/Zd9/PRQfzjmT5BBWjhR0J9/CKO1nHtWYArlPCynssYri1Ta5QpOOLLRWQ92HGB8XzoVuARWdkRJ5lHPNjbYOiYmd9VFdlJDarjczpIpn/1Y4oPNXcp1FM3jid9ZU5ZsDYU1QCcyAMPJO6e9c/rhxnPmMX1AIScu0MBQx03GlxgXR/mUBC7CLEAimJ1P2JtkusNaXK7DudFyJK/nFaW0iGCOcXfkrsdOC3bohdHRnyUi4oux6tKTTESBdxpgzO/RN9Y9dckvdhuWECY7ytsxLD6AOm78CsZ98DfTnFhs5zTNHkuUX9nGra22eoa+GYIB9nPoBOLNrFLORMRVQbmwm6V0o9WUBSOeCvd5+7uJ3+L2jiaSnM2srMJZQWw9P/caleAU6kILxYLcJGnN3QYvevmLwXyO1EYJKZDEGM67l/LkeBz0K2wkG5zcNP1dF8s=, encryptKey=gyw0uQtqAzRYHgFrQzC/vZa+X9A7LaOL2ZQR5KAGo7uKYfbo9y7kR0NS9vmErnjsMMDcnlHNW6LHdwzgRQbIhE0aywjcSCfFmiKsO57d5af6Kiqy9UZYGyNUQwbOjSo2Hy87HVrsVIngWprIaM/seLow2m55X6aQWYapEhuPJXSebufO7Lxh47XUlUkOhwKUoCqvDXP0ynPK/HSt036i861pVXxrSJ+GyXxNjbaUY5bR9wapJzIJ6qGJwv8fNv5rNzfAQgQ+6471Tx4oQwwagg0zkqVaBGnUfzw856nBLRLqbHqECBboz42ZzB0xCWvEy2NSjUlJWqIQMZAPMyfDHg==, extend=, merId=90000060, plId=null, accessType=0, transCode=RTCO}
+[INFO ] 2018-04-30 21:27:40,757 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//collection
+[INFO ] 2018-04-30 21:27:41,038 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[404]
+[INFO ] 2018-04-30 21:27:41,039 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+
+[ERROR] 2018-04-30 21:27:41,040 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:197)
+
+[ERROR] 2018-04-30 21:27:41,040 method:cn.com.sandpay.dsf.demo.CollectDemo.main(CollectDemo.java:93)
+服务器请求异常！！！
+[INFO ] 2018-04-30 21:28:09,807 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 21:28:09,809 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 21:28:09,812 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 21:28:09,812 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000061 已加载
+[INFO ] 2018-04-30 21:28:09,812 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 21:28:09,814 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 21:28:09,814 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 21:28:09,999 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"tranTime":"20180430212809","channelType":"","currencyCode":"156","remark":"代付","orderCode":"201804302128091","tranAmt":"000000000012","extend":"","bankName":"","provNo":"","version":"01","productId":"00000004","accType":"4","accNo":"6216261000000000018","timeOut":"20180501212809","bankType":"123456123456","accName":"全渠道","cityNo":"","reqReserved":"","accAttr":"0"}
+[INFO ] 2018-04-30 21:28:10,123 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=sKFq5/1H5RUIyYZFEV5Wd1R1wwyGTFqJgsvtSxah28lcRXnBqpLpMg0j/q86hGwoptbCN/yhli8s+5PBSOkotpzG/MQWJtZh8N9oF8PTJhLZc2r2knHeVKzK0jw/KwWncUTwg6/fcZk3vK499gtnlqFpaxxFSNVnCV89gkV/dnUdYsquhneqBxVYby/Udo9MRXWoBQlvEjnvBw9uiWZuNKYqJTa7polzYpb+ir89R5o5OSkqKZOoXfYmKSw1zRV0fvSodkYW0iYwfzbSZj6NbEKeVxYqFI2S4xtwIS8o9lShoN4R0x0AFGdzTvhdqFTlPJ1xDPI2DGS3CfJMYz/70g==, encryptData=3/0PViWsyOZKzRfKqjKj4UFTZbQr83dB/H/GhloqXIM0Zuyo8k8Hv2bhd/tTXLpPTLeccnzGKGn/B+2xQxaHRdR/5iDOXamg3QMOSLLJUDDlxz4meJILdF30F7NZRFh2rzkXGxkWlkoBE5vVJKHse06bRZbSdL9HryRa81Zao9uNkDJR2C2qPXfCQoxNQV02tVkU0l3n4POw0OqxPIeZuBCa051e9ii4914tYyrcxrEvJe/4E7qvq2bzpYtaFZ/VBZW1NYO8TUpQNjN0+cYmQVhGvtIwgJs5mtkXPQgDCV123uUwc0lnjo9ufDXaE+4j0w3rWuzbmrjG7P+oscxLnlJNWAdq7vMtYZSth3QmIAdjfbztpzC2Kjf8wKbWxfVSnapX/LEqgJzLu2G5V/FEzS6KQVQO+HA7+2zh3cvAQgOuoofdUQziLA0jEKeMryTlR5jfZCLmWswUhvOYMUAoqSi0OoJVxc/BGZbkRoJrPWrz3fwyYf8GijnueNo1wYEP, encryptKey=iTWqEdlnlEjf3MN1HQqwCM0FEpVHd0kJie420/CWNSdWEwq48EVPZxjObYUUKCV/GasCQaJM2sQ8Bk0mpX9MzM8wZ+7dO8coxiyhv+NjDxj9/AHqlux3SJP01gEgkenrc/uj6ni9UDwxJCcVNz/2LZPSsCmezfu1sr53NMG8cvos/nu9bY9MAE1+Hbtw1w+A6Shvv/odyFmn6mreR8tmZWXOybnXSIuvZsuzeQSmFfdA/CurDlu0hgjkV7ZtHX2Z9ik40EWiNMy/trmZYg7mFDTea1N9A2TmtlTG/P3UOZ1+4TnLmU6XKQ4YxwJzHnHqE7Y+2nN+SNWSPIbOPyDeEw==, extend=, merId=90000061, plId=null, accessType=0, transCode=RTPM}
+[INFO ] 2018-04-30 21:28:10,147 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//agentpay
+[INFO ] 2018-04-30 21:28:16,527 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[200]
+[INFO ] 2018-04-30 21:28:16,529 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+"transCode=RTPM&accessPlatform=&merId=90000061&accessType=0&plId=&encryptKey=q8OHfnL0LNmPzW+fdh4aYnPK+hZoojKIeH0pFiJeBmEpZlboJ2ftB4sf9oLo1enkwFffMT/+hFcN3ZH7EB8gcP5BVj1IRRsnFGbskmhZbpq1RSdyXtxD/ynHfz8+PyPQ9wzCsmxEpwECsYxRxxUW/stydp9hGrRz/dVmQYaB6GRtHmRtcEROsvQwnMqZtbxJB2Lll3a6xwKpAVHQFgl22lvArj56zaY6CPza0kuaVEWDdlT1ybPMesUIf4RfzaK3y4Jr+kY50lIPLfTE0RCXhKS/HMVQJd63eeq2lbeAO6QFbOMfo+kDpUW268w5WR3n66wTxcJr3TT4C9JsNk7YFw==&encryptData=QSDsuTl3FfOpZBf2U/4yvOkGtTZlQdc2eVH6+VyGiZKmJze4qz8eVi+Ur+bTefjd+z3z4aT2fOpKYwOKfoQWHfl26uXd4Zi0PsJjWFcO+0kRlf1L0KmdysUXt+t85fmVxN1F0X8q8O8zQZRs/2viFZLKJpZVnBrxjLaHNwiW4BSmqSvcQEPSrKeJlYsu/qeHnoMigAICCOgLl4GJ6NC7r2WG5YNL4Vm2azpGAvhwXwHiegP2z3gxXWcYqWJuik9+NKRwVT7LTatgDcBq9WxE5ENwXS3kC6bCIxGmIzHzgCQ=&sign=DW7cffUZvjEWshl0GyJoBejpIga+i8exCr9IuMPO4GDon14K9hDLzXeA9r8DsZiGkEA1uHz6c5nuoqmLsZ/kc/xuYk7ekMpcp56MlOxJR4FcU0I4rApZsdeoorrbvJmTntFCp9IsCockC4JCuJCHu6TEKWXxzfha2OHABhIx5UqjhiXL+I9n0QvRDS7E6yNUBcAEbpLKPAe0HULBzfLaWDzsr0aHczGD93Nsa0v+3nJFjPMwn2Xtcx41l9aV+WsyssTMYOBQCwqVxcCgYGhdc/cNI5LdtpvFB0dFNt2Ry9i97p8/gfS3SbuMwpVg6SrJ1YXoj29R07aeh9FjQMvumw=="
+[INFO ] 2018-04-30 21:28:16,540 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:178)
+retData:[{"orderCode":"201804302128091","reqReserved":"","respCode":"0000","respDesc":"成功","resultFlag":"0","sandSerial":"2018043021280904470010169840","tranDate":"20180430","tranFee":"000000000050","tranTime":"20180430212809"}]
+[INFO ] 2018-04-30 21:28:16,540 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:190)
+verify sign success
+[INFO ] 2018-04-30 21:28:16,564 method:cn.com.sandpay.dsf.demo.AgentPayDemo.main(AgentPayDemo.java:84)
+响应码：[0000]
+[INFO ] 2018-04-30 21:28:16,564 method:cn.com.sandpay.dsf.demo.AgentPayDemo.main(AgentPayDemo.java:85)
+响应描述：[成功]
+[INFO ] 2018-04-30 21:28:16,565 method:cn.com.sandpay.dsf.demo.AgentPayDemo.main(AgentPayDemo.java:86)
+处理状态：[0]
+[INFO ] 2018-04-30 21:29:17,375 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 21:29:17,377 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 21:29:17,381 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 21:29:17,381 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000061 已加载
+[INFO ] 2018-04-30 21:29:17,381 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 21:29:17,382 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 21:29:17,382 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 21:29:17,568 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"tranTime":"20180430212917","orderCode":"201804302128091","extend":"","productId":"00000004","version":"01"}
+[INFO ] 2018-04-30 21:29:17,685 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=ckg5U/Yy6wIv74gpuZ0cZaUTc/UcWlr/23P3qPtyfQmx55qyr+S7E5o7UITEmGLsLwF8lpRNQBj6EhuEOAf8tHjxtSm3hMn5pJgVH04MGZOG2IE66QnBW9oQTzkNlqVhfNVONZ+o+bTq5/de4MiskbRCUsInyUSO0gXXCzO+f0lTpS1kaoe72L69Sq8qD4sX+fO4BhfqVmBoRBOawGLVh4oMuvrfJ24PoFYOzB4pseV5Lnyz75+g4vjCQjl1dP/+bfh6E01u8mn+d/QFJ9WcIOyGNgkxLAVWZ061gT5fajIEZc0Cvt5JSGRmMkAWRgjb0pVV1NgqpM28MlV6PIHCRQ==, encryptData=0Hb46GrYXUs/4YlnjQJtC1gkBS92EIpjsACwjemNWI5ZXYJcq8Wu+ZOTi9yxG7hxUlpDrsFTByDRUANwcavGQksCJgWseaCb74FlHrR5YNDOVWjbyw7xiHPImsWhGX3Cd/XYfc0z6k86McY2+2fzog==, encryptKey=su+N2dfhjpyU29ZjfK8+TXKdlagBG9zGRMmjFzcg+ZNTeO90obvV/0HkdILUtRLB+1rSCkEyBTzaZNMLfoqDCHdLyXBX3y3MQt+zUAuLwDuj1Xjmjtm6xLt1XKtB1+y0t4+apcUXu/3YEj/1bsQ2XMQqPrfhOo5DPnuRhbZjOAbsTuhffrspu8QuW1QnZrOJ6dxTT1w0rse4zSZ23lhqZwK2R3tMHpbPtAk9P0cSjjAx6vkVULfcH1K0yMq8rN85SmsxA4+mLBoWGdQE0QIpxJ2v7oq31RrTM7Fm4tTFCVNfz3fnt78vGNgtEtcTkA4+wAD/yH+/MWqYMHuHsoyFzg==, extend=, merId=90000061, plId=null, accessType=0, transCode=ODQU}
+[INFO ] 2018-04-30 21:29:17,711 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//queryOrder
+[INFO ] 2018-04-30 21:29:18,069 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[200]
+[INFO ] 2018-04-30 21:29:18,070 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+"transCode=ODQU&accessPlatform=&merId=90000061&accessType=0&plId=&encryptKey=n3AyafEhNnBw4Osa8OcS9lD1FMKivnPodtHb1TdU2aDtiLhK3tO2jTZzs0s2AS4YUWeixEK5tYRvsWN+qPkaEhLBNNGLKZplXI3oWtEIYY9ZPB8UFfP9WmZ0RoY4cRLyTCcsuhxZcFtuFfdTzepXu+0hRzaPG5SlJ+zn7TcxBqlM2JKmERwtzFrc2LBSVbfsZCyhX0+OOa19xIB5E8s6UiKa/K7s86a21xMoTDQ4Rlz6dtX5L0OtqQP6lBoXlC8w/QoBOWY6JnfAIit9avlw5LSgspKlIDAFd/1PkhUJh4+Dr/lTkClLyAh0mkR6vYEdQ26cpSE3L4iZoZ+jK/J3zw==&encryptData=uoEtM4YgrMb/PhfsOaf9FPapbNRTx3/gsyToyixWB6Kr4tNuLFaftNGvJyVHfcyHk7RPoSxSzs4idZs7rgS+ql2ZvDsNCU/mqFdg2H/O9g/dX0/IWVRBy+DEnnhCMoV4lPJT2GtV6VbOX1OXWVeocA==&sign=on/eqcHyl3tPAEW3hI6VQ5cr+kKWwtqIZ0YTJPeNfbIxE5Oco3olHVk9rckk7xr0f8AMF9npXMjHLqUsIosIT8nlWfAQ/VBs9YGvNsEbfRDYaHnZD+dVg3YoA1AJ0T4RaWeJywLtGgr01bjgLAScXmbq55TwXapSHZpbaY58ZChJtlEpR4BygVyNmWxcJLW1dUoFwY8tgrXOHN232jRXYoK7pT8YENCN7+9HCJYWB+YpWNJn2jkR68qibi2VFBELHJhNnvycLhnQuh2AEn5itq74nPIMhB81tGzeCIlhupyPYOTuplnTGIvIHZPU0NoghoVeRwO3iACR4SCU31hEmQ=="
+[INFO ] 2018-04-30 21:29:18,078 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:178)
+retData:[{"orderCode":"201804302128091","respCode":"3003","respDesc":"原订单不存在","tranTime":"20180430212917"}]
+[INFO ] 2018-04-30 21:29:18,078 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:190)
+verify sign success
+[INFO ] 2018-04-30 21:29:18,102 method:cn.com.sandpay.dsf.demo.OrderQueryDemo.main(OrderQueryDemo.java:68)
+响应码：[3003]
+[INFO ] 2018-04-30 21:29:18,102 method:cn.com.sandpay.dsf.demo.OrderQueryDemo.main(OrderQueryDemo.java:69)
+响应描述：[原订单不存在]
+[INFO ] 2018-04-30 21:29:18,103 method:cn.com.sandpay.dsf.demo.OrderQueryDemo.main(OrderQueryDemo.java:70)
+处理状态：[null]
+[INFO ] 2018-04-30 21:29:43,488 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 21:29:43,491 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 21:29:43,494 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 21:29:43,494 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000061 已加载
+[INFO ] 2018-04-30 21:29:43,494 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 21:29:43,496 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 21:29:43,496 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 21:29:43,678 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"tranTime":"20180430212943","channelType":"","currencyCode":"156","remark":"代付","orderCode":"2018043021294313","tranAmt":"000000000012","extend":"","bankName":"","provNo":"","version":"01","productId":"00000004","accType":"4","accNo":"6216261000000000018","timeOut":"20180501212943","bankType":"123456123456","accName":"全渠道","cityNo":"","reqReserved":"","accAttr":"0"}
+[INFO ] 2018-04-30 21:29:43,805 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=Nu4sxeER2eivEUMCpj2j7xP6YhcmhVqJANJhRsYI31aiJUeMJRDtpX/yGLyu4Dw0/XmblW7bYDBNkq4D5fySdLeRUyW9B/GR2MfckLIWm/aUkDBgRvV/zuKJjVKXMLW54p6c1mwu+oR5b8qOBqnySKJKIrbpyUi0mWkk6dfMYnBSbttwQLYHtJ0oByXdAAjqwYAbRnZN4JhBPYCuX6F49CykOKPs/FGijV9H31dF+W1u05itceQOE7TTjRBhOr5bZXahdZfHN41xdnocaRKi7k61Xjx6aTJTONbkNM2TpjcJrL2WMTccs1tL4F9l7+qBD0QUYatuyD7jGdejnWbcfw==, encryptData=skeXBwYkHEf/XI4M/iSzJSGLPkMuWNbReWYQq1pGChzB7dxmGXf/bHIPjNJdnJ6c9VwDVhpYPIZdoHBti6k78f3qPSsUyXDLBwBtS5xA8/ifvqr2LJ7TraXNLKIWcbI/rHaH+SLTftXp3CLy6V6iQylh/09avrIpUjZMsJdyJxQNxgAQSrPtj9i8RBL7sNbXxqKGmUwuEfgHuXx6fe59yJwh6GbWf5mneWyDrI3JSbnPU9r18NMClxn4Zd/WKv9VAJOpeCFHV97NDyYjabVTlG+LiLI8TWqiZI4f9cZjcxBFTneR+4QV67tFBYYtZepk4G+DcJY0JOWRqMY63VUKCyjVI68nfWPkWsHN8/Hi2Wl/AaT6uU9Y6UEW9I3MsSO0diMBgQmarj+J0X9MC++TECQNl34Bkjj8f2iFt5mFMFxi5k513VHAnN9TsHJsrCWLQXC6pvGAg9HpM2GqriNlvZBOBbIgX0ZviZW6IulBJczOzTgJrQt5Qey9qJ7afjOF, encryptKey=nseV6lazniSYHjFkp+hQdiBrCaR+usfBVv1TdgTMd8sTij+iI1L/yb1zRmHZKzKBqZYthgARlLdedPjQWjxySzI52qoohpPYj3DkllL6485KOYqdvtYrCW0c4HFFZMScYTkRYpXT5+IW/Ewz468rZIiTszf2XG48VviXlW37ucP8XhBDFaPAIraSDRRjPU7XDws/gsxRfovS/oIPfBHRRzT2pQ8x+zVgQgPPY0rmdqNRI7PyvSHCMAk5KHOy7JgKPw677fdrF+NkA0OVd0hPR+hq1avDPJQ23mKEmHrmo7zxtN2z0iN0B45fAEIzP5y9sd19XHJnu53+2Pq1eraBAw==, extend=, merId=90000061, plId=null, accessType=0, transCode=RTPM}
+[INFO ] 2018-04-30 21:29:43,827 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//agentpay
+[INFO ] 2018-04-30 21:29:47,205 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[200]
+[INFO ] 2018-04-30 21:29:47,208 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+"transCode=RTPM&accessPlatform=&merId=90000061&accessType=0&plId=&encryptKey=Y9IsrtyUNaUyzJ7ZVPZstPPUEG4k25y9H0cMvrn3ohDgw7xmmX3sl4j1Idq/AVaYc9G9AXh3d0dc1vD8BtjjIE9v/3tJI6SRyDmatcJvkEsuYBDHZ7PXYAai6rQgupxX9V01t7iHPr3HGpWCMz+MMZeCFlOU+F8DFNq/XfGlWEp8tSVQiWIC971/9bl9wwfsLk5bHb2os9GV1kec4dCgDNxdPdkVxibIUXqJkOm6L7aRQBIQyDW2d9g+Xj39pPFMjDi9s2M3X9NaY+NxKnu6c3OL7Sd6LRpnJeHgZh9EJv/5fQx+cplOU3lPTWeJ2TjLm8l0eATQE6NX2sxab0kzCA==&encryptData=/2HbtzGbsno/26zYZuvpwe72lDFcFFrGr0flu9pT3YAv6Z7NQmmXlNM1d06C0VxQiJIsGi0UqL5aLdgr75//J85w3g1Cm+PjA/V3SLhnIBMarYllmvjR+BPClMix+1YOpuybH/sIt06zaT358LTxqDt4S4XfCNZaOdUrtYgOeZdNjcHZgqa3WVcuamHcpEhs2w37nlCWXspResTPCNWfhfJA16+LkYCWzAm8K9LxYSVpw+NnA7Cu+0n6PtBVY5eeYGEkaVE+k1bJRLezCt9vM9jKTvDTw5mFOcaQXOMQNPw=&sign=TcPLkofokUAGK758zykOj63bBRf5t9i014HaKkkS87PdvPMq+i2JIpEDFEOySFpv/rqjmgqPXZL/YGIwddKth7mFUCMHfx+0VGG4oerZFTMFc063iQFuyYY1NSAPxo6Hne6RCyuySGxOUaxo+lh2Y+4MfDGhHywYcXWmdQe2pTNfh1/uPaeqXur9waS0Xcv9nZ9rBHwBQJ8IJIvPtLIVoUJdMEpM/hzhnchrUoQ1u9HlnCrEMDBLfa+GAb5ZhhFuiVvmeYD0lTTjSghDq3/RXdFZEGwvfTDbMBDZc0yNhu0OkIQw5pzMBpgeseelowGfL1r2wdKWxYOyyS3E9teokw=="
+[INFO ] 2018-04-30 21:29:47,216 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:178)
+retData:[{"orderCode":"2018043021294313","reqReserved":"","respCode":"0000","respDesc":"成功","resultFlag":"0","sandSerial":"2018043021294208690010172961","tranDate":"20180430","tranFee":"000000000050","tranTime":"20180430212943"}]
+[INFO ] 2018-04-30 21:29:47,216 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:190)
+verify sign success
+[INFO ] 2018-04-30 21:29:47,246 method:cn.com.sandpay.dsf.demo.AgentPayDemo.main(AgentPayDemo.java:84)
+响应码：[0000]
+[INFO ] 2018-04-30 21:29:47,246 method:cn.com.sandpay.dsf.demo.AgentPayDemo.main(AgentPayDemo.java:85)
+响应描述：[成功]
+[INFO ] 2018-04-30 21:29:47,247 method:cn.com.sandpay.dsf.demo.AgentPayDemo.main(AgentPayDemo.java:86)
+处理状态：[0]
+[INFO ] 2018-04-30 21:30:22,040 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 21:30:22,042 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 21:30:22,045 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 21:30:22,045 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000061 已加载
+[INFO ] 2018-04-30 21:30:22,045 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 21:30:22,047 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 21:30:22,047 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 21:30:22,235 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"tranTime":"20180430212943","orderCode":"2018043021294313","extend":"","productId":"00000004","version":"01"}
+[INFO ] 2018-04-30 21:30:22,354 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=p7igKn6+hLglIjeSXEYB0ZqBllovslewafQZZNZjaCV24KxszF7XToWvP3E719L3/nfytv7ZGoCy90WNT/f5vX5yuRF5n0I8nMEP/Csb/TwfUld94xoe5e6OZL6MEz2BhLlM2fBPehjCFIDgPI46xrOxk1XJlcLPOq8pB2ShmajbAiIYMDGW24MRJYbow5M2yUv5HZ8mCmS8HUzCuqBLzzW2G3sDKcQZJDaZ1CO4HBTbTXZurTfLlVJTxBIboGTjR0EM4opJ7swPPeli4qIfcIyWVhguQqeEfesQCALxnO//1OkJ09ES5M41G7m0JoncQxAh6peEOi0RCz1xKG9O+g==, encryptData=hZoCj/R2/DcKylteeGPXbghmJWnqgg65ekx7jKTHZEDJwNa5rwMbjm6os5bVnc/x4qA3DbyOMVQn/T/psapu6TecEqmBsOuZcStkVI+Y/M16cnVt5x9m/AZEfl3lNltBR/Gb7TcMcQoaGkSw9BCrcg==, encryptKey=DAWu3aN3aIPMWspa2ZUljYIhMC7Xe3uJlx7clZx+tYkdu/uC3NmyUOI9UXUjumFjX4pePoeadQ3abzdQtesvY6wo7/9oEivibJMNc34lGmwPHJy6XS3wSq3EhiJkMSxRLTjsiaeugYE5oHyceNBSoZ/BaC0HQoED5yNETccebXGrR15fk0DsErLwVeDmniam+TJn8ZeuOkO7rB52PyVEGF47V0Z9Cpm+hlwjloCwemQPn/fcYAiur6Oru+5NA+50F/mg2MtWaVfKQJOCC+PNzPXjroS4yoAm83e4WNUQU4jfK4UAGwHJvQWFSv6GmoJevHemwNTLx2NwW7g5ghFr9A==, extend=, merId=90000061, plId=null, accessType=0, transCode=ODQU}
+[INFO ] 2018-04-30 21:30:22,375 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//queryOrder
+[INFO ] 2018-04-30 21:30:22,649 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[200]
+[INFO ] 2018-04-30 21:30:22,650 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+"transCode=ODQU&accessPlatform=&merId=90000061&accessType=0&plId=&encryptKey=o9P8nYs9gWMlNkFhqUmVq8xgn/V2XVVwgZ+h0EkOziFxaUVnRIS3VB4hK8DW9b2zlg6Vm0Z4mg+PfCNhsMtBYYsvOKlkMUmZuSDJefsbMqSNbr23ekYHuOCU0ppVJlIr1vks9argyRthtOMDILfMkKSIBl3F6oqmkBqubaD4sFfgCayjTB0/BmlDMsk8mjVNmAFs9I2VPf4itzQgXoY7KWipTzEEZAYkNvo7Z3KOmC35FughEPI6/yg0n+CrbxVHXQhM1iFZVPhQkO/5ggJoW5yn7iQFeP4fKE5xSm6XjJyD23D6HLZo8gpJYiXj1X5nc2Kq9hpsh5BqdPiu65SuPQ==&encryptData=q8XzKpoCMwKZvXatscejIBDK0L446S8i0wGoTe/cYX2OtY0BB4qqRyW6v5AEK31LVy6ktc134fkBRI57d5D6hN7am1BC7OdFIfA2cAE0ACPpG6kz19Q7ddOhGqoO4E3JTvaFhp/plU4EWg/tPO/+daRpeuwRHVpaWBwzd0/SPnWypmdmTx//B0vm5dgqo8cKOq+5u0QcDkBpgMu0EbjoWis/6DzQH/zmiI908HJXz7qEostML5Fi+2L12J1HJ7FHgKNqOkAModtXfR6DBQKRLOMORsi54aCPuTMUMUvLjnJYr3bNfmYZs0hwPDPk/uXHsMwuNTnedvuhB2C714+3AA==&sign=EiTm8kpQ+ukqKkgEvn+ELSFT600p3V9E//fnJHh6xUaiY6a3f+McbWrFQALrkG8pC+RAK7ALBgRQWZCFkuTC47CZLsSTaeFHzH4PeBeajIxCerVFM0qisne/rBP6btUhSR/RVnQCGh0eZTmzkQkg1HqHs8rtrQC2xrNXmmXoa8EYCRKaID4nQFuVQN8/KKu1O+Ao/HBVvYOJpWIHe+rPUM0Q0OYU5qC6y5evHfVGhP9HzL/ebYJ005So1z73zknIoRg6k/x7zY2XjrCIMRqoJRBeuC2meFLLOjXYpNx9LJPZk57uS0WSrCMOBCrX9HY+muVJgVgIJ+CEtxQFyBky9Q=="
+[INFO ] 2018-04-30 21:30:22,658 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:178)
+retData:[{"orderCode":"2018043021294313","origRespCode":"0000","origRespDesc":"成功","respCode":"0000","respDesc":"成功","resultFlag":"0","sandSerial":"2018043021294208690010172961","tranDate":"20180430","tranFee":"000000000050","tranTime":"20180430212943"}]
+[INFO ] 2018-04-30 21:30:22,659 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:190)
+verify sign success
+[INFO ] 2018-04-30 21:30:22,682 method:cn.com.sandpay.dsf.demo.OrderQueryDemo.main(OrderQueryDemo.java:68)
+响应码：[0000]
+[INFO ] 2018-04-30 21:30:22,683 method:cn.com.sandpay.dsf.demo.OrderQueryDemo.main(OrderQueryDemo.java:69)
+响应描述：[成功]
+[INFO ] 2018-04-30 21:30:22,684 method:cn.com.sandpay.dsf.demo.OrderQueryDemo.main(OrderQueryDemo.java:70)
+处理状态：[0]
+[INFO ] 2018-04-30 21:30:32,690 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 21:30:32,694 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 21:30:32,697 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 21:30:32,697 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000061 已加载
+[INFO ] 2018-04-30 21:30:32,697 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 21:30:32,699 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 21:30:32,699 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 21:30:32,890 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"tranTime":"20180430213032","orderCode":"2018043021294313","extend":"","productId":"00000004","version":"01"}
+[INFO ] 2018-04-30 21:30:33,003 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=F9Us4fzqzuM/bwMCtDG0et7lWMH9i32ukKJR5y27RxOXYdNoxPEL6d/W5QFVVUFoMDHMinZ7tgVEGxL+bwjmtF/zGEI13mRcf12fqktVMh6EtG217vEYW9/JfgB+qnF37pyAq6ktjY6In6sTXdBjQGp0eKQvkfcrtXx949sohHnFQz0iFGpPv/aV3wHmVpi/E+fwiRVk+ITZ9SWzCZwR7Ja8/fh1c9CsTzXm7R7Q+EpniHLqjdPwD1P6uHxYFoRRl5tF0v8F0CZcFPW03Yhj3JHAogYzb8Ah9n7/KieOCYK13ikmHkH9vyxwWNZoAA3yioXtJOzfBHNYEPWfmjTJow==, encryptData=2bzbSu64unvigSNcG4rtPxXCvwmrAU7x9EIWh/X4aod2j/U8AMhONYmKguubV4Hh8zRFWVPt5zy1Xl/EaqSwnqFLWZqTHA73BIpfMxoRgo/O+MesVKjvRmVokxrPBDJGNml+tVdaiK2bkHBcEB1SXQ==, encryptKey=IT8FKpw6C2yrHGqIafjfAYD34hgKGYK9KSyd4HRAHLwQX1hDVWgXUIk75IUueaOHxoV+FgR0EKpvDMfU72dnfhv2PdIwTy40KQNkuI7Bw79hN/bGe+f3mguHMyHAM5O8h3thdFkcCR2LFvCouIvYhm0U/Xas0jesqrNdrHRmWAB0k2+d/alW8QA1/jVyxaGGhIRFvjzRQx6jBuIIRuzrBAh098r//xajHsgeDfqJHyXLzgoBDTtTD65spFwiBjE9nUL7AjWFhmq/BpaOK7536rWnt6TRFE/2+1D4zShegnHpqBX5ezuLgsLKcarO1oGfxjkIiaH1qmIMHL5Zi1WTfw==, extend=, merId=90000061, plId=null, accessType=0, transCode=ODQU}
+[INFO ] 2018-04-30 21:30:33,026 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//queryOrder
+[INFO ] 2018-04-30 21:30:33,314 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[200]
+[INFO ] 2018-04-30 21:30:33,316 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+"transCode=ODQU&accessPlatform=&merId=90000061&accessType=0&plId=&encryptKey=EnWVUI6pEfYURyNSP6KbT/SGWdGVDQUOyfiQUbop014kAvOQ55Tzzugr0gf6leli6vYSL0sdHYNdecFmnN9E3nm7y1il88lKnX+P4fX9M2AQ8q0AUz9bpO3loDcEgTwSz3kU9UKA7/ZdAapy9tx0ujPlnAUh2Nzfp1hKrTAqBr5O5Q65yStqAu0Lar1PkVcXOvMnE1LxXy5wDO1cnemXscw6DHF3Dv8i+jGjtlH8DVXO/Epyc4V5iU649E/77Gx8FgO5HZFUvFQbs/oTNDIEYeD4KHiy9cAYU69/3T15T2fPwwfE9fXrHhz9trPJN1IzoXf3BWk2Ydl+BWcF9ojP7w==&encryptData=1Qn5aHnhvHGH7Z7RGidTgEMZ0GQeySL1xKYNRhr9XYe9S6l71Hyu8HbIO7CnrcyYpkxQUqhaI3ymjxw5G7OcAwRXooEDn5nByaAL+N5Bg5g7ZiR8YK+QtnWJiGLWAMYJwEl2LSjGGAgFpq24DhU9tw==&sign=nAKfgEKnpnmqhX8jDHGKQIxoHZ2Xgmn05afR4TwhvL3Ek/C1OeTnMvJG+ggRTG7PQ/vRiHCDJ1PL7JQBS1xiRvVDe/c3EJSjGM9hypCNhQBgOVCE+Pn1iDpfqAUGKVpVjIEOHuYDxN5n7a0o0GACxEkPlqiziXD70AvLCosfxoy+Tn5S0hg8j+yLRxypPTec31sjST1NyM6Sr2ALgjn5oY4qA0bDfYZQT8wPGVPz5tsBjKAi0mhyLGP4aQm7XP0LpPeM0dJTe5e9fXILnTTYfBDtCfgqAD7tB43ixYa2xBYpYgJGI9qzSMbS3GoBxVv75YHguECcsE/PdIsAWDF/+A=="
+[INFO ] 2018-04-30 21:30:33,324 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:178)
+retData:[{"orderCode":"2018043021294313","respCode":"3003","respDesc":"原订单不存在","tranTime":"20180430213032"}]
+[INFO ] 2018-04-30 21:30:33,325 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:190)
+verify sign success
+[INFO ] 2018-04-30 21:30:33,349 method:cn.com.sandpay.dsf.demo.OrderQueryDemo.main(OrderQueryDemo.java:68)
+响应码：[3003]
+[INFO ] 2018-04-30 21:30:33,349 method:cn.com.sandpay.dsf.demo.OrderQueryDemo.main(OrderQueryDemo.java:69)
+响应描述：[原订单不存在]
+[INFO ] 2018-04-30 21:30:33,350 method:cn.com.sandpay.dsf.demo.OrderQueryDemo.main(OrderQueryDemo.java:70)
+处理状态：[null]
+[INFO ] 2018-04-30 21:31:50,412 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 21:31:50,414 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 21:31:50,417 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 21:31:50,417 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000061 已加载
+[INFO ] 2018-04-30 21:31:50,417 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 21:31:50,418 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 21:31:50,418 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 21:31:50,601 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"tranTime":"20180430213150","phone":"15980847045","channelType":"","orderCode":"2018043021315010","extend":"","certType":"0101","version":"01","productId":"00000002","accType":"4","accNo":"6216261000000000018","accName":"汪中","certNo":"350821198706134513","accAttr":"0"}
+[INFO ] 2018-04-30 21:31:50,721 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=CTs943wQ1MvGciFMSY6pAD6fgZQoggRrlKZ64mRBg5gcft3fOXyvtI2uiMfeZmgiNLpSzWtRWoTLLo/DFbgdQ3LMKmaQepLKawU5ZzNQySU27IZSQsKV7eZ/cQEFvzXRypjz2yeKV5iRzFytGAltNlqFw+Wj5rls/vUtm6hMbKvNmRQBLEDBex+DOsAINmi1VGJt0+JzhGlrtK/HMw0upkOMEFZmLmcpzn0d0XFSt7W/tEaC+VgwbKzHKwZJYghzu/PN4/+OOGUweASk1bCOWJhezRXizHrBZoNOW4ycoFhd1kSZATbGBe/THwa8K5Wnjn2rJLojxbNfQE1+F6uLSw==, encryptData=kaOtjF9cvb+ZbTWV+Tzlhjw0QrhXwj2BXnh6Tae/mHlyu9HVG5K5wdzl+PZOWeC62uUP3kXFsJuHTxtf6f92WKSn9NiiOjlcLJvg1u4vo0BIIdK5JI01kDW17zbJIO3rBCAUhzOW6hKKV8E8zYt4g9He8AhUDUvYr0n3ZF/LSxFo4bSnYoFA0GPZ7Mk4h8oNINQAeaOtImwHXKvrjtEN7FusFZKR79TOIZJxDtfYAaArLTjngAIb9BIO6LMLMQ1OjaEJt27eHumwORPuo8By3yzqFujlDCHkx5AHnc2noKLOWxheNtssKd1Soqnhi1mo2U+iMiXPAT6bnK8fm9Ehsvf1wRUMTcNKYIjQ7/5PPqnGSaGlPmmYnMyeYTdHFIhr, encryptKey=RKiss9GaoqoAWMAtmxITYidY1iSp8ATE8OAvvlVfCjTfnaWIBIFxA1ar158d+tEKF3NHX72G2B0FnRi/1OtjeNU9evkTdf8wtdjrRp4ujmIVnZMdhzIPBmSxWfll5fddjkZWlBtwfEXaK6qTI6IyfIuh3wgh0ouOQ/G0sSb6UfkCNn3QDveqhMRidrWsvRIr55vctvIMcZAEzxp3InTSp4E8KwD0EIauWwd4wctGRoGTVCuEeQIRrAK6ewBU4DO7RlzjIcdSo9yCHKKCpCjshOOcLaY7LCp3T9Ry3rW/QzzPqVaX505/OXoeZqzlblqYZwzUufYl3UBB0tZ8ngS5Hg==, extend=, merId=90000061, plId=null, accessType=0, transCode=RNAU}
+[INFO ] 2018-04-30 21:31:50,745 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//realNameVerify
+[INFO ] 2018-04-30 21:31:51,407 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[200]
+[INFO ] 2018-04-30 21:31:51,410 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+"transCode=RNAU&accessPlatform=&merId=90000061&accessType=0&plId=&encryptKey=Khkeakj+/FUBu0GPwmWLZEuUcpFoEtDXX/8vibNbe3C+8rkTdvKd3U7mpEoKOANx5hCSG9bAG/U0mVdvdomPvRLZYN1KXzRf9qECiHFkmWbsy4+W+iJQ2QX6FM9uW8QuLNK+sPIYqL8LgAoRbq81lAOrj0+EyryA2tDxxmqaz/zneAWNQm7oxikfhbIQJyAWFD/fv48x/FEQ70ETaY6v3O9KwOwahYnG3Jhgi2S17SjsqiJj+NbS4cLReugJc53y+sXNHEPiKvevrM9GflKho48NTJOihz7UVs1vXhbl5LHQDSoS2YU2k/JzWWImjjrCoEeaficCwrDX/hKJXgqKxw==&encryptData=AtbgLhDdrqg4LOx17jqQ3RwAQVmp88NYFf/Ur8iEg8yNY/SuJSuqB9ttjoMblH4A+dWZlnvOjTvBzxXsLiwQq3lk+fLHrZTMZokX56CIDffj1KcmGkvInEEarGoHWSdXOE0hn3wC1aWNKWvVIRQTeQ==&sign=QERKAEfwRgKbvDhlannmjgBcmZO9l2nUo/GIKhrHC5uW4D9batTlccpdJz5gq9ict6YwV1NEHtg+2oPNYQ+x3cA9/7XmQD09znVkt6wvFd0CoN3wOCX17XF+xNIRz/cBm/T/UX+jdiRZ5TyrhTJrDA4G6KgvJQYLiuZx/kHB57FN+B2/MpdXi3IayYzGMTUIf0KZ2y93pw3bx9/yl4ncrFkTVaKTuzg3zhQ1B7AOKYB9MKpIIdXBfBAIHn5zlI1zJ8jhCdQ6VbrtAnpfvTQwhn0hKTsAab6A4WKDBPeDAPxnwf8V5H1fF62EiAZyBw2aokC7LzKvZ+q1UAoAUa2UXg=="
+[INFO ] 2018-04-30 21:31:51,419 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:178)
+retData:[{"orderCode":"2018043021315010","respCode":"0001","respDesc":"银行处理中","tranTime":"20180430213150"}]
+[INFO ] 2018-04-30 21:31:51,419 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:190)
+verify sign success
+[INFO ] 2018-04-30 21:31:51,442 method:cn.com.sandpay.dsf.demo.RealNameAuthDemo.main(RealNameAuthDemo.java:56)
+响应码：[0001]
+[INFO ] 2018-04-30 21:31:51,443 method:cn.com.sandpay.dsf.demo.RealNameAuthDemo.main(RealNameAuthDemo.java:57)
+响应描述：[银行处理中]
+[INFO ] 2018-04-30 21:31:51,443 method:cn.com.sandpay.dsf.demo.RealNameAuthDemo.main(RealNameAuthDemo.java:58)
+认证状态(在respCode为0000时有值0-通过 1-认证失败)：[null]
+[INFO ] 2018-04-30 21:32:07,824 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 21:32:07,826 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 21:32:07,829 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 21:32:07,830 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000061 已加载
+[INFO ] 2018-04-30 21:32:07,830 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 21:32:07,832 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 21:32:07,832 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 21:32:08,017 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"tranTime":"20180430213207","channelType":"","orderCode":"2018043021320793","extend":"","certType":"0101","name":"罗福","certNo":"350424198806210053","returnPic":"1","productId":"00000002","version":"01"}
+[INFO ] 2018-04-30 21:32:08,140 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=D1iaWaOT/S4xgLcWBG4hQ7d276JiZHUHi2oYK7VRqFpN5ys9g5RO2U80ZigAlnjP8ruZzbDmOCt/YNZqhecw+ExOh2DAQvCqoHae3y0xsDmOGsiSkfaS4KPm8ai/uAAfMvJZrLm3CnIrIzRyUiB4v2lNDJQJH2weEN1+OPsam6NWKiWfgeI9MleJ55usO2x1T32XUuPBRSX3pSWNzA57DP6z2RnBjKOv/q3Ik6H+wjcO5v4s7nSVmY2gIM42wsD6K8Ih9Wugs6IOVSMAxeMK2kmIz83ahkxHbjnGBZR5tBdLkSv45JrKkCC2eoubUM+KkgE5qVD9QbvPTTSDkTAKTA==, encryptData=ycP9UsmgRozAFlUTEDdvsGLgLMBEl1ezUj1/UE1VRvFrjNFYUpFZfB4TQudTbTQaZHBFEBSYGTdQdsKu0ZO1jNCPiIt1hvXdEWLgm90kX5TU/FcKQEy37rsUVR3mmYSDOTQ6tJIloN+c0mYXxXUZ6JudAQB5et93VnaofYn/plnO1gkr/I+maA8CPy4dSKwHpLhqxnF95HrQjzlOG14c2HkONLZdI29i4ifCVzdLOp62Ji1Cw7PhZTSvM5kNo/gCoMpPJvAuHRL5B/MuBRqUZA==, encryptKey=bDg6JFj2eZWAY9FJc4bdV897vcAtKxQ9b3+dIqdoV9QB4IxV1IEtChlgLNIxa7v0Wh/ne2aKeHJPp8fl65cuYZ/2AS6Q9t4DQj6FMj9ohxuiajUq8OJZxPJwSd7Uv4C3w0fA7Yw98cdeabg5DgIogJBNc/JuY7GwvK95dJCszoPS9guE5dhDe/0LkVlCno1BcgBtki4K5gSY0gecu8bUerlJB+FPJYYdvRuQ54Zxj6DZIzU0mZh8uSBmEL2Bh1WNKn7sND8wJOn/qQSxc90WDIiBluQi/x8gf5YwGzMDlpvPH6YPOpO+jy2NCR6eDTv4tmAjVN0FNuT+7m5xdGPRhg==, extend=, merId=90000061, plId=null, accessType=0, transCode=RNPA}
+[INFO ] 2018-04-30 21:32:08,163 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//idCardVerify
+[INFO ] 2018-04-30 21:32:08,670 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[200]
+[INFO ] 2018-04-30 21:32:08,672 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+"transCode=RNPA&accessPlatform=&merId=90000061&accessType=0&plId=&encryptKey=Oj6Atx9fYfII7tZqTO7sZp8OZIIzOM8VF7DEEiYK6lzPMd6fH6bj7rJOhQbnqG5mzOXD9sDDv1ZrGaDtfd9S9IlpKqhU3+8EwEEacNpYd87QzIv4n6LGzKK3jCBsgtjSxj8rGhGS8GgW13U+x9o2DnecvszgOmLj6atCjGcXptcM7gVSlF7udndPkZFho8WO6O5yJsWFaCjnBFWAR90Ma8ZDFBT7Q7+6AQFjxMFd2njyroIy/OCVbN8RQhcM0SN8tZmCbdc/aXOaUJYVE686MUkYCAHaIPwlvUjL1DngCFhEgYjtR20Rw9c5JtKcl0sQVoXeJhmX5Lwi0gBvwUlGBA==&encryptData=hjJRPmdKHfLOPFV2KQ2K3WZ1oYeFHVu80ogejQgi/lWLE6+s8HAhspRLrEpgPRBsFcx6rDK0jEbQ8ePnUUmp0PBntwkL8oEr1OOdCtrlZZPOl2ddAlyFLrFZwI0+VQZh2Pt0D/o7M4bQ4bqX6JweHw==&sign=PiLACc0HJB/7XmAx08tyOInjoG7FRBiBbKXp8X7Nzq1EDGuSiYxlojVqoJK9PrVYKEfGs/oLFRw06WrX3wyhYt0b4A9A8EfmfuAhgKlW4949acwcZx+a4K/84rol5HoOKVAOrnLD6zXg53hX0EH8V0/RMB7QVsYBFf1iQxiscnx/VLVeR7plcqBqeMmpG2M1dB5Ma58lYGgTaHfuCcsr3KNOHcU8JQ/iayo+KbWjKVwCY2BTbo/SXGNtjWro7bBG679iIvTW4bGNYv3Vi/7Gky3fcsdwJdKBdGIwZq3O6TRcK7H2JXrTbJ+3j4ov9mENJgtNT0UMPHctQoe77rq2JQ=="
+[INFO ] 2018-04-30 21:32:08,679 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:178)
+retData:[{"orderCode":"2018043021320793","respCode":"0001","respDesc":"银行处理中","tranTime":"20180430213207"}]
+[INFO ] 2018-04-30 21:32:08,680 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:190)
+verify sign success
+[INFO ] 2018-04-30 21:32:08,704 method:cn.com.sandpay.dsf.demo.RealNamePoliceAuth.main(RealNamePoliceAuth.java:57)
+响应码：[0001]
+[INFO ] 2018-04-30 21:32:08,704 method:cn.com.sandpay.dsf.demo.RealNamePoliceAuth.main(RealNamePoliceAuth.java:58)
+响应描述：[银行处理中]
+[INFO ] 2018-04-30 21:32:08,705 method:cn.com.sandpay.dsf.demo.RealNamePoliceAuth.main(RealNamePoliceAuth.java:59)
+认证状态(在respCode为0000时有值0-通过 1-认证失败)：[null]
+[INFO ] 2018-04-30 21:32:37,556 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadPropertiesFromSrc(SDKConfig.java:130)
+从classpath: /D:/workspace/demo/sandpay-dsf-demo/bin/ 获取属性文件sand_sdk.properties
+[INFO ] 2018-04-30 21:32:37,558 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:163)
+开始从属性文件中加载配置项
+[INFO ] 2018-04-30 21:32:37,562 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:169)
+配置项：通讯地址==>sandsdk.url==>http://61.129.71.103:7970/agent-main/openapi/ 已加载
+[INFO ] 2018-04-30 21:32:37,562 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:174)
+配置项：商户号==>sandsdk.mid==>90000061 已加载
+[INFO ] 2018-04-30 21:32:37,562 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:184)
+配置项：商户私钥证书路径==>sandsdk.signCert.path==>D:/certs/merch_private_cert_test.pfx 已加载
+[INFO ] 2018-04-30 21:32:37,563 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:189)
+配置项：商户私钥证书密码==>sandsdk.signCert.pwd==>123456 已加载
+[INFO ] 2018-04-30 21:32:37,563 method:cn.com.sandpay.cashier.sdk.SDKConfig.loadProperties(SDKConfig.java:194)
+配置项：杉德公钥证书路径==>sandsdk.sandCert.path==>D:/certs/sand_public_cert_test.cer 已加载
+[INFO ] 2018-04-30 21:32:37,748 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:109)
+请求数据：
+{"tranTime":"20180430213237","channelType":"","orderCode":"2018043021323763","extend":"","certType":"0101","name":"罗福","certNo":"350424198806210053","returnPic":"1","productId":"00000002","version":"01"}
+[INFO ] 2018-04-30 21:32:37,869 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:145)
+请求报文：
+{sign=Ah+BSai7xkvaxQqsQovLHK5Hfy42eGDSim7Yh1FKYbabRr9cw/zgU0WxWupfV7xwEAc6/v2e+GVlD4pQvlGmlCQ+gAloNTIU0ZCP6kjP1BodEj4YVvrPkyVVqd3c0OiR7WdRiQOzUMwCEZglvSvPlCtU6NofSRnZvjS1TjIz6ppJ18ajtet3/Oq34KQduP6gGSm1htjBzHJo1N6Apo3mF/84nsGlfWeCWjkzKQSTzk0MJG+LLMaJZ+NdL6j7PLDIq9gNZiHhLSceIRBCVbncAdxdSD8n+FzkKMxrg3kjlrARtPrXTVYKpHIQYD0oqmLaGLuzh3RG6NCupUTTa7UoFA==, encryptData=YcD0Z6Bfxb2bXQWFwb0gTLfbR1ijELuKzkYsgSicE28ElxUvBkcdq+Dke8f87W3msGEe8I6RRwXWLinFdPcokHjmTE6/V0+GdyErbCTorrNYkYA8/B09NqvfQ9ZSG6VqW7oBMYkGjRV6AML07EXg9NanrZd1aiED2oDSDG7ZIGnVtj+KpEt1Zq+ZiP1QonOstCCj875WqRHh8MiPHnZ1smf9SAyYXh7DkuPDzu7PRYVHNHAWRTJ3hBwBYI1VjiFqfr5Khoub+lORx+Lpt/WFIw==, encryptKey=C4jZFJHs67YD8JKYGzbyX7ZiGN9rGudQCjXBY5em6gbX3DzbfDy/lyJxA+xbG5jnmW+HufSa2etyqtjvyFZFEYKrDIyYbVwFRXhN3DVBUMiflDUQ0gNd8dOPUC+aGFTyfgKFwMDLLwVTHdZBPI4KR7NpPF2eN9pkE+Kcd0WubmAF473xi2MvmHHJRtQVvJFh2P/SC9xYN7S/5pzc4QR02UTYTOuykIuF/MuNGMZ9OOd+ZJiYEAXyo+OMGmOz2fM2BhIVRt/wTTMPAM7ubblZIQwjZv9FgfV2XWrlxBE26j1gWB49wCe6Ic2BYkeu+nS/aG4dPTQFb9qZyZLa6t9wqg==, extend=, merId=90000061, plId=null, accessType=0, transCode=RNPA}
+[INFO ] 2018-04-30 21:32:37,889 method:cn.com.sandpay.cashier.sdk.HttpClient.doPost(HttpClient.java:90)
+host:61.129.71.103,port:7970,protocol:http,path:/agent-main/openapi//idCardVerify
+[INFO ] 2018-04-30 21:32:38,368 method:cn.com.sandpay.cashier.sdk.HttpClient$2.handleResponse(HttpClient.java:103)
+status:[200]
+[INFO ] 2018-04-30 21:32:38,370 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:153)
+响应报文：
+"transCode=RNPA&accessPlatform=&merId=90000061&accessType=0&plId=&encryptKey=RbwK52WUSYdh/LwIzbXfI6DX94oXZWK0WT0d6UYqzGtsh4hahbErE02yNQbKWAuvgOPlUY+YjnwdVO2HHgWCU/smOx7qpOiQgHJkNGEZSPGVQr/0Rd8qG7pvKzFMoVKSNMAUbwk5tACiOOsFvCFa08Ww1+KrggMrGo//LFGwEFtMdiw9dIpeBOkeJ6zx1LhjC8/wrF05cv8UsV13IMzHdRYyty5+nBLYjnE2FZc1G2u8zKdPCH/KUDUO2Nq+8pWienfRbzoL0dfBNCPATAfP2V5/FgpT4gtAAK1L3vY+GvHnqxGMA4HBiUcDKDzKmHrC73A+g00AoPcfW4+cv5gWQw==&encryptData=STowGDhzg0I1DER8pLKGzipsePlHH95tOFXOBZqUm9zvRI9O5YqmR59U6NJ/H5V5WZdS+SsonMidpJEddWk7F+IPoEom9QEeL+tmx4ReyTGt/ICX0goroncgmrL8g3Ipe6GaSX0/SffcilDrLUGlZA==&sign=MEeFccWOsiXubJSQoyEGTzZl4hAOtaS5Rxks2AZTqgAD5ksm/hSp1AAQSmrw/ycRIaoxq4XjQAt2A9JzrgTVEfgp0oQ7ZTkvAWMtl86QERx2r/WA6NywWwc/0I4LCoPzLX3yrnS7OEsV/A/oeUrT6ZnKMLvwu4mVgSWvi/oobLEF9uDL6SGoXpPHnBuTza3DrnpTyZK1UwIjwcGPZ6WftJ80BtIVAhAh5BVe7SZ8l3sY2KGu1mXFozL5o1ZIYTOUSHJi33ExBsBE7HLlfGt0TOrD7TW66ECPukjnJ27q5Y8RD6iciyGfVRRCDiO5a4+MhhVGbymX7tBuH9bewjYOBg=="
+[INFO ] 2018-04-30 21:32:38,380 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:178)
+retData:[{"orderCode":"2018043021323763","respCode":"0001","respDesc":"银行处理中","tranTime":"20180430213237"}]
+[INFO ] 2018-04-30 21:32:38,380 method:cn.com.sandpay.dsf.demo.DemoBase.requestServer(DemoBase.java:190)
+verify sign success
+[INFO ] 2018-04-30 21:32:38,414 method:cn.com.sandpay.dsf.demo.RealNamePoliceAuth.main(RealNamePoliceAuth.java:57)
+响应码：[0001]
+[INFO ] 2018-04-30 21:32:38,414 method:cn.com.sandpay.dsf.demo.RealNamePoliceAuth.main(RealNamePoliceAuth.java:58)
+响应描述：[银行处理中]
+[INFO ] 2018-04-30 21:32:38,415 method:cn.com.sandpay.dsf.demo.RealNamePoliceAuth.main(RealNamePoliceAuth.java:59)
+认证状态(在respCode为0000时有值0-通过 1-认证失败)：[null]
