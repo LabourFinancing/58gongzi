@@ -79,7 +79,7 @@ public class TreasuryDBInfoController {
     }
 
     /**
-     *  改动：根据所属平台来确定是哪个平台的资源 
+     *  改动：根据所属平台来确定是哪个平台的资源 测试
      * @throws Exception 
      */
     
