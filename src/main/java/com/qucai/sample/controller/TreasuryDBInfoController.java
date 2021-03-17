@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
-//import org.apache.struts2.views.xslt.ArrayAdapter;
+import org.apache.struts2.views.xslt.ArrayAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -134,7 +134,7 @@ public class TreasuryDBInfoController {
 		  				    System.out.println(ebibalance);
 		  				    paramSQLmap.put("ChinaebiBalance", ebibalance);
 		  		  	        PayrollChannel = organizationInfoService.selectAgencyName(Org_paymentinfo[0]);
-			  		  	    String CurrentPaymentACC = null;
+			  		  	    String CurrentPaymentACC = "0";
 		  		        	if (AgencyOrgnization.getT_O_OrgPayrollBankaccount().equalsIgnoreCase("电银支付")){
 		  		        		StringBuffer ss =  new StringBuffer();
 		  		        		CurrentPaymentACC = String.valueOf(ss.append("电银支付").append("-").append(ebibalance));
@@ -156,6 +156,7 @@ public class TreasuryDBInfoController {
 	  	        System.out.print(i);
 	  	        System.out.print(arr_paymentinfo[i]);
 	  	    	List<Map<String, Object>> ArraySandBalance = new ArrayList();
+		  	    int tt=0;
 	  	        for(int t=0;t<arr_paymentinfo.length;t++) {
 		  	        String[] Org_paymentinfo = arr_paymentinfo[t].split("-");
 		  	        System.out.println(ArrayPaymentBalance.get(t).get("CompanyName"));
@@ -172,14 +173,15 @@ public class TreasuryDBInfoController {
 		  		        		ArrayPaymentBalance.get(t).put("SandeBalance", "0.00");
 		  		        	}else{
 			  		        String merchantId = Org_paymentinfo[1];
-			  		        String BalanceData = null;
+			  		        String BalanceData = "0";
 				        	Map<String, Object> SandBalArray = new HashMap<String, Object>();
-				        	if(t==0){
+				        	if(tt==0){
 				        		JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId); // query Sande Balance
 				  		    	BalanceData = (String) JSONretdata.get("balance");
 				  		    	SandBalArray.put("merchantId", merchantId);
 				  		    	SandBalArray.put("BalanceData", BalanceData);
 				  		    	ArraySandBalance.add(SandBalArray);
+				  		    	tt = tt+1;
 				        	}else{
 				        		for(int h=0; h<ArraySandBalance.size();h++){
 				        			if(ArraySandBalance.get(h).get("merchantId").toString().equalsIgnoreCase(merchantId)){
@@ -207,7 +209,7 @@ public class TreasuryDBInfoController {
 			  				System.out.println("BigDecimal balance:");
 			  				System.out.println(Sandebalance);
 			  				ArrayPaymentBalance.get(t).put("SandeBalance", Sandebalance);
-		  		        	String CurrentPaymentACC = null;
+		  		        	String CurrentPaymentACC = "0";
 		  		        	if (AgencyOrgnization.getT_O_OrgPayrollBankaccount().equalsIgnoreCase("杉德支付")){
 		  		        		StringBuffer ss =  new StringBuffer();
 		  		        		CurrentPaymentACC = String.valueOf(ss.append("杉德支付").append("-").append(Sandebalance));
@@ -289,9 +291,10 @@ public class TreasuryDBInfoController {
 	  	    	}else if (arr_paymentCertinfo.equalsIgnoreCase("shsd")) {
 		    	    System.out.println(ArrayPaymentBalance);
 		  	        System.out.print(i);
+			  	    int tt=0;
+		  	    	List<Map<String, Object>> ArraySandBalance = new ArrayList();
 					for(int l=0;l<ArrayPaymentBalance.size();l++){
 		     		String[] arr_paymentinfo = paymentvendormgtAllList.get(i).getT_Pymt_OrgInfo().split(";");
-		  	    	List<Map<String, Object>> ArraySandBalance = new ArrayList();
 		  	        for(int t=0;t<arr_paymentinfo.length;t++) {
 			  	        String[] Org_paymentinfo = arr_paymentinfo[t].split("-");
 			  	        System.out.println(ArrayPaymentBalance.get(l).get("CompanyName"));
@@ -302,22 +305,23 @@ public class TreasuryDBInfoController {
 		  		  	    for(int k=0; k<Org_paymentinfo.length; k++) {
 			  		        System.out.print(k);
 			  		        System.out.print(Org_paymentinfo[k]);
-			  		        String balanceQuery = null;
+			  		        String balanceQuery = "0";
 			  		        if (k==2){
-			  		        	String CurrentPaymentACC = null;
-			  		        	BigDecimal Sandebalance = null;
+			  		        	String CurrentPaymentACC = "0";
+			  		        	BigDecimal Sandebalance = new BigDecimal(0);
 			  		        	if ( Org_paymentinfo[1].equalsIgnoreCase("null")){
 			  		        		ArrayPaymentBalance.get(l).put("SandeBalance", "0.00");
 			  		        	}else{
 				  		            String merchantId = Org_paymentinfo[1];
-					  		        String BalanceData = null;
+					  		        String BalanceData = "0";
 						        	Map<String, Object> SandBalArray = new HashMap<String, Object>();
-						        	if(t==0){
+						        	if(tt==0){
 						        		JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId); // query Sande Balance
 						  		    	BalanceData = (String) JSONretdata.get("balance");
 						  		    	SandBalArray.put("merchantId", merchantId);
 						  		    	SandBalArray.put("BalanceData", BalanceData);
 						  		    	ArraySandBalance.add(SandBalArray);
+						  		    	tt=tt+1;
 						        	}else{
 						        		for(int h=0; h<ArraySandBalance.size();h++){
 						        			if(ArraySandBalance.get(h).get("merchantId").toString().equalsIgnoreCase(merchantId)){
@@ -343,7 +347,7 @@ public class TreasuryDBInfoController {
 					  				System.out.println(balanceQuery);
 					  				System.out.println("BigDecimal balance:");
 					  				System.out.println(Sandebalance);
-					  				ArrayPaymentBalance.get(t).put("SandeBalance", Sandebalance);
+					  				ArrayPaymentBalance.get(l).put("SandeBalance", Sandebalance);
 			  		        	}
 			  		  	        PayrollChannel = organizationInfoService.selectAgencyName(Org_paymentinfo[0]);
 			  		        	if (AgencyOrgnization.getT_O_OrgPayrollBankaccount().equalsIgnoreCase("杉德支付")){
@@ -372,7 +376,7 @@ public class TreasuryDBInfoController {
 		
 		//get ebi balance
 //		String merchantId = AgencyOrgnization.getT_O_OrgPayrollBankaccount();
-    	String BalanceData = null;String merchantId = null;
+    	String BalanceData = "0";String merchantId = null;
 		if (AgencyOrgnization.getT_O_OrgName().equals("ALL")){
 			   merchantId = "872684173615000";
 			   String retData = AmtQueryServlet.main(merchantId);
@@ -452,7 +456,7 @@ public class TreasuryDBInfoController {
 
     	List<Map<String, Object>> ArrayPaymentBalance = new ArrayList();
 		String RCretData = null;
-		BigDecimal ebibalance = null;
+		BigDecimal ebibalance = new BigDecimal(0);
 		
 		if ( t_TreasuryDB_OrgName.equals("ALL") ){
 	        for(int i=0;i<paymentvendormgtAllList.size();i++){
@@ -468,7 +472,7 @@ public class TreasuryDBInfoController {
 		  		    for(int j=0; j<Org_paymentinfo.length; j++) {
 		  		        System.out.print(j);
 		  		        System.out.print(Org_paymentinfo[j]);
-		  		        String balanceQuery = null;
+		  		        String balanceQuery = "0";
 		  		        if (j==0){
 		  		        	paramSQLmap.put("CompanyName", Org_paymentinfo[0]);
 		  		        }
@@ -515,25 +519,27 @@ public class TreasuryDBInfoController {
 		  	        System.out.println(ArrayPaymentBalance.get(t).get("CompanyName"));
 		  	        System.out.println(Org_paymentinfo[0]);
 			  	    OrganizationInfo PayrollChannel = null;
+		        	int tt = 0;
  		        if (Org_paymentinfo[0].equals(ArrayPaymentBalance.get(t).get("CompanyName"))){
   		  	        PayrollChannel = organizationInfoService.selectAgencyName(Org_paymentinfo[0]);
 		  		    for(int k=0; k<Org_paymentinfo.length; k++) {
 		  		        System.out.print(k);
 		  		        System.out.print(Org_paymentinfo[k]);
-		  		        String balanceQuery = null;
+		  		        String balanceQuery = "0";
 		  		        if (k==2){
 		  		        	if ( Org_paymentinfo[1].equalsIgnoreCase("null")){
 		  		        		ArrayPaymentBalance.get(t).put("SandeBalance", "0.00");
 		  		        	}else{
 			  		        String merchantId = Org_paymentinfo[1];
-			  		        String BalanceData = null;
+			  		        String BalanceData = "0";
 				        	Map<String, Object> SandBalArray = new HashMap<String, Object>();
-				        	if(t==0){
+				        	if(tt == 0){
 				        		JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId); // query Sande Balance
 				  		    	BalanceData = (String) JSONretdata.get("balance");
 				  		    	SandBalArray.put("merchantId", merchantId);
 				  		    	SandBalArray.put("BalanceData", BalanceData);
 				  		    	ArraySandBalance.add(SandBalArray);
+				  		    	tt = tt + 1;
 				        	}else{
 				        		for(int h=0; h<ArraySandBalance.size();h++){
 				        			if(ArraySandBalance.get(h).get("merchantId").toString().equalsIgnoreCase(merchantId)){
@@ -560,7 +566,7 @@ public class TreasuryDBInfoController {
 			  				System.out.println("BigDecimal balance:");
 			  				System.out.println(Sandebalance);
 			  				ArrayPaymentBalance.get(t).put("SandeBalance", Sandebalance);
-		  		        	String CurrentPaymentACC = null;
+		  		        	String CurrentPaymentACC = "0";
 		  		        	if (AgencyOrgnization.getT_O_OrgPayrollBankaccount().equalsIgnoreCase("杉德支付")){
 		  		        		StringBuffer ss =  new StringBuffer();
 		  		        		CurrentPaymentACC = String.valueOf(ss.append("杉德支付").append("-").append(Sandebalance));
@@ -594,12 +600,12 @@ public class TreasuryDBInfoController {
 		  		      for(int j=0; j<Org_paymentinfo.length; j++) {
 		  		        System.out.print(j);
 		  		        System.out.print(Org_paymentinfo[j]);
-		  		        String balanceQuery = null;
+		  		        String balanceQuery = "0";
 		  		        if (j==0){
 		  		        	paramSQLmap.put("CompanyName", personalInfo.get(l).getT_P_Company());
 		  		        }
 		  		        if (j==1){
-			  		  	    String CurrentPaymentACC = null;
+			  		  	    String CurrentPaymentACC = "0";
 		  		        	if (Org_paymentinfo[j].equalsIgnoreCase("null")){
 			  				    paramSQLmap.put("ChinaebiBalance", "0.00");
 		  		        	}else{
@@ -650,27 +656,29 @@ public class TreasuryDBInfoController {
 			  	        System.out.println(ArrayPaymentBalance.get(l).get("CompanyName"));
 			  	        System.out.println(Org_paymentinfo[0]);
 				  	    OrganizationInfo PayrollChannel = null;
+			        	int tt = 0;
 				  		if (Org_paymentinfo[0].equals(ArrayPaymentBalance.get(l).get("CompanyName"))){
 		  		  	        PayrollChannel = organizationInfoService.selectAgencyName(Org_paymentinfo[0]);
 		  		  	    for(int k=0; k<Org_paymentinfo.length; k++) {
 			  		        System.out.print(k);
 			  		        System.out.print(Org_paymentinfo[k]);
-			  		        String balanceQuery = null;
+			  		        String balanceQuery = "0";
 			  		        if (k==2){
-			  		        	String CurrentPaymentACC = null;
-			  		        	BigDecimal Sandebalance = null;
+			  		        	String CurrentPaymentACC = "0";
+			  		        	BigDecimal Sandebalance = new BigDecimal(0);
 			  		        	if ( Org_paymentinfo[1].equalsIgnoreCase("null")){
 			  		        		ArrayPaymentBalance.get(l).put("SandeBalance", "0.00");
 			  		        	}else{
-				  		            String merchantId = Org_paymentinfo[1];
-				  		          String BalanceData = null;
+				  		          String merchantId = Org_paymentinfo[1];
+				  		          String BalanceData = "0";
 						        	Map<String, Object> SandBalArray = new HashMap<String, Object>();
-						        	if(t==0){
+						        	if(tt ==0){
 						        		JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId); // query Sande Balance
 						  		    	BalanceData = (String) JSONretdata.get("balance");
 						  		    	SandBalArray.put("merchantId", merchantId);
 						  		    	SandBalArray.put("BalanceData", BalanceData);
 						  		    	ArraySandBalance.add(SandBalArray);
+						  		    	t = t + 1;
 						        	}else{
 						        		for(int h=0; h<ArraySandBalance.size();h++){
 						        			if(ArraySandBalance.get(h).get("merchantId").toString().equalsIgnoreCase(merchantId)){
@@ -696,7 +704,7 @@ public class TreasuryDBInfoController {
 					  				System.out.println(balanceQuery);
 					  				System.out.println("BigDecimal balance:");
 					  				System.out.println(Sandebalance);
-					  				ArrayPaymentBalance.get(t).put("SandeBalance", Sandebalance);
+					  				ArrayPaymentBalance.get(l).put("SandeBalance", Sandebalance);
 			  		        	}
 			  		  	        PayrollChannel = organizationInfoService.selectAgencyName(Org_paymentinfo[0]);
 			  		        	if (AgencyOrgnization.getT_O_OrgPayrollBankaccount().equalsIgnoreCase("杉德支付")){
@@ -742,7 +750,7 @@ public class TreasuryDBInfoController {
 			   TreasuryDBStatisticOverAll.setT_TreasuryDB_BoPRatio(ebibalance);
 		}
     	
-    	//call sandewebAPI to get the total balance.
+    	//call sandewebAPI to get the total balance debug.
 //        String BalanceDatanewStr = "1200000"; //local server test using
 
 //    	System.out.print("获取值： ");	
@@ -796,7 +804,7 @@ public class TreasuryDBInfoController {
             List<TreasuryDBInfo> TreasuryDBStatisticOverAllList = treasuryDBInfoService.findSearchList(paramSearchMap);
             model.addAttribute("TreasuryDBStatisticOverAll", TreasuryDBStatisticOverAll);
             model.addAttribute("TreasuryDBStatisticOverAllList", TreasuryDBStatisticOverAllList);
-    	} else { 		
+    	} else {
     		t_TreasuryDB_OrgName = ShiroSessionUtil.getLoginSession().getCompany_name();
         	TreasuryDBStatisticOverAll = treasuryDBInfoService.StatisticOverall(t_TreasuryDB_OrgName);	
     		if (AgencyOrgnization.getT_O_listOrg().equals("off")){
