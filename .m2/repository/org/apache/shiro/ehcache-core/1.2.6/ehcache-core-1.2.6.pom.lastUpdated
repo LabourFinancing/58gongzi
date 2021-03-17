@@ -1,0 +1,4 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Sun Apr 05 21:57:30 SGT 2020
+http\://repo.maven.apache.org/maven2/.error=Could not transfer artifact org.apache.shiro\:ehcache-core\:pom\:1.2.6 from/to central (http\://repo.maven.apache.org/maven2)\: Failed to transfer http\://repo.maven.apache.org/maven2/org/apache/shiro/ehcache-core/1.2.6/ehcache-core-1.2.6.pom. Error code 501, HTTPS Required
+@default-http\://repo.maven.apache.org/maven2/.lastUpdated=1586095050500

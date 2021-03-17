@@ -1,0 +1,6 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Wed Nov 25 15:54:13 CST 2020
+http\://maven.aliyun.com/nexus/content/groups/public/.error=
+http\://repo.maven.apache.org/maven2/.error=Could not transfer artifact net.sf.json-lib\:json-lib\:jar\:sources\:2.4 from/to central (http\://repo.maven.apache.org/maven2)\: Failed to transfer http\://repo.maven.apache.org/maven2/net/sf/json-lib/json-lib/2.4/json-lib-2.4-sources.jar. Error code 501, HTTPS Required
+@default-http\://repo.maven.apache.org/maven2/.lastUpdated=1606290853731
+http\://maven.aliyun.com/nexus/content/groups/public/.lastUpdated=1606290848328

@@ -1,0 +1,4 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Sun Apr 12 15:50:38 SGT 2020
+http\://repo.maven.apache.org/maven2/.error=Could not transfer artifact javax.mail\:javax.mail-api\:jar\:sources\:1.5.5 from/to central (http\://repo.maven.apache.org/maven2)\: Failed to transfer http\://repo.maven.apache.org/maven2/javax/mail/javax.mail-api/1.5.5/javax.mail-api-1.5.5-sources.jar. Error code 501, HTTPS Required
+@default-http\://repo.maven.apache.org/maven2/.lastUpdated=1586677838606

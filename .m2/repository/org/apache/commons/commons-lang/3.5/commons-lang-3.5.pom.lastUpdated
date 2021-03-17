@@ -1,0 +1,6 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Sat Dec 12 13:11:44 CST 2020
+http\://maven.aliyun.com/nexus/content/groups/public/.error=
+http\://repo.maven.apache.org/maven2/.error=Could not transfer artifact org.apache.commons\:commons-lang\:pom\:3.5 from/to central (http\://repo.maven.apache.org/maven2)\: Failed to transfer http\://repo.maven.apache.org/maven2/org/apache/commons/commons-lang/3.5/commons-lang-3.5.pom. Error code 501, HTTPS Required
+@default-http\://repo.maven.apache.org/maven2/.lastUpdated=1607749904455
+http\://maven.aliyun.com/nexus/content/groups/public/.lastUpdated=1607749904055

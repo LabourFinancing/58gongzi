@@ -1,0 +1,5 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Wed Feb 24 16:09:06 CST 2021
+@default-http\://repo.maven.apache.org/maven2/.lastUpdated=1585832727680
+http\://repo.maven.apache.org/maven2/.error=Could not transfer artifact org.springframework\:spring-beans\:jar\:sources\:4.2.6.RELEASE from/to central (http\://repo.maven.apache.org/maven2)\: Failed to transfer http\://repo.maven.apache.org/maven2/org/springframework/spring-beans/4.2.6.RELEASE/spring-beans-4.2.6.RELEASE-sources.jar. Error code 501, HTTPS Required
+http\://maven.aliyun.com/nexus/content/groups/public/.lastUpdated=1614154146578

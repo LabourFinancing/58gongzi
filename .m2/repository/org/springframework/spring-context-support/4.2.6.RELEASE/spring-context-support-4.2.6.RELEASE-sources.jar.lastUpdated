@@ -1,0 +1,4 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Sun Apr 05 20:44:52 SGT 2020
+http\://repo.maven.apache.org/maven2/.error=Could not transfer artifact org.springframework\:spring-context-support\:jar\:sources\:4.2.6.RELEASE from/to central (http\://repo.maven.apache.org/maven2)\: Failed to transfer http\://repo.maven.apache.org/maven2/org/springframework/spring-context-support/4.2.6.RELEASE/spring-context-support-4.2.6.RELEASE-sources.jar. Error code 501, HTTPS Required
+@default-http\://repo.maven.apache.org/maven2/.lastUpdated=1586090692423

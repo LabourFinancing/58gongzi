@@ -1,0 +1,4 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Thu Sep 24 21:56:24 CST 2020
+http\://repo.maven.apache.org/maven2/.error=Could not transfer artifact org.jetbrains.kotlin\:kotlin-compiler\:pom\:1.2.41 from/to central (http\://repo.maven.apache.org/maven2)\: Failed to transfer http\://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-compiler/1.2.41/kotlin-compiler-1.2.41.pom. Error code 501, HTTPS Required
+@default-http\://repo.maven.apache.org/maven2/.lastUpdated=1600955784156

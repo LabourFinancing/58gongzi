@@ -1,0 +1,4 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Sun Apr 12 15:49:42 SGT 2020
+http\://repo.maven.apache.org/maven2/.error=Could not transfer artifact net.sf.ehcache\:ehcache-core\:jar\:sources\:2.5.0 from/to central (http\://repo.maven.apache.org/maven2)\: Failed to transfer http\://repo.maven.apache.org/maven2/net/sf/ehcache/ehcache-core/2.5.0/ehcache-core-2.5.0-sources.jar. Error code 501, HTTPS Required
+@default-http\://repo.maven.apache.org/maven2/.lastUpdated=1586677782068

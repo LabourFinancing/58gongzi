@@ -1,0 +1,4 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Thu Sep 24 21:56:34 CST 2020
+http\://repo.maven.apache.org/maven2/.error=Could not transfer artifact org.codehaus.plexus\:plexus-component-annotations\:pom\:1.5.4 from/to central (http\://repo.maven.apache.org/maven2)\: Failed to transfer http\://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-component-annotations/1.5.4/plexus-component-annotations-1.5.4.pom. Error code 501, HTTPS Required
+@default-http\://repo.maven.apache.org/maven2/.lastUpdated=1600955794496
