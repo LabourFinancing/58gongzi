@@ -363,28 +363,22 @@
                         <th><input type="checkbox" name="SelectAll" id="SelectAll" onclick="checkAll(this)"></th>
                     </@shiro.hasPermission>
                     <th>交易单号</th>
-                    <th>交易产品名称</th>
-                    <th>支取金额</th>
-                    <th>实付金额</th>
-                    <th>剩余额度</th>
-                    <@shiro.hasPermission name="FINANCEPRODUCT_SEARCH">
-                    <th>日计费率</th>
-                    </@shiro.hasPermission>
-                    <th>平台使用费</th>
-                    <th>服务费</th>
-                    <th>区间费率</th>
-                    <th>姓名</th>
+                    <th>人名</th>
                     <th>身份证</th>
-                    <th>银行卡号</th>
-                    <th>手机号</th>
+                    <th>银行卡</th>
+                    <th>总交易额</th》
+                    <th>总实付金额</th>
+                    <th>总红利收费</th>
+                    <th>总服务费</th>
+                    <th>总手续费</th>
+                    <th>总区间收费</th>
+                    <th>平台总收费</th>
+                    <th>总交易次数</th>
+                    <th>当前剩余额度</th>
                     <th>公司名</th>
                     <th>代理商公司名</th>
-                    <th>交易时间</th>
-                    <th>发薪日</th>
-                    <@shiro.hasPermission name="TREASURYDBINFO_OVERVIEW">
-                    <th>结算状态</th>
-                    <th>打印凭证</th>
-                </@shiro.hasPermission>
+                    <th>起始日期</th>
+                    <th>结束日期</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -407,7 +401,8 @@
                 <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${PersonalTxnStaticList.t_Txn_Static_TotPoundageFee.toString()}</td>
                 <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${PersonalTxnStaticList.t_Txn_Static_TotTierFee.toString()}</td>
                 <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${PersonalTxnStaticList.t_Txn_Static_TotChargeFee}</td>
-                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;mso-number-format:'\@';">${PersonalTxnStaticList.t_Txn_Static_TotTxnCount}</td>
+                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;mso-number-format:'\@';">${PersonalTxnStaticList.t_Txn_Static_TotTxnCount}
+                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;mso-number-format:'\@';">${PersonalTxnStaticList.t_P_NetMonthlyBonusAmount_his}</td>
                 <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;mso-number-format:'\@';">${PersonalTxnStaticList.t_Txn_Static_Company}</td>
                 <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${PersonalTxnStaticList.t_Txn_Static_VendorCompany}</td>
                 <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${PersonalTxnStaticList.t_Txn_Static_BeginDate?string("yyyy-MM-dd HH:mm:ss")}</td>
