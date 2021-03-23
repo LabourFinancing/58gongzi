@@ -83,7 +83,7 @@ public class TreasuryDBInfoController {
      * @throws Exception 
      */
     
-    @RequestMapping(value = {"treasuryDBInfoList",""})
+    @RequestMapping(value = {"treasuryDBInfoList"})
     public String TreasuryDBInfoList(TreasuryDBInfo TreasuryDBInfo, OrganizationInfo organizationInfo,@RequestParam( defaultValue = "0" )  Integer platform,String t_TreasuryDB_OrgName,String t_TreasuryDB_ID,
     		String SessionCompanyName, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
     	

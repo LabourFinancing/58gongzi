@@ -3,8 +3,8 @@ package com.qucai.sample.MerchantDemo.demo.src.main.java.cn.com.test.httpclient.
 import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import cn.com.sand.online.agent.service.sdk.ConfigurationManager;
+
 import cn.com.sand.online.agent.service.sdk.DynamicPropertyHelper;
 import cn.com.sand.online.agent.service.sdk.HttpUtil;
 
