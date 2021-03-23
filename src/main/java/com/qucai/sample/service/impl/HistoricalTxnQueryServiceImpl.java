@@ -3,6 +3,7 @@ package com.qucai.sample.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import com.qucai.sample.vo.PersonalTxnStatic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,6 +54,11 @@ public class HistoricalTxnQueryServiceImpl implements HistoricalTxnQueryService 
     @Override
     public List<HistoricalTxnQuery> findSearchList(Map<String, Object> paramSearchMap) {
         return historicalTxnQueryDao.findSearchList(paramSearchMap);
+    }
+
+    @Override
+    public List<PersonalTxnStatic> SearchPersonalTxnStatic(Map<String, Object> paramMap) {
+        return historicalTxnQueryDao.SearchPersonalTxnStatic(paramMap);
     }
     
     @Override

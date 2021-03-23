@@ -187,7 +187,7 @@
 	       <result column="t_Txn_Static_EndDate" property="t_Txn_Static_EndDate" jdbcType="TIMESTAMP" />
 	</resultMap>
 	
-	<select id="personalTxnStatic" resultMap="personalTxnStatisSearch">
+	<select id="SearchPersonalTxnStatic" resultMap="personalTxnStatisSearch">
 		select
 		t_Txn_PrepayApplierName_his,
 		t_Txn_PrepayApplierPID_his,
@@ -210,9 +210,6 @@
 		where 
 		a.t_Txn_PrepayDate_his
 		between #{begin_date} and #{end_date}
-		<if test="SessionPID != null">
-		 and a.t_Txn_PrepayApplierPID_his LIKE CONCAT('%',#{SessionPID},'%')
-		</if>
 		<if test="t_Txn_PrepayApplierName_his != null">
 		 and a.t_Txn_PrepayApplierName_his LIKE CONCAT('%',#{t_Txn_PrepayApplierName_his},'%')
 		</if>

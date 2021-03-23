@@ -6,6 +6,7 @@ import java.util.Map;
 import com.github.pagehelper.PageInfo;
 import com.qucai.sample.common.PageParam;
 import com.qucai.sample.entity.HistoricalTxnQuery;
+import com.qucai.sample.vo.PersonalTxnStatic;
 //import com.qucai.sample.entity.resource;
 
 public interface HistoricalTxnQueryService {
@@ -21,6 +22,8 @@ public interface HistoricalTxnQueryService {
     List<HistoricalTxnQuery> findAllList(Map<String, Object> paramMap);
     
     List<HistoricalTxnQuery> findSearchList(Map<String, Object> paramMap);
+    
+    List<PersonalTxnStatic> SearchPersonalTxnStatic(Map<String, Object> paramMap);
     
     PageInfo<HistoricalTxnQuery> findAllList(Map<String, Object> paramMap, PageParam pp);
     

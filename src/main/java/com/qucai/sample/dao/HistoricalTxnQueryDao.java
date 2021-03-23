@@ -3,6 +3,7 @@ package com.qucai.sample.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.qucai.sample.vo.PersonalTxnStatic;
 import org.springframework.stereotype.Repository;
 
 import com.qucai.sample.entity.HistoricalTxnQuery;
@@ -18,6 +19,8 @@ public interface HistoricalTxnQueryDao {
     List<HistoricalTxnQuery> findAllList(Map<String, Object> paramMap);
     
     List<HistoricalTxnQuery> findSearchList(Map<String, Object> paramMap);
+    
+    List<PersonalTxnStatic> SearchPersonalTxnStatic(Map<String, Object> paramMap);
     
     int ClearHisTxnPay(String[] hisTxnSelectedIDs);
     
