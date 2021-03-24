@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<!-- saved from url=(0079)http://users.ucpaas.com/%20/l%20/#/customer/manager/b03xx8/info?status=3&type=2 -->
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="webkit" name="renderer">
+    <title>用户中心</title>
+    <#include "/common/cssResource.html">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="">
+    <link href="${ctx}/metronic/new_modules/app_info.css" rel="stylesheet">
+    <link rel="stylesheet" href="${ctx}/metronic/mobile/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="/metronic/mobile/css/bootstrap-datepicker3.min.css"> -->
+    <link href="${ctx}/metronic/new_modules/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
+    <style type="text/css">
+        @keyframes resizeanim {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 0;
+            }
+        }
+
+        .resize-triggers {
+            animation: 1ms resizeanim;
+            visibility: hidden;
+            opacity: 0;
+        }
+
+        .resize-triggers,
+        .resize-triggers>div,
+        .contract-trigger:before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            z-index: -1
+        }
+
+        .resize-triggers>div {
+            background: #eee;
+            overflow: auto;
+        }
+
+        .contract-trigger:before {
+            width: 200%;
+            height: 200%;
+        }
+    </style>
+    <style type="text/css">
+        .icon-auth[data-v-zz] {
+            left: 500px;
+        }
+
+        .cer-img[data-v-zz] {
+            display: block;
+            width: 220px;
+        }
+
+        .desc[data-v-zz] {
+            margin-left: 10px;
+        }
+
+        .char4[data-v-zz] {
+            position: relative;
+            left: 1px;
+        }
+
+        .char4 span[data-v-zz] {
+            letter-spacing: 3px;
+        }
+        .col-sm-8 {
+            width: 33.3%;
+        }
+        /*# sourceURL=D:/web1/sudao-agent-oem-F2E/src/pages/Customer/AuthAlready.vue */
+        /*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkQ6L3dlYjEvc3VkYW8tYWdlbnQtb2VtLUYyRS9zcmMvcGFnZXMvQ3VzdG9tZXIvQXV0aEFscmVhZHkudnVlIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFDQTtFQUNFLFlBQVk7Q0FDYjtBQUNEO0VBQ0UsZUFBZTtFQUNmLGFBQWE7Q0FDZDtBQUNEO0VBQ0Usa0JBQWtCO0NBQ25CO0FBQ0Q7RUFDRSxtQkFBbUI7RUFDbkIsVUFBVTtDQUNYO0FBQ0Q7SUFDSSxvQkFBb0I7Q0FDdkIiLCJmaWxlIjoiQXV0aEFscmVhZHkudnVlIiwic291cmNlc0NvbnRlbnQiOlsiXG4uaWNvbi1hdXRoW2RhdGEtdi0zOTlhMWNkNF0ge1xuICBsZWZ0OiA1MDBweDtcbn1cbi5jZXItaW1nW2RhdGEtdi0zOTlhMWNkNF0ge1xuICBkaXNwbGF5OiBibG9jaztcbiAgd2lkdGg6IDIyMHB4O1xufVxuLmRlc2NbZGF0YS12LTM5OWExY2Q0XSB7XG4gIG1hcmdpbi1sZWZ0OiAxMHB4O1xufVxuLmNoYXI0W2RhdGEtdi0zOTlhMWNkNF0ge1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIGxlZnQ6IDFweDtcbn1cbi5jaGFyNCBzcGFuW2RhdGEtdi0zOTlhMWNkNF0ge1xuICAgIGxldHRlci1zcGFjaW5nOiAzcHg7XG59XG4iXSwic291cmNlUm9vdCI6IiJ9 */
+    </style>
+</head>
+
+<body>
+    <div id="notIE9">
+        <div>
+            <div>
+                <div id="layout" class="layout-wrap relative" style="min-height: 602px;">
+                    <div class="page-user-info">
+                        
+                        <div class="clearfix top-nav">
+                            <a href="javascript:;" onclick="topTap(1)" id="fl1"
+                                class="fl router-link-exact-active router-link-active">基本信息</a>
+                            <a href="javascript:;" onclick="topTap(2)" id="fl2" class="fl ">资质信息</a>
+                        </div>
+                        <div class="page-customer-info">
+                            <div class="clearfix" style="position: static;">
+                                <div class="col col-24 col-xs-8 col-sm-8 col-md-8 col-lg-8" xl="8">
+                                    <div>
+                                        <div class="clearfix item">
+                                            <div class="title"><span>子&nbsp;帐&nbsp;户&nbsp;ID</span>:</div>
+                                            <div class="desc">${organizationInfoDetail.t_O_ID}</div>
+                                        </div>
+                                        <div class="clearfix item">
+                                            <div class="title"><span>企业名称</span>:</div>
+                                            <div class="desc none_div">${organizationInfoDetail.t_O_OrgName} </div>
+                                            <input type="text" class="input none_input input-md fl yzm mr30 code"
+                                                style="display: none;">
+                                        </div>
+                                        <div class="clearfix item">
+                                            <div class="title char4"><span>账户状态</span>:</div>
+                                            <div class="desc">${organizationInfoDetail.t_O_OrgStatus}</div>
+                                        </div>
+                                        <div class="clearfix item char4">
+                                            <div class="title"><span>认证状态</span>:</div>
+                                            <div class="desc">${organizationInfoDetail.t_O_OrgPending}</div>
+                                        </div>
+                                        <div class="clearfix item char4">
+                                            <div class="title"><span>认证时间</span>:</div>
+                                            <div class="desc">${organizationInfoDetail.modify_time?string("yyyy-MM-dd HH:mm:ss")}</div>
+                                        </div>
+                                        <div class="clearfix item char4">
+                                            <div class="title"><span>手机号码</span>:</div>
+                                            <div class="desc none_div"> </div><input type="text"
+                                                class="input none_input input-md fl yzm mr30 code"
+                                                style="display: none;">
+                                        </div>
+                                        <div class="clearfix item">
+                                            <div class="title char4"><span>邮<i class="fff">占位</i>箱</span>:</div>
+                                            <div class="desc none_div"> </div><input type="text"
+                                                class="input none_input input-md fl yzm mr30 code"
+                                                style="display: none;">
+                                        </div>
+                                        <div class="clearfix item">
+                                            <div class="title char4"><span>公司地址</span>:</div>
+                                            <div class="desc none_div"><span class="address"> </span></div><input
+                                                type="text" class="input none_input input-md fl yzm mr30 code"
+                                                style="display: none;">
+                                        </div>
+                                        <div class="clearfix item">
+                                            <div class="title char4"><span>公司名称</span>:</div>
+                                            <div class="desc none_div">${organizationInfoDetail.t_O_OrgName}</div><input type="text"
+                                                class="input none_input input-md fl yzm mr30 code"
+                                                style="display: none;">
+                                        </div>
+                                        <div class="clearfix item">
+                                            <div class="title char4"><span>用户等级</span>:</div>
+                                            <div class="desc">${organizationInfoDetail.t_O_Category}</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col col-24 col-xs-8 col-sm-8 col-md-8 col-lg-8" xl="8">
+                                    <div>
+                                        <div class="clearfix item">
+                                            <div class="title char4"><span>是否需要状态报告</span>:</div>
+                                            <div class="desc  none_div">不获取</div>
+                                            <div class=" none_input select border usertype_a" style="display: none;">
+                                                
+                                                <div class="input ">
+                                                    <i class="input__icon icon-caret-top"></i><input
+                                                        autocomplete="off" placeholder="请选择" readonly="readonly"
+                                                        icon="caret-top" type="text" rows="2"
+                                                        class="input__inner usertype_a_a">
+                                                    
+                                                    
+                                                </div>
+                                                <div class="select-dropdown usertype_a_b" style="display: none;">
+                                                    <div class="scrollbar" style="">
+                                                        <div
+                                                            class="select-dropdown__wrap scrollbar__wrap scrollbar__wrap--hidden-default">
+                                                            <ul class="scrollbar__view select-dropdown__list"
+                                                                style="position: relative;">
+                                                                
+                                                                <li class="select-dropdown__item item_list">不获取
+                                                                </li>
+                                                                <li class="select-dropdown__item item_list">系统推送
+                                                                </li>
+                                                                <li class="select-dropdown__item item_list">自己拉取
+                                                                </li>
+                                                                <div class="resize-triggers">
+                                                                    <div class="expand-trigger">
+                                                                        <div style="width: 1px; height: 1px;"></div>
+                                                                    </div>
+                                                                    <div class="contract-trigger"></div>
+                                                                </div>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="scrollbar__bar is-horizontal">
+                                                            <div class="scrollbar__thumb"
+                                                                style="transform: translateX(0%);"></div>
+                                                        </div>
+                                                        <div class="scrollbar__bar is-vertical">
+                                                            <div class="scrollbar__thumb"
+                                                                style="transform: translateY(0%);"></div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="resize-triggers">
+                                                    <div class="expand-trigger">
+                                                        <div style="width: 1px; height: 1px;"></div>
+                                                    </div>
+                                                    <div class="contract-trigger"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix item">
+                                            <div class="title char4"><span>是否需要上行</span>:</div>
+                                            <div class="desc none_div">不获取</div>
+                                            <div class="none_input select border usertype" style="display: none;">
+                                                
+                                                <div class="input ">
+                                                    <i class="input__icon icon-caret-top"></i><input
+                                                        autocomplete="off" placeholder="请选择" readonly="readonly"
+                                                        icon="caret-top" type="text" rows="2"
+                                                        class="input__inner usertype_b_a">
+                                                    
+                                                    
+                                                </div>
+                                                <div class="select-dropdown usertype_b" style="display: none;">
+                                                    <div class="scrollbar" style="">
+                                                        <div
+                                                            class="select-dropdown__wrap scrollbar__wrap scrollbar__wrap--hidden-default">
+                                                            <ul class="scrollbar__view select-dropdown__list"
+                                                                style="position: relative;">
+                                                                
+                                                                <li class="select-dropdown__item item_lists">不获取
+                                                                </li>
+                                                                <li class="select-dropdown__item item_lists">系统推送
+                                                                </li>
+                                                                <li class="select-dropdown__item item_lists">自己拉取
+                                                                </li>
+                                                                <div class="resize-triggers">
+                                                                    <div class="expand-trigger">
+                                                                        <div style="width: 1px; height: 1px;"></div>
+                                                                    </div>
+                                                                    <div class="contract-trigger"></div>
+                                                                </div>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="scrollbar__bar is-horizontal">
+                                                            <div class="scrollbar__thumb"
+                                                                style="transform: translateX(0%);"></div>
+                                                        </div>
+                                                        <div class="scrollbar__bar is-vertical">
+                                                            <div class="scrollbar__thumb"
+                                                                style="transform: translateY(0%);"></div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="resize-triggers">
+                                                    <div class="expand-trigger">
+                                                        <div style="width: 1px; height: 1px;"></div>
+                                                    </div>
+                                                    <div class="contract-trigger"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix item">
+                                            <div class="title char4"><span>是否需要审核</span>:</div>
+                                            <div class="desc">审核关键字</div>
+                                        </div>
+                                        <div class="clearfix item">
+                                            <div class="title char4"><span>创建时间</span>:</div>
+                                            <div class="desc">2020-10-09 14:27:55</div>
+                                        </div>
+                                        <div class="clearfix item">
+                                            <div class="title char4"><span>验证IP</span>:</div>
+                                            <div class="desc"></div>
+                                        </div>
+                                        <div class="clearfix item">
+                                            <div class="title char4"><span>状态报告回调地址</span>:</div>
+                                            <div class="desc none_div"></div><input type="text"
+                                                class="input none_input input-md fl yzm mr30 code"
+                                                style="display: none;">
+                                        </div>
+                                        <div class="clearfix item">
+                                            <div class="title char4"><span>上行回调地址</span>:</div>
+                                            <div class="desc none_div"></div><input type="text"
+                                                class="input none_input input-md fl yzm mr30 code"
+                                                style="display: none;">
+                                        </div>
+                                        <div class="clearfix item">
+                                            <div class="title char4"><span>连接节点数</span>:</div>
+                                            <div class="desc">1</div>
+                                        </div>
+                                        <div class="clearfix item">
+                                            <div class="title char4"><span>扣费类型</span>:</div>
+                                            <div class="desc">扣主账户</div>
+                                        </div>
+                                        <div class="clearfix item">
+                                            <div class="title char4"><span>是否支持自扩展</span>:</div>
+                                            <div class="desc">不支持</div>
+                                        </div>
+                                        <div class="clearfix item">
+                                            <div class="title char4"><span>备<span class="fff">占位</span>注</span>:</div>
+                                            <div class="desc"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col col-24 col-xs-8 col-sm-8 col-md-8 col-lg-8" xl="8">
+                                    <div>
+                                        <div class="clearfix item char4">
+                                            <div class="title"><span>短信类型</span>:</div>
+                                            <div class="desc">营销短信</div>
+                                        </div>
+                                        <div class="clearfix item">
+                                            <div class="title char4"><span>智能模板回调地址</span>:</div>
+                                            <div class="desc"></div><input type="text"
+                                                class="input none_input input-md fl yzm mr30 code"
+                                                style="display: none;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="loading-mask" style="display: none;">
+                                    <div class="loading-spinner"><svg viewBox="25 25 50 50" class="circular">
+                                            <circle cx="50" cy="50" r="20" fill="none" class="path"></circle>
+                                        </svg>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="javascript:;" class="btn btn-lg btn-green ml40 confirm mt40 updateClient">修改</a>
+                            <a href="javascript:;" class="btn btn-lg btn-green ml40 confirm mt40 updateClient"
+                                style="display: none;">确定</a>
+                            <a href="javascript:;" class="btn btn-lg btn-white ml40 confirm mt40 updateClient"
+                                style="display: none;">取消</a>
+                        </div>
+                        <div data-v-zz="" class="page-base-info" style="display: none;"><img data-v-zz=""
+                                src="http://users.ucpaas.com/static/img/icon-already.af9cfe6.png"
+                                class="absolute icon-auth">
+                            
+                            <div data-v-zz="" class="clearfix item">
+                                <div data-v-zz="" class="title char4"><span data-v-zz="">认证类型</span>:
+                                </div>
+                                <div data-v-zz="" class="desc">
+                                    <span data-v-zz="">企业认证</span></div>
+                            </div>
+                            <div data-v-zz="" class="clearfix item">
+                                <div data-v-zz="" class="title char4"><span data-v-zz="">公司名称</span>:
+                                </div>
+                                <div data-v-zz="" class="desc">高孚信息科技服务有限公司-三网营销</div>
+                            </div>
+                            <div data-v-zz="" class="clearfix item">
+                                <div data-v-zz="" class="title char4"><span data-v-zz="">证件号码</span>:
+                                </div>
+                                <div data-v-zz="" class="desc">00000000000000000</div>
+                            </div>
+                            <div data-v-zz="" class="clearfix item">
+                                <div data-v-zz="" class="title char4"><span data-v-zz="">创建时间</span>:
+                                </div>
+                                <div data-v-zz="" class="desc">2020-10-09 14:40:49</div>
+                            </div>
+                            <div data-v-zz="" class="clearfix item">
+                                <div data-v-zz="" class="title char4"><span data-v-zz="">更新时间</span>:
+                                </div>
+                                <div data-v-zz="" class="desc">2020-10-09 14:40:49</div>
+                            </div>
+                            <div data-v-zz="" class="clearfix item">
+                                <div data-v-zz="" class="title char4"><span data-v-zz="">审核状态</span>:
+                                </div>
+                                <div data-v-zz="" class="desc"><span data-v-zz="">已认证</span></div>
+                            </div>
+                            <div data-v-zz="" class="clearfix item">
+                                <div data-v-zz="" class="title char4"><span data-v-zz="">认证照片</span>:
+                                </div>
+                                <div data-v-zz="" class="desc"><img data-v-zz="" class="cer-img"
+                                        src="http://users.ucpaas.com/file/scanPic.html?path=V6j%2BGQzlO4s2aMqM41zhW2nRwtSIwQPZYQB0s2KmAtPOk4fsUBtK1echYbdnyYtKAl5FDH7yCSE37VvPuzYcC1gMV3owClDY7Jcl4aRqu%2F4%3D">
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+      <!-- /复制功能插件/ -->
+      <script type="text/javascript" src="${ctx}/metronic/new_modules/clipboard.min.js"></script>
+      <!-- 图表 -->
+      <script type="text/javascript" src="${ctx}/metronic/new_modules/echarts.common.min.js"></script>
+      <script type="text/javascript" src="${ctx}/metronic/mobile/js/jquery.min.js"></script>
+      <script script src="${ctx}/metronic/mobile/js/bootstrap.min.js" type="text/javascript"></script>
+      <script script src="${ctx}/metronic/mobile/js/moment-with-locales.js" type="text/javascript"></script>
+      <!-- // 日期插件 -->
+      <script src="${ctx}/metronic/new_modules/bootstrap-datetimepicker.min.js"></script>
+    <script>
+        //tab切换
+        const topTap = function (index) {
+            const a1 = document.getElementsByClassName('page-customer-info')[0]
+            const a2 = document.getElementsByClassName('page-base-info')[0]
+            const f1 = document.getElementById('fl1')
+            const f2 = document.getElementById('fl2')
+
+            if (index === 1) {
+                f1.className = 'fl router-link-exact-active router-link-active'
+                f2.className = 'fl'
+                a1.style.display = 'inline-block'
+                a2.style.display = 'none'
+            } else if (index === 2) {
+                a2.style.display = 'inline-block'
+                a1.style.display = 'none'
+                f2.className = 'fl router-link-exact-active router-link-active'
+                f1.className = 'fl'
+            }
+        }
+        const setlength = function (status) {
+            const list = document.getElementsByClassName('none_input')
+            const lists = document.getElementsByClassName('none_div')
+            for (var i = 0; i <= list.length; i++) {
+                if (list[i].style && lists[i].style) {
+                    list[i].style.display = status && 'inline-block' || 'none'
+                    lists[i].style.display = !status && 'inline-block' || 'none'
+                }
+            }
+        }
+        // 选择1
+        const usertypeA = function () {
+            document.getElementsByClassName('usertype_a')[0].onclick = function (e) {
+                const dom = document.getElementsByClassName('usertype_a_b')[0]
+                dom.onclick = function (ev) {
+                    var ev = ev || window.event;
+                    var oLi = ev.srcElement || ev.target;
+                    if (oLi.nodeName.toLowerCase() == 'li') {
+                        document.getElementsByClassName('usertype_a_a')[0].value = oLi.innerText
+                    }
+                }
+                const visible = getComputedStyle(dom).display != 'none' && getComputedStyle(dom).visibility != 'hidden';
+                if (!visible) {
+                    dom.style.display = 'inline-block'
+                } else {
+                    dom.style.display = 'none'
+                }
+            }
+        }
+        // 选择2
+        const usertypeB = function () {
+            document.getElementsByClassName('usertype')[0].onclick = function (e) {
+                const dom = document.getElementsByClassName('usertype_b')[0]
+                dom.onclick = function (ev) {
+                    var ev = ev || window.event;
+                    var oLi = ev.srcElement || ev.target;
+                    if (oLi.nodeName.toLowerCase() == 'li') {
+                        document.getElementsByClassName('usertype_b_a')[0].value = oLi.innerText
+                    }
+                }
+                const visible = getComputedStyle(dom).display != 'none' && getComputedStyle(dom).visibility != 'hidden';
+                if (!visible) {
+                    dom.style.display = 'inline-block'
+                } else {
+                    dom.style.display = 'none'
+                }
+
+            }
+        }
+        window.onload = function () {
+            usertypeA()
+            usertypeB()
+            //修改按钮交互
+            document.getElementsByClassName('updateClient')[0].onclick = function (e) {
+                const a = document.getElementsByClassName('updateClient')[0]
+                const b = document.getElementsByClassName('updateClient')[1]
+                const c = document.getElementsByClassName('updateClient')[2]
+                const visible = getComputedStyle(a).display != 'none' && getComputedStyle(a).visibility != 'hidden';
+                if (visible) {
+                    a.style.display = 'none'
+                    b.style.display = 'inline-block'
+                    c.style.display = 'inline-block'
+                    setlength(true)
+                }
+
+                // document.getElementsByClassName('clearfix','desc').map(item=>{
+                //     item.style.display='none'
+                // })
+            }
+            //确定按钮交互            }】
+            document.getElementsByClassName('updateClient')[1].onclick = function (e) {
+                const a = document.getElementsByClassName('updateClient')[0]
+                const b = document.getElementsByClassName('updateClient')[1]
+                const c = document.getElementsByClassName('updateClient')[2]
+                const visible = getComputedStyle(b).display != 'none' && getComputedStyle(b).visibility != 'hidden';
+                if (visible) {
+                    a.style.display = 'inline-block'
+                    b.style.display = 'none'
+                    c.style.display = 'none'
+                    setlength(false)
+                }
+            }
+            
+            //取消按钮交互            }】
+            document.getElementsByClassName('updateClient')[2].onclick = function (e) {
+                const a = document.getElementsByClassName('updateClient')[0]
+                const b = document.getElementsByClassName('updateClient')[1]
+                const c = document.getElementsByClassName('updateClient')[2]
+                const visible = getComputedStyle(b).display != 'none' && getComputedStyle(b).visibility != 'hidden';
+                if (visible) {
+                    a.style.display = 'inline-block'
+                    b.style.display = 'none'
+                    c.style.display = 'none'
+                    setlength(false)
+                }
+            }
+
+        }
+
+    </script>
+</body>
+
+</html>
