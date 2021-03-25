@@ -1,13 +1,11 @@
 package com.qucai.sample.controller;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.qucai.sample.entity.PasswordReset;
+import com.qucai.sample.common.PageParam;
+import com.qucai.sample.entity.OrganizationInfo;
+import com.qucai.sample.service.ManagerService;
+import com.qucai.sample.service.OrganizationInfoService;
+import com.qucai.sample.util.ShiroSessionUtil;
+import com.qucai.sample.util.Tool;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,23 +13,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.github.pagehelper.PageInfo;
-import com.qucai.sample.OperationTypeConstant;
-import com.qucai.sample.common.PageParam;
-import com.qucai.sample.entity.OrganizationInfo;
-import com.qucai.sample.exception.ExRetEnum;
-import com.qucai.sample.service.ManagerService;
-import com.qucai.sample.service.OrganizationInfoService;
-import com.qucai.sample.util.JsonBizTool;
-import com.qucai.sample.util.ShiroSessionUtil;
-import com.qucai.sample.util.Tool;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Controller
-@RequestMapping(value = "/OrganizationProfileController")
-public class OrganizationProfileController {
+@RequestMapping(value = "/OrganizationDashboardController")
+public class OrganizationDashboardController {
 
 
 	// 必须把new financeProduct的列进行全面修改, 新建financeProductService
@@ -54,7 +45,7 @@ public class OrganizationProfileController {
         return entity;
     }
 
-    @RequestMapping(value = {"info",""})
+    @RequestMapping(value = {"dashboard",""})
     public String showOrganizationInfo(OrganizationInfo organizationInfo, @RequestParam( defaultValue = "0" )  Integer platform,
                                        HttpServletRequest request, HttpServletResponse response, Model model) {
 
@@ -64,6 +55,6 @@ public class OrganizationProfileController {
         OrganizationInfo organizationInfoDetail = organizationInfoService.selectAgencyName(ShiroSessionUtil.getLoginSession().getCompany_name());
         model.addAttribute("organizationInfoDetail", organizationInfoDetail);
 
-        return "organizationProfile/usetInformation";
+        return "organizationDashboard/userCenter";
     }
 }
