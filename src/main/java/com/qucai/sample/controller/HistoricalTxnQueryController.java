@@ -316,9 +316,9 @@ public class HistoricalTxnQueryController<HisTxnSelectedIDs> {
         
         
     @RequestMapping(value = {"personalTxnStaticSearchList"})
-    public String exceptTxnList(PersonalTxnStatic personalTxnStatic, @RequestParam(defaultValue = "0") 
+    public String exceptTxnList(PersonalTxnStatic personalTxnStatic,
                                 Integer platform, Integer pages, Integer sizes,String startTime,String endTime,
-                                Date begin_date,Date end_date,String t_P_Company_his,String SeesionLoginMobil,
+                                Date begin_date,Date end_date,String t_P_Company_his,
                                 String t_Txn_PrepayApplierName_his,String t_Txn_PrepayClear_his,String t_Txn_ProdName_his,
                                 String t_TreasuryDB_OrgName,String t_P_VendorEmployeeName_his,String t_O_OrgName,
                                 HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -342,7 +342,7 @@ public class HistoricalTxnQueryController<HisTxnSelectedIDs> {
         
         List<PersonalTxnStatic> PersonalTxnStaticList = historicalTxnQueryService.SearchPersonalTxnStatic(paramMap);
 
-        model.addAttribute("PersonalTxnStaticList", PersonalTxnStaticList);//从数据库查询出来的结果用model的方式返回
+        model.addAttribute("personalTxnStaticList", PersonalTxnStaticList);//从数据库查询出来的结果用model的方式返回
 
         return "historicalTxnQuery/personalTxnStatics";
     }    
