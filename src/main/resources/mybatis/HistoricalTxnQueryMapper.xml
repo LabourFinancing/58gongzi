@@ -216,7 +216,7 @@
 		<if test="t_Txn_PrepayClear_his != 'ALL' and t_Txn_PrepayClear_his != null">
 		 and a.t_Txn_PrepayClear_his = #{t_Txn_PrepayClear_his,jdbcType=VARCHAR}
 		</if>
-		<if test="t_Txn_ProdName_his != 'ALL' and t_Txn_ProdName_his != null">
+		<if test="t_Txn_ProdName_his != null">
 		 and a.t_Txn_ProdName_his LIKE CONCAT('%',#{t_Txn_ProdName_his},'%')
 		</if>
 		<if test="t_P_Company_his != 'ALL' and t_P_Company_his != null">

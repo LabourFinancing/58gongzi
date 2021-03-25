@@ -37,6 +37,10 @@ public class PersonalTxnStatic implements Serializable {
    private BigDecimal t_Txn_Static_TotChargeFee;
    
    private Integer t_Txn_Static_TotTxnCount;
+
+    private BigDecimal t_Txn_Static_CurrentCredit;
+
+   private BigDecimal t_Txn_Static_CurrentBalance;
    
    private String t_Txn_Static_Company;
    
@@ -174,6 +178,22 @@ public Date getT_Txn_Static_EndDate() {
 public void setT_Txn_Static_EndDate(Date t_Txn_Static_EndDate) {
 	this.t_Txn_Static_EndDate = t_Txn_Static_EndDate;
 }
-   
+
+
+    public BigDecimal getT_Txn_Static_CurrentCredit() {
+        return t_Txn_Static_CurrentCredit;
+    }
+
+    public void setT_Txn_Static_CurrentCredit(BigDecimal t_Txn_Static_CurrentCredit) {
+        this.t_Txn_Static_CurrentCredit = t_Txn_Static_CurrentCredit;
+    }
+
+    public BigDecimal getT_Txn_Static_CurrentBalance() {
+        return t_Txn_Static_CurrentBalance;
+    }
+
+    public void setT_Txn_Static_CurrentBalance(BigDecimal t_Txn_Static_CurrentBalance) {
+        this.t_Txn_Static_CurrentBalance = t_Txn_Static_CurrentBalance;
+    }
 
 }
