@@ -70,7 +70,19 @@ public class PasswordResetController {
               return JsonBizTool.genJson(ExRetEnum.SUCCESS);
             }
            }
-    
+    @RequestMapping(value = {"resetpassword"})
+    public String passwordForm(String id, String operationType, Integer platform,
+                               HttpServletRequest request, HttpServletResponse response,
+                               Model model) {
+        if (true||OperationTypeConstant.EDIT.equals(operationType))
+        {
+            PasswordReset passwordReset = passwordResetService.selectByPrimaryKey(id);
+            return "passwordReset/PasswordReset";
+        }
+        else {
+            return JsonBizTool.genJson(ExRetEnum.SUCCESS);
+        }
+    }
     
 //    @SuppressWarnings("null")
 //	@RequestMapping("PasswordResetform")
