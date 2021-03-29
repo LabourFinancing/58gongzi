@@ -17,8 +17,6 @@
     <script>
        var StaticInfoDaily = "${StaticInfoDaily}";
        var StaticInfo = "${StaticInfo}";
-       alert(StaticInfoDaily);
-       alert(StaticInfo);
     </script>
 </head>
 
@@ -184,6 +182,44 @@
     <!-- // 日期插件 -->
     <script src="${ctx}/metronic/new_modules/bootstrap-datetimepicker.min.js"></script>
     <script>
+        (()=>{
+            const StaticInfoDailyArray = window.StaticInfoDaily.split('-');
+            const StaticInfoDailyMap = {};
+            StaticInfoDailyArray.map(d=>{
+                const arr = d.split(':');
+                StaticInfoDailyMap[arr[0]]=arr[1];
+            })
+            const StaticInfoArray = StaticInfo.split('-,');
+            const StaticInfoMap = {};
+            StaticInfoArray.map(d=>{
+                const arr = d.split(':');
+                StaticInfoMap[arr[0]]=parseFloat(arr[1]);
+            })
+            console.log(StaticInfoDailyMap,StaticInfoMap);
+            document.querySelector('.p-15').children[1].innerHTML=StaticInfoDailyMap['Txn_Static_TotTxnCountDaily']+'笔';
+            Array.from(document.querySelector('.p-15').children[3].children).map((c,index)=>{
+                let name;
+                switch (index) {
+                    case 1:
+                        name ='T_CTxn_Succ_Txn()';
+                        break;
+                    case 2:
+                        name = 'Txn_Static_TotTxnAmtDaily';
+                        break;
+                    case 4:
+                        name ='T_CTxn_Fail_Txn()';
+                }
+                if(name&&StaticInfoDailyMap[name]) {
+                    const span = c.querySelector('span')
+                    if(span) {
+                        span.innerText=StaticInfoDailyMap[name];
+                    }
+                }
+
+            })
+        })()
+    </script>
+    <script>
         // <input type='text' class="form-control" id='datetime' value="11" />
 
         // $(function () {
@@ -221,7 +257,7 @@
                 type: 'value'
             },
             series: [{
-                data: [820, 932, 901, 934, 1290, 1330, 1320],
+                data: [StaticInfoMap['day0'], StaticInfoMap['day1'], StaticInfoMap['day2'], StaticInfoMap['day3'], StaticInfoMap['day4'], StaticInfoMap['day5'], StaticInfoMap['day6']],
                 type: 'line',
                 smooth: true
             }]
@@ -233,6 +269,7 @@
         //     mychart.setOption(option);
         // }
     </script>
+    
 </body>
 
 </html>
