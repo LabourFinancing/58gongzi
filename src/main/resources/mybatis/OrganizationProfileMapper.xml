@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qucai.sample.dao.OrganizationProfileDao">
+
+	<resultMap id="BaseResultMap" type="com.qucai.sample.entity.OrganizationProfile">
+		<result column="t_Profile_ID" property="t_Profile_ID" jdbcType="VARCHAR" />
+		<result column="t_Profile_CertificationCode" property="t_Profile_CertificationCode" jdbcType="VARCHAR" />
+		<result column="t_Profile_OrgName" property="t_Profile_OrgName" jdbcType="VARCHAR" />
+		<result column="t_Profile_Qualification" property="t_Profile_Qualification" jdbcType="VARCHAR" />
+		<result column="t_Profile_QualificationStatus" property="t_Profile_QualificationStatus" jdbcType="VARCHAR" />
+		<result column="t_Profile_Mobile" property="t_Profile_Mobile" jdbcType="VARCHAR" />
+		<result column="t_Profile_Contact" property="t_Profile_Contact" jdbcType="VARCHAR" />
+		<result column="t_Profile_Email" property="t_Profile_Email" jdbcType="VARCHAR" />
+		<result column="t_Profile_Address" property="t_Profile_Address" jdbcType="VARCHAR" />
+		<result column="t_Profile_PostRet" property="t_Profile_PostRet" jdbcType="VARCHAR" />
+		<result column="t_Profile_IPaddress" property="t_Profile_IPaddress" jdbcType="VARCHAR" />
+		<result column="t_Profile_StatusRptRetAddress" property="t_Profile_StatusRptRetAddress" jdbcType="VARCHAR" />
+        <result column="t_Profile_CurrentAddress" property="t_Profile_CurrentAddress" jdbcType="VARCHAR" />
+        <result column="t_Profile_text1" property="t_Profile_text1" jdbcType="VARCHAR" />
+        <result column="t_Profile_text2" property="t_Profile_text2" jdbcType="VARCHAR" />
+        <result column="t_Profile_text3" property="t_Profile_text3" jdbcType="VARCHAR" />
+        <result column="t_Profile_text4" property="t_Profile_text4" jdbcType="VARCHAR" />
+		<result column="platform" property="platform" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="creator" property="creator" jdbcType="VARCHAR" />
+		<result column="create_time" property="create_time" jdbcType="TIMESTAMP" />
+		<result column="modifier" property="modifier" jdbcType="VARCHAR" />
+		<result column="modify_time" property="modify_time" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		a.t_Profile_ID,
+		a.t_Profile_CertificationCode, 
+		a.t_Profile_OrgName, 
+		a.t_Profile_Qualification, 
+		a.t_Profile_QualificationStatus,
+		a.t_Profile_Mobile,
+		a.t_Profile_Contact,
+		a.t_Profile_Email,
+		a.t_Profile_Address,
+		a.t_Profile_PostRet,
+		a.t_Profile_IPaddress,
+		a.t_Profile_StatusRptRetAddress,
+		a.t_Profile_CurrentAddress,
+		a.t_Profile_text1,
+		a.t_Profile_text2,
+		a.t_Profile_text3,
+		a.t_Profile_text4,
+		a.platform,
+		a.remark,
+		a.creator,
+		a.create_time,
+		a.modifier,
+		a.modify_time
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_organization_profile a
+		where a.t_Profile_ID = #{t_Profile_ID,jdbcType=VARCHAR}
+		order by a.create_time
+	</select>
+	
+	<select id="selectAgencyName" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_organization_profile a
+		where 
+		a.t_Profile_OrgName = #{t_Profile_OrgName,jdbcType=VARCHAR}
+		order by a.create_time
+	</select>
+	
+	
+	<select id="findSearchList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_organization_profile a
+		where
+		<if test="t_Profile_OrgName != null">
+		a.t_Profile_OrgName like CONCAT('%',#{t_Profile_OrgName},'%')
+		</if>	
+		<if test="t_Profile_Qualification != null">
+		and a.t_Profile_Qualification like CONCAT('%',#{t_Profile_Qualification},'%')
+		</if>	
+		<if test="t_Profile_QualificationStatus != null">
+		and a.t_Profile_QualificationStatus like CONCAT('%',#{t_Profile_QualificationStatus},'%')
+		</if>
+		<if test="remark != null">
+		and a.remark like CONCAT('%',#{remark},'%')
+		</if>
+		<if test="t_Profile_IPaddress != null">
+		and a.t_Profile_IPaddress like CONCAT('%',DATE(#{t_Profile_IPaddress}),'%')
+		</if>
+		order by create_time
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from t_organization_profile
+		where t_Profile_ID = #{t_Profile_ID,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="insertSelective" parameterType="com.qucai.sample.entity.OrganizationProfile">
+		insert into t_organization_profile
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="t_Profile_ID != null">
+                t_Profile_ID,
+			</if>
+			<if test="t_Profile_CertificationCode != null">
+                t_Profile_CertificationCode,
+			</if>
+			<if test="t_Profile_OrgName != null">
+                t_Profile_OrgName,
+			</if>
+			<if test="t_Profile_Qualification != null">
+                t_Profile_Qualification,
+			</if>
+			<if test="t_Profile_QualificationStatus != null">
+                t_Profile_QualificationStatus,
+			</if>
+			<if test="t_Profile_Mobile != null">
+                t_Profile_Mobile,
+			</if>
+			<if test="t_Profile_Contact != null">
+                t_Profile_Contact,
+			</if>
+			<if test="t_Profile_Email != null">
+                t_Profile_Email,
+			</if>
+			<if test="t_Profile_Address != null">
+                t_Profile_Address,
+			</if>
+			<if test="t_Profile_PostRet != null">
+                t_Profile_PostRet,
+			</if>
+			<if test="t_Profile_IPaddress != null">
+                t_Profile_IPaddress,
+			</if>
+			<if test="t_Profile_StatusRptRetAddress != null">
+                t_Profile_StatusRptRetAddress,
+			</if>
+			<if test="t_Profile_CurrentAddress != null">
+                t_Profile_CurrentAddress,
+			</if>
+            <if test="t_Profile_text1 != null">
+                t_Profile_text1,
+            </if>
+            <if test="t_Profile_text2 != null">
+                t_Profile_text2,
+            </if>
+            <if test="t_Profile_text3 != null">
+                t_Profile_text3,
+            </if>
+            <if test="t_Profile_text4 != null">
+                t_Profile_text4,
+            </if>
+			<if test="platform != null">
+				platform,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="creator != null">
+				creator,
+			</if>
+			<if test="create_time != null">
+				create_time,
+			</if>
+			<if test="modifier != null">
+				modifier,
+			</if>
+			<if test="modify_time != null">
+				modify_time
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="t_Profile_ID != null">
+				#{t_Profile_ID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_CertificationCode != null">
+				#{t_Profile_CertificationCode,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_OrgName != null">
+				#{t_Profile_OrgName,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_Qualification != null">
+				#{t_Profile_Qualification,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_QualificationStatus != null">
+				#{t_Profile_QualificationStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_Mobile != null">
+				#{t_Profile_Mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_Contact != null">
+				#{t_Profile_Contact,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_Email != null">
+				#{t_Profile_Email,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_Address != null">
+				#{t_Profile_Address,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_PostRet != null">
+				#{t_Profile_PostRet,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_IPaddress != null">
+				#{t_Profile_IPaddress,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_StatusRptRetAddress != null">
+				#{t_Profile_StatusRptRetAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_CurrentAddress != null">
+				#{t_Profile_CurrentAddress,jdbcType=VARCHAR},
+			</if>
+            <if test="t_Profile_text1 != null">
+                #{t_Profile_text1,jdbcType=VARCHAR},
+            </if>
+            <if test="t_Profile_text2 != null">
+                #{t_Profile_text2,jdbcType=VARCHAR},
+            </if>
+            <if test="t_Profile_text3 != null">
+                #{t_Profile_text3,jdbcType=VARCHAR},
+            </if>
+            <if test="t_Profile_text4 != null">
+                #{t_Profile_text4,jdbcType=VARCHAR},
+            </if>
+			<if test="platform != null">
+				#{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				#{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="create_time != null">
+				#{create_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifier != null">
+				#{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="modify_time != null">
+				#{modify_time,jdbcType=TIMESTAMP}
+			</if>
+		</trim>
+	</insert>
+	
+	<select id="findAllList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_organization_profile a
+		where 1=1
+		<if test="typeEnd != null">
+			<![CDATA[ and type <= #{typeEnd} ]]>
+		</if>
+		order by a.create_time
+	</select>
+	
+   <select id="findAllName" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_organization_profile a
+		where
+       t_Profile_QualificationStatus = "on"
+		order by a.create_time
+	</select>
+
+<!-- 
+	<select id="findEntResourceGrantAllList" resultMap="ResourceGrantMap"
+		parameterType="java.lang.String">
+		SELECT
+			<include refid="Base_Column_List" />, 
+			(
+				SELECT
+					count(1)
+				FROM
+					tr_role_resource
+				WHERE
+					resource_id = a.id
+				AND role_id = #{roleId}
+			) AS selected
+		FROM
+			t_resource a
+		WHERE a.platform = 1
+		order by IFNULL(a.parent_id, ''), a.idx
+	</select>
+ -->			
+	<update id="updateByPrimaryKeySelective" parameterType="com.qucai.sample.entity.OrganizationProfile">
+		update t_organization_profile
+		<set>
+			<if test="t_Profile_ID != null">
+                t_Profile_ID = #{t_Profile_ID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_CertificationCode != null">
+                t_Profile_CertificationCode = #{t_Profile_CertificationCode,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_OrgName != null">
+                t_Profile_OrgName = #{t_Profile_OrgName,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_Qualification != null">
+                t_Profile_Qualification = #{t_Profile_Qualification,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_QualificationStatus != null">
+                t_Profile_QualificationStatus = #{t_Profile_QualificationStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_Mobile != null">
+                t_Profile_Mobile = #{t_Profile_Mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_Contact != null">
+                t_Profile_Contact = #{t_Profile_Contact,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_Email != null">
+                t_Profile_Email = #{t_Profile_Email,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_Address != null">
+                t_Profile_Address = #{t_Profile_Address,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_PostRet != null">
+                t_Profile_PostRet = #{t_Profile_PostRet,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_IPaddress != null">
+                t_Profile_IPaddress = #{t_Profile_IPaddress,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_StatusRptRetAddress != null">
+                t_Profile_StatusRptRetAddress = #{t_Profile_StatusRptRetAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_CurrentAddress != null">
+                t_Profile_CurrentAddress = #{t_Profile_CurrentAddress,jdbcType=VARCHAR},
+			</if>
+            <if test="t_Profile_text1 != null">
+                t_Profile_text1 = #{t_Profile_text1,jdbcType=VARCHAR},
+            </if>
+            <if test="t_Profile_text2 != null">
+                t_Profile_text2 = #{t_Profile_text2,jdbcType=VARCHAR},
+            </if>
+            <if test="t_Profile_text3 != null">
+                t_Profile_text3 = #{t_Profile_text3,jdbcType=VARCHAR},
+            </if>
+            <if test="t_Profile_text4 != null">
+                t_Profile_text4 = #{t_Profile_text4,jdbcType=VARCHAR},
+            </if>
+			<if test="platform != null">
+				platform = #{platform,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				creator = #{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="create_time != null">
+				create_time = #{create_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifier != null">
+				modifier = #{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="modify_time != null">
+				modify_time = #{modify_time,jdbcType=TIMESTAMP}
+			</if>
+		</set>
+		where t_Profile_OrgName = #{t_Profile_OrgName,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateByPymtswitch" parameterType="com.qucai.sample.entity.OrganizationProfile">
+		update t_organization_profile
+		<set>
+			<if test="t_O_OrgPayrollBankaccount != null">
+				t_O_OrgPayrollBankaccount = #{t_O_OrgPayrollBankaccount,jdbcType=VARCHAR},
+			</if>
+			<if test="platform != null">
+				platform = #{platform,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				creator = #{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="create_time != null">
+				create_time = #{create_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifier != null">
+				modifier = #{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="modify_time != null">
+				modify_time = #{modify_time,jdbcType=TIMESTAMP}
+			</if>
+		</set>
+		where t_Profile_OrgName = #{t_Profile_OrgName,jdbcType=VARCHAR}
+	</update>
+
+   <select id="existOrganizationProfileName" resultType="Integer"
+		parameterType="map">
+		select
+		count(1)
+		from t_organization_profile a
+		where a.t_Profile_ID = #{t_Profile_ID}
+    <if test="t_Profile_OrgName != null">
+		and a.t_Profile_OrgName = #{t_Profile_OrgName}
+    </if>
+	</select>
+	
+	<select id="findOrgName" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+        t_Profile_OrgName
+		from t_organization_profile a
+		where
+        a.t_Profile_OrgName = #{t_P_Company,jdbcType=VARCHAR}
+        <if test="t_Profile_IPaddress != null">
+			and a.t_Profile_IPaddress = #{t_Profile_IPaddress,jdbcType=VARCHAR}
+		</if>
+		UNION select DISTINCT t_P_Company from t_personal_info where t_P_VendorEmployeeName = #{t_P_Company,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="findOrgNameAgency" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		t_Profile_OrgName
+		from t_organization_profile a
+		where
+		a.t_O_listOrg = #{t_O_listOrg,jdbcType=VARCHAR}
+	</select>
+</mapper>
+ 

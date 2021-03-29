@@ -10,10 +10,10 @@
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="" name="description" />
     <meta content="" name="author" />
-    <script src="${ctx}/metronic/global/plugins/loading.js" type="text/javascript"></script>
+
     <#include "/common/cssResource.html">
     <#include "/common/jsResource.html">
-
+    <script src="${ctx}/metronic/global/plugins/loading.js" type="text/javascript"></script>
     <script type="text/javascript">
 
         $(document).ready(function() {
@@ -359,91 +359,48 @@
                 <table id="histxnlist" class="table table-bordered" id="historicalTxnQueryTable" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
                     <thead>
                     <tr>
-                        <@shiro.hasPermission name="TREASURYDBINFO_OVERVIEW">
-                        <th><input type="checkbox" name="SelectAll" id="SelectAll" onclick="checkAll(this)"></th>
-                    </@shiro.hasPermission>
-                    <th>交易单号</th>
-<<<<<<< HEAD
-                    <th>人名</th>
-=======
+                    <th>结算机构</th>
                     <th>姓名</th>
                     <th>身份证</th>
                     <th>银行卡号</th>
-                    <th>剩余额度</th>
-                    <th>日计费率</th>
-                    <th>平台使用费</th>
-                    <th>服务费</th>
-                    <th>区间费率</th>
-                    <th>姓名</th>
->>>>>>> main
-                    <th>身份证</th>
-                    <th>银行卡</th>
-                    <th>总交易额</th》
-                    <th>总实付金额</th>
-                    <th>总红利收费</th>
+                    <th>总交易额</th>
+                    <th>实际交易额</th>
+                    <th>总利息</th>
                     <th>总服务费</th>
                     <th>总手续费</th>
                     <th>总区间收费</th>
-                    <th>平台总收费</th>
+                    <th>总收费</th>
                     <th>总交易次数</th>
+                    <th>本轮授额</th>
                     <th>当前剩余额度</th>
                     <th>公司名</th>
-                    <th>代理商公司名</th>
-<<<<<<< HEAD
+                    <th>经销商名</th>
                     <th>起始日期</th>
                     <th>结束日期</th>
-=======
-                    <th>交易时间</th>
-                    <th>发薪日</th>
->>>>>>> main
                 </tr>
                 </thead>
                 <tbody>
                 <!-- <#list HistoricalTxnQuery as HistoricalTxnQuery> -->
-                <c:forEach var="HisTxn" items="${personalTxnStaticList.list}" varStatus="st">
+                <c:forEach var="HisTxn" items="${PersonalTxnStatic.list}" varStatus="st">
                     <tr>
-                        <@shiro.hasPermission name="TREASURYDBINFO_OVERVIEW">
-                        <div><i class="fa"></i></div>
-                        <td><input type="checkbox" name="ClearPaid" id="ClearPaid" value="${PersonalTxnStaticList.t_Txn_ClearDue_ID}" /></td>
-                    </@shiro.hasPermission>
-<<<<<<< HEAD
-                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;mso-number-format:'\@';"><div id="printID" value="${PersonalTxnStaticList.t_Txn_Static_PerName}">${PersonalTxnStaticList.t_Txn_Static_PerName}</div> </td>
-                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${PersonalTxnStaticList.t_Txn_Static_PerID}</td>
-                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${PersonalTxnStaticList.t_Txn_Static_PerCreditCard.toString()}</td>
-                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${PersonalTxnStaticList.t_Txn_Static_TotTxnAmt.toString()}</td>
-                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${PersonalTxnStaticList.t_Txn_Static_TotTxnActAmt.toString()}</td>
-                    <@shiro.hasPermission name="FINANCEPRODUCT_SEARCH">
-                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${PersonalTxnStaticList.t_Txn_Static_TotInterest.toString()}</td>
-                </@shiro.hasPermission>
-                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${PersonalTxnStaticList.t_Txn_Static_TotServiceFee.toString()}</td>
-                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${PersonalTxnStaticList.t_Txn_Static_TotPoundageFee.toString()}</td>
-                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${PersonalTxnStaticList.t_Txn_Static_TotTierFee.toString()}</td>
-                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${PersonalTxnStaticList.t_Txn_Static_TotChargeFee}</td>
-                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;mso-number-format:'\@';">${PersonalTxnStaticList.t_Txn_Static_TotTxnCount}
-                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;mso-number-format:'\@';">${PersonalTxnStaticList.t_P_NetMonthlyBonusAmount_his}</td>
-                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;mso-number-format:'\@';">${PersonalTxnStaticList.t_Txn_Static_Company}</td>
-                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${PersonalTxnStaticList.t_Txn_Static_VendorCompany}</td>
-                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${PersonalTxnStaticList.t_Txn_Static_BeginDate?string("yyyy-MM-dd HH:mm:ss")}</td>
-                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${PersonalTxnStaticList.t_Txn_Static_EndDate?string("yyyy-MM-dd HH:mm:ss")}</td>
-=======
-                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;mso-number-format:'\@';"><div id="printID" value="${personalTxnStaticList.t_Txn_Static_PerName}">${personalTxnStaticList.t_Txn_Static_PerName}</div> </td>
-                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalTxnStaticList.t_Txn_Static_PerID}</td>
-                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${personalTxnStaticList.t_Txn_Static_PerCreditCard.toString()}</td>
-                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${personalTxnStaticList.t_Txn_Static_TotTxnAmt.toString()}</td>
-                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${personalTxnStaticList.t_Txn_Static_TotTxnActAmt.toString()}</td>
-                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalTxnStaticList.t_Txn_Static_TotInterest.toString()}</td>
-                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${personalTxnStaticList.t_Txn_Static_TotServiceFee.toString()}</td>
-                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${personalTxnStaticList.t_Txn_Static_TotPoundageFee.toString()}</td>
-                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${personalTxnStaticList.t_Txn_Static_TotTierFee.toString()}</td>
-                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${personalTxnStaticList.t_Txn_Static_TotChargeFee.toString()}</td>
-                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;mso-number-format:'\@';">&yen${personalTxnStaticList.t_Txn_Static_TotTxnCount.toString()}</td>
-                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${personalTxnStaticList.t_Txn_Static_CurrentCredit.toString()}</td>
-                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;mso-number-format:'\@';">&yen${personalTxnStaticList.t_Txn_Static_CurrentBalance.toString()}</td>
-                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;mso-number-format:'\@';">&yen${personalTxnStaticList.t_Txn_Static_Company}</td>
-                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${personalTxnStaticList.t_Txn_Static_VendorCompany}</td>
-                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${personalTxnStaticList.t_Txn_Static_BeginDate?string("yyyy-MM-dd HH:mm:ss")}</td>
-                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${personalTxnStaticList.t_Txn_Static_EndDate?string("yyyy-MM-dd HH:mm:ss")}</td>
->>>>>>> main
+                        <td name="ClearPaid" id="ClearPaid" value="${PersonalTxnStatic.t_Txn_Static_Clear_his}" >${PersonalTxnStatic.t_Txn_Static_Clear_his}</td>
+                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;mso-number-format:'\@';"><div id="printID" value="${PersonalTxnStatic.t_Txn_Static_PerName}">${PersonalTxnStatic.t_Txn_Static_PerName}</div> </td>
+                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${PersonalTxnStatic.t_Txn_Static_PerID}</td>
+                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${PersonalTxnStatic.t_Txn_Static_PerCreditCard.toString()}</td>
+                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${PersonalTxnStatic.t_Txn_Static_TotTxnAmt.toString()}</td>
+                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${PersonalTxnStatic.t_Txn_Static_TotTxnActAmt.toString()}</td>
+                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${PersonalTxnStatic.t_Txn_Static_TotInterest.toString()}</td>
+                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${PersonalTxnStatic.t_Txn_Static_TotServiceFee.toString()}</td>
+                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${PersonalTxnStatic.t_Txn_Static_TotPoundageFee.toString()}</td>
+                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${PersonalTxnStatic.t_Txn_Static_TotTierFee.toString()}</td>
+                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${PersonalTxnStatic.t_Txn_Static_TotChargeFee}</td>
+                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;mso-number-format:'\@';">{PersonalTxnStatic.t_Txn_Static_TotTxnCount}</td>
+                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${PersonalTxnStatic.t_Txn_Static_CurrentCredit.toString()}</td>
+                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;mso-number-format:'\@';">&yen${PersonalTxnStatic.t_Txn_Static_CurrentBalance.toString()}</td>
+                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;mso-number-format:'\@';">{PersonalTxnStatic.t_Txn_Static_Company}</td>
+                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">{PersonalTxnStatic.t_Txn_Static_VendorCompany}</td>
+                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">{PersonalTxnStatic.t_Txn_Static_BeginDate?string("yyyy-MM-dd HH:mm:ss")}</td>
+                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">{PersonalTxnStatic.t_Txn_Static_EndDate?string("yyyy-MM-dd HH:mm:ss")}</td>
                 </tr>
                 </c:forEach>
                 <!-- </#list>  -->

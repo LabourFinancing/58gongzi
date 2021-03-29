@@ -3,6 +3,8 @@ package com.qucai.sample.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import com.qucai.sample.vo.CompanyTxnAmtWlyStatic;
+import com.qucai.sample.vo.CompanyTxnStatic;
 import com.qucai.sample.vo.PersonalTxnStatic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -79,8 +81,16 @@ public class HistoricalTxnQueryServiceImpl implements HistoricalTxnQueryService 
     public int  MarkFailedPayment(String OrderCode){
         return  historicalTxnQueryDao.MarkFailedPayment(OrderCode);
     }
-    
 
+    @Override
+    public List<CompanyTxnAmtWlyStatic> SearchCompanyTxnStaticAmtWly(Map<String, Object> paramMap) {
+        return historicalTxnQueryDao.SearchCompanyTxnStaticAmtWly(paramMap);
+    }
+
+    @Override
+    public List<CompanyTxnStatic> SearchCompanyTxnStaticAmtDaily(Map<String, Object> paramMap) {
+        return historicalTxnQueryDao.SearchCompanyTxnStaticAmtDaily(paramMap);
+    }
     /*
     public List<HistoricalTxnQuery> findTreetableList(Map<String, Object> paramMap) {
         List<HistoricalTxnQuery> rList = historicalTxnQueryDao.findAllList(paramMap);

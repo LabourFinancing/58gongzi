@@ -167,9 +167,51 @@
       a.modifier_P_his,
       a.modify_time_P_his
 	</sql>
+
+    <resultMap id="companyTxnStaticMap" type="com.qucai.sample.vo.CompanyTxnStatic">
+        <result column="t_CTxn_Static_CompanyName" property="t_CTxn_Static_CompanyName" jdbcType="VARCHAR" />
+        <result column="t_CTxn_Static_CompanyNameID" property="t_CTxn_Static_CompanyNameID" jdbcType="VARCHAR" />
+        <result column="t_CTxn_Static_TotTxnAmtDaily;" property="t_CTxn_Static_TotTxnAmtDaily" jdbcType="DECIMAL" />
+        <result column="t_CTxn_Static_TotTxnCountDaily" property="t_CTxn_Static_TotTxnCountDaily" jdbcType="INTEGER" />
+        <result column="t_CTxn_WIP_Txn" property="t_CTxn_WIP_Txn" jdbcType="DECIMAL" />
+        <result column="t_CTxn_Succ_Txn" property="t_CTxn_Succ_Txn" jdbcType="DECIMAL" />
+        <result column="t_CTxn_TopupAmtDaily" property="t_CTxn_TopupAmtDaily" jdbcType="DECIMAL" />
+        <result column="t_CTxn_Fail_Txn" property="t_CTxn_Fail_Txn" jdbcType="DECIMAL" />
+    </resultMap>
+    
+    <sql id="Base_CompanyStaticDaily_List">	
+        t_CTxn_Static_CompanyName,
+        t_CTxn_Static_CompanyNameID,
+        t_CTxn_Static_TotTxnAmtDaily,
+        t_CTxn_Static_TotTxnCountDaily,
+        t_CTxn_WIP_Txn,
+        t_CTxn_Succ_Txn,
+        t_CTxn_TopupAmtDaily,
+        t_CTxn_Fail_Txn
+    </sql>
+
+    <resultMap id="companyTxnCntStaticWlyMap" type="com.qucai.sample.vo.CompanyTxnCntWlyStatic">
+        <result column="Static_date" property="Static_date" jdbcType="VARCHAR" />
+        <result column="t_CTxn_Static_day1" property="t_CTxn_Static_day1" jdbcType="INTEGER" />
+    </resultMap>
+    
+    <sql id="Base_CompanyStaticCountWly_List">	
+        Static_date,
+        t_CTxn_Static_day1
+    </sql>
+
+    <resultMap id="companyTxnAmtStaticWlyMap" type="com.qucai.sample.vo.CompanyTxnAmtWlyStatic">
+        <result column="Static_date" property="Static_date" jdbcType="VARCHAR" />
+        <result column="t_CTxnAmt_Static_day1" property="t_CTxnAmt_Static_day1" jdbcType="DECIMAL" />
+    </resultMap>
+    
+    <sql id="Base_CompanyStaticAmtWly_List">	
+        Static_date,
+        t_CTxnAmt_Static_day1
+	</sql>
 	
-	
-	<resultMap id="personalTxnStatisSearch" type="com.qucai.sample.vo.PersonalTxnStatic">
+	<resultMap id="personalTxnStaticMap" type="com.qucai.sample.vo.PersonalTxnStatic">
+           <result column="t_Txn_Static_Clear_his" property="t_Txn_Static_Clear_his" jdbcType="VARCHAR" />
 	       <result column="t_Txn_Static_PerName" property="t_Txn_Static_PerName" jdbcType="VARCHAR" />	
 	       <result column="t_Txn_Static_PerID;" property="t_Txn_Static_PerID" jdbcType="VARCHAR" />	
 	       <result column="t_Txn_Static_PerCreditCard" property="t_Txn_Static_PerCreditCard" jdbcType="VARCHAR" />	
@@ -180,53 +222,137 @@
 	       <result column="t_Txn_Static_TotPoundageFee" property="t_Txn_Static_TotPoundageFee" jdbcType="DECIMAL" />	
 	       <result column="t_Txn_Static_TotTierFee" property="t_Txn_Static_TotTierFee" jdbcType="DECIMAL" />	
 	       <result column="t_Txn_Static_TotChargeFee" property="t_Txn_Static_TotChargeFee" jdbcType="DECIMAL" />	
-	       <result column="t_Txn_Static_TotTxnCount" property="t_Txn_Static_TotTxnCount" jdbcType="INTEGER" />	
-	       <result column="t_Txn_Static_Company" property="t_Txn_Static_Company" jdbcType="VARCHAR" />
+	       <result column="t_Txn_Static_TotTxnCount" property="t_Txn_Static_TotTxnCount" jdbcType="INTEGER" />
+        <result column="t_Txn_Static_CurrentCredit" property="t_Txn_Static_CurrentCredit" jdbcType="DECIMAL" />
+        <result column="t_Txn_Static_CurrentBalance" property="t_Txn_Static_CurrentBalance" jdbcType="DECIMAL" />
+        <result column="t_Txn_Static_Company" property="t_Txn_Static_Company" jdbcType="VARCHAR" />
 	       <result column="t_Txn_Static_VendorCompany" property="t_Txn_Static_VendorCompany" jdbcType="VARCHAR" />	
 	       <result column="t_Txn_Static_BeginDate" property="t_Txn_Static_BeginDate" jdbcType="TIMESTAMP" />	
 	       <result column="t_Txn_Static_EndDate" property="t_Txn_Static_EndDate" jdbcType="TIMESTAMP" />
 	</resultMap>
-	
-	<select id="SearchPersonalTxnStatic" resultMap="personalTxnStatisSearch">
-		select
-		t_Txn_PrepayApplierName_his,
-		t_Txn_PrepayApplierPID_his,
-		t_Txn_BankAcc_his,
-		SUM(t_Txn_ApplyPrepayAmount_his),
-		SUM(t_Txn_TotalPrepayNum_his),
-		SUM(t_Txn_Interest_his),
-		SUM(t_Txn_ServiceFee_his),
-		SUM(t_Txn_Poundage_his),
-		SUM(t_Txn_TierPoundage_his),
-		SUM(t_Txn_Interest_his)+sum(t_Txn_ServiceFee_his)+sum(t_Txn_Poundage_his)+sum(t_Txn_TierPoundage_his),	
-		COUNT(t_Txn_Num_his),
-		t_P_CreditPrepaySalaryAmount_his,
-		t_P_NetMonthlyBonusAmount_his,
-		t_P_Company_his,
-		t_P_VendorEmployment_his,
-		#{begin_date},
-		#{end_date}
-		from t_transaction_his a
-		where 
-		a.t_Txn_PrepayDate_his
-		between #{begin_date} and #{end_date}
-		<if test="t_Txn_PrepayApplierName_his != null">
-		 and a.t_Txn_PrepayApplierName_his LIKE CONCAT('%',#{t_Txn_PrepayApplierName_his},'%')
-		</if>
-		<if test="t_Txn_PrepayClear_his != 'ALL' and t_Txn_PrepayClear_his != null">
-		 and a.t_Txn_PrepayClear_his = #{t_Txn_PrepayClear_his,jdbcType=VARCHAR}
-		</if>
-		<if test="t_Txn_ProdName_his != null">
-		 and a.t_Txn_ProdName_his LIKE CONCAT('%',#{t_Txn_ProdName_his},'%')
-		</if>
-		<if test="t_P_Company_his != 'ALL' and t_P_Company_his != null">
-		 and a.t_P_Company_his LIKE CONCAT('%',#{t_P_Company_his},'%')
-		</if>
-		<if test="t_P_VendorEmployeeName_his != null and t_P_VendorEmployeeName_his != 'ALL' ">
-		 and a.t_P_VendorEmployeeName_his LIKE CONCAT('%',#{t_P_VendorEmployeeName_his},'%')
-		</if>
-		GROUP BY a.t_Txn_PrepayApplierName_his
-	</select>
+
+    <sql id="Base_Static_List">	
+      t_Txn_Static_Clear_his,
+      t_Txn_Static_PerName,
+      t_Txn_Static_PerID,
+      t_Txn_Static_PerCreditCard,
+      t_Txn_Static_TotTxnAmt,
+      t_Txn_Static_TotTxnActAmt,
+      t_Txn_Static_TotInterest,
+      t_Txn_Static_TotServiceFee,
+      t_Txn_Static_TotPoundageFee,
+      t_Txn_Static_TotTierFee,
+      t_Txn_Static_TotChargeFee,
+      t_Txn_Static_TotTxnCount,
+      t_Txn_Static_CurrentCredit,
+      t_Txn_Static_CurrentBalance,
+      t_Txn_Static_Company,
+      t_Txn_Static_VendorCompany,
+      t_Txn_Static_BeginDate,
+      t_Txn_Static_EndDate
+	</sql>
+    
+    
+    <select id="SearchPersonalTxnStatic" resultMap="personalTxnStaticMap" parameterType="java.lang.String" >
+        select
+        t_Txn_ClearOrg_his as t_Txn_Static_Clear_his,
+        t_Txn_PrepayApplierName_his as t_Txn_Static_PerName,
+        t_Txn_PrepayApplierPID_his as t_Txn_Static_PerID,
+        t_Txn_BankAcc_his as t_Txn_Static_PerCreditCard,
+        SUM(t_Txn_ApplyPrepayAmount_his) as t_Txn_Static_TotTxnAmt,
+        SUM(t_Txn_TotalPrepayNum_his) as t_Txn_Static_TotTxnActAmt,
+        SUM(t_Txn_Interest_his) as t_Txn_Static_TotInterest,
+        SUM(t_Txn_ServiceFee_his) as t_Txn_Static_TotServiceFee,
+        SUM(t_Txn_Poundage_his) as t_Txn_Static_TotPoundageFee,
+        SUM(t_Txn_TierPoundage_his) as t_Txn_Static_TotTierFee,
+        (SUM(t_Txn_Interest_his)+sum(t_Txn_ServiceFee_his)+sum(t_Txn_Poundage_his)+sum(t_Txn_TierPoundage_his)) as t_Txn_Static_TotChargeFee,
+        COUNT(t_Txn_Num_his) as t_Txn_Static_TotTxnCount,
+        t_P_CreditPrepaySalaryAmount_his as t_Txn_Static_CurrentCredit,
+        t_P_NetMonthlyBonusAmount_his as t_Txn_Static_CurrentBalance,
+        t_P_Company_his as t_Txn_Static_Company,
+        t_P_VendorEmployment_his as t_Txn_Static_VendorCompany,
+        #{begin_date} as t_Txn_Static_BeginDate,
+        #{end_date} as t_Txn_Static_EndDate
+        from t_transaction_his a
+        where
+        a.t_Txn_PrepayDate_his
+        between #{begin_date} and #{end_date}
+        <if test="t_Txn_PrepayApplierName_his != null">and a.t_Txn_PrepayApplierName_his LIKE
+            CONCAT('%',#{t_Txn_PrepayApplierName_his},'%')
+        </if>
+        <if test="t_Txn_PrepayClear_his != 'ALL' and t_Txn_PrepayClear_his != null">and a.t_Txn_PrepayClear_his =
+            #{t_Txn_PrepayClear_his,jdbcType=VARCHAR}
+        </if>
+        <if test="t_Txn_ProdName_his != null">
+            and a.t_Txn_ProdName_his LIKE CONCAT('%',#{t_Txn_ProdName_his},'%')
+        </if>
+        <if test="t_P_Company_his != 'ALL' and t_P_Company_his != null">
+            and a.t_P_Company_his LIKE CONCAT('%',#{t_P_Company_his},'%')
+        </if>
+        <if test="t_P_VendorEmployeeName_his != null and t_P_VendorEmployeeName_his != 'ALL' ">
+            and a.t_P_VendorEmployeeName_his LIKE CONCAT('%',#{t_P_VendorEmployeeName_his},'%')
+        </if>
+        GROUP BY a.t_Txn_PrepayApplierName_his
+    </select>
+
+    <select id="SearchCompanyTxnStaticAmtDaily" resultMap="companyTxnStaticMap" parameterType="java.util.Map" >
+		select t_CTxn_Static_CompanyName,t_CTxn_Static_TotTxnAmtDaily,t_CTxn_Static_TotTxnCountDaily,t_CTxn_Fail_Txn
+		from (
+		select t_P_Company_his as t_CTxn_Static_CompanyName, sum(t_Txn_ApplyPrepayAmount_his) as t_CTxn_Static_TotTxnAmtDaily, count(t_Txn_ApplyPrepayAmount_his) as t_CTxn_Static_TotTxnCountDaily
+		from t_transaction_his where t_P_Company_his =  #{t_P_Company,jdbcType=VARCHAR} and t_transaction_his.create_time_his
+  	    between date_sub(CURDATE(),interval 1 day) and CURDATE()
+		) a left join (
+		select company,count(tranAmt) as t_CTxn_Fail_Txn from t_payment_list  where company =  #{t_P_Company,jdbcType=VARCHAR} and t_payment_list.tranTime
+		between date_sub(CURDATE(),interval 1 day) and CURDATE()
+		) b on a.t_CTxn_Static_CompanyName = b.company
+    </select>
+
+    <select id="SearchCompanyTxnStaticAmtWly" resultMap="companyTxnAmtStaticWlyMap" parameterType="java.util.Map" >
+        select a.date as Static_date,ifnull(b.sum,0) as t_CTxnAmt_Static_day1
+        from (
+            SELECT curdate() as date
+            union all
+            SELECT date_sub(curdate(), interval 1 day) as click_date
+            union all
+            SELECT date_sub(curdate(), interval 2 day) as click_date
+            union all
+            SELECT date_sub(curdate(), interval 3 day) as click_date
+            union all
+            SELECT date_sub(curdate(), interval 4 day) as click_date
+            union all
+            SELECT date_sub(curdate(), interval 5 day) as click_date
+            union all
+            SELECT date_sub(curdate(), interval 6 day) as click_date
+        ) a left join (
+          select date(create_time_his) as createdate, SUM(t_transaction_his.t_Txn_ApplyPrepayAmount_his) as sum
+          from t_transaction_his where t_P_Company_his = #{t_P_Company,jdbcType=VARCHAR}
+          group by date(create_time_his)
+        ) b on a.date = b.createdate
+    </select>
+
+    <select id="SearchCompanyTxnStaticCntWly" resultMap="companyTxnCntStaticWlyMap" parameterType="java.util.Map" >
+        select a.date as Static_date_cnt,ifnull(b.sum,0) as t_CTxnCnt_Static_day1
+        from (
+            SELECT curdate() as date
+            union all
+            SELECT date_sub(curdate(), interval 1 day) as click_date
+            union all
+            SELECT date_sub(curdate(), interval 2 day) as click_date
+            union all
+            SELECT date_sub(curdate(), interval 3 day) as click_date
+            union all
+            SELECT date_sub(curdate(), interval 4 day) as click_date
+            union all
+            SELECT date_sub(curdate(), interval 5 day) as click_date
+            union all
+            SELECT date_sub(curdate(), interval 6 day) as click_date
+        ) a left join (
+          select date(create_time_his) as createdate, count(t_transaction_his.t_Txn_ApplyPrepayAmount_his) as count
+          from t_transaction_his where t_P_Company_his = #{t_P_Company,jdbcType=VARCHAR}
+          group by date(create_time_his)
+        ) b on a.date = b.createdate
+    </select>
+
 	
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.String">
@@ -447,6 +573,60 @@
 		WHERE a.platform = 1
 		order by IFNULL(a.parent_id, ''), a.idx
 	</select>
+	
+	
+	
+	select a.date,ifnull(b.count,0) as count
+from (
+    SELECT curdate() as date
+    union all
+    SELECT date_sub(curdate(), interval 1 day) as click_date
+    union all
+    SELECT date_sub(curdate(), interval 2 day) as click_date
+    union all
+    SELECT date_sub(curdate(), interval 3 day) as click_date
+    union all
+    SELECT date_sub(curdate(), interval 4 day) as click_date
+    union all
+    SELECT date_sub(curdate(), interval 5 day) as click_date
+    union all
+    SELECT date_sub(curdate(), interval 6 day) as click_date
+) a left join (
+  select date(create_time_his) as createdate, count(*) as count
+  from t_transaction_his
+  group by date(create_time_his)
+) b on a.date = b.createdate;
+
+select a.date,ifnull(b.sum,0) as sum
+from (
+    SELECT curdate() as date
+    union all
+    SELECT date_sub(curdate(), interval 1 day) as click_date
+    union all
+    SELECT date_sub(curdate(), interval 2 day) as click_date
+    union all
+    SELECT date_sub(curdate(), interval 3 day) as click_date
+    union all
+    SELECT date_sub(curdate(), interval 4 day) as click_date
+    union all
+    SELECT date_sub(curdate(), interval 5 day) as click_date
+    union all
+    SELECT date_sub(curdate(), interval 6 day) as click_date
+) a left join (
+  select date(create_time_his) as createdate, SUM(t_transaction_his.t_Txn_ApplyPrepayAmount_his) as sum
+  from t_transaction_his
+  group by date(create_time_his)
+) b on a.date = b.createdate;
+
+				select t_CTxn_Static_CompanyName,t_CTxn_Static_TotTxnAmtDaily,t_CTxn_Static_TotTxnCountDaily,t_CTxn_Fail_Txn
+				from (
+				select t_P_Company_his as t_CTxn_Static_CompanyName, sum(t_Txn_ApplyPrepayAmount_his) as t_CTxn_Static_TotTxnAmtDaily, count(t_Txn_ApplyPrepayAmount_his) as t_CTxn_Static_TotTxnCountDaily
+				from t_transaction_his where t_P_Company_his = "美团买菜" and t_transaction_his.create_time_his
+  			between date_sub(CURDATE(),interval 1 day) and CURDATE()
+				) a left join (
+				select company,count(tranAmt) as t_CTxn_Fail_Txn from t_payment_list  where company = "美团买菜" and t_payment_list.tranTime
+				between date_sub(CURDATE(),interval 1 day) and CURDATE()
+				) b on a.t_CTxn_Static_CompanyName = b.company
  -->			
 </mapper>
  

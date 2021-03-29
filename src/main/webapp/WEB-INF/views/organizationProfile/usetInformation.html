@@ -14,7 +14,46 @@
     <link rel="stylesheet" href="${ctx}/metronic/mobile/css/bootstrap.min.css">
     <!-- <link rel="stylesheet" href="/metronic/mobile/css/bootstrap-datepicker3.min.css"> -->
     <link href="${ctx}/metronic/new_modules/bootstrap-datetimepicker.min.css" rel="stylesheet">
-
+    <script type="application/javascript">
+        function EditSubmitted() {
+            $.ajax({
+                url: "${ctx}/OrganizationProfileController/Editinfo?t_Profile_StatusRptRetAddress=" + $("#t_Profile_StatusRptRetAddress").val() +
+                    "&t_Profile_IPaddress=" + $("#t_Profile_IPaddress").val() +
+                    "&t_Profile_Mobile=" + $("#t_Profile_Mobile").val() +
+                    "&t_Profile_Email=" + $("#t_Profile_Email").val() +
+                    "&t_Profile_Address=" + $("#t_Profile_Address").val() +
+                    "&t_Profile_Contact=" + $("#t_Profile_Contact").val() +
+                    "&t_Profile_PostRet=" + $("#t_Profile_PostRet").val() +
+                    "&t_Profile_CurrentAddress=" + $("#t_Profile_CurrentAddress").val(),         
+                type: 'POST',
+                async: true,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(dataFP) {
+                    kickoutcheck(dataFP);
+                    var result = eval("(" + dataFP + ")");
+                    if(result.ret == "0" && result.t_Txn_CreditPrepayBalanceNum >= 0) {
+                        $("#t_Prepay_ServiceFee_Total").val(result.t_Prepay_ServiceFee_Total);
+                        if (result.chargeFeeCat == "a"){
+                            var t_Txn_ApplyPrepayAmount_c = document.getElementById('t_Txn_ApplyPrepayAmount').value;
+                            var t_P_CreditPrepaySalaryAmount_c = t_Txn_ApplyPrepayAmount_c - result.t_Prepay_ServiceFee_Total;
+                            $("#t_P_CreditPrepaySalaryAmount_c").val(t_P_CreditPrepaySalaryAmount_c);
+                        }else{
+                            $("#t_P_CreditPrepaySalaryAmount_c").val(t_Txn_ApplyPrepayAmount_c);
+                        }
+                    } else if
+                    (result.ret == "-1" && result.Amtlimit >= 0) {
+                        $.toptip("单笔超限额,请重新输入,单笔不能超过:￥"+ result.Amtlimit +"元","error");
+                    } else {
+                        $.toptip('请输入有效数额,或您的当月支取额度已用完', 'error');
+                    }
+                },
+                error: function(dataFP) {
+                }
+            });
+        }
+    </script>
     <style type="text/css">
         @keyframes resizeanim {
             from {
@@ -92,7 +131,6 @@
             <div>
                 <div id="layout" class="layout-wrap relative" style="min-height: 602px;">
                     <div class="page-user-info">
-                        
                         <div class="clearfix top-nav">
                             <a href="javascript:;" onclick="topTap(1)" id="fl1"
                                 class="fl router-link-exact-active router-link-active">基本信息</a>
@@ -103,54 +141,51 @@
                                 <div class="col col-24 col-xs-8 col-sm-8 col-md-8 col-lg-8" xl="8">
                                     <div>
                                         <div class="clearfix item">
-                                            <div class="title"><span>子&nbsp;帐&nbsp;户&nbsp;ID</span>:</div>
-                                            <div class="desc">${organizationInfoDetail.t_O_ID}</div>
+                                            <div class="title"><span>子&nbsp;帐&nbsp;户&nbsp;ID</span>:</div><div class="desc">${organizationProfileDetail.t_Profile_ID}</div>
                                         </div>
                                         <div class="clearfix item">
                                             <div class="title"><span>企业名称</span>:</div>
-                                            <div class="desc none_div">${organizationInfoDetail.t_O_OrgName} </div>
-                                            <input type="text" class="input none_input input-md fl yzm mr30 code"
-                                                style="display: none;">
+                                            <div class="desc">${organizationProfileDetail.t_Profile_OrgName} </div> 
                                         </div>
                                         <div class="clearfix item">
                                             <div class="title char4"><span>账户状态</span>:</div>
-                                            <div class="desc">${organizationInfoDetail.t_O_OrgStatus}</div>
+                                            <div class="desc">${organizationProfileDetail.t_Profile_Qualification}</div>
                                         </div>
                                         <div class="clearfix item char4">
                                             <div class="title"><span>认证状态</span>:</div>
-                                            <div class="desc">${organizationInfoDetail.t_O_OrgPending}</div>
+                                            <div class="desc">${organizationProfileDetail.t_Profile_CertificationCode}</div>
                                         </div>
                                         <div class="clearfix item char4">
                                             <div class="title"><span>认证时间</span>:</div>
-                                            <div class="desc">${organizationInfoDetail.modify_time?string("yyyy-MM-dd HH:mm:ss")}</div>
+                                            <div class="desc">${organizationProfileDetail.create_time?string("yyyy-MM-dd HH:mm:ss")}</div>
                                         </div>
                                         <div class="clearfix item char4">
                                             <div class="title"><span>手机号码</span>:</div>
-                                            <div class="desc none_div"> </div><input type="text"
+                                            <div class="desc none_div">${organizationProfileDetail.t_Profile_Mobile} </div><input id="t_Profile_Mobile" name="t_Profile_Mobile" type="text"
                                                 class="input none_input input-md fl yzm mr30 code"
                                                 style="display: none;">
                                         </div>
                                         <div class="clearfix item">
                                             <div class="title char4"><span>邮<i class="fff">占位</i>箱</span>:</div>
-                                            <div class="desc none_div"> </div><input type="text"
+                                            <div class="desc none_div">${organizationProfileDetail.t_Profile_Email} </div><input id="t_Profile_Email" name="t_Profile_Email" type="text"
                                                 class="input none_input input-md fl yzm mr30 code"
                                                 style="display: none;">
                                         </div>
                                         <div class="clearfix item">
                                             <div class="title char4"><span>公司地址</span>:</div>
-                                            <div class="desc none_div"><span class="address"> </span></div><input
-                                                type="text" class="input none_input input-md fl yzm mr30 code"
+                                            <div class="desc none_div"><span class="address">${organizationProfileDetail.t_Profile_Address} </span></div><input
+                                                id="t_Profile_Address" name="t_Profile_Address" type="text" class="input none_input input-md fl yzm mr30 code"
                                                 style="display: none;">
                                         </div>
                                         <div class="clearfix item">
-                                            <div class="title char4"><span>公司名称</span>:</div>
-                                            <div class="desc none_div">${organizationInfoDetail.t_O_OrgName}</div><input type="text"
+                                            <div class="title char4"><span>公司联系人</span>:</div>
+                                            <div class="desc none_div">${organizationProfileDetail.t_Profile_Contact}</div><input id="t_Profile_Contact" name="t_Profile_Contact" type="text"
                                                 class="input none_input input-md fl yzm mr30 code"
                                                 style="display: none;">
                                         </div>
                                         <div class="clearfix item">
                                             <div class="title char4"><span>用户等级</span>:</div>
-                                            <div class="desc">${organizationInfoDetail.t_O_Category}</div>
+                                            <div class="desc">${organizationProfileDetail.t_Profile_QualificationStatus}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -161,14 +196,11 @@
                                             <div class="title char4"><span>是否需要状态报告</span>:</div>
                                             <div class="desc  none_div">不获取</div>
                                             <div class=" none_input select border usertype_a" style="display: none;">
-                                                
                                                 <div class="input ">
                                                     <i class="input__icon icon-caret-top"></i><input
                                                         autocomplete="off" placeholder="请选择" readonly="readonly"
                                                         icon="caret-top" type="text" rows="2"
                                                         class="input__inner usertype_a_a">
-                                                    
-                                                    
                                                 </div>
                                                 <div class="select-dropdown usertype_a_b" style="display: none;">
                                                     <div class="scrollbar" style="">
@@ -269,7 +301,7 @@
                                         </div>
                                         <div class="clearfix item">
                                             <div class="title char4"><span>创建时间</span>:</div>
-                                            <div class="desc">2020-10-09 14:27:55</div>
+                                            <div class="desc">${organizationProfileDetail.create_time?string("yyyy-MM-dd HH:mm:ss")}</div>
                                         </div>
                                         <div class="clearfix item">
                                             <div class="title char4"><span>验证IP</span>:</div>
@@ -277,13 +309,13 @@
                                         </div>
                                         <div class="clearfix item">
                                             <div class="title char4"><span>状态报告回调地址</span>:</div>
-                                            <div class="desc none_div"></div><input type="text"
+                                            <div class="desc none_div"></div><input id="t_Profile_StatusRptRetAddress" name="t_Profile_StatusRptRetAddress" type="text"
                                                 class="input none_input input-md fl yzm mr30 code"
                                                 style="display: none;">
                                         </div>
                                         <div class="clearfix item">
                                             <div class="title char4"><span>上行回调地址</span>:</div>
-                                            <div class="desc none_div"></div><input type="text"
+                                            <div class="desc none_div"></div><input id="t_Profile_IPaddress" name="t_Profile_IPaddress" type="text"
                                                 class="input none_input input-md fl yzm mr30 code"
                                                 style="display: none;">
                                         </div>
@@ -308,11 +340,11 @@
                                 <div class="col col-24 col-xs-8 col-sm-8 col-md-8 col-lg-8" xl="8">
                                     <div>
                                         <div class="clearfix item char4">
-                                            <div class="title"><span>短信类型</span>:</div>
-                                            <div class="desc">营销短信</div>
+                                            <div class="title"><span>当前支付账户</span>:</div>
+                                            <div class="desc">${organizationProfile.t_Profile_CertificationCode}</div>
                                         </div>
-                                        <div class="clearfix item">
-                                            <div class="title char4"><span>智能模板回调地址</span>:</div>
+                                        <div class="clearfix item" style="display: none">
+                                            <div class="title char4" ><span>智能模板回调地址</span>:</div>
                                             <div class="desc"></div><input type="text"
                                                 class="input none_input input-md fl yzm mr30 code"
                                                 style="display: none;">
@@ -328,7 +360,7 @@
                                 </div>
                             </div>
                             <a href="javascript:;" class="btn btn-lg btn-green ml40 confirm mt40 updateClient">修改</a>
-                            <a href="javascript:;" class="btn btn-lg btn-green ml40 confirm mt40 updateClient"
+                            <a href="javascript:EditSubmitted();" class="btn btn-lg btn-green ml40 confirm mt40 updateClient"
                                 style="display: none;">确定</a>
                             <a href="javascript:;" class="btn btn-lg btn-white ml40 confirm mt40 updateClient"
                                 style="display: none;">取消</a>
@@ -346,35 +378,33 @@
                             <div data-v-zz="" class="clearfix item">
                                 <div data-v-zz="" class="title char4"><span data-v-zz="">公司名称</span>:
                                 </div>
-                                <div data-v-zz="" class="desc">高孚信息科技服务有限公司-三网营销</div>
+                                <div data-v-zz="" class="desc">${organizationProfileDetail.t_Profile_OrgName}</div>
                             </div>
                             <div data-v-zz="" class="clearfix item">
                                 <div data-v-zz="" class="title char4"><span data-v-zz="">证件号码</span>:
                                 </div>
-                                <div data-v-zz="" class="desc">00000000000000000</div>
+                                <div data-v-zz="" class="desc">${organizationProfileDetail.t_O_CertificationCode}</div>
                             </div>
                             <div data-v-zz="" class="clearfix item">
                                 <div data-v-zz="" class="title char4"><span data-v-zz="">创建时间</span>:
                                 </div>
-                                <div data-v-zz="" class="desc">2020-10-09 14:40:49</div>
+                                <div data-v-zz="" class="desc">${organizationProfileDetail.create_time?string("yyyy-MM-dd HH:mm:ss")}</div>
                             </div>
                             <div data-v-zz="" class="clearfix item">
                                 <div data-v-zz="" class="title char4"><span data-v-zz="">更新时间</span>:
                                 </div>
-                                <div data-v-zz="" class="desc">2020-10-09 14:40:49</div>
+                                <div data-v-zz="" class="desc">${organizationProfileDetail.modify_time?string("yyyy-MM-dd HH:mm:ss")}</div>
                             </div>
                             <div data-v-zz="" class="clearfix item">
                                 <div data-v-zz="" class="title char4"><span data-v-zz="">审核状态</span>:
                                 </div>
-                                <div data-v-zz="" class="desc"><span data-v-zz="">已认证</span></div>
+                                <div data-v-zz="" class="desc"><span data-v-zz="">${organizationProfileDetail.t_Profile_IPaddress}</span></div>
                             </div>
                             <div data-v-zz="" class="clearfix item">
                                 <div data-v-zz="" class="title char4"><span data-v-zz="">认证照片</span>:
                                 </div>
                                 <div data-v-zz="" class="desc"><img data-v-zz="" class="cer-img"
                                         src="http://users.ucpaas.com/file/scanPic.html?path=V6j%2BGQzlO4s2aMqM41zhW2nRwtSIwQPZYQB0s2KmAtPOk4fsUBtK1echYbdnyYtKAl5FDH7yCSE37VvPuzYcC1gMV3owClDY7Jcl4aRqu%2F4%3D">
-                                    
-                                    
                                 </div>
                             </div>
                         </div>
@@ -435,7 +465,7 @@
                 }
                 const visible = getComputedStyle(dom).display != 'none' && getComputedStyle(dom).visibility != 'hidden';
                 if (!visible) {
-                    dom.style.display = 'inline-block'
+                    dom.style.dsplay = 'inline-block'
                 } else {
                     dom.style.display = 'none'
                 }

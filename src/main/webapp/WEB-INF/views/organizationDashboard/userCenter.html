@@ -14,6 +14,12 @@
     <link rel="stylesheet" href="${ctx}/metronic/mobile/css/bootstrap.min.css">
     <!-- <link rel="stylesheet" href="/metronic/mobile/css/bootstrap-datepicker3.min.css"> -->
     <link href="${ctx}/metronic/new_modules/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <script>
+       var StaticInfoDaily = "${StaticInfoDaily}";
+       var StaticInfo = "${StaticInfo}";
+       alert(StaticInfoDaily);
+       alert(StaticInfo);
+    </script>
 </head>
 
 <body>
@@ -36,8 +42,8 @@
                                                         src="http://users.ucpaas.com/static/img/backindex.fbba49a.png"
                                                         class="fl">
                                                     <div data-v-div="" class="f2">
-                                                        <a data-v-div="" class="btn btn-md btn-green fr ">发送国际短信</a>
-                                                        <a data-v-div="" class="btn btn-md btn-green fr ">发送普通短信</a>
+                                                        <a data-v-div="" class="btn btn-md btn-green fr ">批量上传</a>
+                                                        <a data-v-div="" class="btn btn-md btn-green fr ">批量代发</a>
 
                                                         <div data-v-div="" class="name ellipsis"
                                                             style="width: 260px; height: 30px;">高孚信息科技服务有限公司-三网营销</div>
@@ -55,25 +61,25 @@
                             <div data-v-div="" class="col-8 item">
                                 <div data-v-div="" class="bg-fff item-ctx">
                                     <div data-v-div="" class="cell-title clearfix">今日数据
-                                        <a data-v-div="" class="fr link-green">发送记录</a></div>
+                                        <a data-v-div="" class="fr link-green">交易记录</a></div>
                                     <div data-v-div="" class="cell-ctx p-15">
-                                        <div data-v-div="" class="submit">今日提交量</div>
-                                        <div data-v-div="" class="submit-num">0条</div>
-                                        <div data-v-div="" class="send">发送情况</div>
+                                        <div data-v-div="" class="submit">今日交易量</div>
+                                        <div data-v-div="" class="submit-num">笔</div>
+                                        <div data-v-div="" class="send">交易情况</div>
                                         <div data-v-div="" class="clearfix send-num">
-                                            <div data-v-div="" class="fl grid1">发送中
+                                            <div data-v-div="" class="fl grid1">交易中
                                                 <span data-v-div="" class="orange">--</span>
                                             </div>
-                                            <div data-v-div="" class="fl grid2">发送成功
+                                            <div data-v-div="" class="fl grid2">交易成功
                                                 <span data-v-div="" class="green">--</span>
                                             </div>
-                                            <div data-v-div="" class="fl grid3">拦截
+                                            <div data-v-div="" class="fl grid3">充值总额
                                                 <span data-v-div="" class="red">--</span>
                                             </div>
                                             <div data-v-div="" class="fl grid1">未知
                                                 <span data-v-div="" class="orange">--</span>
                                             </div>
-                                            <div data-v-div="" class="fl grid2">发送失败
+                                            <div data-v-div="" class="fl grid2">交易失败
                                                 <span data-v-div="" class="red">--</span>
                                             </div>
                                         </div>
@@ -118,7 +124,7 @@
                                                 <span data-v-div="" class="orange" style="font-size: 14px;"></span>
                                             </div>
                                             <div data-v-div="" class="fl grid1" style="width: 50%;">
-                                                短信类型:&nbsp;&nbsp;
+                                                交易类型:&nbsp;&nbsp;
                                                 <span data-v-div="" class="orange" style="font-size: 14px;">营销</span>
                                             </div>
                                             <div data-v-div="" class="fl grid1" style="width: 50%;">
@@ -142,7 +148,7 @@
                         <div data-v-div="" class="p-10">
                             <div data-v-div="" class="grid-top bg-fff">
                                 <div data-v-div="">
-                                    <h2 data-v-div="">一周短信提交量
+                                    <h2 data-v-div="">一周交易成交量
                                         <a data-v-div="" class="fr link-green mr10"
                                             style="font-size: 14px; font-weight: normal;">消耗报表
                                         </a>

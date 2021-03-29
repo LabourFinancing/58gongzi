@@ -6,6 +6,8 @@ import java.util.Map;
 import com.github.pagehelper.PageInfo;
 import com.qucai.sample.common.PageParam;
 import com.qucai.sample.entity.HistoricalTxnQuery;
+import com.qucai.sample.vo.CompanyTxnAmtWlyStatic;
+import com.qucai.sample.vo.CompanyTxnStatic;
 import com.qucai.sample.vo.PersonalTxnStatic;
 //import com.qucai.sample.entity.resource;
 
@@ -34,7 +36,11 @@ public interface HistoricalTxnQueryService {
     int DueHisTxnPay(String[] HisTxnSelectedIDs);
     
 	int MarkFailedPayment(String OrderCode);
-	
+
+    List<CompanyTxnAmtWlyStatic> SearchCompanyTxnStaticAmtWly(Map<String, Object> paramMap);
+
+    List<CompanyTxnStatic> SearchCompanyTxnStaticAmtDaily(Map<String, Object> paramMap);
+
 //   List<HistoricalTxnQuery> findTreetableList(Map<String, Object> paramMap);
     
 //    List<ResourceGrant> findGrantTreetableList(String roleId, Integer platform);

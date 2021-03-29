@@ -14,7 +14,7 @@ public class PersonalTxnStatic implements Serializable {
 
    private static final long serialVersionUID = 1;
    
-   private String t_Txn_ClearDue_ID;
+   private String t_Txn_Static_Clear_his;
    
    private String t_Txn_Static_PerName;
    
@@ -50,12 +50,12 @@ public class PersonalTxnStatic implements Serializable {
    
    private Date t_Txn_Static_EndDate;
 
-public String getT_Txn_ClearDue_ID() {
-	return t_Txn_ClearDue_ID;
+public String getT_Txn_Static_Clear_his() {
+	return t_Txn_Static_Clear_his;
 }
 
-public void setT_Txn_ClearDue_ID(String t_Txn_ClearDue_ID) {
-	this.t_Txn_ClearDue_ID = t_Txn_ClearDue_ID;
+public void setT_Txn_Static_Clear_his(String t_Txn_Static_Clear_his) {
+	this.t_Txn_Static_Clear_his = t_Txn_Static_Clear_his;
 }
 
 public String getT_Txn_Static_PerName() {

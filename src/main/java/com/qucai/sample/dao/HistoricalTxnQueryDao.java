@@ -3,6 +3,9 @@ package com.qucai.sample.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.qucai.sample.vo.CompanyTxnAmtWlyStatic;
+import com.qucai.sample.vo.CompanyTxnStatic;
+import com.qucai.sample.vo.PersonalTxnStatic;
 import com.qucai.sample.vo.PersonalTxnStatic;
 import org.springframework.stereotype.Repository;
 
@@ -27,7 +30,11 @@ public interface HistoricalTxnQueryDao {
     int DueHisTxnPay(String[] HisTxnSelectedIDs);
     
 	int MarkFailedPayment(String OrderCode);
-    
+
+    List<CompanyTxnAmtWlyStatic> SearchCompanyTxnStaticAmtWly(Map<String, Object> paramMap);
+
+    List<CompanyTxnStatic> SearchCompanyTxnStaticAmtDaily(Map<String, Object> paramMap);
+
 //    PageInfo<HistoricalTxnQuery> findAllList(Map<String, Object> paramMap, PageParam pp);
     
 //  List<HistoricalTxnQueryGrant> findManagerHistoricalTxnQueryGrantAllList(@Param("roleId") String roleId, @Param("platform") Integer platform);
