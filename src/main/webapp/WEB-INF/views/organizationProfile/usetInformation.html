@@ -6,10 +6,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta content="webkit" name="renderer">
     <title>用户中心</title>
-    <#include "/common/cssResource.html">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="">
+    <#include "/common/cssResource.html"> <#include
+    "/common/jsResource.html">
     <link href="${ctx}/metronic/new_modules/app_info.css" rel="stylesheet">
     <link rel="stylesheet" href="${ctx}/metronic/mobile/css/bootstrap.min.css">
     <!-- <link rel="stylesheet" href="/metronic/mobile/css/bootstrap-datepicker3.min.css"> -->
@@ -136,6 +137,7 @@
                                 class="fl router-link-exact-active router-link-active">基本信息</a>
                             <a href="javascript:;" onclick="topTap(2)" id="fl2" class="fl ">资质信息</a>
                         </div>
+                        <form id="inputForm" class="form-horizontal form-row-seperated">
                         <div class="page-customer-info">
                             <div class="clearfix" style="position: static;">
                                 <div class="col col-24 col-xs-8 col-sm-8 col-md-8 col-lg-8" xl="8">
@@ -159,16 +161,16 @@
                                             <div class="title"><span>认证时间</span>:</div>
                                             <div class="desc">${organizationProfileDetail.create_time?string("yyyy-MM-dd HH:mm:ss")}</div>
                                         </div>
-                                        <div class="clearfix item char4">
+                                        <div class="clearfix item char4 form-group" style="margin-left:0px;margin-right:0px;">
                                             <div class="title"><span>手机号码</span>:</div>
                                             <div class="desc none_div">${organizationProfileDetail.t_Profile_Mobile} </div><input id="t_Profile_Mobile" name="t_Profile_Mobile" type="text"
-                                                class="input none_input input-md fl yzm mr30 code"
+                                                class="input none_input input-md fl yzm mr30 code form-control"
                                                 style="display: none;">
                                         </div>
-                                        <div class="clearfix item">
+                                        <div class="clearfix item form-group" style="margin-left:0px;margin-right:0px;">
                                             <div class="title char4"><span>邮<i class="fff">占位</i>箱</span>:</div>
                                             <div class="desc none_div">${organizationProfileDetail.t_Profile_Email} </div><input id="t_Profile_Email" name="t_Profile_Email" type="text"
-                                                class="input none_input input-md fl yzm mr30 code"
+                                                class="input none_input input-md fl yzm mr30 code form-control"
                                                 style="display: none;">
                                         </div>
                                         <div class="clearfix item">
@@ -362,9 +364,10 @@
                             <a href="javascript:;" class="btn btn-lg btn-green ml40 confirm mt40 updateClient">修改</a>
                             <a href="javascript:EditSubmitted();" class="btn btn-lg btn-green ml40 confirm mt40 updateClient"
                                 style="display: none;">确定</a>
-                            <a href="javascript:;" class="btn btn-lg btn-white ml40 confirm mt40 updateClient"
+                            <a href="${ctx}/OrganizationProfileController/info;" class="btn btn-lg btn-white ml40 confirm mt40 updateClient"
                                 style="display: none;">取消</a>
                         </div>
+                        </form>
                         <div data-v-zz="" class="page-base-info" style="display: none;"><img data-v-zz=""
                                 src="http://users.ucpaas.com/static/img/icon-already.af9cfe6.png"
                                 class="absolute icon-auth">
@@ -417,8 +420,6 @@
       <script type="text/javascript" src="${ctx}/metronic/new_modules/clipboard.min.js"></script>
       <!-- 图表 -->
       <script type="text/javascript" src="${ctx}/metronic/new_modules/echarts.common.min.js"></script>
-      <script type="text/javascript" src="${ctx}/metronic/mobile/js/jquery.min.js"></script>
-      <script script src="${ctx}/metronic/mobile/js/bootstrap.min.js" type="text/javascript"></script>
       <script script src="${ctx}/metronic/mobile/js/moment-with-locales.js" type="text/javascript"></script>
       <!-- // 日期插件 -->
       <script src="${ctx}/metronic/new_modules/bootstrap-datetimepicker.min.js"></script>
@@ -541,6 +542,53 @@
 
         }
 
+    </script>
+    <script>
+        jQuery.validator.addMethod("isMobile", function(value, element) { 
+            var length = value.length; 
+            var mobile = /^(13[0-9]|14[5-9]|15[012356789]|166|17[0-8]|18[0-9]|19[8-9])[0-9]{8}$/;
+            return this.optional(element) || (length == 11 && mobile.test(value)); 
+        }, "请正确填写您的手机号码");
+        var form = $('#inputForm');
+        form.validate({
+			errorElement : 'span', //default input error message container
+			errorClass : 'help-block help-block-error', // default input error message class
+			focusInvalid : false, // do not focus the last invalid input
+			rules : {
+                t_Profile_Mobile : {
+					digits : true,
+                    required : true,
+					isMobile : true,
+				},
+				t_Profile_Email :{
+					maxlength : 100,
+					required : true,
+					isEmail : true
+				}
+			},
+			
+			
+			messages: {
+			},
+			
+			invalidHandler : function(event, validator) { //display error alert on form submit              
+				App.scrollTo(form, 0);
+			},
+	
+			highlight : function(element) { // hightlight error inputs
+				$(element).closest('.form-group').removeClass(
+						"has-success").addClass('has-error'); // set error class to the control group   
+			},
+	
+			unhighlight : function(element) { // revert the change done by hightlight
+			},
+	
+			success : function(label, element) {
+			},
+			
+			submitHandler : function(form) {
+			}
+		});
     </script>
 </body>
 

@@ -26,9 +26,9 @@
         <!-- BEGIN CONTENT -->
         <div class="page-content-wrapper">
             <!-- BEGIN CONTENT BODY -->
-            <div id="contentDiv" class="page-content">
-                <div id="layout" class="layout-wrap relative" style="min-height: 552px;">
-                    <div data-v-div="" id="page-index" class="page-index" style="min-height: 552px;">
+            <div id="contentDiv" class="page-content" style="margin-left:0px;">
+                <div id="layout" class="layout-wrap relative">
+                    <div data-v-div="" id="page-index" class="page-index">
                         <div data-v-div="" class="clearfix grid-info">
                             <div data-v-div="" class="col-8 item">
                                 <div data-v-div="" class="bg-fff item-ctx">
@@ -36,12 +36,12 @@
                                     <div data-v-div="" class="cell-ctx">
                                         <div data-v-div="" class="account-info">
                                             <div data-v-div="" class="balance clearfix">
-                                                <div data-v-div="" class="col-12 clearfix"><img data-v-div=""
+                                                <div data-v-div="" class="clearfix"><img data-v-div=""
                                                         src="http://users.ucpaas.com/static/img/backindex.fbba49a.png"
                                                         class="fl">
                                                     <div data-v-div="" class="f2">
-                                                        <a data-v-div="" class="btn btn-md btn-green fr ">批量上传</a>
-                                                        <a data-v-div="" class="btn btn-md btn-green fr ">批量代发</a>
+                                                        <a data-v-div="" style="margin:1px;" class="btn btn-md btn-green fr " href="${ctx}/PersonalInfoBatchUploadStatusController/personalInfoBatchUploadStatusList">批量上传</a>
+                                                        <a data-v-div="" style="margin:1px;" class="btn btn-md btn-green fr " href="${ctx}/DeploymentController/Deploylist">批量代发</a>
 
                                                         <div data-v-div="" class="name ellipsis"
                                                             style="width: 260px; height: 30px;">高孚信息科技服务有限公司-三网营销</div>
@@ -190,7 +190,7 @@
                 StaticInfoDailyMap[arr[0]]=arr[1];
             })
             const StaticInfoArray = StaticInfo.split('-,');
-            const StaticInfoMap = {};
+            window.StaticInfoMap = {};
             StaticInfoArray.map(d=>{
                 const arr = d.split(':');
                 StaticInfoMap[arr[0]]=parseFloat(arr[1]);
