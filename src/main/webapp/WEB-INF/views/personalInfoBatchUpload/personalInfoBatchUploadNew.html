@@ -61,15 +61,25 @@ var project;
       //点击上传按钮
       this.uploadBtn = function(){
           var uploadEventFile = $("#uploadEventFile").val();
-          if(uploadEventFile == ''){
-              alert("请选择excel,再上传");
-          }else if(uploadEventFile.lastIndexOf(".xls")<0){//可判断以.xls和.xlsx结尾的excel
-              alert("只能上传Excel文件");
-          }else{
-              var url = '${ctx}/PersonalInfoBatchUploadController/personalInfoBatchUploadAdd';
+          if(uploadEventFile == '' && document.getElementById("PersonalInfoInputArea").value == '') {
+              alert("请选择excel或者输入用户信息,再上传");
+              retun;
+          }else {
+              if (uploadEventFile == '') {
+                  if (document.getElementById("PersonalInfoInputArea").value == "") {
+                      alert("请输入员工信息后,再上传");
+                      retun;
+                  }
+              } else {
+                  if (uploadEventFile.lastIndexOf(".xls") < 0) {//可判断以.xls和.xlsx结尾的excel
+                      alert("只能上传Excel文件");
+                      retun;
+                  }
+              }
+              var url = '${ctx}/PersonalInfoBatchUploadController/personalInfoBatchUploadPullin';
               var formData = new FormData($('form')[0]);
-              project.sendAjaxRequest(url,formData);
-      }
+              project.sendAjaxRequest(url, formData);
+          }
       };
       this.sendAjaxRequest = function(url,data){
     	  console.log(document.getElementById("t_FPROD_Name").value);
@@ -79,12 +89,11 @@ var project;
           }else{
           $.ajax({
               url : "${ctx}/PersonalInfoBatchUploadController/personalInfoBatchUploadPullin?operationType=fileupload&t_FPROD_Name=" + encodeURI(encodeURI($("#t_FPROD_Name").val())) + 
-                    "EffectStartDate=" + document.getElementById("EffectStartDate").value +
-                    "EffectEndDate=" + document.getElementById("EffectEndDate").value,
+                    "PersonalInfoInputArea" + document.getElementById("PersonalInfoInputArea").value,
               type: "post",
-      		  contentType: "application/x-www-form-urlencoded; charset=utf-8", 
-              data : data,
+      		  contentType: "application/x-www-form-urlencoded; charset=utf-8",
       		  async: true,
+              data: data,
     		  cache: false,
     		  processData: false,
               success : function(result) {
@@ -105,7 +114,7 @@ var project;
   }
   
 function inputAble(){
-    document.getElementById("personalInfoInputArea").disabled = false;
+    document.getElementById("PersonalInfoInputArea").disabled = false;
 }
 
 function batchIDrefresh(){
@@ -302,11 +311,10 @@ $(function () {
                                         <div class="processTitle">手工填入上传人员信息(每条记录之间以分号;隔开)</div>
                                         <div>
                                             <div class="sms-textarea smsContent textarea is-disabled"
-                                                ondblclick="javascript:;inputAble()"><textarea
-                                                    id="personalInfoInputArea" disabled="disable" type="textarea"
+                                                ondblclick="javascript:;inputAble()"><textarea name="PersonalInfoInputArea" id="PersonalInfoInputArea" disabled="disable" type="textarea"
                                                     rows="10" placeholder="用户名,手机号,身份证,银行卡号,授额数;" autocomplete="off"
                                                     validateevent="true" onclick="javascript:;inputAble()"
-                                                    class="textarea_inner indexvalue"
+                                                    class="textarea_inner form-control"
                                                     style="min-height: 26px;width: 150%"></textarea>
                                             </div>
                                             <div style="font-size: 12px; padding: 10px 0px;"><span><span

@@ -55,11 +55,13 @@ public class HistoricalTxnQueryController<HisTxnSelectedIDs> {
     @ModelAttribute
     public HistoricalTxnQuery get(@RequestParam(required = false) String t_Txn_ID_his) {
         HistoricalTxnQuery entity = null;
+        PersonalTxnStatic personalTxnStatic = null;
         if (StringUtils.isNotBlank(t_Txn_ID_his)) {
             entity = historicalTxnQueryService.selectByPrimaryKey(t_Txn_ID_his);
         }
         if (entity == null) {
             entity = new HistoricalTxnQuery();
+            new PersonalTxnStatic();
         }
         return entity;
     }
@@ -315,14 +317,14 @@ public class HistoricalTxnQueryController<HisTxnSelectedIDs> {
         }
         
         
-    @RequestMapping(value = {"personalTxnStaticSearchList"})
-    public String exceptTxnList(PersonalTxnStatic personalTxnStatic,@RequestParam( defaultValue = "0" )
+    @RequestMapping(value = "personalTxnStaticSearchList")
+    public String exceptTxnList(@RequestParam( defaultValue = "0" )
         Integer platform, Integer pages, Integer sizes,String startTime,String endTime,
                                 Date begin_date,Date end_date,String t_P_Company_his,
                                 String t_Txn_PrepayApplierName_his,String t_Txn_PrepayClear_his,String t_Txn_ProdName_his,
                                 String t_TreasuryDB_OrgName,String t_P_VendorEmployeeName_his,String t_O_OrgName,
                                 HttpServletRequest request, HttpServletResponse response, Model model) throws ParseException {
-
+        new PersonalTxnStatic();
         Map<String, Object> paramMap = new HashMap<String, Object>();//新建map对象
         String company = ShiroSessionUtil.getLoginSession().getCompany_name();
 
@@ -340,13 +342,9 @@ public class HistoricalTxnQueryController<HisTxnSelectedIDs> {
             paramMap.put("t_P_Company_his", company);
         }
         
-        List<PersonalTxnStatic> PersonalTxnStatic = historicalTxnQueryService.SearchPersonalTxnStatic(paramMap);
+        List<PersonalTxnStatic> PersonalTxnStaticList = historicalTxnQueryService.SearchPersonalTxnStatic(paramMap);
 
-//        model.addAttribute("PersonalTxnStaticList", PersonalTxnStaticList);//从数据库查询出来的结果用model的方式返回
-
-        model.addAttribute("PersonalTxnStatic", PersonalTxnStatic);//从数据库查询出来的结果用model的方式返回
-
+        model.addAttribute("PersonalTxnStaticList", PersonalTxnStaticList);//从数据库查询出来的结果用model的方式返回
         return "historicalTxnQuery/personalTxnStatics";
-    }    
-        
+    }
 }

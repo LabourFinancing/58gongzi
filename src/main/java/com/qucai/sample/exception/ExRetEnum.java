@@ -29,6 +29,7 @@ public enum ExRetEnum implements RetEnumIntf {
 	EXPREPAY_WIP("-1", "您的操作过于频繁，请下拉刷新页面后再试!"),
 	PAY_CONN_FAIL("-1", "网络异常,请稍后再试.."),
 	PAY_ACC_FAIL("-1", "支付账户异常..请稍后再试"),
+    PullinMutiText_Err("-1", "该行信息输入有误，元素数量错误"),
 	Pullin_UserNameErr("-1", "文件为空，或用户名缺失"),
 	Pullin_UserIdErr("-1", "用户身份证信息错误或缺失"),
 	Pullin_UserDebitCardErr("-1", "用户银行卡信息错误或缺失"),

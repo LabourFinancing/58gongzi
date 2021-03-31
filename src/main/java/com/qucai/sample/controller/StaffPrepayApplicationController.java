@@ -184,7 +184,8 @@ public class StaffPrepayApplicationController {
     			return JsonBizTool.genJson(ExRetEnum.PAY_ACC_FAIL,rs);
     		}
     	}
-    	
+        	    InitialBalance = new BigDecimal("20000.00"); // debug using
+        
     	if (InitialBalance.intValue() <= treasuryDBInfoGetStatistic.getT_TreasuryDB_Balance().intValue() || InitialBalance.intValue() <= Integer.valueOf(500) || 
     		InitialBalance.intValue() <= treasuryDBInfoGetStatistic.getT_TreasuryDB_Prooffund().intValue() || AgencyOrgnization.getT_O_OrgStatus().equalsIgnoreCase("off"))
     			{
@@ -780,7 +781,7 @@ public class StaffPrepayApplicationController {
 				t_FProd_ETxnAmtLimit = new BigDecimal(10000);
 			}
 			int PrepayTxnAmt = t_Txn_ApplyPrepayAmount.compareTo(t_FProd_ETxnAmtLimit);
-			int PrepayTxnAmtBlance = t_Txn_CreditPrepayCurrentNum.compareTo(t_Txn_ApplyPrepayAmount);
+			int PrepayTxnAmtBlance = t_Txn_ApplyPrepayAmount.compareTo(t_Txn_CreditPrepayCurrentNum);
 			if (PrepayTxnAmt == 1 || PrepayTxnAmtBlance == 1){
 				rs.put("Amtlimit", t_FProd_ETxnAmtLimit);
 				return JsonBizTool.genJson(ExRetEnum.LIMITAMT, rs); 

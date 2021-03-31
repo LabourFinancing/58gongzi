@@ -12,7 +12,7 @@ import java.sql.Date;
  */
 public class PersonalTxnStatic implements Serializable {
 
-   private static final long serialVersionUID = 1;
+    private static final long serialVersionUID = -1876948347463745808L;
    
    private String t_Txn_Static_Clear_his;
    

@@ -236,6 +236,9 @@
 		from t_organization_info a
 		where 
 		t_O_OrgStatus = "on"
+        <if test="t_P_VendorEmployeeName != 'ALL' and t_P_VendorEmployeeName != null">
+           and a.t_O_OrgPending = #{t_P_VendorEmployeeName,jdbcType=VARCHAR}
+        </if>
 		order by a.create_time
 	</select>
 

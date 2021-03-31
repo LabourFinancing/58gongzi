@@ -13,7 +13,7 @@ public class HistoricalTxnQuery implements Serializable {
     /**
 	 * 
 	 */
-   private static final long serialVersionUID = -1876948347463745808L;
+                   private static final long serialVersionUID = -1876948347463745808L;
    /**
     * 创建人
     */
