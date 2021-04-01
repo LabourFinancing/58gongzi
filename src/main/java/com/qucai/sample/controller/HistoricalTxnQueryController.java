@@ -345,6 +345,33 @@ public class HistoricalTxnQueryController<HisTxnSelectedIDs> {
         List<PersonalTxnStatic> PersonalTxnStaticList = historicalTxnQueryService.SearchPersonalTxnStatic(paramMap);
 
         model.addAttribute("PersonalTxnStaticList", PersonalTxnStaticList);//从数据库查询出来的结果用model的方式返回
+		StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        for (PersonalTxnStatic i : personalTxnStatic1) {
+            sb.append("{");
+            sb.append("t_Txn_Static_Clear_his:'");sb.append(i.getT_Txn_Static_Clear_his());sb.append("',");
+            sb.append("t_Txn_Static_PerName:'");sb.append(i.getT_Txn_Static_PerName());sb.append("',");
+            sb.append("t_Txn_Static_PerID:'");sb.append(i.getT_Txn_Static_PerID());sb.append("',");
+            sb.append("t_Txn_Static_PerCreditCard:'");sb.append(i.getT_Txn_Static_PerCreditCard());sb.append("',");
+            sb.append("t_Txn_Static_TotTxnAmt:'");sb.append(i.getT_Txn_Static_TotTxnAmt().toString());sb.append("',");
+            sb.append("t_Txn_Static_TotTxnActAmt:'");sb.append(i.getT_Txn_Static_TotTxnActAmt().toString());sb.append("',");
+            sb.append("t_Txn_Static_TotInterest:'");sb.append(i.getT_Txn_Static_TotInterest().toString());sb.append("',");
+            sb.append("t_Txn_Static_TotServiceFee:'");sb.append(i.getT_Txn_Static_TotServiceFee().toString());sb.append("',");
+            sb.append("t_Txn_Static_TotPoundageFee:'");sb.append(i.getT_Txn_Static_TotPoundageFee().toString());sb.append("',");
+            sb.append("t_Txn_Static_TotTierFee:'");sb.append(i.getT_Txn_Static_TotTierFee().toString());sb.append("',");
+            sb.append("t_Txn_Static_TotChargeFee:'");sb.append(i.getT_Txn_Static_TotChargeFee());sb.append("',");
+            sb.append("t_Txn_Static_TotTxnCount:'");sb.append(i.getT_Txn_Static_TotTxnCount());sb.append("',");
+            sb.append("t_Txn_Static_CurrentCredit:'");sb.append(i.getT_Txn_Static_CurrentCredit().toString());sb.append("',");
+            sb.append("t_Txn_Static_CurrentBalance:'");sb.append(i.getT_Txn_Static_CurrentBalance().toString());sb.append("',");
+            sb.append("t_Txn_Static_Company:'");sb.append(i.getT_Txn_Static_Company());sb.append("',");
+            sb.append("t_Txn_Static_VendorCompany:'");sb.append(i.getT_Txn_Static_VendorCompany());sb.append("',");
+            sb.append("t_Txn_Static_BeginDate:'");sb.append(format.format(i.getT_Txn_Static_BeginDate()));sb.append("',");
+            sb.append("t_Txn_Static_EndDate:'");sb.append(format.format(i.getT_Txn_Static_EndDate()));sb.append("',");
+            sb.append("},");
+        }
+        sb.append("]");
+        model.addAttribute("sb", sb);
         return "historicalTxnQuery/personalTxnStatics";
     }
 }
