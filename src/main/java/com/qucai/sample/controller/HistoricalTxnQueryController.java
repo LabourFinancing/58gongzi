@@ -348,7 +348,7 @@ public class HistoricalTxnQueryController<HisTxnSelectedIDs> {
 		StringBuilder sb = new StringBuilder();
         sb.append("[");
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        for (PersonalTxnStatic i : personalTxnStatic1) {
+        for (PersonalTxnStatic i : PersonalTxnStaticList) {
             sb.append("{");
             sb.append("t_Txn_Static_Clear_his:'");sb.append(i.getT_Txn_Static_Clear_his());sb.append("',");
             sb.append("t_Txn_Static_PerName:'");sb.append(i.getT_Txn_Static_PerName());sb.append("',");

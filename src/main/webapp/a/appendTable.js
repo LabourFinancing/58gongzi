@@ -1,6 +1,5 @@
 function appendTable(sb) {
-    debugger;
-    const table = document.querySelector('#histxnlist');
+    const table = document.querySelector('#StaticList');
     const tbody = table.querySelector('tbody');
     sb.map(item=>{
         let str = `
@@ -11,17 +10,17 @@ function appendTable(sb) {
     <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${item.t_Txn_Static_TotTxnAmt}</td>
     <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${item.t_Txn_Static_TotTxnActAmt}</td>
     <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${item.t_Txn_Static_TotInterest}</td>
-<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${item.t_Txn_Static_TotServiceFee}</td>
-<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${item.t_Txn_Static_TotPoundageFee}</td>
-<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${item.t_Txn_Static_TotTierFee}</td>
-<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${item.t_Txn_Static_TotChargeFee}</td>
-<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;mso-number-format:'\\@';">{item.t_Txn_Static_TotTxnCount}</td>
+    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${item.t_Txn_Static_TotServiceFee}</td>
+    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${item.t_Txn_Static_TotPoundageFee}</td>
+    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${item.t_Txn_Static_TotTierFee}</td>
+    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${item.t_Txn_Static_TotChargeFee}</td>
+    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;mso-number-format:'\\@';">${item.t_Txn_Static_TotTxnCount}</td>
     <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${item.t_Txn_Static_CurrentCredit}</td>
     <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;mso-number-format:'\\@';">&yen${item.t_Txn_Static_CurrentBalance}</td>
-<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;mso-number-format:'\\@';">{item.t_Txn_Static_Company}</td>
-<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">{item.t_Txn_Static_VendorCompany}</td>
-<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">{item.t_Txn_Static_BeginDate}</td>
-<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">{item.t_Txn_Static_EndDate}</td>
+    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;mso-number-format:'\\@';">${item.t_Txn_Static_Company}</td>
+    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${item.t_Txn_Static_VendorCompany}</td>
+    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${item.t_Txn_Static_BeginDate}</td>
+    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${item.t_Txn_Static_EndDate}</td>
         `
         const tr = document.createElement('tr');
         tr.innerHTML=str;
