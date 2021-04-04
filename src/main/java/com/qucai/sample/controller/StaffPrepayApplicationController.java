@@ -121,69 +121,69 @@ public class StaffPrepayApplicationController {
 		Map<String, Object> rs = new HashMap<String, Object>();
 
 //checking Payment Account Balance
-    	if(PaymentTunnel.equalsIgnoreCase("电银支付")) {
-    		if (!AgencyOrgnization.getT_O_OrgChinaebiAcc().equals(null)){
-    			merchantId = AgencyOrgnization.getT_O_OrgChinaebiAcc();
-        	    PaymentSwitch = "shdy";
-        	    String ret_Data = AmtQueryServlet.main(merchantId); // query Chinaebi Balance
-				JSONObject obj = (JSONObject) JSON.parse(ret_Data);
-				String balanceQuery = (String) obj.get("transAmt"); //  Chinaebipay branch
-				BigDecimal ebibalance = (new BigDecimal(balanceQuery)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
-				InitialBalance = ebibalance;
-				System.out.println("Query Chinaebipay balance:");
-				System.out.println(ebibalance);
-    		}else {
-    			return JsonBizTool.genJson(ExRetEnum.PAY_ACC_FAIL,rs);
-    		}
-    	}else if (PaymentTunnel.equalsIgnoreCase("杉德支付")){
-    		if (!AgencyOrgnization.getT_O_OrgChinaebiAcc().equals(null)){
-        	    merchantId = AgencyOrgnization.getT_O_OrgSandeAcc();
-        	    PaymentSwitch = "shsd";
-        	    JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId);
-//  		      	String JSONretdata = QueryBalanceDemo.BalanceQuery(merchantId); // query Sande Balance
-//  				JSONObject obj = (JSONObject) JSON.parse(JSONretdata); // old sdk
-  		    	String BalanceData = (String) JSONretdata.get("balance");
-  		    	BigDecimal Sandebalance = (new BigDecimal(BalanceData)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
-				InitialBalance = Sandebalance;
-  				System.out.println("Query Sande balance:");
-  				System.out.println(Sandebalance);
-    		}else {
-    			rs.put("retData","-1");
-    			return JsonBizTool.genJson(ExRetEnum.PAY_ACC_FAIL,rs);
-    		}
-    	}else{
-    		OrganizationInfo AgencyPaymentOrgnization = organizationInfoService.selectAgencyName(PaymentTunnel);
-    		String PaymentAccTunnel = AgencyPaymentOrgnization.getT_O_OrgPayrollBankaccount();
-    		switch(PaymentAccTunnel){
-    		case "电银支付" :
-    			merchantId = AgencyPaymentOrgnization.getT_O_OrgChinaebiAcc();
-        	    PaymentSwitch = "shdy";
-        	    String ret_Data = AmtQueryServlet.main(merchantId); // query Chinaebi Balance
-				JSONObject obj = (JSONObject) JSON.parse(ret_Data);
-				String balanceQuery = (String) obj.get("transAmt"); //  Chinaebipay branch
-				BigDecimal ebibalance = (new BigDecimal(balanceQuery)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
-				InitialBalance = ebibalance;
-				System.out.println("Query Chinaebipay balance:");
-				System.out.println(ebibalance);
-				break;
-    		case "杉德支付" :
-    			merchantId = AgencyPaymentOrgnization.getT_O_OrgSandeAcc();
-        	    PaymentSwitch = "shsd";
-        	    JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId);
-//  		      	String JSONretdata = QueryBalanceDemo.BalanceQuery(merchantId); // query Sande Balance
-//  				JSONObject obj1 = (JSONObject) JSON.parse(JSONretdata); // old sdk
-  		    	String BalanceData = (String) JSONretdata.get("balance");
-  		    	BigDecimal Sandebalance = (new BigDecimal(BalanceData)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
-				InitialBalance = Sandebalance;
-  				System.out.println("Query Sande balance:");
-  				System.out.println(Sandebalance);
-				break;
-    		default:
-        	    PaymentSwitch = null;
-        	    InitialBalance = new BigDecimal("0.00");
-    			return JsonBizTool.genJson(ExRetEnum.PAY_ACC_FAIL,rs);
-    		}
-    	}
+//    	if(PaymentTunnel.equalsIgnoreCase("电银支付")) {
+//    		if (!AgencyOrgnization.getT_O_OrgChinaebiAcc().equals(null)){
+//    			merchantId = AgencyOrgnization.getT_O_OrgChinaebiAcc();
+//        	    PaymentSwitch = "shdy";
+//        	    String ret_Data = AmtQueryServlet.main(merchantId); // query Chinaebi Balance
+//				JSONObject obj = (JSONObject) JSON.parse(ret_Data);
+//				String balanceQuery = (String) obj.get("transAmt"); //  Chinaebipay branch
+//				BigDecimal ebibalance = (new BigDecimal(balanceQuery)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
+//				InitialBalance = ebibalance;
+//				System.out.println("Query Chinaebipay balance:");
+//				System.out.println(ebibalance);
+//    		}else {
+//    			return JsonBizTool.genJson(ExRetEnum.PAY_ACC_FAIL,rs);
+//    		}
+//    	}else if (PaymentTunnel.equalsIgnoreCase("杉德支付")){
+//    		if (!AgencyOrgnization.getT_O_OrgChinaebiAcc().equals(null)){
+//        	    merchantId = AgencyOrgnization.getT_O_OrgSandeAcc();
+//        	    PaymentSwitch = "shsd";
+//        	    JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId);
+////  		      	String JSONretdata = QueryBalanceDemo.BalanceQuery(merchantId); // query Sande Balance
+////  				JSONObject obj = (JSONObject) JSON.parse(JSONretdata); // old sdk
+//  		    	String BalanceData = (String) JSONretdata.get("balance");
+//  		    	BigDecimal Sandebalance = (new BigDecimal(BalanceData)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
+//				InitialBalance = Sandebalance;
+//  				System.out.println("Query Sande balance:");
+//  				System.out.println(Sandebalance);
+//    		}else {
+//    			rs.put("retData","-1");
+//    			return JsonBizTool.genJson(ExRetEnum.PAY_ACC_FAIL,rs);
+//    		}
+//    	}else{
+//    		OrganizationInfo AgencyPaymentOrgnization = organizationInfoService.selectAgencyName(PaymentTunnel);
+//    		String PaymentAccTunnel = AgencyPaymentOrgnization.getT_O_OrgPayrollBankaccount();
+//    		switch(PaymentAccTunnel){
+//    		case "电银支付" :
+//    			merchantId = AgencyPaymentOrgnization.getT_O_OrgChinaebiAcc();
+//        	    PaymentSwitch = "shdy";
+//        	    String ret_Data = AmtQueryServlet.main(merchantId); // query Chinaebi Balance
+//				JSONObject obj = (JSONObject) JSON.parse(ret_Data);
+//				String balanceQuery = (String) obj.get("transAmt"); //  Chinaebipay branch
+//				BigDecimal ebibalance = (new BigDecimal(balanceQuery)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
+//				InitialBalance = ebibalance;
+//				System.out.println("Query Chinaebipay balance:");
+//				System.out.println(ebibalance);
+//				break;
+//    		case "杉德支付" :
+//    			merchantId = AgencyPaymentOrgnization.getT_O_OrgSandeAcc();
+//        	    PaymentSwitch = "shsd";
+//        	    JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId);
+////  		      	String JSONretdata = QueryBalanceDemo.BalanceQuery(merchantId); // query Sande Balance
+////  				JSONObject obj1 = (JSONObject) JSON.parse(JSONretdata); // old sdk
+//  		    	String BalanceData = (String) JSONretdata.get("balance");
+//  		    	BigDecimal Sandebalance = (new BigDecimal(BalanceData)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
+//				InitialBalance = Sandebalance;
+//  				System.out.println("Query Sande balance:");
+//  				System.out.println(Sandebalance);
+//				break;
+//    		default:
+//        	    PaymentSwitch = null;
+//        	    InitialBalance = new BigDecimal("0.00");
+//    			return JsonBizTool.genJson(ExRetEnum.PAY_ACC_FAIL,rs);
+//    		}
+//    	}
         	    InitialBalance = new BigDecimal("20000.00"); // debug using
         
     	if (InitialBalance.intValue() <= treasuryDBInfoGetStatistic.getT_TreasuryDB_Balance().intValue() || InitialBalance.intValue() <= Integer.valueOf(500) || 
@@ -423,7 +423,7 @@ public class StaffPrepayApplicationController {
 				t_FProd_ETxnAmtLimit = new BigDecimal(10000);
 			}
 			int PrepayTxnAmt = t_Txn_ApplyPrepayAmount.compareTo(t_FProd_ETxnAmtLimit);
-			int PrepayTxnAmtBlance = t_Txn_CreditPrepayCurrentNum.compareTo(t_Txn_ApplyPrepayAmount);
+			int PrepayTxnAmtBlance = t_Txn_ApplyPrepayAmount.compareTo(t_Txn_CreditPrepayCurrentNum);
 			if (PrepayTxnAmt == 1 || PrepayTxnAmtBlance == 1){
 				rs.put("Amtlimit", t_FProd_ETxnAmtLimit);
 				return JsonBizTool.genJson(ExRetEnum.LIMITAMT, rs); 

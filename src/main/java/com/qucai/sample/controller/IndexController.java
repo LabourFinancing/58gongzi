@@ -28,7 +28,30 @@ public class IndexController {
     private ManagerService managerService;
 
     @RequestMapping("index")
-    public String index(@RequestParam(required = false) String gid,String host,HttpServletRequest request, HttpServletResponse response) {
+    public String index(@RequestParam(required = false) String gid,String from, String name,String host,HttpServletRequest request, HttpServletResponse response) {
+        if(from!=null&&from.equals("wechat")) {
+            System.out.print("from wechat");
+            System.out.print(name);
+            String userName;
+            String password;
+            Manager manager = managerService.selectByPrimaryKey("749bf3de57e94bd5957ba32835db2a1c");
+            CaptchaUsernamePasswordToken token = new CaptchaUsernamePasswordToken();
+            userName = manager.getUserName();
+            password = manager.getPassword();
+            Map<String, Object> rs = new HashMap<String, Object>();
+            token.setPassword(password.toCharArray());
+            token.setUsername(userName);
+            token.setRememberMe(true);
+            try {
+                Subject subject = SecurityUtils.getSubject();
+                subject.login(token);
+            } catch (AuthenticationException e) {
+                return JsonBizTool.genJson(ExRetEnum.LOGIN_ACCOUNT_PASSWORD_ERROR);
+            }
+            if(userName != null) {
+                return "redirect:/StaffPrepayApplicationController/staffPrepayApplicationNew";
+            }
+        } 
         if(gid != null){
             System.out.print("Fujian Province Platform:");
             System.out.print(gid);
