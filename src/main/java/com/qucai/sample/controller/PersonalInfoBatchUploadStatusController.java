@@ -147,6 +147,8 @@ public class PersonalInfoBatchUploadStatusController {
     		Map<String, Object> paramMap = new HashMap<String, Object>();//新建map对象
     		if (t_O_OrgName.equals("ALL")) {
     			t_batch_company = null;
+                paramMap.put("t_batch_company", t_O_OrgName);
+                paramMap.put("t_batch_vendorCompany", t_O_OrgName);
     		}else {
                 //Flag on Agency or not
              	 if (AgencyOrgnization.getT_O_listOrg().equals("off")){
