@@ -71,7 +71,7 @@ public class AgentPayDemo {
 	public static JSONObject main(StaffPrepayApplicationPayment staffPrepayApplicationPay, String merchantId) throws Exception {
 		AgentPayDemo demo = new AgentPayDemo();
 		String reqAddr="/agentpay";   //接口报文规范中获取
-		
+        
 		//加载配置文件
 		SDKConfig.getConfig().loadPropertiesFromSrc(merchantId);
 		//加载证书
