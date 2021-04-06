@@ -46,9 +46,6 @@ public class OrganizationDashboardController {
     private HistoricalTxnQueryService historicalTxnQueryService;
 
     @Autowired
-    private ManagerService managerService; //申明一个对象
-
-    @Autowired
     private OrganizationProfileService organizationProfileService; //申明一个对象
 
     @ModelAttribute
