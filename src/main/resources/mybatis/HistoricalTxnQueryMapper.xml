@@ -325,7 +325,10 @@
             SELECT date_sub(curdate(), interval 6 day) as click_date
         ) a left join (
           select date(create_time_his) as createdate, SUM(t_transaction_his.t_Txn_ApplyPrepayAmount_his) as sum
-          from t_transaction_his where t_P_Company_his = #{t_P_Company,jdbcType=VARCHAR}
+          from t_transaction_his
+          <if test="t_P_Company != 'ALL' ">
+          where t_P_Company_his = #{t_P_Company,jdbcType=VARCHAR}
+          </if>
           group by date(create_time_his)
         ) b on a.date = b.createdate
     </select>

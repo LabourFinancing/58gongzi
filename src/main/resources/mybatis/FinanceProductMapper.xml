@@ -214,6 +214,9 @@
 		<if test="typeEnd != null">
 			<![CDATA[ and type <= #{typeEnd} ]]>
 		</if>
+        <if test="t_CompanyName != ALL">
+            and a.platform =  #{t_CompanyName,jdbcType=VARCHAR}
+        </if>
 		order by a.create_time
 	</select>
 

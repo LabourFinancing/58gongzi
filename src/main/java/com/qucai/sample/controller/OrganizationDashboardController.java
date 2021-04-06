@@ -2,11 +2,13 @@ package com.qucai.sample.controller;
 
 import com.qucai.sample.common.PageParam;
 import com.qucai.sample.entity.OrganizationInfo;
+import com.qucai.sample.entity.OrganizationProfile;
 import com.qucai.sample.entity.Paymentvendormgt;
 import com.qucai.sample.exception.ExRetEnum;
 import com.qucai.sample.service.HistoricalTxnQueryService;
 import com.qucai.sample.service.ManagerService;
 import com.qucai.sample.service.OrganizationInfoService;
+import com.qucai.sample.service.OrganizationProfileService;
 import com.qucai.sample.util.JsonBizTool;
 import com.qucai.sample.util.ShiroSessionUtil;
 import com.qucai.sample.vo.CompanyTxnStatic;
@@ -46,6 +48,9 @@ public class OrganizationDashboardController {
     @Autowired
     private ManagerService managerService; //申明一个对象
 
+    @Autowired
+    private OrganizationProfileService organizationProfileService; //申明一个对象
+
     @ModelAttribute
     public OrganizationInfo get(@RequestParam(required = false) String t_O_ID) {
         OrganizationInfo entity = null;
@@ -67,9 +72,8 @@ public class OrganizationDashboardController {
 
         Calendar cale = Calendar.getInstance();
 
-//        String t_P_Company = ShiroSessionUtil.getLoginSession().getCompany_name();
-        String t_P_Company = "美团买菜";
-        paramMap.put("t_P_Company", "美团买菜");
+        String t_P_Company = ShiroSessionUtil.getLoginSession().getCompany_name();
+        paramMap.put("t_P_Company", t_P_Company);
         String errBatchDupDebitCard = null;
         CompanyTxnStatic companyTxnStatic = null;
         CompanyTxnCntWlyStatic companyTxnCntWlyStatic = null;
@@ -101,6 +105,10 @@ public class OrganizationDashboardController {
                 
                 StaticInfoDaily = new String(errRecord1);
         }
+        OrganizationProfile organizationProfileDetail = organizationProfileService.selectAgencyName(ShiroSessionUtil.getLoginSession().getCompany_name());
+        model.addAttribute("organizationProfileDetail", organizationProfileDetail);
+        
+        model.addAttribute("organizationProfileDetail",organizationProfileDetail);
         model.addAttribute("StaticInfo",StaticInfo);
         model.addAttribute("StaticInfoDaily",StaticInfoDaily);
         return "organizationDashboard/userCenter";
