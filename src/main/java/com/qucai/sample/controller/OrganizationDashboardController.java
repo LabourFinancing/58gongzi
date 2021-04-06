@@ -99,7 +99,7 @@ public class OrganizationDashboardController {
 
         if (companyTxnStaticRet.size() == 1) {
             StringBuffer errRecord1 = new StringBuffer();
-                    errRecord1.append("'").append("T_CTxn_Static_CompanyName:").append(companyTxnStaticRet.get(0).getT_CTxn_Static_CompanyName()).append("-").append("T_CTxn_Static_CompanyNameID:").append(companyTxnStaticRet.get(0).getT_CTxn_Static_CompanyNameID()
+                    errRecord1.append("T_CTxn_Static_CompanyName:").append(companyTxnStaticRet.get(0).getT_CTxn_Static_CompanyName()).append("-").append("T_CTxn_Static_CompanyNameID:").append(companyTxnStaticRet.get(0).getT_CTxn_Static_CompanyNameID()
                     ).append("-").append("Txn_Static_TotTxnAmtDaily:").append(companyTxnStaticRet.get(0).getT_CTxn_Static_TotTxnAmtDaily()).append("-").append("Txn_Static_TotTxnCountDaily:").append(companyTxnStaticRet.get(0).getT_CTxn_Static_TotTxnCountDaily())
                         .append("-").append("T_CTxn_Succ_Txn():").append(companyTxnStaticRet.get(0).getT_CTxn_Succ_Txn()).append("-").append("T_CTxn_Fail_Txn():").append(companyTxnStaticRet.get(0).getT_CTxn_Fail_Txn());
                 
