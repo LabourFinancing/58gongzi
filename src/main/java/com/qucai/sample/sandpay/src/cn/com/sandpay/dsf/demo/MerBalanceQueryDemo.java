@@ -49,7 +49,6 @@ public class MerBalanceQueryDemo {
 		
 		MerBalanceQueryDemo demo = new MerBalanceQueryDemo();
 		String reqAddr="/queryBalance";   //接口报文规范中获取
-		
 		//加载配置文件
 		SDKConfig.getConfig().loadPropertiesFromSrc(merchantId);
 		//加载证书
