@@ -67,10 +67,10 @@
 		<include refid="Base_Column_List" />
 		from t_batch_personupload_status a
         <if test="t_batch_vendorCompany != 'ALL' and t_batch_vendorCompany != null" >
-            where  a.t_batch_vendorCompany like CONCAT('%',#{t_batch_vendorCompany},'%')
+            where  a.t_batch_company = #{t_batch_company,jdbcType=VARCHAR}
         </if>
 		<if test="t_batch_company != 'ALL' and t_batch_company != null">
-		   	and a.t_batch_company = #{t_batch_company,jdbcType=VARCHAR}
+		   	and a.t_batch_vendorCompany like CONCAT('%',#{t_batch_vendorCompany},'%')
 		</if>
 		order by a.create_time
 	</select>
