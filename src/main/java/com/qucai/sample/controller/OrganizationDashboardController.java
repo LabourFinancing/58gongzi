@@ -106,7 +106,6 @@ public class OrganizationDashboardController {
                 StaticInfoDaily = new String(errRecord1);
         }
         OrganizationProfile organizationProfileDetail = organizationProfileService.selectAgencyName(ShiroSessionUtil.getLoginSession().getCompany_name());
-        model.addAttribute("organizationProfileDetail", organizationProfileDetail);
         model.addAttribute("organizationProfileDetail",organizationProfileDetail);
         model.addAttribute("StaticInfo",StaticInfo);
         model.addAttribute("StaticInfoDaily",StaticInfoDaily);
