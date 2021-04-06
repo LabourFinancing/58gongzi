@@ -126,7 +126,7 @@
 <!--  delete batch -->
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
 		delete from t_batch_personupload
-		where batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}
+		where batch_PB_batchID = #{t_batch_perslUploadStatus_id,jdbcType=VARCHAR}
 	</delete>
 <!-- 
 	<select id="selectTotalCredit" resultType="String"
@@ -595,6 +595,10 @@ delete from t_transaction_info where t_transaction_info.t_Txn_PrepayApplierPID i
 		</set>
 		where t_P_Company = #{t_TreasuryDB_OrgName_get,jdbcType=VARCHAR} and t_P_Employmentstatus = "onjob" 
 	</update>
-	 -->	
+	 -->
+	<!-- <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from t_batch_personupload
+		where batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}
+	</delete> -->	
 </mapper>
  
