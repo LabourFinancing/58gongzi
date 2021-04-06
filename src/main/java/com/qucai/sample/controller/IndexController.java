@@ -107,7 +107,7 @@ public class IndexController {
                 e.printStackTrace();
             }
         }
-        if (SecurityUtils.getSubject().isAuthenticated()) {
+            if (SecurityUtils.getSubject().isAuthenticated()) {
             String id = (String) SecurityUtils.getSubject().getPrincipal();
             Manager manager = managerService.selectByPrimaryKey(id);
             String userName = manager.getUserName();
@@ -115,8 +115,8 @@ public class IndexController {
             if (userName == null) {
                 return "login";
             } else if (userName.contains("Admin") || userName.contains("ADMIN") || userName.contains("admin")) {
-                return "mainFrame";
-            } else if (!userName.toLowerCase().contains("admin") && host.equals("P")) {
+                return "redirect:/OrganizationDashboardController/dashboard";
+            } else if (host.equals("P")) {
                 return "redirect:/OrganizationDashboardController/dashboard";   
             } else {
                 return "redirect:/StaffPrepayApplicationController/staffPrepayApplicationNew";

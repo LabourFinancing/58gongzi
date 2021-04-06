@@ -21,6 +21,7 @@ import com.qucai.sample.security.CaptchaUsernamePasswordToken;
 import com.qucai.sample.service.ManagerService;
 import com.qucai.sample.smss.src.example.json.HttpJsonExample;
 import com.qucai.sample.util.JsonBizTool;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping(value = "/oauthController")
@@ -31,7 +32,7 @@ public class OauthController {
 	
     @RequestMapping("/login")
     @ResponseBody
-    public String login(HttpServletRequest request,HttpServletResponse response,String userName, String password, String remember,String host,String type,String API) {
+    public Object login(HttpServletRequest request, HttpServletResponse response, String userName, String password, String remember, String host, String type, String API) {
         CaptchaUsernamePasswordToken token = new CaptchaUsernamePasswordToken();
         token.setUsername(userName);
         
@@ -105,7 +106,7 @@ public class OauthController {
 	        } catch (AuthenticationException e) {
 	            return JsonBizTool.genJson(ExRetEnum.LOGIN_ACCOUNT_PASSWORD_ERROR);
 	        }
-	        	return JsonBizTool.genJson(ExRetEnum.SUCCESS,rs);
+             return JsonBizTool.genJson(ExRetEnum.SUCCESS,rs);
         }
     }
     
