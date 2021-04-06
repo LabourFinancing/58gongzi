@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 
 import com.qucai.sample.sandpay.src.cn.com.sandpay.cashier.sdk.CertUtil;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.cashier.sdk.SDKConfig;
+import com.qucai.sample.entity.StaffPrepayApplicationPayment;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -39,33 +40,35 @@ public class AgentPayDemo {
 	/** 
 	* 组织请求报文     
 	*/
-	private void setRequest() {
-		
+	private void setRequest(StaffPrepayApplicationPayment staffPrepayApplicationPay) {
+	    
+        Integer transactionAMT = Integer.valueOf(staffPrepayApplicationPay.getTranAmt())*100; //转型
+        
 		request.put("version", DemoBase.version);								//版本号      
 		request.put("productId", DemoBase.PRODUCTID_AGENTPAY_TOC);              //产品ID     
 		request.put("tranTime", DemoBase.getCurrentTime());                     //交易时间     
-		request.put("orderCode", DemoBase.getOrderCode());                      //订单号      
+		request.put("orderCode", staffPrepayApplicationPay.getOrderCode());     //订单号      
 		request.put("timeOut", DemoBase.getNextDayTime());                      //订单超时时间   
-		request.put("tranAmt", "000000000001");                                 //金额       
+		request.put("tranAmt", String.format("%012d", transactionAMT));         //金额       
 		request.put("currencyCode", DemoBase.CURRENCY_CODE);                    //币种       
 		request.put("accAttr", "0");                                            //账户属性     0-对私   1-对公
 		request.put("accType", "4");                                            //账号类型      3-公司账户  4-银行卡
-		request.put("accNo", "6228480038125000000");                            //收款人账户号   
-		request.put("accName", "施祺");                                       		//收款人账户名   
+		request.put("accNo", staffPrepayApplicationPay.getAccNo().replace(" ",""));                            //收款人账户号   
+		request.put("accName", staffPrepayApplicationPay.getAccName());                                       		//收款人账户名   
 		request.put("provNo", "");                                              //收款人开户省份编码
 		request.put("cityNo", "");                                              //收款人开会城市编码
 		request.put("bankName", "");                                            //收款账户开户行名称
 		request.put("bankType", "");                                			//收款人账户联行号 
-		request.put("remark", "消费");                                          	//摘要       
+		request.put("remark", "工资,报销,补贴");                                          	//摘要       
 		request.put("payMode", ""); 											//付款模式
 		request.put("channelType", "");                                         //渠道类型   
 		request.put("extendParams", "");										//业务扩展参数
 		request.put("reqReserved", "");                                         //请求方保留域  
-		request.put("extend", "");                                              //扩展域
-		request.put("phone", "");												//手机号
+		request.put("extend", "工资");                                              //扩展域
+		request.put("phone", staffPrepayApplicationPay.getPhone());												//手机号
 	}
 
-	public static void main(String[] args,String merchantId) throws Exception {
+	public static JSONObject main(StaffPrepayApplicationPayment staffPrepayApplicationPay, String merchantId) throws Exception {
 		AgentPayDemo demo = new AgentPayDemo();
 		String reqAddr="/agentpay";   //接口报文规范中获取
 		
@@ -74,7 +77,7 @@ public class AgentPayDemo {
 		//加载证书
 		CertUtil.init(SDKConfig.getConfig().getSandCertPath(), SDKConfig.getConfig().getSignCertPath(), SDKConfig.getConfig().getSignCertPwd());
 		//设置报文
-		demo.setRequest();
+		demo.setRequest(staffPrepayApplicationPay);
 		
 		String merId = SDKConfig.getConfig().getMid(); 			//商户ID
 		String plMid = SDKConfig.getConfig().getPlMid();		//平台商户ID
@@ -92,8 +95,9 @@ public class AgentPayDemo {
 		}else {
 			logger.error("服务器请求异常！！！");	
 			System.out.println("服务器请求异常！！！");
-		}	
+		}
 
-	}
+        return resp;
+    }
 	
 }
