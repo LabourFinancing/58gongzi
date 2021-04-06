@@ -17,6 +17,7 @@
     <script>
        var StaticInfoDaily = "${StaticInfoDaily}";
        var StaticInfo = "${StaticInfo}";
+       var t_Profile_Mobile = "${organizationProfileDetail.t_Profile_Mobile}";
     </script>
 </head>
 
@@ -41,7 +42,7 @@
                                                         class="fl">
                                                     <div data-v-div="" class="f2">
                                                         <div data-v-div="" class="name ellipsis"
-                                                            style="width: 260px; height: 30px;">${organizationProfileDetail.t_Profile_OrgName}-经销商</div>
+                                                            style="width: 260px; height: 30px;" id="t_Profile_OrgName">${organizationProfileDetail.t_Profile_OrgName}</div>
                                                         <div data-v-div="" class="clearfix">
                                                             <div data-v-div="" class="status fl green"
                                                                 style="color:#26a1ab;">${organizationProfileDetail.t_Profile_text1}</div>
@@ -218,6 +219,11 @@
                 }
 
             })
+            if(t_Profile_Mobile==='on') {
+                var el = document.querySelector('#t_Profile_OrgName');
+                el.innerHTML=el.innerHTML+'-经销商';
+            }
+            
         })()
     </script>
     <script>
@@ -250,15 +256,37 @@
         }
         var mychart = echarts.init(document.getElementById('main'));
         mychart.setOption({
+            yAxis: {
+ axisLabel: {
+                fontSize:'30px',
+                fontFamily:'微软雅黑',
+            },
+},
+xAxis: {
+ axisLabel: {
+                fontSize:'30px',
+                fontFamily:'微软雅黑',
+            },
+},
+            
+            lable:{
+        normal:{
+        textStyle:{
+        fontsize:'30px'
+
+        }}}});
+        var keys = Object.keys(StaticInfoMap).reverse();
+        var values = Object.values(StaticInfoMap).reverse();
+        mychart.setOption({
             xAxis: {
                 type: 'category',
-                data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                data: keys
             },
             yAxis: {
                 type: 'value'
             },
             series: [{
-                data: [StaticInfoMap['day0'], StaticInfoMap['day1'], StaticInfoMap['day2'], StaticInfoMap['day3'], StaticInfoMap['day4'], StaticInfoMap['day5'], StaticInfoMap['day6']],
+                data: values,
                 type: 'line',
                 smooth: true
             }]
