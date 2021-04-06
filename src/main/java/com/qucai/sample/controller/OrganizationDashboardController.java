@@ -89,9 +89,9 @@ public class OrganizationDashboardController {
             StringBuffer errRecord = new StringBuffer();
             for (int i = 0; i < CompanyTxnAmtWlyStaticRet.size(); i++) {
                 if (i == 0) {
-                    errRecord.append("'").append("day").append(i).append(":").append(CompanyTxnAmtWlyStaticRet.get(i).getT_CTxnAmt_Static_day1()).append("-");
+                    errRecord.append("day").append(i).append(":").append(CompanyTxnAmtWlyStaticRet.get(i).getT_CTxnAmt_Static_day1()).append("-");
                 } else {
-                    errRecord.append(",").append("'").append("day").append(i).append(":").append(CompanyTxnAmtWlyStaticRet.get(i).getT_CTxnAmt_Static_day1()).append("-");
+                    errRecord.append(",").append("day").append(i).append(":").append(CompanyTxnAmtWlyStaticRet.get(i).getT_CTxnAmt_Static_day1()).append("-");
                 }
             }
             StaticInfo = new String(errRecord);
