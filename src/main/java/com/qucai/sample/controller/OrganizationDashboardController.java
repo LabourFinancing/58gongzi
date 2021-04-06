@@ -71,6 +71,15 @@ public class OrganizationDashboardController {
         Map<String, Object> rs = new HashMap<String, Object>();
 
         Calendar cale = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String[] dayArray = new String[7];
+        for(int i=0;i<dayArray.length;i++){
+            Date date = new Date();
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(date.getDate(), -i);
+            calendar.getTime();
+            dayArray[i] = String.valueOf(df.format(calendar.getTime()));
+        }
 
         String t_P_Company = ShiroSessionUtil.getLoginSession().getCompany_name();
         paramMap.put("t_P_Company", t_P_Company);
@@ -89,9 +98,9 @@ public class OrganizationDashboardController {
             StringBuffer errRecord = new StringBuffer();
             for (int i = 0; i < CompanyTxnAmtWlyStaticRet.size(); i++) {
                 if (i == 0) {
-                    errRecord.append("day").append(i).append(":").append(CompanyTxnAmtWlyStaticRet.get(i).getT_CTxnAmt_Static_day1()).append("-");
+                    errRecord.append(dayArray[i]).append(":").append(CompanyTxnAmtWlyStaticRet.get(i).getT_CTxnAmt_Static_day1()).append("-");
                 } else {
-                    errRecord.append(",").append("day").append(i).append(":").append(CompanyTxnAmtWlyStaticRet.get(i).getT_CTxnAmt_Static_day1()).append("-");
+                    errRecord.append(",").append(dayArray[i]).append(":").append(CompanyTxnAmtWlyStaticRet.get(i).getT_CTxnAmt_Static_day1()).append("-");
                 }
             }
             StaticInfo = new String(errRecord);
