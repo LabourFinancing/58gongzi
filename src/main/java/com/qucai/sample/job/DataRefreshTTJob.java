@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import com.qucai.sample.MerchantDemo.demo.src.main.java.cn.com.test.httpclient.dsfpdemo.demo.QueryOrderDemo;
+import com.qucai.sample.sandpay.src.cn.com.sandpay.dsf.demo.OrderQueryDemo;
 import com.qucai.sample.daifudemo.src.com.chinaebi.pay.servlet.QueryServlet;
 import com.qucai.sample.entity.HistoricalTxnQuery;
 import com.qucai.sample.entity.StaffPrepayApplicationList;
@@ -388,90 +388,90 @@ public class DataRefreshTTJob {
 			logger.info("定时每天统计月交易总额开始结束：" + RS);
 	}
 	
-	@Scheduled(cron = "0 0 12,23 * * ?")
-	public void PaymentChkCreditRT() throws Exception {
-		logger.info("定时月预支失败交易单处理开始：" + System.currentTimeMillis());
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		List<StaffPrepayApplicationPayment> StaffPrepayApplicationPayment  = staffPrepayApplicationService.findFailedPaymentList(paramMap);
-		SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
-		
-	    for(int i=0;i<StaffPrepayApplicationPayment.size();i++){
-	    	String OrderCode = null;
-	        OrderCode = StaffPrepayApplicationPayment.get(i).getOrderCode();
-	        String PaymentVendor = StaffPrepayApplicationPayment.get(i).getVersion();
-			String TranTime = StaffPrepayApplicationPayment.get(i).getTranTime();
-			String OriginalRC = StaffPrepayApplicationPayment.get(i).getRCcode();
-	        String RC,FailedRC = null;
-	        if (PaymentVendor.equals("sandpay")) {
-		    	RC = QueryOrderDemo.QueryOrder(OrderCode,TranTime);
-		    	System.out.println("sandpay error fix:");
-		    	System.out.println(OrderCode);
-		    	System.out.println("Return Code");
-		    	FailedRC = RC.substring(92,96);
-		    	System.out.println(FailedRC);
-	        }else if(PaymentVendor.equals("Chinaebi")){
-		    	RC = QueryServlet.main(StaffPrepayApplicationPayment.get(i));
-		    	FailedRC = String.valueOf(RC);
-		    	System.out.println("Chinaebi error fix:");
-		    	System.out.println(OrderCode);
-		    	System.out.println("Chinaebi Return Code");
-		    	System.out.println(RC);
-	        }
-	        
-	    	System.out.print("Get Fresh RC: ");
-	    	System.out.print("'");
-	    	System.out.print(FailedRC);
-	    	System.out.print("'");
-	    	
-	       	if(FailedRC.equals(null)){
-	       		continue;
-	       	}else if(FailedRC.equals("0000") || FailedRC.equals("S")){
-	       		int RsClean = staffPrepayApplicationService.paymentSuccCheck(OrderCode);
-		    }else if(FailedRC.equals("0001") || FailedRC.equals("0002") || FailedRC.equals("P")){
-	        	continue;
-	       	} else if((FailedRC.equals("S") && OriginalRC != "F") || (FailedRC.equals("0000") && OriginalRC != "0004")) {
-	       		StaffPrepayApplicationList staffPrepayApplicationList = staffPrepayApplicationService.FindFailedPayment(OrderCode);
-	    		if (staffPrepayApplicationList == null) {
-	    			continue;
-	    		}else{
-	       		BigDecimal OverAllFee = staffPrepayApplicationList.getT_Txn_ApplyPrepayAmount().add(staffPrepayApplicationList.getT_Txn_ServiceFee()).add(staffPrepayApplicationList.getT_Txn_Poundage());	
-	    		String t_TreasuryDB_OrgName = null;
-	    		HistoricalTxnQuery historicalTxnQueryFind = historicalTxnQueryService.selectByOrderCode(OrderCode);
-
-	    		t_TreasuryDB_OrgName = historicalTxnQueryFind.getT_P_Company_his();
-	    		//返回机构余额
-
-	    		TreasuryDBInfo treasuryOrgDBInfoUpdate = treasuryDBInfoService.findOrgTreasuryCurrBalance(t_TreasuryDB_OrgName);
-	    	  	BigDecimal tTreasuryOrgDBBalance = treasuryOrgDBInfoUpdate.getT_TreasuryDB_Balance().add(OverAllFee);
-	    	  	treasuryOrgDBInfoUpdate.setT_TreasuryDB_Balance(tTreasuryOrgDBBalance);    
-	    	  	treasuryOrgDBInfoUpdate.setModifier("system");    
-	    	  	treasuryOrgDBInfoUpdate.setModify_time(new Date());  
-	    	  	treasuryOrgDBInfoUpdate.setT_TreasuryDB_Comment("自动更新"); 
-	    	    int RS = treasuryDBInfoService.updateByPrimaryKeySelective(treasuryOrgDBInfoUpdate);
-	    	    
-	    		//返回总余额
-	       	    t_TreasuryDB_OrgName = "ALL";
-	      	    TreasuryDBInfo treasuryDBInfoUpdateOverall = treasuryDBInfoService.findOrgTreasuryCurrBalance(t_TreasuryDB_OrgName);
-			    BigDecimal tTreasuryDBBalanceOverall = treasuryDBInfoUpdateOverall.getT_TreasuryDB_Balance().add(OverAllFee);
-			    treasuryDBInfoUpdateOverall.setT_TreasuryDB_Balance(tTreasuryDBBalanceOverall);
-			    RS = treasuryDBInfoService.updateByPrimaryKeySelective(treasuryDBInfoUpdateOverall);
-	            String SeesionLoginMobil =  StaffPrepayApplicationPayment.get(i).getPhone();
-	            String OrderCodeUpdate = StaffPrepayApplicationPayment.get(i).getOrderCode();
-	            StaffPrepayApplicationList StaffPrepayApplicationListBalance  = staffPrepayApplicationService.findPrepayApplierCreditBalance(SeesionLoginMobil);
-	            BigDecimal CreditBalanceAmtRefund = tTreasuryDBBalanceOverall.add(StaffPrepayApplicationListBalance.getT_Txn_BalanceCreditNum());
-	         	int rs = staffPrepayApplicationService.updateCreditBalanceAmt(CreditBalanceAmtRefund,OrderCodeUpdate);
-	       		if (RS == 1) {
-	          	  continue;
-	         		}
-	         		else { 		
-	         			staffPrepayApplicationService.updateFailedPayment(OrderCode);
-	         			historicalTxnQueryService.MarkFailedPayment(OrderCode);
-	         		 }
-	         		}
-	    		}
-	       	}
-		logger.info("定时月预支失败交易单处理开始结束：" + System.currentTimeMillis());
-	       }
+//	@Scheduled(cron = "0 0 12,23 * * ?")
+//	public void PaymentChkCreditRT() throws Exception {
+//		logger.info("定时月预支失败交易单处理开始：" + System.currentTimeMillis());
+//		Map<String, Object> paramMap = new HashMap<String, Object>();
+//		List<StaffPrepayApplicationPayment> StaffPrepayApplicationPayment  = staffPrepayApplicationService.findFailedPaymentList(paramMap);
+//		SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+//		
+//	    for(int i=0;i<StaffPrepayApplicationPayment.size();i++){
+//	    	String OrderCode = null;
+//	        OrderCode = StaffPrepayApplicationPayment.get(i).getOrderCode();
+//	        String PaymentVendor = StaffPrepayApplicationPayment.get(i).getVersion();
+//			String TranTime = StaffPrepayApplicationPayment.get(i).getTranTime();
+//			String OriginalRC = StaffPrepayApplicationPayment.get(i).getRCcode();
+//	        String RC,FailedRC = null;
+//	        if (PaymentVendor.equals("sandpay")) {
+//		    	RC = OrderQueryDemo.QueryOrder(OrderCode,TranTime);
+//		    	System.out.println("sandpay error fix:");
+//		    	System.out.println(OrderCode);
+//		    	System.out.println("Return Code");
+//		    	FailedRC = RC.substring(92,96);
+//		    	System.out.println(FailedRC);
+//	        }else if(PaymentVendor.equals("Chinaebi")){
+//		    	RC = QueryServlet.main(StaffPrepayApplicationPayment.get(i));
+//		    	FailedRC = String.valueOf(RC);
+//		    	System.out.println("Chinaebi error fix:");
+//		    	System.out.println(OrderCode);
+//		    	System.out.println("Chinaebi Return Code");
+//		    	System.out.println(RC);
+//	        }
+//	        
+//	    	System.out.print("Get Fresh RC: ");
+//	    	System.out.print("'");
+//	    	System.out.print(FailedRC);
+//	    	System.out.print("'");
+//	    	
+//	       	if(FailedRC.equals(null)){
+//	       		continue;
+//	       	}else if(FailedRC.equals("0000") || FailedRC.equals("S")){
+//	       		int RsClean = staffPrepayApplicationService.paymentSuccCheck(OrderCode);
+//		    }else if(FailedRC.equals("0001") || FailedRC.equals("0002") || FailedRC.equals("P")){
+//	        	continue;
+//	       	} else if((FailedRC.equals("S") && OriginalRC != "F") || (FailedRC.equals("0000") && OriginalRC != "0004")) {
+//	       		StaffPrepayApplicationList staffPrepayApplicationList = staffPrepayApplicationService.FindFailedPayment(OrderCode);
+//	    		if (staffPrepayApplicationList == null) {
+//	    			continue;
+//	    		}else{
+//	       		BigDecimal OverAllFee = staffPrepayApplicationList.getT_Txn_ApplyPrepayAmount().add(staffPrepayApplicationList.getT_Txn_ServiceFee()).add(staffPrepayApplicationList.getT_Txn_Poundage());	
+//	    		String t_TreasuryDB_OrgName = null;
+//	    		HistoricalTxnQuery historicalTxnQueryFind = historicalTxnQueryService.selectByOrderCode(OrderCode);
+//
+//	    		t_TreasuryDB_OrgName = historicalTxnQueryFind.getT_P_Company_his();
+//	    		//返回机构余额
+//
+//	    		TreasuryDBInfo treasuryOrgDBInfoUpdate = treasuryDBInfoService.findOrgTreasuryCurrBalance(t_TreasuryDB_OrgName);
+//	    	  	BigDecimal tTreasuryOrgDBBalance = treasuryOrgDBInfoUpdate.getT_TreasuryDB_Balance().add(OverAllFee);
+//	    	  	treasuryOrgDBInfoUpdate.setT_TreasuryDB_Balance(tTreasuryOrgDBBalance);    
+//	    	  	treasuryOrgDBInfoUpdate.setModifier("system");    
+//	    	  	treasuryOrgDBInfoUpdate.setModify_time(new Date());  
+//	    	  	treasuryOrgDBInfoUpdate.setT_TreasuryDB_Comment("自动更新"); 
+//	    	    int RS = treasuryDBInfoService.updateByPrimaryKeySelective(treasuryOrgDBInfoUpdate);
+//	    	    
+//	    		//返回总余额
+//	       	    t_TreasuryDB_OrgName = "ALL";
+//	      	    TreasuryDBInfo treasuryDBInfoUpdateOverall = treasuryDBInfoService.findOrgTreasuryCurrBalance(t_TreasuryDB_OrgName);
+//			    BigDecimal tTreasuryDBBalanceOverall = treasuryDBInfoUpdateOverall.getT_TreasuryDB_Balance().add(OverAllFee);
+//			    treasuryDBInfoUpdateOverall.setT_TreasuryDB_Balance(tTreasuryDBBalanceOverall);
+//			    RS = treasuryDBInfoService.updateByPrimaryKeySelective(treasuryDBInfoUpdateOverall);
+//	            String SeesionLoginMobil =  StaffPrepayApplicationPayment.get(i).getPhone();
+//	            String OrderCodeUpdate = StaffPrepayApplicationPayment.get(i).getOrderCode();
+//	            StaffPrepayApplicationList StaffPrepayApplicationListBalance  = staffPrepayApplicationService.findPrepayApplierCreditBalance(SeesionLoginMobil);
+//	            BigDecimal CreditBalanceAmtRefund = tTreasuryDBBalanceOverall.add(StaffPrepayApplicationListBalance.getT_Txn_BalanceCreditNum());
+//	         	int rs = staffPrepayApplicationService.updateCreditBalanceAmt(CreditBalanceAmtRefund,OrderCodeUpdate);
+//	       		if (RS == 1) {
+//	          	  continue;
+//	         		}
+//	         		else { 		
+//	         			staffPrepayApplicationService.updateFailedPayment(OrderCode);
+//	         			historicalTxnQueryService.MarkFailedPayment(OrderCode);
+//	         		 }
+//	         		}
+//	    		}
+//	       	}
+//		logger.info("定时月预支失败交易单处理开始结束：" + System.currentTimeMillis());
+//	       }
 
 //Tomcat v7.0 Server at localhost
 	

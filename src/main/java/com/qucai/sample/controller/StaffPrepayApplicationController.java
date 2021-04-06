@@ -25,7 +25,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.dsf.demo.AgentPayDemo;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.dsf.demo.MerBalanceQueryDemo;
-import com.qucai.sample.MerchantDemo.demo.src.main.java.cn.com.test.httpclient.dsfpdemo.demo.QueryBalanceDemo;
 import com.qucai.sample.daifudemo.src.com.chinaebi.pay.servlet.AmtQueryServlet;
 import com.qucai.sample.daifudemo.src.com.chinaebi.pay.servlet.PayServlet;
 import com.qucai.sample.entity.OrganizationInfo;

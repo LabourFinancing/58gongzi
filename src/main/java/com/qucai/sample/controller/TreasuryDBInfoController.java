@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.qucai.sample.OperationTypeConstant;
-import com.qucai.sample.MerchantDemo.demo.src.main.java.cn.com.test.httpclient.dsfpdemo.demo.QueryBalanceDemo;
+import com.qucai.sample.sandpay.src.cn.com.sandpay.dsf.demo.MerBalanceQueryDemo;
 import com.qucai.sample.daifudemo.src.com.chinaebi.pay.servlet.AmtQueryServlet;
 import com.qucai.sample.entity.OrganizationInfo;
 import com.qucai.sample.entity.Paymentvendormgt;
@@ -398,15 +398,13 @@ public class TreasuryDBInfoController {
 
 		if (AgencyOrgnization.getT_O_OrgName().equals("ALL")){
 		    merchantId = "S2135052";
-	    	String JSONretdata = QueryBalanceDemo.BalanceQuery(merchantId);
-	    	JSONObject obj = (JSONObject) JSON.parse(JSONretdata);
+            JSONObject obj = MerBalanceQueryDemo.main(merchantId);
 	    	BalanceData = (String) obj.get("balance");
-			System.out.print("Chinaebi:");
-			System.out.print(JSONretdata);
-	    	String BalanceDatanewStr = BalanceData.replaceFirst("^0*", ""); 
-	        
-	    	BigDecimal BalanceAmt = new BigDecimal(BalanceDatanewStr);
-	    	BigDecimal BalanceAmtTotal = BalanceAmt.divide(BigDecimal.valueOf(100.00)).setScale(2,BigDecimal.ROUND_DOWN);
+			System.out.print("sandpay:");
+			System.out.print(obj);
+//	    	String BalanceDatanewStr = BalanceData.replaceFirst("^0*", "");
+
+            BigDecimal BalanceAmtTotal = (new BigDecimal(BalanceData)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
 	    	System.out.print("Decimal-data :");
 	    	System.out.print(BalanceAmtTotal);
 	    	System.out.print(";");
@@ -783,9 +781,8 @@ public class TreasuryDBInfoController {
 
     	if (ShiroSessionUtil.getLoginSession().getCompany_name().equals("ALL")) {
 		    merchantId = "S2135052";
-	    	String JSONretdata = QueryBalanceDemo.BalanceQuery(merchantId);
-	    	JSONObject obj = (JSONObject) JSON.parse(JSONretdata);
-	    	BalanceData = (String) obj.get("balance");
+            JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId);
+	    	BalanceData = (String) JSONretdata.get("balance");
 			System.out.print("Chinaebi:");
 			System.out.print(JSONretdata);
 	    	String BalanceDatanewStr = BalanceData.replaceFirst("^0*", ""); 

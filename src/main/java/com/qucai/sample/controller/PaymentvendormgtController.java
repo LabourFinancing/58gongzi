@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.qucai.sample.OperationTypeConstant;
-import com.qucai.sample.MerchantDemo.demo.src.main.java.cn.com.test.httpclient.dsfpdemo.demo.QueryBalanceDemo;
+import com.qucai.sample.sandpay.src.cn.com.sandpay.dsf.demo.MerBalanceQueryDemo;
 import com.qucai.sample.daifudemo.src.com.chinaebi.pay.servlet.AmtQueryServlet;
 import com.qucai.sample.entity.OrganizationInfo;
 import com.qucai.sample.entity.Paymentvendormgt;
@@ -105,9 +105,8 @@ public class PaymentvendormgtController {
     	
     	//call sandewebAPI to get the total balance.
 //        String BalanceDatanewStr = "1200000"; //local server test using
-    	String JSONretdata = QueryBalanceDemo.BalanceQuery(merchantId);
-    	JSONObject obj = (JSONObject) JSON.parse(JSONretdata);
-    	String BalanceData = (String) obj.get("balance");
+        JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId);
+    	String BalanceData = (String) JSONretdata.get("balance");
 		System.out.print("Chinaebi:");
 		System.out.print(JSONretdata);
     	
@@ -163,8 +162,7 @@ public class PaymentvendormgtController {
 	    OrganizationInfo AgencyOrgnization = organizationInfoService.selectAgencyName(t_Pymt_Name);
 //       String BalanceDatanewStr = "1200000"; // test using
 		String merchantId = AgencyOrgnization.getT_O_OrgPayrollBankaccount();
-    	String JSONretdata = QueryBalanceDemo.BalanceQuery(merchantId);  // query Sandpay acc balance
-    	JSONObject obj = (JSONObject) JSON.parse(JSONretdata);
+        JSONObject obj = MerBalanceQueryDemo.main(merchantId);
     	String BalanceData = (String) obj.get("balance");
     	String BalanceDatanewStr = BalanceData.replaceFirst("^0*", ""); 
         System.out.print("获取值： ");
