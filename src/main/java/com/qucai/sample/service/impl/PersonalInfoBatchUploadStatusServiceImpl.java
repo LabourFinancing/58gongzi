@@ -27,10 +27,12 @@ public class PersonalInfoBatchUploadStatusServiceImpl implements PersonalInfoBat
     private TrRoleResourceDao trRoleResourceDao;
 */
    @Override
-   public int deleteByPrimaryKey(String t_P_id) {
-       return PersonalInfoBatchUploadStatusDao.deleteByPrimaryKey(t_P_id);
+   public int deleteByPrimaryKey(String t_batch_perslUploadStatus_id) {
+       return PersonalInfoBatchUploadStatusDao.deleteByPrimaryKey(t_batch_perslUploadStatus_id);
    }
-       
+//    public int deleteByPrimaryKey(String t_P_id) {
+//     return PersonalInfoBatchUploadStatusDao.deleteByPrimaryKey(t_P_id);
+//    }   
 
     public PersonalInfoBatchUploadStatus selectByPrimaryKey(String t_batch_perslUploadId) {
         return PersonalInfoBatchUploadStatusDao.selectByPrimaryKey(t_batch_perslUploadId);

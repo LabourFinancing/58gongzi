@@ -11,7 +11,7 @@ import com.qucai.sample.entity.PersonalInfoBatchUploadStatus;
 
 public interface PersonalInfoBatchUploadStatusService {
     
-    int deleteByPrimaryKey(String t_P_id);
+    int deleteByPrimaryKey(String t_batch_perslUploadStatus_id); // int deleteByPrimaryKey(String t_P_id);
 
 	PersonalInfoBatchUploadStatus selectByPrimaryKey(String t_batch_perslUploadId);
     

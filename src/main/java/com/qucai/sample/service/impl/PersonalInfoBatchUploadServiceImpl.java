@@ -180,9 +180,13 @@ public class PersonalInfoBatchUploadServiceImpl implements PersonalInfoBatchUplo
   	  return personalInfoBatchUploadDao.updateBatchPersonalInfo(paramMap);
     }
     
+    // @Override
+    // public int deleteByPrimaryKey(String batch_PB_batchID) {
+    //     return personalInfoBatchUploadDao.deleteByPrimaryKey(batch_PB_batchID);
+    // }
     @Override
-    public int deleteByPrimaryKey(String batch_PB_batchID) {
-        return personalInfoBatchUploadDao.deleteByPrimaryKey(batch_PB_batchID);
+    public int deleteByPrimaryKey(String t_batch_perslUploadStatus_id) {
+        return personalInfoBatchUploadDao.deleteByPrimaryKey(t_batch_perslUploadStatus_id);
     }
     
       /*

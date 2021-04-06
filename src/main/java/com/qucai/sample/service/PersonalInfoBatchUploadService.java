@@ -35,7 +35,7 @@ public interface PersonalInfoBatchUploadService {
 	
 	List<PersonalInfoBatchUpload> duplicateDebitCardChk(String batch_PB_batchID);
 	
-	int deleteByPrimaryKey(String batch_PB_batchID);
+	int deleteByPrimaryKey(String t_batch_perslUploadStatus_id); // int deleteByPrimaryKey(String batch_PB_batchID);
 
 	List<PersonalInfoBatchUpload> duplicateMobileChkTmanager(String batch_PB_batchID);
 
