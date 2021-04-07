@@ -1,6 +1,7 @@
 package com.qucai.sample.controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -348,7 +349,11 @@ public class HistoricalTxnQueryController<HisTxnSelectedIDs> {
 		StringBuilder sb = new StringBuilder();
         sb.append("[");
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        int j = 0;
         for (PersonalTxnStatic i : PersonalTxnStaticList) {
+            if(i.getT_Txn_Static_CurrentBalance() == null){
+                i.setT_Txn_Static_CurrentBalance(new BigDecimal("0.00"));
+            }
             sb.append("{");
             sb.append("t_Txn_Static_Clear_his:'");sb.append(i.getT_Txn_Static_Clear_his());sb.append("',");
             sb.append("t_Txn_Static_PerName:'");sb.append(i.getT_Txn_Static_PerName());sb.append("',");
@@ -369,6 +374,7 @@ public class HistoricalTxnQueryController<HisTxnSelectedIDs> {
             sb.append("t_Txn_Static_BeginDate:'");sb.append(format.format(i.getT_Txn_Static_BeginDate()));sb.append("',");
             sb.append("t_Txn_Static_EndDate:'");sb.append(format.format(i.getT_Txn_Static_EndDate()));sb.append("',");
             sb.append("},");
+            j = j + 1;
         }
         sb.append("]");
         model.addAttribute("sb", sb);
