@@ -160,9 +160,9 @@
                                     style="position: static; -webkit-tap-highlight-color: transparent; user-select: none; background: transparent;"
                                     _echarts_instance_="ec_1607406719054">
                                     <div
-                                        style="position: relative; overflow: hidden; width: 100%; height: 300px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;">
+                                        style="position: relative; overflow: hidden; width: 100%; height: 400px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;">
                                         <canvas id="main" width="2020" height="600" data-zr-dom-id="zr_0"
-                                            style="position: absolute; left: 0px; top: 0px; width: 100%; height: 300px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas>
+                                            style="position: absolute; left: 0px; top: 0px; width: 100%; height: 400px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -255,29 +255,12 @@
 
         }
         var mychart = echarts.init(document.getElementById('main'));
-        mychart.setOption({
-            yAxis: {
- axisLabel: {
-                fontSize:'30px',
-                fontFamily:'微软雅黑',
-            },
-},
-xAxis: {
- axisLabel: {
-                fontSize:'30px',
-                fontFamily:'微软雅黑',
-            },
-},
-            
-            lable:{
-        normal:{
-        textStyle:{
-        fontsize:'30px'
-
-        }}}});
         var keys = Object.keys(StaticInfoMap).reverse();
         var values = Object.values(StaticInfoMap).reverse();
         mychart.setOption({
+            grid:{
+                x:40,y:10,x2:10,y2:200
+            },
             xAxis: {
                 type: 'category',
                 data: keys
@@ -288,9 +271,17 @@ xAxis: {
             series: [{
                 data: values,
                 type: 'line',
-                smooth: true
-            }]
+                smooth: false
+            }],
+            axisLabel: {           // 坐标轴文本标签，详见axis.axisLabel
+                // formatter: null,
+                textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                    fontSize:16,
+                    fontWeight: 900
+                }
+            }
         });
+        
         // function changePieData() {
         //     var option = mychart.getOption();
         //     var list = [{ "name": "满意", "value": "5" }, { "name": "基本满意", "value": "5" }, { "name": "不满意", "value": "5" }, { "name": "不满意", "value": "5" }, { "name": "基本满意", "value": "5" }];

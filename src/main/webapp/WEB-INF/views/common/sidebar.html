@@ -44,6 +44,31 @@
 				$("ul.sub-menu").find(".open").first().removeClass("open active");
 				$(obj).parent().addClass("open active");
 			}
+			// https://thesabbir.github.io/simple-line-icons/
+			const ul =document.querySelector('.page-sidebar-menu ');
+			const lis=ul.querySelectorAll('li');
+			Array.from(lis).map(li=>{
+				const a = li.querySelector('a');
+				const name = a.innerText;
+				let icon='icon-settings';
+				switch(name) {
+					case '企业管理':
+						icon='icon-organization';
+						break;
+					case '个人中心':
+						icon='icon-user';
+						break;
+					default:
+						icon='icon-settings';
+				}
+				debugger;
+				const i = a.querySelector('i');
+				if(i) {
+					i.className=icon;
+				} else {
+					
+				}
+			})
 		</script>
 		<!-- END SIDEBAR MENU -->
 	</div>
