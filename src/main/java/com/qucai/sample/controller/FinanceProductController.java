@@ -122,7 +122,7 @@ public class FinanceProductController {
           } else if (OperationTypeConstant.VERIFY.equals(operationType)) {
               return "financeProduct/financeProductVerifyList";
           } else {
-            return "redirect:/financeProductController/financeProductList";
+            return "redirect:/financeProductController/dashboard";
         }
     }
     

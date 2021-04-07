@@ -1,50 +1,64 @@
-<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
-<!--[if !IE]><!-->
-<html lang="en">
-    <!--<![endif]-->
+<!DOCTYPE html>
+<!-- saved from url=(0035)http://users.ucpaas.com/%20/l%20/#/ -->
+<html>
+
 <head>
-<title>管理端资源管理</title>
-    <meta http-equiv="Cache-Control" content="no-store"/>  
-    <meta http-equiv="Pragma" content="no-cache"/>  
-    <meta http-equiv="Expires" content="0"/>  
-    <meta charset="utf-8">
-    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
-<meta content="width=device-width, initial-scale=1" name="viewport" />
-<meta content="" name="description" />
-<meta content="" name="author" />
-<!--
-<#include "/common/cssResource.html">
-<link href="${ctx}/metronic/global/plugins/jquery-treetable/css/jquery.treetable.css" rel="stylesheet" type="text/css" />
-<link href="${ctx}/metronic/global/plugins/jquery-treetable/css/jquery.treetable.theme.default.css" rel="stylesheet" type="text/css" />
-<#include "/common/jsResource.html">
-<script src="${ctx}/metronic/global/plugins/jquery-treetable/jquery.treetable.js" type="text/javascript"></script>
-<script type="text/javascript">
-
-
-</script>
-  -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="webkit" name="renderer">
+    <title>用户中心</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="">
+    <#include "/common/cssResource.html">
+    <#include "/common/jsResource.html">
+    <script type="text/javascript">
+        function mainpage() {
+            $(document).ready(function () {
+                form.validate({
+                    submitHandler: function (form) {
+                        $.ajax({
+                            url: "${ctx}/OrganizationDashboardController/dashboard",
+                            type: 'POST',
+                            data: formData,
+                            async: true,
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            success: function (data) {
+                                var result = eval("(" + data + ")");
+                                var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                            },
+                            error: function (data) {
+                                var result = eval("(" + data + ")");
+                                alert(result.msg);
+                            }
+                        });
+                    }
+                });
+            });
+        }
+    </script>
 </head>
-<body>
-	<!-- BEGIN PAGE BASE CONTENT -->
-	<div class="row">
-		<div class="col-sm-12">
-			<!-- BEGIN EXAMPLE TABLE PORTLET-->
-			<div class="portlet light portlet-fit bordered">
-				<div class="portlet-title">
-					<ul class="page-breadcrumb breadcrumb">
-						<li><a>企业服务台</a> <i class="fa fa-circle"></i></li>
-						<li><a>系统管理</a> <i class="fa fa-circle"></i></li>
-						<li><span class="active">资源管理</span></li>
-					</ul>
-				</div>
-				<div class="portlet-body">
-						<tbody>
-							<tr>
-							员工综合薪酬服务平台,旨在提供员工最高品质的薪酬金服产品,对于工资的灵活投资与收益做到最优化,同时提供员工与人力资源企业最优良的工资服务。
-							<br>
-							<br>
-							<textarea cols="200" rows="30" style="resize:none;width:100%;overflow:auto;word-break:break-all;" readonly>
+<body onload="mainpage()">
+<!-- BEGIN PAGE BASE CONTENT -->
+<div class="row">
+    <div class="col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet light portlet-fit bordered">
+            <div class="portlet-title">
+                <ul class="page-breadcrumb breadcrumb">
+                    <li><a>企业服务台</a> <i class="fa fa-circle"></i></li>
+                    <li><a>系统管理</a> <i class="fa fa-circle"></i></li>
+                    <li><span class="active">资源管理</span></li>
+                </ul>
+            </div>
+            <div class="portlet-body">
+                <tbody>
+                <tr>
+                    员工综合薪酬服务平台,旨在提供员工最高品质的薪酬金服产品,对于工资的灵活投资与收益做到最优化,同时提供员工与人力资源企业最优良的工资服务。
+                    <br>
+                    <br>
+                    <textarea cols="200" rows="30" style="resize:none;width:100%;overflow:auto;word-break:break-all;" readonly>
 							第一期产品,及使用规则:
 							员工预支（灵活薪酬)工资规则
 为关心和支持公司员工的日常生活，让员工能安心努力的工作，特制以下本司员工预支工资规则：
@@ -65,14 +79,14 @@
 
 制定：高孚科技                          核实：企业人事,财务
                             </textarea>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-			<!-- END EXAMPLE TABLE PORTLET-->
-		</div>
-	</div>
-	<!-- END PAGE BASE CONTENT -->
+                </tr>
+                </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+    </div>
+</div>
+<!-- END PAGE BASE CONTENT -->
 </body>
 </html>

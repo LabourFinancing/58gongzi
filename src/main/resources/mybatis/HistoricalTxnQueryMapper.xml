@@ -299,11 +299,14 @@
 		select t_CTxn_Static_CompanyName,t_CTxn_Static_TotTxnAmtDaily,t_CTxn_Static_TotTxnCountDaily,t_CTxn_Fail_Txn
 		from (
 		select t_P_Company_his as t_CTxn_Static_CompanyName, sum(t_Txn_ApplyPrepayAmount_his) as t_CTxn_Static_TotTxnAmtDaily, count(t_Txn_ApplyPrepayAmount_his) as t_CTxn_Static_TotTxnCountDaily
-		from t_transaction_his where t_P_Company_his =  #{t_P_Company,jdbcType=VARCHAR} and t_transaction_his.create_time_his
-  	    between date_sub(CURDATE(),interval 1 day) and CURDATE()
+		from t_transaction_his 
+		where t_transaction_his.create_time_his LIKE CONCAT('%',CURDATE(),'%')
+        <if test="t_P_Company != 'ALL' ">
+            and t_P_Company_his = #{t_P_Company,jdbcType=VARCHAR}
+        </if>
 		) a left join (
-		select company,count(tranAmt) as t_CTxn_Fail_Txn from t_payment_list  where company =  #{t_P_Company,jdbcType=VARCHAR} and t_payment_list.tranTime
-		between date_sub(CURDATE(),interval 1 day) and CURDATE()
+		select company,count(tranAmt) as t_CTxn_Fail_Txn from t_payment_list  
+		where t_payment_list.tranTime LIKE CONCAT('%',CURDATE(),'%')
 		) b on a.t_CTxn_Static_CompanyName = b.company
     </select>
 
