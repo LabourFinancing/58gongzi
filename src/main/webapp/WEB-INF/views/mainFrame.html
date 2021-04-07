@@ -307,6 +307,10 @@ function openReset(obj){
         </div>
         <!-- END FOOTER -->
         <script>
+            const menu = document.querySelector('.nav-link');
+            if(menu) {
+                menu.click()
+            }
             const home=document.querySelector('a[href="OrganizationDashboardController/dashboard"]')
             if(home) {
                 home.click();
