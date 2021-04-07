@@ -49,11 +49,17 @@
 			const lis=ul.querySelectorAll('li');
 			Array.from(lis).map(li=>{
 				const a = li.querySelector('a');
-				const name = a.innerText;
+				let name = a.innerText;
+				if(name) {
+					name = name.replace(/(^\s*)|(\s*$)/g, "");
+				}
 				let icon='icon-settings';
 				switch(name) {
+					case '首页':
+						icon='icon-home';
+						break;
 					case '企业管理':
-						icon='icon-organization';
+						icon='icon-diamond';
 						break;
 					case '个人中心':
 						icon='icon-user';
@@ -66,7 +72,7 @@
 				if(i) {
 					i.className=icon;
 				} else {
-					
+
 				}
 			})
 		</script>
