@@ -226,7 +226,7 @@ public class PersonalInfoBatchUploadController {
     @ResponseBody
     public ResponseEntity<byte[]> downloadModel(@RequestParam("id") String id,HttpServletRequest req) throws InterruptedException {
 //        RedisClient.getInstance().put("progress_"+id,0,60*60);
-        ResponseEntity<byte[]> download = personalInfoBatchUploadService.download("files/personalInfoBatchUpload/员工信息表.xlsx", id, req);
+        ResponseEntity<byte[]> download = personalInfoBatchUploadService.download("files/personalInfoBatchUpload/template.xlsx", id, req);
 //        RedisClient.getInstance().put("progress_"+id,100,60*60);
         return download;
     }

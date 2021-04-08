@@ -9,37 +9,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="">
-    <#include "/common/cssResource.html">
-    <#include "/common/jsResource.html">
-    <script type="text/javascript">
-        function mainpage() {
-            $(document).ready(function () {
-                form.validate({
-                    submitHandler: function (form) {
-                        $.ajax({
-                            url: "${ctx}/OrganizationDashboardController/dashboard",
-                            type: 'POST',
-                            data: formData,
-                            async: true,
-                            cache: false,
-                            contentType: false,
-                            processData: false,
-                            success: function (data) {
-                                var result = eval("(" + data + ")");
-                                var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
-                            },
-                            error: function (data) {
-                                var result = eval("(" + data + ")");
-                                alert(result.msg);
-                            }
-                        });
-                    }
-                });
-            });
-        }
-    </script>
 </head>
-<body onload="mainpage()">
+<body>
 <!-- BEGIN PAGE BASE CONTENT -->
 <div class="row">
     <div class="col-sm-12">
