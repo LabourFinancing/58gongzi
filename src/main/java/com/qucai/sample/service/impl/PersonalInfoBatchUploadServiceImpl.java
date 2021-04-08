@@ -281,7 +281,7 @@ public class PersonalInfoBatchUploadServiceImpl implements PersonalInfoBatchUplo
 //	          Resource resource = new ClassPathResource(path);
 //	          file = resource.getFile();
 //	          file=new File("c:/1.xlsx");
-	      	ServletContextResource personalInfoBatchUpload = new ServletContextResource(req.getServletContext(),"files/personalInfoBatchUpload/员工信息表.xlsx");
+	      	ServletContextResource personalInfoBatchUpload = new ServletContextResource(req.getServletContext(),"files/personalInfoBatchUpload/template.xlsx");
 	          file = personalInfoBatchUpload.getFile();
 //	      } catch (IOException e) {
 	      } catch (Exception e) {

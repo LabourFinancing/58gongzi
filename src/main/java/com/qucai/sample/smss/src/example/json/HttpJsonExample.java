@@ -12,7 +12,7 @@ public class HttpJsonExample {
 	private static String clientid = "b03fe1";// 用户名（必填）
 	private static String password = "gf123456";// 密码（必填）
 	public static String smstype = "4"; // 短信签名（必填）
-	public static String sign = "【高孚信息平台】"; // 短信签名（必填）
+	public static String sign = "【高孚信科】"; // 短信签名（必填）
 	public static String subcode = ""; // 子号码（可选）
 	public static String msgid = UUID.randomUUID().toString().replace("-", ""); // 短信id，查询短信状态报告时需要，（可选）
 	public static String ContentTitle = "尊敬的"; // 发送预支短信验证码投信息
