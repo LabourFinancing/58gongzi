@@ -16,6 +16,7 @@ import com.qucai.sample.vo.CompanyTxnAmtWlyStatic;
 import com.qucai.sample.vo.CompanyTxnCntWlyStatic;
 import com.qucai.sample.util.Tool;
 import com.qucai.sample.vo.PersonalTxnStatic;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -70,14 +71,12 @@ public class OrganizationDashboardController {
         Calendar cale = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String[] dayArray = new String[7];
-        for(int i=0;i<dayArray.length;i++){
-            Date date = new Date();
-            Calendar calendar = Calendar.getInstance();
-            calendar.add(date.getDate(), -i);
-            calendar.getTime();
-            dayArray[i] = String.valueOf(df.format(calendar.getTime()));
-        }
 
+        for(int i=0;i<dayArray.length;i++){
+            Date date = DateUtils.addDays(new Date(), -i);
+            dayArray[i] = String.valueOf(df.format(date));
+        }
+        
         String t_P_Company = ShiroSessionUtil.getLoginSession().getCompany_name();
         paramMap.put("t_P_Company", t_P_Company);
         String errBatchDupDebitCard = null;
@@ -93,11 +92,11 @@ public class OrganizationDashboardController {
         String StaticInfoDaily = null;
         if (CompanyTxnAmtWlyStaticRet.size() != 0 || !CompanyTxnAmtWlyStaticRet.isEmpty()) {
             StringBuffer errRecord = new StringBuffer();
-            for (int i = 0; i < CompanyTxnAmtWlyStaticRet.size(); i++) {
-                if (i == 0) {
-                    errRecord.append(dayArray[i]).append(":").append(CompanyTxnAmtWlyStaticRet.get(i).getT_CTxnAmt_Static_day1()).append("-");
+            for (int j = 0; j < CompanyTxnAmtWlyStaticRet.size(); j++) {
+                if (j == 0) {
+                    errRecord.append(dayArray[j]).append(":").append(CompanyTxnAmtWlyStaticRet.get(j).getT_CTxnAmt_Static_day1()).append("-");
                 } else {
-                    errRecord.append(",").append(dayArray[i]).append(":").append(CompanyTxnAmtWlyStaticRet.get(i).getT_CTxnAmt_Static_day1()).append("-");
+                    errRecord.append(",").append(dayArray[j]).append(":").append(CompanyTxnAmtWlyStaticRet.get(j).getT_CTxnAmt_Static_day1()).append("-");
                 }
             }
             StaticInfo = new String(errRecord);

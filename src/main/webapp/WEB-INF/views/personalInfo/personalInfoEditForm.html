@@ -61,9 +61,12 @@ jQuery.validator.addMethod("isPhone", function(value,element) {
         $("#t_P_Employmentstatus option[value='"+t_P_Employmentstatus_value+"']").attr("selected","selected");	
         
         var t_P_VendorEmployment_value = "${personalInfo.t_P_VendorEmployment}";
-        $("#t_P_VendorEmployment option[value='"+t_P_VendorEmployment_value+"']").attr("selected","selected");	
-		
-		var t_P_Probation_value = "${personalInfo.t_P_Probation}";
+        $("#t_P_VendorEmployment option[value='"+t_P_VendorEmployment_value+"']").attr("selected","selected");
+
+        var t_P_VendorEmployeeName_value = "${personalInfo.t_P_VendorEmployeeName}";
+        $("#t_P_VendorEmployeeName option[value='"+t_P_VendorEmployeeName_value+"']").attr("selected","selected");
+
+        var t_P_Probation_value = "${personalInfo.t_P_Probation}";
         $("#t_P_Probation option[value='"+t_P_Probation_value+"']").attr("selected","selected");	
         
 		var form = $('#inputForm');
