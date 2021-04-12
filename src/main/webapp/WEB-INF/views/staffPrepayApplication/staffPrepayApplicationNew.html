@@ -244,6 +244,7 @@
 							$("#t_Txn_ApplyPrepayAmount_c").val(t_Txn_ApplyPrepayAmount_c);
 							$("#t_Prepay_ServiceFee_Total_c").val(result.t_Prepay_ServiceFee_Total);
 						}
+						return;
 					} else if
 					(result.ret == "-1" && result.Amtlimit >= 0) {
 						$.toptip("单笔超限额,请重新输入,单笔不能超过:￥"+ result.Amtlimit +"元","error");
@@ -256,6 +257,9 @@
 						document.getElementById("t_Txn_CreditPrepayBalanceNum").value = "";
 						document.getElementById("t_Prepay_ServiceFee_Total").value = "";
 					}
+					$('.payform').css("display","none");
+					$('#paytask').css("display","none");
+					submitting = false;
 				},
 				error: function(dataFP) {
 					document.getElementById("t_Txn_ApplyPrepayAmount").value = "";
@@ -310,6 +314,7 @@
 							$("#t_Txn_ApplyPrepayAmount_c").val(t_Txn_ApplyPrepayAmount_c);
 							$("#t_Prepay_ServiceFee_Total_c").val(result.t_Prepay_ServiceFee_Total);
 						}
+						return;
 					} else if
 					(result.ret == "-1" && result.Amtlimit >= 0) {
 						$.toptip("单笔超限额,请重新输入,单笔不能超过:￥"+ result.Amtlimit +"元","error");
@@ -322,6 +327,9 @@
 						document.getElementById("t_Txn_CreditPrepayBalanceNum").value = "";
 						document.getElementById("t_Prepay_ServiceFee_Total").value = "";
 					}
+					$('.payform').css("display","none");
+					$('#paytask').css("display","none");
+					submitting = false;
 				},
 				error: function(dataC) {
 					document.getElementById("t_Txn_ApplyPrepayAmount").value = "";
@@ -697,7 +705,7 @@ function openReset(obj){
 						</div>
 					</div>
 					<div class="weui-cell wece-pay">
-						<div class="weui-cell__hd"><label class="weui-label wela-pay">公司名</label></div>
+						<div class="weui-cell__hd" style="width:20%;"><label class="weui-label wela-pay">公司名</label></div>
 						<div class="weui-cell__bd">
 							<input class="weui-input weinput-pay" type="text" name="t_P_Company_c" id="t_P_Company_c" value="${staffPrepayApplicationNew.t_P_Company}" readonly="">
 						</div>
