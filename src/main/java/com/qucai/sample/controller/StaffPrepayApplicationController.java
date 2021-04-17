@@ -703,6 +703,7 @@ public class StaffPrepayApplicationController {
 							}
 						    else if(InsertRS != 1) {
 							   staffPrepayApplicationPay.setRemark("SQL INSERT ERR");
+							   staffPrepayApplicationPay.setCompany(ShiroSessionUtil.getLoginSession().getCompany_name());
 					    	   staffPrepayApplicationService.insertPayment(staffPrepayApplicationPay);
 						       return JsonBizTool.genJson(ExRetEnum.PREPAY_APPFAIL);
 						     }

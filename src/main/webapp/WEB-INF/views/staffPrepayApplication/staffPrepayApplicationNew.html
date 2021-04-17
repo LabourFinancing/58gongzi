@@ -13,6 +13,7 @@
     <meta charset="utf-8">
     <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<<<<<<< HEAD
 
     <#include "/common/commonContext.html">
     <script src="${ctx}/metronic/global/plugins/loading.js" type="text/javascript"></script>
@@ -451,6 +452,454 @@
             });
         }
     </script>
+=======
+    
+<#include "/common/commonContext.html">
+<script src="${ctx}/metronic/global/plugins/loading.js" type="text/javascript"></script>
+<!-----------------------------------       Common Call      --------------------------->
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+<link href="${ctx}/metronic/mobile/css/weui.css" rel="stylesheet" type="text/css">
+<link href="${ctx}/metronic/mobile/css/jquery-weui.min.css" rel="stylesheet" type="text/css">
+<link href="${ctx}/metronic/mobile/user/maincon.css" rel="stylesheet" type="text/css">
+
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all" rel="stylesheet" type="text/css">
+
+
+<!-- mask -->
+
+<style>
+/* 分页组件输入框的样式，保证高度的统一 */
+.pagination .controls input {
+	border: 0;
+	color: #999;
+	width: 30px;
+	padding: 0;
+	text-align: center;
+}
+</style>
+
+<!-- <link rel="shortcut icon" href="favicon.ico"> -->
+<!--[if lt IE 9]> -->
+
+<!-- 基础依赖脚本 -->
+<script src="${ctx}/metronic/global/plugins/jsbridge-mini.js" type="text/javascript"></script>
+<script src="${ctx}/metronic/mobile/js/jquery.min.js" type="text/javascript"></script>
+<script src="${ctx}/metronic/mobile/js/jquery-2.1.3.js" type="text/javascript"></script>
+<script src="${ctx}/metronic/mobile/js/fastclick.js" type="text/javascript"></script>
+<!-- UI 库依赖脚本 -->
+<script src="${ctx}/metronic/mobile/js/jquery-weui.js" type="text/javascript"></script>
+
+<script src="${ctx}/metronic/mobile/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="${ctx}/metronic/mobile/js/js.cookie.min.js" type="text/javascript"></script>
+<script src="${ctx}/metronic/mobile/js/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="${ctx}/metronic/mobile/js/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="${ctx}/metronic/mobile/js/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="${ctx}/metronic/mobile/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+
+<!-- BEGIN COMMON PAGE LEVEL PLUGINS -->
+<script src="${ctx}/metronic/mobile/js/jquery.validate.min.js" type="text/javascript"></script>
+<script src="${ctx}/metronic/mobile/js/additional-methods.min.js" type="text/javascript"></script>
+<script src="${ctx}/metronic/mobile/js/messages_zh.min.js" type="text/javascript"></script>
+<!-- END COMMON PAGE LEVEL PLUGINS -->
+
+<!-- BEGIN THEME GLOBAL SCRIPTS -->
+<script src="${ctx}/metronic/mobile/js/app.min.js" type="text/javascript"></script>
+<!-- END THEME GLOBAL SCRIPTS -->
+
+<!-- jQuery mask -->
+<script src="${ctx}/metronic/mobile/layer/layer.js" type="text/javascript"></script>
+
+<script src="${ctx}/metronic/mobile/js/layouts.js" type="text/javascript"></script>
+<link rel="stylesheet" href="${ctx}/metronic/mobile/layer/skin/layer.css" id="layui_layer_skinlayercss" style="text/css">
+
+<!-- jQuery new added -->
+<script src="${ctx}/metronic/mobile/js/card.js" type="text/javascript"></script>
+<script src="${ctx}/metronic/mobile/user/changestyle.js" type="text/javascript"></script>
+<!-----------------------------------   End Common Call      --------------------------->
+<!-- END mask -->
+<script type="text/javascript">       
+	var countdown = 60;			
+	var submitting = false;
+	var submitTimer = null;
+	console.log($('#Prepaybutton'));
+	
+	function PrepaySubmit() {
+
+				if ($("input#t_Txn_ApplyPrepayAmount").val() === "" || $("input#t_Txn_ApplyPrepayAmount").val() < 5 || $("input#t_Txn_ApplyPrepayAmount").val()%1 !== 0 ){
+					document.getElementById("t_Txn_ApplyPrepayAmount").value = "";
+					document.getElementById("t_Txn_CreditPrepayBalanceNum").value = "";
+					document.getElementById("t_Prepay_ServiceFee_Total").value = "";
+					$.toptip('请输入大于5的整数金额', 'error');
+					$("#t_Txn_ApplyPrepayAmount").focus();
+					return;
+				}		
+				
+				var isAgree = $("input#agreement").is(':checked');
+				
+				if (!isAgree) {
+					$.toptip('请同意协议与条例', 'error');
+					return;	
+				}
+
+				if ($("input#SMScode").val() == ""){
+					$.toptip('请输入验证码', 'error');
+					$("#SMScode").focus();
+					return;
+				}else {
+					$.ajax({
+						url: "${ctx}/StaffPrepayApplicationController/SMSCheck?SMScode=" + $("#SMScode").val() +
+							"&SMScodeRec=" + $("#SMScodeRec").val(),
+						type: 'POST',
+						async: false,
+						cache: false,
+						contentType: false,
+						processData: false,
+						success: function(dataSMSC) {
+							kickoutcheck(dataSMSC);
+							var result = eval("(" + dataSMSC + ")");
+							if(result.ret == "0" && result.SMSVerified == "Y") {
+								$("#SMScodeRec").val(result.SMScodeRec);
+							} else {
+								$.toptip('请输入正确验证码', 'error');
+								document.getElementById("SMScode").value = "";
+								$("#SMScode").focus();
+								submitting = true;
+							}
+						},
+						error: function(dataSMSC) {
+							var result = eval("(" + dataSMSC + ")");
+							$.toast(result.msg, "cancel");
+							submitting = true;
+						}
+					});
+				}
+				
+				if (submitting) {
+					$('.payform').css("display","none");
+					$('#paytask').css("display","none");
+					submitting = true;
+					return;
+				}else {
+					$('.payform').css("display","inline-block");
+					$('#paytask').css("display","block");
+				}
+			 }
+	
+	function PrepaySubmitConfirm(){
+		
+		clearTimeout(submitTimer);
+
+		submitTimer = setTimeout(function () {
+			
+			var mask = $.showLoading("支付中...");
+			var formData = new FormData($('#inputForm')[0]);
+			
+			submitting = true;
+
+			$.ajax({
+				url: "${ctx}/StaffPrepayApplicationController/addStaffPrepayApplication?operationType=add&SMScode=" + $("#SMScode").val() +
+				     "&t_Txn_ApplyPrepayAmount=" + $("#t_Txn_ApplyPrepayAmount").val() +
+					 "&t_Txn_CreditPrepayCurrentNum=" + $("#t_Txn_CreditPrepayCurrentNum").val() +
+					 "&t_Txn_CreditPrepayBalanceNum=" + $("#t_Txn_CreditPrepayBalanceNum").val() +
+					 "&t_P_PayrollDate=" + $("#t_P_PayrollDate").val() +
+					 "&tTxnPrepayDays=" + $("#tTxnPrepayDays").val() +
+					 "&tTxnInterest=" + $("#tTxnInterest").val() +
+					 "&SMScodeRec=" + $("#SMScodeRec").val() +
+					 "&agreement=" + $("#agreement").val() +
+					 "&t_FProd_Interest=" + $("#t_FProd_Interest").val() +
+					 "&t_FProd_ServiceFee=" + $("#t_FProd_ServiceFee").val() +
+					 "&t_FProd_Poundage=" + $("#t_FProd_Poundage").val() +
+					 "&t_FProd_Name=" + $("#t_FProd_Name").val(),
+				type: 'POST',
+				data: formData,
+				cache: false,
+				contentType: false,
+				processData: false,
+				ifModified: true,
+
+				success: function (data) {
+					kickoutcheck(data);
+					var result = eval("("+data+")");
+					$.toast(result.msg, 3000,'success');
+					if (result.ret == "0" ){
+						setTimeout('window.location.href = "${ctx}/StaffPrepayApplicationController/staffPrepayApplicationResult?operationType=result&platform=0"','2000');
+					}else{
+						setTimeout('window.location.href = "${ctx}/StaffPrepayApplicationController/staffPrepayApplicationNew?operationType=add&platform=0"','2000');
+					}
+					submitting = false;
+				},
+
+				error: function (data) {
+					try {
+						var result = eval("("+data+")");
+						$.toast(result.msg, 3000,'success');
+					} catch(e) {
+						$.toast('系统繁忙,请稍后再试', "cancel");
+						setTimeout('window.location.href = "${ctx}/StaffPrepayApplicationController/staffPrepayApplicationNew"','10000');
+					}
+					
+					submitting = false;
+				},
+				complete: function (req, textStatus) {
+					$("#t_Txn_ApplyPrepayAmount, #SMScode").val('');
+					submitting = false;
+				} 
+			});
+		}, 200);
+	}
+								
+		$("#dirParent, #menuParent, #linkDiv").hide();
+
+		function ProdOnChange() {
+			$.ajax({
+				url: "${ctx}/StaffPrepayApplicationController/CalcBalanceCredit?t_Txn_ApplyPrepayAmount=" + $("#t_Txn_ApplyPrepayAmount").val() +
+					"&t_Txn_CreditPrepayCurrentNum=" + $("#t_Txn_CreditPrepayCurrentNum").val() +
+					"&t_P_PayrollDate=" + $("#t_P_PayrollDate").val().toString() +
+					"&t_FProd_Interest=" + $("#t_FProd_Interest").val() +
+					"&t_FProd_ServiceFee=" + $("#t_FProd_ServiceFee").val() +
+					"&t_FProd_Poundage=" + $("#t_FProd_Poundage").val() +
+					"&t_FProd_Name=" + $("#t_FProd_Name").val(),
+				type: 'POST',
+				async: true,
+				cache: false,
+				contentType: false,
+				processData: false,
+				success: function(dataFP) {
+					kickoutcheck(dataFP);
+					var result = eval("(" + dataFP + ")");
+					if(result.ret == "0" && result.t_Txn_CreditPrepayBalanceNum >= 0) {
+						$("#t_Prepay_ServiceFee_Total").val(result.t_Prepay_ServiceFee_Total);
+						$("#t_Txn_CreditPrepayBalanceNum").val(result.t_Txn_CreditPrepayBalanceNum);
+						$("#tTxnPrepayDays").val(result.tTxnPrepayDays);
+						$("#tTxnInterest").val(result.tTxnInterest);
+						if (result.chargeFeeCat == "a"){
+							var t_Txn_ApplyPrepayAmount_c = document.getElementById('t_Txn_ApplyPrepayAmount').value;
+							var t_P_CreditPrepaySalaryAmount_c = t_Txn_ApplyPrepayAmount_c - result.t_Prepay_ServiceFee_Total;
+							$("#t_P_CreditPrepaySalaryAmount_c").val(t_P_CreditPrepaySalaryAmount_c);
+							$("#t_Txn_ApplyPrepayAmount_c").val(t_Txn_ApplyPrepayAmount_c);
+							$("#t_Prepay_ServiceFee_Total_c").val(result.t_Prepay_ServiceFee_Total);
+						}else{
+							$("#t_P_CreditPrepaySalaryAmount_c").val(t_Txn_ApplyPrepayAmount_c);
+							$("#t_Txn_ApplyPrepayAmount_c").val(t_Txn_ApplyPrepayAmount_c);
+							$("#t_Prepay_ServiceFee_Total_c").val(result.t_Prepay_ServiceFee_Total);
+						}
+						return;
+					} else if
+					(result.ret == "-1" && result.Amtlimit >= 0) {
+						$.toptip("单笔超限额,请重新输入,单笔不能超过:￥"+ result.Amtlimit +"元","error");
+						document.getElementById("t_Txn_ApplyPrepayAmount").value = "";
+						document.getElementById("t_Txn_CreditPrepayBalanceNum").value = "";
+						document.getElementById("t_Prepay_ServiceFee_Total").value = "";
+					} else {
+						$.toptip('请输入有效数额,或您的当月支取额度已用完', 'error');
+						document.getElementById("t_Txn_ApplyPrepayAmount").value = "";
+						document.getElementById("t_Txn_CreditPrepayBalanceNum").value = "";
+						document.getElementById("t_Prepay_ServiceFee_Total").value = "";
+					}
+					$('.payform').css("display","none");
+					$('#paytask').css("display","none");
+					submitting = false;
+				},
+				error: function(dataFP) {
+					document.getElementById("t_Txn_ApplyPrepayAmount").value = "";
+					document.getElementById("t_Txn_CreditPrepayBalanceNum").value = "";
+				}
+			});
+		}
+
+		function PrepayAmountChange() {	
+			var a = $("input#t_Txn_CreditPrepayCurrentNum").val().toFormatString;
+			var b = "￥";
+			var str = b + a;
+			$("input#t_Txn_CreditPrepayCurrentNum").innerhtml = str;
+			
+			if ($("input#t_Txn_ApplyPrepayAmount").val() == "" || $("input#t_Txn_ApplyPrepayAmount").val() < 5 || $("input#t_Txn_ApplyPrepayAmount").val()%1 !== 0 ){
+				document.getElementById("t_Txn_ApplyPrepayAmount").value = "";
+				document.getElementById("t_Txn_CreditPrepayBalanceNum").value = "";
+				document.getElementById("t_Prepay_ServiceFee_Total").value = "";
+				$.toptip('请输入大于5的整数金额', 'error');
+				$("#t_Txn_ApplyPrepayAmount").focus();
+				return;
+			}
+			$.ajax({
+				url: "${ctx}/StaffPrepayApplicationController/CalcBalanceCredit?t_Txn_ApplyPrepayAmount=" + $("#t_Txn_ApplyPrepayAmount").val() +
+					"&t_Txn_CreditPrepayCurrentNum=" + $("#t_Txn_CreditPrepayCurrentNum").val() +
+					"&t_P_PayrollDate=" + $("#t_P_PayrollDate").val().toString() +
+					"&t_FProd_Interest=" + $("#t_FProd_Interest").val() +
+					"&t_FProd_ServiceFee=" + $("#t_FProd_ServiceFee").val() +
+					"&t_FProd_Poundage=" + $("#t_FProd_Poundage").val() +
+					"&t_FProd_Name=" + $("#t_FProd_Name").val(),
+				type: 'POST',
+				async: true,
+				cache: false,
+				contentType: false,
+				processData: false,
+				success: function(dataC) {
+					kickoutcheck(dataC);
+					var result = eval("(" + dataC + ")");
+					if (result.ret == "0" && result.t_Txn_CreditPrepayBalanceNum >= 0) {
+						$("#t_Prepay_ServiceFee_Total").val(result.t_Prepay_ServiceFee_Total);
+						$("#t_Txn_CreditPrepayBalanceNum").val(result.t_Txn_CreditPrepayBalanceNum);
+						$("#tTxnPrepayDays").val(result.tTxnPrepayDays);
+						$("#tTxnInterest").val(result.tTxnInterest);
+						if (result.chargeFeeCat == "a"){
+							var t_Txn_ApplyPrepayAmount_c = document.getElementById('t_Txn_ApplyPrepayAmount').value;
+							var t_P_CreditPrepaySalaryAmount_c = t_Txn_ApplyPrepayAmount_c - result.t_Prepay_ServiceFee_Total;
+							$("#t_P_CreditPrepaySalaryAmount_c").val(t_P_CreditPrepaySalaryAmount_c);
+							$("#t_Txn_ApplyPrepayAmount_c").val(t_Txn_ApplyPrepayAmount_c);
+							$("#t_Prepay_ServiceFee_Total_c").val(result.t_Prepay_ServiceFee_Total);
+						}else{
+							$("#t_P_CreditPrepaySalaryAmount_c").val(t_Txn_ApplyPrepayAmount_c);
+							$("#t_Txn_ApplyPrepayAmount_c").val(t_Txn_ApplyPrepayAmount_c);
+							$("#t_Prepay_ServiceFee_Total_c").val(result.t_Prepay_ServiceFee_Total);
+						}
+						return;
+					} else if
+					(result.ret == "-1" && result.Amtlimit >= 0) {
+						$.toptip("单笔超限额,请重新输入,单笔不能超过:￥"+ result.Amtlimit +"元","error");
+						document.getElementById("t_Txn_ApplyPrepayAmount").value = "";
+						document.getElementById("t_Txn_CreditPrepayBalanceNum").value = "";
+						document.getElementById("t_Prepay_ServiceFee_Total").value = "";
+					} else {
+						$.toptip('请输入有效数额,或您的当月支取额度已用完', 'error');
+						document.getElementById("t_Txn_ApplyPrepayAmount").value = "";
+						document.getElementById("t_Txn_CreditPrepayBalanceNum").value = "";
+						document.getElementById("t_Prepay_ServiceFee_Total").value = "";
+					}
+					$('.payform').css("display","none");
+					$('#paytask').css("display","none");
+					submitting = false;
+				},
+				error: function(dataC) {
+					document.getElementById("t_Txn_ApplyPrepayAmount").value = "";
+					document.getElementById("t_Txn_CreditPrepayBalanceNum").value = "";
+				}
+			});
+		}
+
+		function SMSonchange() {
+			$.ajax({
+				url: "${ctx}/StaffPrepayApplicationController/SMSCheck?SMScode=" + $("#SMScode").val() +
+					"&SMScodeRec=" + $("#SMScodeRec").val(),
+				type: 'POST',
+				async: true,
+				cache: false,
+				contentType: false,
+				processData: false,
+				success: function(dataSMSC) {
+					kickoutcheck(dataSMSC);
+					var result = eval("(" + dataSMSC + ")");
+					if(result.ret == "0" && result.SMSVerified == "Y") {
+						$("#SMScodeRec").val(result.SMScodeRec);
+					} else {
+						$.toptip('请输入正确验证码', 'error');
+						document.getElementById("SMScode").value = "";
+					}
+				},
+				error: function(dataSMSC) {
+					var result = eval("(" + dataSMSC + ")");
+					$.toast(result.msg, "cancel");
+				}
+			});
+		}
+
+	function typeSelector(selector) {
+		var typeSelect = $(selector).find("option:selected").val();
+		if(typeSelect == "" || typeSelect == "0") {
+			$("#dirParent").hide();
+			$("#menuParent").hide();
+			$("#parentId").val("");
+			$("#linkDiv").hide();
+			$("#link").val("");
+		} else if(typeSelect == "1") {
+			$("#dirParent").show();
+			$("#menuParent").hide();
+			setParentId($("#dirParentSelector"));
+			$("#linkDiv").show();
+		} else if(typeSelect == "2") {
+			$("#dirParent").hide();
+			$("#menuParent").show();
+			setParentId($("#menuParentSelector"));
+			$("#linkDiv").hide();
+			$("#link").val("");
+		}
+	}
+
+	function SMSCall() {
+		$.ajax({
+			url: "${ctx}/StaffPrepayApplicationController/SMSReq?t_Txn_Mobil=" + $("#t_Txn_Mobil").val(),
+			type: 'POST',
+			async: true,
+			cache: false,
+			contentType: false,
+			processData: false,
+			success: function(dataSMS) {
+				kickoutcheck(dataSMS);
+				var result = eval("(" + dataSMS + ")");
+				if(result.ret == "0" && result.SMScodeRec != null) {
+					$.toast(result.msg, "success");
+					$("#SMScodeRec").val(result.SMScodeRec);
+					var countdown = 60;
+					settime();
+					function settime() {
+						if(countdown == 0) {
+							document.getElementById("SMSbutton").disabled = false;
+							document.getElementById("SMSbutton").innerHTML = "获取验证码";
+						} else {
+							document.getElementById("SMSbutton").disabled = true;
+							document.getElementById("SMSbutton").innerHTML = "重新发送(" + countdown + ")";
+							SMSbutton.value = "重新发送(" + countdown + ")";
+							countdown--;
+							setTimeout(function() {
+								settime();
+							}, 1000)
+						}
+					}
+				}
+			},
+			error: function(dataSMS) {
+				var result = eval("(" + dataSMS + ")");
+				alert(result.msg);
+			}
+		});
+	}
+
+	function closeme() {
+		window.location.href = "${ctx}/login";
+	}
+	
+	function ForbiddenPrepaybutton() {
+		window.location.href = "${ctx}/login";
+	}
+	
+	function kickoutcheck(dataC){
+		if (dataC.match("index")){
+			window.location.href = "${ctx}/login";
+			$.toptip('您已被踢出，请重新登录', 'error');
+			return;
+		}
+	}
+	
+</script>
+<script type="text/javascript">
+function openReset(obj){
+	var openWindowWidth = $(document).width() * 0.8 + "px";
+	var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
+	layer.open({
+		type: 2,
+		area: openWindowWidth,
+		offset : offsetH,
+		fix: false, //不固定
+		maxmin: true,
+		content: '${ctx}/managerController/passwordEdit',
+		success: function(layero, index){
+		    layer.iframeAuto(index);
+		}
+	});
+}
+</script>
+>>>>>>> 2ba76e8de68942f4fe6653a80b062e8af180e2f4
 </head>
 
 <body>
@@ -630,9 +1079,15 @@
     <br>
     <br>
     <div class="weui-footer">
+<<<<<<< HEAD
         <!-- 更多链接，根据需要增加a标签 -->
         <!--     <p class="weui-footer__text">2020@Goldman Fuks Information and Technology Services Co.,ltd</p> -->
         <p class="weui-footer__text"><a href="${ctx}/staffPrepayApplication/OverCreditLine.html">西昌中才人力资源服务有限责任公司</a></p>
+=======
+    <!-- 更多链接，根据需要增加a标签 -->
+    <!--     <p class="weui-footer__text">2020@Goldman Fuks Information and Technology Services Co.,ltd</p> -->
+    <p class="weui-footer__text"><a href="${ctx}/staffPrepayApplication/OverCreditLine.html">${staffPrepayApplicationNew.t_P_Company}</a></p>
+>>>>>>> 2ba76e8de68942f4fe6653a80b062e8af180e2f4
     </div>
     <!-- </form> -->
     <!-- 协议内容弹层，有调整的话，修改下面的内容即可，不需要 iframe 引入 -->
@@ -730,6 +1185,7 @@
             <div class="close-btn" onclick="closebtn()"></div>
         </div>
     </div>
+<<<<<<< HEAD
     <script type="text/javascript">
         $(function(){
             var lineHeight = Number($('.div-class_in').css('height').slice(0,-2));
@@ -783,4 +1239,108 @@
             })
         }
     </script>
+=======
+</div>
+<!-- 支付弹框 -->
+
+<div id="paytask">
+
+	<div class="payfor">
+		<div class="payfrom">
+			<div class="payinfo">
+				<div class="bgPic-pay">
+					<div class="weui-cell wece-pay">
+						<div class="weui-cell__hd"><label class="weui-label wela-pay">姓名</label></div>
+						<div class="weui-cell__bd">
+							<input class="weui-input weinput-pay" type="text" name="t_P_Name_c" id="t_P_Name_c" value="${staffPrepayApplicationNew.t_P_Name}" readonly="">
+						</div>
+					</div>
+					<div class="weui-cell wece-pay">
+						<div class="weui-cell__hd" style="width:20%;"><label class="weui-label wela-pay">公司名</label></div>
+						<div class="weui-cell__bd">
+							<input class="weui-input weinput-pay" type="text" name="t_P_Company_c" id="t_P_Company_c" value="${staffPrepayApplicationNew.t_P_Company}" readonly="">
+						</div>
+					</div>
+					<div class="weui-cell wece-pay">
+						<div class="weui-cell__hd"><label class="weui-label wela-pay">支取金额</label></div>
+						<div class="weui-cell__bd">
+							<input class="weui-input weinput-pay" type="text" name="t_Txn_ApplyPrepayAmount_c" id="t_Txn_ApplyPrepayAmount_c" value="" readonly="">
+						</div>
+					</div>
+						<div class="weui-cell wece-pay">
+						<div class="weui-cell__hd"><label class="weui-label wela-pay">平台使用费</label></div>
+						<div class="weui-cell__bd">
+							<input class="weui-input weinput-pay" type="text" name="t_Prepay_ServiceFee_Total_c" id="t_Prepay_ServiceFee_Total_c" value="" readonly="">
+						</div>
+					</div>
+					<div class="weui-cell wece-pay">
+						<div class="weui-cell__hd"><label class="weui-label wela-pay">实到金额</label></div>
+						<!-- 有 money 类名，表示该内容会自动显示￥，不适用于金额显示的话，请去掉该类名 -->
+						<div class="weui-cell__bd">
+							<input class="weui-input weinput-pay" type="text" name="t_P_CreditPrepaySalaryAmount_c" id="t_P_CreditPrepaySalaryAmount_c"  value="" readonly="">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="payconfirm">
+				<button class="pcBtn" onclick="PrepaySubmitConfirm()">确认支取</button>
+			</div>
+		</div>
+		<div class="close-btn" onclick="closebtn()"></div>
+	</div>
+</div>
+<script type="text/javascript">
+$(function(){
+	var lineHeight = Number($('.div-class_in').css('height').slice(0,-2));
+	$('.weui-input_in').css('height',lineHeight+"px");
+	mainconstyle()
+	usehelp()
+	hidepid()
+	var lineHeight=$('.div-class_in').css('height')
+	if(lineHeight != '24px'){
+		$('.wcbfleft').addClass('addheight');
+		$('.wc-right').addClass('addheight');
+	}else{
+		$('.wcbfleft').removeClass('addheight')
+		$('.wc-right').removeClass('addheight')
+	}
+})
+function mainconstyle() {
+	//console.log(domwhos1)
+	mainconStyle({
+		bodyColor: "#EDF3F9",//body背景色
+		headColor: "#1490FF", //页面头部背景色
+		userImg: "${ctx}/metronic/mobile/imgs/user-img.png", //用户头像地址
+		prePayButton: "linear-gradient(to right, #1490FF 0%,#007AE8 100%)", //支取按钮背景色
+		prePayButtonCl: "#fff", //支取字体景色
+		prePayCancel: "#C5C5C5", //支取按钮背景色
+		prePayCancelCl: "#fff", //支取字体景色
+	});
+}
+function usehelp(){
+	$('.weui-help__link').on("click",function(){
+		$("#usehelp").css("display","block");
+	})
+	$('.closebtn').on("click",function(){
+		$("#usehelp").css("display","none");
+	})
+	// $("#usehelp").on("click",function(event){
+		// event.stopPropagation();
+		// return false;
+	// })
+}
+function hidepid(){
+	let pid = "${staffPrepayApplicationNew.t_P_PID}";
+	hidepid = pid.replace(/(\w{6})\w*(\w{4})/, '$1******$2');
+	var hidepidhtml = document.getElementById("t_Txn_PrepayApplierPID");
+	hidepidhtml.value = hidepid;
+}
+
+function closebtn(){
+	$('.close-btn').on("click",function(){
+		$('#paytask').css("display","none");
+	})
+}
+</script>
+>>>>>>> 2ba76e8de68942f4fe6653a80b062e8af180e2f4
 </body></html>

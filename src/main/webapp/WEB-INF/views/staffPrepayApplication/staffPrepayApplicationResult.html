@@ -183,18 +183,18 @@ $(function() {
 						<div class="the_amount">支取金额</div>
 					</div>
 					<div class="theMoney_box">
-						<div class="the_money" style="height:40px;">
+						<div class="the_money" style="height:40px">
 							<a href="#">
 							<input class="moneys" type="text" id="t_Txn_ApplyPrepayAmount_r" value="￥${staffPrepayApplicationCredit.t_Txn_ApplyPrepayAmount}">
 							</a>
 						</div>
 					</div>
-					<div class="theWithdrawalTime_box">
-						<div class="pro_name_box" style="width:65%;">
-						<input class="pro_name_input" type="text" disable id="txnDate_r" value="${staffPrepayApplicationCredit.t_Txn_ProdName}">
+					<div class="theWithdrawalTime_box" style="height: 50px;;">
+						<div class="pro_name_box" style="width:65%;margin:0px;">
+						<input class="pro_name_input" type="text" disable id="txnDate_r" value="${staffPrepayApplicationCredit.t_Txn_ProdName}"  style="line-height:20px;height: 20px;">
 						</div>
-						<div class="the_withdrawal_time">
-						<input class="the_withdrawal_times" type="text" disable id="txnDate_r" value="${staffPrepayApplicationCredit.create_time?string('yyyy-MM-dd HH:mm:ss')}">
+						<div class="the_withdrawal_time" style="margin:0px;">
+						<input class="the_withdrawal_times" type="text" disable id="txnDate_r" value="${staffPrepayApplicationCredit.create_time?string('yyyy-MM-dd HH:mm:ss')}" style="line-height:20px;height: 20px;">
 						</div>
 					</div>
 					<div class="closedBack_box" onclick="close_back_maincon()">

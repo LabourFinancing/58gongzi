@@ -28,8 +28,8 @@ public class IndexController {
     private ManagerService managerService;
 
     @RequestMapping("index")
-    public String index(@RequestParam(required = false) String gid,String from, String name,String host,HttpServletRequest request, HttpServletResponse response) {
-        if(from!=null&&from.equals("wechat")) {
+    public String index(@RequestParam(required = false) String gid,String from, String form, String name,String host,HttpServletRequest request, HttpServletResponse response) {
+        if((from!=null&&from.equals("wechat")) || (form!=null&&form.equals("wechat"))) {
             System.out.print("from wechat");
             System.out.print(name);
             String userName;
