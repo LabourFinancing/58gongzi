@@ -28,13 +28,19 @@ public class IndexController {
     private ManagerService managerService;
 
     @RequestMapping("index")
-    public String index(@RequestParam(required = false) String gid,String from, String form, String name,String host,HttpServletRequest request, HttpServletResponse response) {
+    public String index(@RequestParam(required = false) String gid,String from, String form, String phone,String host,HttpServletRequest request, HttpServletResponse response) {
         if((from!=null&&from.equals("wechat")) || (form!=null&&form.equals("wechat"))) {
             System.out.print("from wechat");
-            System.out.print(name);
+            System.out.print(phone);
             String userName;
             String password;
-            Manager manager = managerService.selectByPrimaryKey("749bf3de57e94bd5957ba32835db2a1c");
+            Manager manager;
+            if(phone!=null) {
+                manager = managerService.selectByMobil(phone);
+            } else {
+                manager = managerService.selectByPrimaryKey("749bf3de57e94bd5957ba32835db2a1c");
+            }
+            
             CaptchaUsernamePasswordToken token = new CaptchaUsernamePasswordToken();
             userName = manager.getUserName();
             password = manager.getPassword();
