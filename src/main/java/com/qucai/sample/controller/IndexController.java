@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.alibaba.fastjson.JSONObject;
 import com.qucai.sample.smss.src.example.json.HttpJsonExample;
 import com.qucai.sample.util.ShiroSessionUtil;
 import org.apache.shiro.SecurityUtils;
@@ -23,6 +24,7 @@ import com.qucai.sample.converter.HttpJsonPersonalTest;
 import com.qucai.sample.entity.Manager;
 import com.qucai.sample.exception.ExRetEnum;
 import com.qucai.sample.security.CaptchaUsernamePasswordToken;
+import com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo.*;
 import com.qucai.sample.service.ManagerService;
 import com.qucai.sample.util.JsonBizTool;
 
@@ -35,7 +37,15 @@ public class IndexController {
 
     @RequestMapping("index")
     public String index(@RequestParam(required = false) String gid,String from, String form,String method, String phone,String host,String SMSsendcode,
-                        byte[] SMSstr,HttpServletRequest request, HttpServletResponse response) {
+                        byte[] SMSstr,HttpServletRequest request, HttpServletResponse response) throws Exception {
+        if(method!=null&&method.equals("QRcode")){
+            Map<String, Object> rs = new HashMap<String, Object>();
+            String merchantId = "S2135052";
+            JSONObject resp = OrderCreateDemo.main(merchantId);
+            String QRcodeinit = resp.getString("qrCode");
+            rs.put("QRcodeinit", QRcodeinit);
+            return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs); 
+        }
         if( method!=null&&method.equals("SMSreq")){
             Map<String, Object> rs = new HashMap<String, Object>();
             String mobil = phone;
@@ -50,7 +60,7 @@ public class IndexController {
             }else{
                 rs.put("rs",-1);
             }
-            return JsonBizTool.genJson(ExRetEnum.PASSWORD_RESENT_FAIL, rs);
+            return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
         }
 
         if( method!=null&&method.equals("SMSverify")&&SMSsendcode!=null){
@@ -60,7 +70,7 @@ public class IndexController {
                 System.out.println("MD5验证通过");
                 rs.put("SMSverify",0);
             }
-            return JsonBizTool.genJson(ExRetEnum.PASSWORD_RESENT_FAIL, rs);
+            return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
         }
         
         if((from!=null&&from.equals("wechat")) || form!=null&&form.equals("wechat")){

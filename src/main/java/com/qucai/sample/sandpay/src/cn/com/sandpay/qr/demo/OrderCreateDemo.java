@@ -64,7 +64,7 @@ public class OrderCreateDemo {
 	};
 	
 	
-	public static JSONObject main(StaffPrepayApplicationPayment staffPrepayApplicationPay, String merchantId) throws Exception {
+	public static JSONObject main(String merchantId) throws Exception {
 		
 		OrderCreateDemo demo=new OrderCreateDemo();
 		String reqAddr="/order/create";   //接口报文规范中获取
