@@ -186,8 +186,10 @@ public class StaffPrepayApplicationController {
     	}
         	    InitialBalance = new BigDecimal("20000.00"); // debug using
         
-    	if (InitialBalance.intValue() <= treasuryDBInfoGetStatistic.getT_TreasuryDB_Balance().intValue() || InitialBalance.intValue() <= Integer.valueOf(500) || 
-    		InitialBalance.intValue() <= treasuryDBInfoGetStatistic.getT_TreasuryDB_Prooffund().intValue() || AgencyOrgnization.getT_O_OrgStatus().equalsIgnoreCase("off"))
+    	if (InitialBalance.intValue() <= treasuryDBInfoGetStatistic.getT_TreasuryDB_Balance().intValue() || 
+            InitialBalance.intValue() <= Integer.valueOf(500) || 
+    		InitialBalance.intValue() <= treasuryDBInfoGetStatistic.getT_TreasuryDB_Prooffund().intValue() || 
+            AgencyOrgnization.getT_O_OrgStatus().equalsIgnoreCase("off"))
     			{
    		   return  "staffPrepayApplication/OverCreditLine";
     	}

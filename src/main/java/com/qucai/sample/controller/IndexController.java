@@ -1,14 +1,19 @@
 package com.qucai.sample.controller;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.qucai.sample.smss.src.example.json.HttpJsonExample;
+import com.qucai.sample.util.ShiroSessionUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +26,7 @@ import com.qucai.sample.security.CaptchaUsernamePasswordToken;
 import com.qucai.sample.service.ManagerService;
 import com.qucai.sample.util.JsonBizTool;
 
+
 @Controller
 public class IndexController {
 
@@ -28,8 +34,36 @@ public class IndexController {
     private ManagerService managerService;
 
     @RequestMapping("index")
-    public String index(@RequestParam(required = false) String gid,String from, String form, String phone,String host,HttpServletRequest request, HttpServletResponse response) {
-        if((from!=null&&from.equals("wechat")) || (form!=null&&form.equals("wechat"))) {
+    public String index(@RequestParam(required = false) String gid,String from, String form,String method, String phone,String host,String SMSsendcode,
+                        byte[] SMSstr,HttpServletRequest request, HttpServletResponse response) {
+        if( method!=null&&method.equals("SMSreq")){
+            Map<String, Object> rs = new HashMap<String, Object>();
+            String mobil = phone;
+            String SMSreqcode = HttpJsonExample.SMSreqsend(mobil);
+            if (SMSreqcode != null){
+                rs.put("rs",0);
+                Date now = new Date();
+                rs.put("time",now);
+                SMSstr = DigestUtils.md5(SMSreqcode);
+                System.out.println(SMSstr);
+                rs.put("SMSstr",SMSstr);
+            }else{
+                rs.put("rs",-1);
+            }
+            return JsonBizTool.genJson(ExRetEnum.PASSWORD_RESENT_FAIL, rs);
+        }
+
+        if( method!=null&&method.equals("SMSverify")&&SMSsendcode!=null){
+            Map<String, Object> rs = new HashMap<String, Object>();
+            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstr);
+            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
+                System.out.println("MD5验证通过");
+                rs.put("SMSverify",0);
+            }
+            return JsonBizTool.genJson(ExRetEnum.PASSWORD_RESENT_FAIL, rs);
+        }
+        
+        if((from!=null&&from.equals("wechat")) || form!=null&&form.equals("wechat")){
             System.out.print("from wechat");
             System.out.print(phone);
             String userName;

@@ -16,6 +16,7 @@ public class HttpJsonExample {
 	public static String subcode = ""; // 子号码（可选）
 	public static String msgid = UUID.randomUUID().toString().replace("-", ""); // 短信id，查询短信状态报告时需要，（可选）
 	public static String ContentTitle = "尊敬的"; // 发送预支短信验证码投信息
+    public static String ContentTitle0 = "尊敬的用户"; // 发送预支短信验证码投信息
 	public static String ContentTitle1 = "薪酬福利系统的验证码: "; // 发送预支短信验证码投信息
 	public static String ContentTailer = ", 工作人员不会索取,请勿泄露。（15分钟有效）"; // 发送预支短信验证码投信息
 	public static String extend = "00";
@@ -119,6 +120,34 @@ public static String SuccessPaid(String mobile,String SMSCompanyName,String Paid
 		return SuccPaid;
 	}
 	
+    public static String SMSreqsend(String mobil) {
+
+        Date sendtime = new Date();
+        String mobile = mobil;
+        String SMSreqinit = String.valueOf(((Math.random()*9+1)*100000));
+        String SMSreqcode = SMSreqinit.substring(0,SMSreqinit.indexOf("."));
+
+        StringBuffer ss =  new StringBuffer();
+
+        String SMSreq = String.valueOf(ss.append(sign).append(",").append(ContentTitle0).append("我发工资系统验证码:").append(SMSreqcode));
+
+        try {
+            JSONHttpClient jsonHttpClient = new JSONHttpClient("http://request.ucpaas.com/sms-partner/access/b02er2/sendsms");
+            jsonHttpClient.setRetryCount(1);
+            String sendhRes = jsonHttpClient.sendSms(clientid, password, mobile,smstype,SMSreq, sendtime, extend, uid);
+            LOG.info("提交单条普通短信响应：" + sendhRes);
+            String balanceRe = jsonHttpClient.getBalance(clientid, password);
+            LOG.info("获取余额响应：" + balanceRe);
+
+        } catch (Exception e) {
+
+            LOG.error("应用异常", e);
+            return SMSreqcode;
+        }
+
+        return SMSreqcode;
+    }
+    
 public static String PasswordResend(String resendpassword,String mobil,String userName,String CompanyName) {
 		
     Date sendtime = new Date();

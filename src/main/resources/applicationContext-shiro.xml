@@ -110,6 +110,7 @@
 				/oauthController/login = anon
 				/agreement = anon
 				/userGuide = anon
+                /nest/** = anon
 				/** = kickout,authc  <!-- authc授权访问 -->
 			</value>
 		</property>

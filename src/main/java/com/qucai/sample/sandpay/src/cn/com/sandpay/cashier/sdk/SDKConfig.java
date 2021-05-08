@@ -254,6 +254,4 @@ public class SDKConfig {
 		this.properties = properties;
 	}
 	
-	
-
 }

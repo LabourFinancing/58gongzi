@@ -173,7 +173,19 @@ public class ManagerController {
         managerService.insertSelective(manager);
         return JsonBizTool.genJson(ExRetEnum.SUCCESS);
     }
+
+    @RequestMapping(value = "SMSManager")
+    @ResponseBody
+    public String SMSManager(Manager manager, HttpServletRequest request,
+                             HttpServletResponse response, Model model) {
+        manager.setCreateTime(new Date());
+        manager.setId(Tool.uuid());
+        managerService.insertSelective(manager);
+        return JsonBizTool.genJson(ExRetEnum.SUCCESS);
+    }
     
+
+
     @RequestMapping(value = "deleteManager")
     public String deleteManager(String id, HttpServletRequest request,
             HttpServletResponse response, Model model) {
