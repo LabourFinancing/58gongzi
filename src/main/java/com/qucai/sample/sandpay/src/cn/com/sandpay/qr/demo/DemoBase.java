@@ -103,7 +103,9 @@ public class DemoBase {
 		String result;
 		try {
 			logger.info("请求报文：\n"+JSONObject.toJSONString(reqJson,true));	
-			result = HttpClient.doPost(SDKConfig.getConfig().getUrl()+reqAddr, reqMap, connectTimeout, readTimeout);
+			System.out.println(SDKConfig.getConfig().getDrurl());
+            result = HttpClient.doPost("https://cashier.sandpay.com.cn/qr/api/"+reqAddr, reqMap, connectTimeout, readTimeout);
+//			result = HttpClient.doPost(SDKConfig.getConfig().getDrurl()+reqAddr, reqMap, connectTimeout, readTimeout);
 			result = URLDecoder.decode(result, encoding);
 		} catch (IOException e) {
 			logger.error(e.getMessage());

@@ -41,6 +41,8 @@ public class SDKConfig {
 	
 	/**通讯地址. */
 	private String url;
+    /**dr通讯地址. */
+    private String drurl;
 	/**商户号. */
 	private String mid;
 	/**平台商户号. */
@@ -54,6 +56,8 @@ public class SDKConfig {
 	
 	/** 配置文件中的通讯地址常量. */
 	public static final String SDK_URL = "sandsdk.url";
+    /** 配置文件中的通讯地址常量. */
+    public static final String SDK_DR_URL = "sandsdk.drurl";
 	/** 配置文件中的商户号常量. */
 	public static final String SDK_MID = "sandsdk.mid";
 	/** 配置文件中的平台商户号常量. */
@@ -171,6 +175,11 @@ public class SDKConfig {
 			this.url = value.trim();
 			logger.info("配置项：通讯地址==>"+SDK_URL +"==>"+ value+" 已加载");
 		}
+        value = pro.getProperty(SDK_DR_URL);
+        if (!StringUtils.isEmpty(value)) {
+            this.url = value.trim();
+            logger.info("配置项：通讯地址==>"+SDK_DR_URL +"==>"+ value+" 已加载");
+        }
 		value = pro.getProperty(SDK_MID);
 		if (!StringUtils.isEmpty(value)) {
 			this.mid = value.trim();
@@ -205,6 +214,14 @@ public class SDKConfig {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+	
+    public String getDrurl() {
+        return drurl;
+    }
+
+    public void setDrurl(String drurl) {
+        this.drurl = drurl;
+    }
 
 	public String getMid() {
 		return mid;
