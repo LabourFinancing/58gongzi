@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSONObject;
+import com.qucai.sample.entity.StaffPrepayApplicationPayment;
 import com.qucai.sample.smss.src.example.json.HttpJsonExample;
 import com.qucai.sample.util.ShiroSessionUtil;
 import org.apache.shiro.SecurityUtils;
@@ -41,7 +42,8 @@ public class IndexController {
         if(method!=null&&method.equals("QRcode")){
             Map<String, Object> rs = new HashMap<String, Object>();
             String merchantId = "S2135052";
-            JSONObject resp = OrderCreateDemo.main(merchantId);
+            StaffPrepayApplicationPayment staffPrepayApplicationPay = null;
+            JSONObject resp = OrderCreateDemo.main(staffPrepayApplicationPay,merchantId);
             String QRcodeinit = resp.getString("qrCode");
             rs.put("QRcodeinit", QRcodeinit);
             return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs); 
