@@ -261,7 +261,7 @@
 		from t_manager a
 		where a.user_name = #{userName}
 		<if test="id != null">
-			and a.id != #{id}
+			and a.telephone != #{id}
 		</if>
 	</select>
 
