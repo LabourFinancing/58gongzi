@@ -101,7 +101,7 @@ public class OauthController {
             return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
         }
         
-        if( method!=null&&method.equals("SMSverify")&&SMSsendcode!=null){
+        if( method!=null&&method.equals("SMSverify")&&SMSsendcode!=null&&SMSstrret!=null){
             Map<String, Object> rs = new HashMap<String, Object>();
             byte[] SMSsendcodecvt =  DigestUtils.md5(SMSsendcode);
             String SMSsendcodecvti = DigestUtils.md5Hex(SMSsendcodecvt);
