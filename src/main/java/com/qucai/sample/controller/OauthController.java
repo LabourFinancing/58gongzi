@@ -58,7 +58,7 @@ public class OauthController {
     @RequestMapping("/login")
     @ResponseBody
     public Object login(HttpServletRequest request, HttpServletResponse response, String userName, String password, String remember,
-                        String gid,String from, String form,String method, String phone,String host,String SMSsendcode,String PersonalID,
+                        String gid,String from, String form,String method, String phone,String host,String SMSsendcode,
                         String SMSstrret,String type, String API) throws Exception {
 
         CaptchaUsernamePasswordToken token = new CaptchaUsernamePasswordToken();
@@ -92,9 +92,9 @@ public class OauthController {
                 Date now = new Date();
                 rs.put("time",now);
                 SMSstr = DigestUtils.md5(SMSreqcode);
-                String SMSstrinit = new String(SMSstr);
-                System.out.println(SMSstrinit);
-                rs.put("SMSstr",SMSstrinit);
+                String SMScode = DigestUtils.md5Hex(SMSstr);
+                System.out.println(SMScode);
+                rs.put("SMSstr",SMScode);
             }else{
                 rs.put("rs",-1);
             }
@@ -103,8 +103,9 @@ public class OauthController {
         
         if( method!=null&&method.equals("SMSverify")&&SMSsendcode!=null){
             Map<String, Object> rs = new HashMap<String, Object>();
-            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
-            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
+            byte[] SMSsendcodecvt =  DigestUtils.md5(SMSsendcode);
+            String SMSsendcodecvti = DigestUtils.md5Hex(SMSsendcodecvt);
+            if (SMSsendcodecvti.equalsIgnoreCase(SMSstrret)) {
                 System.out.println("MD5验证通过");
                 rs.put("SMSverify",0);
             }
@@ -112,7 +113,7 @@ public class OauthController {
         }
 
         //Mobile APP 调用个人首页
-        if( method!=null&&method.equals("ewalletdashboard")&&PersonalID!=null){
+        if( method!=null&&method.equals("ewalletdashboard")&&SMSsendcode!=null){
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
@@ -123,18 +124,7 @@ public class OauthController {
         }
 
         //Mobile APP 调用个人信息
-        if( method!=null&&method.equals("personalMain")&&PersonalID!=null){
-            Map<String, Object> rs = new HashMap<String, Object>();
-            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
-            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
-                System.out.println("MD5验证通过");
-                rs.put("SMSverify",0);
-            }
-            return "redirect:/PersonalMaincontroller/dashboard";
-        }
-
-        //Mobile APP 调用个人支付
-        if( method!=null&&method.equals("personalMain")&&PersonalID!=null){
+        if( method!=null&&method.equals("personalMain")&&SMSsendcode!=null){
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
