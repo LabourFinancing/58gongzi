@@ -58,8 +58,8 @@ public class OauthController {
     @RequestMapping("/login")
     @ResponseBody
     public Object login(HttpServletRequest request, HttpServletResponse response, String userName, String password, String remember,
-                        String gid,String from, String form,String method, String phone,String host,String SMSsendcode,
-                        byte[] SMSstr,String type, String API) throws Exception {
+                        String gid,String from, String form,String method, String phone,String host,String SMSsendcode,String PersonalID,
+                        String SMSstrret,String type, String API) throws Exception {
 
         CaptchaUsernamePasswordToken token = new CaptchaUsernamePasswordToken();
         token.setUsername(userName);
@@ -83,6 +83,7 @@ public class OauthController {
             return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
         }
         if( method!=null&&method.equals("SMSreq")){
+            byte[] SMSstr;
             Map<String, Object> rs = new HashMap<String, Object>();
             String mobil = phone;
             String SMSreqcode = HttpJsonExample.SMSreqsend(mobil);
@@ -91,8 +92,9 @@ public class OauthController {
                 Date now = new Date();
                 rs.put("time",now);
                 SMSstr = DigestUtils.md5(SMSreqcode);
-                System.out.println(SMSstr);
-                rs.put("SMSstr",SMSstr);
+                String SMSstrinit = new String(SMSstr);
+                System.out.println(SMSstrinit);
+                rs.put("SMSstr",SMSstrinit);
             }else{
                 rs.put("rs",-1);
             }
@@ -101,14 +103,47 @@ public class OauthController {
         
         if( method!=null&&method.equals("SMSverify")&&SMSsendcode!=null){
             Map<String, Object> rs = new HashMap<String, Object>();
-            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstr);
+            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
                 System.out.println("MD5验证通过");
                 rs.put("SMSverify",0);
             }
             return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
         }
-        
+
+        //Mobile APP 调用个人首页
+        if( method!=null&&method.equals("ewalletdashboard")&&PersonalID!=null){
+            Map<String, Object> rs = new HashMap<String, Object>();
+            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
+                System.out.println("MD5验证通过");
+                rs.put("SMSverify",0);
+            }
+            return "redirect:/Ewalletcontroller/dashboard";
+        }
+
+        //Mobile APP 调用个人信息
+        if( method!=null&&method.equals("personalMain")&&PersonalID!=null){
+            Map<String, Object> rs = new HashMap<String, Object>();
+            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
+                System.out.println("MD5验证通过");
+                rs.put("SMSverify",0);
+            }
+            return "redirect:/PersonalMaincontroller/dashboard";
+        }
+
+        //Mobile APP 调用个人支付
+        if( method!=null&&method.equals("personalMain")&&PersonalID!=null){
+            Map<String, Object> rs = new HashMap<String, Object>();
+            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
+                System.out.println("MD5验证通过");
+                rs.put("SMSverify",0);
+            }
+            return "redirect:/PersonalMaincontroller/dashboard";
+        }
+
         if (type.equals("resendPWD")) {
             token.setRememberMe(true);
             Manager entity = null;
