@@ -16,11 +16,8 @@ import com.qucai.sample.common.PageParam;
 public class Tool {
 
     public static String StringSeq(String StrInput) {
-        //字符串倒叙排列
-
-        //方法一：字符串转字节数组toCharArray，再for循环遍历
+        
         String str = StrInput;
-
         char[] ch=str.toCharArray();
         String strNew ="";
         for(int i = ch.length - 1;i>=0;i--){

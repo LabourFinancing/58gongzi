@@ -39,52 +39,6 @@ public class IndexController {
     @RequestMapping("index")
     public String index(@RequestParam(required = false) String gid,String from, String form,String method, String phone,String host,String SMSsendcode,
                         byte[] SMSstr,HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-//        if(method!=null&&method.equals("getUserInfo")){
-//            Map<String, Object> rs = new HashMap<String, Object>();
-//            String merchantId = "S2135052";
-//            StaffPrepayApplicationPayment staffPrepayApplicationPay = null;
-//            JSONObject resp = OrderCreateDemo.main(staffPrepayApplicationPay,merchantId);
-//            String QRcodeinit = resp.getString("qrCode");
-//            rs.put("QRcodeinit", QRcodeinit);
-//            return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
-//        }
-//        
-//        if(method!=null&&method.equals("QRcode")){
-//            Map<String, Object> rs = new HashMap<String, Object>();
-//            String merchantId = "S2135052";
-//            StaffPrepayApplicationPayment staffPrepayApplicationPay = null;
-//            JSONObject resp = OrderCreateDemo.main(staffPrepayApplicationPay,merchantId);
-//            String QRcodeinit = resp.getString("qrCode");
-//            rs.put("QRcodeinit", QRcodeinit);
-//            return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs); 
-//        }
-//        if( method!=null&&method.equals("SMSreq")){
-//            Map<String, Object> rs = new HashMap<String, Object>();
-//            String mobil = phone;
-//            String SMSreqcode = HttpJsonExample.SMSreqsend(mobil);
-//            if (SMSreqcode != null){
-//                rs.put("rs",0);
-//                Date now = new Date();
-//                rs.put("time",now);
-//                SMSstr = DigestUtils.md5(SMSreqcode);
-//                System.out.println(SMSstr);
-//                rs.put("SMSstr",SMSstr);
-//            }else{
-//                rs.put("rs",-1);
-//            }
-//            return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
-//        }
-//
-//        if( method!=null&&method.equals("SMSverify")&&SMSsendcode!=null){
-//            Map<String, Object> rs = new HashMap<String, Object>();
-//            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstr);
-//            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
-//                System.out.println("MD5验证通过");
-//                rs.put("SMSverify",0);
-//            }
-//            return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
-//        }
         
         if((from!=null&&from.equals("wechat")) || form!=null&&form.equals("wechat")){
             System.out.print("from wechat");
@@ -180,7 +134,7 @@ public class IndexController {
             } else if (userName.contains("Admin") || userName.contains("ADMIN") || userName.contains("admin")) {
                 return "redirect:/OrganizationDashboardController/dashboard";
             } else if (host.equals("P")) {
-                return "redirect:/OrganizationDashboardController/dashboard";   
+                return "redirect:/OrganizationDashboardController/dashboard";
             } else {
                 return "redirect:/StaffPrepayApplicationController/staffPrepayApplicationNew";
             }

@@ -27,27 +27,6 @@ import com.qucai.sample.security.CaptchaUsernamePasswordToken;
 import com.qucai.sample.service.ManagerService;
 import com.qucai.sample.smss.src.example.json.HttpJsonExample;
 import com.qucai.sample.util.JsonBizTool;
-import com.alibaba.fastjson.JSONObject;
-import com.qucai.sample.entity.StaffPrepayApplicationPayment;
-import com.qucai.sample.smss.src.example.json.HttpJsonExample;
-import com.qucai.sample.util.ShiroSessionUtil;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.subject.Subject;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import com.qucai.sample.converter.HttpJsonPersonalTest;
-import com.qucai.sample.entity.Manager;
-import com.qucai.sample.exception.ExRetEnum;
-import com.qucai.sample.security.CaptchaUsernamePasswordToken;
-import com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo.*;
-import com.qucai.sample.service.ManagerService;
-import com.qucai.sample.util.JsonBizTool;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping(value = "/oauthController")
@@ -116,28 +95,84 @@ public class OauthController {
             return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
         }
 
+        //Mobile APP 调用个人交易
+        if( method!=null&&method.equals("ewalletTXN")&&SMSsendcode!=null){
+            Map<String, Object> rs = new HashMap<String, Object>();
+            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
+                System.out.println("调用个人消费成功");
+                rs.put("SMSverify",0);
+            }
+            return "redirect:/EwalletTXNcontroller/personalEWTMobiledashboard";
+        }
+        
         //Mobile APP 调用个人首页
         if( method!=null&&method.equals("ewalletdashboard")&&SMSsendcode!=null){
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
-                System.out.println("MD5验证通过");
+                System.out.println("调用钱包成功");
                 rs.put("SMSverify",0);
             }
-            return "redirect:/Ewalletcontroller/dashboard";
+            return "redirect:/Ewalletcontroller/personalEWMobiledashboard";
         }
 
         //Mobile APP 调用个人信息
-        if( method!=null&&method.equals("personalMain")&&SMSsendcode!=null){
+        if( method!=null&&method.equals("personalMain")&&SMSsendcode!=null) {
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
-                System.out.println("MD5验证通过");
-                rs.put("SMSverify",0);
+                System.out.println("调用个人信息");
+                rs.put("SMSverify", 0);
             }
-            return "redirect:/PersonalMaincontroller/dashboard";
+            return "redirect:/PersonalMaincontroller/personalMMobiledashboard";
         }
 
+
+        //Mobile APP 调用个人信息
+        if( method!=null&&method.equals("vourchar")&&SMSsendcode!=null){
+            Map<String, Object> rs = new HashMap<String, Object>();
+            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
+                System.out.println("调用个人信息");
+                rs.put("SMSverify",0);
+            }
+            return "redirect:/Vourcharcontroller/personalVourcharMobiledashboard";
+        }
+
+        //Mobile APP 调用个人交易
+        if( method!=null&&method.equals("mainboard")&&SMSsendcode!=null){
+            Map<String, Object> rs = new HashMap<String, Object>();
+            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
+                System.out.println("调用个人消费成功");
+                rs.put("SMSverify",0);
+            }
+            return "redirect:/Mainboardtcontroller/personalMainboard";
+        }
+
+        //Mobile APP 调用个人信息
+        if( method!=null&&method.equals("cspersonal")&&SMSsendcode!=null){
+            Map<String, Object> rs = new HashMap<String, Object>();
+            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
+                System.out.println("调用个人信息");
+                rs.put("SMSverify",0);
+            }
+            return "redirect:/cscontroller/personalCSdashboard";
+        }
+
+        //Mobile APP 调用个人交易
+        if( method!=null&&method.equals("vendormgt")&&SMSsendcode!=null){
+            Map<String, Object> rs = new HashMap<String, Object>();
+            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
+                System.out.println("调用个人消费成功");
+                rs.put("SMSverify",0);
+            }
+            return "redirect:/vendormgtcontroller/personalVDRdashboard";
+        }
+        
         if (type.equals("resendPWD")) {
             token.setRememberMe(true);
             Manager entity = null;
