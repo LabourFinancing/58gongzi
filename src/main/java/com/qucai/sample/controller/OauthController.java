@@ -1,12 +1,17 @@
 package com.qucai.sample.controller;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.alibaba.fastjson.JSONObject;
+import com.qucai.sample.entity.StaffPrepayApplicationPayment;
+import com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo.OrderCreateDemo;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
@@ -21,25 +26,93 @@ import com.qucai.sample.security.CaptchaUsernamePasswordToken;
 import com.qucai.sample.service.ManagerService;
 import com.qucai.sample.smss.src.example.json.HttpJsonExample;
 import com.qucai.sample.util.JsonBizTool;
+import com.alibaba.fastjson.JSONObject;
+import com.qucai.sample.entity.StaffPrepayApplicationPayment;
+import com.qucai.sample.smss.src.example.json.HttpJsonExample;
+import com.qucai.sample.util.ShiroSessionUtil;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.subject.Subject;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.qucai.sample.converter.HttpJsonPersonalTest;
+import com.qucai.sample.entity.Manager;
+import com.qucai.sample.exception.ExRetEnum;
+import com.qucai.sample.security.CaptchaUsernamePasswordToken;
+import com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo.*;
+import com.qucai.sample.service.ManagerService;
+import com.qucai.sample.util.JsonBizTool;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping(value = "/oauthController")
 public class OauthController {
 
-	@Autowired
+    @Autowired
     private ManagerService managerService;
-	
+
     @RequestMapping("/login")
     @ResponseBody
-    public Object login(HttpServletRequest request, HttpServletResponse response, String userName, String password, String remember, String host, String type, String API) {
+    public Object login(HttpServletRequest request, HttpServletResponse response, String userName, String password, String remember,
+                        String gid,String from, String form,String method, String phone,String host,String SMSsendcode,
+                        byte[] SMSstr,String type, String API) throws Exception {
+
         CaptchaUsernamePasswordToken token = new CaptchaUsernamePasswordToken();
         token.setUsername(userName);
         
+        if(method!=null&&method.equals("getUserInfo")){
+            Map<String, Object> rs = new HashMap<String, Object>();
+            String merchantId = "S2135052";
+            StaffPrepayApplicationPayment staffPrepayApplicationPay = null;
+            JSONObject resp = OrderCreateDemo.main(staffPrepayApplicationPay,merchantId);
+            String QRcodeinit = resp.getString("qrCode");
+            rs.put("QRcodeinit", QRcodeinit);
+            return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
+        }
+        if(method!=null&&method.equals("QRcode")){
+            Map<String, Object> rs = new HashMap<String, Object>();
+            String merchantId = "S2135052";
+            StaffPrepayApplicationPayment staffPrepayApplicationPay = null;
+            JSONObject resp = OrderCreateDemo.main(staffPrepayApplicationPay,merchantId);
+            String QRcodeinit = resp.getString("qrCode");
+            rs.put("QRcodeinit", QRcodeinit);
+            return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
+        }
+        if( method!=null&&method.equals("SMSreq")){
+            Map<String, Object> rs = new HashMap<String, Object>();
+            String mobil = phone;
+            String SMSreqcode = HttpJsonExample.SMSreqsend(mobil);
+            if (SMSreqcode != null){
+                rs.put("rs",0);
+                Date now = new Date();
+                rs.put("time",now);
+                SMSstr = DigestUtils.md5(SMSreqcode);
+                System.out.println(SMSstr);
+                rs.put("SMSstr",SMSstr);
+            }else{
+                rs.put("rs",-1);
+            }
+            return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
+        }
+        
+        if( method!=null&&method.equals("SMSverify")&&SMSsendcode!=null){
+            Map<String, Object> rs = new HashMap<String, Object>();
+            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstr);
+            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
+                System.out.println("MD5验证通过");
+                rs.put("SMSverify",0);
+            }
+            return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
+        }
+        
         if (type.equals("resendPWD")) {
             token.setRememberMe(true);
-        	Manager entity = null;
-        	Manager manager = managerService.ForgotPWDByPrimaryKeySelective(userName);
+            Manager entity = null;
+            Manager manager = managerService.ForgotPWDByPrimaryKeySelective(userName);
             String resendpassword = manager.getPassword();
             String mobil = manager.getMobile();
             String CompanyName = manager.getCompany_name();
@@ -54,7 +127,7 @@ public class OauthController {
                 return JsonBizTool.genJson(ExRetEnum.PASSWORD_RESENT_FAIL, rs);
             }
         } else {
-        	
+
             token.setPassword(password.toCharArray());
 //            token.setRememberMe(true);
             
@@ -94,41 +167,41 @@ public class OauthController {
                     return request.getRemoteAddr();
                 }
                 return request.getHeader("x-forwarded-for");
-*/         
-            
-        if (userName.toLowerCase().contains("admin")) {
-                token.setHost("P");  
+*/
+
+            if (userName.toLowerCase().contains("admin")) {
+                token.setHost("P");
                 host = "P";
-        } else {
-                token.setHost("M");  
+            } else {
+                token.setHost("M");
                 host = "M" ;
-        }
-    
-        Subject subject = SecurityUtils.getSubject();
-        Map<String, Object> rs = new HashMap<String, Object>();
-        rs.put("host", host);
-        try {
-            subject.login(token);
-	        } catch (AuthenticationException e) {
-	            return JsonBizTool.genJson(ExRetEnum.LOGIN_ACCOUNT_PASSWORD_ERROR);
-	        }
-             return JsonBizTool.genJson(ExRetEnum.SUCCESS,rs);
+            }
+
+            Subject subject = SecurityUtils.getSubject();
+            Map<String, Object> rs = new HashMap<String, Object>();
+            rs.put("host", host);
+            try {
+                subject.login(token);
+            } catch (AuthenticationException e) {
+                return JsonBizTool.genJson(ExRetEnum.LOGIN_ACCOUNT_PASSWORD_ERROR);
+            }
+            return JsonBizTool.genJson(ExRetEnum.SUCCESS,rs);
         }
     }
-    
+
     @RequestMapping("logout")
     public void logout(HttpServletRequest request, HttpServletResponse response) {
         // 先重定向
-    	 try {
-             response.sendRedirect(request.getContextPath() + "/login.html");
-         } catch (IOException e) {
-             e.printStackTrace();
-         } finally {
-             // 然后再退出登录，避免sessionid找不到
-             Subject subject = SecurityUtils.getSubject();
-             if (subject.isAuthenticated()) {
-                 subject.logout();
-             }
-         }
+        try {
+            response.sendRedirect(request.getContextPath() + "/login.html");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            // 然后再退出登录，避免sessionid找不到
+            Subject subject = SecurityUtils.getSubject();
+            if (subject.isAuthenticated()) {
+                subject.logout();
+            }
+        }
     }
 }
