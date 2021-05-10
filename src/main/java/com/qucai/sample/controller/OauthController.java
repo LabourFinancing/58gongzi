@@ -107,6 +107,7 @@ public class OauthController {
             String SMSsendcodecvti = DigestUtils.md5Hex(SMSsendcodecvt);
             if (SMSsendcodecvti.equalsIgnoreCase(SMSstrret)) {
                 System.out.println("MD5验证通过");
+                System.out.println(SMSsendcode);
                 rs.put("SMSverify",0);
             }
             return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
