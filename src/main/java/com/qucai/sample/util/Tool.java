@@ -11,10 +11,24 @@ import java.util.regex.PatternSyntaxException;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.lowagie.text.Chapter;
 import com.qucai.sample.common.PageParam;
 
 public class Tool {
+
+    public static String StringSeq(String StrInput) {
+        //字符串倒叙排列
+
+        //方法一：字符串转字节数组toCharArray，再for循环遍历
+        String str = StrInput;
+
+        char[] ch=str.toCharArray();
+        String strNew ="";
+        for(int i = ch.length - 1;i>=0;i--){
+            strNew +=ch[i];
+        }
+        System.out.println("字符串"+str+"倒叙排列结果为："+strNew);
+        return strNew;
+    }
 
 	public static PageParam genPageParam(HttpServletRequest request) {
 		String pageNum = request.getParameter("pageNum") == null ? "1"

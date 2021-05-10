@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.alibaba.fastjson.JSONObject;
 import com.qucai.sample.entity.StaffPrepayApplicationPayment;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo.OrderCreateDemo;
+import com.qucai.sample.util.Tool;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -94,7 +95,8 @@ public class OauthController {
                 SMSstr = DigestUtils.md5(SMSreqcode);
                 String SMScode = DigestUtils.md5Hex(SMSstr);
                 System.out.println(SMScode);
-                rs.put("SMSstr",SMScode);
+                String SMSstring = Tool.StringSeq(SMScode);
+                rs.put("SMSstr",SMSstring);
             }else{
                 rs.put("rs",-1);
             }
@@ -102,10 +104,11 @@ public class OauthController {
         }
         
         if( method!=null&&method.equals("SMSverify")&&SMSsendcode!=null&&SMSstrret!=null){
+            String SMSgetstringseq = Tool.StringSeq(SMSstrret);
             Map<String, Object> rs = new HashMap<String, Object>();
             byte[] SMSsendcodecvt =  DigestUtils.md5(SMSsendcode);
             String SMSsendcodecvti = DigestUtils.md5Hex(SMSsendcodecvt);
-            if (SMSsendcodecvti.equalsIgnoreCase(SMSstrret)) {
+            if (SMSsendcodecvti.equalsIgnoreCase(SMSgetstringseq)) {
                 System.out.println("MD5验证通过");
                 System.out.println(SMSsendcode);
                 rs.put("SMSverify",0);
