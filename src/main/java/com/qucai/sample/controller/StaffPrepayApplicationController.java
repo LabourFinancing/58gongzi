@@ -184,7 +184,7 @@ public class StaffPrepayApplicationController {
     			return JsonBizTool.genJson(ExRetEnum.PAY_ACC_FAIL,rs);
     		}
     	}
-        	    InitialBalance = new BigDecimal("20000.00"); // debug using
+//        	    InitialBalance = new BigDecimal("20000.00"); // debug using
         
     	if (InitialBalance.intValue() <= treasuryDBInfoGetStatistic.getT_TreasuryDB_Balance().intValue() || 
             InitialBalance.intValue() <= Integer.valueOf(500) || 

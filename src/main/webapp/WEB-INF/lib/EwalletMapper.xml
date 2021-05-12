@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qucai.sample.dao.EwalletDao">
+
+	<resultMap id="BaseResultMap" type="com.qucai.sample.entity.EwalletDao">
+		<result column="t_personalewallet_ID" property="t_personalewallet_ID" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_ApplierID" property="t_personalewallet_ApplierID" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_ApplierPID" property="t_personalewallet_ApplierPID" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_ApplierName" property="t_personalewallet_ApplierName" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_Passport" property="t_personalewallet_Passport" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_ScanCode" property="t_personalewallet_ScanCode" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_QRcode" property="t_personalewallet_QRcode" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_alipayAcc" property="t_personalewallet_alipayAcc" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_wechatpayAcc" property="t_personalewallet_wechatpayAcc" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_unionpayAcc" property="t_personalewallet_unionpayAcc" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_CryptoC" property="t_personalewallet_CryptoC" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_Voucher" property="t_personalewallet_Voucher" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_VoucherDigi" property="t_personalewallet_VoucherDigi" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_Creditcard" property="t_personalewallet_Creditcard" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_Debitcard" property="t_personalewallet_Debitcard" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_ClearNum" property="t_personalewallet_ClearNum" jdbcType="INTEGER" />
+		<result column="t_personalewallet_ClearOrg" property="t_personalewallet_ClearOrg" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_PayCat" property="t_personalewallet_PayCat" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_PayDate" property="t_personalewallet_PayDate" jdbcType="TIMESTAMP" />
+		<result column="t_personalewallet_ProdName" property="t_personalewallet_ProdName" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_PayDays" property="t_personalewallet_PayDays" jdbcType="INTEGER" />
+		<result column="t_personalewallet_Reciept" property="t_personalewallet_Reciept" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_TotCNYBalance" property="t_personalewallet_TotCNYBalance" jdbcType="DECIMAL" />
+		<result column="t_personalewallet_TotFXBalance" property="t_personalewallet_TotFXBalance" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_TotCryptoBalance" property="t_personalewallet_TotCryptoBalance" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_TotAssetES" property="t_personalewallet_TotAssetES" jdbcType="DECIMAL" />
+		<result column="t_personalewallet_DebitPayAmt" property="t_personalewallet_DebitPayAmt" jdbcType="DECIMAL" />
+		<result column="t_personalewallet_ApplyPayAmount" property="t_personalewallet_ApplyPayAmount" jdbcType="DECIMAL" />
+		<result column="t_personalewallet_CreditPrepayBalanceNum" property="t_personalewallet_CreditPrepayBalanceNum" jdbcType="DECIMAL" />
+		<result column="t_personalewallet_CreditPayAmt" property="t_personalewallet_CreditPayAmt" jdbcType="DECIMAL" />
+		<result column="t_personalewallet_CreditPayAmtInit" property="t_personalewallet_CreditPayAmtInit" jdbcType="DECIMAL" />
+		<result column="t_personalewallet_TotalPrepayAmt" property="t_personalewallet_TotalPrepayAmt" jdbcType="DECIMAL" />
+		<result column="t_personalewallet_TotalInterestDays" property="t_personalewallet_TotalInterestDays" jdbcType="INTEGER" />
+		<result column="t_personalewallet_PayCounts" property="t_personalewallet_PayCounts" jdbcType="INTEGER" />
+		<result column="t_personalewallet_Interest" property="t_personalewallet_Interest" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_TopupLimit" property="t_personalewallet_TopupLimit" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_Amt2" property="t_personalewallet_Amt2" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_Amt3" property="t_personalewallet_Amt3" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_BalanceCreditNum" property="t_personalewallet_BalanceCreditNum" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_OverdueRepaymentDate" property="t_personalewallet_OverdueRepaymentDate" jdbcType="TIMESTAMP" />
+        <result column="t_personalewallet_PrepayClear" property="t_personalewallet_PrepayClear" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_Overdue" property="t_personalewallet_Overdue" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_OverdueTotalAmount" property="t_personalewallet_OverdueTotalAmount" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_FinancialInterest" property="t_personalewallet_FinancialInterest" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_ServiceFee" property="t_personalewallet_ServiceFee" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_Poundage" property="t_personalewallet_Poundage" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_TierPoundage" property="t_personalewallet_TierPoundage" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_InterestMargin" property="t_personalewallet_InterestMargin" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_BankAccName" property="t_personalewallet_BankAccName" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_BankAcc" property="t_personalewallet_BankAcc" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_SysUpdateDate" property="t_personalewallet_SysUpdateDate" jdbcType="TIMESTAMP" />
+        <result column="t_personalewallet_OverdueDays" property="t_personalewallet_OverdueDays" jdbcType="INTEGER" />
+        <result column="t_personalewallet_Paystatus" property="t_personalewallet_Paystatus" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_SMS" property="t_personalewallet_SMS" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_SMSRec" property="t_personalewallet_SMSRec" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_bkp" property="t_personalewallet_bkp" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_bkp1" property="t_personalewallet_bkp1" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_Txt" property="t_personalewallet_Txt" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_Txt1" property="t_personalewallet_Txt1" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_Txt2" property="t_personalewallet_Txt2" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_Txt3" property="t_personalewallet_Txt3" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_Txt4" property="t_personalewallet_Txt4" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_Txt5" property="t_personalewallet_Txt5" jdbcType="VARCHAR" />
+		<result column="platform" property="platform" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="creator" property="creator" jdbcType="VARCHAR" />
+		<result column="create_time" property="create_time" jdbcType="TIMESTAMP" />
+		<result column="modifier" property="modifier" jdbcType="VARCHAR" />
+		<result column="modify_time" property="modify_time" jdbcType="TIMESTAMP" />	
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+        a.t_personalewallet_ID,
+        a.t_personalewallet_ApplierID,
+        a.t_personalewallet_ApplierPID,
+        a.t_personalewallet_ApplierName,
+        a.t_personalewallet_Passport,
+        a.t_personalewallet_ScanCode,
+        a.t_personalewallet_QRcode,
+        a.t_personalewallet_alipayAcc,
+        a.t_personalewallet_wechatpayAcc,
+        a.t_personalewallet_unionpayAcc,
+        a.t_personalewallet_CryptoC,
+        a.t_personalewallet_Voucher,
+        a.t_personalewallet_VoucherDigi,
+        a.t_personalewallet_Creditcard,
+        a.t_personalewallet_Debitcard,
+        a.t_personalewallet_ClearNum,
+        a.t_personalewallet_ClearOrg,
+        a.t_personalewallet_PayCat,
+        a.t_personalewallet_PayDate,
+        a.t_personalewallet_ProdName,
+        a.t_personalewallet_PayDays,
+        a.t_personalewallet_Reciept,
+        a.t_personalewallet_TotCNYBalance,
+        a.t_personalewallet_TotFXBalance,
+        a.t_personalewallet_TotCryptoBalance,
+        a.t_personalewallet_TotAssetES,
+        a.t_personalewallet_DebitPayAmt,
+        a.t_personalewallet_ApplyPayAmount,
+        a.t_personalewallet_CreditPrepayBalanceNum,
+        a.t_personalewallet_CreditPayAmt,
+        a.t_personalewallet_CreditPayAmtInit,
+        a.t_personalewallet_TotalPrepayAmt,
+        a.t_personalewallet_TotalInterestDays,
+        a.t_personalewallet_PayCounts,
+        a.t_personalewallet_Interest,
+        a.t_personalewallet_TopupLimit,
+        a.t_personalewallet_Amt2,
+        a.t_personalewallet_Amt3,
+        a.t_personalewallet_BalanceCreditNum,
+        a.t_personalewallet_OverdueRepaymentDate,
+        a.t_personalewallet_PrepayClear,
+        a.t_personalewallet_Overdue,
+        a.t_personalewallet_OverdueTotalAmount,
+        a.t_personalewallet_FinancialInterest,
+        a.t_personalewallet_ServiceFee,
+        a.t_personalewallet_Poundage,
+        a.t_personalewallet_TierPoundage,
+        a.t_personalewallet_InterestMargin,
+        a.t_personalewallet_BankAccName,
+        a.t_personalewallet_BankAcc,
+        a.t_personalewallet_SysUpdateDate,
+        a.t_personalewallet_OverdueDays,
+        a.t_personalewallet_Paystatus,
+        a.t_personalewallet_SMS,
+        a.t_personalewallet_SMSRec,
+        a.t_personalewallet_bkp,
+        a.t_personalewallet_bkp1,
+        a.t_personalewallet_Txt,
+        a.t_personalewallet_Txt1,
+        a.t_personalewallet_Txt2,
+        a.t_personalewallet_Txt3,
+        a.t_personalewallet_Txt4,
+        a.t_personalewallet_Txt5,
+		a.platform,
+		a.remark,
+		a.creator,
+		a.create_time,
+		a.modifier,
+		a.modify_time
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_personal_info a
+		where a.t_P_id = #{t_P_id,jdbcType=VARCHAR}
+		order by a.create_time
+	</select>
+	
+	<select id="selectTotalCredit" resultType="String"
+		parameterType="java.lang.String">
+		select
+		sum(t_P_CreditPrepayAmount)
+		from t_personal_info a
+		where a.t_P_Company = #{t_P_Company,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="findSubCompany" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select 
+		<include refid="Base_Column_List" />
+		from t_personal_info a 
+		where
+ 		a.t_P_VendorEmployeeName = #{t_P_VendorCompany,jdbcType=VARCHAR}
+		group by a.t_P_Company
+	</select>
+	
+	<select id="findAgencyCompany" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select 
+		<include refid="Base_Column_List" />
+		from t_personal_info a 
+		where a.t_P_Company = #{t_P_Company,jdbcType=VARCHAR}
+		group by a.t_P_VendorEmployeeName
+	</select>
+	
+	<select id="findSearchList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_personal_info a
+		where 
+		<if test="t_P_Name != null">
+		a.t_P_Name like CONCAT('%',#{t_P_Name},'%')
+		</if>	
+		<if test="t_P_PID != null" >
+		and a.t_P_PID like CONCAT('%',#{t_P_PID},'%')
+		</if>
+		<if test="t_P_Mobil != null">
+		and a.t_P_Mobil like CONCAT('%',#{t_P_Mobil},'%')
+		</if>
+		<if test="t_P_Company != 'ALL' ">
+		and a.t_P_Company like CONCAT('%',#{t_P_Company},'%')
+		</if>
+		<if test="t_P_VendorEmployeeName != null" >
+		and a.t_P_VendorEmployeeName like CONCAT('%',#{t_P_VendorEmployeeName},'%')
+		</if>
+		<if test="remark != null" >
+		and a.remark like CONCAT('%',#{remark},'%')
+		</if>
+        order by a.create_time
+	</select>
+	
+	<select id="findSearchCompanyDist" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_personal_info a
+		where 
+		<if test="t_P_VendorEmployeeName != null" >
+		a.t_P_VendorEmployeeName like CONCAT('%',#{t_P_VendorEmployeeName},'%')
+		</if>
+		<if test="remark != null" >
+		and a.remark like CONCAT('%',#{remark},'%')
+		</if>
+        group by a.t_P_Company
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from t_personal_info
+		where t_P_id = #{t_P_id,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="insertSelective" parameterType="com.qucai.sample.entity.Ewallet">
+		insert into t_personal_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="t_P_id != null">
+				t_P_id,
+			</if>
+			<if test="t_P_Name != null">
+				t_P_Name,
+			</if>
+			<if test="t_P_Sex != null">
+				t_P_Sex,
+			</if>
+			<if test="t_P_Age != null">
+				t_P_Age,
+			</if>
+			<if test="t_P_PID != null">
+				t_P_PID,
+			</if>
+			<if test="t_P_Marriage != null">
+				t_P_Marriage,
+			</if>
+			<if test="t_P_HomeAddress != null">
+				t_P_HomeAddress,
+			</if>
+			<if test="t_P_Mobil != null">
+				t_P_Mobil,
+			</if>
+			<if test="t_P_Phone != null">
+				t_P_Phone,
+			</if>
+			<if test="t_P_Spouse != null">
+				t_P_Spouse,
+			</if>
+			<if test="t_P_Spouse_Phone != null">
+				t_P_Spouse_Phone,
+			</if>
+			<if test="t_P_Contact1 != null">
+				t_P_Contact1,
+			</if>
+			<if test="t_P_Contact1Mobil != null">
+				t_P_Contact1Mobil,
+			</if>
+			<if test="t_P_Contact2 != null">
+				t_P_Contact2,
+			</if>
+			<if test="t_P_Contact2Mobil != null">
+				t_P_Contact2Mobil,
+			</if>
+			<if test="t_P_Company != null">
+				t_P_Company,
+			</if>
+			<if test="t_P_CompanyNum != null">
+				t_P_CompanyNum,
+			</if>
+			<if test="t_P_SocialSecurityBaseAmount != null">
+				t_P_SocialSecurityBaseAmount,
+			</if>
+			<if test="t_P_ProvidentFund != null">
+				t_P_ProvidentFund,
+			</if>
+			<if test="t_P_Employmentstatus != null">
+				t_P_Employmentstatus,
+			</if>
+			<if test="t_P_EmploymentCategory != null">
+				t_P_EmploymentCategory,
+			</if>
+			<if test="t_P_WorkYears != null">
+				t_P_WorkYears,
+			</if>
+			<if test="t_P_Probation != null">
+				t_P_Probation,
+			</if>
+			<if test="t_P_VendorEmployment != null">
+				t_P_VendorEmployment,
+			</if>
+			<if test="t_P_VendorEmployeeName != null">
+				t_P_VendorEmployeeName,
+			</if>
+			<if test="t_P_PayrollDebitcardBankName != null">
+				t_P_PayrollDebitcardBankName,
+			</if>
+			<if test="t_P_PayrollDebitcardNum != null">
+				t_P_PayrollDebitcardNum,
+			</if>
+			<if test="t_P_NetBaseSalary != null">
+				t_P_NetBaseSalary,
+			</if>
+			<if test="t_P_CreditPrepaySalaryAmount != null">
+				t_P_CreditPrepaySalaryAmount,
+			</if>
+			<if test="t_P_PayrollDate != null">
+				t_P_PayrollDate,
+			</if>
+			<if test="t_P_NetMonthlyBonusAmount != null">
+				t_P_NetMonthlyBonusAmount,
+			</if>
+			<if test="t_P_NetBonusPayDate != null">
+				t_P_NetBonusPayDate,
+			</if>
+			<if test="t_P_SocialSecurityDate != null">
+				t_P_SocialSecurityDate,
+			</if>
+			<if test="t_P_SysUpdateDate != null">
+				t_P_SysUpdateDate,
+			</if>
+			<if test="platform != null">
+				platform,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="creator != null">
+				creator,
+			</if>
+			<if test="create_time != null">
+				create_time,
+			</if>
+			<if test="modifier != null">
+				modifier,
+			</if>
+			<if test="modify_time != null">
+				modify_time
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="t_P_id != null">
+				#{t_P_id,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Name != null">
+				#{t_P_Name,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Sex != null">
+				#{t_P_Sex,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Age != null">
+				#{t_P_Age,jdbcType=INTEGER},
+			</if>
+			<if test="t_P_PID != null">
+				#{t_P_PID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Marriage != null">
+				#{t_P_Marriage,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_HomeAddress != null">
+				#{t_P_HomeAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Mobil != null">
+				#{t_P_Mobil,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Phone != null">
+				#{t_P_Phone,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Spouse != null">
+				#{t_P_Spouse,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Spouse_Phone != null">
+				#{t_P_Spouse_Phone,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Contact1 != null">
+				#{t_P_Contact1,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Contact1Mobil != null">
+				#{t_P_Contact1Mobil,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Contact2 != null">
+				#{t_P_Contact2,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Contact2Mobil != null">
+				#{t_P_Contact2Mobil,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Company != null">
+				#{t_P_Company,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_CompanyNum != null">
+				#{t_P_CompanyNum,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_SocialSecurityBaseAmount != null">
+				#{t_P_SocialSecurityBaseAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="t_P_ProvidentFund != null">
+				#{t_P_ProvidentFund,jdbcType=DECIMAL},
+			</if>
+			<if test="t_P_Employmentstatus != null">
+				#{t_P_Employmentstatus,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_EmploymentCategory != null">
+				#{t_P_EmploymentCategory,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_WorkYears != null">
+				#{t_P_WorkYears,jdbcType=INTEGER},
+			</if>
+			<if test="t_P_Probation != null">
+				#{t_P_Probation,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_VendorEmployment != null">
+				#{t_P_VendorEmployment,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_VendorEmployeeName != null">
+				#{t_P_VendorEmployeeName,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_PayrollDebitcardBankName != null">
+				#{t_P_PayrollDebitcardBankName,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_PayrollDebitcardNum != null">
+				#{t_P_PayrollDebitcardNum,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_NetBaseSalary != null">
+				#{t_P_NetBaseSalary,jdbcType=DECIMAL},
+			</if>
+			<if test="t_P_CreditPrepaySalaryAmount != null">
+				#{t_P_CreditPrepaySalaryAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="t_P_PayrollDate != null">
+				#{t_P_PayrollDate,jdbcType=INTEGER},
+			</if>
+			<if test="t_P_NetMonthlyBonusAmount != null">
+				#{t_P_NetMonthlyBonusAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="t_P_NetBonusPayDate != null">
+				#{t_P_NetBonusPayDate,jdbcType=INTEGER},
+			</if>
+			<if test="t_P_SocialSecurityDate != null">
+				#{t_P_SocialSecurityDate,jdbcType=INTEGER},
+			</if>
+			<if test="t_P_SysUpdateDate != null">
+				#{t_P_SysUpdateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="platform != null">
+				#{platform,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				#{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="create_time != null">
+				#{create_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifier != null">
+				#{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="modify_time != null">
+				#{modify_time,jdbcType=TIMESTAMP}
+			</if>
+		</trim>
+	</insert>
+	
+	<select id="findAllList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_personal_info a
+		where 1=1
+		<if test="typeEnd != null">
+			<![CDATA[ and type <= #{typeEnd} ]]>
+		</if>
+		<if test="t_P_Company != 'ALL' and t_P_Company != null">
+		   and a.t_P_Company = #{t_P_Company,jdbcType=VARCHAR}
+		</if>
+		<if test="t_P_VendorEmployeeName != null" >
+		   and a.t_P_VendorEmployeeName like CONCAT('%',#{t_P_VendorEmployeeName},'%')
+		</if>
+		order by a.create_time
+	</select>
+
+<!-- 
+	<select id="findEntResourceGrantAllList" resultMap="ResourceGrantMap"
+		parameterType="java.lang.String">
+		SELECT
+			<include refid="Base_Column_List" />, 
+			(
+				SELECT
+					count(1)
+				FROM
+					tr_role_resource
+				WHERE
+					resource_id = a.id
+				AND role_id = #{roleId}
+			) AS selected
+		FROM
+			t_resource a
+		WHERE a.platform = 1
+		order by IFNULL(a.parent_id, ''), a.idx
+	</select>
+ -->			
+	<update id="updateByPrimaryKeySelective" parameterType="com.qucai.sample.entity.Ewallet">
+		update t_personal_info
+		<set>
+			<if test="t_P_id != null">
+				t_P_id = #{t_P_id,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Name != null">
+				t_P_Name = #{t_P_Name,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Sex != null">
+				t_P_Sex = #{t_P_Sex,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Age != null">
+				t_P_Age = #{t_P_Age,jdbcType=INTEGER},
+			</if>
+			<if test="t_P_PID != null">
+				t_P_PID = #{t_P_PID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Marriage != null">
+				t_P_Marriage = #{t_P_Marriage,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_HomeAddress != null">
+				t_P_HomeAddress = #{t_P_HomeAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Mobil != null">
+				t_P_Mobil = #{t_P_Mobil,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Phone != null">
+				t_P_Phone = #{t_P_Phone,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Spouse != null">
+				t_P_Spouse = #{t_P_Spouse,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Spouse_Phone != null">
+				t_P_Spouse_Phone = #{t_P_Spouse_Phone,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Contact1 != null">
+				t_P_Contact1 = #{t_P_Contact1,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Contact1Mobil != null">
+				t_P_Contact1Mobil = #{t_P_Contact1Mobil,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Contact2 != null">
+				t_P_Contact2 = #{t_P_Contact2,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Contact2Mobil != null">
+				t_P_Contact2Mobil = #{t_P_Contact2Mobil,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_Company != null">
+				t_P_Company = #{t_P_Company,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_CompanyNum != null">
+				t_P_CompanyNum = #{t_P_CompanyNum,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_SocialSecurityBaseAmount != null">
+				t_P_SocialSecurityBaseAmount = #{t_P_SocialSecurityBaseAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="t_P_ProvidentFund != null">
+				t_P_ProvidentFund = #{t_P_ProvidentFund,jdbcType=DECIMAL},
+			</if>
+			<if test="t_P_Employmentstatus != null">
+				t_P_Employmentstatus = #{t_P_Employmentstatus,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_EmploymentCategory != null">
+				t_P_EmploymentCategory = #{t_P_EmploymentCategory,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_WorkYears != null">
+				t_P_WorkYears = #{t_P_WorkYears,jdbcType=INTEGER},
+			</if>
+			<if test="t_P_Probation != null">
+				t_P_Probation = #{t_P_Probation,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_VendorEmployment != null">
+				t_P_VendorEmployment = #{t_P_VendorEmployment,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_VendorEmployeeName != null">
+				t_P_VendorEmployeeName = #{t_P_VendorEmployeeName,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_PayrollDebitcardBankName != null">
+				t_P_PayrollDebitcardBankName = #{t_P_PayrollDebitcardBankName,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_PayrollDebitcardNum != null">
+				t_P_PayrollDebitcardNum = #{t_P_PayrollDebitcardNum,jdbcType=VARCHAR},
+			</if>
+			<if test="t_P_NetBaseSalary != null">
+				t_P_NetBaseSalary = #{t_P_NetBaseSalary,jdbcType=DECIMAL},
+			</if>
+			<if test="t_P_CreditPrepaySalaryAmount != null">
+				t_P_CreditPrepaySalaryAmount = #{t_P_CreditPrepaySalaryAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="t_P_PayrollDate != null">
+				t_P_PayrollDate = #{t_P_PayrollDate,jdbcType=INTEGER},
+			</if>
+			<if test="t_P_NetMonthlyBonusAmount != null">
+				t_P_NetMonthlyBonusAmount = #{t_P_NetMonthlyBonusAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="t_P_NetBonusPayDate != null">
+				t_P_NetBonusPayDate = #{t_P_NetBonusPayDate,jdbcType=INTEGER},
+			</if>
+			<if test="t_P_SocialSecurityDate != null">
+				t_P_SocialSecurityDate = #{t_P_SocialSecurityDate,jdbcType=INTEGER},
+			</if>
+			<if test="t_P_SysUpdateDate != null">
+				t_P_SysUpdateDate = #{t_P_SysUpdateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="platform != null">
+				platform = #{platform,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				creator = #{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="create_time != null">
+				create_time = #{create_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifier != null">
+				modifier = #{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="modify_time != null">
+				modify_time = #{modify_time,jdbcType=TIMESTAMP}
+			</if>
+		</set>
+		where t_P_id = #{t_P_id,jdbcType=VARCHAR}
+	</update>
+
+   <select id="existEwalletName" resultType="Integer"
+		parameterType="map">
+		select
+		count(1)
+		from t_personal_info a
+		where a.t_P_PID = #{t_P_PID}
+		<if test="t_P_id != null">
+			and a.t_P_id != #{t_P_id}
+		</if>
+	</select>
+	
+   <select id="checkEwalletMobil" resultType="Integer"
+		parameterType="map">
+		select
+		count(1)
+		from t_personal_info a
+		where a.t_P_Mobil = #{t_P_Mobil}
+		<if test="t_P_id != null">
+			and a.t_P_id != #{t_P_id}
+		</if>
+	</select>
+	
+	<update id="updateCompanyStaffsCreditOn" parameterType="com.qucai.sample.entity.Ewallet">
+		update t_personal_info
+		<set>
+		t_P_Employmentstatus = "onjob"
+		</set>
+		where t_personal_info.t_P_Company = #{t_TreasuryDB_OrgName_get,jdbcType=VARCHAR} 
+		and t_personal_info.t_P_Mobil not in ( select mobile from t_manager where t_manager.`status` = 0 ) 
+		and t_personal_info.t_P_Employmentstatus = "PENDING"
+	</update>
+	
+	<update id="updateCompanyStaffsCreditOff" parameterType="com.qucai.sample.entity.Ewallet">
+		update t_personal_info
+		<set>
+		t_P_Employmentstatus = "PENDING"
+		</set>
+		where t_P_Company = #{t_TreasuryDB_OrgName_get,jdbcType=VARCHAR} and t_P_Employmentstatus = "onjob" 
+	</update>
+</mapper>
+ 

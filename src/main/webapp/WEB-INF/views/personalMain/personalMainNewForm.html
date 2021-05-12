@@ -1,0 +1,614 @@
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8" />
+<title>新增员工</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+<meta content="" name="description" />
+<meta content="" name="author" />
+<#include "/common/cssResource.html"> <#include
+"/common/jsResource.html">
+
+<script type="text/javascript">
+jQuery.validator.addMethod("isBaseLimt", function(value, element) { 
+    value=parseInt(value);      
+    return this.optional(element) || value <= 20000;       
+}, "整数且必须小于20000");  
+
+jQuery.validator.addMethod("isPayrollDate", function(value, element) { 
+    value=parseInt(value);      
+    return this.optional(element) || value <= 28;       
+}, "整数且必须小于等于28");  
+
+jQuery.validator.addMethod("isIdCardNo", function(value, element) { 
+    return this.optional(element) || idCardNoUtil.checkIdCardNo(value);     
+}, "请正确输入您的身份证号码"); 
+
+jQuery.validator.addMethod("IDCard", function(value, element) {     
+    var tel =/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;  
+    return this.optional(element) || (tel.test(value));  
+}, "请输入有效的身份证号码");  
+
+jQuery.validator.addMethod("isMobile", function(value, element) { 
+    var length = value.length; 
+    var mobile = /^(13[0-9]|14[5-9]|15[012356789]|166|17[0-8]|18[0-9]|19[8-9])[0-9]{8}$/;
+    return this.optional(element) || (length == 11 && mobile.test(value)); 
+}, "请正确填写您的手机号码");
+
+jQuery.validator.addMethod("isTel", function(value,element) {   
+    var length = value.length;   
+    var mobile = /^(13[0-9]|14[5-9]|15[012356789]|166|17[0-8]|18[0-9]|19[8-9])[0-9]{8}$/; 
+    var tel = /^(\d{3,4}-?)?\d{7,9}$/g;       
+    return this.optional(element) || tel.test(value) || (length==11 && mobile.test(value));   
+}, "请正确填写您的联系方式"); 
+
+	$(document).ready(function() {
+		var form = $('#inputForm');
+		form.validate({
+			errorElement : 'span', //default input error message container
+			errorClass : 'help-block help-block-error', // default input error message class
+			focusInvalid : false, // do not focus the last invalid input
+			rules : {
+				t_P_PID : {
+					maxlength : 18,
+					required : true,
+					IDCard : true,
+					remote : "${ctx}/jqueryValidateController/checkPersonalInfoName?platform=${platform}" + "&t_P_id=" + $("#t_P_id").val()
+				},
+				t_P_Mobil : {
+					required : true,
+					digits : true,
+					isMobile : true,
+					remote : "${ctx}/jqueryValidateController/checkPersonalInfoModil?platform=${platform}" + "&t_P_id=" + $("#t_P_id").val()
+				},
+				type : {
+					required : true
+				},
+				t_P_SocialSecurityBaseAmount : {
+					maxlength : 5,
+					digits : true
+				},
+				t_P_Contact1Mobil : {
+					digits : true,
+					isMobile : true
+				},
+				t_P_Contact2Mobil : {
+					digits : true,
+					isMobile : true
+				},
+				t_P_Phone : {
+					digits : true,
+					isTel : true
+				},
+				t_P_Spouse_Phone : {
+					digits : true,
+					isMobile : true,
+				},
+				t_P_NetBaseSalary : {
+					required : true,
+					isBaseLimt : true
+				},
+				t_P_PayrollDebitcardNum :{
+					required : true,
+					creditcard : true
+				},
+				t_P_PayrollDate :{
+					required : true,
+					isPayrollDate : true
+				},
+				link : {
+					required : true,
+					maxlength : 100
+				},
+				shiroPermission : {
+					maxlength : 50
+				}
+			},
+			
+			
+			messages: {
+				
+				t_P_Mobil:{ 
+				remote : "手机号码已存在",
+            	required: "请输入您的联系电话", 
+                isModile: "请输入一个有效的手机号码" 
+                }, 
+                
+                t_P_PID:{
+    				remote : "身份证已存在",
+                	required :"请输入身份证号",
+                	isIdCardNo:"请输入正确的身份证号"
+                },
+			},
+	
+			invalidHandler : function(event, validator) { //display error alert on form submit              
+				App.scrollTo(form, 0);
+			},
+	
+			highlight : function(element) { // hightlight error inputs
+				$(element).closest('.form-group').removeClass(
+						"has-success").addClass('has-error'); // set error class to the control group   
+			},
+	
+			unhighlight : function(element) { // revert the change done by hightlight
+	
+			},
+	
+			success : function(label, element) {
+				var icon = $(element).parent('.input-icon').children(
+						'i');
+				$(element).closest('.form-group').removeClass(
+						'has-error').addClass('has-success'); // set success class to the control group
+				icon.removeClass("fa-warning").addClass("fa-check");
+			},
+			
+			submitHandler : function(form) {
+				var formData = new FormData($('#inputForm')[0]); 
+				$.ajax({
+					url: "${ctx}/PersonalInfoController/addPersonalInfo",
+					type: 'POST',  
+					data: formData,  
+					async: true,  
+					cache: false,  
+					contentType: false,  
+					processData: false,  
+					success: function (data) { 
+						var result = eval("("+data+")");
+						alert(result.msg);
+						parent.window.location.reload();
+					   	var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+					   	parent.layer.close(index);
+					},  
+					error: function (data) {  
+						var result = eval("("+data+")");
+				    	alert(result.msg);
+					}  
+	            });
+			}
+		});
+		
+		$("#dirParent").hide();
+		$("#menuParent").hide();
+		$("#linkDiv").hide();
+		
+	});
+	
+	function typeSelector(selector){
+		var typeSelect = $(selector).find("option:selected").val();
+		if (typeSelect == "" || typeSelect == "0") {
+			$("#dirParent").hide();
+			$("#menuParent").hide();
+			$("#parentId").val("");
+			$("#linkDiv").hide();
+			$("#link").val("");
+		} else if (typeSelect == "1") {
+			$("#dirParent").show();
+			$("#menuParent").hide();
+			setParentId($("#dirParentSelector"));
+			$("#linkDiv").show();
+		} else if (typeSelect == "2") {
+			$("#dirParent").hide();
+			$("#menuParent").show();
+			setParentId($("#menuParentSelector"));
+			$("#linkDiv").hide();
+			$("#link").val("");
+		}
+	}
+
+	
+</script>
+</head>
+<body>
+	<div class="portlet light bordered">
+		<div class="portlet-body form">
+			<!-- BEGIN FORM-->
+			<form id="inputForm" class="form-horizontal form-row-seperated">
+<!--				<input type="hidden" id="parentId" name="parentId"> -->
+				<input type="hidden" name="platform" value="${platform}">
+				<div class="form-body">
+					<div class="form-group">
+						<label class="control-label col-sm-3">姓名 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_P_Name" />
+							</div>
+						</div>
+					</div>					
+					<div class="form-group">
+						<label class="control-label col-sm-3">性别 <span
+							class="required"> * </span>
+						</label>
+							<div class="col-sm-3">
+								<select class="bs-select form-control" name="t_P_Sex">
+									<option value="男">男</option>
+									<option value="女">女</option>
+									<option value="其他">其他</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">年龄<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_P_Age" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">身份证 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_P_PID" id="t_P_PID" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">婚否 <span
+							class="required"> * </span>
+						</label>
+                        <div class="col-sm-9">
+							<div class="input-icon right">
+								<select class="bs-select form-control" name="t_P_Marriage">
+									<option value="未婚">未婚</option>
+									<option value="已婚">已婚</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">所在部门<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_P_HomeAddress" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">手机 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" id="t_P_Mobil" class="form-control"
+									name="t_P_Mobil" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">固定电话<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_P_Phone" id="t_P_Phone"/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">配偶姓名<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_P_Spouse" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">配偶联系电话<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" if="checklen" class="form-control"
+									name="t_P_Spouse_Phone" id="t_P_Spouse_Phone"/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">第一联系人 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_P_Contact1" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">第一联系人联系电话<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" id="checklen" class="form-control"
+									name="t_P_Contact1Mobil" id="t_P_Contact1Mobil"/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">销售管理人 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_P_Contact2" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">销售管理人联系电话 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" id="checklen" class="form-control"
+									name="t_P_Contact2Mobil" id="t_P_Contact2Mobil"/>
+							</div>
+						</div>
+					</div>
+<!-- Company Name List pickup from Company table , droplist -->
+					<div class="form-group">
+						<label class="control-label col-sm-3">公司名<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<select class="bs-select form-control" data-live-search="true" name="t_P_Company" id="t_P_Company">
+								<#list OrganizationInfo as OrganizationInfoList>
+									<option value="${OrganizationInfoList.t_O_OrgName}">${OrganizationInfoList.t_O_OrgName}</option>					
+								</#list>
+						   </select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">员工信用等级<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i>
+								    <select class="bs-select form-control" data-live-search="true" name="t_P_Probation" id="t_P_Probation">
+										<#list FinanceProduct as FinanceProductList>
+											<option value="${FinanceProductList.t_FProd_PersPool}">${FinanceProductList.t_FProd_Name}  ${FinanceProductList.t_FProd_PersPool}</option>					
+										</#list>
+									</select>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">工号 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_P_CompanyNum" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">社保缴纳基数 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_P_SocialSecurityBaseAmount" id="t_P_SocialSecurityBaseAmount" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">公积金缴纳数<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_P_ProvidentFund" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">用工状态 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i>
+							   <select class="bs-select form-control" name="t_P_Employmentstatus">
+									<option value="onjob">在职</option>
+									<option value="EXPIRED">离职</option>
+									<option value="PENDING">暂停</option>
+									<option value="resigning">已提离职</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">用工性质 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> 								
+								<select class="bs-select form-control" name="t_P_EmploymentCategory" value="${personalInfo.t_P_EmploymentCategory}">
+									<option value="DIRECTHIRE">直聘</option>
+									<option value="VENDOR">外包</option>
+									<option value="PARTTIME">日结工</option>
+								</select>
+							</div>
+						</div>	
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">工作年限<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_P_WorkYears" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">是否是派遣制 <span
+							class="required"> * </span>
+					    </label>
+						    <div class="col-sm-3">
+								<select class="bs-select form-control" name="t_P_VendorEmployment">
+									<option value="是">派遣制</option>
+									<option value="否">非派遣制</option>
+								</select>
+							</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">代理商企业名<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<select class="bs-select form-control" data-live-search="true" name="t_P_VendorEmployeeName" id="t_P_VendorEmployeeName">
+								<#list OrganizationInfoAgency as OrganizationInfoList>
+									<option value="${OrganizationInfoList.t_O_OrgName}">${OrganizationInfoList.t_O_OrgName}</option>					
+								</#list>
+						   </select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">工资卡银行名<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_P_PayrollDebitcardBankName" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">工资卡号<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control" id="t_P_PayrollDebitcardNum"
+									name="t_P_PayrollDebitcardNum" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">月税后基本工资<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_P_NetBaseSalary" id="t_P_NetBaseSalary"/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">授额预支工资数 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+							<@shiro.hasPermission name="MANAGER_EDIT">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_P_CreditPrepaySalaryAmount" />
+							</@shiro.hasPermission>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">工资发放日 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_P_PayrollDate" id="t_P_PayrollDate"/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">剩余额度<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_P_NetMonthlyBonusAmount" readonly=""/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">奖金发放日 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_P_NetBonusPayDate" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">社保缴纳日 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_P_SocialSecurityDate" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">备注 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i><textarea style="width:1000px;height:88px;" class="form-control"
+									name="remark"></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-actions">
+					<div class="row">
+						<div class="col-sm-3">
+						</div>
+						<div class="col-sm-9">
+							<button type="submit" class="btn green">提交</button>
+							<button type="button" class="btn default" onclick="parent.layer.closeAll();">取消</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<!-- END FORM-->
+	</div>
+</body>
+</html>

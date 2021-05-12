@@ -129,7 +129,7 @@ public class OauthController {
         }
 
 
-        //Mobile APP 调用个人信息
+        //Mobile APP 调用优惠券
         if( method!=null&&method.equals("vourchar")&&SMSsendcode!=null){
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
@@ -140,7 +140,7 @@ public class OauthController {
             return "redirect:/Vourcharcontroller/personalVourcharMobiledashboard";
         }
 
-        //Mobile APP 调用个人交易
+        //Mobile APP 调用全局系统信息
         if( method!=null&&method.equals("mainboard")&&SMSsendcode!=null){
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
@@ -151,7 +151,7 @@ public class OauthController {
             return "redirect:/Mainboardtcontroller/personalMainboard";
         }
 
-        //Mobile APP 调用个人信息
+        //Mobile APP 调用客服
         if( method!=null&&method.equals("cspersonal")&&SMSsendcode!=null){
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
@@ -162,7 +162,7 @@ public class OauthController {
             return "redirect:/cscontroller/personalCSdashboard";
         }
 
-        //Mobile APP 调用个人交易
+        //Mobile APP 调用供应商管理
         if( method!=null&&method.equals("vendormgt")&&SMSsendcode!=null){
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
