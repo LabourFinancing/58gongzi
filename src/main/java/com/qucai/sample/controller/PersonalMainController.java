@@ -84,8 +84,7 @@ public class PersonalMainController {
     @RequestMapping(value = {"personalMainList",""})
     public String personalMainList(PersonalMain personalMain, OrganizationInfo organizationInfo,@RequestParam( defaultValue = "0" )
         String t_personal_main_id,String t_personal_main_name,String t_personal_main_pid,String t_personal_main_mobile,
-                                   String t_personal_main_securityret,String t_personal_main_passport,Integer platform,String t_P_Company,
-    		String t_P_Name,String t_P_PID,String t_P_Mobil,String SessionCompanyName,String t_P_VendorEmployeeName,String remark,String t_TreasuryDB_OrgName,
+                                   String t_personal_main_securityret,String t_personal_main_passport,Integer platform,String creditscore_begin,String creditscore_end, String SessionCompanyName,String t_P_VendorEmployeeName,String remark,String t_TreasuryDB_OrgName,
     		HttpServletRequest request, HttpServletResponse response, Model model) {
 
     	model.addAttribute("t_personal_main_NAME", t_personal_main_name); //key从数据库查询并返回,并索引对应JSP
@@ -93,51 +92,61 @@ public class PersonalMainController {
     	model.addAttribute("t_personal_main_MOBILE", t_personal_main_mobile); //key从数据库查询并返回,并索引对应JSP
     	model.addAttribute("t_personal_main_SECURITYRET", t_personal_main_securityret); //key从数据库查询并返回,并索引对应JSP
     	model.addAttribute("t_personal_main_PASSPORT", t_personal_main_passport); //key从数据库查询并返回,并索引对应JSP
+        model.addAttribute("creditscore_begin", creditscore_begin); //其实信用分
+        model.addAttribute("creditscore_end", creditscore_end); //结尾信用分
     	model.addAttribute("remark", remark); //key从数据库查询并返回,并索引对应JSP
-        t_P_PID = ShiroSessionUtil.getLoginSession().getTelephone();
+        String t_P_PID = ShiroSessionUtil.getLoginSession().getTelephone();
         String t_O_OrgName = ShiroSessionUtil.getLoginSession().getCompany_name();
     	OrganizationInfo AgencyOrgnization = organizationInfoService.selectAgencyName(t_O_OrgName);
 
-        if (t_personal_main_name != null | t_personal_main_pid != null | t_personal_main_mobile != null | t_P_Company != null | t_P_VendorEmployeeName != null | remark != null) {
+        if (t_personal_main_name != null | t_personal_main_pid != null | t_personal_main_mobile != null | t_personal_main_securityret != null 
+            | t_personal_main_passport != null | remark != null | creditscore_begin != null | creditscore_end != null) {
         	Map<String, Object> paramSearchMap = new HashMap<String, Object>();//新建map对象
-        	paramSearchMap.put("t_P_Name", t_P_Name);//添加元素
-        	paramSearchMap.put("t_P_PID", t_P_PID);//添加元素
-        	paramSearchMap.put("t_P_Mobil", t_P_Mobil);//添加元素
-        	paramSearchMap.put("t_P_VendorEmployeeName", t_P_VendorEmployeeName);//添加元素
+        	paramSearchMap.put("t_personal_main_name", t_personal_main_name);//添加元素
+        	paramSearchMap.put("t_personal_main_pid", t_personal_main_pid);//添加元素
+        	paramSearchMap.put("t_personal_main_mobile", t_personal_main_mobile);//添加元素
+        	paramSearchMap.put("t_personal_main_securityret", t_personal_main_securityret);//添加元素
+            paramSearchMap.put("creditscore_begin", creditscore_begin);//添加元素
+            paramSearchMap.put("creditscore_end", creditscore_end);//添加元素
         	paramSearchMap.put("remark", remark);//添加元素
 
-        	if (t_O_OrgName.equals("ALL")){
-            	paramSearchMap.put("t_P_Company", t_P_Company);//添加元素
-        	}
-            else {
-            	//Flag on Agency or not
-            	 if (AgencyOrgnization.getT_O_listOrg().equals("off")){
-                     paramSearchMap.put("t_P_Company", ShiroSessionUtil.getLoginSession().getCompany_name());
-            		 paramSearchMap.put("t_P_VendorEmployeeName", t_P_VendorEmployeeName);
-            	 }else{
-                     paramSearchMap.put("t_P_Company", t_P_Company);
-            		 paramSearchMap.put("t_P_VendorEmployeeName", t_O_OrgName);
-            	 }
-            	//Agency filter
-        	}
+            // 根据公司筛选
+//        	if (t_O_OrgName.equals("ALL")){
+//            	paramSearchMap.put("t_P_Company", t_P_Company);//添加元素
+//        	}
+//            else {
+//            	//Flag on Agency or not
+//            	 if (AgencyOrgnization.getT_O_listOrg().equals("off")){
+//                     paramSearchMap.put("t_P_Company", ShiroSessionUtil.getLoginSession().getCompany_name());
+//            		 paramSearchMap.put("t_P_VendorEmployeeName", t_P_VendorEmployeeName);
+//            	 }else{
+//                     paramSearchMap.put("t_P_Company", t_P_Company);
+//            		 paramSearchMap.put("t_P_VendorEmployeeName", t_O_OrgName);
+//            	 }
+//            	//Agency filter
+//        	}
+            
             PageParam pp = Tool.genPageParam(request);  
             PageInfo<PersonalMain> page = personalMainService.findSearchList(pp, paramSearchMap);
             model.addAttribute("page", page);//从数据库查询出来的结果用model的方式返回
     	} else {
     		Map<String, Object> paramMap = new HashMap<String, Object>();//新建map对象
-    		if (t_O_OrgName.equals("ALL")) {
-    			t_P_Company = null;
-    		}else {
-                //Flag on Agency or not
-             	 if (AgencyOrgnization.getT_O_listOrg().equals("off")){
-             		paramMap.put("t_P_Company", ShiroSessionUtil.getLoginSession().getCompany_name());
-             		paramMap.put("t_P_VendorEmployeeName", t_P_VendorEmployeeName);
-             	 }else{
-             		paramMap.put("t_P_Company", t_P_Company);
-             		paramMap.put("t_P_VendorEmployeeName", t_O_OrgName);
-             	 }
-             	//Agency filter
-    		}
+            
+            //根据公司筛选
+//    		if (t_O_OrgName.equals("ALL")) {
+//    			t_P_Company = null;
+//    		}else {
+//                //Flag on Agency or not
+//             	 if (AgencyOrgnization.getT_O_listOrg().equals("off")){
+//             		paramMap.put("t_P_Company", ShiroSessionUtil.getLoginSession().getCompany_name());
+//             		paramMap.put("t_P_VendorEmployeeName", t_P_VendorEmployeeName);
+//             	 }else{
+//             		paramMap.put("t_P_Company", t_P_Company);
+//             		paramMap.put("t_P_VendorEmployeeName", t_O_OrgName);
+//             	 }
+//             	//Agency filter
+//    		}
+            
             PageParam pp = Tool.genPageParam(request);    
             PageInfo<PersonalMain> page = personalMainService.findAllList(paramMap, pp);
             model.addAttribute("page", page);
@@ -149,48 +158,52 @@ public class PersonalMainController {
      * Search Function
      */
     @RequestMapping(value = "personalMainSearchList")
-    public String personalMainSearchList(PersonalMain personalMain,OrganizationInfo organizationInfo, @RequestParam( defaultValue = "0" )  Integer platform,String t_P_Name,
-    		String t_P_PID,String t_P_Mobil,String t_P_Company,String t_P_VendorEmployeeName,String SessionCompanyName,String remark,String t_TreasuryDB_OrgName,
-    		HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String personalMainSearchList(PersonalMain personalMain,OrganizationInfo organizationInfo, @RequestParam( defaultValue = "0" )
+        String t_personal_main_id,String t_personal_main_name,String t_personal_main_pid,String t_personal_main_mobile,
+                                         String t_personal_main_securityret,String t_personal_main_passport,Integer platform,String creditscore_begin,String creditscore_end, String SessionCompanyName,String t_P_VendorEmployeeName,String remark,String t_TreasuryDB_OrgName,
+                                         HttpServletRequest request, HttpServletResponse response, Model model) {
 
     	model.addAttribute("platform", platform); //key从数据库查询并返回,并索引对应JSP
     	String t_O_OrgName = ShiroSessionUtil.getLoginSession().getCompany_name();
     	OrganizationInfo AgencyOrgnization = organizationInfoService.selectAgencyName(t_O_OrgName);
 
-    	if (t_P_Name != null | t_P_PID != null | t_P_Mobil != null | t_P_Company != null | t_P_VendorEmployeeName != null | remark != null) {
-        	Map<String, Object> paramSearchMap = new HashMap<String, Object>();//新建map对象
-        	paramSearchMap.put("t_P_Name", t_P_Name);//添加元素
-        	paramSearchMap.put("t_P_PID", t_P_PID);//添加元素
-        	paramSearchMap.put("t_P_Mobil", t_P_Mobil);//添加元素
-        	paramSearchMap.put("t_P_VendorEmployeeName", t_P_VendorEmployeeName);//添加元素
-        	paramSearchMap.put("remark", remark);//添加元素
-        	if (t_O_OrgName.equals("ALL")){
-            	paramSearchMap.put("t_P_Company", t_P_Company);//添加元素
-        	}
-            else {
-            //Flag on Agency or not
-           	 if (AgencyOrgnization.getT_O_listOrg().equals("off")){
-            		paramSearchMap.put("t_P_Company", ShiroSessionUtil.getLoginSession().getCompany_name());
-               		paramSearchMap.put("t_P_VendorEmployeeName", t_P_VendorEmployeeName);
-           	 }else{
-            		paramSearchMap.put("t_P_Company", t_P_Company);
-               		paramSearchMap.put("t_P_VendorEmployeeName", t_O_OrgName);
-           	 }
-           	//Agency filter
-        	}
+        if (t_personal_main_name != null | t_personal_main_pid != null | t_personal_main_mobile != null | t_personal_main_securityret != null
+            | t_personal_main_passport != null | remark != null | creditscore_begin != null | creditscore_end != null) {
+            Map<String, Object> paramSearchMap = new HashMap<String, Object>();//新建map对象
+            paramSearchMap.put("t_personal_main_name", t_personal_main_name);//添加元素
+            paramSearchMap.put("t_personal_main_pid", t_personal_main_pid);//添加元素
+            paramSearchMap.put("t_personal_main_mobile", t_personal_main_mobile);//添加元素
+            paramSearchMap.put("t_personal_main_securityret", t_personal_main_securityret);//添加元素
+            paramSearchMap.put("creditscore_begin", creditscore_begin);//添加元素
+            paramSearchMap.put("creditscore_end", creditscore_end);//添加元素
+            paramSearchMap.put("remark", remark);//添加元素
+//        	if (t_O_OrgName.equals("ALL")){
+//            	paramSearchMap.put("t_P_Company", t_P_Company);//添加元素
+//        	}
+//            else {
+//            //Flag on Agency or not
+//           	 if (AgencyOrgnization.getT_O_listOrg().equals("off")){
+//            		paramSearchMap.put("t_P_Company", ShiroSessionUtil.getLoginSession().getCompany_name());
+//               		paramSearchMap.put("t_P_VendorEmployeeName", t_P_VendorEmployeeName);
+//           	 }else{
+//            		paramSearchMap.put("t_P_Company", t_P_Company);
+//               		paramSearchMap.put("t_P_VendorEmployeeName", t_O_OrgName);
+//           	 }
+//           	//Agency filter
+//        	}
             PageParam pp = Tool.genPageParam(request);  
             PageInfo<PersonalMain> page = personalMainService.findSearchList(pp, paramSearchMap);
             model.addAttribute("page", page);//从数据库查询出来的结果用model的方式返回
     	} else {
     		Map<String, Object> paramMap = new HashMap<String, Object>();//新建map对象
             //Flag on Agency or not
-          	 if (AgencyOrgnization.getT_O_listOrg().equals("off")){
-          		paramMap.put("t_P_Company", ShiroSessionUtil.getLoginSession().getCompany_name());
-          		paramMap.put("t_P_VendorEmployeeName", t_P_VendorEmployeeName);
-          	 }else{
-          		paramMap.put("t_P_Company", t_P_Company);
-          		paramMap.put("t_P_VendorEmployeeName", t_O_OrgName);
-          	 }
+//          	 if (AgencyOrgnization.getT_O_listOrg().equals("off")){
+//          		paramMap.put("t_P_Company", ShiroSessionUtil.getLoginSession().getCompany_name());
+//          		paramMap.put("t_P_VendorEmployeeName", t_P_VendorEmployeeName);
+//          	 }else{
+//          		paramMap.put("t_P_Company", t_P_Company);
+//          		paramMap.put("t_P_VendorEmployeeName", t_O_OrgName);
+//          	 }
           	//Agency filter
             PageParam pp = Tool.genPageParam(request);           
             PageInfo<PersonalMain> page = personalMainService.findAllList(paramMap, pp);
@@ -210,7 +223,7 @@ public class PersonalMainController {
 
 
     @RequestMapping(value = "form")
-    public String form(PersonalMain personalMain,OrganizationInfo organizationInfo,String t_P_id, String operationType, Integer platform, 
+    public String form(PersonalMain personalMain,OrganizationInfo organizationInfo,String t_personal_main_id, String operationType, Integer platform, 
             HttpServletRequest request, HttpServletResponse response,String t_P_Company,
             Model model) {
        	  model.addAttribute("platform", platform);
@@ -221,58 +234,58 @@ public class PersonalMainController {
          if (OperationTypeConstant.NEW.equals(operationType)) { //用OperationTypeConstant函数封装的赋值函数方法判断值是否相等,并调用相应的页面        
             Map<String, Object> paramSearchMap = new HashMap<String, Object>();// 申明一个新对象
          	FinanceProduct financeProduct;
-           if (t_P_Company.equals("ALL")){
-            paramSearchMap.put("t_FProd_Name", ""); //input org name into prod name mass search
-         	paramSearchMap.put("t_FProd_Name", ""); //input org name into prod name mass search
-         	paramSearchMap.put("t_O_listOrg", "on");
-          	List<OrganizationInfo> OrganizationInfo = organizationInfoService.findAllName(paramMap);
-          	List<FinanceProduct> FinanceProduct= financeProductService.findSearchList(paramSearchMap);
-         	List<OrganizationInfo> OrganizationInfoAgency = organizationInfoService.findOrgNameAgency(paramSearchMap);
-          	model.addAttribute("FinanceProduct", FinanceProduct);
-          	model.addAttribute("OrganizationInfo", OrganizationInfo);
-          	model.addAttribute("OrganizationInfoAgency", OrganizationInfoAgency);
-           }else {
-        	 paramMap.put("t_P_Company", t_P_Company);//添加元素
-          	 paramSearchMap.put("t_FProd_Name", t_P_Company); //input org name into prod name mass search
-          	 paramSearchMap.put("t_O_listOrg", "on");
-          	 List<OrganizationInfo> OrganizationInfo = organizationInfoService.findOrgName(paramMap);
-          	 List<FinanceProduct> FinanceProduct= financeProductService.findSearchList(paramSearchMap);
-          	 List<OrganizationInfo> OrganizationInfoAgency = organizationInfoService.findOrgNameAgency(paramSearchMap);
-          	 model.addAttribute("FinanceProduct", FinanceProduct);
-          	 model.addAttribute("OrganizationInfo", OrganizationInfo);
-          	 model.addAttribute("OrganizationInfoAgency", OrganizationInfoAgency);
-           }
+//           if (t_P_Company.equals("ALL")){
+//            paramSearchMap.put("t_FProd_Name", ""); //input org name into prod name mass search
+//         	paramSearchMap.put("t_FProd_Name", ""); //input org name into prod name mass search
+//         	paramSearchMap.put("t_O_listOrg", "on");
+//          	List<OrganizationInfo> OrganizationInfo = organizationInfoService.findAllName(paramMap);
+//          	List<FinanceProduct> FinanceProduct= financeProductService.findSearchList(paramSearchMap);
+//         	List<OrganizationInfo> OrganizationInfoAgency = organizationInfoService.findOrgNameAgency(paramSearchMap);
+//          	model.addAttribute("FinanceProduct", FinanceProduct);
+//          	model.addAttribute("OrganizationInfo", OrganizationInfo);
+//          	model.addAttribute("OrganizationInfoAgency", OrganizationInfoAgency);
+//           }else {
+//        	 paramMap.put("t_P_Company", t_P_Company);//添加元素
+//          	 paramSearchMap.put("t_FProd_Name", t_P_Company); //input org name into prod name mass search
+//          	 paramSearchMap.put("t_O_listOrg", "on");
+//          	 List<OrganizationInfo> OrganizationInfo = organizationInfoService.findOrgName(paramMap);
+//          	 List<FinanceProduct> FinanceProduct= financeProductService.findSearchList(paramSearchMap);
+//          	 List<OrganizationInfo> OrganizationInfoAgency = organizationInfoService.findOrgNameAgency(paramSearchMap);
+//          	 model.addAttribute("FinanceProduct", FinanceProduct);
+//          	 model.addAttribute("OrganizationInfo", OrganizationInfo);
+//          	 model.addAttribute("OrganizationInfoAgency", OrganizationInfoAgency);
+//           }
         	return "personalMain/personalMainNewForm";
           } else if (OperationTypeConstant.EDIT.equals(operationType)) {
             Map<String, Object> paramSearchMap = new HashMap<String, Object>();// 申明一个新对象
-           	FinanceProduct financeProduct;
-             if (t_P_Company.equals("ALL")){
-            	paramSearchMap.put("t_FProd_Name", ""); //input org name into prod name mass search
-              	 paramSearchMap.put("t_O_listOrg", "on");
-            	List<OrganizationInfo> OrganizationInfo = organizationInfoService.findAllName(paramMap);
-            	List<FinanceProduct> FinanceProduct= financeProductService.findSearchList(paramSearchMap);
-             	 List<OrganizationInfo> OrganizationInfoAgency = organizationInfoService.findOrgNameAgency(paramSearchMap);
-            	model.addAttribute("FinanceProduct", FinanceProduct);
-            	 model.addAttribute("OrganizationInfo", OrganizationInfo);
-               	model.addAttribute("OrganizationInfoAgency", OrganizationInfoAgency);
-             }else {
-          	 paramMap.put("t_P_Company", t_P_Company);//添加元素
-          	 paramSearchMap.put("t_FProd_Name", t_P_Company); //input org name into prod name mass search
-          	 paramSearchMap.put("t_O_listOrg", "on");
-            	 List<OrganizationInfo> OrganizationInfo = organizationInfoService.findOrgName(paramMap);
-            	 List<FinanceProduct> FinanceProduct= financeProductService.findSearchList(paramSearchMap);
-             	 List<OrganizationInfo> OrganizationInfoAgency = organizationInfoService.findOrgNameAgency(paramSearchMap);
-            	 model.addAttribute("FinanceProduct", FinanceProduct);
-            	 model.addAttribute("OrganizationInfo", OrganizationInfo);
-            	 model.addAttribute("OrganizationInfoAgency", OrganizationInfoAgency);
-             }
-            personalMain = personalMainService.selectByPrimaryKey(t_P_id);
+//           	FinanceProduct financeProduct;
+//             if (t_P_Company.equals("ALL")){
+//            	paramSearchMap.put("t_FProd_Name", ""); //input org name into prod name mass search
+//              	 paramSearchMap.put("t_O_listOrg", "on");
+//            	List<OrganizationInfo> OrganizationInfo = organizationInfoService.findAllName(paramMap);
+//            	List<FinanceProduct> FinanceProduct= financeProductService.findSearchList(paramSearchMap);
+//             	 List<OrganizationInfo> OrganizationInfoAgency = organizationInfoService.findOrgNameAgency(paramSearchMap);
+//            	model.addAttribute("FinanceProduct", FinanceProduct);
+//            	 model.addAttribute("OrganizationInfo", OrganizationInfo);
+//               	model.addAttribute("OrganizationInfoAgency", OrganizationInfoAgency);
+//             }else {
+//          	 paramMap.put("t_P_Company", t_P_Company);//添加元素
+//          	 paramSearchMap.put("t_FProd_Name", t_P_Company); //input org name into prod name mass search
+//          	 paramSearchMap.put("t_O_listOrg", "on");
+//            	 List<OrganizationInfo> OrganizationInfo = organizationInfoService.findOrgName(paramMap);
+//            	 List<FinanceProduct> FinanceProduct= financeProductService.findSearchList(paramSearchMap);
+//             	 List<OrganizationInfo> OrganizationInfoAgency = organizationInfoService.findOrgNameAgency(paramSearchMap);
+//            	 model.addAttribute("FinanceProduct", FinanceProduct);
+//            	 model.addAttribute("OrganizationInfo", OrganizationInfo);
+//            	 model.addAttribute("OrganizationInfoAgency", OrganizationInfoAgency);
+//             }
+            personalMain = personalMainService.selectByPrimaryKey(t_personal_main_id);
             return "personalMain/personalMainEditForm";
           } else if (OperationTypeConstant.EDITCREDITBALANCE.equals(operationType)) {
-            personalMain = personalMainService.selectByPrimaryKey(t_P_id);
+            personalMain = personalMainService.selectByPrimaryKey(t_personal_main_id);
             return "personalMain/personalMainEditCredit";
           } else if (OperationTypeConstant.VIEW.equals(operationType)) {
-        	personalMain = personalMainService.selectByPrimaryKey(t_P_id);
+        	personalMain = personalMainService.selectByPrimaryKey(t_personal_main_id);
             return "personalMain/personalMainViewForm";
           } else if (OperationTypeConstant.VERIFY.equals(operationType)) {
               return "personalMain/personalMainVerifyList";	
@@ -298,18 +311,18 @@ public class PersonalMainController {
         return JsonBizTool.genJson(ExRetEnum.SUCCESS);
     }
 
-    @RequestMapping(value = "deletepersonalMain")
-    public String deleteFinanceProduct(String t_P_id, Integer platform, HttpServletRequest request,
+    @RequestMapping(value = "deletePersonalMain")
+    public String deletePersonalMain(String t_personal_main_id, Integer platform, HttpServletRequest request,
             HttpServletResponse response, Model model) {
-    	personalMainService.deleteByPrimaryKey(t_P_id);
+    	personalMainService.deleteByPrimaryKey(t_personal_main_id);
     	model.addAttribute("platform", platform);
         return "redirect:/PersonalMainController/personalMainList?platform="+platform;
     }
 
     @RequestMapping(value = "creditRefreshPersonalMain")
-    public String creditRefreshPersonalMain(String t_P_id, Integer platform, HttpServletRequest request,
+    public String creditRefreshPersonalMain(String t_personal_main_id, Integer platform, HttpServletRequest request,
             HttpServletResponse response, Model model) {
-    	PersonalMain personalMain = personalMainService.selectByPrimaryKey(t_P_id);
+    	PersonalMain personalMain = personalMainService.selectByPrimaryKey(t_personal_main_id);
     	String t_Txn_PrepayApplierName = personalMain.getT_personal_main_realname();
     	String t_Txn_PrepayApplierPID = personalMain.getT_personal_main_pid();
     	String t_Txn_Paystatus = personalMain.getT_personal_main_mobile();
@@ -331,29 +344,27 @@ public class PersonalMainController {
 
     @RequestMapping(value = "editCreditBalance")
     @ResponseBody
-    public String editCreditBalance(PersonalMain personalMain, HttpServletRequest request,String t_P_Mobil,BigDecimal t_P_NetMonthlyBonusAmount,
+    public String editCreditBalance(PersonalMain personalMain, HttpServletRequest request,String t_personal_main_mobile,BigDecimal t_P_NetMonthlyBonusAmount,
             HttpServletResponse response, Model model) {
     	personalMain.setModifier(ShiroSessionUtil.getLoginSession().getId());
     	personalMain.setModify_time(new Date());
     	String OrderCodeUpdate = null;
     	BigDecimal CreditBalanceAmtRefund = null;
-        StaffPrepayApplicationList staffPrepayApplicationCredit = staffPrepayApplicationService.findPrepayApplierCredit(t_P_Mobil);
+        StaffPrepayApplicationList staffPrepayApplicationCredit = staffPrepayApplicationService.findPrepayApplierCredit(t_personal_main_mobile);
         int rs = 0;
         String paymentmethod = "debitcard";
-        if(staffPrepayApplicationCredit != null){
-	        staffPrepayApplicationCredit.setT_Txn_BalanceCreditNum(t_P_NetMonthlyBonusAmount);
-	        staffPrepayApplicationCredit.setT_Txn_PrepayCounts(staffPrepayApplicationCredit.getT_Txn_CreditPrepayBalanceNum().intValue());
-	        staffPrepayApplicationCredit.setT_Txn_CreditPrepayBalanceNum(t_P_NetMonthlyBonusAmount);
-	         paymentmethod = "alipay";
-	        OrderCodeUpdate = staffPrepayApplicationCredit.getT_Txn_Num();
-	        rs = staffPrepayApplicationService.updateCreditBalanceAmt(CreditBalanceAmtRefund, OrderCodeUpdate);
-        }else{
-             paymentmethod = "wechatpay";
-        	personalMain.setT_personal_main_paymentmethod(paymentmethod);
-        	rs = personalMainService.updateByPrimaryKeySelective(personalMain);
-        }
-
-
+//        if(staffPrepayApplicationCredit != null){
+//	        staffPrepayApplicationCredit.setT_Txn_BalanceCreditNum(t_P_NetMonthlyBonusAmount);
+//	        staffPrepayApplicationCredit.setT_Txn_PrepayCounts(staffPrepayApplicationCredit.getT_Txn_CreditPrepayBalanceNum().intValue());
+//	        staffPrepayApplicationCredit.setT_Txn_CreditPrepayBalanceNum(t_P_NetMonthlyBonusAmount);
+//	         paymentmethod = "alipay";
+//	        OrderCodeUpdate = staffPrepayApplicationCredit.getT_Txn_Num();
+//	        rs = staffPrepayApplicationService.updateCreditBalanceAmt(CreditBalanceAmtRefund, OrderCodeUpdate);
+//        }else{
+//             paymentmethod = "wechatpay";
+//        	personalMain.setT_personal_main_paymentmethod(paymentmethod);
+//        	rs = personalMainService.updateByPrimaryKeySelective(personalMain);
+//        }
 
         if(rs==1){
         	return JsonBizTool.genJson(ExRetEnum.SUCCESS);

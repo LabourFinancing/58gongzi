@@ -175,13 +175,13 @@ public class PersonalMainServiceImpl implements PersonalMainService {
     }
 */
     @Override
-    public boolean existPersonalMainName(String t_personal_main_id, String t_personal_main_pid) {
-        return personalMainDao.existPersonalMainName(t_personal_main_pid) == 1;
+    public boolean existPersonalMainName(String t_personal_main_id,String t_personal_main_pid) {
+        return personalMainDao.existPersonalMainName(t_personal_main_id,t_personal_main_pid) == 1;
     }
 
     @Override
     public boolean checkPersonalMainMobil(String t_personal_main_id, String t_personal_main_mobile) {
-        return personalMainDao.checkPersonalMainMobil(t_personal_main_mobile) == 1;
+        return personalMainDao.checkPersonalMainMobil(t_personal_main_id,t_personal_main_mobile) == 1;
     }
 
 }

@@ -24,14 +24,14 @@
 		<result column="t_personal_main_GLbankcard" property="t_personal_main_GLbankcard" jdbcType="VARCHAR" />
 		<result column="t_personal_main_bankacc" property="t_personal_main_bankacc" jdbcType="VARCHAR" />
 		<result column="t_personal_main_voucher" property="t_personal_main_voucher" jdbcType="VARCHAR" />
-		<result column="t_personal_main_bkptxt" property="t_personal_main_bkptxt" jdbcType="VARCHAR" />
+		<result column="t_personal_main_creditscore" property="t_personal_main_creditscore" jdbcType="INTEGER" />
 		<result column="t_personal_main_bkptxt1" property="t_personal_main_bkptxt1" jdbcType="VARCHAR" />
         <result column="t_personal_main_digiasset" property="t_personal_main_digiasset" jdbcType="VARCHAR" />
 		<result column="t_personal_main_digi1" property="t_personal_main_digi1" jdbcType="VARCHAR" />
 		<result column="t_personal_main_digi2" property="t_personal_main_digi2" jdbcType="VARCHAR" />
 		<result column="t_personal_main_digi3" property="t_personal_main_digi3" jdbcType="VARCHAR" />
-        <result column="platform" property="platform" jdbcType="VARCHAR" />
-        <result column="status" property="status" jdbcType="VARCHAR" />
+        <result column="platform" property="platform" jdbcType="INTEGER" />
+        <result column="status" property="status" jdbcType="INTEGER" />
         <result column="email" property="email" jdbcType="VARCHAR" />
 		<result column="remark" property="remark" jdbcType="VARCHAR" />
 		<result column="creator" property="creator" jdbcType="VARCHAR" />
@@ -64,7 +64,7 @@
         a.t_personal_main_crypto,
         a.t_personal_main_assetcat,
         a.t_personal_main_voucher,
-        a.t_personal_main_bkptxt,
+        a.t_personal_main_creditscore,
         a.t_personal_main_bkptxt1,
         a.t_personal_main_digiasset,
         a.t_personal_main_digi1,
@@ -110,6 +110,9 @@
 		<if test="t_personal_main_securityret != null" >
 		and a.t_personal_main_securityret like CONCAT('%',#{t_personal_main_securityret},'%')
 		</if>
+        <if test="creditscore_begin != null or creditscore_end != null" >
+            and a.t_personal_main_creditscore between #{creditscore_begin,jdbcType=INTEGER} and #{creditscore_end,jdbcType=INTEGER}
+        </if>
 		<if test="remark != null" >
 		and a.remark like CONCAT('%',#{remark},'%')
 		</if>
@@ -193,8 +196,8 @@
 			<if test="t_personal_main_voucher != null">
                 t_personal_main_voucher,
 			</if>
-			<if test="t_personal_main_bkptxt != null">
-                t_personal_main_bkptxt,
+			<if test="t_personal_main_creditscore != null">
+                t_personal_main_creditscore,
 			</if>
 			<if test="t_personal_main_bkptxt1 != null">
                 t_personal_main_bkptxt1,
@@ -289,10 +292,10 @@
 				#{t_personal_main_paymentmethod1,jdbcType=VARCHAR},
 			</if>
 			<if test="t_personal_main_CNbankcard != null">
-				#{t_personal_main_CNbankcard,jdbcType=DECIMAL},
+				#{t_personal_main_CNbankcard,jdbcType=VARCHAR},
 			</if>
 			<if test="t_personal_main_GLbankcard != null">
-				#{t_personal_main_GLbankcard,jdbcType=DECIMAL},
+				#{t_personal_main_GLbankcard,jdbcType=VARCHAR},
 			</if>
 			<if test="t_personal_main_bankacc != null">
 				#{t_personal_main_bankacc,jdbcType=VARCHAR},
@@ -306,8 +309,8 @@
 			<if test="t_personal_main_voucher != null">
 				#{t_personal_main_voucher,jdbcType=VARCHAR},
 			</if>
-			<if test="t_personal_main_bkptxt != null">
-				#{t_personal_main_bkptxt,jdbcType=VARCHAR},
+			<if test="t_personal_main_creditscore != null">
+				#{t_personal_main_creditscore,jdbcType=INTEGER},
 			</if>
 			<if test="t_personal_main_bkptxt1 != null">
 				#{t_personal_main_bkptxt1,jdbcType=VARCHAR},
@@ -319,16 +322,16 @@
 				#{t_personal_main_digi1,jdbcType=VARCHAR},
 			</if>
 			<if test="t_personal_main_digi2 != null">
-				#{t_personal_main_digi2,jdbcType=DECIMAL},
+				#{t_personal_main_digi2,jdbcType=VARCHAR},
 			</if>
 			<if test="t_personal_main_digi3 != null">
-				#{t_personal_main_digi3,jdbcType=DECIMAL},
+				#{t_personal_main_digi3,jdbcType=VARCHAR},
 			</if>
 			<if test="platform != null">
-				#{platform,jdbcType=VARCHAR},
+				#{platform,jdbcType=INTEGER},
 			</if>
 			<if test="status != null">
-				#{status,jdbcType=VARCHAR},
+				#{status,jdbcType=INTEGER},
 			</if>
             <if test="email != null">
                 #{email,jdbcType=VARCHAR},
@@ -361,7 +364,7 @@
 			<![CDATA[ and type <= #{typeEnd} ]]>
 		</if>
 		<if test="status != null">
-		   and a.status = #{status,jdbcType=VARCHAR}
+		   and a.status = #{status,jdbcType=INTEGER}
 		</if>
 		order by a.create_time
 	</select>
@@ -399,7 +402,7 @@
                 t_personal_main_pid = #{t_personal_main_pid,jdbcType=VARCHAR},
 			</if>
 			<if test="t_personal_main_mobile != null">
-                t_personal_main_mobile = #{t_personal_main_mobile,jdbcType=INTEGER},
+                t_personal_main_mobile = #{t_personal_main_mobile,jdbcType=VARCHAR},
 			</if>
 			<if test="t_personal_main_mobile1 != null">
                 t_personal_main_mobile1 = #{t_personal_main_mobile1,jdbcType=VARCHAR},
@@ -410,7 +413,7 @@
 			<if test="t_personal_main_realname != null">
                 t_personal_main_realname = #{t_personal_main_realname,jdbcType=VARCHAR},
 			</if>
-			<if test="t_t_personal_main_fingerprintP_Mobil != null">
+			<if test="t_personal_main_fingerprint != null">
                 t_personal_main_fingerprint = #{t_personal_main_fingerprint,jdbcType=VARCHAR},
 			</if>
 			<if test="t_personal_main_facialret != null">
@@ -441,7 +444,7 @@
                 t_personal_main_paymentmethod1 = #{t_personal_main_paymentmethod1,jdbcType=VARCHAR},
 			</if>
 			<if test="t_personal_main_CNbankcard != null">
-                t_personal_main_CNbankcard = #{t_personal_main_CNbankcard,jdbcType=DECIMAL},
+                t_personal_main_CNbankcard = #{t_personal_main_CNbankcard,jdbcType=VARCHAR},
 			</if>
 			<if test="t_personal_main_GLbankcard != null">
                 t_personal_main_GLbankcard = #{t_personal_main_GLbankcard,jdbcType=VARCHAR},
@@ -450,7 +453,7 @@
                 t_personal_main_bankacc = #{t_personal_main_bankacc,jdbcType=VARCHAR},
 			</if>
 			<if test="t_personal_main_crypto != null">
-                t_personal_main_crypto = #{t_personal_main_crypto,jdbcType=INTEGER},
+                t_personal_main_crypto = #{t_personal_main_crypto,jdbcType=VARCHAR},
 			</if>
 			<if test="t_personal_main_assetcat != null">
                 t_personal_main_assetcat = #{t_personal_main_assetcat,jdbcType=VARCHAR},
@@ -458,8 +461,8 @@
 			<if test="t_personal_main_voucher != null">
                 t_personal_main_voucher = #{t_personal_main_voucher,jdbcType=VARCHAR},
 			</if>
-			<if test="t_personal_main_bkptxt != null">
-                t_personal_main_bkptxt = #{t_personal_main_bkptxt,jdbcType=VARCHAR},
+			<if test="t_personal_main_creditscore != null">
+                t_personal_main_creditscore = #{t_personal_main_creditscore,jdbcType=INTEGER},
 			</if>
 			<if test="t_personal_main_bkptxt1 != null">
                 t_personal_main_bkptxt1 = #{t_personal_main_bkptxt1,jdbcType=VARCHAR},
@@ -468,22 +471,22 @@
                 t_personal_main_digiasset = #{t_personal_main_digiasset,jdbcType=VARCHAR},
 			</if>
 			<if test="t_personal_main_digi1 != null">
-                t_personal_main_digi1 = #{t_personal_main_digi1,jdbcType=DECIMAL},
+                t_personal_main_digi1 = #{t_personal_main_digi1,jdbcType=VARCHAR},
 			</if>
 			<if test="t_personal_main_digi2 != null">
-                t_personal_main_digi2 = #{t_personal_main_digi2,jdbcType=DECIMAL},
+                t_personal_main_digi2 = #{t_personal_main_digi2,jdbcType=VARCHAR},
 			</if>
 			<if test="t_personal_main_digi3 != null">
-                t_personal_main_digi3 = #{t_personal_main_digi3,jdbcType=INTEGER},
+                t_personal_main_digi3 = #{t_personal_main_digi3,jdbcType=VARCHAR},
 			</if>
 			<if test="platform != null">
-				platform = #{platform,jdbcType=VARCHAR},
+				platform = #{platform,jdbcType=INTEGER},
 			</if>
 			<if test="remark != null">
 				remark = #{remark,jdbcType=VARCHAR},
 			</if>
             <if test="status != null">
-                status = #{status,jdbcType=VARCHAR},
+                status = #{status,jdbcType=INTEGER},
             </if>
             <if test="email != null">
                 email = #{email,jdbcType=VARCHAR},
@@ -504,12 +507,12 @@
 		where t_personal_main_id = #{t_personal_main_id,jdbcType=VARCHAR}
 	</update>
 
-   <select id="existPeronsalMainName" resultType="Integer"
+   <select id="existPersonalMainName" resultType="Integer"
 		parameterType="map">
 		select
 		count(1)
 		from t_personal_main a
-		where a.t_personal_main_pid = #{t_personal_main_pid}
+		where a.t_personal_main_id = #{t_personal_main_id}
 		<if test="t_personal_main_pid != null">
 			and a.t_personal_main_pid != #{t_personal_main_pid}
 		</if>

@@ -45,12 +45,10 @@ public interface PersonalMainService {
 
 //    List<PersonalMain> findAgencyCompany(Map<String, Object> paramMap);
     
-    boolean existPersonalMainName(String t_personal_main_id, String t_personal_main_pid);
+    boolean existPersonalMainName(String t_personal_main_id,String t_personal_main_pid);
     
     boolean checkPersonalMainMobil(String t_personal_main_id, String t_personal_main_mobile);
 
 	List<PersonalMain> findSearchCompanyDist(Map<String, Object> paramSearchMap);
-	
-
 
 }

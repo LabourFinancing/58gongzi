@@ -61,7 +61,7 @@
                 offset : offsetH,
                 fix: false, //不固定
                 maxmin: true,
-                content: '${ctx}/PersonalMainController/form?t_P_id='+personalMainId+'&operationType=edit&platform=0',
+                content: '${ctx}/PersonalMainController/form?t_personal_main_id='+personalMainId+'&operationType=edit&platform=0',
                 success: function(layero, index){
                     layer.iframeAuto(index);
                 }
@@ -178,6 +178,12 @@
                         </div>
                     </td>
                     <td>
+                        <input id="creditscore_begin" name="creditscore_begin" autocomplete="off" placeholder="起始信用分" type="text"
+                               rows="2" class="col-sm-3">
+                        <input id="creditscore_end" name="creditscore_end" autocomplete="off" placeholder="结束信用分" type="text"
+                               rows="2" class="col-sm-3">
+                    </td>
+                    <td>
                         <div class="form-group">
                             <label class="control-label col-sm-3" style="padding-right: 0">状态:</label>
                             <div class="col-sm-8" style="padding-left: 1;">
@@ -232,6 +238,7 @@
                         <th>备用护照</th>
                         <th>主签证</th>
                         <th>备用签证</th>
+                        <th>在线支付方式</th>
                         <th>支付方式</th>
                         <th>中国银行卡</th>
                         <th>国际银行卡</th>
@@ -248,14 +255,14 @@
                     <tbody>
                     <#list page.list as personalMain>
                     <tr>
-                        <td>&nbsp;&nbsp;&nbsp;</td>
+                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all" value="${personalMain.t_personal_main_id}"></td>
                         <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_name}</td>
                         <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.status}</td>
                         <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_pid}</td>
                         <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_mobile}</td>
                         <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_mobile1}</td>
                         <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_contacts}</td>
-                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_P_Mobt_personal_main_realnameil}</td>
+                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_P_Mobt_personal_main_realname}</td>
                         <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_fingerprint}</td>
                         <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_facialret}</td>
                         <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_securityret}</td>
@@ -264,8 +271,6 @@
                         <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_visa}</td>
                         <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_visa1}</td>
                         <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_onlinepaymentcat}</td>
-                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_onlinepayment}</td>
-                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_paymentmethod}</td>
                         <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_paymentmethod1}</td>
                         <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_CNbankcard}</td>
                         <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_GLbankcard}</td>
@@ -278,19 +283,19 @@
                         <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.modify_time?string("yyyy-MM-dd HH:mm:ss")}</td>
                         <td class="col-xs-push-2" style="word-wrap:break-word;word-break:break-all">
                             <@shiro.hasPermission name="PERSONALMAIN_VIEW">
-                            <a href="#" onclick="openView('${personalMain.t_P_id}')">查看</a>
+                            <a href="#" onclick="openView('${personalMain.t_personal_main_id}')">查看</a>
                         </@shiro.hasPermission>
                         <@shiro.hasPermission name="PERSONALMAIN_EDIT">
-                        <a href="#" onclick="openEdit('${personalMain.t_P_id}')">编辑</a>
+                        <a href="#" onclick="openEdit('${personalMain.t_personal_main_id}')">编辑</a>
                     </@shiro.hasPermission>
                     <@shiro.hasPermission name="PERSONALMAIN_DELETE">
-                    <a href="${ctx}/PersonalMainController/deletePersonalMain?t_P_id=${PersonalMain.t_P_id}&platform=0" onclick="return confirm('确认要执行 删除 操作吗？', this.href)">删除</a><br>
+                    <a href="${ctx}/PersonalMainController/deletePersonalMain?t_personal_main_id=${personalMain.t_personal_main_id}&platform=0" onclick="return confirm('确认要执行 删除 操作吗？', this.href)">删除</a><br>
                     </@shiro.hasPermission>
                     <@shiro.hasPermission name="PERSONALMAIN_EDIT">
-                    <a href="#" onclick="editCreditBalance('${personalMain.t_P_id}')">修改剩余授额</a>
+                    <a href="#" onclick="editCreditBalance('${personalMain.t_personal_main_id}')">修改剩余授额</a>
                 </@shiro.hasPermission>
-                <@shiro.hasPermission name="PersonalMain_DELETE">
-                <a href="${ctx}/PersonalMainController/creditRefreshPersonalMain?t_P_id=${personalMain.t_P_id}&platform=0" onclick="return confirm('确认要执行 授额刷新 操作吗？', this.href)">刷新授额</a>
+                <@shiro.hasPermission name="PERSONALMAIN_EDIT">
+                <a href="${ctx}/PersonalMainController/creditRefreshPersonalMain?t_personal_main_id=${personalMain.t_personal_main_id}&platform=0" onclick="return confirm('确认要执行 授额刷新 操作吗？', this.href)">刷新授额</a>
             </@shiro.hasPermission>
             </td>
             </tr>

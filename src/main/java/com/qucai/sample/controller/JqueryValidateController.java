@@ -5,20 +5,12 @@ import java.io.UnsupportedEncodingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.qucai.sample.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.qucai.sample.service.FinanceProductService;
-import com.qucai.sample.service.HistoricalTxnQueryService;
-import com.qucai.sample.service.ManagerService;
-import com.qucai.sample.service.OrganizationInfoService;
-import com.qucai.sample.service.PersonalInfoService;
-import com.qucai.sample.service.ResourceService;
-import com.qucai.sample.service.RoleService;
-import com.qucai.sample.service.StaffPrepayApplicationService;
 
 @Controller
 @RequestMapping(value = "/jqueryValidateController")
@@ -47,12 +39,26 @@ public class JqueryValidateController {
     
     @Autowired
     private HistoricalTxnQueryService historicalTxnQueryService;
+
+    @Autowired
+    private PersonalMainService personalMainService;
     
     @RequestMapping(value = "checkManagerUserName")
     @ResponseBody
     public String checkManagerUserName(String id, String userName, HttpServletRequest request,
             HttpServletResponse response, Model model) {
         boolean rs = managerService.existManagerUserName(id, userName);
+        if(rs){
+            return "false";
+        }
+        return "true";
+    }
+
+    @RequestMapping(value = "checkPersonalMainName")
+    @ResponseBody
+    public String checkPersonalMainName(String t_personal_main_pid, String t_personal_main_id,HttpServletRequest request,String platform,
+                                       HttpServletResponse response, Model model) {
+        boolean rs = personalMainService.existPersonalMainName(t_personal_main_id,t_personal_main_pid);
         if(rs){
             return "false";
         }

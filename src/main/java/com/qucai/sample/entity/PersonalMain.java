@@ -25,7 +25,7 @@ public class PersonalMain implements Serializable {
 
    private Date modify_time;
    
-   private String platform;
+   private Integer platform;
 
    private String remark;
 
@@ -38,6 +38,8 @@ public class PersonalMain implements Serializable {
    private String t_personal_main_pid;
 
    private String t_personal_main_mobile;
+
+    private String t_personal_main_mobile1;
 
    private String t_personal_main_contacts;
 
@@ -77,7 +79,7 @@ public class PersonalMain implements Serializable {
 
    private String t_personal_main_voucher;
 
-   private String t_personal_main_bkptxt;
+    private Integer t_personal_main_creditscore;
 
    private String t_personal_main_bkptxt1;
    
@@ -126,11 +128,11 @@ public class PersonalMain implements Serializable {
         this.modify_time = modify_time;
     }
 
-    public String getPlatform() {
+    public Integer getPlatform() {
         return platform;
     }
 
-    public void setPlatform(String platform) {
+    public void setPlatform(Integer platform) {
         this.platform = platform;
     }
 
@@ -174,6 +176,13 @@ public class PersonalMain implements Serializable {
         this.t_personal_main_mobile = t_personal_main_mobile;
     }
 
+    public String getT_personal_main_mobile1() {
+        return t_personal_main_mobile1;
+    }
+
+    public void setT_personal_main_mobile1(String t_personal_main_mobile1) {
+        this.t_personal_main_mobile1 = t_personal_main_mobile1;
+    }
     public String getT_personal_main_contacts() {
         return t_personal_main_contacts;
     }
@@ -318,12 +327,12 @@ public class PersonalMain implements Serializable {
         this.t_personal_main_voucher = t_personal_main_voucher;
     }
 
-    public String getT_personal_main_bkptxt() {
-        return t_personal_main_bkptxt;
+    public Integer getT_personal_main_creditscore() {
+        return t_personal_main_creditscore;
     }
 
-    public void setT_personal_main_bkptxt(String t_personal_main_bkptxt) {
-        this.t_personal_main_bkptxt = t_personal_main_bkptxt;
+    public void setT_personal_main_creditscore(Integer t_personal_main_creditscore) {
+        this.t_personal_main_creditscore = t_personal_main_creditscore;
     }
 
     public String getT_personal_main_bkptxt1() {

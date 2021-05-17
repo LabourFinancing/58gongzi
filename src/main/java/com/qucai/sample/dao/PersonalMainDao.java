@@ -43,9 +43,9 @@ public interface PersonalMainDao {
     
 //    List<FinanceProduct> findAuthFinanceProductListByManagerId(String managerId);
     
-    int existPersonalMainName(@Param("t_personal_main_id") String t_personal_main_pid);
+    int existPersonalMainName(@Param("t_personal_main_id") String t_personal_main_id,@Param("t_personal_main_pid") String t_personal_main_pid);
     
-    int checkPersonalMainMobil(@Param("t_personal_main_mobile") String t_personal_main_mobile);
+    int checkPersonalMainMobil(@Param("t_personal_main_id") String t_personal_main_id,@Param("t_personal_main_mobile") String t_personal_main_mobile);
 
     
     //企业端的资源
