@@ -2,307 +2,312 @@
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
 <html lang="en">
-    <!--<![endif]-->
+<!--<![endif]-->
 <head>
-<meta charset="utf-8" />
-<title>企业员工管理</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta content="width=device-width, initial-scale=1" name="viewport" />
-<meta content="" name="description" />
-<meta content="" name="author" />
-<#include "/common/cssResource.html">
-<link href="${ctx}/metronic/global/plugins/jquery-treetable/css/jquery.treetable.css" rel="stylesheet" type="text/css" />
-<link href="${ctx}/metronic/global/plugins/jquery-treetable/css/jquery.treetable.theme.default.css" rel="stylesheet" type="text/css" />
-<#include "/common/jsResource.html">
-<script src="${ctx}/metronic/global/plugins/jquery-treetable/jquery.treetable.js" type="text/javascript"></script>
+    <meta charset="utf-8" />
+    <title>企业员工管理</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <#include "/common/cssResource.html">
+    <link href="${ctx}/metronic/global/plugins/jquery-treetable/css/jquery.treetable.css" rel="stylesheet" type="text/css" />
+    <link href="${ctx}/metronic/global/plugins/jquery-treetable/css/jquery.treetable.theme.default.css" rel="stylesheet" type="text/css" />
+    <#include "/common/jsResource.html">
+    <script src="${ctx}/metronic/global/plugins/jquery-treetable/jquery.treetable.js" type="text/javascript"></script>
 
 
-<script type="text/javascript">
+    <script type="text/javascript">
 
-/* $(document).ready(function() {
-	$("#financeProductTable").treetable({clickableNodeNames : true, expandable : true}).treetable("expandAll");
+        /* $(document).ready(function() {
+            $("#financeProductTable").treetable({clickableNodeNames : true, expandable : true}).treetable("expandAll");
+        
+        });
+        */
 
-});
-*/
+        /*
+        *参考 http://blog.csdn.net/lzwglory/article/details/17549725
+        **/
+        function page(n,s){
+            $("#pageNum").val(n);
+            $("#pageSize").val(s);
+            $("#searchForm").submit();
+            return false;
+        }
 
-/*
-*参考 http://blog.csdn.net/lzwglory/article/details/17549725
-**/
-function page(n,s){
-	$("#pageNum").val(n);
-	$("#pageSize").val(s);
-	$("#searchForm").submit();
-	return false;
-}
-
-function openNew(obj){
-	var openWindowWidth = $(document).width() * 0.8 + "px";
-	var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
-	layer.open({
-		type: 2,
-		area: openWindowWidth,
-		offset : offsetH,
-		fix: false, //不固定	
-		maxmin: true,
-		content: '${ctx}/PersonalInfoController/form?operationType=new&platform=0',
-		success: function(layero, index){
-		    layer.iframeAuto(index);
-		}
-	});
-}
+        function openNew(obj){
+            var openWindowWidth = $(document).width() * 0.8 + "px";
+            var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
+            layer.open({
+                type: 2,
+                area: openWindowWidth,
+                offset : offsetH,
+                fix: false, //不固定	
+                maxmin: true,
+                content: '${ctx}/PersonalMainController/form?operationType=new&platform=0',
+                success: function(layero, index){
+                    layer.iframeAuto(index);
+                }
+            });
+        }
 
 
-function openEdit(personalInfoId){
-	var openWindowWidth = $(document).width() * 0.8 + "px";
-	var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
-	layer.open({
-		type: 2,
-		area: openWindowWidth,
-		offset : offsetH,
-		fix: false, //不固定
-		maxmin: true,
-		content: '${ctx}/PersonalInfoController/form?t_P_id='+personalInfoId+'&operationType=edit&platform=0',
-		success: function(layero, index){
-		    layer.iframeAuto(index);
-		}
-	});
-}
+        function openEdit(personalMainId){
+            var openWindowWidth = $(document).width() * 0.8 + "px";
+            var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
+            layer.open({
+                type: 2,
+                area: openWindowWidth,
+                offset : offsetH,
+                fix: false, //不固定
+                maxmin: true,
+                content: '${ctx}/PersonalMainController/form?t_P_id='+personalMainId+'&operationType=edit&platform=0',
+                success: function(layero, index){
+                    layer.iframeAuto(index);
+                }
+            });
+        }
 
-function editCreditBalance(personalInfoId){
-	var openWindowWidth = $(document).width() * 0.8 + "px";
-	var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
-	layer.open({
-		type: 2,
-		area: openWindowWidth,
-		offset : offsetH,
-		fix: false, //不固定
-		maxmin: true,
-		content: '${ctx}/PersonalInfoController/form?t_P_id='+personalInfoId+'&operationType=openCreditBalance&platform=0',
-		success: function(layero, index){
-		    layer.iframeAuto(index);
-		}
-	});
-}
+        function editCreditBalance(personalMainId){
+            var openWindowWidth = $(document).width() * 0.8 + "px";
+            var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
+            layer.open({
+                type: 2,
+                area: openWindowWidth,
+                offset : offsetH,
+                fix: false, //不固定
+                maxmin: true,
+                content: '${ctx}/PersonalMainController/form?t_personal_main_id='+personalMainId+'&operationType=openCreditBalance&platform=0',
+                success: function(layero, index){
+                    layer.iframeAuto(index);
+                }
+            });
+        }
 
-function openView(personalInfoId){
-	var openWindowWidth = $(document).width() * 0.8 + "px";
-	var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
-	layer.open({
-		type: 2,
-		area: openWindowWidth,
-		offset : offsetH,
-		fix: false, //不固定
-		maxmin: true,
-		content: '${ctx}/PersonalInfoController/form?t_P_id='+personalInfoId+'&operationType=view&platform=0',
-		success: function(layero, index){
-		    layer.iframeAuto(index);
-		}
-	});
-}
-</script>
-<style type="text/css">
-.divcss1 {width:1500px; 
-		  height:1000px; 
-		  float:left; 
-		  border:1px solid #F00
-		 }
-a{
-font-size:12px;
-}
-a:hover{color:red}
-</style>
+        function openView(personalMainId){
+            var openWindowWidth = $(document).width() * 0.8 + "px";
+            var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
+            layer.open({
+                type: 2,
+                area: openWindowWidth,
+                offset : offsetH,
+                fix: false, //不固定
+                maxmin: true,
+                content: '${ctx}/PersonalMainController/form?t_personal_main_id='+personalMainId+'&operationType=view&platform=0',
+                success: function(layero, index){
+                    layer.iframeAuto(index);
+                }
+            });
+        }
+    </script>
+    <style type="text/css">
+        .divcss1 {width:1500px;
+            height:1000px;
+            float:left;
+            border:1px solid #F00
+        }
+        a{
+            font-size:12px;
+        }
+        a:hover{color:red}
+    </style>
 </head>
 <body>
-	<!-- BEGIN PAGE BASE CONTENT -->
-	<div class="row">
-		<div class="col-xs-push-15">
-			<!-- BEGIN EXAMPLE TABLE PORTLET-->
-			<div class="portlet light portlet-fit bordered">
-				<div class="portlet-title">
-					<ul class="page-breadcrumb breadcrumb">
-						<li><a>企业服务台</a> <i class="fa fa-circle"></i></li>
-						<li><a>企业管理</a> <i class="fa fa-circle"></i></li>
-						<li><span class="active">企业员工管理</span></li>
-					</ul>
-				</div>	
-				<div class="portlet-body">
-					<form id="searchForm" method="post" action="${ctx}/PersonalInfoController/personalInfoSearchList" class="form-horizontal">
-						<input id="pageNum" name="pageNum" type="hidden" value="${page.pageNum}" /> 
-						<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}" />
-						<div class="form-body">
-						    <table class="table table-bordered">
-	                           <tr>
-							      <td>
-								  <div class="form-group">
-										<label class="control-label col-sm-3" style="padding-right: 0">员工姓名:</label>
-										<div class="col-sm-8" style="padding-left: 1;">
-											<input type="text" class="form-control" name="t_P_Name" value="${personalInfo.t_P_Name}" />
-										</div>
-									</div>
-								  </div>
-								  </td>
-								  <td>
-							      <div class="form-group">
-										<label class="control-label col-sm-3" style="padding-right: 0">身份证号:</label>
-										<div class="col-sm-8" style="padding-left: 1;">
-											<input type="text" class="form-control" name="t_P_PID" value="${personalInfo.t_P_PID}" />
-										</div>
-						           </div>
-						           </td>
-						           <td>
-									<div class="form-group">
-										<label class="control-label col-sm-3" style="padding-right: 0">手机号:</label>
-										<div class="col-sm-8" style="padding-left: 1;">
-											<input type="text" class="form-control" name="t_P_Mobil" value="${personalInfo.t_P_Mobil}" />
-										</div>
-									</div>
-									</td>
-								</tr>
-								<tr>
-									<@shiro.hasPermission name="PERSONALINFO_EDIT">
-									<td>
-									<div class="form-group">
-										<label class="control-label col-sm-3" style="padding-right: 0">公司名称:</label>
-										<div class="col-sm-8" style="padding-left: 1;">
-											<input type="text" class="form-control" name="t_P_Company" value="${personalInfo.t_P_Company}" />
-										</div>
-						            </div>
-						            </td>
-						            </@shiro.hasPermission>
-						            <td>
-									<div class="form-group">
-										<label class="control-label col-sm-3" style="padding-right: 0">经销商公司名称:</label>
-										<div class="col-sm-8" style="padding-left: 1;">
-											<input type="text" class="form-control" name="t_P_VendorEmployeeName" value="${personalInfo.t_P_VendorEmployeeName}" />
-										</div>
-						            </div>
-						            </td>
-						            <td>
-									<div class="form-group">
-										<label class="control-label col-sm-3" style="padding-right: 0">备注:</label>
-										<div class="col-sm-8" style="padding-left: 1;">
-											<input type="text" class="form-control" name="remark" value="${personalInfo.remark}" />
-										</div>
-						            </div>
-						            </td>
-						         </tr>
-						       </table>
-						  </div>
-						<div class="form-actions">
-							<div class="row">
-								<div class="col-sm-12">
-									<div class="btn-group pull-right">
-										<button type="submit" class="btn green">查询</button>
-									</div>
-								</div>
-							</div>
-						</div> 
-					<div class="table-toolbar">
-					</form>
-					</div>
-					<div class="table-toolbar">
-						<div class="row">
-							<div class="col-sm-12">
-								<div class="btn-group pull-right">
-                                    <@shiro.hasPermission name="PERSONALINFO_ADD">
-									<button id="sample_editable_1_new" class="btn green" onclick="openNew('0')">新增</button>
-                                    </@shiro.hasPermission>
-								</div>
-							</div>
-						</div>
-					</div>
-			    </div>
-			  <div class="row ls-change-tit">
-                <div class="ls-seaarch-result">
-                    <div class="table-responsive">
-					  <table class="table table-bordered" id="personalInfoTable" style="overflow:visible;text-overflow:ellipsis;white-space:nowrap;">
-							<tr>
-							    <th>&nbsp;&nbsp;&nbsp;</th>
-								<th>姓名</th>
-								<th>性别</th>
-								<th>年龄</th>
-								<th>身份证</th>
-								<th>公司名</th>
-								<th>所在部门</th>
-								<th>手机</th>
-								<th>第一联系人</th>
-								<th>第一联系人联系电话</th>
-								<th>经销商公司名</th>
-								<th>社保缴纳基数</th>
-								<th>公积金缴纳数</th>
-								<th>用工状态</th>
-								<th>用工性质</th>
-								<th>员工信用等级</th>
-								<th>工作年限</th>
-								<th>工资卡号</th>
-								<th>月税后基本工资</th>
-								<th>当前剩余额度</th>
-								<th>薪酬福利额度</th>
-								<th>工资发放日</th>
-								<th>备注</th>
-								<th>最后更新时间</th>
-								<th>操作</th>
-							    <th>&nbsp;&nbsp;&nbsp;</th>
-							</tr>
-						<tbody>
-							<#list page.list as personalInfo>
-								<tr>
-								    <td>&nbsp;&nbsp;&nbsp;</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_Name}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_Sex}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_Age}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_PID}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_Company}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_HomeAddress}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_Mobil}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_Contact1}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_Contact1Mobil}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_VendorEmployeeName}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_SocialSecurityBaseAmount}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_ProvidentFund}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_Employmentstatus}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_EmploymentCategory}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_Probation}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_WorkYears}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_PayrollDebitcardNum}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_NetBaseSalary}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_NetMonthlyBonusAmount}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_CreditPrepaySalaryAmount}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_PayrollDate}</td>	
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.remark}</td>							
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.modify_time?string("yyyy-MM-dd HH:mm:ss")}</td>
-									<td class="col-xs-push-2" style="word-wrap:break-word;word-break:break-all">
-										<@shiro.hasPermission name="PERSONALINFO_VIEW">
-										<a href="#" onclick="openView('${personalInfo.t_P_id}')">查看</a>
-										</@shiro.hasPermission>
-										<@shiro.hasPermission name="PERSONALINFO_EDIT">
-										<a href="#" onclick="openEdit('${personalInfo.t_P_id}')">编辑</a>
-										</@shiro.hasPermission>
-										<@shiro.hasPermission name="PERSONALINFO_DELETE">
-										<a href="${ctx}/PersonalInfoController/deletePersonalInfo?t_P_id=${personalInfo.t_P_id}&platform=0" onclick="return confirm('确认要执行 删除 操作吗？', this.href)">删除</a><br>
-										</@shiro.hasPermission>
-										<@shiro.hasPermission name="PERSONALINFO_EDIT">
-										<a href="#" onclick="editCreditBalance('${personalInfo.t_P_id}')">修改剩余授额</a>
-										</@shiro.hasPermission>
-										<@shiro.hasPermission name="PERSONALINFO_DELETE">
-										<a href="${ctx}/PersonalInfoController/creditRefreshPersonalInfo?t_P_id=${personalInfo.t_P_id}&platform=0" onclick="return confirm('确认要执行 授额刷新 操作吗？', this.href)">刷新授额</a>
-										</@shiro.hasPermission>
-									</td>
-								</tr>
-							</#list>
-						</tbody>
-				    </table>
-		          </div>
-			     </div>
-			   </div>
-			  </div>
-			</div>
-			<!-- END EXAMPLE TABLE PORTLET-->
-		</div>
-	<!-- END PAGE BASE CONTENT -->
-	    <@sc.pagination page=page />
+<!-- BEGIN PAGE BASE CONTENT -->
+<div class="row">
+    <div class="col-xs-push-15">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet light portlet-fit bordered">
+            <div class="portlet-title">
+                <ul class="page-breadcrumb breadcrumb">
+                    <li><a>企业服务台</a> <i class="fa fa-circle"></i></li>
+                    <li><a>企业管理</a> <i class="fa fa-circle"></i></li>
+                    <li><span class="active">企业员工管理</span></li>
+                </ul>
+            </div>
+            <div class="portlet-body">
+                <form id="searchForm" method="post" action="${ctx}/PersonalMainController/personalMainSearchList" class="form-horizontal">
+                    <input id="pageNum" name="pageNum" type="hidden" value="${page.pageNum}" />
+                    <input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}" />
+                    <div class="form-body">
+                        <table class="table table-bordered">
+                            <tr>
+                                <td>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3" style="padding-right: 0">姓名:</label>
+                                        <div class="col-sm-8" style="padding-left: 1;">
+                                            <input type="text" class="form-control" name="t_personal_main_name" value="${personalMain.t_personal_main_name}" />
+                                        </div>
+                                    </div>
+                    </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" style="padding-right: 0">身份证号:</label>
+                            <div class="col-sm-8" style="padding-left: 1;">
+                                <input type="text" class="form-control" name="t_personal_main_pid" value="${personalMain.t_personal_main_pid}" />
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" style="padding-right: 0">主手机号:</label>
+                            <div class="col-sm-8" style="padding-left: 1;">
+                                <input type="text" class="form-control" name="t_personal_main_mobile" value="${personalMain.t_personal_main_mobile}" />
+                            </div>
+                        </div>
+                    </td>
+                    </tr>
+                    <tr>
+                        <@shiro.hasPermission name="PERSONALMAIN_EDIT">
+                        <td>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" style="padding-right: 0">主护照:</label>
+                                <div class="col-sm-8" style="padding-left: 1;">
+                                    <input type="text" class="form-control" name="t_personal_main_passport" value="${personalMain.t_personal_main_passport}" />
+                                </div>
+                            </div>
+                        </td>
+                    </@shiro.hasPermission>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" style="padding-right: 0">安全认证:</label>
+                            <div class="col-sm-8" style="padding-left: 1;">
+                                <input type="text" class="form-control" name="t_personal_main_securityret" value="${personalMain.t_personal_main_securityret}" />
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" style="padding-right: 0">状态:</label>
+                            <div class="col-sm-8" style="padding-left: 1;">
+                                <input type="text" class="form-control" name="status" value="${personalMain.status}" />
+                            </div>
+                        </div>
+                    </td>
+                    </tr>
+                    </table>
+            </div>
+            <div class="form-actions">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="btn-group pull-right">
+                            <button type="submit" class="btn green">查询</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-toolbar">
+                </form>
+            </div>
+            <div class="table-toolbar">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="btn-group pull-right">
+                            <@shiro.hasPermission name="PERSONALMAIN_ADD">
+                            <button id="sample_editable_1_new" class="btn green" onclick="openNew('0')">新增</button>
+                        </@shiro.hasPermission>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row ls-change-tit">
+        <div class="ls-seaarch-result">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="personalMainTable" style="overflow:visible;text-overflow:ellipsis;white-space:nowrap;">
+                    <tr>
+                        <th>&nbsp;&nbsp;&nbsp;</th>
+                        <th>姓名</th>
+                        <th>状态</th>
+                        <th>身份证</th>
+                        <th>主手机号</th>
+                        <th>备用手机号</th>
+                        <th>联系方式</th>
+                        <th>真实姓名</th>
+                        <th>指纹识别</th>
+                        <th>人脸识别</th>
+                        <th>安全认证</th>
+                        <th>主护照</th>
+                        <th>备用护照</th>
+                        <th>主签证</th>
+                        <th>备用签证</th>
+                        <th>支付方式</th>
+                        <th>中国银行卡</th>
+                        <th>国际银行卡</th>
+                        <th>银行账户</th>
+                        <th>加密资产</th>
+                        <th>资产类型(当前)</th>
+                        <th>优惠券</th>
+                        <th>数字资产</th>
+                        <th>备注</th>
+                        <th>最后更新时间</th>
+                        <th>操作</th>
+                        <th>&nbsp;&nbsp;&nbsp;</th>
+                    </tr>
+                    <tbody>
+                    <#list page.list as personalMain>
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;</td>
+                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_name}</td>
+                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.status}</td>
+                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_pid}</td>
+                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_mobile}</td>
+                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_mobile1}</td>
+                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_contacts}</td>
+                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_P_Mobt_personal_main_realnameil}</td>
+                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_fingerprint}</td>
+                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_facialret}</td>
+                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_securityret}</td>
+                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_passport}</td>
+                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_passport1}</td>
+                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_visa}</td>
+                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_visa1}</td>
+                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_onlinepaymentcat}</td>
+                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_onlinepayment}</td>
+                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_paymentmethod}</td>
+                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_paymentmethod1}</td>
+                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_CNbankcard}</td>
+                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_GLbankcard}</td>
+                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_bankacc}</td>
+                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_crypto}</td>
+                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_assetcat}</td>
+                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_voucher}</td>
+                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_digiasset}</td>
+                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.remark}</td>
+                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.modify_time?string("yyyy-MM-dd HH:mm:ss")}</td>
+                        <td class="col-xs-push-2" style="word-wrap:break-word;word-break:break-all">
+                            <@shiro.hasPermission name="PERSONALMAIN_VIEW">
+                            <a href="#" onclick="openView('${personalMain.t_P_id}')">查看</a>
+                        </@shiro.hasPermission>
+                        <@shiro.hasPermission name="PERSONALMAIN_EDIT">
+                        <a href="#" onclick="openEdit('${personalMain.t_P_id}')">编辑</a>
+                    </@shiro.hasPermission>
+                    <@shiro.hasPermission name="PERSONALMAIN_DELETE">
+                    <a href="${ctx}/PersonalMainController/deletePersonalMain?t_P_id=${PersonalMain.t_P_id}&platform=0" onclick="return confirm('确认要执行 删除 操作吗？', this.href)">删除</a><br>
+                    </@shiro.hasPermission>
+                    <@shiro.hasPermission name="PERSONALMAIN_EDIT">
+                    <a href="#" onclick="editCreditBalance('${personalMain.t_P_id}')">修改剩余授额</a>
+                </@shiro.hasPermission>
+                <@shiro.hasPermission name="PersonalMain_DELETE">
+                <a href="${ctx}/PersonalMainController/creditRefreshPersonalMain?t_P_id=${personalMain.t_P_id}&platform=0" onclick="return confirm('确认要执行 授额刷新 操作吗？', this.href)">刷新授额</a>
+            </@shiro.hasPermission>
+            </td>
+            </tr>
+        </#list>
+        </tbody>
+        </table>
+    </div>
+</div>
+</div>
+</div>
+</div>
+<!-- END EXAMPLE TABLE PORTLET-->
+</div>
+<!-- END PAGE BASE CONTENT -->
+<@sc.pagination page=page />
 <!--
-	<form id="searchForm" action="${ctx}/PersonalInfoController/personalInfoList" method="post">
+	<form id="searchForm" action="${ctx}/PersonalMainController/personalMainList" method="post">
 		<input id="pageNum" name="pageNum" type="hidden" value="${page.pageNum}" />
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}" />
 	</form>

@@ -6,7 +6,7 @@
 //import com.qucai.sample.entity.FinanceProduct;
 //import com.qucai.sample.entity.OrganizationInfo;
 //import com.qucai.sample.entity.PersonalInfo;
-//import com.qucai.sample.entity.Ewallet;
+////import com.qucai.sample.entity.Ewallet;
 //import com.qucai.sample.entity.StaffPrepayApplicationList;
 //import com.qucai.sample.exception.ExRetEnum;
 //import com.qucai.sample.service.*;
@@ -35,23 +35,23 @@
 //@RequestMapping(value = "/PersonalInfoController")
 //public class EwalletController {
 //
-//	
+//
 //	// 必须把new financeProduct的列进行全面修改, 新建financeProductService
 //    @Autowired
 //    private EwalletService ewalletService; //申明一个对象
-//    
+//
 //    @Autowired
 //    private PersonalInfoService personalInfoService; //申明一个对象
-//    
+//
 //    @Autowired
 //    private OrganizationInfoService organizationInfoService;
-//    
+//
 //	@Autowired
 //	private StaffPrepayApplicationService staffPrepayApplicationService; // 申明一个对象
-//	
+//
 //    @Autowired
 //    private FinanceProductService financeProductService; //申明一个对象
-//    
+//
 //    private Object OrganizationInfo;
 //
 //	@ModelAttribute
@@ -80,12 +80,12 @@
 //    /**
 //     *  改动：根据所属平台来确定是哪个平台的资源 
 //     */
-//    
+//
 //    @RequestMapping(value = {"personalInfoList",""})
 //    public String personalInfoList(PersonalInfo personalInfo, OrganizationInfo organizationInfo,@RequestParam( defaultValue = "0" )  Integer platform,String t_P_Company,
 //    		String t_P_Name,String t_P_PID,String t_P_Mobil,String SessionCompanyName,String t_P_VendorEmployeeName,String remark,String t_TreasuryDB_OrgName,
 //    		HttpServletRequest request, HttpServletResponse response, Model model) {
-//    	
+//
 //    	model.addAttribute("t_P_Name", t_P_Name); //key从数据库查询并返回,并索引对应JSP
 //    	model.addAttribute("t_P_PID", t_P_PID); //key从数据库查询并返回,并索引对应JSP
 //    	model.addAttribute("t_P_Mobil", t_P_Mobil); //key从数据库查询并返回,并索引对应JSP
@@ -94,7 +94,7 @@
 //    	model.addAttribute("remark", remark); //key从数据库查询并返回,并索引对应JSP
 //    	String t_O_OrgName = ShiroSessionUtil.getLoginSession().getCompany_name();
 //    	OrganizationInfo AgencyOrgnization = organizationInfoService.selectAgencyName(t_O_OrgName);
-//    	
+//
 //        if (t_P_Name != null | t_P_PID != null | t_P_Mobil != null | t_P_Company != null | t_P_VendorEmployeeName != null | remark != null) {
 //        	Map<String, Object> paramSearchMap = new HashMap<String, Object>();//新建map对象
 //        	paramSearchMap.put("t_P_Name", t_P_Name);//添加元素
@@ -102,7 +102,7 @@
 //        	paramSearchMap.put("t_P_Mobil", t_P_Mobil);//添加元素
 //        	paramSearchMap.put("t_P_VendorEmployeeName", t_P_VendorEmployeeName);//添加元素
 //        	paramSearchMap.put("remark", remark);//添加元素
-//        	
+//
 //        	if (t_O_OrgName.equals("ALL")){
 //            	paramSearchMap.put("t_P_Company", t_P_Company);//添加元素
 //        	}
@@ -141,7 +141,7 @@
 //        }
 //    	return "personalInfo/personalInfoList";
 //    }
-//  
+//
 //    /*
 //     * Search Function
 //     */
@@ -149,11 +149,11 @@
 //    public String personalInfoSearchList(PersonalInfo personalInfo,OrganizationInfo organizationInfo, @RequestParam( defaultValue = "0" )  Integer platform,String t_P_Name,
 //    		String t_P_PID,String t_P_Mobil,String t_P_Company,String t_P_VendorEmployeeName,String SessionCompanyName,String remark,String t_TreasuryDB_OrgName,
 //    		HttpServletRequest request, HttpServletResponse response, Model model) {
-//    	
+//
 //    	model.addAttribute("platform", platform); //key从数据库查询并返回,并索引对应JSP
 //    	String t_O_OrgName = ShiroSessionUtil.getLoginSession().getCompany_name();
 //    	OrganizationInfo AgencyOrgnization = organizationInfoService.selectAgencyName(t_O_OrgName);
-//    	
+//
 //    	if (t_P_Name != null | t_P_PID != null | t_P_Mobil != null | t_P_Company != null | t_P_VendorEmployeeName != null | remark != null) {
 //        	Map<String, Object> paramSearchMap = new HashMap<String, Object>();//新建map对象
 //        	paramSearchMap.put("t_P_Name", t_P_Name);//添加元素
@@ -204,8 +204,8 @@
 //    		return "personalInfo/personalInfoList";
 //    	}
 //    }
-//    
-//    
+//
+//
 //    @RequestMapping(value = "form")
 //    public String form(PersonalInfo personalInfo,OrganizationInfo organizationInfo,String t_P_id, String operationType, Integer platform, 
 //            HttpServletRequest request, HttpServletResponse response,String t_P_Company,
@@ -277,7 +277,7 @@
 //            return "redirect:/personalInfoController/personalInfoList";	
 //        }
 //    }
-//    
+//
 //    @RequestMapping(value = "addPersonalInfo")   //当判断页面的行为为add时,返回相应的add页面
 //    @ResponseBody
 //    public String addPersonalInfo(PersonalInfo personalInfo, HttpServletRequest request,Integer platform,Date modify_time,
@@ -287,7 +287,7 @@
 //    	personalInfo.setCreate_time(new Date());
 //    	personalInfo.setT_P_id(Tool.uuid());
 //    	personalInfo.setT_P_SysUpdateDate(new Date());
-//     	
+//
 //     	if (modify_time == null){
 //     		personalInfo.setModify_time(new Date());
 //     	};
@@ -315,7 +315,7 @@
 //        return "redirect:/PersonalInfoController/personalInfoList?platform="+platform;
 //    }
 //
-//    
+//
 //    @RequestMapping(value = "editPersonalInfo")
 //    @ResponseBody
 //    public String editPersonalInfo(PersonalInfo personalInfo, HttpServletRequest request,
@@ -325,7 +325,7 @@
 //    	personalInfoService.updateByPrimaryKeySelective(personalInfo);
 //        return JsonBizTool.genJson(ExRetEnum.SUCCESS);
 //    }
-//    
+//
 //    @RequestMapping(value = "editCreditBalance")
 //    @ResponseBody
 //    public String editCreditBalance(PersonalInfo personalInfo, HttpServletRequest request,String t_P_Mobil,BigDecimal t_P_NetMonthlyBonusAmount,
@@ -348,9 +348,9 @@
 //        	personalInfo.setT_P_CreditPrepaySalaryAmount(CreditBalanceAmtRefund);
 //        	rs = personalInfoService.updateByPrimaryKeySelective(personalInfo);
 //        }
-//        
 //
-//        
+//
+//
 //        if(rs==1){
 //        	return JsonBizTool.genJson(ExRetEnum.SUCCESS);
 //        }else{

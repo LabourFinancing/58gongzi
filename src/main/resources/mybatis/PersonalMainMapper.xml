@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qucai.sample.dao.PersonalMainDao">
+
+	<resultMap id="BaseResultMap" type="com.qucai.sample.entity.PersonalMain">
+		<result column="t_personal_main_id" property="t_personal_main_id" jdbcType="VARCHAR" />
+		<result column="t_personal_main_name" property="t_personal_main_name" jdbcType="VARCHAR" />
+		<result column="t_personal_main_pid" property="t_personal_main_pid" jdbcType="VARCHAR" />
+		<result column="t_personal_main_mobile" property="t_personal_main_mobile" jdbcType="VARCHAR" />
+		<result column="t_personal_main_mobile1" property="t_personal_main_mobile1" jdbcType="VARCHAR" />
+		<result column="t_personal_main_contacts" property="t_personal_main_contacts" jdbcType="VARCHAR" />
+		<result column="t_personal_main_realname" property="t_personal_main_realname" jdbcType="VARCHAR" />
+		<result column="t_personal_main_fingerprint" property="t_personal_main_fingerprint" jdbcType="VARCHAR" />
+		<result column="t_personal_main_facialret" property="t_personal_main_facialret" jdbcType="VARCHAR" />
+		<result column="t_personal_main_securityret" property="t_personal_main_securityret" jdbcType="VARCHAR" />
+		<result column="t_personal_main_passport" property="t_personal_main_passport" jdbcType="VARCHAR" />
+        <result column="t_personal_main_passport1" property="t_personal_main_passport" jdbcType="VARCHAR" />
+		<result column="t_personal_main_visa" property="t_personal_main_visa" jdbcType="VARCHAR" />
+		<result column="t_personal_main_visa1" property="t_personal_main_visa1" jdbcType="VARCHAR" />
+		<result column="t_personal_main_onlinepaymentcat" property="t_personal_main_onlinepaymentcat" jdbcType="VARCHAR" />
+		<result column="t_personal_main_onlinepayment" property="t_personal_main_onlinepayment" jdbcType="VARCHAR" />
+		<result column="t_personal_main_paymentmethod" property="t_personal_main_paymentmethod" jdbcType="VARCHAR" />
+		<result column="t_personal_main_paymentmethod1" property="t_personal_main_paymentmethod1" jdbcType="VARCHAR" />
+		<result column="t_personal_main_GLbankcard" property="t_personal_main_GLbankcard" jdbcType="VARCHAR" />
+		<result column="t_personal_main_bankacc" property="t_personal_main_bankacc" jdbcType="VARCHAR" />
+		<result column="t_personal_main_voucher" property="t_personal_main_voucher" jdbcType="VARCHAR" />
+		<result column="t_personal_main_bkptxt" property="t_personal_main_bkptxt" jdbcType="VARCHAR" />
+		<result column="t_personal_main_bkptxt1" property="t_personal_main_bkptxt1" jdbcType="VARCHAR" />
+        <result column="t_personal_main_digiasset" property="t_personal_main_digiasset" jdbcType="VARCHAR" />
+		<result column="t_personal_main_digi1" property="t_personal_main_digi1" jdbcType="VARCHAR" />
+		<result column="t_personal_main_digi2" property="t_personal_main_digi2" jdbcType="VARCHAR" />
+		<result column="t_personal_main_digi3" property="t_personal_main_digi3" jdbcType="VARCHAR" />
+        <result column="platform" property="platform" jdbcType="VARCHAR" />
+        <result column="status" property="status" jdbcType="VARCHAR" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="creator" property="creator" jdbcType="VARCHAR" />
+		<result column="create_time" property="create_time" jdbcType="TIMESTAMP" />
+		<result column="modifier" property="modifier" jdbcType="VARCHAR" />
+		<result column="modify_time" property="modify_time" jdbcType="TIMESTAMP" />	
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+        a.t_personal_main_id,
+        a.t_personal_main_name,
+        a.t_personal_main_pid,
+        a.t_personal_main_mobile,
+        a.t_personal_main_mobile1,
+        a.t_personal_main_contacts,
+        a.t_personal_main_realname,
+        a.t_personal_main_fingerprint,
+        a.t_personal_main_facialret,
+        a.t_personal_main_securityret,
+        a.t_personal_main_passport,
+        a.t_personal_main_visa,
+        a.t_personal_main_visa1,
+        a.t_personal_main_onlinepaymentcat,
+        a.t_personal_main_onlinepayment,
+        a.t_personal_main_paymentmethod,
+        a.t_personal_main_paymentmethod1,
+        a.t_personal_main_CNbankcard,
+        a.t_personal_main_GLbankcard,
+        a.t_personal_main_bankacc,
+        a.t_personal_main_crypto,
+        a.t_personal_main_assetcat,
+        a.t_personal_main_voucher,
+        a.t_personal_main_bkptxt,
+        a.t_personal_main_bkptxt1,
+        a.t_personal_main_digiasset,
+        a.t_personal_main_digi1,
+        a.t_personal_main_digi2,
+        a.t_personal_main_digi3,
+		a.platform,
+        a.status,
+        a.email,
+		a.remark,
+		a.creator,
+		a.create_time,
+		a.modifier,
+		a.modify_time
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_personal_main a
+		where a.t_personal_main_id = #{t_personal_main_id,jdbcType=VARCHAR}
+		order by a.create_time
+	</select>
+	
+	<select id="findSearchList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_personal_main a
+		where 
+		<if test="t_personal_main_name != null">
+		a.t_personal_main_name like CONCAT('%',#{t_personal_main_name},'%')
+		</if>	
+		<if test="t_personal_main_pid != null" >
+		and a.t_personal_main_pid like CONCAT('%',#{t_personal_main_pid},'%')
+		</if>
+		<if test="t_personal_main_mobile != null">
+		and a.t_personal_main_mobile like CONCAT('%',#{t_personal_main_mobile},'%')
+		</if>
+		<if test="t_personal_main_passport != null">
+		and a.t_personal_main_passport like CONCAT('%',#{t_personal_main_passport},'%')
+		</if>
+		<if test="t_personal_main_securityret != null" >
+		and a.t_personal_main_securityret like CONCAT('%',#{t_personal_main_securityret},'%')
+		</if>
+		<if test="remark != null" >
+		and a.remark like CONCAT('%',#{remark},'%')
+		</if>
+        order by a.create_time
+	</select>
+    
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from t_personal_main
+		where t_personal_main_id = #{t_personal_main_id,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="insertSelective" parameterType="com.qucai.sample.entity.PersonalMain">
+		insert into t_personal_main
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="t_personal_main_id != null">
+                t_personal_main_id,
+			</if>
+			<if test="t_personal_main_name != null">
+                t_personal_main_name,
+			</if>
+			<if test="t_personal_main_pid != null">
+                t_personal_main_pid,
+			</if>
+			<if test="t_personal_main_mobile != null">
+                t_personal_main_mobile,
+			</if>
+			<if test="t_personal_main_mobile1 != null">
+                t_personal_main_mobile1,
+			</if>
+			<if test="t_personal_main_contacts != null">
+                t_personal_main_contacts,
+			</if>
+			<if test="t_personal_main_realname != null">
+                t_personal_main_realname,
+			</if>
+			<if test="t_personal_main_fingerprint != null">
+                t_personal_main_fingerprint,
+			</if>
+			<if test="t_personal_main_facialret != null">
+                t_personal_main_facialret,
+			</if>
+			<if test="t_personal_main_securityret != null">
+                t_personal_main_securityret,
+			</if>
+			<if test="t_personal_main_passport != null">
+                t_personal_main_passport,
+			</if>
+			<if test="t_personal_main_visa != null">
+                t_personal_main_visa,
+			</if>
+			<if test="t_personal_main_visa1 != null">
+                t_personal_main_visa1,
+			</if>
+			<if test="t_personal_main_onlinepaymentcat != null">
+                t_personal_main_onlinepaymentcat,
+			</if>
+			<if test="t_personal_main_onlinepayment != null">
+                t_personal_main_onlinepayment,
+			</if>
+			<if test="t_personal_main_paymentmethod != null">
+                t_personal_main_paymentmethod,
+			</if>
+			<if test="t_personal_main_paymentmethod1 != null">
+                t_personal_main_paymentmethod1,
+			</if>
+			<if test="t_personal_main_CNbankcard != null">
+                t_personal_main_CNbankcard,
+			</if>
+			<if test="t_personal_main_GLbankcard != null">
+                t_personal_main_GLbankcard,
+			</if>
+			<if test="t_personal_main_bankacc != null">
+                t_personal_main_bankacc,
+			</if>
+			<if test="t_personal_main_crypto != null">
+                t_personal_main_crypto,
+			</if>
+			<if test="t_personal_main_assetcat != null">
+                t_personal_main_assetcat,
+			</if>
+			<if test="t_personal_main_voucher != null">
+                t_personal_main_voucher,
+			</if>
+			<if test="t_personal_main_bkptxt != null">
+                t_personal_main_bkptxt,
+			</if>
+			<if test="t_personal_main_bkptxt1 != null">
+                t_personal_main_bkptxt1,
+			</if>
+			<if test="t_personal_main_digiasset != null">
+                t_personal_main_digiasset,
+			</if>
+			<if test="t_personal_main_digi1 != null">
+                t_personal_main_digi1,
+			</if>
+			<if test="t_personal_main_digi2 != null">
+                t_personal_main_digi2,
+			</if>
+			<if test="t_personal_main_digi3 != null">
+                t_personal_main_digi3,
+			</if>
+			<if test="platform != null">
+				platform,
+			</if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="creator != null">
+				creator,
+			</if>
+			<if test="create_time != null">
+				create_time,
+			</if>
+			<if test="modifier != null">
+				modifier,
+			</if>
+			<if test="modify_time != null">
+				modify_time
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="t_personal_main_id != null">
+				#{t_personal_main_id,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_name != null">
+				#{t_personal_main_name,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_pid != null">
+				#{t_personal_main_pid,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_mobile != null">
+				#{t_personal_main_mobile,jdbcType=INTEGER},
+			</if>
+			<if test="t_personal_main_mobile1 != null">
+				#{t_personal_main_mobile1,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_contacts != null">
+				#{t_personal_main_contacts,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_realname != null">
+				#{t_personal_main_realname,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_fingerprint != null">
+				#{t_personal_main_fingerprint,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_facialret != null">
+				#{t_personal_main_facialret,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_securityret != null">
+				#{t_personal_main_securityret,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_passport != null">
+				#{t_personal_main_passport,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_visa != null">
+				#{t_personal_main_visa,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_visa1 != null">
+				#{t_personal_main_visa1,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_onlinepaymentcat != null">
+				#{t_personal_main_onlinepaymentcat,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_onlinepayment != null">
+				#{t_personal_main_onlinepayment,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_paymentmethod != null">
+				#{t_personal_main_paymentmethod,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_paymentmethod1 != null">
+				#{t_personal_main_paymentmethod1,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_CNbankcard != null">
+				#{t_personal_main_CNbankcard,jdbcType=DECIMAL},
+			</if>
+			<if test="t_personal_main_GLbankcard != null">
+				#{t_personal_main_GLbankcard,jdbcType=DECIMAL},
+			</if>
+			<if test="t_personal_main_bankacc != null">
+				#{t_personal_main_bankacc,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_crypto != null">
+				#{t_personal_main_crypto,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_assetcat != null">
+				#{t_personal_main_assetcat,jdbcType=INTEGER},
+			</if>
+			<if test="t_personal_main_voucher != null">
+				#{t_personal_main_voucher,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_bkptxt != null">
+				#{t_personal_main_bkptxt,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_bkptxt1 != null">
+				#{t_personal_main_bkptxt1,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_digiasset != null">
+				#{t_personal_main_digiasset,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_digi1 != null">
+				#{t_personal_main_digi1,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_digi2 != null">
+				#{t_personal_main_digi2,jdbcType=DECIMAL},
+			</if>
+			<if test="t_personal_main_digi3 != null">
+				#{t_personal_main_digi3,jdbcType=DECIMAL},
+			</if>
+			<if test="platform != null">
+				#{platform,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+			<if test="creator != null">
+				#{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="create_time != null">
+				#{create_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifier != null">
+				#{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="modify_time != null">
+				#{modify_time,jdbcType=TIMESTAMP}
+			</if>
+		</trim>
+	</insert>
+	
+	<select id="findAllList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_personal_main a
+		where 1=1
+		<if test="typeEnd != null">
+			<![CDATA[ and type <= #{typeEnd} ]]>
+		</if>
+		<if test="status != null">
+		   and a.status = #{status,jdbcType=VARCHAR}
+		</if>
+		order by a.create_time
+	</select>
+
+<!-- 
+	<select id="findEntResourceGrantAllList" resultMap="ResourceGrantMap"
+		parameterType="java.lang.String">
+		SELECT
+			<include refid="Base_Column_List" />, 
+			(
+				SELECT
+					count(1)
+				FROM
+					tr_role_resource
+				WHERE
+					resource_id = a.id
+				AND role_id = #{roleId}
+			) AS selected
+		FROM
+			t_resource a
+		WHERE a.platform = 1
+		order by IFNULL(a.parent_id, ''), a.idx
+	</select>
+ -->			
+	<update id="updateByPrimaryKeySelective" parameterType="com.qucai.sample.entity.PersonalMain">
+		update t_personal_main
+		<set>
+			<if test="t_personal_main_id != null">
+                t_personal_main_id = #{t_personal_main_id,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_name != null">
+                t_personal_main_name = #{t_personal_main_name,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_pid != null">
+                t_personal_main_pid = #{t_personal_main_pid,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_mobile != null">
+                t_personal_main_mobile = #{t_personal_main_mobile,jdbcType=INTEGER},
+			</if>
+			<if test="t_personal_main_mobile1 != null">
+                t_personal_main_mobile1 = #{t_personal_main_mobile1,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_contacts != null">
+                t_personal_main_contacts = #{t_personal_main_contacts,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_realname != null">
+                t_personal_main_realname = #{t_personal_main_realname,jdbcType=VARCHAR},
+			</if>
+			<if test="t_t_personal_main_fingerprintP_Mobil != null">
+                t_personal_main_fingerprint = #{t_personal_main_fingerprint,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_facialret != null">
+                t_personal_main_facialret = #{t_personal_main_facialret,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_securityret != null">
+                t_personal_main_securityret = #{t_personal_main_securityret,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_passport != null">
+                t_personal_main_passport = #{t_personal_main_passport,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_visa != null">
+                t_personal_main_visa = #{t_personal_main_visa,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_visa1 != null">
+                t_personal_main_visa1 = #{t_personal_main_visa1,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_onlinepaymentcat != null">
+                t_personal_main_onlinepaymentcat = #{t_personal_main_onlinepaymentcat,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_onlinepayment != null">
+                t_personal_main_onlinepayment = #{t_personal_main_onlinepayment,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_paymentmethod != null">
+                t_personal_main_paymentmethod = #{t_personal_main_paymentmethod,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_paymentmethod1 != null">
+                t_personal_main_paymentmethod1 = #{t_personal_main_paymentmethod1,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_CNbankcard != null">
+                t_personal_main_CNbankcard = #{t_personal_main_CNbankcard,jdbcType=DECIMAL},
+			</if>
+			<if test="t_personal_main_GLbankcard != null">
+                t_personal_main_GLbankcard = #{t_personal_main_GLbankcard,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_bankacc != null">
+                t_personal_main_bankacc = #{t_personal_main_bankacc,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_crypto != null">
+                t_personal_main_crypto = #{t_personal_main_crypto,jdbcType=INTEGER},
+			</if>
+			<if test="t_personal_main_assetcat != null">
+                t_personal_main_assetcat = #{t_personal_main_assetcat,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_voucher != null">
+                t_personal_main_voucher = #{t_personal_main_voucher,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_bkptxt != null">
+                t_personal_main_bkptxt = #{t_personal_main_bkptxt,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_bkptxt1 != null">
+                t_personal_main_bkptxt1 = #{t_personal_main_bkptxt1,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_digiasset != null">
+                t_personal_main_digiasset = #{t_personal_main_digiasset,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personal_main_digi1 != null">
+                t_personal_main_digi1 = #{t_personal_main_digi1,jdbcType=DECIMAL},
+			</if>
+			<if test="t_personal_main_digi2 != null">
+                t_personal_main_digi2 = #{t_personal_main_digi2,jdbcType=DECIMAL},
+			</if>
+			<if test="t_personal_main_digi3 != null">
+                t_personal_main_digi3 = #{t_personal_main_digi3,jdbcType=INTEGER},
+			</if>
+			<if test="platform != null">
+				platform = #{platform,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+			<if test="creator != null">
+				creator = #{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="create_time != null">
+				create_time = #{create_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifier != null">
+				modifier = #{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="modify_time != null">
+				modify_time = #{modify_time,jdbcType=TIMESTAMP}
+			</if>
+		</set>
+		where t_personal_main_id = #{t_personal_main_id,jdbcType=VARCHAR}
+	</update>
+
+   <select id="existPeronsalMainName" resultType="Integer"
+		parameterType="map">
+		select
+		count(1)
+		from t_personal_main a
+		where a.t_personal_main_pid = #{t_personal_main_pid}
+		<if test="t_personal_main_pid != null">
+			and a.t_personal_main_pid != #{t_personal_main_pid}
+		</if>
+	</select>
+	
+   <select id="checkPersonalMainMobil" resultType="Integer"
+		parameterType="map">
+		select
+		count(1)
+		from t_personal_main a
+		where a.t_personal_main_mobile = #{t_personal_main_mobile}
+		<if test="t_personal_main_pid != null">
+			and a.t_personal_main_pid != #{t_personal_main_pid}
+		</if>
+	</select>
+	
+</mapper>
+ 

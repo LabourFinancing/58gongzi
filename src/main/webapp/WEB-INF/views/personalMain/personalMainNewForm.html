@@ -57,13 +57,13 @@ jQuery.validator.addMethod("isTel", function(value,element) {
 					maxlength : 18,
 					required : true,
 					IDCard : true,
-					remote : "${ctx}/jqueryValidateController/checkPersonalInfoName?platform=${platform}" + "&t_P_id=" + $("#t_P_id").val()
+					remote : "${ctx}/jqueryValidateController/checkPersonalMainName?platform=${platform}" + "&t_P_id=" + $("#t_P_id").val()
 				},
 				t_P_Mobil : {
 					required : true,
 					digits : true,
 					isMobile : true,
-					remote : "${ctx}/jqueryValidateController/checkPersonalInfoModil?platform=${platform}" + "&t_P_id=" + $("#t_P_id").val()
+					remote : "${ctx}/jqueryValidateController/checkPersonalMainModil?platform=${platform}" + "&t_P_id=" + $("#t_P_id").val()
 				},
 				type : {
 					required : true
@@ -111,14 +111,14 @@ jQuery.validator.addMethod("isTel", function(value,element) {
 			
 			
 			messages: {
-				
-				t_P_Mobil:{ 
+
+                t_personal_main_mobile:{ 
 				remote : "手机号码已存在",
             	required: "请输入您的联系电话", 
                 isModile: "请输入一个有效的手机号码" 
-                }, 
-                
-                t_P_PID:{
+                },
+
+                t_personal_main_pid:{
     				remote : "身份证已存在",
                 	required :"请输入身份证号",
                 	isIdCardNo:"请输入正确的身份证号"
@@ -149,7 +149,7 @@ jQuery.validator.addMethod("isTel", function(value,element) {
 			submitHandler : function(form) {
 				var formData = new FormData($('#inputForm')[0]); 
 				$.ajax({
-					url: "${ctx}/PersonalInfoController/addPersonalInfo",
+					url: "${ctx}/PersonalMainController/addPersonalMain",
 					type: 'POST',  
 					data: formData,  
 					async: true,  
@@ -452,7 +452,7 @@ jQuery.validator.addMethod("isTel", function(value,element) {
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> 								
-								<select class="bs-select form-control" name="t_P_EmploymentCategory" value="${personalInfo.t_P_EmploymentCategory}">
+								<select class="bs-select form-control" name="t_P_EmploymentCategory" value="${personalMain.t_P_EmploymentCategory}">
 									<option value="DIRECTHIRE">直聘</option>
 									<option value="VENDOR">外包</option>
 									<option value="PARTTIME">日结工</option>

@@ -28,7 +28,7 @@
 //   public int deleteByPrimaryKey(String t_P_id) {
 //       return personalInfoDao.deleteByPrimaryKey(t_P_id);
 //   }
-//       
+//
 //    @Override
 //    public int insertSelective(PersonalInfo record) {
 //        return personalInfoDao.insertSelective(record);
@@ -42,7 +42,7 @@
 //    public int updateByPrimaryKeySelective(PersonalInfo record) {
 //        return personalInfoDao.updateByPrimaryKeySelective(record);
 //    }
-//    
+//
 //    @Override
 //    public int updateCompanyStaffsCreditOn(String t_TreasuryDB_OrgName_get) {
 //        return personalInfoDao.updateCompanyStaffsCreditOn(t_TreasuryDB_OrgName_get);
@@ -51,12 +51,12 @@
 //    public int updateCompanyStaffsCreditOff(String t_TreasuryDB_OrgName_get) {
 //        return personalInfoDao.updateCompanyStaffsCreditOff(t_TreasuryDB_OrgName_get);
 //    }
-//    
+//
 //    @Override
 //    public List<PersonalInfo> findSubCompany(Map<String, Object> paramMap) {
 //        return personalInfoDao.findSubCompany(paramMap);
 //    }
-//    
+//
 //    @Override
 //    public List<PersonalInfo> findAgencyCompany(Map<String, Object> paramMap) {
 //        return personalInfoDao.findAgencyCompany(paramMap);
@@ -66,24 +66,24 @@
 //    public List<PersonalInfo> findAllList(Map<String, Object> paramMap) {
 //        return personalInfoDao.findAllList(paramMap);
 //    }
-//    
+//
 //    @Override
 //    public List<PersonalInfo> findSearchList(Map<String, Object> paramSearchMap) {
 //        return personalInfoDao.findSearchList(paramSearchMap);
 //    }
-//    
+//
 //    @Override
 //    public List<PersonalInfo> findSearchCompanyDist(Map<String, Object> paramSearchMap) {
 //        return personalInfoDao.findSearchCompanyDist(paramSearchMap);
 //    }
-//    
+//
 //    @Override
 //    public PageInfo<PersonalInfo> findAllList(Map<String, Object> paramMap, PageParam pp) {
 //        PageHelper.startPage(pp.getPageNum(), pp.getPageSize(), true, true);
 //        List<PersonalInfo> list = personalInfoDao.findAllList(paramMap);
 //        return new PageInfo<PersonalInfo>(list);
 //    }
-//    
+//
 //    @Override
 //    public PageInfo<PersonalInfo> findSearchList(PageParam pp, Map<String, Object>paramSearchMap) {
 //        PageHelper.startPage(pp.getPageNum(), pp.getPageSize(), true, true);
@@ -100,7 +100,7 @@
 //        	return assembleTreeList(initGroupMap(rList), "");
 //        }
 //    }
-//    
+//
 //    @Override
 //    public List<FinanceProductGrant> findGrantTreetableList(String roleId, Integer platform) {
 //        List<FinanceProductGrant> rList = financeProductDao.findManagerFinanceProductGrantAllList(roleId, platform);
@@ -110,7 +110,7 @@
 //        	return assembleTreeList2(initGroupMap(rList), "");
 //        }
 //    }
-//    
+//
 //    @Override
 //    public List<Resource> findAuthResourceListByManagerId(String managerId) {
 //        List<Resource> rList = resourceDao.findAuthResourceListByManagerId(managerId);
@@ -120,7 +120,7 @@
 //        	return assembleTreeList(initGroupMap(rList), "");
 //        }
 //    }
-//    
+//
 //    private <T extends Resource> Map<String, List<T>> initGroupMap(List<T> rList){
 //        Map<String, List<T>> map = new HashMap<String, List<T>>();
 //        for (T r : rList) {
@@ -156,7 +156,7 @@
 //        }
 //        return rs;
 //    }
-//    
+//
 //    private List<ResourceGrant> assembleTreeList2(Map<String, List<ResourceGrant>> map, String key){
 //        List<ResourceGrant> rs = new ArrayList<ResourceGrant>();
 //        for(ResourceGrant r : map.get(key)){
@@ -174,10 +174,10 @@
 //     public boolean existPersonalInfoName(String t_P_id,String t_P_PID) {
 //     return personalInfoDao.existPersonalInfoName(t_P_id,t_P_PID) == 1;
 //    }
-//    
+//
 //    @Override
 //    public boolean checkPersonalInfoMobil(String t_P_id,String t_P_Mobil) {
 //    return personalInfoDao.checkPersonalInfoMobil(t_P_id,t_P_Mobil) == 1;
 //   }
-//    
+//
 //}
