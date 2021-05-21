@@ -1,71 +1,66 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.qucai.sample.dao.EwalletDao">
+<mapper namespace="com.qucai.sample.dao.EwalletTxnDao">
 
-	<resultMap id="BaseResultMap" type="com.qucai.sample.entity.EwalletDao">
-		<result column="t_personalewallet_ID" property="t_personalewallet_ID" jdbcType="VARCHAR" />
-		<result column="t_personalewallet_ApplierID" property="t_personalewallet_ApplierID" jdbcType="VARCHAR" />
-		<result column="t_personalewallet_ApplierPID" property="t_personalewallet_ApplierPID" jdbcType="VARCHAR" />
-		<result column="t_personalewallet_ApplierName" property="t_personalewallet_ApplierName" jdbcType="VARCHAR" />
-		<result column="t_personalewallet_Passport" property="t_personalewallet_Passport" jdbcType="VARCHAR" />
-		<result column="t_personalewallet_ScanCode" property="t_personalewallet_ScanCode" jdbcType="VARCHAR" />
-		<result column="t_personalewallet_QRcode" property="t_personalewallet_QRcode" jdbcType="VARCHAR" />
-		<result column="t_personalewallet_alipayAcc" property="t_personalewallet_alipayAcc" jdbcType="VARCHAR" />
-		<result column="t_personalewallet_wechatpayAcc" property="t_personalewallet_wechatpayAcc" jdbcType="VARCHAR" />
-		<result column="t_personalewallet_unionpayAcc" property="t_personalewallet_unionpayAcc" jdbcType="VARCHAR" />
-		<result column="t_personalewallet_CryptoC" property="t_personalewallet_CryptoC" jdbcType="VARCHAR" />
-		<result column="t_personalewallet_Voucher" property="t_personalewallet_Voucher" jdbcType="VARCHAR" />
-		<result column="t_personalewallet_VoucherDigi" property="t_personalewallet_VoucherDigi" jdbcType="VARCHAR" />
-		<result column="t_personalewallet_Creditcard" property="t_personalewallet_Creditcard" jdbcType="VARCHAR" />
-		<result column="t_personalewallet_Debitcard" property="t_personalewallet_Debitcard" jdbcType="VARCHAR" />
-		<result column="t_personalewallet_ClearNum" property="t_personalewallet_ClearNum" jdbcType="INTEGER" />
-		<result column="t_personalewallet_ClearOrg" property="t_personalewallet_ClearOrg" jdbcType="VARCHAR" />
-		<result column="t_personalewallet_PayCat" property="t_personalewallet_PayCat" jdbcType="VARCHAR" />
-		<result column="t_personalewallet_PayDate" property="t_personalewallet_PayDate" jdbcType="TIMESTAMP" />
-		<result column="t_personalewallet_ProdName" property="t_personalewallet_ProdName" jdbcType="VARCHAR" />
-		<result column="t_personalewallet_PayDays" property="t_personalewallet_PayDays" jdbcType="INTEGER" />
-		<result column="t_personalewallet_Reciept" property="t_personalewallet_Reciept" jdbcType="VARCHAR" />
-        <result column="t_personalewallet_TotCNYBalance" property="t_personalewallet_TotCNYBalance" jdbcType="DECIMAL" />
-		<result column="t_personalewallet_TotFXBalance" property="t_personalewallet_TotFXBalance" jdbcType="VARCHAR" />
-		<result column="t_personalewallet_TotCryptoBalance" property="t_personalewallet_TotCryptoBalance" jdbcType="VARCHAR" />
-		<result column="t_personalewallet_TotAssetES" property="t_personalewallet_TotAssetES" jdbcType="DECIMAL" />
-		<result column="t_personalewallet_DebitPayAmt" property="t_personalewallet_DebitPayAmt" jdbcType="DECIMAL" />
-		<result column="t_personalewallet_ApplyPayAmount" property="t_personalewallet_ApplyPayAmount" jdbcType="DECIMAL" />
-		<result column="t_personalewallet_CreditPrepayBalanceNum" property="t_personalewallet_CreditPrepayBalanceNum" jdbcType="DECIMAL" />
-		<result column="t_personalewallet_CreditPayAmt" property="t_personalewallet_CreditPayAmt" jdbcType="DECIMAL" />
-		<result column="t_personalewallet_CreditPayAmtInit" property="t_personalewallet_CreditPayAmtInit" jdbcType="DECIMAL" />
-		<result column="t_personalewallet_TotalPrepayAmt" property="t_personalewallet_TotalPrepayAmt" jdbcType="DECIMAL" />
-		<result column="t_personalewallet_TotalInterestDays" property="t_personalewallet_TotalInterestDays" jdbcType="INTEGER" />
-		<result column="t_personalewallet_PayCounts" property="t_personalewallet_PayCounts" jdbcType="INTEGER" />
-		<result column="t_personalewallet_Interest" property="t_personalewallet_Interest" jdbcType="DECIMAL" />
-        <result column="t_personalewallet_TopupLimit" property="t_personalewallet_TopupLimit" jdbcType="DECIMAL" />
-        <result column="t_personalewallet_Amt2" property="t_personalewallet_Amt2" jdbcType="DECIMAL" />
-        <result column="t_personalewallet_Amt3" property="t_personalewallet_Amt3" jdbcType="DECIMAL" />
-        <result column="t_personalewallet_BalanceCreditNum" property="t_personalewallet_BalanceCreditNum" jdbcType="DECIMAL" />
-        <result column="t_personalewallet_OverdueRepaymentDate" property="t_personalewallet_OverdueRepaymentDate" jdbcType="TIMESTAMP" />
-        <result column="t_personalewallet_PrepayClear" property="t_personalewallet_PrepayClear" jdbcType="VARCHAR" />
-        <result column="t_personalewallet_Overdue" property="t_personalewallet_Overdue" jdbcType="VARCHAR" />
-        <result column="t_personalewallet_OverdueTotalAmount" property="t_personalewallet_OverdueTotalAmount" jdbcType="DECIMAL" />
-        <result column="t_personalewallet_FinancialInterest" property="t_personalewallet_FinancialInterest" jdbcType="DECIMAL" />
-        <result column="t_personalewallet_ServiceFee" property="t_personalewallet_ServiceFee" jdbcType="DECIMAL" />
-        <result column="t_personalewallet_Poundage" property="t_personalewallet_Poundage" jdbcType="DECIMAL" />
-        <result column="t_personalewallet_TierPoundage" property="t_personalewallet_TierPoundage" jdbcType="DECIMAL" />
-        <result column="t_personalewallet_InterestMargin" property="t_personalewallet_InterestMargin" jdbcType="DECIMAL" />
-        <result column="t_personalewallet_BankAccName" property="t_personalewallet_BankAccName" jdbcType="VARCHAR" />
-        <result column="t_personalewallet_BankAcc" property="t_personalewallet_BankAcc" jdbcType="VARCHAR" />
-        <result column="t_personalewallet_SysUpdateDate" property="t_personalewallet_SysUpdateDate" jdbcType="TIMESTAMP" />
-        <result column="t_personalewallet_OverdueDays" property="t_personalewallet_OverdueDays" jdbcType="INTEGER" />
-        <result column="t_personalewallet_Paystatus" property="t_personalewallet_Paystatus" jdbcType="VARCHAR" />
-        <result column="t_personalewallet_SMS" property="t_personalewallet_SMS" jdbcType="VARCHAR" />
-        <result column="t_personalewallet_SMSRec" property="t_personalewallet_SMSRec" jdbcType="VARCHAR" />
-        <result column="t_personalewallet_bkp" property="t_personalewallet_bkp" jdbcType="DECIMAL" />
-        <result column="t_personalewallet_bkp1" property="t_personalewallet_bkp1" jdbcType="DECIMAL" />
-        <result column="t_personalewallet_Txt" property="t_personalewallet_Txt" jdbcType="VARCHAR" />
-        <result column="t_personalewallet_Txt1" property="t_personalewallet_Txt1" jdbcType="VARCHAR" />
-        <result column="t_personalewallet_Txt2" property="t_personalewallet_Txt2" jdbcType="VARCHAR" />
-        <result column="t_personalewallet_Txt3" property="t_personalewallet_Txt3" jdbcType="VARCHAR" />
-        <result column="t_personalewallet_Txt4" property="t_personalewallet_Txt4" jdbcType="VARCHAR" />
-        <result column="t_personalewallet_Txt5" property="t_personalewallet_Txt5" jdbcType="VARCHAR" />
+	<resultMap id="BaseResultMap" type="com.qucai.sample.entity.EwalletTxn">
+		<result column="t_WalletTxn_ID" property="t_WalletTxn_ID" jdbcType="VARCHAR" />
+		<result column="t_WalletTxn_QRcode" property="t_WalletTxn_QRcode" jdbcType="VARCHAR" />
+		<result column="t_WalletTxn_Num" property="t_WalletTxn_Num" jdbcType="VARCHAR" />
+		<result column="t_WalletTxn_Vendor" property="t_WalletTxn_Vendor" jdbcType="VARCHAR" />
+		<result column="t_WalletTxn_ClearNum" property="t_WalletTxn_ClearNum" jdbcType="VARCHAR" />
+		<result column="t_WalletTxn_ClearOrg" property="t_WalletTxn_ClearOrg" jdbcType="VARCHAR" />
+		<result column="t_WalletTxn_PayerName" property="t_WalletTxn_PayerName" jdbcType="VARCHAR" />
+		<result column="t_WalletTxn_PayerID" property="t_WalletTxn_PayerID" jdbcType="VARCHAR" />
+		<result column="t_WalletTxn_PayerPID" property="t_WalletTxn_PayerPID" jdbcType="VARCHAR" />
+		<result column="t_WalletTxn_ReceiverName" property="t_WalletTxn_ReceiverName" jdbcType="VARCHAR" />
+		<result column="t_WalletTxn_ReceiverID" property="t_WalletTxn_ReceiverID" jdbcType="VARCHAR" />
+		<result column="t_WalletTxn_ReceiverPID" property="t_WalletTxn_ReceiverPID" jdbcType="VARCHAR" />
+		<result column="t_WalletTxn_Mobile" property="t_WalletTxn_Mobile" jdbcType="VARCHAR" />
+		<result column="t_WalletTxn_TxnCat" property="t_WalletTxn_TxnCat" jdbcType="VARCHAR" />
+		<result column="t_WalletTxn_TxnCurrencyType" property="t_WalletTxn_TxnCurrencyType" jdbcType="VARCHAR" />
+		<result column="t_WalletTxn_TxnDate" property="t_WalletTxn_TxnDate" jdbcType="TIMESTAMP" />
+		<result column="t_WalletTxn_ProdName" property="t_WalletTxn_ProdName" jdbcType="VARCHAR" />
+		<result column="t_WalletTxn_PayDays" property="t_WalletTxn_PayDays" jdbcType="INTEGER" />
+		<result column="t_WalletTxn_CreditPayCurrentNum" property="t_WalletTxn_CreditPayCurrentNum" jdbcType="DECIMAL" />
+		<result column="t_WalletTxn_TotTxnAmount" property="t_WalletTxn_TotTxnAmount" jdbcType="DECIMAL" />
+		<result column="t_WalletTxn_TopupAmt" property="t_WalletTxn_TopupAmt" jdbcType="DECIMAL" />
+		<result column="t_WalletTxn_CryptoTxnAmt" property="t_WalletTxn_CryptoTxnAmt" jdbcType="DECIMAL" />
+		<result column="t_WalletTxn_DebitTxnAmt" property="t_WalletTxn_DebitTxnAmt" jdbcType="DECIMAL" />
+		<result column="t_WalletTxn_CreditTxnAmt" property="t_WalletTxn_CreditTxnAmt" jdbcType="DECIMAL" />
+		<result column="t_WalletTxn_CreditBalanceNum" property="t_WalletTxn_CreditBalanceNum" jdbcType="DECIMAL" />
+		<result column="t_WalletTxn_CreditTxnAmtInit" property="t_WalletTxn_CreditTxnAmtInit" jdbcType="DECIMAL" />
+		<result column="t_WalletTxn_TotalPrepayAmt" property="t_WalletTxn_TotalPrepayAmt" jdbcType="DECIMAL" />
+		<result column="t_WalletTxn_TotallvorchourAmt" property="t_WalletTxn_TotallvorchourAmt" jdbcType="DECIMAL" />
+		<result column="t_WalletTxn_TotalInterestDays" property="t_WalletTxn_TotalInterestDays" jdbcType="INTEGER" />
+		<result column="t_WalletTxn_TxnCounts" property="t_WalletTxn_TxnCounts" jdbcType="INTEGER" />
+		<result column="t_WalletTxn_Interest" property="t_WalletTxn_Interest" jdbcType="DECIMAL" />
+		<result column="t_WalletTxn_ProductName" property="t_WalletTxn_ProductName" jdbcType="INTEGER" />
+		<result column="t_WalletTxn_ProductID" property="t_WalletTxn_ProductID" jdbcType="INTEGER" />
+		<result column="t_WalletTxn_Amt3" property="t_WalletTxn_Amt3" jdbcType="TIMESTAMP" />
+        <result column="t_WalletTxn_BalanceCreditNum" property="t_WalletTxn_BalanceCreditNum" jdbcType="DECIMAL" />
+        <result column="t_WalletTxn_OverdueRepaymentDate" property="t_WalletTxn_OverdueRepaymentDate" jdbcType="VARCHAR" />
+        <result column="t_WalletTxn_PayClear" property="t_WalletTxn_PayClear" jdbcType="VARCHAR" />
+        <result column="t_WalletTxn_Overdue" property="t_WalletTxn_Overdue" jdbcType="INTEGER" />
+        <result column="t_WalletTxn_OverdueDays" property="t_WalletTxn_OverdueDays" jdbcType="VARCHAR" />
+        <result column="t_WalletTxn_OverdueTotalAmount" property="t_WalletTxn_OverdueTotalAmount" jdbcType="VARCHAR" />
+        <result column="t_WalletTxn_FinancialInterest" property="t_WalletTxn_FinancialInterest" jdbcType="VARCHAR" />
+        <result column="t_WalletTxn_ServiceFee" property="t_WalletTxn_ServiceFee" jdbcType="VARCHAR" />
+        <result column="t_WalletTxn_Poundage" property="t_WalletTxn_Poundage" jdbcType="VARCHAR" />
+        <result column="t_WalletTxn_TierPoundage" property="t_WalletTxn_TierPoundage" jdbcType="DECIMAL" />
+        <result column="t_WalletTxn_discountamt" property="t_WalletTxn_discountamt" jdbcType="DECIMAL" />
+        <result column="t_WalletTxn_bkp1" property="t_WalletTxn_bkp1" jdbcType="INTEGER" />
+        <result column="t_WalletTxn_InterestMargin" property="t_WalletTxn_InterestMargin" jdbcType="DECIMAL" />
+        <result column="t_WalletTxn_BankAccName" property="t_WalletTxn_BankAccName" jdbcType="INTEGER" />
+        <result column="t_WalletTxn_BankAcc" property="t_WalletTxn_BankAcc" jdbcType="INTEGER" />
+        <result column="t_WalletTxn_SysUpdateDate" property="t_WalletTxn_SysUpdateDate" jdbcType="TIMESTAMP" />
+        <result column="t_WalletTxn_Paystatus" property="t_WalletTxn_Paystatus" jdbcType="DECIMAL" />
+        <result column="t_WalletTxn_SMSRec" property="t_WalletTxn_SMSRec" jdbcType="VARCHAR" />
+        <result column="t_WalletTxn_type" property="t_WalletTxn_type" jdbcType="VARCHAR" />
+        <result column="t_WalletTxn_Txt1" property="t_WalletTxn_Txt1" jdbcType="INTEGER" />
+        <result column="t_WalletTxn_Txt2" property="t_WalletTxn_Txt2" jdbcType="VARCHAR" />
+        <result column="t_WalletTxn_Txt3" property="t_WalletTxn_Txt3" jdbcType="VARCHAR" />
+        <result column="t_WalletTxn_Txt4" property="t_WalletTxn_Txt4" jdbcType="VARCHAR" />
+        <result column="t_WalletTxn_Txt5" property="t_WalletTxn_Txt5" jdbcType="VARCHAR" />
 		<result column="platform" property="platform" jdbcType="VARCHAR" />
 		<result column="remark" property="remark" jdbcType="VARCHAR" />
 		<result column="creator" property="creator" jdbcType="VARCHAR" />
@@ -75,69 +70,65 @@
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-        a.t_personalewallet_ID,
-        a.t_personalewallet_ApplierID,
-        a.t_personalewallet_ApplierPID,
-        a.t_personalewallet_ApplierName,
-        a.t_personalewallet_Passport,
-        a.t_personalewallet_ScanCode,
-        a.t_personalewallet_QRcode,
-        a.t_personalewallet_alipayAcc,
-        a.t_personalewallet_wechatpayAcc,
-        a.t_personalewallet_unionpayAcc,
-        a.t_personalewallet_CryptoC,
-        a.t_personalewallet_Voucher,
-        a.t_personalewallet_VoucherDigi,
-        a.t_personalewallet_Creditcard,
-        a.t_personalewallet_Debitcard,
-        a.t_personalewallet_ClearNum,
-        a.t_personalewallet_ClearOrg,
-        a.t_personalewallet_PayCat,
-        a.t_personalewallet_PayDate,
-        a.t_personalewallet_ProdName,
-        a.t_personalewallet_PayDays,
-        a.t_personalewallet_Reciept,
-        a.t_personalewallet_TotCNYBalance,
-        a.t_personalewallet_TotFXBalance,
-        a.t_personalewallet_TotCryptoBalance,
-        a.t_personalewallet_TotAssetES,
-        a.t_personalewallet_DebitPayAmt,
-        a.t_personalewallet_ApplyPayAmount,
-        a.t_personalewallet_CreditPrepayBalanceNum,
-        a.t_personalewallet_CreditPayAmt,
-        a.t_personalewallet_CreditPayAmtInit,
-        a.t_personalewallet_TotalPrepayAmt,
-        a.t_personalewallet_TotalInterestDays,
-        a.t_personalewallet_PayCounts,
-        a.t_personalewallet_Interest,
-        a.t_personalewallet_TopupLimit,
-        a.t_personalewallet_Amt2,
-        a.t_personalewallet_Amt3,
-        a.t_personalewallet_BalanceCreditNum,
-        a.t_personalewallet_OverdueRepaymentDate,
-        a.t_personalewallet_PrepayClear,
-        a.t_personalewallet_Overdue,
-        a.t_personalewallet_OverdueTotalAmount,
-        a.t_personalewallet_FinancialInterest,
-        a.t_personalewallet_ServiceFee,
-        a.t_personalewallet_Poundage,
-        a.t_personalewallet_TierPoundage,
-        a.t_personalewallet_InterestMargin,
-        a.t_personalewallet_BankAccName,
-        a.t_personalewallet_BankAcc,
-        a.t_personalewallet_SysUpdateDate,
-        a.t_personalewallet_OverdueDays,
-        a.t_personalewallet_Paystatus,
-        a.t_personalewallet_SMS,
-        a.t_personalewallet_SMSRec,
-        a.t_personalewallet_bkp,
-        a.t_personalewallet_bkp1,
-        a.t_personalewallet_Txt,
-        a.t_personalewallet_Txt1,
-        a.t_personalewallet_Txt2,
-        a.t_personalewallet_Txt3,
-        a.t_personalewallet_Txt4,
-        a.t_personalewallet_Txt5,
+        a.t_WalletTxn_ID,
+        a.t_WalletTxn_QRcode,
+        a.t_WalletTxn_Num,
+        a.t_WalletTxn_Vendor,
+        a.t_WalletTxn_ClearNum,
+        a.t_WalletTxn_ClearOrg,
+        a.t_WalletTxn_PayerName,
+        a.t_WalletTxn_PayerID,
+        a.t_WalletTxn_PayerPID,
+        a.t_WalletTxn_ReceiverName,
+        a.t_WalletTxn_ReceiverID,
+        a.t_WalletTxn_ReceiverPID,
+        a.t_WalletTxn_Mobile,
+        a.t_WalletTxn_TxnCat,
+        a.t_WalletTxn_TxnCurrencyType,
+        a.t_WalletTxn_TxnDate,
+        a.t_WalletTxn_ProdName,
+        a.t_WalletTxn_PayDays,
+        a.t_WalletTxn_CreditPayCurrentNum,
+        a.t_WalletTxn_TotTxnAmount,
+        a.t_WalletTxn_TopupAmt,
+        a.t_WalletTxn_CryptoTxnAmt,
+        a.t_WalletTxn_DebitTxnAmt,
+        a.t_WalletTxn_CreditTxnAmt,
+        a.t_WalletTxn_CreditBalanceNum,
+        a.t_WalletTxn_CreditTxnAmtInit,
+        a.t_WalletTxn_TotalPrepayAmt,
+        a.t_WalletTxn_TotallvorchourAmt,
+        a.t_WalletTxn_TotalInterestDays,
+        a.t_WalletTxn_TxnCounts,
+        a.t_WalletTxn_Interest,
+        a.t_WalletTxn_ProductName,
+        a.t_WalletTxn_ProductID,
+        a.t_WalletTxn_Amt3,
+        a.t_WalletTxn_BalanceCreditNum,
+        a.t_WalletTxn_OverdueRepaymentDate,
+        a.t_WalletTxn_PayClear,
+        a.t_WalletTxn_Overdue,
+        a.t_WalletTxn_OverdueDays,
+        a.t_WalletTxn_OverdueTotalAmount,
+        a.t_WalletTxn_FinancialInterest,
+        a.t_WalletTxn_ServiceFee,
+        a.t_WalletTxn_Poundage,
+        a.t_WalletTxn_TierPoundage,
+        a.t_WalletTxn_discountamt,
+        a.t_WalletTxn_bkp1,
+        a.t_WalletTxn_InterestMargin,
+        a.t_WalletTxn_BankAccName,
+        a.t_WalletTxn_BankAcc,
+        a.t_WalletTxn_SysUpdateDate,
+        a.t_WalletTxn_Paystatus,
+        a.t_WalletTxn_SMS,
+        a.t_WalletTxn_SMSRec,
+        a.t_WalletTxn_type,
+        a.t_WalletTxn_Txt1,
+        a.t_WalletTxn_Txt2,
+        a.t_WalletTxn_Txt3,
+        a.t_WalletTxn_Txt4,
+        a.t_WalletTxn_Txt5,
 		a.platform,
 		a.remark,
 		a.creator,
@@ -150,7 +141,7 @@
 		parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />
-		from t_personal_info a
+		from t_ewallettxn_info a
 		where a.t_P_id = #{t_P_id,jdbcType=VARCHAR}
 		order by a.create_time
 	</select>
@@ -159,7 +150,7 @@
 		parameterType="java.lang.String">
 		select
 		sum(t_P_CreditPrepayAmount)
-		from t_personal_info a
+		from t_ewallettxn_info a
 		where a.t_P_Company = #{t_P_Company,jdbcType=VARCHAR}
 	</select>
 	
@@ -167,7 +158,7 @@
 		parameterType="java.lang.String">
 		select 
 		<include refid="Base_Column_List" />
-		from t_personal_info a 
+		from t_ewallettxn_info a 
 		where
  		a.t_P_VendorEmployeeName = #{t_P_VendorCompany,jdbcType=VARCHAR}
 		group by a.t_P_Company
@@ -177,7 +168,7 @@
 		parameterType="java.lang.String">
 		select 
 		<include refid="Base_Column_List" />
-		from t_personal_info a 
+		from t_ewallettxn_info a 
 		where a.t_P_Company = #{t_P_Company,jdbcType=VARCHAR}
 		group by a.t_P_VendorEmployeeName
 	</select>
@@ -186,7 +177,7 @@
 		parameterType="java.util.Map">
 		select
 		<include refid="Base_Column_List" />
-		from t_personal_info a
+		from t_ewallettxn_info a
 		where 
 		<if test="t_P_Name != null">
 		a.t_P_Name like CONCAT('%',#{t_P_Name},'%')
@@ -213,7 +204,7 @@
 		parameterType="java.util.Map">
 		select
 		<include refid="Base_Column_List" />
-		from t_personal_info a
+		from t_ewallettxn_info a
 		where 
 		<if test="t_P_VendorEmployeeName != null" >
 		a.t_P_VendorEmployeeName like CONCAT('%',#{t_P_VendorEmployeeName},'%')
@@ -225,12 +216,12 @@
 	</select>
 	
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-		delete from t_personal_info
+		delete from t_ewallettxn_info
 		where t_P_id = #{t_P_id,jdbcType=VARCHAR}
 	</delete>
 	
-	<insert id="insertSelective" parameterType="com.qucai.sample.entity.Ewallet">
-		insert into t_personal_info
+	<insert id="insertSelective" parameterType="com.qucai.sample.entity.PersonalInfo">
+		insert into t_ewallettxn_info
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="t_P_id != null">
 				t_P_id,
@@ -481,7 +472,7 @@
 		parameterType="java.util.Map">
 		select
 		<include refid="Base_Column_List" />
-		from t_personal_info a
+		from t_ewallettxn_info a
 		where 1=1
 		<if test="typeEnd != null">
 			<![CDATA[ and type <= #{typeEnd} ]]>
@@ -515,8 +506,8 @@
 		order by IFNULL(a.parent_id, ''), a.idx
 	</select>
  -->			
-	<update id="updateByPrimaryKeySelective" parameterType="com.qucai.sample.entity.Ewallet">
-		update t_personal_info
+	<update id="updateByPrimaryKeySelective" parameterType="com.qucai.sample.entity.PersonalInfo">
+		update t_ewallettxn_info
 		<set>
 			<if test="t_P_id != null">
 				t_P_id = #{t_P_id,jdbcType=VARCHAR},
@@ -642,40 +633,40 @@
 		where t_P_id = #{t_P_id,jdbcType=VARCHAR}
 	</update>
 
-   <select id="existEwalletName" resultType="Integer"
+   <select id="existPersonalInfoName" resultType="Integer"
 		parameterType="map">
 		select
 		count(1)
-		from t_personal_info a
+		from t_ewallettxn_info a
 		where a.t_P_PID = #{t_P_PID}
 		<if test="t_P_id != null">
 			and a.t_P_id != #{t_P_id}
 		</if>
 	</select>
 	
-   <select id="checkEwalletMobil" resultType="Integer"
+   <select id="checkPersonalInfoMobil" resultType="Integer"
 		parameterType="map">
 		select
 		count(1)
-		from t_personal_info a
+		from t_ewallettxn_info a
 		where a.t_P_Mobil = #{t_P_Mobil}
 		<if test="t_P_id != null">
 			and a.t_P_id != #{t_P_id}
 		</if>
 	</select>
 	
-	<update id="updateCompanyStaffsCreditOn" parameterType="com.qucai.sample.entity.Ewallet">
-		update t_personal_info
+	<update id="updateCompanyStaffsCreditOn" parameterType="com.qucai.sample.entity.PersonalInfo">
+		update t_ewallettxn_info
 		<set>
 		t_P_Employmentstatus = "onjob"
 		</set>
-		where t_personal_info.t_P_Company = #{t_TreasuryDB_OrgName_get,jdbcType=VARCHAR} 
-		and t_personal_info.t_P_Mobil not in ( select mobile from t_manager where t_manager.`status` = 0 ) 
-		and t_personal_info.t_P_Employmentstatus = "PENDING"
+		where t_ewallettxn_info.t_P_Company = #{t_TreasuryDB_OrgName_get,jdbcType=VARCHAR} 
+		and t_ewallettxn_info.t_P_Mobil not in ( select mobile from t_manager where t_manager.`status` = 0 ) 
+		and t_ewallettxn_info.t_P_Employmentstatus = "PENDING"
 	</update>
 	
-	<update id="updateCompanyStaffsCreditOff" parameterType="com.qucai.sample.entity.Ewallet">
-		update t_personal_info
+	<update id="updateCompanyStaffsCreditOff" parameterType="com.qucai.sample.entity.PersonalInfo">
+		update t_ewallettxn_info
 		<set>
 		t_P_Employmentstatus = "PENDING"
 		</set>

@@ -3,9 +3,9 @@ package com.qucai.sample.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.qucai.sample.common.PageParam;
-import com.qucai.sample.dao.EwalletDao;
-import com.qucai.sample.entity.Ewallet;
-import com.qucai.sample.service.EwalletService;
+import com.qucai.sample.dao.VoucherDao;
+import com.qucai.sample.entity.Voucher;
+import com.qucai.sample.service.VoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,59 +13,58 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Map;
 
-@Service("EwalletService")
+@Service("VoucherService")
 @Transactional	
-public class EwalletServiceImpl implements EwalletService {
+public class VoucherServiceImpl implements VoucherService {
 
     @Autowired
-    private EwalletDao ewalletDao;
+    private VoucherDao voucherDao;
 
 /*
     @Autowired
     private TrRoleResourceDao trRoleResourceDao;
 */
    @Override
-   public int deleteByPrimaryKey(String t_personalewallet_ID) {
-       return ewalletDao.deleteByPrimaryKey(t_personalewallet_ID);
+   public int deleteByPrimaryKey(String t_Voucher_ID) {
+       return voucherDao.deleteByPrimaryKey(t_Voucher_ID);
    }
-
+       
     @Override
-    public int insertSelective(Ewallet record) {
-        return ewalletDao.insertSelective(record);
+    public int insertSelective(Voucher record) {
+        return voucherDao.insertSelective(record);
     }
 
-    public Ewallet selectByPrimaryKey(String t_personalewallet_ID) {
-        return ewalletDao.selectByPrimaryKey(t_personalewallet_ID);
+    public Voucher selectByPrimaryKey(String t_Voucher_ID) {
+        return voucherDao.selectByPrimaryKey(t_Voucher_ID);
     }
 
     @Override
-    public int updateByPrimaryKeySelective(Ewallet record) {
-        return ewalletDao.updateByPrimaryKeySelective(record);
+    public int updateByPrimaryKeySelective(Voucher record) {
+        return voucherDao.updateByPrimaryKeySelective(record);
+    }
+
+    @Override
+    public List<Voucher> findAllList(Map<String, Object> paramMap) {
+        return voucherDao.findAllList(paramMap);
     }
     
     @Override
-    public List<Ewallet> findAllList(Map<String, Object> paramMap) {
-        return ewalletDao.findAllList(paramMap);
+    public List<Voucher> findSearchList(Map<String, Object> paramSearchMap) {
+        return voucherDao.findSearchList(paramSearchMap);
     }
     
     @Override
-    public List<Ewallet> findSearchList(Map<String, Object> paramSearchMap) {
-        return ewalletDao.findSearchList(paramSearchMap);
-    }
-
-
-    @Override
-    public PageInfo<Ewallet> findAllList(Map<String, Object> paramMap, PageParam pp) {
+    public PageInfo<Voucher> findAllList(Map<String, Object> paramMap, PageParam pp) {
         PageHelper.startPage(pp.getPageNum(), pp.getPageSize(), true, true);
-        List<Ewallet> list = ewalletDao.findAllList(paramMap);
-        return new PageInfo<Ewallet>(list);
+        List<Voucher> list = voucherDao.findAllList(paramMap);
+        return new PageInfo<Voucher>(list);
     }
-
+    
     @Override
-    public PageInfo<Ewallet> findSearchList(PageParam pp, Map<String, Object>paramSearchMap) {
+    public PageInfo<Voucher> findSearchList(PageParam pp, Map<String, Object>paramSearchMap) {
         PageHelper.startPage(pp.getPageNum(), pp.getPageSize(), true, true);
-		List<Ewallet> list = ewalletDao.findSearchList(paramSearchMap);
-        return new PageInfo<Ewallet>(list);
+		List<Voucher> list = voucherDao.findSearchList(paramSearchMap);
+        return new PageInfo<Voucher>(list);
     }
 
     /*
@@ -77,7 +76,7 @@ public class EwalletServiceImpl implements EwalletService {
         	return assembleTreeList(initGroupMap(rList), "");
         }
     }
-
+    
     @Override
     public List<FinanceProductGrant> findGrantTreetableList(String roleId, Integer platform) {
         List<FinanceProductGrant> rList = financeProductDao.findManagerFinanceProductGrantAllList(roleId, platform);
@@ -87,7 +86,7 @@ public class EwalletServiceImpl implements EwalletService {
         	return assembleTreeList2(initGroupMap(rList), "");
         }
     }
-
+    
     @Override
     public List<Resource> findAuthResourceListByManagerId(String managerId) {
         List<Resource> rList = resourceDao.findAuthResourceListByManagerId(managerId);
@@ -97,7 +96,7 @@ public class EwalletServiceImpl implements EwalletService {
         	return assembleTreeList(initGroupMap(rList), "");
         }
     }
-
+    
     private <T extends Resource> Map<String, List<T>> initGroupMap(List<T> rList){
         Map<String, List<T>> map = new HashMap<String, List<T>>();
         for (T r : rList) {
@@ -133,7 +132,7 @@ public class EwalletServiceImpl implements EwalletService {
         }
         return rs;
     }
-
+    
     private List<ResourceGrant> assembleTreeList2(Map<String, List<ResourceGrant>> map, String key){
         List<ResourceGrant> rs = new ArrayList<ResourceGrant>();
         for(ResourceGrant r : map.get(key)){
@@ -148,10 +147,13 @@ public class EwalletServiceImpl implements EwalletService {
     }
 */
     @Override  
-     public boolean existEwalletName(String t_personalewallet_ID,String t_personalewallet_ApplierPID) {
-     return ewalletDao.existEwalletName(t_personalewallet_ID,t_personalewallet_ApplierPID) == 1;
+     public boolean existVoucherName(String t_Voucher_ID,String t_Voucher_ProdID) {
+     return voucherDao.existVoucherName(t_Voucher_ID,t_Voucher_ProdID) == 1;
     }
-
-
-
+    
+    @Override
+    public boolean checkVoucherMobil(String t_Voucher_ID,String t_Voucher_ProdID) {
+    return voucherDao.checkVoucherMobil(t_Voucher_ID,t_Voucher_ProdID) == 1;
+   }
+    
 }

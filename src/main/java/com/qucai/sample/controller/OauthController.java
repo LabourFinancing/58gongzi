@@ -65,8 +65,8 @@ public class OauthController {
         if( method!=null&&method.equals("SMSreq")){
             byte[] SMSstr;
             Map<String, Object> rs = new HashMap<String, Object>();
-            String mobil = phone;
-            String SMSreqcode = HttpJsonExample.SMSreqsend(mobil);
+            String mobile = phone;
+            String SMSreqcode = HttpJsonExample.SMSreqsend(mobile);
             if (SMSreqcode != null){
                 rs.put("rs",0);
                 Date now = new Date();

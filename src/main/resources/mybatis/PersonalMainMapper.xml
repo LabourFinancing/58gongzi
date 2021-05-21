@@ -20,9 +20,12 @@
 		<result column="t_personal_main_onlinepaymentcat" property="t_personal_main_onlinepaymentcat" jdbcType="VARCHAR" />
 		<result column="t_personal_main_onlinepayment" property="t_personal_main_onlinepayment" jdbcType="VARCHAR" />
 		<result column="t_personal_main_paymentmethod" property="t_personal_main_paymentmethod" jdbcType="VARCHAR" />
-		<result column="t_personal_main_paymentmethod1" property="t_personal_main_paymentmethod1" jdbcType="VARCHAR" />
+        <result column="t_personal_main_paymentmethod1" property="t_personal_main_paymentmethod1" jdbcType="VARCHAR" />
+		<result column="t_personal_main_CNbankcard" property="t_personal_main_CNbankcard" jdbcType="VARCHAR" />
 		<result column="t_personal_main_GLbankcard" property="t_personal_main_GLbankcard" jdbcType="VARCHAR" />
 		<result column="t_personal_main_bankacc" property="t_personal_main_bankacc" jdbcType="VARCHAR" />
+        <result column="t_personal_main_crypto" property="t_personal_main_crypto" jdbcType="VARCHAR" />
+        <result column="t_personal_main_assetcat" property="t_personal_main_assetcat" jdbcType="VARCHAR" />
 		<result column="t_personal_main_voucher" property="t_personal_main_voucher" jdbcType="VARCHAR" />
 		<result column="t_personal_main_creditscore" property="t_personal_main_creditscore" jdbcType="INTEGER" />
 		<result column="t_personal_main_bkptxt1" property="t_personal_main_bkptxt1" jdbcType="VARCHAR" />
@@ -52,6 +55,7 @@
         a.t_personal_main_facialret,
         a.t_personal_main_securityret,
         a.t_personal_main_passport,
+        a.t_personal_main_passport1,
         a.t_personal_main_visa,
         a.t_personal_main_visa1,
         a.t_personal_main_onlinepaymentcat,

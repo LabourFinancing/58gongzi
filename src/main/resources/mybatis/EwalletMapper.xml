@@ -1,0 +1,885 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qucai.sample.dao.EwalletDao">
+
+	<resultMap id="BaseResultMap" type="com.qucai.sample.entity.Ewallet">
+		<result column="t_personalewallet_ID" property="t_personalewallet_ID" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_ApplierID" property="t_personalewallet_ApplierID" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_ApplierPID" property="t_personalewallet_ApplierPID" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_ApplierName" property="t_personalewallet_ApplierName" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_Passport" property="t_personalewallet_Passport" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_ScanCode" property="t_personalewallet_ScanCode" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_QRcode" property="t_personalewallet_QRcode" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_alipayAcc" property="t_personalewallet_alipayAcc" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_wechatpayAcc" property="t_personalewallet_wechatpayAcc" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_unionpayAcc" property="t_personalewallet_unionpayAcc" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_CryptoC" property="t_personalewallet_CryptoC" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_Voucher" property="t_personalewallet_Voucher" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_VoucherDigi" property="t_personalewallet_VoucherDigi" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_Creditcard" property="t_personalewallet_Creditcard" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_Debitcard" property="t_personalewallet_Debitcard" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_ClearNum" property="t_personalewallet_ClearNum" jdbcType="INTEGER" />
+		<result column="t_personalewallet_ClearOrg" property="t_personalewallet_ClearOrg" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_PayCat" property="t_personalewallet_PayCat" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_PayDate" property="t_personalewallet_PayDate" jdbcType="TIMESTAMP" />
+		<result column="t_personalewallet_ProdName" property="t_personalewallet_ProdName" jdbcType="VARCHAR" />
+		<result column="t_personalewallet_PayDays" property="t_personalewallet_PayDays" jdbcType="INTEGER" />
+		<result column="t_personalewallet_Reciept" property="t_personalewallet_Reciept" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_TotCNYBalance" property="t_personalewallet_TotCNYBalance" jdbcType="DECIMAL" />
+		<result column="t_personalewallet_TotFXBalance" property="t_personalewallet_TotFXBalance" jdbcType="DECIMAL" />
+		<result column="t_personalewallet_TotCryptoBalance" property="t_personalewallet_TotCryptoBalance" jdbcType="DECIMAL" />
+		<result column="t_personalewallet_TotAssetES" property="t_personalewallet_TotAssetES" jdbcType="DECIMAL" />
+		<result column="t_personalewallet_DebitPayAmt" property="t_personalewallet_DebitPayAmt" jdbcType="DECIMAL" />
+		<result column="t_personalewallet_ApplyPayAmount" property="t_personalewallet_ApplyPayAmount" jdbcType="DECIMAL" />
+		<result column="t_personalewallet_CreditPrepayBalanceNum" property="t_personalewallet_CreditPrepayBalanceNum" jdbcType="DECIMAL" />
+		<result column="t_personalewallet_CreditPayAmt" property="t_personalewallet_CreditPayAmt" jdbcType="DECIMAL" />
+		<result column="t_personalewallet_CreditPayAmtInit" property="t_personalewallet_CreditPayAmtInit" jdbcType="DECIMAL" />
+		<result column="t_personalewallet_TotalPrepayAmt" property="t_personalewallet_TotalPrepayAmt" jdbcType="DECIMAL" />
+		<result column="t_personalewallet_TotalInterestDays" property="t_personalewallet_TotalInterestDays" jdbcType="INTEGER" />
+		<result column="t_personalewallet_PayCounts" property="t_personalewallet_PayCounts" jdbcType="INTEGER" />
+		<result column="t_personalewallet_Interest" property="t_personalewallet_Interest" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_TopupLimit" property="t_personalewallet_TopupLimit" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_Amt2" property="t_personalewallet_Amt2" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_Amt3" property="t_personalewallet_Amt3" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_BalanceCreditNum" property="t_personalewallet_BalanceCreditNum" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_OverdueRepaymentDate" property="t_personalewallet_OverdueRepaymentDate" jdbcType="TIMESTAMP" />
+        <result column="t_personalewallet_PrepayClear" property="t_personalewallet_PrepayClear" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_Overdue" property="t_personalewallet_Overdue" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_OverdueTotalAmount" property="t_personalewallet_OverdueTotalAmount" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_FinancialInterest" property="t_personalewallet_FinancialInterest" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_ServiceFee" property="t_personalewallet_ServiceFee" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_Poundage" property="t_personalewallet_Poundage" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_TierPoundage" property="t_personalewallet_TierPoundage" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_InterestMargin" property="t_personalewallet_InterestMargin" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_BankAccName" property="t_personalewallet_BankAccName" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_BankAcc" property="t_personalewallet_BankAcc" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_SysUpdateDate" property="t_personalewallet_SysUpdateDate" jdbcType="TIMESTAMP" />
+        <result column="t_personalewallet_OverdueDays" property="t_personalewallet_OverdueDays" jdbcType="INTEGER" />
+        <result column="t_personalewallet_Paystatus" property="t_personalewallet_Paystatus" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_SMS" property="t_personalewallet_SMS" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_SMSRec" property="t_personalewallet_SMSRec" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_bkp" property="t_personalewallet_bkp" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_bkp1" property="t_personalewallet_bkp1" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_Txt" property="t_personalewallet_Txt" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_Txt1" property="t_personalewallet_Txt1" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_Txt2" property="t_personalewallet_Txt2" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_Txt3" property="t_personalewallet_Txt3" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_Txt4" property="t_personalewallet_Txt4" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_Txt5" property="t_personalewallet_Txt5" jdbcType="VARCHAR" />
+		<result column="platform" property="platform" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="creator" property="creator" jdbcType="VARCHAR" />
+		<result column="create_time" property="create_time" jdbcType="TIMESTAMP" />
+		<result column="modifier" property="modifier" jdbcType="VARCHAR" />
+		<result column="modify_time" property="modify_time" jdbcType="TIMESTAMP" />	
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+        a.t_personalewallet_ID,
+        a.t_personalewallet_ApplierID,
+        a.t_personalewallet_ApplierPID,
+        a.t_personalewallet_ApplierName,
+        a.t_personalewallet_Passport,
+        a.t_personalewallet_ScanCode,
+        a.t_personalewallet_QRcode,
+        a.t_personalewallet_alipayAcc,
+        a.t_personalewallet_wechatpayAcc,
+        a.t_personalewallet_unionpayAcc,
+        a.t_personalewallet_CryptoC,
+        a.t_personalewallet_Voucher,
+        a.t_personalewallet_VoucherDigi,
+        a.t_personalewallet_Creditcard,
+        a.t_personalewallet_Debitcard,
+        a.t_personalewallet_ClearNum,
+        a.t_personalewallet_ClearOrg,
+        a.t_personalewallet_PayCat,
+        a.t_personalewallet_PayDate,
+        a.t_personalewallet_ProdName,
+        a.t_personalewallet_PayDays,
+        a.t_personalewallet_Reciept,
+        a.t_personalewallet_TotCNYBalance,
+        a.t_personalewallet_TotFXBalance,
+        a.t_personalewallet_TotCryptoBalance,
+        a.t_personalewallet_TotAssetES,
+        a.t_personalewallet_DebitPayAmt,
+        a.t_personalewallet_ApplyPayAmount,
+        a.t_personalewallet_CreditPrepayBalanceNum,
+        a.t_personalewallet_CreditPayAmt,
+        a.t_personalewallet_CreditPayAmtInit,
+        a.t_personalewallet_TotalPrepayAmt,
+        a.t_personalewallet_TotalInterestDays,
+        a.t_personalewallet_PayCounts,
+        a.t_personalewallet_Interest,
+        a.t_personalewallet_TopupLimit,
+        a.t_personalewallet_Amt2,
+        a.t_personalewallet_Amt3,
+        a.t_personalewallet_BalanceCreditNum,
+        a.t_personalewallet_OverdueRepaymentDate,
+        a.t_personalewallet_PrepayClear,
+        a.t_personalewallet_Overdue,
+        a.t_personalewallet_OverdueTotalAmount,
+        a.t_personalewallet_FinancialInterest,
+        a.t_personalewallet_ServiceFee,
+        a.t_personalewallet_Poundage,
+        a.t_personalewallet_TierPoundage,
+        a.t_personalewallet_InterestMargin,
+        a.t_personalewallet_BankAccName,
+        a.t_personalewallet_BankAcc,
+        a.t_personalewallet_SysUpdateDate,
+        a.t_personalewallet_OverdueDays,
+        a.t_personalewallet_Paystatus,
+        a.t_personalewallet_SMS,
+        a.t_personalewallet_SMSRec,
+        a.t_personalewallet_bkp,
+        a.t_personalewallet_bkp1,
+        a.t_personalewallet_Txt,
+        a.t_personalewallet_Txt1,
+        a.t_personalewallet_Txt2,
+        a.t_personalewallet_Txt3,
+        a.t_personalewallet_Txt4,
+        a.t_personalewallet_Txt5,
+		a.platform,
+		a.remark,
+		a.creator,
+		a.create_time,
+		a.modifier,
+		a.modify_time
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_personal_ewallet a
+		where a.t_personalewallet_ApplierPID = #{t_personalewallet_ApplierPID,jdbcType=VARCHAR}
+		order by a.create_time
+	</select>
+	
+	<select id="findSearchList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_personal_ewallet a
+		where 
+		1=1 
+		<if test="t_personalewallet_ApplierName != null">
+		and a.t_personalewallet_ApplierName like CONCAT('%',#{t_personalewallet_ApplierName},'%')
+		</if>	
+		<if test="t_personalewallet_ApplierPID != null" >
+		and a.t_personalewallet_ApplierPID like CONCAT('%',#{t_personalewallet_ApplierPID},'%')
+		</if>
+		<if test="t_personalewallet_ClearNum != null">
+		and a.t_personalewallet_ClearNum like CONCAT('%',#{t_personalewallet_ClearNum},'%')
+		</if>
+		<if test="t_personalewallet_Passport != null ">
+		and a.t_personalewallet_Passport like CONCAT('%',#{t_personalewallet_Passport},'%')
+		</if>
+		<if test="t_personalewallet_PayCat != null" >
+		and a.t_personalewallet_PayCat like CONCAT('%',#{t_personalewallet_PayCat},'%')
+		</if>
+		<if test="remark != null" >
+		and a.remark like CONCAT('%',#{remark},'%')
+		</if>
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from t_personal_ewallet
+		where t_personalewallet_ApplierPID = #{t_personalewallet_ApplierPID,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="insertSelective" parameterType="com.qucai.sample.entity.Ewallet">
+		insert into t_personal_ewallet
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="t_personalewallet_ID != null">
+                t_personalewallet_ID,
+			</if>
+			<if test="t_personalewallet_ApplierID != null">
+                t_personalewallet_ApplierID,
+			</if>
+			<if test="t_personalewallet_ApplierPID != null">
+                t_personalewallet_ApplierPID,
+			</if>
+			<if test="t_personalewallet_ApplierName != null">
+                t_personalewallet_ApplierName,
+			</if>
+			<if test="t_personalewallet_Passport != null">
+                t_personalewallet_Passport,
+			</if>
+			<if test="t_personalewallet_ScanCode != null">
+                t_personalewallet_ScanCode,
+			</if>
+			<if test="t_personalewallet_QRcode != null">
+                t_personalewallet_QRcode,
+			</if>
+			<if test="t_personalewallet_alipayAcc != null">
+                t_personalewallet_alipayAcc,
+			</if>
+			<if test="t_personalewallet_wechatpayAcc != null">
+                t_personalewallet_wechatpayAcc,
+			</if>
+			<if test="t_personalewallet_unionpayAcc != null">
+                t_personalewallet_unionpayAcc,
+			</if>
+			<if test="t_personalewallet_CryptoC != null">
+                t_personalewallet_CryptoC,
+			</if>
+			<if test="t_personalewallet_Voucher != null">
+                t_personalewallet_Voucher,
+			</if>
+			<if test="t_personalewallet_VoucherDigi != null">
+                t_personalewallet_VoucherDigi,
+			</if>
+			<if test="t_personalewallet_Creditcard != null">
+                t_personalewallet_Creditcard,
+			</if>
+			<if test="t_personalewallet_Debitcard != null">
+                t_personalewallet_Debitcard,
+			</if>
+			<if test="t_personalewallet_ClearNum != null">
+                t_personalewallet_ClearNum,
+			</if>
+			<if test="t_personalewallet_ClearOrg != null">
+                t_personalewallet_ClearOrg,
+			</if>
+			<if test="t_personalewallet_PayCat != null">
+                t_personalewallet_PayCat,
+			</if>
+			<if test="t_personalewallet_PayDate != null">
+                t_personalewallet_PayDate,
+			</if>
+			<if test="t_personalewallet_ProdName != null">
+                t_personalewallet_ProdName,
+			</if>
+			<if test="t_personalewallet_PayDays != null">
+                t_personalewallet_PayDays,
+			</if>
+			<if test="t_personalewallet_Reciept != null">
+                t_personalewallet_Reciept,
+			</if>
+			<if test="t_personalewallet_TotCNYBalance != null">
+                t_personalewallet_TotCNYBalance,
+			</if>
+			<if test="t_personalewallet_TotFXBalance != null">
+                t_personalewallet_TotFXBalance,
+			</if>
+			<if test="t_personalewallet_TotCryptoBalance != null">
+                t_personalewallet_TotCryptoBalance,
+			</if>
+			<if test="t_personalewallet_TotAssetES != null">
+                t_personalewallet_TotAssetES,
+			</if>
+			<if test="t_personalewallet_DebitPayAmt != null">
+                t_personalewallet_DebitPayAmt,
+			</if>
+			<if test="t_personalewallet_ApplyPayAmount != null">
+                t_personalewallet_ApplyPayAmount,
+			</if>
+			<if test="t_personalewallet_CreditPrepayBalanceNum != null">
+                t_personalewallet_CreditPrepayBalanceNum,
+			</if>
+			<if test="t_personalewallet_CreditPayAmt != null">
+                t_personalewallet_CreditPayAmt,
+			</if>
+			<if test="t_personalewallet_CreditPayAmtInit != null">
+                t_personalewallet_CreditPayAmtInit,
+			</if>
+			<if test="t_personalewallet_TotalPrepayAmt != null">
+                t_personalewallet_TotalPrepayAmt,
+			</if>
+			<if test="t_personalewallet_TotalInterestDays != null">
+                t_personalewallet_TotalInterestDays,
+			</if>
+			<if test="t_personalewallet_PayCounts != null">
+                t_personalewallet_PayCounts,
+			</if>
+			<if test="t_personalewallet_Interest != null">
+                t_personalewallet_Interest,
+			</if>
+			<if test="t_personalewallet_TopupLimit != null">
+                t_personalewallet_TopupLimit,
+			</if>
+            <if test="t_personalewallet_Amt2 != null">
+                t_personalewallet_Amt2,
+            </if>
+            <if test="t_personalewallet_Amt3 != null">
+                t_personalewallet_Amt3,
+            </if>
+            <if test="t_personalewallet_BalanceCreditNum != null">
+                t_personalewallet_BalanceCreditNum,
+            </if>
+            <if test="t_personalewallet_OverdueRepaymentDate != null">
+                t_personalewallet_OverdueRepaymentDate,
+            </if>
+            <if test="t_personalewallet_PrepayClear != null">
+                t_personalewallet_PrepayClear,
+            </if>
+            <if test="t_personalewallet_Overdue != null">
+                t_personalewallet_Overdue,
+            </if>
+            <if test="t_personalewallet_OverdueTotalAmount != null">
+                t_personalewallet_OverdueTotalAmount,
+            </if>
+            <if test="t_personalewallet_FinancialInterest != null">
+                t_personalewallet_FinancialInterest,
+            </if>
+            <if test="t_personalewallet_ServiceFee != null">
+                t_personalewallet_ServiceFee,
+            </if>
+            <if test="t_personalewallet_Poundage != null">
+                t_personalewallet_Poundage,
+            </if>
+            <if test="t_personalewallet_TierPoundage != null">
+                t_personalewallet_TierPoundage,
+            </if>
+            <if test="t_personalewallet_InterestMargin != null">
+                t_personalewallet_InterestMargin,
+            </if>
+            <if test="t_personalewallet_BankAccName != null">
+                t_personalewallet_BankAccName,
+            </if>
+            <if test="t_personalewallet_BankAcc != null">
+                t_personalewallet_BankAcc,
+            </if>
+            <if test="t_personalewallet_SysUpdateDate != null">
+                t_personalewallet_SysUpdateDate,
+            </if>
+            <if test="t_personalewallet_OverdueDays != null">
+                t_personalewallet_OverdueDays,
+            </if>
+            <if test="t_personalewallet_Paystatus != null">
+                t_personalewallet_Paystatus,
+            </if>
+            <if test="t_personalewallet_SMS != null">
+                t_personalewallet_SMS,
+            </if>
+            <if test="t_personalewallet_SMSRec != null">
+                t_personalewallet_SMSRec,
+            </if>
+            <if test="t_personalewallet_bkp != null">
+                t_personalewallet_bkp,
+            </if>
+            <if test="t_personalewallet_bkp1 != null">
+                t_personalewallet_bkp1,
+            </if>
+            <if test="t_personalewallet_Txt != null">
+                t_personalewallet_Txt,
+            </if>
+            <if test="t_personalewallet_Txt1 != null">
+                t_personalewallet_Txt1,
+            </if>
+            <if test="t_personalewallet_Txt2 != null">
+                t_personalewallet_Txt2,
+            </if>
+            <if test="t_personalewallet_Txt3 != null">
+                t_personalewallet_Txt3,
+            </if>
+            <if test="t_personalewallet_Txt4 != null">
+                t_personalewallet_Txt4,
+            </if>
+            <if test="t_personalewallet_Txt5 != null">
+                t_personalewallet_Txt5,
+            </if>
+            <if test="platform != null">
+                platform,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+			<if test="creator != null">
+                creator,
+			</if>
+			<if test="t_personalewallet_Amt3 != null">
+				create_time,
+			</if>
+			<if test="modifier != null">
+				modifier,
+			</if>
+			<if test="modify_time != null">
+				modify_time
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="t_personalewallet_ID != null">
+				#{t_personalewallet_ID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_ApplierID != null">
+				#{t_personalewallet_ApplierID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_ApplierPID != null">
+				#{t_personalewallet_ApplierPID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_ApplierName != null">
+				#{t_personalewallet_ApplierName,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_Passport != null">
+				#{t_personalewallet_Passport,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_ScanCode != null">
+				#{t_personalewallet_ScanCode,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_QRcode != null">
+				#{t_personalewallet_QRcode,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_alipayAcc != null">
+				#{t_personalewallet_alipayAcc,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_wechatpayAcc != null">
+				#{t_personalewallet_wechatpayAcc,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_unionpayAcc != null">
+				#{t_personalewallet_unionpayAcc,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_CryptoC != null">
+				#{t_personalewallet_CryptoC,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_Voucher != null">
+				#{t_personalewallet_Voucher,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_VoucherDigi != null">
+				#{t_personalewallet_VoucherDigi,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_Creditcard != null">
+				#{t_personalewallet_Creditcard,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_Debitcard != null">
+				#{t_personalewallet_Debitcard,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_ClearNum != null">
+				#{t_personalewallet_ClearNum,jdbcType=INTEGER},
+			</if>
+			<if test="t_personalewallet_ClearOrg != null">
+				#{t_personalewallet_ClearOrg,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_PayCat != null">
+				#{t_personalewallet_PayCat,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_PayDate != null">
+				#{t_personalewallet_PayDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="t_personalewallet_ProdName != null">
+				#{t_personalewallet_ProdName,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_PayDays != null">
+				#{t_personalewallet_PayDays,jdbcType=INTEGER},
+			</if>
+			<if test="t_personalewallet_Reciept != null">
+				#{t_personalewallet_Reciept,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_TotCNYBalance != null">
+				#{t_personalewallet_TotCNYBalance,jdbcType=DECIMAL},
+			</if>
+			<if test="t_personalewallet_TotFXBalance != null">
+				#{t_personalewallet_TotFXBalance,jdbcType=DECIMAL},
+			</if>
+			<if test="t_personalewallet_TotCryptoBalance != null">
+				#{t_personalewallet_TotCryptoBalance,jdbcType=DECIMAL},
+			</if>
+			<if test="t_personalewallet_ApplyPayAmount != null">
+				#{t_personalewallet_ApplyPayAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="t_personalewallet_DebitPayAmt != null">
+				#{t_personalewallet_DebitPayAmt,jdbcType=DECIMAL},
+			</if>
+			<if test="t_personalewallet_CreditPrepayBalanceNum != null">
+				#{t_personalewallet_CreditPrepayBalanceNum,jdbcType=DECIMAL},
+			</if>
+			<if test="t_personalewallet_CreditPayAmt != null">
+				#{t_personalewallet_CreditPayAmt,jdbcType=DECIMAL},
+			</if>
+            <if test="t_personalewallet_CreditPayAmtInit != null">
+                #{t_personalewallet_CreditPayAmtInit,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_TotCryptoBalance != null">
+                #{t_personalewallet_TotCryptoBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_ApplyPayAmount != null">
+                #{t_personalewallet_ApplyPayAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_DebitPayAmt != null">
+                #{t_personalewallet_DebitPayAmt,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_CreditPrepayBalanceNum != null">
+                #{t_personalewallet_CreditPrepayBalanceNum,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_CreditPayAmt != null">
+                #{t_personalewallet_CreditPayAmt,jdbcType=DECIMAL},
+            </if>
+			<if test="t_personalewallet_TotalPrepayAmt != null">
+				#{t_personalewallet_TotalPrepayAmt,jdbcType=DECIMAL},
+			</if>
+			<if test="t_personalewallet_TotalInterestDays != null">
+				#{t_personalewallet_TotalInterestDays,jdbcType=INTEGER},
+			</if>
+			<if test="t_personalewallet_PayCounts != null">
+				#{t_personalewallet_PayCounts,jdbcType=INTEGER},
+			</if>
+			<if test="t_personalewallet_Interest != null">
+				#{t_personalewallet_Interest,jdbcType=DECIMAL},
+			</if>
+			<if test="t_personalewallet_TopupLimit != null">
+				#{t_personalewallet_TopupLimit,jdbcType=DECIMAL},
+			</if>
+            <if test="t_personalewallet_Amt2 != null">
+                #{t_personalewallet_Amt2,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_Amt3 != null">
+                #{t_personalewallet_Amt3,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_BalanceCreditNum != null">
+                #{t_personalewallet_BalanceCreditNum,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_OverdueRepaymentDate != null">
+                #{t_personalewallet_OverdueRepaymentDate,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_PrepayClear != null">
+                #{t_personalewallet_PrepayClear,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_Overdue != null">
+                #{t_personalewallet_Overdue,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_OverdueTotalAmount != null">
+                #{t_personalewallet_OverdueTotalAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_FinancialInterest != null">
+                #{t_personalewallet_FinancialInterest,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_ServiceFee != null">
+                #{t_personalewallet_ServiceFee,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_Poundage != null">
+                #{t_personalewallet_Poundage,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_TierPoundage != null">
+                #{t_personalewallet_TierPoundage,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_InterestMargin != null">
+                #{t_personalewallet_InterestMargin,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_BankAccName != null">
+                #{t_personalewallet_BankAccName,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_BankAcc != null">
+                #{t_personalewallet_BankAcc,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_SysUpdateDate != null">
+                #{t_personalewallet_SysUpdateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="t_personalewallet_OverdueDays != null">
+                #{t_personalewallet_OverdueDays,jdbcType=INTEGER},
+            </if>
+            <if test="t_personalewallet_Paystatus != null">
+                #{t_personalewallet_Paystatus,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_SMS != null">
+                #{t_personalewallet_SMS,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_SMSRec != null">
+                #{t_personalewallet_SMSRec,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_bkp != null">
+                #{t_personalewallet_bkp,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_bkp1 != null">
+                #{t_personalewallet_bkp1,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_SMS != null">
+                #{t_personalewallet_SMS,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_SMSRec != null">
+                #{t_personalewallet_SMSRec,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_Txt != null">
+                #{t_personalewallet_Txt,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_Txt1 != null">
+                #{t_personalewallet_Txt1,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_Txt2 != null">
+                #{t_personalewallet_Txt2,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_Txt3 != null">
+                #{t_personalewallet_Txt3,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_Txt4 != null">
+                #{t_personalewallet_Txt4,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_Txt5 != null">
+                #{t_personalewallet_Txt5,jdbcType=VARCHAR},
+            </if>
+			<if test="platform != null">
+				#{platform,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				#{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="create_time != null">
+				#{create_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifier != null">
+				#{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="modify_time != null">
+				#{modify_time,jdbcType=TIMESTAMP}
+			</if>
+		</trim>
+	</insert>
+	
+	<select id="findAllList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_personal_ewallet a
+        <if test="t_P_Company != 'ALL' and t_P_Company != null">
+            where a.t_P_Company = #{t_P_Company,jdbcType=VARCHAR}
+        </if>
+		order by a.create_time
+	</select>
+
+<!-- 
+	<select id="findEntResourceGrantAllList" resultMap="ResourceGrantMap"
+		parameterType="java.lang.String">
+		SELECT
+			<include refid="Base_Column_List" />, 
+			(
+				SELECT
+					count(1)
+				FROM
+					tr_role_resource
+				WHERE
+					resource_id = a.id
+				AND role_id = #{roleId}
+			) AS selected
+		FROM
+			t_resource a
+		WHERE a.platform = 1
+		order by IFNULL(a.parent_id, ''), a.idx
+	</select>
+ -->			
+	<update id="updateByPrimaryKeySelective" parameterType="com.qucai.sample.entity.Ewallet">
+		update t_personal_ewallet
+		<set>
+			<if test="t_personalewallet_ID != null">
+                t_personalewallet_ID = #{t_personalewallet_ID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_ApplierID != null">
+                t_personalewallet_ApplierID = #{t_personalewallet_ApplierID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_ApplierPID != null">
+                t_personalewallet_ApplierPID = #{t_personalewallet_ApplierPID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_ApplierName != null">
+                t_personalewallet_ApplierName = #{t_personalewallet_ApplierName,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_Passport != null">
+                t_personalewallet_Passport = #{t_personalewallet_Passport,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_ScanCode != null">
+                t_personalewallet_ScanCode = #{t_personalewallet_ScanCode,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_QRcode != null">
+                t_personalewallet_QRcode = #{t_personalewallet_QRcode,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_alipayAcc != null">
+                t_personalewallet_alipayAcc = #{t_personalewallet_alipayAcc,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_wechatpayAcc != null">
+                t_personalewallet_wechatpayAcc = #{t_personalewallet_wechatpayAcc,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_unionpayAcc != null">
+                t_personalewallet_unionpayAcc = #{t_personalewallet_unionpayAcc,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_CryptoC != null">
+                t_personalewallet_CryptoC = #{t_personalewallet_CryptoC,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_Voucher != null">
+                t_personalewallet_Voucher = #{t_personalewallet_Voucher,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_VoucherDigi != null">
+                t_personalewallet_VoucherDigi = #{t_personalewallet_VoucherDigi,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_Creditcard != null">
+                t_personalewallet_Creditcard = #{t_personalewallet_Creditcard,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_Debitcard != null">
+                t_personalewallet_Debitcard = #{t_personalewallet_Debitcard,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_ClearNum != null">
+                t_personalewallet_ClearNum = #{t_personalewallet_ClearNum,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_ClearOrg != null">
+                t_personalewallet_ClearOrg = #{t_personalewallet_ClearOrg,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_PayCat != null">
+                t_personalewallet_PayCat = #{t_personalewallet_PayCat,jdbcType=DECIMAL},
+			</if>
+			<if test="t_personalewallet_PayDate != null">
+                t_personalewallet_PayDate = #{t_personalewallet_PayDate,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_ProdName != null">
+                t_personalewallet_ProdName = #{t_personalewallet_ProdName,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_PayDays != null">
+                t_personalewallet_PayDays = #{t_personalewallet_PayDays,jdbcType=INTEGER},
+			</if>
+			<if test="t_personalewallet_Reciept != null">
+                t_personalewallet_Reciept = #{t_personalewallet_Reciept,jdbcType=VARCHAR},
+			</if>
+			<if test="t_personalewallet_TotCNYBalance != null">
+                t_personalewallet_TotCNYBalance = #{t_personalewallet_TotCNYBalance,jdbcType=DECIMAL},
+			</if>
+			<if test="t_personalewallet_TotFXBalance != null">
+                t_personalewallet_TotFXBalance = #{t_personalewallet_TotFXBalance,jdbcType=DECIMAL},
+			</if>
+			<if test="t_personalewallet_TotCryptoBalance != null">
+                t_personalewallet_TotCryptoBalance = #{t_personalewallet_TotCryptoBalance,jdbcType=DECIMAL},
+			</if>
+			<if test="t_personalewallet_TotAssetES != null">
+                t_personalewallet_TotAssetES = #{t_personalewallet_TotAssetES,jdbcType=DECIMAL},
+			</if>
+			<if test="t_personalewallet_DebitPayAmt != null">
+                t_personalewallet_DebitPayAmt = #{t_personalewallet_DebitPayAmt,jdbcType=DECIMAL},
+			</if>
+			<if test="t_personalewallet_ApplyPayAmount != null">
+                t_personalewallet_ApplyPayAmount = #{t_personalewallet_ApplyPayAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="t_personalewallet_CreditPrepayBalanceNum != null">
+                t_personalewallet_CreditPrepayBalanceNum = #{t_personalewallet_CreditPrepayBalanceNum,jdbcType=DECIMAL},
+			</if>
+			<if test="t_personalewallet_CreditPayAmt != null">
+                t_personalewallet_CreditPayAmt = #{t_personalewallet_CreditPayAmt,jdbcType=DECIMAL},
+			</if>
+			<if test="t_personalewallet_CreditPayAmtInit != null">
+                t_personalewallet_CreditPayAmtInit = #{t_personalewallet_CreditPayAmtInit,jdbcType=DECIMAL},
+			</if>
+			<if test="t_personalewallet_TotalPrepayAmt != null">
+                t_personalewallet_TotalPrepayAmt = #{t_personalewallet_TotalPrepayAmt,jdbcType=DECIMAL},
+			</if>
+			<if test="t_personalewallet_TotalInterestDays != null">
+                t_personalewallet_TotalInterestDays = #{t_personalewallet_TotalInterestDays,jdbcType=INTEGER},
+			</if>
+            <if test="t_personalewallet_PayCounts != null">
+                t_personalewallet_PayCounts = #{t_personalewallet_PayCounts,jdbcType=INTEGER},
+            </if>
+            <if test="t_personalewallet_Interest != null">
+                t_personalewallet_Interest = #{t_personalewallet_Interest,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_TopupLimit != null">
+                t_personalewallet_TopupLimit = #{t_personalewallet_TopupLimit,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_Amt2 != null">
+                t_personalewallet_Amt2 = #{t_personalewallet_Amt2,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_Amt3 != null">
+                t_personalewallet_Amt3 = #{t_personalewallet_Amt3,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_BalanceCreditNum != null">
+                t_personalewallet_BalanceCreditNum = #{t_personalewallet_BalanceCreditNum,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_OverdueRepaymentDate != null">
+                t_personalewallet_OverdueRepaymentDate = #{t_personalewallet_OverdueRepaymentDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="t_personalewallet_PrepayClear != null">
+                t_personalewallet_PrepayClear = #{t_personalewallet_PrepayClear,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_Overdue != null">
+                t_personalewallet_Overdue = #{t_personalewallet_Overdue,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_OverdueTotalAmount != null">
+                t_personalewallet_OverdueTotalAmount = #{t_personalewallet_OverdueTotalAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_FinancialInterest != null">
+                t_personalewallet_FinancialInterest = #{t_personalewallet_FinancialInterest,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_ServiceFee != null">
+                t_personalewallet_ServiceFee = #{t_personalewallet_ServiceFee,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_Poundage != null">
+                t_personalewallet_Poundage = #{t_personalewallet_Poundage,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_TierPoundage != null">
+                t_personalewallet_TierPoundage = #{t_personalewallet_TierPoundage,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_InterestMargin != null">
+                t_personalewallet_InterestMargin = #{t_personalewallet_InterestMargin,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_BankAccName != null">
+                t_personalewallet_BankAccName = #{t_personalewallet_BankAccName,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_BankAcc != null">
+                t_personalewallet_BankAcc = #{t_personalewallet_BankAcc,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_SysUpdateDate != null">
+                t_personalewallet_SysUpdateDate = #{t_personalewallet_SysUpdateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="t_personalewallet_Paystatus != null">
+                t_personalewallet_Paystatus = #{t_personalewallet_Paystatus,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_SMS != null">
+                t_personalewallet_SMS = #{t_personalewallet_SMS,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_SMSRec != null">
+                t_personalewallet_SMSRec = #{t_personalewallet_SMSRec,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_bkp != null">
+                t_personalewallet_bkp = #{t_personalewallet_bkp,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_bkp1 != null">
+                t_personalewallet_bkp1 = #{t_P_Probation,jdbcType=DECIMAL},
+            </if>
+            <if test="t_personalewallet_Txt != null">
+                t_personalewallet_Txt = #{t_P_VendorEmployment,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_Txt1 != null">
+                t_personalewallet_Txt1 = #{t_personalewallet_Txt1,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_Txt2 != null">
+                t_personalewallet_Txt2 = #{t_personalewallet_Txt2,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_Txt3 != null">
+                t_personalewallet_Txt3 = #{t_personalewallet_Txt3,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_Txt4 != null">
+                t_personalewallet_Txt4 = #{t_personalewallet_Txt4,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_Txt5 != null">
+                t_personalewallet_Txt5 = #{t_personalewallet_Txt5,jdbcType=VARCHAR},
+            </if>
+			<if test="platform != null">
+				platform = #{platform,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				creator = #{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="create_time != null">
+				create_time = #{create_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifier != null">
+				modifier = #{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="modify_time != null">
+				modify_time = #{modify_time,jdbcType=TIMESTAMP}
+			</if>
+		</set>
+		where t_personalewallet_ID = #{t_personalewallet_ID,jdbcType=VARCHAR}
+	</update>
+
+   <select id="existEwalletName" resultType="Integer"
+		parameterType="map">
+		select
+		count(1)
+		from t_personal_ewallet a
+		where a.t_personalewallet_ApplierPID = #{t_personalewallet_ApplierPID}
+		<if test="t_personalewallet_ApplierID != null">
+			and a.t_personalewallet_ApplierID != #{t_personalewallet_ApplierID}
+		</if>
+	</select>
+    
+    
+</mapper>
+ 

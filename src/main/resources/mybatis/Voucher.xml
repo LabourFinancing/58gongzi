@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qucai.sample.dao.VoucherDao">
+
+	<resultMap id="BaseResultMap" type="com.qucai.sample.entity.Voucher">
+		<result column="t_Voucher_ID" property="t_Voucher_ID" jdbcType="VARCHAR" />
+		<result column="t_Voucher_Name" property="t_Voucher_Name" jdbcType="VARCHAR" />
+		<result column="t_Voucher_ProdID" property="t_Voucher_ProdID" jdbcType="VARCHAR" />
+		<result column="t_Voucher_VendorName" property="t_Voucher_VendorName" jdbcType="INTEGER" />
+		<result column="t_Voucher_VendorClearNum" property="t_Voucher_VendorClearNum" jdbcType="VARCHAR" />
+		<result column="t_Voucher_3rdprty" property="t_Voucher_3rdprty" jdbcType="VARCHAR" />
+		<result column="t_Voucher_Pic" property="t_Voucher_Pic" jdbcType="VARCHAR" />
+		<result column="t_Voucher_URL" property="t_Voucher_URL" jdbcType="VARCHAR" />
+		<result column="t_Voucher_Interest" property="t_Voucher_Interest" jdbcType="DECIMAL" />
+		<result column="t_Voucher_OverdueInt" property="t_Voucher_OverdueInt" jdbcType="DECIMAL" />
+		<result column="t_Voucher_ServiceFee" property="t_Voucher_ServiceFee" jdbcType="DECIMAL" />
+		<result column="t_Voucher_Poundage" property="t_Voucher_Poundage" jdbcType="DECIMAL" />
+		<result column="t_Voucher_ETxnAmtLimit" property="t_Voucher_ETxnAmtLimit" jdbcType="DECIMAL" />
+		<result column="t_Voucher_TierPoundage" property="t_Voucher_TierPoundage" jdbcType="VARCHAR" />
+		<result column="t_Voucher_Status" property="t_Voucher_Status" jdbcType="VARCHAR" />
+		<result column="t_Voucher_SysupdateDate" property="t_Voucher_SysupdateDate" jdbcType="VARCHAR" />
+        <result column="t_Voucher_category" property="t_Voucher_category" jdbcType="VARCHAR" />
+        <result column="t_Voucher_CorpPool" property="t_Voucher_CorpPool" jdbcType="VARCHAR" />
+        <result column="t_Voucher_PersPool" property="t_Voucher_PersPool" jdbcType="VARCHAR" />
+        <result column="t_Voucher_bkp" property="t_Voucher_bkp" jdbcType="VARCHAR" />
+        <result column="t_Voucher_bkp1" property="t_Voucher_bkp1" jdbcType="VARCHAR" />
+        <result column="t_Voucher_bkp2" property="t_Voucher_bkp2" jdbcType="VARCHAR" />
+		<result column="platform" property="platform" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="creator" property="creator" jdbcType="VARCHAR" />
+		<result column="create_time" property="create_time" jdbcType="TIMESTAMP" />
+		<result column="modifier" property="modifier" jdbcType="VARCHAR" />
+		<result column="modify_time" property="modify_time" jdbcType="TIMESTAMP" />	
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+        a.t_Voucher_ID,
+        a.t_Voucher_Name,
+        a.t_Voucher_ProdID,
+        a.t_Voucher_VendorName,
+        a.t_Voucher_VendorClearNum,
+        a.t_Voucher_3rdprty,
+        a.t_Voucher_Pic,
+        a.t_Voucher_URL,
+        a.t_Voucher_Interest,
+        a.t_Voucher_OverdueInt,
+        a.t_Voucher_ServiceFee,
+        a.t_Voucher_Poundage,
+        a.t_Voucher_ETxnAmtLimit,
+        a.t_Voucher_TierPoundage,
+        a.t_Voucher_Status,
+        a.t_Voucher_SysupdateDate,
+        a.t_Voucher_category,
+        a.t_Voucher_CorpPool,
+        a.t_Voucher_PersPool,
+        a.t_Voucher_bkp,
+        a.t_Voucher_bkp1,
+        a.t_Voucher_bkp2,  
+		a.platform,
+		a.remark,
+		a.creator,
+		a.create_time,
+		a.modifier,
+		a.modify_time
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_voucher_info a
+		where a.t_Voucher_ID = #{t_Voucher_ID,jdbcType=VARCHAR}
+		order by a.create_time
+	</select>
+
+	
+	<select id="findSearchList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_voucher_info a
+		where 
+		<if test="t_Voucher_Name != null">
+		a.t_Voucher_Name like CONCAT('%',#{t_Voucher_Name},'%')
+		</if>	
+		<if test="t_Voucher_ProdID != null" >
+		and a.t_Voucher_ProdID like CONCAT('%',#{t_Voucher_ProdID},'%')
+		</if>
+		<if test="t_Voucher_VendorName != null">
+		and a.t_Voucher_VendorName like CONCAT('%',#{t_Voucher_VendorName},'%')
+		</if>
+		<if test="t_Voucher_3rdprty != null">
+		and a.t_Voucher_3rdprty like CONCAT('%',#{t_Voucher_3rdprty},'%')
+		</if>
+		<if test="t_Voucher_CorpPool != null" >
+		and a.t_Voucher_CorpPool like CONCAT('%',#{t_Voucher_CorpPool},'%')
+		</if>
+        <if test="t_Voucher_PersPool != null" >
+            and a.t_P_VendorEmployeeName like CONCAT('%',#{t_P_VendorEmployeeName},'%')
+        </if>
+		<if test="remark != null" >
+		and a.remark like CONCAT('%',#{remark},'%')
+		</if>
+        order by a.create_time
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from t_voucher_info
+		where t_P_id = #{t_P_id,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="insertSelective" parameterType="com.qucai.sample.entity.Voucher">
+		insert into t_voucher_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="t_Voucher_ID != null">
+                t_Voucher_ID,
+			</if>
+			<if test="t_Voucher_Name != null">
+                t_Voucher_Name,
+			</if>
+			<if test="t_Voucher_ProdID != null">
+                t_Voucher_ProdID,
+			</if>
+			<if test="t_Voucher_VendorName != null">
+                t_Voucher_VendorName,
+			</if>
+			<if test="t_Voucher_VendorClearNum != null">
+                t_Voucher_VendorClearNum,
+			</if>
+			<if test="t_Voucher_3rdprty != null">
+                t_Voucher_3rdprty,
+			</if>
+			<if test="t_Voucher_Pic != null">
+                t_Voucher_Pic,
+			</if>
+			<if test="t_Voucher_URL != null">
+                t_Voucher_URL,
+			</if>
+			<if test="t_Voucher_Interest != null">
+                t_Voucher_Interest,
+			</if>
+			<if test="t_Voucher_OverdueInt != null">
+                t_Voucher_OverdueInt,
+			</if>
+			<if test="t_Voucher_ServiceFee != null">
+                t_Voucher_ServiceFee,
+			</if>
+			<if test="t_Voucher_Poundage != null">
+                t_Voucher_Poundage,
+			</if>
+			<if test="t_Voucher_ETxnAmtLimit != null">
+                t_Voucher_ETxnAmtLimit,
+			</if>
+			<if test="t_Voucher_TierPoundage != null">
+                t_Voucher_TierPoundage,
+			</if>
+			<if test="t_Voucher_Status != null">
+                t_Voucher_Status,
+			</if>
+			<if test="t_Voucher_Status != null">
+                t_Voucher_Status,
+			</if>
+			<if test="t_Voucher_SysupdateDate != null">
+                t_Voucher_SysupdateDate,
+			</if>
+			<if test="t_Voucher_category != null">
+                t_Voucher_category,
+			</if>
+			<if test="t_Voucher_CorpPool != null">
+                t_Voucher_CorpPool,
+			</if>
+			<if test="t_Voucher_PersPool != null">
+                t_Voucher_PersPool,
+			</if>
+			<if test="t_Voucher_bkp != null">
+                t_Voucher_bkp,
+			</if>
+			<if test="t_Voucher_bkp1 != null">
+                t_Voucher_bkp1,
+			</if>
+			<if test="t_Voucher_bkp2 != null">
+                t_Voucher_bkp2,
+			</if>
+			
+			<if test="platform != null">
+				platform,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="creator != null">
+				creator,
+			</if>
+			<if test="create_time != null">
+				create_time,
+			</if>
+			<if test="modifier != null">
+				modifier,
+			</if>
+			<if test="modify_time != null">
+				modify_time
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="t_Voucher_ID != null">
+				#{t_Voucher_ID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_Name != null">
+				#{t_Voucher_Name,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_ProdID != null">
+				#{t_Voucher_ProdID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_VendorName != null">
+				#{t_Voucher_VendorName,jdbcType=INTEGER},
+			</if>
+			<if test="t_Voucher_VendorClearNum != null">
+				#{t_Voucher_VendorClearNum,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_3rdprty != null">
+				#{t_Voucher_3rdprty,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_Pic != null">
+				#{t_Voucher_Pic,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_URL != null">
+				#{t_Voucher_URL,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_Interest != null">
+				#{t_Voucher_Interest,jdbcType=DECIMAL},
+			</if>
+			<if test="t_Voucher_OverdueInt != null">
+				#{t_Voucher_OverdueInt,jdbcType=DECIMAL},
+			</if>
+			<if test="t_Voucher_ServiceFee != null">
+				#{t_Voucher_ServiceFee,jdbcType=DECIMAL},
+			</if>
+			<if test="t_Voucher_Poundage != null">
+				#{t_Voucher_Poundage,jdbcType=DECIMAL},
+			</if>
+			<if test="t_Voucher_ETxnAmtLimit != null">
+				#{t_Voucher_ETxnAmtLimit,jdbcType=DECIMAL},
+			</if>
+			<if test="t_Voucher_TierPoundage != null">
+				#{t_Voucher_TierPoundage,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_Status != null">
+				#{t_Voucher_Status,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_SysupdateDate != null">
+				#{t_Voucher_SysupdateDate,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_category != null">
+				#{t_Voucher_category,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_CorpPool != null">
+				#{t_Voucher_CorpPool,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_PersPool != null">
+				#{t_Voucher_PersPool,jdbcType=VARCHAR},
+			</if>
+			<if test="platform != null">
+				#{platform,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				#{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="create_time != null">
+				#{create_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifier != null">
+				#{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="modify_time != null">
+				#{modify_time,jdbcType=TIMESTAMP}
+			</if>
+		</trim>
+	</insert>
+	
+	<select id="findAllList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_voucher_info a
+		where 1=1
+		<if test="typeEnd != null">
+			<![CDATA[ and type <= #{typeEnd} ]]>
+		</if>
+		<if test="t_P_Company != 'ALL' and t_P_Company != null">
+		   and a.t_P_Company = #{t_P_Company,jdbcType=VARCHAR}
+		</if>
+		order by a.create_time
+	</select>
+
+<!-- 
+	<select id="findEntResourceGrantAllList" resultMap="ResourceGrantMap"
+		parameterType="java.lang.String">
+		SELECT
+			<include refid="Base_Column_List" />, 
+			(
+				SELECT
+					count(1)
+				FROM
+					tr_role_resource
+				WHERE
+					resource_id = a.id
+				AND role_id = #{roleId}
+			) AS selected
+		FROM
+			t_resource a
+		WHERE a.platform = 1
+		order by IFNULL(a.parent_id, ''), a.idx
+	</select>
+ -->			
+	<update id="updateByPrimaryKeySelective" parameterType="com.qucai.sample.entity.Voucher">
+		update t_voucher_info
+		<set>
+			<if test="t_Voucher_ID != null">
+                t_Voucher_ID = #{t_Voucher_ID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_Name != null">
+                t_Voucher_Name = #{t_Voucher_Name,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_ProdID != null">
+                t_Voucher_ProdID = #{t_Voucher_ProdID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_VendorName != null">
+                t_Voucher_VendorName = #{t_Voucher_VendorName,jdbcType=INTEGER},
+			</if>
+			<if test="t_Voucher_VendorClearNum != null">
+                t_Voucher_VendorClearNum = #{t_Voucher_VendorClearNum,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_3rdprty != null">
+                t_Voucher_3rdprty = #{t_Voucher_3rdprty,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_Pic != null">
+                t_Voucher_Pic = #{t_Voucher_Pic,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_URL != null">
+                t_Voucher_URL = #{t_Voucher_URL,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_Interest != null">
+                t_Voucher_Interest = #{t_Voucher_Interest,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_OverdueInt != null">
+                t_Voucher_OverdueInt = #{t_Voucher_OverdueInt,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_ServiceFee != null">
+                t_Voucher_ServiceFee = #{t_Voucher_ServiceFee,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_Poundage != null">
+				t_P_Cont_Voucher_Poundagetact1 = #{t_Voucher_Poundage,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_ETxnAmtLimit != null">
+                t_Voucher_ETxnAmtLimit = #{t_Voucher_ETxnAmtLimit,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_TierPoundage != null">
+                t_Voucher_TierPoundage = #{t_Voucher_TierPoundage,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_Status != null">
+                t_Voucher_Status = #{t_Voucher_Status,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_SysupdateDate != null">
+                t_Voucher_SysupdateDate = #{t_Voucher_SysupdateDate,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_category != null">
+                t_Voucher_category = #{t_Voucher_category,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_CorpPool != null">
+                t_Voucher_CorpPool = #{t_Voucher_CorpPool,jdbcType=DECIMAL},
+			</if>
+			<if test="t_Voucher_PersPool != null">
+                t_Voucher_PersPool = #{t_Voucher_PersPool,jdbcType=DECIMAL},
+			</if>
+			<if test="t_Voucher_bkp != null">
+                t_Voucher_bkp = #{t_Voucher_bkp,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_bkp1 != null">
+                t_Voucher_bkp1 = #{t_Voucher_bkp1,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_bkp2 != null">
+                t_Voucher_bkp2 = #{t_Voucher_bkp2,jdbcType=INTEGER},
+			</if>
+			<if test="platform != null">
+				platform = #{platform,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				creator = #{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="create_time != null">
+				create_time = #{create_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifier != null">
+				modifier = #{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="modify_time != null">
+				modify_time = #{modify_time,jdbcType=TIMESTAMP}
+			</if>
+		</set>
+		where t_P_id = #{t_P_id,jdbcType=VARCHAR}
+	</update>
+
+   <select id="existVoucherName" resultType="Integer"
+		parameterType="map">
+		select
+		count(1)
+		from t_voucher_info a
+		where a.t_Voucher_ProdID = #{t_Voucher_ProdID}
+		<if test="t_P_id != null">
+			and a.t_Voucher_ID != #{t_Voucher_ID}
+		</if>
+	</select>
+</mapper>
+ 
