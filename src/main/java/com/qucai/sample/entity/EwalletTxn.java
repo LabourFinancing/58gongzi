@@ -1,429 +1,674 @@
-//package com.qucai.sample.entity;
-//
-//import java.io.Serializable;
-//import java.math.BigDecimal;
-//import java.util.Date;
-//
-///**
-// * 
-// * 
-// * @version 1.0 2016-08-09
-// */
-//public class EwalletTxn implements Serializable {
-//    /**
-//	 * 
-//	 */
-//   private static final long serialVersionUID = -1876948347463745808L;
-//   /**
-//    * 创建人
-//    */
-//   private String creator;
-//
-//   private Date create_time;
-//
-//   private String modifier;
-//
-//   private Date modify_time;
-//   
-//   private String platform;
-//
-//   private String remark;
-//
-///* biz info char */
-//   
-//   private String t_P_id;
-//
-//   private String t_P_Name;
-//   
-//   private String t_P_Sex;
-//
-//   private Integer t_P_Age;
-//
-//   private String t_P_PID;
-//
-//   private String t_P_Marriage;
-//	
-//   private String t_P_HomeAddress;
-//
-//   private String t_P_Mobil;
-//   
-//   private String t_P_Phone;
-//
-//   private String t_P_Spouse;
-//
-//   private String t_P_Spouse_Phone;
-//
-//   private String t_P_Contact1;
-//   
-//   private String t_P_Contact1Mobil;
-//
-//   private String t_P_Contact2;
-//
-//   private String t_P_Contact2Mobil;
-//
-//   private String t_P_Company;
-//	
-//   private String t_P_CompanyNum;
-//
-//   private BigDecimal t_P_SocialSecurityBaseAmount;
-//	
-//   private String t_P_ProvidentFund;
-//
-//   private String t_P_Employmentstatus;
-//   
-//   private String t_P_EmploymentCategory;
-//
-//   private Integer t_P_WorkYears;
-//
-//   private String t_P_Probation;
-//
-//   private String t_P_VendorEmployment;
-//   
-//   private String t_P_VendorEmployeeName;
-//
-//   private String t_P_PayrollDebitcardBankName;
-//
-//   private String t_P_PayrollDebitcardNum;
-//
-//   private String t_P_NetBaseSalary;
-//	
-//   private BigDecimal t_P_CreditPrepaySalaryAmount;
-//
-//   private Integer t_P_PayrollDate;
-//   
-//   private BigDecimal t_P_NetMonthlyBonusAmount;
-//
-//   private Integer t_P_NetBonusPayDate;
-//	
-//   private Integer t_P_SocialSecurityDate;
-//
-//   private Date t_P_SysUpdateDate;
-//   
-//
-//public String getCreator() {
-//	return creator;
-//}
-//
-//public Date getCreate_time() {
-//	return create_time;
-//}
-//
-//public String getModifier() {
-//	return modifier;
-//}
-//
-//public Date getModify_time() {
-//	return modify_time;
-//}
-//
-//public String getPlatform() {
-//	return platform;
-//}
-//
-//public String getRemark() {
-//	return remark;
-//}
-//
-//public String getT_P_id() {
-//	return t_P_id;
-//}
-//
-//public String getT_P_Name() {
-//	return t_P_Name;
-//}
-//
-//public String getT_P_Sex() {
-//	return t_P_Sex;
-//}
-//
-//public Integer getT_P_Age() {
-//	return t_P_Age;
-//}
-//
-//public String getT_P_PID() {
-//	return t_P_PID;
-//}
-//
-//public String getT_P_Marriage() {
-//	return t_P_Marriage;
-//}
-//
-//public String getT_P_HomeAddress() {
-//	return t_P_HomeAddress;
-//}
-//
-//public String getT_P_Mobil() {
-//	return t_P_Mobil;
-//}
-//
-//public String getT_P_Phone() {
-//	return t_P_Phone;
-//}
-//
-//public String getT_P_Spouse() {
-//	return t_P_Spouse;
-//}
-//
-//public String getT_P_Spouse_Phone() {
-//	return t_P_Spouse_Phone;
-//}
-//
-//public String getT_P_Contact1() {
-//	return t_P_Contact1;
-//}
-//
-//public String getT_P_Contact1Mobil() {
-//	return t_P_Contact1Mobil;
-//}
-//
-//public String getT_P_Contact2() {
-//	return t_P_Contact2;
-//}
-//
-//public String getT_P_Contact2Mobil() {
-//	return t_P_Contact2Mobil;
-//}
-//
-//public String getT_P_Company() {
-//	return t_P_Company;
-//}
-//
-//public String getT_P_CompanyNum() {
-//	return t_P_CompanyNum;
-//}
-//
-//public BigDecimal getT_P_SocialSecurityBaseAmount() {
-//	return t_P_SocialSecurityBaseAmount;
-//}
-//
-//public String getT_P_ProvidentFund() {
-//	return t_P_ProvidentFund;
-//}
-//
-//public String getT_P_Employmentstatus() {
-//	return t_P_Employmentstatus;
-//}
-//
-//public String getT_P_EmploymentCategory() {
-//	return t_P_EmploymentCategory;
-//}
-//
-//public Integer getT_P_WorkYears() {
-//	return t_P_WorkYears;
-//}
-//
-//public String getT_P_Probation() {
-//	return t_P_Probation;
-//}
-//
-//public String getT_P_VendorEmployment() {
-//	return t_P_VendorEmployment;
-//}
-//
-//public String getT_P_VendorEmployeeName() {
-//	return t_P_VendorEmployeeName;
-//}
-//
-//public String getT_P_PayrollDebitcardBankName() {
-//	return t_P_PayrollDebitcardBankName;
-//}
-//
-//public String getT_P_PayrollDebitcardNum() {
-//	return t_P_PayrollDebitcardNum;
-//}
-//
-//public String getT_P_NetBaseSalary() {
-//	return t_P_NetBaseSalary;
-//}
-//
-//public BigDecimal getT_P_CreditPrepaySalaryAmount() {
-//	return t_P_CreditPrepaySalaryAmount;
-//}
-//
-//public Integer getT_P_PayrollDate() {
-//	return t_P_PayrollDate;
-//}
-//
-//public BigDecimal getT_P_NetMonthlyBonusAmount() {
-//	return t_P_NetMonthlyBonusAmount;
-//}
-//
-//public Integer getT_P_NetBonusPayDate() {
-//	return t_P_NetBonusPayDate;
-//}
-//
-//public Integer getT_P_SocialSecurityDate() {
-//	return t_P_SocialSecurityDate;
-//}
-//
-//public Date getT_P_SysUpdateDate() {
-//	return t_P_SysUpdateDate;
-//}
-//
-//public void setCreator(String creator) {
-//	this.creator = creator;
-//}
-//
-//public void setCreate_time(Date create_time) {
-//	this.create_time = create_time;
-//}
-//
-//public void setModifier(String modifier) {
-//	this.modifier = modifier;
-//}
-//
-//public void setModify_time(Date modify_time) {
-//	this.modify_time = modify_time;
-//}
-//
-//public void setPlatform(String platform) {
-//	this.platform = platform;
-//}
-//
-//public void setRemark(String remark) {
-//	this.remark = remark;
-//}
-//
-//public void setT_P_id(String t_P_id) {
-//	this.t_P_id = t_P_id;
-//}
-//
-//public void setT_P_Name(String t_P_Name) {
-//	this.t_P_Name = t_P_Name;
-//}
-//
-//public void setT_P_Sex(String t_P_Sex) {
-//	this.t_P_Sex = t_P_Sex;
-//}
-//
-//public void setT_P_Age(Integer t_P_Age) {
-//	this.t_P_Age = t_P_Age;
-//}
-//
-//public void setT_P_PID(String t_P_PID) {
-//	this.t_P_PID = t_P_PID;
-//}
-//
-//public void setT_P_Marriage(String t_P_Marriage) {
-//	this.t_P_Marriage = t_P_Marriage;
-//}
-//
-//public void setT_P_HomeAddress(String t_P_HomeAddress) {
-//	this.t_P_HomeAddress = t_P_HomeAddress;
-//}
-//
-//public void setT_P_Mobil(String t_P_Mobil) {
-//	this.t_P_Mobil = t_P_Mobil;
-//}
-//
-//public void setT_P_Phone(String t_P_Phone) {
-//	this.t_P_Phone = t_P_Phone;
-//}
-//
-//public void setT_P_Spouse(String t_P_Spouse) {
-//	this.t_P_Spouse = t_P_Spouse;
-//}
-//
-//public void setT_P_Spouse_Phone(String t_P_Spouse_Phone) {
-//	this.t_P_Spouse_Phone = t_P_Spouse_Phone;
-//}
-//
-//public void setT_P_Contact1(String t_P_Contact1) {
-//	this.t_P_Contact1 = t_P_Contact1;
-//}
-//
-//public void setT_P_Contact1Mobil(String t_P_Contact1Mobil) {
-//	this.t_P_Contact1Mobil = t_P_Contact1Mobil;
-//}
-//
-//public void setT_P_Contact2(String t_P_Contact2) {
-//	this.t_P_Contact2 = t_P_Contact2;
-//}
-//
-//public void setT_P_Contact2Mobil(String t_P_Contact2Mobil) {
-//	this.t_P_Contact2Mobil = t_P_Contact2Mobil;
-//}
-//
-//public void setT_P_Company(String t_P_Company) {
-//	this.t_P_Company = t_P_Company;
-//}
-//
-//public void setT_P_CompanyNum(String t_P_CompanyNum) {
-//	this.t_P_CompanyNum = t_P_CompanyNum;
-//}
-//
-//public void setT_P_SocialSecurityBaseAmount(
-//		BigDecimal t_P_SocialSecurityBaseAmount) {
-//	this.t_P_SocialSecurityBaseAmount = t_P_SocialSecurityBaseAmount;
-//}
-//
-//public void setT_P_ProvidentFund(String t_P_ProvidentFund) {
-//	this.t_P_ProvidentFund = t_P_ProvidentFund;
-//}
-//
-//public void setT_P_Employmentstatus(String t_P_Employmentstatus) {
-//	this.t_P_Employmentstatus = t_P_Employmentstatus;
-//}
-//
-//public void setT_P_EmploymentCategory(String t_P_EmploymentCategory) {
-//	this.t_P_EmploymentCategory = t_P_EmploymentCategory;
-//}
-//
-//public void setT_P_WorkYears(Integer t_P_WorkYears) {
-//	this.t_P_WorkYears = t_P_WorkYears;
-//}
-//
-//public void setT_P_Probation(String t_P_Probation) {
-//	this.t_P_Probation = t_P_Probation;
-//}
-//
-//public void setT_P_VendorEmployment(String t_P_VendorEmployment) {
-//	this.t_P_VendorEmployment = t_P_VendorEmployment;
-//}
-//
-//public void setT_P_VendorEmployeeName(String t_P_VendorEmployeeName) {
-//	this.t_P_VendorEmployeeName = t_P_VendorEmployeeName;
-//}
-//
-//public void setT_P_PayrollDebitcardBankName(String t_P_PayrollDebitcardBankName) {
-//	this.t_P_PayrollDebitcardBankName = t_P_PayrollDebitcardBankName;
-//}
-//
-//public void setT_P_PayrollDebitcardNum(String t_P_PayrollDebitcardNum) {
-//	this.t_P_PayrollDebitcardNum = t_P_PayrollDebitcardNum;
-//}
-//
-//public void setT_P_NetBaseSalary(String t_P_NetBaseSalary) {
-//	this.t_P_NetBaseSalary = t_P_NetBaseSalary;
-//}
-//
-//public void setT_P_CreditPrepaySalaryAmount(
-//		BigDecimal t_P_CreditPrepaySalaryAmount) {
-//	this.t_P_CreditPrepaySalaryAmount = t_P_CreditPrepaySalaryAmount;
-//}
-//
-//public void setT_P_PayrollDate(Integer t_P_PayrollDate) {
-//	this.t_P_PayrollDate = t_P_PayrollDate;
-//}
-//
-//public void setT_P_NetMonthlyBonusAmount(BigDecimal t_P_NetMonthlyBonusAmount) {
-//	this.t_P_NetMonthlyBonusAmount = t_P_NetMonthlyBonusAmount;
-//}
-//
-//public void setT_P_NetBonusPayDate(Integer t_P_NetBonusPayDate) {
-//	this.t_P_NetBonusPayDate = t_P_NetBonusPayDate;
-//}
-//
-//public void setT_P_SocialSecurityDate(Integer t_P_SocialSecurityDate) {
-//	this.t_P_SocialSecurityDate = t_P_SocialSecurityDate;
-//}
-//
-//public void setT_P_SysUpdateDate(Date t_P_SysUpdateDate) {
-//	this.t_P_SysUpdateDate = t_P_SysUpdateDate;
-//}
-//
-//
-////----------------------------------------------
-//   
-// 
-//}
+package com.qucai.sample.entity;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
+
+/**
+ * 
+ * 
+ * @version 1.0 2016-08-09
+ */
+public class EwalletTxn implements Serializable {
+    /**
+	 * 
+	 */
+   private static final long serialVersionUID = -1876948347463745808L;
+
+
+    /**
+    * 创建人
+    */
+   private String creator;
+
+    private Date create_time;
+
+   private String modifier;
+
+   private Date modify_time;
+   
+   private String platform;
+
+   private String remark;
+
+/* biz info char */
+   
+   private String t_WalletTxn_ID;
+
+   private String t_WalletTxn_QRcode;
+   
+   private String t_WalletTxn_Num;
+
+   private String t_WalletTxn_Vendor;
+
+   private String t_WalletTxn_ClearNum;
+
+   private String t_WalletTxn_ClearOrg;
+	
+   private String t_WalletTxn_PayerName;
+
+   private String t_WalletTxn_PayerID;
+   
+   private String t_WalletTxn_PayerPID;
+
+   private String t_WalletTxn_ReceiverName;
+
+   private String t_WalletTxn_ReceiverID;
+
+   private String t_WalletTxn_ReceiverPID;
+   
+   private String t_WalletTxn_Mobile;
+
+   private String t_WalletTxn_TxnCat;
+
+   private String t_WalletTxn_TxnCurrencyType;
+
+   private Date t_WalletTxn_TxnDate;
+	
+   private String t_WalletTxn_ProdName;
+
+   private Integer t_WalletTxn_PayDays;
+	
+   private BigDecimal t_WalletTxn_CreditPayCurrentNum;
+
+   private BigDecimal t_WalletTxn_TotTxnAmount;
+   
+   private BigDecimal t_WalletTxn_TopupAmt;
+
+   private BigDecimal t_WalletTxn_CryptoTxnAmt;
+
+   private BigDecimal t_WalletTxn_DebitTxnAmt;
+
+   private BigDecimal t_WalletTxn_CreditTxnAmt;
+   
+   private BigDecimal t_WalletTxn_CreditBalanceNum;
+
+   private BigDecimal t_WalletTxn_CreditTxnAmtInit;
+
+   private BigDecimal t_WalletTxn_TotalPrepayAmt;
+
+   private BigDecimal t_WalletTxn_TotallvorchourAmt;
+	
+   private Integer t_WalletTxn_TotalInterestDays;
+
+   private Integer t_WalletTxn_TxnCounts;
+   
+   private BigDecimal t_WalletTxn_Interest;
+
+   private String t_WalletTxn_ProductName;
+	
+   private String t_WalletTxn_ProductID;
+
+   private BigDecimal t_WalletTxn_TotBalance;
+
+    private BigDecimal t_WalletTxn_BalancePrepayNum;
+
+    private Date t_WalletTxn_OverdueRepaymentDate;
+
+    private String t_WalletTxn_PayClear;
+
+    private String t_WalletTxn_Overdue;
+
+    private Integer t_WalletTxn_OverdueDays;
+
+    private BigDecimal t_WalletTxn_OverdueTotalAmount;
+
+    private BigDecimal t_WalletTxn_FinancialInterest;
+
+    private BigDecimal t_WalletTxn_ServiceFee;
+
+    private BigDecimal t_WalletTxn_Poundage;
+
+    private BigDecimal t_WalletTxn_TierPoundage;
+
+    private BigDecimal t_WalletTxn_discountamt;
+
+    private BigDecimal t_WalletTxn_bkp1;
+
+    private BigDecimal t_WalletTxn_InterestMargin;
+
+    private String t_WalletTxn_BankAccName;
+
+    private String t_WalletTxn_BankAcc;
+
+    private Date t_WalletTxn_SysUpdateDate;
+
+    private String t_WalletTxn_Paystatus;
+
+    private String t_WalletTxn_SMS;
+
+    private String t_WalletTxn_SMSRec;
+
+    private String t_WalletTxn_type;
+
+    private String t_WalletTxn_Voucher;
+
+    private String t_WalletTxn_Txt2;
+
+    private String t_WalletTxn_Txt3;
+
+    private String t_WalletTxn_Txt4;
+
+    private String t_WalletTxn_Txt5;
+
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+    public Date getCreate_time() {
+        return create_time;
+    }
+
+    public void setCreate_time(Date create_time) {
+        this.create_time = create_time;
+    }
+
+    public String getModifier() {
+        return modifier;
+    }
+
+    public void setModifier(String modifier) {
+        this.modifier = modifier;
+    }
+
+    public Date getModify_time() {
+        return modify_time;
+    }
+
+    public void setModify_time(Date modify_time) {
+        this.modify_time = modify_time;
+    }
+
+    public String getPlatform() {
+        return platform;
+    }
+
+    public void setPlatform(String platform) {
+        this.platform = platform;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public String getT_WalletTxn_ID() {
+        return t_WalletTxn_ID;
+    }
+
+    public void setT_WalletTxn_ID(String t_WalletTxn_ID) {
+        this.t_WalletTxn_ID = t_WalletTxn_ID;
+    }
+
+    public String getT_WalletTxn_QRcode() {
+        return t_WalletTxn_QRcode;
+    }
+
+    public void setT_WalletTxn_QRcode(String t_WalletTxn_QRcode) {
+        this.t_WalletTxn_QRcode = t_WalletTxn_QRcode;
+    }
+
+    public String getT_WalletTxn_Num() {
+        return t_WalletTxn_Num;
+    }
+
+    public void setT_WalletTxn_Num(String t_WalletTxn_Num) {
+        this.t_WalletTxn_Num = t_WalletTxn_Num;
+    }
+
+    public String getT_WalletTxn_Vendor() {
+        return t_WalletTxn_Vendor;
+    }
+
+    public void setT_WalletTxn_Vendor(String t_WalletTxn_Vendor) {
+        this.t_WalletTxn_Vendor = t_WalletTxn_Vendor;
+    }
+
+    public String getT_WalletTxn_ClearNum() {
+        return t_WalletTxn_ClearNum;
+    }
+
+    public void setT_WalletTxn_ClearNum(String t_WalletTxn_ClearNum) {
+        this.t_WalletTxn_ClearNum = t_WalletTxn_ClearNum;
+    }
+
+    public String getT_WalletTxn_ClearOrg() {
+        return t_WalletTxn_ClearOrg;
+    }
+
+    public void setT_WalletTxn_ClearOrg(String t_WalletTxn_ClearOrg) {
+        this.t_WalletTxn_ClearOrg = t_WalletTxn_ClearOrg;
+    }
+
+    public String getT_WalletTxn_PayerName() {
+        return t_WalletTxn_PayerName;
+    }
+
+    public void setT_WalletTxn_PayerName(String t_WalletTxn_PayerName) {
+        this.t_WalletTxn_PayerName = t_WalletTxn_PayerName;
+    }
+
+    public String getT_WalletTxn_PayerID() {
+        return t_WalletTxn_PayerID;
+    }
+
+    public void setT_WalletTxn_PayerID(String t_WalletTxn_PayerID) {
+        this.t_WalletTxn_PayerID = t_WalletTxn_PayerID;
+    }
+
+    public String getT_WalletTxn_PayerPID() {
+        return t_WalletTxn_PayerPID;
+    }
+
+    public void setT_WalletTxn_PayerPID(String t_WalletTxn_PayerPID) {
+        this.t_WalletTxn_PayerPID = t_WalletTxn_PayerPID;
+    }
+
+    public String getT_WalletTxn_ReceiverName() {
+        return t_WalletTxn_ReceiverName;
+    }
+
+    public void setT_WalletTxn_ReceiverName(String t_WalletTxn_ReceiverName) {
+        this.t_WalletTxn_ReceiverName = t_WalletTxn_ReceiverName;
+    }
+
+    public String getT_WalletTxn_ReceiverID() {
+        return t_WalletTxn_ReceiverID;
+    }
+
+    public void setT_WalletTxn_ReceiverID(String t_WalletTxn_ReceiverID) {
+        this.t_WalletTxn_ReceiverID = t_WalletTxn_ReceiverID;
+    }
+
+    public String getT_WalletTxn_ReceiverPID() {
+        return t_WalletTxn_ReceiverPID;
+    }
+
+    public void setT_WalletTxn_ReceiverPID(String t_WalletTxn_ReceiverPID) {
+        this.t_WalletTxn_ReceiverPID = t_WalletTxn_ReceiverPID;
+    }
+
+    public String getT_WalletTxn_Mobile() {
+        return t_WalletTxn_Mobile;
+    }
+
+    public void setT_WalletTxn_Mobile(String t_WalletTxn_Mobile) {
+        this.t_WalletTxn_Mobile = t_WalletTxn_Mobile;
+    }
+
+    public String getT_WalletTxn_TxnCat() {
+        return t_WalletTxn_TxnCat;
+    }
+
+    public void setT_WalletTxn_TxnCat(String t_WalletTxn_TxnCat) {
+        this.t_WalletTxn_TxnCat = t_WalletTxn_TxnCat;
+    }
+
+    public String getT_WalletTxn_TxnCurrencyType() {
+        return t_WalletTxn_TxnCurrencyType;
+    }
+
+    public void setT_WalletTxn_TxnCurrencyType(String t_WalletTxn_TxnCurrencyType) {
+        this.t_WalletTxn_TxnCurrencyType = t_WalletTxn_TxnCurrencyType;
+    }
+
+    public Date getT_WalletTxn_TxnDate() {
+        return t_WalletTxn_TxnDate;
+    }
+
+    public void setT_WalletTxn_TxnDate(Date t_WalletTxn_TxnDate) {
+        this.t_WalletTxn_TxnDate = t_WalletTxn_TxnDate;
+    }
+
+    public String getT_WalletTxn_ProdName() {
+        return t_WalletTxn_ProdName;
+    }
+
+    public void setT_WalletTxn_ProdName(String t_WalletTxn_ProdName) {
+        this.t_WalletTxn_ProdName = t_WalletTxn_ProdName;
+    }
+
+    public Integer getT_WalletTxn_PayDays() {
+        return t_WalletTxn_PayDays;
+    }
+
+    public void setT_WalletTxn_PayDays(Integer t_WalletTxn_PayDays) {
+        this.t_WalletTxn_PayDays = t_WalletTxn_PayDays;
+    }
+
+    public BigDecimal getT_WalletTxn_CreditPayCurrentNum() {
+        return t_WalletTxn_CreditPayCurrentNum;
+    }
+
+    public void setT_WalletTxn_CreditPayCurrentNum(BigDecimal t_WalletTxn_CreditPayCurrentNum) {
+        this.t_WalletTxn_CreditPayCurrentNum = t_WalletTxn_CreditPayCurrentNum;
+    }
+
+    public BigDecimal getT_WalletTxn_TotTxnAmount() {
+        return t_WalletTxn_TotTxnAmount;
+    }
+
+    public void setT_WalletTxn_TotTxnAmount(BigDecimal t_WalletTxn_TotTxnAmount) {
+        this.t_WalletTxn_TotTxnAmount = t_WalletTxn_TotTxnAmount;
+    }
+
+    public BigDecimal getT_WalletTxn_TopupAmt() {
+        return t_WalletTxn_TopupAmt;
+    }
+
+    public void setT_WalletTxn_TopupAmt(BigDecimal t_WalletTxn_TopupAmt) {
+        this.t_WalletTxn_TopupAmt = t_WalletTxn_TopupAmt;
+    }
+
+    public BigDecimal getT_WalletTxn_CryptoTxnAmt() {
+        return t_WalletTxn_CryptoTxnAmt;
+    }
+
+    public void setT_WalletTxn_CryptoTxnAmt(BigDecimal t_WalletTxn_CryptoTxnAmt) {
+        this.t_WalletTxn_CryptoTxnAmt = t_WalletTxn_CryptoTxnAmt;
+    }
+
+    public BigDecimal getT_WalletTxn_DebitTxnAmt() {
+        return t_WalletTxn_DebitTxnAmt;
+    }
+
+    public void setT_WalletTxn_DebitTxnAmt(BigDecimal t_WalletTxn_DebitTxnAmt) {
+        this.t_WalletTxn_DebitTxnAmt = t_WalletTxn_DebitTxnAmt;
+    }
+
+    public BigDecimal getT_WalletTxn_CreditTxnAmt() {
+        return t_WalletTxn_CreditTxnAmt;
+    }
+
+    public void setT_WalletTxn_CreditTxnAmt(BigDecimal t_WalletTxn_CreditTxnAmt) {
+        this.t_WalletTxn_CreditTxnAmt = t_WalletTxn_CreditTxnAmt;
+    }
+
+    public BigDecimal getT_WalletTxn_CreditBalanceNum() {
+        return t_WalletTxn_CreditBalanceNum;
+    }
+
+    public void setT_WalletTxn_CreditBalanceNum(BigDecimal t_WalletTxn_CreditBalanceNum) {
+        this.t_WalletTxn_CreditBalanceNum = t_WalletTxn_CreditBalanceNum;
+    }
+
+    public BigDecimal getT_WalletTxn_CreditTxnAmtInit() {
+        return t_WalletTxn_CreditTxnAmtInit;
+    }
+
+    public void setT_WalletTxn_CreditTxnAmtInit(BigDecimal t_WalletTxn_CreditTxnAmtInit) {
+        this.t_WalletTxn_CreditTxnAmtInit = t_WalletTxn_CreditTxnAmtInit;
+    }
+
+    public BigDecimal getT_WalletTxn_TotalPrepayAmt() {
+        return t_WalletTxn_TotalPrepayAmt;
+    }
+
+    public void setT_WalletTxn_TotalPrepayAmt(BigDecimal t_WalletTxn_TotalPrepayAmt) {
+        this.t_WalletTxn_TotalPrepayAmt = t_WalletTxn_TotalPrepayAmt;
+    }
+
+    public BigDecimal getT_WalletTxn_TotallvorchourAmt() {
+        return t_WalletTxn_TotallvorchourAmt;
+    }
+
+    public void setT_WalletTxn_TotallvorchourAmt(BigDecimal t_WalletTxn_TotallvorchourAmt) {
+        this.t_WalletTxn_TotallvorchourAmt = t_WalletTxn_TotallvorchourAmt;
+    }
+
+    public Integer getT_WalletTxn_TotalInterestDays() {
+        return t_WalletTxn_TotalInterestDays;
+    }
+
+    public void setT_WalletTxn_TotalInterestDays(Integer t_WalletTxn_TotalInterestDays) {
+        this.t_WalletTxn_TotalInterestDays = t_WalletTxn_TotalInterestDays;
+    }
+
+    public Integer getT_WalletTxn_TxnCounts() {
+        return t_WalletTxn_TxnCounts;
+    }
+
+    public void setT_WalletTxn_TxnCounts(Integer t_WalletTxn_TxnCounts) {
+        this.t_WalletTxn_TxnCounts = t_WalletTxn_TxnCounts;
+    }
+
+    public BigDecimal getT_WalletTxn_Interest() {
+        return t_WalletTxn_Interest;
+    }
+
+    public void setT_WalletTxn_Interest(BigDecimal t_WalletTxn_Interest) {
+        this.t_WalletTxn_Interest = t_WalletTxn_Interest;
+    }
+
+    public String getT_WalletTxn_ProductName() {
+        return t_WalletTxn_ProductName;
+    }
+
+    public void setT_WalletTxn_ProductName(String t_WalletTxn_ProductName) {
+        this.t_WalletTxn_ProductName = t_WalletTxn_ProductName;
+    }
+
+    public String getT_WalletTxn_ProductID() {
+        return t_WalletTxn_ProductID;
+    }
+
+    public void setT_WalletTxn_ProductID(String t_WalletTxn_ProductID) {
+        this.t_WalletTxn_ProductID = t_WalletTxn_ProductID;
+    }
+
+    public BigDecimal gett_WalletTxn_TotBalance() {
+        return t_WalletTxn_TotBalance;
+    }
+
+    public void sett_WalletTxn_TotBalance(BigDecimal t_WalletTxn_TotBalance) {
+        this.t_WalletTxn_TotBalance = t_WalletTxn_TotBalance;
+    }
+
+    public BigDecimal gett_WalletTxn_BalancePrepayNum() {
+        return t_WalletTxn_BalancePrepayNum;
+    }
+
+    public void sett_WalletTxn_BalancePrepayNum(BigDecimal t_WalletTxn_BalancePrepayNum) {
+        this.t_WalletTxn_BalancePrepayNum = t_WalletTxn_BalancePrepayNum;
+    }
+
+    public Date getT_WalletTxn_OverdueRepaymentDate() {
+        return t_WalletTxn_OverdueRepaymentDate;
+    }
+
+    public void setT_WalletTxn_OverdueRepaymentDate(Date t_WalletTxn_OverdueRepaymentDate) {
+        this.t_WalletTxn_OverdueRepaymentDate = t_WalletTxn_OverdueRepaymentDate;
+    }
+
+    public String getT_WalletTxn_PayClear() {
+        return t_WalletTxn_PayClear;
+    }
+
+    public void setT_WalletTxn_PayClear(String t_WalletTxn_PayClear) {
+        this.t_WalletTxn_PayClear = t_WalletTxn_PayClear;
+    }
+
+    public String getT_WalletTxn_Overdue() {
+        return t_WalletTxn_Overdue;
+    }
+
+    public void setT_WalletTxn_Overdue(String t_WalletTxn_Overdue) {
+        this.t_WalletTxn_Overdue = t_WalletTxn_Overdue;
+    }
+
+    public Integer getT_WalletTxn_OverdueDays() {
+        return t_WalletTxn_OverdueDays;
+    }
+
+    public void setT_WalletTxn_OverdueDays(Integer t_WalletTxn_OverdueDays) {
+        this.t_WalletTxn_OverdueDays = t_WalletTxn_OverdueDays;
+    }
+
+    public BigDecimal getT_WalletTxn_OverdueTotalAmount() {
+        return t_WalletTxn_OverdueTotalAmount;
+    }
+
+    public void setT_WalletTxn_OverdueTotalAmount(BigDecimal t_WalletTxn_OverdueTotalAmount) {
+        this.t_WalletTxn_OverdueTotalAmount = t_WalletTxn_OverdueTotalAmount;
+    }
+
+    public BigDecimal getT_WalletTxn_FinancialInterest() {
+        return t_WalletTxn_FinancialInterest;
+    }
+
+    public void setT_WalletTxn_FinancialInterest(BigDecimal t_WalletTxn_FinancialInterest) {
+        this.t_WalletTxn_FinancialInterest = t_WalletTxn_FinancialInterest;
+    }
+
+    public BigDecimal getT_WalletTxn_ServiceFee() {
+        return t_WalletTxn_ServiceFee;
+    }
+
+    public void setT_WalletTxn_ServiceFee(BigDecimal t_WalletTxn_ServiceFee) {
+        this.t_WalletTxn_ServiceFee = t_WalletTxn_ServiceFee;
+    }
+
+    public BigDecimal getT_WalletTxn_Poundage() {
+        return t_WalletTxn_Poundage;
+    }
+
+    public void setT_WalletTxn_Poundage(BigDecimal t_WalletTxn_Poundage) {
+        this.t_WalletTxn_Poundage = t_WalletTxn_Poundage;
+    }
+
+    public BigDecimal getT_WalletTxn_TierPoundage() {
+        return t_WalletTxn_TierPoundage;
+    }
+
+    public void setT_WalletTxn_TierPoundage(BigDecimal t_WalletTxn_TierPoundage) {
+        this.t_WalletTxn_TierPoundage = t_WalletTxn_TierPoundage;
+    }
+
+    public BigDecimal getT_WalletTxn_discountamt() {
+        return t_WalletTxn_discountamt;
+    }
+
+    public void setT_WalletTxn_discountamt(BigDecimal t_WalletTxn_discountamt) {
+        this.t_WalletTxn_discountamt = t_WalletTxn_discountamt;
+    }
+
+    public BigDecimal getT_WalletTxn_bkp1() {
+        return t_WalletTxn_bkp1;
+    }
+
+    public void setT_WalletTxn_bkp1(BigDecimal t_WalletTxn_bkp1) {
+        this.t_WalletTxn_bkp1 = t_WalletTxn_bkp1;
+    }
+
+    public BigDecimal getT_WalletTxn_InterestMargin() {
+        return t_WalletTxn_InterestMargin;
+    }
+
+    public void setT_WalletTxn_InterestMargin(BigDecimal t_WalletTxn_InterestMargin) {
+        this.t_WalletTxn_InterestMargin = t_WalletTxn_InterestMargin;
+    }
+
+    public String getT_WalletTxn_BankAccName() {
+        return t_WalletTxn_BankAccName;
+    }
+
+    public void setT_WalletTxn_BankAccName(String t_WalletTxn_BankAccName) {
+        this.t_WalletTxn_BankAccName = t_WalletTxn_BankAccName;
+    }
+
+    public String getT_WalletTxn_BankAcc() {
+        return t_WalletTxn_BankAcc;
+    }
+
+    public void setT_WalletTxn_BankAcc(String t_WalletTxn_BankAcc) {
+        this.t_WalletTxn_BankAcc = t_WalletTxn_BankAcc;
+    }
+
+    public Date getT_WalletTxn_SysUpdateDate() {
+        return t_WalletTxn_SysUpdateDate;
+    }
+
+    public void setT_WalletTxn_SysUpdateDate(Date t_WalletTxn_SysUpdateDate) {
+        this.t_WalletTxn_SysUpdateDate = t_WalletTxn_SysUpdateDate;
+    }
+
+    public String getT_WalletTxn_Paystatus() {
+        return t_WalletTxn_Paystatus;
+    }
+
+    public void setT_WalletTxn_Paystatus(String t_WalletTxn_Paystatus) {
+        this.t_WalletTxn_Paystatus = t_WalletTxn_Paystatus;
+    }
+
+    public String getT_WalletTxn_SMS() {
+        return t_WalletTxn_SMS;
+    }
+
+    public void setT_WalletTxn_SMS(String t_WalletTxn_SMS) {
+        this.t_WalletTxn_SMS = t_WalletTxn_SMS;
+    }
+
+    public String getT_WalletTxn_SMSRec() {
+        return t_WalletTxn_SMSRec;
+    }
+
+    public void setT_WalletTxn_SMSRec(String t_WalletTxn_SMSRec) {
+        this.t_WalletTxn_SMSRec = t_WalletTxn_SMSRec;
+    }
+
+    public String getT_WalletTxn_type() {
+        return t_WalletTxn_type;
+    }
+
+    public void setT_WalletTxn_type(String t_WalletTxn_type) {
+        this.t_WalletTxn_type = t_WalletTxn_type;
+    }
+
+    public String gett_WalletTxn_Voucher() {
+        return t_WalletTxn_Voucher;
+    }
+
+    public void sett_WalletTxn_Voucher(String t_WalletTxn_Voucher) {
+        this.t_WalletTxn_Voucher = t_WalletTxn_Voucher;
+    }
+
+    public String getT_WalletTxn_Txt2() {
+        return t_WalletTxn_Txt2;
+    }
+
+    public void setT_WalletTxn_Txt2(String t_WalletTxn_Txt2) {
+        this.t_WalletTxn_Txt2 = t_WalletTxn_Txt2;
+    }
+
+    public String getT_WalletTxn_Txt3() {
+        return t_WalletTxn_Txt3;
+    }
+
+    public void setT_WalletTxn_Txt3(String t_WalletTxn_Txt3) {
+        this.t_WalletTxn_Txt3 = t_WalletTxn_Txt3;
+    }
+
+    public String getT_WalletTxn_Txt4() {
+        return t_WalletTxn_Txt4;
+    }
+
+    public void setT_WalletTxn_Txt4(String t_WalletTxn_Txt4) {
+        this.t_WalletTxn_Txt4 = t_WalletTxn_Txt4;
+    }
+
+    public String getT_WalletTxn_Txt5() {
+        return t_WalletTxn_Txt5;
+    }
+
+    public void setT_WalletTxn_Txt5(String t_WalletTxn_Txt5) {
+        this.t_WalletTxn_Txt5 = t_WalletTxn_Txt5;
+    }
+
+}

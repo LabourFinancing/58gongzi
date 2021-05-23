@@ -108,39 +108,39 @@ public class EwalletController {
             paramSearchMap.put("t_P_Company", t_P_Company);//添加元素
         	paramSearchMap.put("remark", remark);//添加元素
 
-//        	if (t_O_OrgName.equals("ALL")){
-//            	paramSearchMap.put("t_P_Company", t_P_Company);//添加元素
-//        	}
-//            else {
-//            	//Flag on Agency or not
-//            	 if (AgencyOrgnization.getT_O_listOrg().equals("off")){
-//                     paramSearchMap.put("t_P_Company", ShiroSessionUtil.getLoginSession().getCompany_name());
-//            		 paramSearchMap.put("t_P_VendorEmployeeName", t_P_VendorEmployeeName);
-//            	 }else{
-//                     paramSearchMap.put("t_P_Company", t_P_Company);
-//            		 paramSearchMap.put("t_P_VendorEmployeeName", t_O_OrgName);
-//            	 }
-//            	//Agency filter
-//        	}
+        	if (t_O_OrgName.equals("ALL")){
+            	paramSearchMap.put("t_P_Company", t_P_Company);//添加元素
+        	}
+            else {
+            	//Flag on Agency or not
+            	 if (AgencyOrgnization.getT_O_listOrg().equals("off")){
+                     paramSearchMap.put("t_P_Company", ShiroSessionUtil.getLoginSession().getCompany_name());
+            		 paramSearchMap.put("t_P_VendorEmployeeName", t_P_VendorEmployeeName);
+            	 }else{
+                     paramSearchMap.put("t_P_Company", t_P_Company);
+            		 paramSearchMap.put("t_P_VendorEmployeeName", t_O_OrgName);
+            	 }
+            	//Agency filter
+        	}
             PageParam pp = Tool.genPageParam(request);  
             PageInfo<Ewallet> page = ewalletService.findSearchList(pp, paramSearchMap);
             model.addAttribute("page", page);//从数据库查询出来的结果用model的方式返回
     	} else {
     		Map<String, Object> paramMap = new HashMap<String, Object>();//新建map对象
             paramMap.put("t_P_Company", t_P_Company);
-//    		if (t_O_OrgName.equals("ALL")) {
-//    			t_P_Company = null;
-//    		}else {
-//                //Flag on Agency or not
-//             	 if (AgencyOrgnization.getT_O_listOrg().equals("off")){
-//             		paramMap.put("t_P_Company", ShiroSessionUtil.getLoginSession().getCompany_name());
-//             		paramMap.put("t_P_VendorEmployeeName", t_P_VendorEmployeeName);
-//             	 }else{
-//             		paramMap.put("t_P_Company", t_P_Company);
-//             		paramMap.put("t_P_VendorEmployeeName", t_O_OrgName);
-//             	 }
-//             	//Agency filter
-//    		}
+    		if (t_O_OrgName.equals("ALL")) {
+    			t_P_Company = null;
+    		}else {
+                //Flag on Agency or not
+             	 if (AgencyOrgnization.getT_O_listOrg().equals("off")){
+             		paramMap.put("t_P_Company", ShiroSessionUtil.getLoginSession().getCompany_name());
+             		paramMap.put("t_P_VendorEmployeeName", t_P_VendorEmployeeName);
+             	 }else{
+             		paramMap.put("t_P_Company", t_P_Company);
+             		paramMap.put("t_P_VendorEmployeeName", t_O_OrgName);
+             	 }
+             	//Agency filter
+    		}
             PageParam pp = Tool.genPageParam(request);    
             PageInfo<Ewallet> page = ewalletService.findAllList(paramMap, pp);
             model.addAttribute("page", page);

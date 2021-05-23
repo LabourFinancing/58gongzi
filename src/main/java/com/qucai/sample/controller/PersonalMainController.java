@@ -95,7 +95,7 @@ public class PersonalMainController {
         model.addAttribute("creditscore_begin", creditscore_begin); //其实信用分
         model.addAttribute("creditscore_end", creditscore_end); //结尾信用分
     	model.addAttribute("remark", remark); //key从数据库查询并返回,并索引对应JSP
-        String t_P_PID = ShiroSessionUtil.getLoginSession().getTelephone();
+        String t_P_Company = ShiroSessionUtil.getLoginSession().getCompany_name();
         String t_O_OrgName = ShiroSessionUtil.getLoginSession().getCompany_name();
     	OrganizationInfo AgencyOrgnization = organizationInfoService.selectAgencyName(t_O_OrgName);
 
@@ -111,20 +111,20 @@ public class PersonalMainController {
         	paramSearchMap.put("remark", remark);//添加元素
 
             // 根据公司筛选
-//        	if (t_O_OrgName.equals("ALL")){
-//            	paramSearchMap.put("t_P_Company", t_P_Company);//添加元素
-//        	}
-//            else {
-//            	//Flag on Agency or not
-//            	 if (AgencyOrgnization.getT_O_listOrg().equals("off")){
-//                     paramSearchMap.put("t_P_Company", ShiroSessionUtil.getLoginSession().getCompany_name());
-//            		 paramSearchMap.put("t_P_VendorEmployeeName", t_P_VendorEmployeeName);
-//            	 }else{
-//                     paramSearchMap.put("t_P_Company", t_P_Company);
-//            		 paramSearchMap.put("t_P_VendorEmployeeName", t_O_OrgName);
-//            	 }
-//            	//Agency filter
-//        	}
+        	if (t_O_OrgName.equals("ALL")){
+            	paramSearchMap.put("t_P_Company", t_P_Company);//添加元素
+        	}
+            else {
+            	//Flag on Agency or not
+            	 if (AgencyOrgnization.getT_O_listOrg().equals("off")){
+                     paramSearchMap.put("t_P_Company", ShiroSessionUtil.getLoginSession().getCompany_name());
+            		 paramSearchMap.put("t_P_VendorEmployeeName", t_P_VendorEmployeeName);
+            	 }else{
+                     paramSearchMap.put("t_P_Company", t_P_Company);
+            		 paramSearchMap.put("t_P_VendorEmployeeName", t_O_OrgName);
+            	 }
+            	//Agency filter
+        	}
             
             PageParam pp = Tool.genPageParam(request);  
             PageInfo<PersonalMain> page = personalMainService.findSearchList(pp, paramSearchMap);
@@ -133,19 +133,19 @@ public class PersonalMainController {
     		Map<String, Object> paramMap = new HashMap<String, Object>();//新建map对象
             
             //根据公司筛选
-//    		if (t_O_OrgName.equals("ALL")) {
-//    			t_P_Company = null;
-//    		}else {
-//                //Flag on Agency or not
-//             	 if (AgencyOrgnization.getT_O_listOrg().equals("off")){
-//             		paramMap.put("t_P_Company", ShiroSessionUtil.getLoginSession().getCompany_name());
-//             		paramMap.put("t_P_VendorEmployeeName", t_P_VendorEmployeeName);
-//             	 }else{
-//             		paramMap.put("t_P_Company", t_P_Company);
-//             		paramMap.put("t_P_VendorEmployeeName", t_O_OrgName);
-//             	 }
-//             	//Agency filter
-//    		}
+    		if (t_O_OrgName.equals("ALL")) {
+    			t_P_Company = null;
+    		}else {
+                //Flag on Agency or not
+             	 if (AgencyOrgnization.getT_O_listOrg().equals("off")){
+             		paramMap.put("t_P_Company", ShiroSessionUtil.getLoginSession().getCompany_name());
+             		paramMap.put("t_P_VendorEmployeeName", t_P_VendorEmployeeName);
+             	 }else{
+             		paramMap.put("t_P_Company", t_P_Company);
+             		paramMap.put("t_P_VendorEmployeeName", t_O_OrgName);
+             	 }
+             	//Agency filter
+    		}
             
             PageParam pp = Tool.genPageParam(request);    
             PageInfo<PersonalMain> page = personalMainService.findAllList(paramMap, pp);
@@ -165,6 +165,7 @@ public class PersonalMainController {
 
     	model.addAttribute("platform", platform); //key从数据库查询并返回,并索引对应JSP
     	String t_O_OrgName = ShiroSessionUtil.getLoginSession().getCompany_name();
+        String t_P_Company = ShiroSessionUtil.getLoginSession().getCompany_name();
     	OrganizationInfo AgencyOrgnization = organizationInfoService.selectAgencyName(t_O_OrgName);
 
         if (t_personal_main_name != null | t_personal_main_pid != null | t_personal_main_mobile != null | t_personal_main_securityret != null
@@ -177,33 +178,33 @@ public class PersonalMainController {
             paramSearchMap.put("creditscore_begin", creditscore_begin);//添加元素
             paramSearchMap.put("creditscore_end", creditscore_end);//添加元素
             paramSearchMap.put("remark", remark);//添加元素
-//        	if (t_O_OrgName.equals("ALL")){
-//            	paramSearchMap.put("t_P_Company", t_P_Company);//添加元素
-//        	}
-//            else {
-//            //Flag on Agency or not
-//           	 if (AgencyOrgnization.getT_O_listOrg().equals("off")){
-//            		paramSearchMap.put("t_P_Company", ShiroSessionUtil.getLoginSession().getCompany_name());
-//               		paramSearchMap.put("t_P_VendorEmployeeName", t_P_VendorEmployeeName);
-//           	 }else{
-//            		paramSearchMap.put("t_P_Company", t_P_Company);
-//               		paramSearchMap.put("t_P_VendorEmployeeName", t_O_OrgName);
-//           	 }
-//           	//Agency filter
-//        	}
+        	if (t_O_OrgName.equals("ALL")){
+            	paramSearchMap.put("t_P_Company", t_P_Company);//添加元素
+        	}
+            else {
+            //Flag on Agency or not
+           	 if (AgencyOrgnization.getT_O_listOrg().equals("off")){
+            		paramSearchMap.put("t_P_Company", ShiroSessionUtil.getLoginSession().getCompany_name());
+               		paramSearchMap.put("t_P_VendorEmployeeName", t_P_VendorEmployeeName);
+           	 }else{
+            		paramSearchMap.put("t_P_Company", t_P_Company);
+               		paramSearchMap.put("t_P_VendorEmployeeName", t_O_OrgName);
+           	 }
+           	//Agency filter
+        	}
             PageParam pp = Tool.genPageParam(request);  
             PageInfo<PersonalMain> page = personalMainService.findSearchList(pp, paramSearchMap);
             model.addAttribute("page", page);//从数据库查询出来的结果用model的方式返回
     	} else {
     		Map<String, Object> paramMap = new HashMap<String, Object>();//新建map对象
             //Flag on Agency or not
-//          	 if (AgencyOrgnization.getT_O_listOrg().equals("off")){
-//          		paramMap.put("t_P_Company", ShiroSessionUtil.getLoginSession().getCompany_name());
-//          		paramMap.put("t_P_VendorEmployeeName", t_P_VendorEmployeeName);
-//          	 }else{
-//          		paramMap.put("t_P_Company", t_P_Company);
-//          		paramMap.put("t_P_VendorEmployeeName", t_O_OrgName);
-//          	 }
+          	 if (AgencyOrgnization.getT_O_listOrg().equals("off")){
+          		paramMap.put("t_P_Company", ShiroSessionUtil.getLoginSession().getCompany_name());
+          		paramMap.put("t_P_VendorEmployeeName", t_P_VendorEmployeeName);
+          	 }else{
+          		paramMap.put("t_P_Company", t_P_Company);
+          		paramMap.put("t_P_VendorEmployeeName", t_O_OrgName);
+          	 }
           	//Agency filter
             PageParam pp = Tool.genPageParam(request);           
             PageInfo<PersonalMain> page = personalMainService.findAllList(paramMap, pp);
@@ -234,51 +235,51 @@ public class PersonalMainController {
          if (OperationTypeConstant.NEW.equals(operationType)) { //用OperationTypeConstant函数封装的赋值函数方法判断值是否相等,并调用相应的页面        
             Map<String, Object> paramSearchMap = new HashMap<String, Object>();// 申明一个新对象
          	FinanceProduct financeProduct;
-//           if (t_P_Company.equals("ALL")){
-//            paramSearchMap.put("t_FProd_Name", ""); //input org name into prod name mass search
-//         	paramSearchMap.put("t_FProd_Name", ""); //input org name into prod name mass search
-//         	paramSearchMap.put("t_O_listOrg", "on");
-//          	List<OrganizationInfo> OrganizationInfo = organizationInfoService.findAllName(paramMap);
-//          	List<FinanceProduct> FinanceProduct= financeProductService.findSearchList(paramSearchMap);
-//         	List<OrganizationInfo> OrganizationInfoAgency = organizationInfoService.findOrgNameAgency(paramSearchMap);
-//          	model.addAttribute("FinanceProduct", FinanceProduct);
-//          	model.addAttribute("OrganizationInfo", OrganizationInfo);
-//          	model.addAttribute("OrganizationInfoAgency", OrganizationInfoAgency);
-//           }else {
-//        	 paramMap.put("t_P_Company", t_P_Company);//添加元素
-//          	 paramSearchMap.put("t_FProd_Name", t_P_Company); //input org name into prod name mass search
-//          	 paramSearchMap.put("t_O_listOrg", "on");
-//          	 List<OrganizationInfo> OrganizationInfo = organizationInfoService.findOrgName(paramMap);
-//          	 List<FinanceProduct> FinanceProduct= financeProductService.findSearchList(paramSearchMap);
-//          	 List<OrganizationInfo> OrganizationInfoAgency = organizationInfoService.findOrgNameAgency(paramSearchMap);
-//          	 model.addAttribute("FinanceProduct", FinanceProduct);
-//          	 model.addAttribute("OrganizationInfo", OrganizationInfo);
-//          	 model.addAttribute("OrganizationInfoAgency", OrganizationInfoAgency);
-//           }
+           if (t_P_Company.equals("ALL")){
+            paramSearchMap.put("t_FProd_Name", ""); //input org name into prod name mass search
+         	paramSearchMap.put("t_FProd_Name", ""); //input org name into prod name mass search
+         	paramSearchMap.put("t_O_listOrg", "on");
+          	List<OrganizationInfo> OrganizationInfo = organizationInfoService.findAllName(paramMap);
+          	List<FinanceProduct> FinanceProduct= financeProductService.findSearchList(paramSearchMap);
+         	List<OrganizationInfo> OrganizationInfoAgency = organizationInfoService.findOrgNameAgency(paramSearchMap);
+          	model.addAttribute("FinanceProduct", FinanceProduct);
+          	model.addAttribute("OrganizationInfo", OrganizationInfo);
+          	model.addAttribute("OrganizationInfoAgency", OrganizationInfoAgency);
+           }else {
+        	 paramMap.put("t_P_Company", t_P_Company);//添加元素
+          	 paramSearchMap.put("t_FProd_Name", t_P_Company); //input org name into prod name mass search
+          	 paramSearchMap.put("t_O_listOrg", "on");
+          	 List<OrganizationInfo> OrganizationInfo = organizationInfoService.findOrgName(paramMap);
+          	 List<FinanceProduct> FinanceProduct= financeProductService.findSearchList(paramSearchMap);
+          	 List<OrganizationInfo> OrganizationInfoAgency = organizationInfoService.findOrgNameAgency(paramSearchMap);
+          	 model.addAttribute("FinanceProduct", FinanceProduct);
+          	 model.addAttribute("OrganizationInfo", OrganizationInfo);
+          	 model.addAttribute("OrganizationInfoAgency", OrganizationInfoAgency);
+           }
         	return "personalMain/personalMainNewForm";
           } else if (OperationTypeConstant.EDIT.equals(operationType)) {
             Map<String, Object> paramSearchMap = new HashMap<String, Object>();// 申明一个新对象
-//           	FinanceProduct financeProduct;
-//             if (t_P_Company.equals("ALL")){
-//            	paramSearchMap.put("t_FProd_Name", ""); //input org name into prod name mass search
-//              	 paramSearchMap.put("t_O_listOrg", "on");
-//            	List<OrganizationInfo> OrganizationInfo = organizationInfoService.findAllName(paramMap);
-//            	List<FinanceProduct> FinanceProduct= financeProductService.findSearchList(paramSearchMap);
-//             	 List<OrganizationInfo> OrganizationInfoAgency = organizationInfoService.findOrgNameAgency(paramSearchMap);
-//            	model.addAttribute("FinanceProduct", FinanceProduct);
-//            	 model.addAttribute("OrganizationInfo", OrganizationInfo);
-//               	model.addAttribute("OrganizationInfoAgency", OrganizationInfoAgency);
-//             }else {
-//          	 paramMap.put("t_P_Company", t_P_Company);//添加元素
-//          	 paramSearchMap.put("t_FProd_Name", t_P_Company); //input org name into prod name mass search
-//          	 paramSearchMap.put("t_O_listOrg", "on");
-//            	 List<OrganizationInfo> OrganizationInfo = organizationInfoService.findOrgName(paramMap);
-//            	 List<FinanceProduct> FinanceProduct= financeProductService.findSearchList(paramSearchMap);
-//             	 List<OrganizationInfo> OrganizationInfoAgency = organizationInfoService.findOrgNameAgency(paramSearchMap);
-//            	 model.addAttribute("FinanceProduct", FinanceProduct);
-//            	 model.addAttribute("OrganizationInfo", OrganizationInfo);
-//            	 model.addAttribute("OrganizationInfoAgency", OrganizationInfoAgency);
-//             }
+           	FinanceProduct financeProduct;
+             if (t_P_Company.equals("ALL")){
+            	paramSearchMap.put("t_FProd_Name", ""); //input org name into prod name mass search
+              	 paramSearchMap.put("t_O_listOrg", "on");
+            	List<OrganizationInfo> OrganizationInfo = organizationInfoService.findAllName(paramMap);
+            	List<FinanceProduct> FinanceProduct= financeProductService.findSearchList(paramSearchMap);
+             	 List<OrganizationInfo> OrganizationInfoAgency = organizationInfoService.findOrgNameAgency(paramSearchMap);
+            	model.addAttribute("FinanceProduct", FinanceProduct);
+            	 model.addAttribute("OrganizationInfo", OrganizationInfo);
+               	model.addAttribute("OrganizationInfoAgency", OrganizationInfoAgency);
+             }else {
+          	 paramMap.put("t_P_Company", t_P_Company);//添加元素
+          	 paramSearchMap.put("t_FProd_Name", t_P_Company); //input org name into prod name mass search
+          	 paramSearchMap.put("t_O_listOrg", "on");
+            	 List<OrganizationInfo> OrganizationInfo = organizationInfoService.findOrgName(paramMap);
+            	 List<FinanceProduct> FinanceProduct= financeProductService.findSearchList(paramSearchMap);
+             	 List<OrganizationInfo> OrganizationInfoAgency = organizationInfoService.findOrgNameAgency(paramSearchMap);
+            	 model.addAttribute("FinanceProduct", FinanceProduct);
+            	 model.addAttribute("OrganizationInfo", OrganizationInfo);
+            	 model.addAttribute("OrganizationInfoAgency", OrganizationInfoAgency);
+             }
             personalMain = personalMainService.selectByPrimaryKey(t_personal_main_id);
             return "personalMain/personalMainEditForm";
           } else if (OperationTypeConstant.EDITCREDITBALANCE.equals(operationType)) {

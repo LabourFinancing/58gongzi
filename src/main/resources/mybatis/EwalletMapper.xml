@@ -160,9 +160,8 @@
 		select
 		<include refid="Base_Column_List" />
 		from t_personal_ewallet a
-		where 
-		1=1 
-		<if test="t_personalewallet_ApplierName != null">
+		where 1=1 
+        <if test="t_personalewallet_ApplierName != null">
 		and a.t_personalewallet_ApplierName like CONCAT('%',#{t_personalewallet_ApplierName},'%')
 		</if>	
 		<if test="t_personalewallet_ApplierPID != null" >
