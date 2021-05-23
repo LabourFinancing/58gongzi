@@ -86,7 +86,7 @@ public class EwalletController {
      */
 
     @RequestMapping(value = {"ewalletList",""})
-    public String ewalletist(Ewallet ewallet, OrganizationInfo organizationInfo,@RequestParam( defaultValue = "0" )  Integer platform,String t_personalewallet_ApplierName,
+    public String ewalletList(Ewallet ewallet, OrganizationInfo organizationInfo,@RequestParam( defaultValue = "0" )  Integer platform,String t_personalewallet_ApplierName,
     		String t_personalewallet_ApplierID,String t_personalewallet_ApplierPID,String t_P_Mobil,String SessionCompanyName,String t_P_VendorEmployeeName,String remark,String t_TreasuryDB_OrgName,
     		HttpServletRequest request, HttpServletResponse response, Model model) {
         String t_P_Company = ShiroSessionUtil.getLoginSession().getCompany_name();

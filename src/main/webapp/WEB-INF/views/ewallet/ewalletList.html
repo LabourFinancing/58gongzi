@@ -242,7 +242,6 @@ a:hover{color:red}
                                 <th>充值限额</th>
                                 <th>个人身价</th>
 								<th>备注</th>
-								<th>最后更新时间</th>
 								<th>操作</th>
 							    <th>&nbsp;&nbsp;&nbsp;</th>
 							</tr>
@@ -264,7 +263,7 @@ a:hover{color:red}
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewallet.t_personalewallet_ClearNum}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewallet.t_personalewallet_ClearOrg}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewallet.t_personalewallet_PayCat}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewallet.t_personalewallet_PayDate?tring("yyyy-MM-dd HH:mm:ss")}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewallet.t_personalewallet_PayDate}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewallet.t_personalewallet_ProdName}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewallet.t_personalewallet_TotCNYBalance}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewallet.t_personalewallet_TotFXBalance}</td>
@@ -273,24 +272,17 @@ a:hover{color:red}
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewallet.t_personalewallet_CreditPayAmt}</td>
                                     <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewallet.t_personalewallet_TopupLimit}</td>
                                     <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewallet.t_personalewallet_CreditPayAmtInit}</td>
-                                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewallet.remark}</td>							
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewallet.modify_time?string("yyyy-MM-dd HH:mm:ss")}</td>
+                                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewallet.remark}</td>
 									<td class="col-xs-push-2" style="word-wrap:break-word;word-break:break-all">
-										<@shiro.hasPermission name="EWALLET_VIEW">
-										<a href="#" onclick="openView('${ewallet.t_personalewallet_ID}')">查看</a>
-										</@shiro.hasPermission>
-										<@shiro.hasPermission name="EWALLET_EDIT">
-										<a href="#" onclick="openEdit('${ewallet.t_personalewallet_ID}')">编辑</a>
-										</@shiro.hasPermission>
-										<@shiro.hasPermission name="EWALLET_DELETE">
-										<a href="${ctx}/EwalletController/deleteEwallet?t_personalewallet_ID=${ewallet.t_personalewallet_ID}&platform=0" onclick="return confirm('确认要执行 删除 操作吗？', this.href)">删除</a><br>
-										</@shiro.hasPermission>
-										<@shiro.hasPermission name=EWALLET_EDIT">
-										<a href="#" onclick="editCreditBalance('${ewallet.t_personalewallet_ID}')">修改剩余授额</a>
-										</@shiro.hasPermission>
-										<@shiro.hasPermission name="EWALLET_DELETE">
-										<a href="${ctx}/EwalletController/creditRefreshEwalletInfo?t_personalewallet_ID=${ewallet.t_personalewallet_ID}&platform=0" onclick="return confirm('确认要执行 授额刷新 操作吗？', this.href)">刷新授额</a>
-										</@shiro.hasPermission>
+                                        <@shiro.hasPermission name="PERSONALMAIN_VIEW">
+                                        <a href="#" onclick="openView('${ewallet.t_personal_main_id}')">查看</a>
+                                    </@shiro.hasPermission>
+                                    <@shiro.hasPermission name="PERSONALMAIN_EDIT">
+                                    <a href="#" onclick="openEdit('${ewallet.t_personal_main_id}')">编辑</a>
+                                </@shiro.hasPermission>
+                            <@shiro.hasPermission name="PERSONALMAIN_DELETE">
+                            <a href="${ctx}/EwalletController/deleteEwallet?t_personalewallet_ID=${ewallet.t_personalewallet_ID}&platform=0" onclick="return confirm('确认要执行 删除 操作吗？', this.href)">删除</a><br>
+                        </@shiro.hasPermission>
 									</td>
 								</tr>
 							</#list>
