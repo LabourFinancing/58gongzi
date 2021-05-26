@@ -37,9 +37,9 @@ public class OauthController {
 
     @RequestMapping("/login")
     @ResponseBody
-    public Object login(HttpServletRequest request, HttpServletResponse response, String userName, String password, String remember,
-                        String gid,String from, String form,String method, String phone,String host,String SMSsendcode,
-                        String SMSstrret,String type, String API) throws Exception {
+    public Object login(HttpServletRequest request, HttpServletResponse response, String userName,String pid, String password, String remember,
+                        String paymentchannel,String mode,String gid,String from, String form,String method, String phone,String host,
+                        String SMSsendcode, String SMSstrret,String type, String API) throws Exception {
 
         CaptchaUsernamePasswordToken token = new CaptchaUsernamePasswordToken();
         token.setUsername(userName);
@@ -53,15 +53,29 @@ public class OauthController {
             rs.put("QRcodeinit", QRcodeinit);
             return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
         }
-        if(method!=null&&method.equals("QRcode")){
+        
+        //支付调用
+        if(method!=null&&method.equals("QRcode")&&pid!=null&&userName!=null&&paymentchannel!=null&&mode!=null){
             Map<String, Object> rs = new HashMap<String, Object>();
             String merchantId = "S2135052";
             StaffPrepayApplicationPayment staffPrepayApplicationPay = null;
             JSONObject resp = OrderCreateDemo.main(staffPrepayApplicationPay,merchantId);
-            String QRcodeinit = resp.getString("qrCode");
+            String QRcodeinit = resp.getJSONObject("body").getString("qrCode");
             rs.put("QRcodeinit", QRcodeinit);
             return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
         }
+
+        //支付返回
+        if(method!=null&&method.equals("QRScanRet")&&pid!=null&&userName!=null&&paymentchannel!=null&&mode!=null){
+            Map<String, Object> rs = new HashMap<String, Object>();
+            String merchantId = "S2135052";
+            StaffPrepayApplicationPayment staffPrepayApplicationPay = null;
+            JSONObject resp = OrderCreateDemo.main(staffPrepayApplicationPay,merchantId);
+            String QRcodeinit = resp.getJSONObject("body").getString("qrCode");
+            rs.put("QRcodeinit", QRcodeinit);
+            return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
+        }
+        
         if( method!=null&&method.equals("SMSreq")){
             byte[] SMSstr;
             Map<String, Object> rs = new HashMap<String, Object>();
@@ -114,11 +128,22 @@ public class OauthController {
                 System.out.println("调用钱包成功");
                 rs.put("SMSverify",0);
             }
-            return "redirect:/Ewalletcontroller/personalEWMobiledashboard";
+            return "redirect:/Ewalletcontroller/mobile-ewallet";
         }
 
         //Mobile APP 调用个人信息
         if( method!=null&&method.equals("personalMain")&&SMSsendcode!=null) {
+            Map<String, Object> rs = new HashMap<String, Object>();
+            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
+                System.out.println("调用个人信息");
+                rs.put("SMSverify", 0);
+            }
+            return "redirect:/PersonalMaincontroller/personalMMobiledashboard";
+        }
+
+        //Mobile APP 调用个人信息
+        if( method!=null&&method.equals("personalEwallet")&&SMSsendcode!=null) {
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
@@ -152,15 +177,15 @@ public class OauthController {
         }
 
         //Mobile APP 调用客服
-        if( method!=null&&method.equals("cspersonal")&&SMSsendcode!=null){
-            Map<String, Object> rs = new HashMap<String, Object>();
-            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
-            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
-                System.out.println("调用个人信息");
-                rs.put("SMSverify",0);
-            }
-            return "redirect:/cscontroller/personalCSdashboard";
-        }
+//        if( method!=null&&method.equals("cspersonal")&&SMSsendcode!=null){
+//            Map<String, Object> rs = new HashMap<String, Object>();
+//            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+//            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
+//                System.out.println("调用个人信息");
+//                rs.put("SMSverify",0);
+//            }
+//            return "redirect:/cscontroller/personalCSdashboard";
+//        }
 
         //Mobile APP 调用供应商管理
         if( method!=null&&method.equals("vendormgt")&&SMSsendcode!=null){

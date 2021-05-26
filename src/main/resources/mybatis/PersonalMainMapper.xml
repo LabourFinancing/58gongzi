@@ -30,7 +30,7 @@
 		<result column="t_personal_main_creditscore" property="t_personal_main_creditscore" jdbcType="INTEGER" />
 		<result column="t_personal_main_bkptxt1" property="t_personal_main_bkptxt1" jdbcType="VARCHAR" />
         <result column="t_personal_main_digiasset" property="t_personal_main_digiasset" jdbcType="VARCHAR" />
-		<result column="t_personal_main_digi1" property="t_personal_main_digi1" jdbcType="VARCHAR" />
+		<result column="t_personal_main_companylist" property="t_personal_main_companylist" jdbcType="VARCHAR" />
 		<result column="t_personal_main_digi2" property="t_personal_main_digi2" jdbcType="VARCHAR" />
 		<result column="t_personal_main_digi3" property="t_personal_main_digi3" jdbcType="VARCHAR" />
         <result column="platform" property="platform" jdbcType="INTEGER" />
@@ -71,7 +71,7 @@
         a.t_personal_main_creditscore,
         a.t_personal_main_bkptxt1,
         a.t_personal_main_digiasset,
-        a.t_personal_main_digi1,
+        a.t_personal_main_companylist,
         a.t_personal_main_digi2,
         a.t_personal_main_digi3,
 		a.platform,
@@ -209,8 +209,8 @@
 			<if test="t_personal_main_digiasset != null">
                 t_personal_main_digiasset,
 			</if>
-			<if test="t_personal_main_digi1 != null">
-                t_personal_main_digi1,
+			<if test="t_personal_main_companylist != null">
+                t_personal_main_companylist,
 			</if>
 			<if test="t_personal_main_digi2 != null">
                 t_personal_main_digi2,
@@ -322,8 +322,8 @@
 			<if test="t_personal_main_digiasset != null">
 				#{t_personal_main_digiasset,jdbcType=VARCHAR},
 			</if>
-			<if test="t_personal_main_digi1 != null">
-				#{t_personal_main_digi1,jdbcType=VARCHAR},
+			<if test="t_personal_main_companylist != null">
+				#{t_personal_main_companylist,jdbcType=VARCHAR},
 			</if>
 			<if test="t_personal_main_digi2 != null">
 				#{t_personal_main_digi2,jdbcType=VARCHAR},
@@ -474,8 +474,8 @@
 			<if test="t_personal_main_digiasset != null">
                 t_personal_main_digiasset = #{t_personal_main_digiasset,jdbcType=VARCHAR},
 			</if>
-			<if test="t_personal_main_digi1 != null">
-                t_personal_main_digi1 = #{t_personal_main_digi1,jdbcType=VARCHAR},
+			<if test="t_personal_main_companylist != null">
+                t_personal_main_companylist = #{t_personal_main_companylist,jdbcType=VARCHAR},
 			</if>
 			<if test="t_personal_main_digi2 != null">
                 t_personal_main_digi2 = #{t_personal_main_digi2,jdbcType=VARCHAR},

@@ -61,7 +61,8 @@ public class OrderPayDemo {
 		body.put("hbFqFlag", "");							//花呗分期标识
 		body.put("hbFqNum", "");							//花呗分期期数
 		body.put("hbFqSellerPercent", "");					//卖家承担手续费比例
-		body.put("notifyUrl", "http://127.0.0.1/notify");	//异步通知地址
+		body.put("notifyUrl", "https://api.58gongzi.com.cn/sandpay-qr-demo/notice");	//异步通知地址
+//        body.put("notifyUrl", "https://www.58gongzi.com.cn:8080/sample/oauthController/login?method=QRScanRet");	//异步通知地址
 		body.put("bizExtendParams", "");					//业务扩展参数
 		body.put("merchExtendParams", "");					//商户扩展参数
 		body.put("extend", "");								//扩展域	

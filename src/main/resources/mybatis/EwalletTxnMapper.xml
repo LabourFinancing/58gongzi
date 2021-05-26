@@ -48,10 +48,10 @@
         <result column="t_WalletTxn_Poundage" property="t_WalletTxn_Poundage" jdbcType="VARCHAR" />
         <result column="t_WalletTxn_TierPoundage" property="t_WalletTxn_TierPoundage" jdbcType="DECIMAL" />
         <result column="t_WalletTxn_discountamt" property="t_WalletTxn_discountamt" jdbcType="DECIMAL" />
-        <result column="t_WalletTxn_bkp1" property="t_WalletTxn_bkp1" jdbcType="INTEGER" />
+        <result column="t_WalletTxn_ClearanceAmt" property="t_WalletTxn_ClearanceAmt" jdbcType="INTEGER" />
         <result column="t_WalletTxn_InterestMargin" property="t_WalletTxn_InterestMargin" jdbcType="DECIMAL" />
-        <result column="t_WalletTxn_BankAccName" property="t_WalletTxn_BankAccName" jdbcType="INTEGER" />
-        <result column="t_WalletTxn_BankAcc" property="t_WalletTxn_BankAcc" jdbcType="INTEGER" />
+        <result column="t_WalletTxn_PayerBankAcc" property="t_WalletTxn_PayerBankAcc" jdbcType="INTEGER" />
+        <result column="t_WalletTxn_ReceiverBankAcc" property="t_WalletTxn_ReceiverBankAcc" jdbcType="INTEGER" />
         <result column="t_WalletTxn_SysUpdateDate" property="t_WalletTxn_SysUpdateDate" jdbcType="TIMESTAMP" />
         <result column="t_WalletTxn_Paystatus" property="t_WalletTxn_Paystatus" jdbcType="DECIMAL" />
         <result column="t_WalletTxn_SMSRec" property="t_WalletTxn_SMSRec" jdbcType="VARCHAR" />
@@ -115,10 +115,10 @@
         a.t_WalletTxn_Poundage,
         a.t_WalletTxn_TierPoundage,
         a.t_WalletTxn_discountamt,
-        a.t_WalletTxn_bkp1,
+        a.t_WalletTxn_ClearanceAmt,
         a.t_WalletTxn_InterestMargin,
-        a.t_WalletTxn_BankAccName,
-        a.t_WalletTxn_BankAcc,
+        a.t_WalletTxn_PayerBankAcc,
+        a.t_WalletTxn_ReceiverBankAcc,
         a.t_WalletTxn_SysUpdateDate,
         a.t_WalletTxn_Paystatus,
         a.t_WalletTxn_SMS,
@@ -325,17 +325,17 @@
             <if test="t_WalletTxn_discountamt != null">
                 t_WalletTxn_discountamt,
             </if>
-            <if test="t_WalletTxn_bkp1 != null">
-                t_WalletTxn_bkp1,
+            <if test="t_WalletTxn_ClearanceAmt != null">
+                t_WalletTxn_ClearanceAmt,
             </if>
             <if test="t_WalletTxn_InterestMargin != null">
                 t_WalletTxn_InterestMargin,
             </if>
-            <if test="t_WalletTxn_BankAccName != null">
-                t_WalletTxn_BankAccName,
+            <if test="t_WalletTxn_PayerBankAcc != null">
+                t_WalletTxn_PayerBankAcc,
             </if>
-            <if test="t_WalletTxn_BankAcc != null">
-                t_WalletTxn_BankAcc,
+            <if test="t_WalletTxn_ReceiverBankAcc != null">
+                t_WalletTxn_ReceiverBankAcc,
             </if>
             <if test="t_WalletTxn_SysUpdateDate != null">
                 t_WalletTxn_SysUpdateDate,
@@ -525,11 +525,11 @@
             <if test="t_WalletTxn_InterestMargin != null">
                 #{t_WalletTxn_InterestMargin,jdbcType=DECIMAL},
             </if>
-            <if test="t_WalletTxn_BankAccName != null">
-                #{t_WalletTxn_BankAccName,jdbcType=VARCHAR},
+            <if test="t_WalletTxn_PayerBankAcc != null">
+                #{t_WalletTxn_PayerBankAcc,jdbcType=VARCHAR},
             </if>
-            <if test="t_WalletTxn_BankAcc != null">
-                #{t_WalletTxn_BankAcc,jdbcType=VARCHAR},
+            <if test="t_WalletTxn_ReceiverBankAcc != null">
+                #{t_WalletTxn_ReceiverBankAcc,jdbcType=VARCHAR},
             </if>
             <if test="t_WalletTxn_SysUpdateDate != null">
                 #{t_WalletTxn_SysUpdateDate,jdbcType=TIMESTAMP},
@@ -758,17 +758,17 @@
             <if test="t_WalletTxn_discountamt != null">
                 t_WalletTxn_discountamt = #{t_WalletTxn_discountamt,jdbcType=DECIMAL},
             </if>
-            <if test="t_WalletTxn_bkp1 != null">
-                t_WalletTxn_bkp1 = #{t_WalletTxn_bkp1,jdbcType=VARCHAR},
+            <if test="t_WalletTxn_ClearanceAmt != null">
+                t_WalletTxn_ClearanceAmt = #{t_WalletTxn_ClearanceAmt,jdbcType=VARCHAR},
             </if>
             <if test="t_WalletTxn_InterestMargin != null">
                 t_WalletTxn_InterestMargin = #{t_WalletTxn_InterestMargin,jdbcType=DECIMAL},
             </if>
-            <if test="t_WalletTxn_BankAccName != null">
-                t_WalletTxn_BankAccName = #{t_WalletTxn_BankAccName,jdbcType=VARCHAR},
+            <if test="t_WalletTxn_PayerBankAcc != null">
+                t_WalletTxn_PayerBankAcc = #{t_WalletTxn_PayerBankAcc,jdbcType=VARCHAR},
             </if>
-            <if test="t_WalletTxn_BankAcc != null">
-                t_WalletTxn_BankAcc = #{t_WalletTxn_BankAcc,jdbcType=VARCHAR},
+            <if test="t_WalletTxn_ReceiverBankAcc != null">
+                t_WalletTxn_ReceiverBankAcc = #{t_WalletTxn_ReceiverBankAcc,jdbcType=VARCHAR},
             </if>
             <if test="t_WalletTxn_SysUpdateDate != null">
                 t_WalletTxn_SysUpdateDate = #{t_WalletTxn_SysUpdateDate,jdbcType=TIMESTAMP},

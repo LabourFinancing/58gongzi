@@ -85,7 +85,7 @@ public class PersonalMain implements Serializable {
    
    private String t_personal_main_digiasset;
 
-    private String t_personal_main_digi1;
+    private String t_personal_main_companylist;
 
     private String t_personal_main_digi2;
 
@@ -351,12 +351,12 @@ public class PersonalMain implements Serializable {
         this.t_personal_main_digiasset = t_personal_main_digiasset;
     }
 
-    public String getT_personal_main_digi1() {
-        return t_personal_main_digi1;
+    public String gett_personal_main_companylist() {
+        return t_personal_main_companylist;
     }
 
-    public void setT_personal_main_digi1(String t_personal_main_digi1) {
-        this.t_personal_main_digi1 = t_personal_main_digi1;
+    public void sett_personal_main_companylist(String t_personal_main_companylist) {
+        this.t_personal_main_companylist = t_personal_main_companylist;
     }
 
     public String getT_personal_main_digi2() {

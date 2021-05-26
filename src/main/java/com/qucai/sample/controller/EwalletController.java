@@ -301,11 +301,27 @@ public class EwalletController {
         return JsonBizTool.genJson(ExRetEnum.SUCCESS);
     }
 
-    @RequestMapping(value = "deleteewallet")
-    public String deleteFinanceProduct(String t_P_id, Integer platform, HttpServletRequest request,
+    @RequestMapping(value = "mobile-ewalletquery")
+    public String ewalletquery(String t_P_id, Integer platform, HttpServletRequest request,
             HttpServletResponse response, Model model) {
     	ewalletService.deleteByPrimaryKey(t_P_id);
     	model.addAttribute("platform", platform);
+        return "redirect:/EwalletController/ewalletList?platform="+platform;
+    }
+
+    @RequestMapping(value = "mobile-ewalletbalance")
+    public String ewalletbalance(String t_P_id, Integer platform, HttpServletRequest request,
+                         HttpServletResponse response, Model model) {
+        ewalletService.deleteByPrimaryKey(t_P_id);
+        model.addAttribute("platform", platform);
+        return "redirect:/EwalletController/ewalletList?platform="+platform;
+    }
+
+    @RequestMapping(value = "deleteewallet")
+    public String deleteFinanceProduct(String t_P_id, Integer platform, HttpServletRequest request,
+                                       HttpServletResponse response, Model model) {
+        ewalletService.deleteByPrimaryKey(t_P_id);
+        model.addAttribute("platform", platform);
         return "redirect:/EwalletController/ewalletList?platform="+platform;
     }
 

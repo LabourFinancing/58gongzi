@@ -123,13 +123,13 @@ public class EwalletTxn implements Serializable {
 
     private BigDecimal t_WalletTxn_discountamt;
 
-    private BigDecimal t_WalletTxn_bkp1;
+    private BigDecimal t_WalletTxn_ClearanceAmt;
 
     private BigDecimal t_WalletTxn_InterestMargin;
 
-    private String t_WalletTxn_BankAccName;
+    private String t_WalletTxn_PayerBankAcc;
 
-    private String t_WalletTxn_BankAcc;
+    private String t_WalletTxn_ReceiverBankAcc;
 
     private Date t_WalletTxn_SysUpdateDate;
 
@@ -559,12 +559,12 @@ public class EwalletTxn implements Serializable {
         this.t_WalletTxn_discountamt = t_WalletTxn_discountamt;
     }
 
-    public BigDecimal getT_WalletTxn_bkp1() {
-        return t_WalletTxn_bkp1;
+    public BigDecimal gett_WalletTxn_ClearanceAmt() {
+        return t_WalletTxn_ClearanceAmt;
     }
 
-    public void setT_WalletTxn_bkp1(BigDecimal t_WalletTxn_bkp1) {
-        this.t_WalletTxn_bkp1 = t_WalletTxn_bkp1;
+    public void sett_WalletTxn_ClearanceAmt(BigDecimal t_WalletTxn_ClearanceAmt) {
+        this.t_WalletTxn_ClearanceAmt = t_WalletTxn_ClearanceAmt;
     }
 
     public BigDecimal getT_WalletTxn_InterestMargin() {
@@ -575,20 +575,20 @@ public class EwalletTxn implements Serializable {
         this.t_WalletTxn_InterestMargin = t_WalletTxn_InterestMargin;
     }
 
-    public String getT_WalletTxn_BankAccName() {
-        return t_WalletTxn_BankAccName;
+    public String gett_WalletTxn_PayerBankAcc() {
+        return t_WalletTxn_PayerBankAcc;
     }
 
-    public void setT_WalletTxn_BankAccName(String t_WalletTxn_BankAccName) {
-        this.t_WalletTxn_BankAccName = t_WalletTxn_BankAccName;
+    public void sett_WalletTxn_PayerBankAcc(String t_WalletTxn_PayerBankAcc) {
+        this.t_WalletTxn_PayerBankAcc = t_WalletTxn_PayerBankAcc;
     }
 
-    public String getT_WalletTxn_BankAcc() {
-        return t_WalletTxn_BankAcc;
+    public String gett_WalletTxn_ReceiverBankAcc() {
+        return t_WalletTxn_ReceiverBankAcc;
     }
 
-    public void setT_WalletTxn_BankAcc(String t_WalletTxn_BankAcc) {
-        this.t_WalletTxn_BankAcc = t_WalletTxn_BankAcc;
+    public void sett_WalletTxn_ReceiverBankAcc(String t_WalletTxn_ReceiverBankAcc) {
+        this.t_WalletTxn_ReceiverBankAcc = t_WalletTxn_ReceiverBankAcc;
     }
 
     public Date getT_WalletTxn_SysUpdateDate() {
