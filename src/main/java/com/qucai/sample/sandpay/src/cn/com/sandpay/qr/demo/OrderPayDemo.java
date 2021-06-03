@@ -29,7 +29,8 @@ public class OrderPayDemo {
 		
 		header.put("version", DemoBase.version);			//版本号
 		header.put("method",DemoBase.QR_ORDERPAY);		    //接口名称:统一下单并支付
-		header.put("productId", DemoBase.PRODUCTID_FANYINLIAN);	//产品编码
+//		header.put("productId", DemoBase.PRODUCTID_FANYINLIAN);	//产品编码
+        header.put("productId", "00000006");	//产品编码
 		header.put("mid", SDKConfig.getConfig().getMid());	//商户号
 		String plMid=SDKConfig.getConfig().getPlMid();		//平台商户号
 		if(plMid!=null && StringUtils.isNotEmpty(plMid)) {  //平台商户存在时接入
@@ -44,12 +45,12 @@ public class OrderPayDemo {
 	
 	
 	public void setBody() {		
-		body.put("payTool", "0401");						//支付工具: 固定填写0401
+		body.put("payTool", "0401");						//支付工具: 固定填写0403
 		body.put("orderCode", DemoBase.getOrderCode());		//商户订单号
 		body.put("scene", "1");								//支付场景 1-条码支付(默认) 2-声波支付
-		body.put("authCode", "6220097585687279464");		//支付授权码,从支付宝、微信或者云闪付中获取
-		body.put("totalAmount","000000000001" );			//订单金额 12位长度，精确到分
-		body.put("limitPay","5");							//限定支付方式 送1-限定不能使用贷记卡	送4-限定不能使用花呗	送5-限定不能使用贷记卡+花呗
+		body.put("authCode", "135058488842509116");		//支付授权码,从支付宝、微信或者云闪付中获取
+		body.put("totalAmount","000001100000" );			//订单金额 12位长度，精确到分
+		body.put("limitPay","4");							//限定支付方式 送1-限定不能使用贷记卡	送4-限定不能使用花呗	送5-限定不能使用贷记卡+花呗
 		body.put("subject", "话费充值");						//订单标题
 		body.put("body", "用户购买话费0.01");					//订单描述
 		body.put("txnTimeOut",DemoBase.getNextDayTime());	//订单超时时间

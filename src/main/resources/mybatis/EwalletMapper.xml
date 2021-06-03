@@ -39,8 +39,8 @@
 		<result column="t_personalewallet_PayCounts" property="t_personalewallet_PayCounts" jdbcType="INTEGER" />
 		<result column="t_personalewallet_Interest" property="t_personalewallet_Interest" jdbcType="DECIMAL" />
         <result column="t_personalewallet_TopupLimit" property="t_personalewallet_TopupLimit" jdbcType="DECIMAL" />
-        <result column="t_personalewallet_Amt2" property="t_personalewallet_Amt2" jdbcType="DECIMAL" />
-        <result column="t_personalewallet_Amt3" property="t_personalewallet_Amt3" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_Worth" property="t_personalewallet_Worth" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_DiscountRate" property="t_personalewallet_DiscountRate" jdbcType="DECIMAL" />
         <result column="t_personalewallet_BalanceCreditNum" property="t_personalewallet_BalanceCreditNum" jdbcType="DECIMAL" />
         <result column="t_personalewallet_OverdueRepaymentDate" property="t_personalewallet_OverdueRepaymentDate" jdbcType="TIMESTAMP" />
         <result column="t_personalewallet_PrepayClear" property="t_personalewallet_PrepayClear" jdbcType="VARCHAR" />
@@ -111,8 +111,8 @@
         a.t_personalewallet_PayCounts,
         a.t_personalewallet_Interest,
         a.t_personalewallet_TopupLimit,
-        a.t_personalewallet_Amt2,
-        a.t_personalewallet_Amt3,
+        a.t_personalewallet_Worth,
+        a.t_personalewallet_DiscountRate,
         a.t_personalewallet_BalanceCreditNum,
         a.t_personalewallet_OverdueRepaymentDate,
         a.t_personalewallet_PrepayClear,
@@ -297,11 +297,11 @@
 			<if test="t_personalewallet_TopupLimit != null">
                 t_personalewallet_TopupLimit,
 			</if>
-            <if test="t_personalewallet_Amt2 != null">
-                t_personalewallet_Amt2,
+            <if test="t_personalewallet_Worth != null">
+                t_personalewallet_Worth,
             </if>
-            <if test="t_personalewallet_Amt3 != null">
-                t_personalewallet_Amt3,
+            <if test="t_personalewallet_DiscountRate != null">
+                t_personalewallet_DiscountRate,
             </if>
             <if test="t_personalewallet_BalanceCreditNum != null">
                 t_personalewallet_BalanceCreditNum,
@@ -387,7 +387,7 @@
 			<if test="creator != null">
                 creator,
 			</if>
-			<if test="t_personalewallet_Amt3 != null">
+			<if test="t_personalewallet_DiscountRate != null">
 				create_time,
 			</if>
 			<if test="modifier != null">
@@ -518,11 +518,11 @@
 			<if test="t_personalewallet_TopupLimit != null">
 				#{t_personalewallet_TopupLimit,jdbcType=DECIMAL},
 			</if>
-            <if test="t_personalewallet_Amt2 != null">
-                #{t_personalewallet_Amt2,jdbcType=DECIMAL},
+            <if test="t_personalewallet_Worth != null">
+                #{t_personalewallet_Worth,jdbcType=DECIMAL},
             </if>
-            <if test="t_personalewallet_Amt3 != null">
-                #{t_personalewallet_Amt3,jdbcType=DECIMAL},
+            <if test="t_personalewallet_DiscountRate != null">
+                #{t_personalewallet_DiscountRate,jdbcType=DECIMAL},
             </if>
             <if test="t_personalewallet_BalanceCreditNum != null">
                 #{t_personalewallet_BalanceCreditNum,jdbcType=DECIMAL},
@@ -768,11 +768,11 @@
             <if test="t_personalewallet_TopupLimit != null">
                 t_personalewallet_TopupLimit = #{t_personalewallet_TopupLimit,jdbcType=DECIMAL},
             </if>
-            <if test="t_personalewallet_Amt2 != null">
-                t_personalewallet_Amt2 = #{t_personalewallet_Amt2,jdbcType=DECIMAL},
+            <if test="t_personalewallet_Worth != null">
+                t_personalewallet_Worth = #{t_personalewallet_Worth,jdbcType=DECIMAL},
             </if>
-            <if test="t_personalewallet_Amt3 != null">
-                t_personalewallet_Amt3 = #{t_personalewallet_Amt3,jdbcType=DECIMAL},
+            <if test="t_personalewallet_DiscountRate != null">
+                t_personalewallet_DiscountRate = #{t_personalewallet_DiscountRate,jdbcType=DECIMAL},
             </if>
             <if test="t_personalewallet_BalanceCreditNum != null">
                 t_personalewallet_BalanceCreditNum = #{t_personalewallet_BalanceCreditNum,jdbcType=DECIMAL},

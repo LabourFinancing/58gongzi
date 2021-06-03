@@ -104,9 +104,9 @@ public class Ewallet implements Serializable {
 
     private BigDecimal t_personalewallet_TopupLimit;
 
-    private BigDecimal t_personalewallet_Amt2;
+    private BigDecimal t_personalewallet_Worth;
 
-    private BigDecimal t_personalewallet_Amt3;
+    private BigDecimal t_personalewallet_DiscountRate;
 
     private BigDecimal t_personalewallet_BalanceCreditNum;
 
@@ -494,20 +494,20 @@ public class Ewallet implements Serializable {
         this.t_personalewallet_TopupLimit = t_personalewallet_TopupLimit;
     }
 
-    public BigDecimal getT_personalewallet_Amt2() {
-        return t_personalewallet_Amt2;
+    public BigDecimal gett_personalewallet_Worth() {
+        return t_personalewallet_Worth;
     }
 
-    public void setT_personalewallet_Amt2(BigDecimal t_personalewallet_Amt2) {
-        this.t_personalewallet_Amt2 = t_personalewallet_Amt2;
+    public void sett_personalewallet_Worth(BigDecimal t_personalewallet_Worth) {
+        this.t_personalewallet_Worth = t_personalewallet_Worth;
     }
 
-    public BigDecimal getT_personalewallet_Amt3() {
-        return t_personalewallet_Amt3;
+    public BigDecimal gett_personalewallet_DiscountRate() {
+        return t_personalewallet_DiscountRate;
     }
 
-    public void setT_personalewallet_Amt3(BigDecimal t_personalewallet_Amt3) {
-        this.t_personalewallet_Amt3 = t_personalewallet_Amt3;
+    public void sett_personalewallet_DiscountRate(BigDecimal t_personalewallet_DiscountRate) {
+        this.t_personalewallet_DiscountRate = t_personalewallet_DiscountRate;
     }
 
     public BigDecimal getT_personalewallet_BalanceCreditNum() {

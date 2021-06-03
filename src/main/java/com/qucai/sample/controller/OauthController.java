@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.alibaba.fastjson.JSONObject;
 import com.qucai.sample.entity.StaffPrepayApplicationPayment;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo.OrderCreateDemo;
+import com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo.OrderPayDemo;
 import com.qucai.sample.util.Tool;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.shiro.SecurityUtils;
@@ -55,11 +56,13 @@ public class OauthController {
         }
         
         //支付调用
-        if(method!=null&&method.equals("QRcode")&&pid!=null&&userName!=null&&paymentchannel!=null&&mode!=null){
+//        if(method!=null&&method.equals("QRcode")&&pid!=null&&userName!=null&&paymentchannel!=null&&mode!=null){
+        if(method!=null&&method.equals("QRcode")){
             Map<String, Object> rs = new HashMap<String, Object>();
             String merchantId = "S2135052";
             StaffPrepayApplicationPayment staffPrepayApplicationPay = null;
-            JSONObject resp = OrderCreateDemo.main(staffPrepayApplicationPay,merchantId);
+//            JSONObject resp = OrderCreateDemo.main(staffPrepayApplicationPay,merchantId);
+            JSONObject resp = OrderPayDemo.main(staffPrepayApplicationPay,merchantId);
             String QRcodeinit = resp.getJSONObject("body").getString("qrCode");
             rs.put("QRcodeinit", QRcodeinit);
             return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);

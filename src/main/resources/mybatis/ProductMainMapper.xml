@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qucai.sample.dao.ProductMainDao">
+
+	<resultMap id="BaseResultMap" type="com.qucai.sample.entity.ProductMain">
+		<result column="t_Product_ID" property="t_Product_ID" jdbcType="VARCHAR" />
+		<result column="t_Product_SeriesID" property="t_Product_SeriesID" jdbcType="VARCHAR" />
+		<result column="t_Product_PID" property="t_Product_PID" jdbcType="VARCHAR" />
+		<result column="t_Product_Name" property="t_Product_Name" jdbcType="VARCHAR" />
+		<result column="t_Product_Cat" property="t_Product_Cat" jdbcType="VARCHAR" />
+		<result column="t_Product_Vendor" property="t_Product_Vendor" jdbcType="VARCHAR" />
+		<result column="t_Product_Company" property="t_Product_Company" jdbcType="VARCHAR" />
+		<result column="t_Product_3rdPartyService" property="t_Product_3rdPartyService" jdbcType="VARCHAR" />
+		<result column="t_Product_FOrg" property="t_Product_FOrg" jdbcType="VARCHAR" />
+		<result column="t_Product_Alias" property="t_Product_Alias" jdbcType="DECIMAL" />
+		<result column="t_Product_Site" property="t_Product_Site" jdbcType="VARCHAR" />
+		<result column="t_Product_ServiceFss" property="t_Product_ServiceFss" jdbcType="DECIMAL" />
+		<result column="t_FProd_PersPool" property="t_FProd_PersPool" jdbcType="VARCHAR" />
+        <result column="t_Product_TierPoundage" property="t_Product_TierPoundage" jdbcType="VARCHAR" />
+        <result column="t_Product_Status" property="t_Product_Status" jdbcType="INTEGER" />
+        <result column="t_Product_Cleardays" property="t_Product_Cleardays" jdbcType="INTEGER" />
+        <result column="t_Product_category" property="t_Product_category" jdbcType="VARCHAR" />
+        <result column="t_Product_CorpPool" property="t_Product_CorpPool" jdbcType="VARCHAR" />
+        <result column="t_Product_PersPool" property="t_Product_PersPool" jdbcType="VARCHAR" />
+        <result column="t_Product_Txt" property="t_Product_Txt" jdbcType="VARCHAR" />
+        <result column="t_Product_Txt1" property="t_Product_Txt1" jdbcType="VARCHAR" />
+        <result column="t_Product_Txt2" property="t_Product_Txt2" jdbcType="VARCHAR" />
+        <result column="t_Product_SysupdateDate" property="t_Product_SysupdateDate" jdbcType="TIMESTAMP" />
+		<result column="platform" property="platform" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="creator" property="creator" jdbcType="VARCHAR" />
+		<result column="create_time" property="create_time" jdbcType="TIMESTAMP" />
+		<result column="modifier" property="modifier" jdbcType="VARCHAR" />
+		<result column="modify_time" property="modify_time" jdbcType="TIMESTAMP" />	
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+        a.t_Product_ID,
+        a.t_Product_SeriesID,
+        a.t_Product_PID,
+        a.t_Product_Name,
+        a.t_Product_Cat,
+        a.t_Product_Vendor,
+        a.t_Product_Company,
+        a.t_Product_3rdPartyService,
+        a.t_Product_FOrg,
+        a.t_Product_Alias,
+        a.t_Product_Site,
+        a.t_Product_ServiceFss,
+        a.t_Product_TierPoundage,
+        a.t_Product_Status,
+        a.t_Product_Cleardays,
+        a.t_Product_category,
+        a.t_Product_CorpPool,
+        a.t_Product_PersPool,
+        a.t_Product_Txt,
+        a.t_Product_Txt1,
+        a.t_Product_Txt2,
+        a.t_Product_SysupdateDate,
+		a.platform,
+		a.remark,
+		a.creator,
+		a.create_time,
+		a.modifier,
+		a.modify_time
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_product_main a
+		where a.t_Product_ID = #{t_Product_ID,jdbcType=VARCHAR}
+		order by a.create_time
+	</select>
+	
+	<select id="findSearchList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_product_main a
+		where 
+		1=1
+		<if test="t_Product_PID != null">
+		a.t_Product_PID like CONCAT('%',#{t_Product_PID},'%')
+		</if>
+        <if test="t_Product_Name != null">
+        a.t_Product_Name like CONCAT('%',#{t_Product_Name},'%')
+        </if>
+        <if test="t_Product_Name != null">
+        a.t_Product_Cat like CONCAT('%',#{t_Product_Cat},'%')
+        </if>
+		<if test="t_Product_PersPool != null">
+		a.t_Product_PersPool like CONCAT('%',#{t_Product_PersPool},'%')
+		</if>	
+		<if test="t_Product_CorpPool != null">
+		and a.t_Product_CorpPool like CONCAT('%',DATE(#{t_Product_CorpPool}),'%')
+		</if>
+		<if test="remark != null">
+		and a.remark like CONCAT('%',#{remark},'%')
+		</if>
+		order by a.create_time
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from t_product_main
+		where t_Product_ID = #{t_Product_ID,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="insertSelective" parameterType="com.qucai.sample.entity.ProductMain">
+		insert into t_product_main
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="t_Product_ID != null">
+                t_Product_ID,
+			</if>
+			<if test="t_Product_SeriesID != null">
+                t_Product_SeriesID,
+			</if>
+			<if test="t_Product_PID != null">
+                t_Product_PID,
+			</if>
+			<if test="t_Product_Name != null">
+                t_Product_Name,
+			</if>
+			<if test="t_Product_Cat != null">
+                t_Product_Cat,
+			</if>
+			<if test="t_Product_Vendor != null">
+                t_Product_Vendor,
+			</if>
+			<if test="t_Product_Company != null">
+                t_Product_Company,
+			</if>
+			<if test="t_Product_3rdPartyService != null">
+                t_Product_3rdPartyService,
+			</if>
+			<if test="t_Product_FOrg != null">
+                t_Product_FOrg,
+			</if>
+			<if test="t_Product_Alias != null">
+                t_Product_Alias,
+			</if>
+			<if test="t_Product_Site != null">
+                t_Product_Site,
+			</if>
+			<if test="t_Product_ServiceFss != null">
+                t_Product_ServiceFss,
+			</if>
+			<if test="t_Product_TierPoundage != null">
+                t_Product_TierPoundage,
+			</if>
+
+            <if test="t_Product_Status != null">
+                t_Product_Status,
+            </if>
+            <if test="t_Product_Cleardays != null">
+                t_Product_Cleardays,
+            </if>
+            <if test="t_Product_category != null">
+                t_Product_category,
+            </if>
+            <if test="t_Product_CorpPool != null">
+                t_Product_CorpPool,
+            </if>
+            <if test="t_Product_PersPool != null">
+                t_Product_PersPool,
+            </if>
+            <if test="t_Product_Txt != null">
+                t_Product_Txt,
+            </if>
+            <if test="t_Product_Txt1 != null">
+                t_Product_Txt1,
+            </if>
+            <if test="t_Product_Txt2 != null">
+                t_Product_Txt2,
+            </if>
+            <if test="t_Product_SysupdateDate != null">
+                t_Product_SysupdateDate,
+            </if>
+			<if test="platform != null">
+				platform,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="creator != null">
+				creator,
+			</if>
+			<if test="create_time != null">
+				create_time,
+			</if>
+			<if test="modifier != null">
+				modifier,
+			</if>
+			<if test="modify_time != null">
+				modify_time
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="t_Product_ID != null">
+				#{t_Product_ID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Product_SeriesID != null">
+				#{t_Product_SeriesID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Product_PID != null">
+				#{t_Product_PID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Product_Name != null">
+				#{t_Product_Name,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Product_Cat != null">
+				#{t_Product_Cat,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Product_Vendor != null">
+				#{t_Product_Vendor,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Product_Company != null">
+				#{t_Product_Company,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Product_3rdPartyService != null">
+				#{t_Product_3rdPartyService,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Product_FOrg != null">
+				#{t_Product_FOrg,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Product_Alias != null">
+				#{t_Product_Alias,jdbcType=DECIMAL},
+			</if>
+			<if test="t_Product_Site != null">
+				#{t_Product_Site,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Product_ServiceFss != null">
+				#{t_Product_ServiceFss,jdbcType=DECIMAL},
+			</if>
+			<if test="t_Product_TierPoundage != null">
+				#{t_Product_TierPoundage,jdbcType=DECIMAL},
+			</if>
+            <if test="t_Product_Status != null">
+                #{t_Product_Status,jdbcType=INTEGER},
+            </if>
+            <if test="t_Product_Cleardays != null">
+                #{t_Product_Cleardays,jdbcType=INTEGER},
+            </if>
+            <if test="t_Product_category != null">
+                #{t_Product_category,jdbcType=VARCHAR},
+            </if>
+            <if test="t_Product_CorpPool != null">
+                #{t_Product_CorpPool,jdbcType=VARCHAR},
+            </if>
+            <if test="t_Product_PersPool != null">
+                #{t_Product_PersPool,jdbcType=VARCHAR},
+            </if>
+            <if test="t_Product_Txt != null">
+                #{t_Product_Txt,jdbcType=VARCHAR},
+            </if>
+            <if test="t_Product_Txt1 != null">
+                #{t_Product_Txt1,jdbcType=VARCHAR},
+            </if>
+            <if test="t_Product_Txt2 != null">
+                #{t_Product_Txt2,jdbcType=VARCHAR},
+            </if>
+            <if test="t_Product_SysupdateDate != null">
+                #{t_Product_SysupdateDate,jdbcType=TIMESTAMP},
+            </if>
+			<if test="platform != null">
+				#{platform,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				#{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="create_time != null">
+				#{create_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifier != null">
+				#{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="modify_time != null">
+				#{modify_time,jdbcType=TIMESTAMP}
+			</if>
+		</trim>
+	</insert>
+	
+	<select id="findAllList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_product_main a
+		where 1=1
+		<if test="typeEnd != null">
+			<![CDATA[ and type <= #{typeEnd} ]]>
+		</if>
+        <if test="t_CompanyName != ALL">
+            and a.platform =  #{t_CompanyName,jdbcType=VARCHAR}
+        </if>
+		order by a.create_time
+	</select>
+
+<!-- 
+	<select id="findEntResourceGrantAllList" resultMap="ResourceGrantMap"
+		parameterType="java.lang.String">
+		SELECT
+			<include refid="Base_Column_List" />, 
+			(
+				SELECT
+					count(1)
+				FROM
+					tr_role_resource
+				WHERE
+					resource_id = a.id
+				AND role_id = #{roleId}
+			) AS selected
+		FROM
+			t_resource a
+		WHERE a.platform = 1
+		order by IFNULL(a.parent_id, ''), a.idx
+	</select>
+ -->			
+	<update id="updateByPrimaryKeySelective" parameterType="com.qucai.sample.entity.ProductMain">
+		update t_product_main
+		<set>
+			<if test="t_Product_ID != null">
+                t_Product_ID = #{t_Product_ID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Product_SeriesID != null">
+                t_Product_SeriesID = #{t_Product_SeriesID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Product_PID != null">
+                t_Product_PID = #{t_Product_PID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Product_Name != null">
+                t_Product_Name = #{t_Product_Name,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Product_Cat != null">
+                t_Product_Cat = #{t_Product_Cat,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Product_Vendor != null">
+                t_Product_Vendor = #{t_Product_Vendor,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Product_3rdPartyService != null">
+                t_Product_3rdPartyService = #{t_Product_3rdPartyService,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Product_FOrg != null">
+                t_Product_FOrg = #{t_Product_FOrg,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Product_Alias != null">
+                t_Product_Alias = #{t_Product_Alias,jdbcType=DECIMAL},
+			</if>
+			<if test="t_Product_Site != null">
+                t_Product_Site = #{t_Product_Site,jdbcType=VARCHAR},
+			</if>
+		    <if test="t_Product_ServiceFss != null">
+                t_Product_ServiceFss = #{t_Product_ServiceFss,jdbcType=DECIMAL},
+			</if>
+			<if test="t_Product_TierPoundage != null">
+                t_Product_TierPoundage = #{t_Product_TierPoundage,jdbcType=DECIMAL},
+			</if>
+			<if test="t_Product_Status != null">
+                t_Product_Status = #{t_Product_Status,jdbcType=INTEGER},
+			</if>
+            <if test="t_Product_category != null">
+                t_Product_category = #{t_Product_category,jdbcType=INTEGER},
+            </if>
+            <if test="t_Product_CorpPool != null">
+                t_Product_CorpPool = #{t_Product_CorpPool,jdbcType=VARCHAR},
+            </if>
+            <if test="t_Product_PersPool != null">
+                t_Product_PersPool = #{t_Product_PersPool,jdbcType=VARCHAR},
+            </if>
+            <if test="t_Product_Txt != null">
+                t_Product_Txt = #{t_Product_Txt,jdbcType=VARCHAR},
+            </if>
+            <if test="t_Product_Txt1 != null">
+                t_Product_Txt1 = #{t_Product_Txt1,jdbcType=VARCHAR},
+            </if>
+            <if test="t_Product_Txt2 != null">
+                t_Product_Txt2 = #{t_Product_Txt2,jdbcType=VARCHAR},
+            </if>
+            <if test="t_Product_SysupdateDate != null">
+                t_Product_SysupdateDate = #{t_Product_SysupdateDate,jdbcType=TIMESTAMP},
+            </if>
+			<if test="platform != null">
+				platform = #{platform,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				creator = #{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="create_time != null">
+				create_time = #{create_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifier != null">
+				modifier = #{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="modify_time != null">
+				modify_time = #{modify_time,jdbcType=TIMESTAMP}
+			</if>
+		</set>
+		where t_FProd_ID = #{t_FProd_ID,jdbcType=VARCHAR}
+	</update>
+
+   <select id="existProductMainName" resultType="Integer"
+		parameterType="map">
+		select
+		count(1)
+		from t_product_main a
+		where a.t_Product_ID = #{t_Product_ID}
+		<if test="t_Product_PersPool != null">
+			and a.t_Product_PersPool != #{t_Product_PersPool}
+		</if>
+		and a.t_Product_Name = #{t_Product_Name}
+	</select>
+</mapper>
+ 

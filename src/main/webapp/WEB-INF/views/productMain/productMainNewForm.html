@@ -1,0 +1,318 @@
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8" />
+<title>新增产品</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+<meta content="" name="description" />
+<meta content="" name="author" />
+<#include "/common/cssResource.html"> <#include
+"/common/jsResource.html">
+
+<script>
+window.onload = function(){
+function getDate(){
+debugger;
+var today = new Date(); 
+var date; 
+date = (today.getFullYear()) +"-" + (today.getMonth() + 1 ) + "-" + today.getDate() + "-" + today.toLocaleTimeString(); 
+return date;
+}
+window.setInterval(function(){
+document.getElementById("updated_date").value=getDate();
+}, 1000);
+}
+</script>
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		
+		var form = $('#inputForm');
+		form.validate({
+			errorElement : 'span', //default input error message container
+			errorClass : 'help-block help-block-error', // default input error message class
+			focusInvalid : false, // do not focus the last invalid input
+			rules : {
+				name : {
+					maxlength : 50,
+					required : true,
+					remote : {
+				        url: "${ctx}/jqueryValidateController/checkFinanceProductName?platform=${platform}",
+				        type: "post"
+					}
+				},
+				type : {
+					required : true
+				},
+				link : {
+					required : true,
+					maxlength : 100
+				},
+				idx : {
+					maxlength : 10,
+					digits : true,
+					required : true
+				},
+				shiroPermission : {
+					maxlength : 50
+				}
+			},
+			messages: {
+				name: {remote : "产品名称已存在"}
+			},
+	
+			invalidHandler : function(event, validator) { //display error alert on form submit              
+				App.scrollTo(form, 0);
+			},
+	
+			highlight : function(element) { // hightlight error inputs
+				$(element).closest('.form-group').removeClass(
+						"has-success").addClass('has-error'); // set error class to the control group   
+			},
+	
+			unhighlight : function(element) { // revert the change done by hightlight
+	
+			},
+	
+			success : function(label, element) {
+				var icon = $(element).parent('.input-icon').children(
+						'i');
+				$(element).closest('.form-group').removeClass(
+						'has-error').addClass('has-success'); // set success class to the control group
+				icon.removeClass("fa-warning").addClass("fa-check");
+			},
+			
+			submitHandler : function(form) {
+				var formData = new FormData($('#inputForm')[0]); 
+				$.ajax({
+					url: "${ctx}/FinanceProductController/addFinanceProduct",
+					type: 'POST',  
+					data: formData,  
+					async: true,  
+					cache: false,  
+					contentType: false,  
+					processData: false,  
+					success: function (data) { 
+						var result = eval("("+data+")");
+						alert(result.msg);
+						parent.window.location.reload();
+					   	var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+					   	parent.layer.close(index);
+					},  
+					error: function (data) {  
+						var result = eval("("+data+")");
+				    	alert(result.msg);
+					}  
+	            });
+			}
+		});
+		
+		$("#dirParent").hide();
+		$("#menuParent").hide();
+		$("#linkDiv").hide();
+		
+	});
+	
+	function typeSelector(selector){
+		var typeSelect = $(selector).find("option:selected").val();
+		if (typeSelect == "" || typeSelect == "0") {
+			$("#dirParent").hide();
+			$("#menuParent").hide();
+			$("#parentId").val("");
+			$("#linkDiv").hide();
+			$("#link").val("");
+		} else if (typeSelect == "1") {
+			$("#dirParent").show();
+			$("#menuParent").hide();
+			setParentId($("#dirParentSelector"));
+			$("#linkDiv").show();
+		} else if (typeSelect == "2") {
+			$("#dirParent").hide();
+			$("#menuParent").show();
+			setParentId($("#menuParentSelector"));
+			$("#linkDiv").hide();
+			$("#link").val("");
+		}
+	}
+
+	function setParentId(selector) {
+		$("#parentId").val($(selector).find("option:selected").val());
+	}
+	
+</script>
+
+</head>
+<body>
+	<div class="portlet light bordered">
+		<div class="portlet-body form">
+			<!-- BEGIN FORM-->
+			<form id="inputForm" class="form-horizontal form-row-seperated">
+<!--				<input type="hidden" id="parentId" name="parentId"> -->
+				<input type="hidden" name="platform" value="${platform}">
+				<div class="form-body">
+					<div class="form-group">
+						<label class="control-label col-sm-3">产品名称 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									 placeholder="产品名称(企业名)" name="t_FProd_Name" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">预支定价费率(日) <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_FProd_Interest" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">预支超期费率<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_FProd_OverdueInt" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">服务费(融资成本)<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_FProd_ServiceFee" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">平台使用费(笔)<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_FProd_Poundage" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">单笔最高限额<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_FProd_ETxnAmtLimit" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+					<label class="control-label col-sm-3">区间平台使用费(笔)<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_FProd_TierPoundage" value="${financeProduct.t_FProd_TierPoundage}"/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">产品类型<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <select name="t_FProd_category" id="t_FProd_category">
+								 <option value="VENDOR">额度预支</option>
+								 <option value="PARTTIME">工时预支</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">产品状态<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<select class="bs-select form-control" name="t_FProd_Status">
+									<option value="on">有效</option>
+									<option value="off">失效</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">产品适用企业<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_FProd_CorpPool" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">产品适用人群<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_FProd_PersPool" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">备注<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <textarea style="width:1000px;height:88px;" class="form-control"
+									name="remark"></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">更新时间</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+							 <input type="text" class="form-control" name="t_FProd_SysupdateDate" id="updated_date"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-actions">
+					<div class="row">
+						<div class="col-sm-3">
+						</div>
+						<div class="col-sm-9">
+							<button type="submit" class="btn green">提交</button>
+							<button type="button" class="btn default" onclick="parent.layer.closeAll();">取消</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<!-- END FORM-->
+	</div>
+</body>
+</html>
