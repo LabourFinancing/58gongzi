@@ -60,12 +60,12 @@
         <result column="t_personalewallet_SMSRec" property="t_personalewallet_SMSRec" jdbcType="VARCHAR" />
         <result column="t_personalewallet_bkp" property="t_personalewallet_bkp" jdbcType="DECIMAL" />
         <result column="t_personalewallet_bkp1" property="t_personalewallet_bkp1" jdbcType="DECIMAL" />
-        <result column="t_personalewallet_Txt" property="t_personalewallet_Txt" jdbcType="VARCHAR" />
-        <result column="t_personalewallet_Txt1" property="t_personalewallet_Txt1" jdbcType="VARCHAR" />
-        <result column="t_personalewallet_Txt2" property="t_personalewallet_Txt2" jdbcType="VARCHAR" />
-        <result column="t_personalewallet_Txt3" property="t_personalewallet_Txt3" jdbcType="VARCHAR" />
-        <result column="t_personalewallet_Txt4" property="t_personalewallet_Txt4" jdbcType="VARCHAR" />
-        <result column="t_personalewallet_Txt5" property="t_personalewallet_Txt5" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_treasuryID" property="t_personalewallet_treasuryID" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_treasuryID1" property="t_personalewallet_treasuryID1" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_treasuryID2" property="t_personalewallet_treasuryID2" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_treasuryID3" property="t_personalewallet_treasuryID3" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_treasuryID4" property="t_personalewallet_treasuryID4" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_treasuryID5" property="t_personalewallet_treasuryID5" jdbcType="VARCHAR" />
 		<result column="platform" property="platform" jdbcType="VARCHAR" />
 		<result column="remark" property="remark" jdbcType="VARCHAR" />
 		<result column="creator" property="creator" jdbcType="VARCHAR" />
@@ -132,12 +132,12 @@
         a.t_personalewallet_SMSRec,
         a.t_personalewallet_bkp,
         a.t_personalewallet_bkp1,
-        a.t_personalewallet_Txt,
-        a.t_personalewallet_Txt1,
-        a.t_personalewallet_Txt2,
-        a.t_personalewallet_Txt3,
-        a.t_personalewallet_Txt4,
-        a.t_personalewallet_Txt5,
+        a.t_personalewallet_treasuryID,
+        a.t_personalewallet_treasuryID1,
+        a.t_personalewallet_treasuryID2,
+        a.t_personalewallet_treasuryID3,
+        a.t_personalewallet_treasuryID4,
+        a.t_personalewallet_treasuryID5,
 		a.platform,
 		a.remark,
 		a.creator,
@@ -360,23 +360,23 @@
             <if test="t_personalewallet_bkp1 != null">
                 t_personalewallet_bkp1,
             </if>
-            <if test="t_personalewallet_Txt != null">
-                t_personalewallet_Txt,
+            <if test="t_personalewallet_treasuryID != null">
+                t_personalewallet_treasuryID,
             </if>
-            <if test="t_personalewallet_Txt1 != null">
-                t_personalewallet_Txt1,
+            <if test="t_personalewallet_treasuryID1 != null">
+                t_personalewallet_treasuryID1,
             </if>
-            <if test="t_personalewallet_Txt2 != null">
-                t_personalewallet_Txt2,
+            <if test="t_personalewallet_treasuryID2 != null">
+                t_personalewallet_treasuryID2,
             </if>
-            <if test="t_personalewallet_Txt3 != null">
-                t_personalewallet_Txt3,
+            <if test="t_personalewallet_treasuryID3 != null">
+                t_personalewallet_treasuryID3,
             </if>
-            <if test="t_personalewallet_Txt4 != null">
-                t_personalewallet_Txt4,
+            <if test="t_personalewallet_treasuryID4 != null">
+                t_personalewallet_treasuryID4,
             </if>
-            <if test="t_personalewallet_Txt5 != null">
-                t_personalewallet_Txt5,
+            <if test="t_personalewallet_treasuryID5 != null">
+                t_personalewallet_treasuryID5,
             </if>
             <if test="platform != null">
                 platform,
@@ -587,23 +587,23 @@
             <if test="t_personalewallet_SMSRec != null">
                 #{t_personalewallet_SMSRec,jdbcType=VARCHAR},
             </if>
-            <if test="t_personalewallet_Txt != null">
-                #{t_personalewallet_Txt,jdbcType=VARCHAR},
+            <if test="t_personalewallet_treasuryID != null">
+                #{t_personalewallet_treasuryID,jdbcType=VARCHAR},
             </if>
-            <if test="t_personalewallet_Txt1 != null">
-                #{t_personalewallet_Txt1,jdbcType=VARCHAR},
+            <if test="t_personalewallet_treasuryID1 != null">
+                #{t_personalewallet_treasuryID1,jdbcType=VARCHAR},
             </if>
-            <if test="t_personalewallet_Txt2 != null">
-                #{t_personalewallet_Txt2,jdbcType=VARCHAR},
+            <if test="t_personalewallet_treasuryID2 != null">
+                #{t_personalewallet_treasuryID2,jdbcType=VARCHAR},
             </if>
-            <if test="t_personalewallet_Txt3 != null">
-                #{t_personalewallet_Txt3,jdbcType=VARCHAR},
+            <if test="t_personalewallet_treasuryID3 != null">
+                #{t_personalewallet_treasuryID3,jdbcType=VARCHAR},
             </if>
-            <if test="t_personalewallet_Txt4 != null">
-                #{t_personalewallet_Txt4,jdbcType=VARCHAR},
+            <if test="t_personalewallet_treasuryID4 != null">
+                #{t_personalewallet_treasuryID4,jdbcType=VARCHAR},
             </if>
-            <if test="t_personalewallet_Txt5 != null">
-                #{t_personalewallet_Txt5,jdbcType=VARCHAR},
+            <if test="t_personalewallet_treasuryID5 != null">
+                #{t_personalewallet_treasuryID5,jdbcType=VARCHAR},
             </if>
 			<if test="platform != null">
 				#{platform,jdbcType=VARCHAR},
@@ -828,23 +828,23 @@
             <if test="t_personalewallet_bkp1 != null">
                 t_personalewallet_bkp1 = #{t_P_Probation,jdbcType=DECIMAL},
             </if>
-            <if test="t_personalewallet_Txt != null">
-                t_personalewallet_Txt = #{t_P_VendorEmployment,jdbcType=VARCHAR},
+            <if test="t_personalewallet_treasuryID != null">
+                t_personalewallet_treasuryID = #{t_P_VendorEmployment,jdbcType=VARCHAR},
             </if>
-            <if test="t_personalewallet_Txt1 != null">
-                t_personalewallet_Txt1 = #{t_personalewallet_Txt1,jdbcType=VARCHAR},
+            <if test="t_personalewallet_treasuryID1 != null">
+                t_personalewallet_treasuryID1 = #{t_personalewallet_treasuryID1,jdbcType=VARCHAR},
             </if>
-            <if test="t_personalewallet_Txt2 != null">
-                t_personalewallet_Txt2 = #{t_personalewallet_Txt2,jdbcType=VARCHAR},
+            <if test="t_personalewallet_treasuryID2 != null">
+                t_personalewallet_treasuryID2 = #{t_personalewallet_treasuryID2,jdbcType=VARCHAR},
             </if>
-            <if test="t_personalewallet_Txt3 != null">
-                t_personalewallet_Txt3 = #{t_personalewallet_Txt3,jdbcType=VARCHAR},
+            <if test="t_personalewallet_treasuryID3 != null">
+                t_personalewallet_treasuryID3 = #{t_personalewallet_treasuryID3,jdbcType=VARCHAR},
             </if>
-            <if test="t_personalewallet_Txt4 != null">
-                t_personalewallet_Txt4 = #{t_personalewallet_Txt4,jdbcType=VARCHAR},
+            <if test="t_personalewallet_treasuryID4 != null">
+                t_personalewallet_treasuryID4 = #{t_personalewallet_treasuryID4,jdbcType=VARCHAR},
             </if>
-            <if test="t_personalewallet_Txt5 != null">
-                t_personalewallet_Txt5 = #{t_personalewallet_Txt5,jdbcType=VARCHAR},
+            <if test="t_personalewallet_treasuryID5 != null">
+                t_personalewallet_treasuryID5 = #{t_personalewallet_treasuryID5,jdbcType=VARCHAR},
             </if>
 			<if test="platform != null">
 				platform = #{platform,jdbcType=VARCHAR},
