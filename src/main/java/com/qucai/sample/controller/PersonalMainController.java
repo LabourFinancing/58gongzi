@@ -373,4 +373,40 @@ public class PersonalMainController {
   	        return JsonBizTool.genJson(ExRetEnum.FAIL);
         }
     }
+    
+    
+    /*
+    移动端我的模块
+     */
+    @RequestMapping(value = "personalMMobiledashboard")
+    @ResponseBody
+    public String personalMMobiledashboard(PersonalMain personalMain, HttpServletRequest request,String t_personal_main_mobile,BigDecimal t_P_NetMonthlyBonusAmount,
+                                    HttpServletResponse response, Model model) {
+        personalMain.setModifier(ShiroSessionUtil.getLoginSession().getId());
+        personalMain.setModify_time(new Date());
+        String OrderCodeUpdate = null;
+        BigDecimal CreditBalanceAmtRefund = null;
+        StaffPrepayApplicationList staffPrepayApplicationCredit = staffPrepayApplicationService.findPrepayApplierCredit(t_personal_main_mobile);
+        int rs = 0;
+        String paymentmethod = "debitcard";
+//        if(staffPrepayApplicationCredit != null){
+//	        staffPrepayApplicationCredit.setT_Txn_BalanceCreditNum(t_P_NetMonthlyBonusAmount);
+//	        staffPrepayApplicationCredit.setT_Txn_PrepayCounts(staffPrepayApplicationCredit.getT_Txn_CreditPrepayBalanceNum().intValue());
+//	        staffPrepayApplicationCredit.setT_Txn_CreditPrepayBalanceNum(t_P_NetMonthlyBonusAmount);
+//	         paymentmethod = "alipay";
+//	        OrderCodeUpdate = staffPrepayApplicationCredit.getT_Txn_Num();
+//	        rs = staffPrepayApplicationService.updateCreditBalanceAmt(CreditBalanceAmtRefund, OrderCodeUpdate);
+//        }else{
+//             paymentmethod = "wechatpay";
+//        	personalMain.setT_personal_main_paymentmethod(paymentmethod);
+//        	rs = personalMainService.updateByPrimaryKeySelective(personalMain);
+//        }
+
+        if(rs==1){
+            return JsonBizTool.genJson(ExRetEnum.SUCCESS);
+        }else{
+            return JsonBizTool.genJson(ExRetEnum.FAIL);
+        }
+    }
+    
 }

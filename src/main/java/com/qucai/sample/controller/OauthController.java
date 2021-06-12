@@ -38,7 +38,7 @@ public class OauthController {
 
     @RequestMapping("/login")
     @ResponseBody
-    public Object login(HttpServletRequest request, HttpServletResponse response, String userName,String pid, String password, String remember,
+    public Object login(HttpServletRequest request, HttpServletResponse response, String userName,String pid, String password, String page,String remember,
                         String paymentchannel,String mode,String gid,String from, String form,String method, String phone,String host,
                         String SMSsendcode, String SMSstrret,String type, String API) throws Exception {
 
@@ -61,8 +61,8 @@ public class OauthController {
             Map<String, Object> rs = new HashMap<String, Object>();
             String merchantId = "S2135052";
             StaffPrepayApplicationPayment staffPrepayApplicationPay = null;
-//            JSONObject resp = OrderCreateDemo.main(staffPrepayApplicationPay,merchantId);
-            JSONObject resp = OrderPayDemo.main(staffPrepayApplicationPay,merchantId);
+            JSONObject resp = OrderCreateDemo.main(staffPrepayApplicationPay,merchantId);
+//            JSONObject resp = OrderPayDemo.main(staffPrepayApplicationPay,merchantId);
             String QRcodeinit = resp.getJSONObject("body").getString("qrCode");
             rs.put("QRcodeinit", QRcodeinit);
             return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
@@ -112,30 +112,30 @@ public class OauthController {
             return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
         }
 
-        //Mobile APP 调用个人交易
-        if( method!=null&&method.equals("ewalletTXN")&&SMSsendcode!=null){
+        //Mobile APP 调用个人交易 移动端交易首页二维码扫一扫交易
+        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewalletTXN")&&SMSsendcode!=null){
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
                 System.out.println("调用个人消费成功");
                 rs.put("SMSverify",0);
             }
-            return "redirect:/EwalletTXNcontroller/personalEWTMobiledashboard";
+            return "redirect:/EwalletTXNcontroller/personalEWTTxnMobile";
         }
         
-        //Mobile APP 调用个人首页
-        if( method!=null&&method.equals("ewalletdashboard")&&SMSsendcode!=null){
+        //Mobile APP 调用个人首页 移动端首页
+        if( method!=null&&page.equalsIgnoreCase("mobileme")&&method.equals("ewalletdashboard")&&SMSsendcode!=null){
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
                 System.out.println("调用钱包成功");
                 rs.put("SMSverify",0);
             }
-            return "redirect:/Ewalletcontroller/mobile-ewallet";
+            return "redirect:/Ewalletcontroller/mobileewallet";
         }
 
-        //Mobile APP 调用个人信息
-        if( method!=null&&method.equals("personalMain")&&SMSsendcode!=null) {
+        //Mobile APP 调用个人信息 移动端我的
+        if( method!=null&&page.equalsIgnoreCase("mobilehome")&&method.equals("personalMain")&&SMSsendcode!=null) {
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
@@ -178,17 +178,6 @@ public class OauthController {
             }
             return "redirect:/Mainboardtcontroller/personalMainboard";
         }
-
-        //Mobile APP 调用客服
-//        if( method!=null&&method.equals("cspersonal")&&SMSsendcode!=null){
-//            Map<String, Object> rs = new HashMap<String, Object>();
-//            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
-//            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
-//                System.out.println("调用个人信息");
-//                rs.put("SMSverify",0);
-//            }
-//            return "redirect:/cscontroller/personalCSdashboard";
-//        }
 
         //Mobile APP 调用供应商管理
         if( method!=null&&method.equals("vendormgt")&&SMSsendcode!=null){

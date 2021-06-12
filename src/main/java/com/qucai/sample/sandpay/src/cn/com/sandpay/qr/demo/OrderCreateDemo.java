@@ -47,7 +47,7 @@ public class OrderCreateDemo {
 		body.put("payTool", "0403");						//支付工具: 0403-银联扫码
 		body.put("orderCode", DemoBase.getOrderCode());		//商户订单号
 		body.put("limitPay","5");							//限定支付方式 送1-限定不能使用贷记卡	送4-限定不能使用花呗	送5-限定不能使用贷记卡+花呗
-		body.put("totalAmount","000000000000" );			//订单金额 12位长度，精确到分
+		body.put("totalAmount","000000000100" );			//订单金额 12位长度，精确到分
 		body.put("subject", "话费充值");						//订单标题
 		body.put("body", "用户购买话费0.01");					//订单描述
 		body.put("txnTimeOut",DemoBase.getNextDayTime());	//订单超时时间

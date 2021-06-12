@@ -33,13 +33,13 @@ public class ProductMainController {
 	// 必须把new ProductMain的列进行全面修改, 新建ProductMainService
 
     @Autowired
-    private ProductMainService productMainService; //申明一个对象
+    private ProductMainService ProductMainService; //申明一个对象
 
     @ModelAttribute
     public ProductMain get(@RequestParam(required = false) String t_Product_ID) {
     	ProductMain entity = null;
         if (StringUtils.isNotBlank(t_Product_ID)) {
-            entity = productMainService.selectByPrimaryKey(t_Product_ID);//用productMainService对象属性方法去调用t_Product_ID并返回
+            entity = ProductMainService.selectByPrimaryKey(t_Product_ID);//用ProductMainService对象属性方法去调用t_Product_ID并返回
         }
         if (entity == null) {
             entity = new ProductMain();
@@ -51,24 +51,24 @@ public class ProductMainController {
      *  改动：根据所属平台来确定是哪个平台的资源 , 2017/11/14 回家改一下代码 新建产品详细页.
      */
 
-    @RequestMapping(value = {"productMainList",""})
-    public String productMainList(ProductMain productMain, @RequestParam( defaultValue = "0" )  Integer platform,
+    @RequestMapping(value = {"ProductMainList",""})
+    public String ProductMainList(ProductMain ProductMain, @RequestParam( defaultValue = "0" )  Integer platform,
     		HttpServletRequest request, HttpServletResponse response, Model model) {
 
         PageParam pp = Tool.genPageParam(request);      
 
-        PageInfo<ProductMain> page = productMainService.findAllList(new HashMap<String, Object>(), pp);
+        PageInfo<ProductMain> page = ProductMainService.findAllList(new HashMap<String, Object>(), pp);
         model.addAttribute("page", page);
 
 
-    	return "productMain/productMainList";
+    	return "ProductMain/ProductMainList";
     }
 
     /*
      * Search Function
      */
-    @RequestMapping(value = "productMainSearchList")
-    public String productMainSearchList(ProductMain productMain, @RequestParam( defaultValue = "0" )  Integer platform,String t_Product_Name,Date create_time,
+    @RequestMapping(value = "ProductMainSearchList")
+    public String ProductMainSearchList(ProductMain ProductMain, @RequestParam( defaultValue = "0" )  Integer platform,String t_Product_Name,Date create_time,
     		String remark,HttpServletRequest request, HttpServletResponse response, Model model) {
 
     	model.addAttribute("platform", platform); //key从数据库查询并返回,并索引对应JSP
@@ -79,22 +79,22 @@ public class ProductMainController {
         	paramSearchMap.put("create_time", create_time);//添加元素
         	paramSearchMap.put("remark", remark);//添加元素
             PageParam pp = Tool.genPageParam(request);  
-            PageInfo<ProductMain> page = productMainService.findSearchList(pp, paramSearchMap);
+            PageInfo<ProductMain> page = ProductMainService.findSearchList(pp, paramSearchMap);
             model.addAttribute("page", page);//从数据库查询出来的结果用model的方式返回
     	} else {
             PageParam pp = Tool.genPageParam(request);           
-            PageInfo<ProductMain> page = productMainService.findAllList(new HashMap<String, Object>(), pp);
+            PageInfo<ProductMain> page = ProductMainService.findAllList(new HashMap<String, Object>(), pp);
             model.addAttribute("page", page);
         }
 		if(0 == platform) {
-     		return "productMain/productMainList";
+     		return "ProductMain/ProductMainList";
 //    	} else if(1 == platform) {
-//    		return "productMain/productMainEntList";
+//    		return "ProductMain/ProductMainEntList";
 //    	} else if(2 == platform) {
 //    		//个人端，暂时不考虑
-//    		return "productMain/productMainList";
+//    		return "ProductMain/ProductMainList";
     	}else {
-    		return "productMain/productMainList";
+    		return "ProductMain/ProductMainList";
     	}
     }
 
@@ -110,49 +110,49 @@ public class ProductMainController {
           paramMap.put("platform", platform); //给platform,赋值为前台拿进来的值
 
          if (OperationTypeConstant.NEW.equals(operationType)) { //用OperationTypeConstant函数封装的赋值函数方法判断值是否相等,并调用相应的页面
-        	return "productMain/productMainNewForm";
+        	return "ProductMain/ProductMainNewForm";
             } else if (OperationTypeConstant.EDIT.equals(operationType)) 
             {
-            ProductMain productMain = productMainService.selectByPrimaryKey(t_Product_ID);
-            return "productMain/productMainEditForm";
+            ProductMain ProductMain = ProductMainService.selectByPrimaryKey(t_Product_ID);
+            return "ProductMain/ProductMainEditForm";
           } else if (OperationTypeConstant.VIEW.equals(operationType)) {
-            return "productMain/productMainViewForm";
+            return "ProductMain/ProductMainViewForm";
           } else if (OperationTypeConstant.VERIFY.equals(operationType)) {
-              return "productMain/productMainVerifyList";
+              return "ProductMain/ProductMainVerifyList";
           } else {
-            return "redirect:/productMainController/dashboard";
+            return "redirect:/ProductMainController/dashboard";
         }
     }
 
     @RequestMapping(value = "addProductMain")   //当判断页面的行为为add时,返回相应的add页面
     @ResponseBody
-    public String addProductMain(ProductMain productMain, HttpServletRequest request,Integer platform,
+    public String addProductMain(ProductMain ProductMain, HttpServletRequest request,Integer platform,
             HttpServletResponse response, Model model) {
     	model.addAttribute("platform", platform);
-    	productMain.setCreator(ShiroSessionUtil.getLoginSession().getId());
-   	    productMain.setCreateTime(new Date());
-   	    productMain.setT_Product_ID(Tool.uuid());
-    	productMain.setT_Product_SysupdateDate(new Date());
-    	productMainService.insertSelective(productMain);
+    	ProductMain.setCreator(ShiroSessionUtil.getLoginSession().getId());
+   	    ProductMain.setCreateTime(new Date());
+   	    ProductMain.setT_Product_ID(Tool.uuid());
+    	ProductMain.setT_Product_SysupdateDate(new Date());
+    	ProductMainService.insertSelective(ProductMain);
         return JsonBizTool.genJson(ExRetEnum.SUCCESS);
     }
 
     @RequestMapping(value = "deleteProductMain")
     public String deleteProductMain(String t_Product_ID, Integer platform, HttpServletRequest request,
             HttpServletResponse response, Model model) {
-    	productMainService.deleteByPrimaryKey(t_Product_ID);
+    	ProductMainService.deleteByPrimaryKey(t_Product_ID);
     	model.addAttribute("platform", platform);
-        return "redirect:/ProductMainController/productMainList?platform="+platform;
+        return "redirect:/ProductMainController/ProductMainList?platform="+platform;
     }
 
 
     @RequestMapping(value = "editProductMain")
     @ResponseBody
-    public String editProductMain(ProductMain productMain, HttpServletRequest request,
+    public String editProductMain(ProductMain ProductMain, HttpServletRequest request,
             HttpServletResponse response, Model model) {
-    	productMain.setModifier(ShiroSessionUtil.getLoginSession().getId());
-    	productMain.setModifyTime(new Date());
-    	productMainService.updateByPrimaryKeySelective(productMain);
+    	ProductMain.setModifier(ShiroSessionUtil.getLoginSession().getId());
+    	ProductMain.setModifyTime(new Date());
+    	ProductMainService.updateByPrimaryKeySelective(ProductMain);
         return JsonBizTool.genJson(ExRetEnum.SUCCESS);
     }   
 }

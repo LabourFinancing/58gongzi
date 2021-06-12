@@ -81,15 +81,15 @@ public class PersonalMain implements Serializable {
 
     private Integer t_personal_main_creditscore;
 
-   private String t_personal_main_bkptxt1;
+   private String t_personal_main_ewalletcat;
    
    private String t_personal_main_digiasset;
 
     private String t_personal_main_companylist;
 
-    private String t_personal_main_digi2;
+    private String t_personal_main_productCat;
 
-    private String t_personal_main_digi3;
+    private String t_personal_main_prodlist;
 
     private String status;
 
@@ -335,12 +335,12 @@ public class PersonalMain implements Serializable {
         this.t_personal_main_creditscore = t_personal_main_creditscore;
     }
 
-    public String getT_personal_main_bkptxt1() {
-        return t_personal_main_bkptxt1;
+    public String gett_personal_main_ewalletcat() {
+        return t_personal_main_ewalletcat;
     }
 
-    public void setT_personal_main_bkptxt1(String t_personal_main_bkptxt1) {
-        this.t_personal_main_bkptxt1 = t_personal_main_bkptxt1;
+    public void sett_personal_main_ewalletcat(String t_personal_main_ewalletcat) {
+        this.t_personal_main_ewalletcat = t_personal_main_ewalletcat;
     }
 
     public String getT_personal_main_digiasset() {
@@ -359,20 +359,20 @@ public class PersonalMain implements Serializable {
         this.t_personal_main_companylist = t_personal_main_companylist;
     }
 
-    public String getT_personal_main_digi2() {
-        return t_personal_main_digi2;
+    public String gett_personal_main_productCat() {
+        return t_personal_main_productCat;
     }
 
-    public void setT_personal_main_digi2(String t_personal_main_digi2) {
-        this.t_personal_main_digi2 = t_personal_main_digi2;
+    public void sett_personal_main_productCat(String t_personal_main_productCat) {
+        this.t_personal_main_productCat = t_personal_main_productCat;
     }
 
-    public String getT_personal_main_digi3() {
-        return t_personal_main_digi3;
+    public String gett_personal_main_prodlist() {
+        return t_personal_main_prodlist;
     }
 
-    public void setT_personal_main_digi3(String t_personal_main_digi3) {
-        this.t_personal_main_digi3 = t_personal_main_digi3;
+    public void sett_personal_main_prodlist(String t_personal_main_prodlist) {
+        this.t_personal_main_prodlist = t_personal_main_prodlist;
     }
 
 

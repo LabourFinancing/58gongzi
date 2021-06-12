@@ -20,7 +20,7 @@
 <script type="text/javascript">
 
 /* $(document).ready(function() {
-	$("#productMainTable").treetable({clickableNodeNames : true, expandable : true}).treetable("expandAll");
+	$("#ProductMainTable").treetable({clickableNodeNames : true, expandable : true}).treetable("expandAll");
 
 });
 */
@@ -52,7 +52,7 @@ function openNew(obj){
 }
 
 
-function openEdit(productMainId){
+function openEdit(ProductMainId){
 	var openWindowWidth = $(document).width() * 0.8 + "px";
 	var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
 	layer.open({
@@ -61,7 +61,7 @@ function openEdit(productMainId){
 		offset : offsetH,
 		fix: false, //不固定
 		maxmin: true,
-		content: '${ctx}/ProductMainController/form?t_FProd_ID='+productMainId+'&operationType=edit&platform=0',
+		content: '${ctx}/ProductMainController/form?t_FProd_ID='+ProductMainId+'&operationType=edit&platform=0',
 		success: function(layero, index){
 		    layer.iframeAuto(index);
 		}
@@ -85,7 +85,7 @@ function openEdit(productMainId){
 					</ul>
 				</div>
 				<div class="portlet-body">
-					<form id="searchForm" method="post" action="${ctx}/ProductMainController/productMainSearchList" class="form-horizontal">
+					<form id="searchForm" method="post" action="${ctx}/ProductMainController/ProductMainSearchList" class="form-horizontal">
 						<input id="pageNum" name="pageNum" type="hidden" value="${page.pageNum}" /> 
 						<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}" />
 						<div class="form-body">
@@ -94,7 +94,7 @@ function openEdit(productMainId){
 									<div class="form-group">
 										<label class="control-label col-sm-3" style="padding-right: 0">产品名：</label>
 										<div class="col-sm-6" style="padding-left: 0;">
-											<input type="text" class="form-control" name="t_FProd_Name" value="${productMain.t_FProd_Name}" />
+											<input type="text" class="form-control" name="t_FProd_Name" value="${ProductMain.t_FProd_Name}" />
 										</div>
 									</div>
 								</div>
@@ -111,7 +111,7 @@ function openEdit(productMainId){
 									<div class="form-group">
 										<label class="control-label col-sm-3" style="padding-right: 0">备注：</label>
 										<div class="col-sm-8" style="padding-left: 0;">
-											<input type="text" class="form-control" name="remark" value="${productMain.remark}" />
+											<input type="text" class="form-control" name="remark" value="${ProductMain.remark}" />
 										</div>
 									</div>
 								</div>
@@ -143,7 +143,7 @@ function openEdit(productMainId){
 			<div class="row ls-change-tit">
                 <div class="ls-seaarch-result">
                    <div class="table-responsive">
-					 <table class="table table-bordered" id="productMainTable" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+					 <table class="table table-bordered" id="ProductMainTable" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
 						<thead>
 							<tr>
 								<th>产品名称</th>
@@ -169,33 +169,33 @@ function openEdit(productMainId){
 							</tr>
 						</thead>
 						<tbody>
-							<#list page.list as productMain>
+							<#list page.list as ProductMain>
 								<tr>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${productMain.t_Product_Name}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${productMain.t_Product_PID}</td>
-								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${productMain.t_Product_Cat}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${productMain.t_Product_Vendor}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${productMain.t_Product_Company}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${productMain.t_Product_3rdPartyService}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${productMain.t_Product_FOrg}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${productMain.t_Product_Alias.toString()}</td>
-								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${productMain.t_Product_Site}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${productMain.t_Product_ServiceFss.toString()}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${productMain.t_Product_TierPoundage.toString()}</td>
-                                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${productMain.t_Product_Status.toString()}</td>
-                                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${productMain.t_Product_Cleardays.toString()}</td>
-                                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${productMain.t_Product_category}</td>
-                                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${productMain.t_Product_CorpPool}</td>
-                                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${productMain.t_Product_PersPool}</td>
-                                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${productMain.remark}</td>																		
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${productMain.create_time?string("yyyy-MM-dd HH:mm:ss")}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${productMain.t_FProd_SysupdateDate?string("yyyy-MM-dd HH:mm:ss")}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_Name}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_PID}</td>
+								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_Cat}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_Vendor}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_Company}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_3rdPartyService}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_FOrg}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_Alias.toString()}</td>
+								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_Site}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_ServiceFss.toString()}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_TierPoundage.toString()}</td>
+                                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_Status.toString()}</td>
+                                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_Cleardays.toString()}</td>
+                                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_category}</td>
+                                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_CorpPool}</td>
+                                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_PersPool}</td>
+                                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.remark}</td>																		
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.create_time?string("yyyy-MM-dd HH:mm:ss")}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_FProd_SysupdateDate?string("yyyy-MM-dd HH:mm:ss")}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">
 										<@shiro.hasPermission name="FINANCEPRODUCT_EDIT">
-										<a href="#" onclick="openEdit('${productMain.t_FProd_ID}')">编辑</a>
+										<a href="#" onclick="openEdit('${ProductMain.t_FProd_ID}')">编辑</a>
 										</@shiro.hasPermission>
 										<@shiro.hasPermission name="FINANCEPRODUCT_DELETE">
-										<a href="${ctx}/ProductMainController/deleteProductMain?t_FProd_ID=${productMain.t_FProd_ID}&platform=0" onclick="return confirm('确认要执行 删除 操作吗？', this.href)">删除</a>
+										<a href="${ctx}/ProductMainController/deleteProductMain?t_FProd_ID=${ProductMain.t_FProd_ID}&platform=0" onclick="return confirm('确认要执行 删除 操作吗？', this.href)">删除</a>
 										</@shiro.hasPermission>
 									</td>
 								</tr>

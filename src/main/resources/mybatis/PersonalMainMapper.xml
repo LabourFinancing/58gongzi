@@ -28,11 +28,11 @@
         <result column="t_personal_main_assetcat" property="t_personal_main_assetcat" jdbcType="VARCHAR" />
 		<result column="t_personal_main_voucher" property="t_personal_main_voucher" jdbcType="VARCHAR" />
 		<result column="t_personal_main_creditscore" property="t_personal_main_creditscore" jdbcType="INTEGER" />
-		<result column="t_personal_main_bkptxt1" property="t_personal_main_bkptxt1" jdbcType="VARCHAR" />
+		<result column="t_personal_main_ewalletcat" property="t_personal_main_ewalletcat" jdbcType="VARCHAR" />
         <result column="t_personal_main_digiasset" property="t_personal_main_digiasset" jdbcType="VARCHAR" />
 		<result column="t_personal_main_companylist" property="t_personal_main_companylist" jdbcType="VARCHAR" />
-		<result column="t_personal_main_digi2" property="t_personal_main_digi2" jdbcType="VARCHAR" />
-		<result column="t_personal_main_digi3" property="t_personal_main_digi3" jdbcType="VARCHAR" />
+		<result column="t_personal_main_productCat" property="t_personal_main_productCat" jdbcType="VARCHAR" />
+		<result column="t_personal_main_prodlist" property="t_personal_main_prodlist" jdbcType="VARCHAR" />
         <result column="platform" property="platform" jdbcType="INTEGER" />
         <result column="status" property="status" jdbcType="INTEGER" />
         <result column="email" property="email" jdbcType="VARCHAR" />
@@ -69,11 +69,11 @@
         a.t_personal_main_assetcat,
         a.t_personal_main_voucher,
         a.t_personal_main_creditscore,
-        a.t_personal_main_bkptxt1,
+        a.t_personal_main_ewalletcat,
         a.t_personal_main_digiasset,
         a.t_personal_main_companylist,
-        a.t_personal_main_digi2,
-        a.t_personal_main_digi3,
+        a.t_personal_main_productCat,
+        a.t_personal_main_prodlist,
 		a.platform,
         a.status,
         a.email,
@@ -203,8 +203,8 @@
 			<if test="t_personal_main_creditscore != null">
                 t_personal_main_creditscore,
 			</if>
-			<if test="t_personal_main_bkptxt1 != null">
-                t_personal_main_bkptxt1,
+			<if test="t_personal_main_ewalletcat != null">
+                t_personal_main_ewalletcat,
 			</if>
 			<if test="t_personal_main_digiasset != null">
                 t_personal_main_digiasset,
@@ -212,11 +212,11 @@
 			<if test="t_personal_main_companylist != null">
                 t_personal_main_companylist,
 			</if>
-			<if test="t_personal_main_digi2 != null">
-                t_personal_main_digi2,
+			<if test="t_personal_main_productCat != null">
+                t_personal_main_productCat,
 			</if>
-			<if test="t_personal_main_digi3 != null">
-                t_personal_main_digi3,
+			<if test="t_personal_main_prodlist != null">
+                t_personal_main_prodlist,
 			</if>
 			<if test="platform != null">
 				platform,
@@ -316,8 +316,8 @@
 			<if test="t_personal_main_creditscore != null">
 				#{t_personal_main_creditscore,jdbcType=INTEGER},
 			</if>
-			<if test="t_personal_main_bkptxt1 != null">
-				#{t_personal_main_bkptxt1,jdbcType=VARCHAR},
+			<if test="t_personal_main_ewalletcat != null">
+				#{t_personal_main_ewalletcat,jdbcType=VARCHAR},
 			</if>
 			<if test="t_personal_main_digiasset != null">
 				#{t_personal_main_digiasset,jdbcType=VARCHAR},
@@ -325,11 +325,11 @@
 			<if test="t_personal_main_companylist != null">
 				#{t_personal_main_companylist,jdbcType=VARCHAR},
 			</if>
-			<if test="t_personal_main_digi2 != null">
-				#{t_personal_main_digi2,jdbcType=VARCHAR},
+			<if test="t_personal_main_productCat != null">
+				#{t_personal_main_productCat,jdbcType=VARCHAR},
 			</if>
-			<if test="t_personal_main_digi3 != null">
-				#{t_personal_main_digi3,jdbcType=VARCHAR},
+			<if test="t_personal_main_prodlist != null">
+				#{t_personal_main_prodlist,jdbcType=VARCHAR},
 			</if>
 			<if test="platform != null">
 				#{platform,jdbcType=INTEGER},
@@ -468,8 +468,8 @@
 			<if test="t_personal_main_creditscore != null">
                 t_personal_main_creditscore = #{t_personal_main_creditscore,jdbcType=INTEGER},
 			</if>
-			<if test="t_personal_main_bkptxt1 != null">
-                t_personal_main_bkptxt1 = #{t_personal_main_bkptxt1,jdbcType=VARCHAR},
+			<if test="t_personal_main_ewalletcat != null">
+                t_personal_main_ewalletcat = #{t_personal_main_ewalletcat,jdbcType=VARCHAR},
 			</if>
 			<if test="t_personal_main_digiasset != null">
                 t_personal_main_digiasset = #{t_personal_main_digiasset,jdbcType=VARCHAR},
@@ -477,11 +477,11 @@
 			<if test="t_personal_main_companylist != null">
                 t_personal_main_companylist = #{t_personal_main_companylist,jdbcType=VARCHAR},
 			</if>
-			<if test="t_personal_main_digi2 != null">
-                t_personal_main_digi2 = #{t_personal_main_digi2,jdbcType=VARCHAR},
+			<if test="t_personal_main_productCat != null">
+                t_personal_main_productCat = #{t_personal_main_productCat,jdbcType=VARCHAR},
 			</if>
-			<if test="t_personal_main_digi3 != null">
-                t_personal_main_digi3 = #{t_personal_main_digi3,jdbcType=VARCHAR},
+			<if test="t_personal_main_prodlist != null">
+                t_personal_main_prodlist = #{t_personal_main_prodlist,jdbcType=VARCHAR},
 			</if>
 			<if test="platform != null">
 				platform = #{platform,jdbcType=INTEGER},

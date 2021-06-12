@@ -376,4 +376,37 @@ public class EwalletController {
   	        return JsonBizTool.genJson(ExRetEnum.FAIL);
         }
     }
+    
+    /*
+    钱包首页 移动端首页
+     */
+
+    @RequestMapping(value = "mobileewallet")
+    @ResponseBody
+    public String mobileewallet(Ewallet ewallet, HttpServletRequest request,String t_P_Mobil,BigDecimal t_P_NetMonthlyBonusAmount,
+                                    HttpServletResponse response, Model model) {
+        ewallet.setModifier(ShiroSessionUtil.getLoginSession().getId());
+        ewallet.setModify_time(new Date());
+        String OrderCodeUpdate = null;
+        BigDecimal CreditBalanceAmtRefund = null;
+        StaffPrepayApplicationList staffPrepayApplicationCredit = staffPrepayApplicationService.findPrepayApplierCredit(t_P_Mobil);
+        int rs = 0;
+        if(staffPrepayApplicationCredit != null){
+            staffPrepayApplicationCredit.setT_Txn_BalanceCreditNum(t_P_NetMonthlyBonusAmount);
+            staffPrepayApplicationCredit.setT_Txn_PrepayCounts(staffPrepayApplicationCredit.getT_Txn_CreditPrepayBalanceNum().intValue());
+            staffPrepayApplicationCredit.setT_Txn_CreditPrepayBalanceNum(t_P_NetMonthlyBonusAmount);
+            CreditBalanceAmtRefund = t_P_NetMonthlyBonusAmount;
+            OrderCodeUpdate = staffPrepayApplicationCredit.getT_Txn_Num();
+            rs = staffPrepayApplicationService.updateCreditBalanceAmt(CreditBalanceAmtRefund, OrderCodeUpdate);
+        }else{
+            CreditBalanceAmtRefund = t_P_NetMonthlyBonusAmount;
+            ewallet.setT_personalewallet_TotCNYBalance(CreditBalanceAmtRefund);
+            rs = ewalletService.updateByPrimaryKeySelective(ewallet);
+        }
+        if(rs==1){
+            return JsonBizTool.genJson(ExRetEnum.SUCCESS);
+        }else{
+            return JsonBizTool.genJson(ExRetEnum.FAIL);
+        }
+    }
 }

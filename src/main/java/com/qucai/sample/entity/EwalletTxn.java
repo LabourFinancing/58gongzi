@@ -85,7 +85,7 @@ public class EwalletTxn implements Serializable {
 
    private BigDecimal t_WalletTxn_CreditTxnAmtInit;
 
-   private BigDecimal t_WalletTxn_TotalPrepayAmt;
+   private BigDecimal t_WalletTxn_TotalPayAmt;
 
    private BigDecimal t_WalletTxn_TotallvorchourAmt;
 	
@@ -111,7 +111,7 @@ public class EwalletTxn implements Serializable {
 
     private Integer t_WalletTxn_OverdueDays;
 
-    private BigDecimal t_WalletTxn_OverdueTotalAmount;
+    private BigDecimal t_WalletTxn_RefundAmt;
 
     private BigDecimal t_WalletTxn_FinancialInterest;
 
@@ -407,12 +407,12 @@ public class EwalletTxn implements Serializable {
         this.t_WalletTxn_CreditTxnAmtInit = t_WalletTxn_CreditTxnAmtInit;
     }
 
-    public BigDecimal getT_WalletTxn_TotalPrepayAmt() {
-        return t_WalletTxn_TotalPrepayAmt;
+    public BigDecimal gett_WalletTxn_TotalPayAmt() {
+        return t_WalletTxn_TotalPayAmt;
     }
 
-    public void setT_WalletTxn_TotalPrepayAmt(BigDecimal t_WalletTxn_TotalPrepayAmt) {
-        this.t_WalletTxn_TotalPrepayAmt = t_WalletTxn_TotalPrepayAmt;
+    public void sett_WalletTxn_TotalPayAmt(BigDecimal t_WalletTxn_TotalPayAmt) {
+        this.t_WalletTxn_TotalPayAmt = t_WalletTxn_TotalPayAmt;
     }
 
     public BigDecimal getT_WalletTxn_TotallvorchourAmt() {
@@ -511,12 +511,12 @@ public class EwalletTxn implements Serializable {
         this.t_WalletTxn_OverdueDays = t_WalletTxn_OverdueDays;
     }
 
-    public BigDecimal getT_WalletTxn_OverdueTotalAmount() {
-        return t_WalletTxn_OverdueTotalAmount;
+    public BigDecimal gett_WalletTxn_RefundAmt() {
+        return t_WalletTxn_RefundAmt;
     }
 
-    public void setT_WalletTxn_OverdueTotalAmount(BigDecimal t_WalletTxn_OverdueTotalAmount) {
-        this.t_WalletTxn_OverdueTotalAmount = t_WalletTxn_OverdueTotalAmount;
+    public void sett_WalletTxn_RefundAmt(BigDecimal t_WalletTxn_RefundAmt) {
+        this.t_WalletTxn_RefundAmt = t_WalletTxn_RefundAmt;
     }
 
     public BigDecimal getT_WalletTxn_FinancialInterest() {

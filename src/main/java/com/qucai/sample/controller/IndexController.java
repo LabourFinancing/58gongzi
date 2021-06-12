@@ -132,7 +132,7 @@ public class IndexController {
             if (userName == null) {
                 return "login";
             } else if (userName.contains("Admin") || userName.contains("ADMIN") || userName.contains("admin")) {
-                return "redirect:/OrganizationDashboardController/dashboard";
+                return "redirect:/OrganizationDashboardController/ewalletdashboard";
             } else if (host.equals("P")) {
                 return "redirect:/OrganizationDashboardController/dashboard";
             } else {

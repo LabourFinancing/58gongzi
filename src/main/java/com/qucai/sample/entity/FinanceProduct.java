@@ -19,20 +19,11 @@ public class FinanceProduct implements Serializable {
     */
    private String creator;
    /**
-    * 创建时间
-    */
-   private Date createTime;
-   /**
     * 修改人
     * @return 
     */
    private String modifier;
    
-   /*
-    * 修改时间
-    */
-   private Date modifyTime;
-	
    /**
     * 产品ID
     */
@@ -110,13 +101,6 @@ public class FinanceProduct implements Serializable {
        return creator;
    }
    /**
-    * 创建时间
-    * @return 
-    */
-   public Date getCreateTime() {
-       return createTime;
-   }
-   /**
     * 修改人
     * @return 
     */
@@ -124,14 +108,9 @@ public class FinanceProduct implements Serializable {
        return modifier;
    }
 
-   /**
-    * 修改时间
-    * @return 
-    */
-   public Date getModifyTime() {
-       return modifyTime;
-   }
-
+    public void setModifier(String modifier) {
+        this.modifier = modifier;
+    }
    
     public String getT_FProd_ID() {
     	return t_FProd_ID;
@@ -209,27 +188,6 @@ public class FinanceProduct implements Serializable {
      */
     public void setCreator(String creator) {
         this.creator = creator;
-    }
-    /**
-     * 创建时间
-     * @param createTime
-     */
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-    /**
-     * 修改人
-     * @param modifier
-     */	
-    public void setModifier(String modifier) {
-        this.modifier = modifier;
-    }
-    /**
-     * 修改人
-     * @param modifyTime
-     */
-    public void setModifyTime(Date modifyTime) {
-        this.modifyTime = modifyTime;
     }
     
     public void setPlatform(String platform) {

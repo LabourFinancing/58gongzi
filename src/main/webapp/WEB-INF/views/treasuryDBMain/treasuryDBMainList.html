@@ -36,7 +36,7 @@ function openEdit(t_TreasuryDB_ID){
 		offset : offsetH,
 		fix: false, //不固定	
 		maxmin: true,
-		content: '${ctx}/TreasuryDBInfoController/form?t_TreasuryDB_ID='+t_TreasuryDB_ID+'&operationType=edit&platform=0',
+		content: '${ctx}/TreasuryDBMainController/form?t_TreasuryDB_ID='+t_TreasuryDB_ID+'&operationType=edit&platform=0',
 		success: function(layero, index){
 		    layer.iframeAuto(index);
 		}
@@ -53,7 +53,7 @@ function openPymtSwitch(t_TreasuryDB_OrgName){
 		fix: false, //不固定	
 		maxmin: true,
 		contentType: "application/x-www-form-urlencoded; charset=utf-8",
-		content: '${ctx}/TreasuryDBInfoController/form?t_TreasuryDB_OrgName='+encodeURI(encodeURI(t_TreasuryDB_OrgName))+'&operationType=pymtswitch&platform=0',
+		content: '${ctx}/TreasuryDBMainController/form?t_TreasuryDB_OrgName='+encodeURI(encodeURI(t_TreasuryDB_OrgName))+'&operationType=pymtswitch&platform=0',
 		success: function(layero, index){
 		    layer.iframeAuto(index);	
 		}
@@ -63,7 +63,7 @@ function openPymtSwitch(t_TreasuryDB_OrgName){
 
 function creditCtrlOn(t_TreasuryDB_OrgName){
 	$.ajax({
-		url: '${ctx}/TreasuryDBInfoController/creditCtrl?t_TreasuryDB_OrgName='+encodeURI(encodeURI(t_TreasuryDB_OrgName))+'&operationType=on',
+		url: '${ctx}/TreasuryDBMainController/creditCtrl?t_TreasuryDB_OrgName='+encodeURI(encodeURI(t_TreasuryDB_OrgName))+'&operationType=on',
 		type: 'POST',
 		async: true,
 		cache: false,
@@ -81,7 +81,7 @@ function creditCtrlOn(t_TreasuryDB_OrgName){
 
 function creditCtrlOff(t_TreasuryDB_OrgName){
 	$.ajax({
-		url: '${ctx}/TreasuryDBInfoController/creditCtrl?t_TreasuryDB_OrgName='+encodeURI(encodeURI(t_TreasuryDB_OrgName))+'&operationType=off',
+		url: '${ctx}/TreasuryDBMainController/creditCtrl?t_TreasuryDB_OrgName='+encodeURI(encodeURI(t_TreasuryDB_OrgName))+'&operationType=off',
 		type: 'POST',
 		async: true,
 		cache: false,
@@ -101,7 +101,7 @@ function creditRefresh(t_TreasuryDB_OrgName){
 	if(window.confirm('你确定要刷新授额吗？')){
         //alert("确定");
     	$.ajax({
-    		url: '${ctx}/TreasuryDBInfoController/creditCtrl?t_TreasuryDB_OrgName='+encodeURI(encodeURI(t_TreasuryDB_OrgName))+'&operationType=Refresh',
+    		url: '${ctx}/TreasuryDBMainController/creditCtrl?t_TreasuryDB_OrgName='+encodeURI(encodeURI(t_TreasuryDB_OrgName))+'&operationType=Refresh',
     		type: 'POST',
     		async: true,
     		cache: false,
@@ -234,7 +234,7 @@ input.font-opstyle:hover{color:red}
 	                   	<table class="table table-bordered">
 	                    	<thead>
 	                    	   <tr bgcolor="#006b8e" style="color:white">
-	                                <th>  商户名称</th>
+	                                <th>支付商户</th>
 	                                <th>总账户可用余额</th>
 	                                <th>冻结金额</th>
 	                                <th>押金（机构收取）</th>
@@ -245,7 +245,7 @@ input.font-opstyle:hover{color:red}
 	                            </tr>
 	                            <@shiro.hasPermission name="TREASURYDBINFO_OVERVIEW">
 	                            <tr>
-	                            	<td>预支工资平台</td>
+	                            	<td style="width:18px;height:18px">  预支工资平台</td>
 	                            	<td style="width:18px;height:18px"><span id="t_TreasuryDB_Balance" ><span>￥ </span>${TreasuryDBStatisticOverAll.t_TreasuryDB_Balance}<span>元</span></span></td>
 	                            	<td style="width:18px;height:18px"><span id="t_TreasuryDB_RiskMargin"><span>￥ </span>${TreasuryDBStatisticOverAll.t_TreasuryDB_RiskMargin}<span>元</span></td>
 	                            	<td style="width:18px;height:18px"><span id="t_TreasuryDB_Prooffund"><span>￥ </span>${TreasuryDBStatisticOverAll.t_TreasuryDB_Prooffund}<span>元</span></td>
@@ -257,8 +257,8 @@ input.font-opstyle:hover{color:red}
 	                            </@shiro.hasPermission>
 	                            <tr>
 	                            	<td>  杉德支付平台</td>
-	                            	<td><span id="18554095zhyes">￥  ${TreasuryDBStatisticOverAll.t_TreasuryDB_RiskMargin}元</span></td>
-	                            	<td><span id="18554095ywdjsyjes">￥   ${TreasuryDBStatisticOverAll.t_TreasuryDB_RiskMargin} (授额)元</span></td>
+	                            	<td><span id="18554095zhyes">￥${TreasuryDBStatisticOverAll.t_TreasuryDB_RiskMargin}元</span></td>
+	                            	<td><span id="18554095ywdjsyjes">￥${TreasuryDBStatisticOverAll.t_TreasuryDB_RiskMargin} (授额)元</span></td>
 	                            	<td><span id="18554095fxbzjs">￥  元</span></td>
 	                            	<td><span id="18554095yysxfs">￥ 元</span></td>
 	                            	<td><span id="18554095drjyzjes">￥ 元</span></td>
@@ -267,8 +267,8 @@ input.font-opstyle:hover{color:red}
 	                            </tr>
 	                            <tr>
 	                            	<td>  电银支付平台</td>
-	                            	<td><span id="Chinaebizhyes">￥  ${TreasuryDBStatisticOverAll.t_TreasuryDB_BoPRatio}元</span></td>
-	                            	<td><span id="Chinaebiywdjsyjes">￥   ${treasuryDBInfo.t_TreasuryDB_BoPRatio} (授额)元</span></td>
+	                            	<td><span id="Chinaebizhyes">￥${TreasuryDBStatisticOverAll.t_TreasuryDB_BoPRatio}元</span></td>
+	                            	<td><span id="Chinaebiywdjsyjes">￥ ${treasuryDBMain.t_TreasuryDB_BoPRatio} (授额)元</span></td>
 	                            	<td><span id="Chinaebifxbzjs">￥  元</span></td>
 	                            	<td><span id="Chinaebiyysxfs">￥ 元</span></td>
 	                            	<td><span id="Chinaebidrjyzjes">￥ 元</span></td>
@@ -279,7 +279,7 @@ input.font-opstyle:hover{color:red}
 	                    </table>
 	                </div>				
 				<div class="portlet-body">
-					<form id="searchForm" method="post" action="${ctx}/TreasuryDBInfoController/treasuryDBInfoSearchList" class="form-horizontal">
+					<form id="searchForm" method="post" action="${ctx}/TreasuryDBMainController/treasuryDBMainSearchList" class="form-horizontal">
 						<div class="form-body">
 						 <table class="table table-bordered">
 	                           <tr>
@@ -288,7 +288,7 @@ input.font-opstyle:hover{color:red}
 									<div class="form-group">
 										<label class="control-label col-sm-3" style="padding-right: 0">公司/经销商名称:</label>
 										<div class="col-sm-5" style="padding-left: 1;">
-											<input type="text" class="form-control" name="t_TreasuryDB_OrgName" value="${treasuryDBInfo.t_TreasuryDB_OrgName}" />
+											<input type="text" class="form-control" name="t_TreasuryDB_OrgName" value="${treasuryDBMain.t_TreasuryDB_OrgName}" />
 										</div>
 									</div>
 								 </div>
@@ -299,7 +299,7 @@ input.font-opstyle:hover{color:red}
 									<div class="form-group">
 										<label class="control-label col-sm-3" style="padding-right: 0">资金账户备注:</label>
 										<div class="col-sm-8" style="padding-left: 1;">
-											<input type="text" class="form-control" name="t_TreasuryDB_Comment" value="${treasuryDBInfo.t_TreasuryDB_Comment}" />
+											<input type="text" class="form-control" name="t_TreasuryDB_Comment" value="${treasuryDBMain.t_TreasuryDB_Comment}" />
 										</div>
 									</div>
 								 </div>
@@ -312,7 +312,7 @@ input.font-opstyle:hover{color:red}
 									<div class="form-group">
 										<label class="control-label col-sm-3" style="padding-right: 0">备注:</label>
 										<div class="col-sm-8" style="padding-left: 1;">
-											<input type="text" class="form-control" name="remark" value="${treasuryDBInfo.remark}" />
+											<input type="text" class="form-control" name="remark" value="${treasuryDBMain.remark}" />
 										</div>
 									</div>
 								 </div>
@@ -322,7 +322,7 @@ input.font-opstyle:hover{color:red}
 									<div class="form-group">
 										<label class="control-label col-sm-3" style="padding-right: 0">发薪日:</label>
 										<div class="col-sm-4" style="padding-left: 1;">
-											<input type="text" class="form-control" name="t_TreasuryDB_PayrollDate" value="${treasuryDBInfo.t_TreasuryDB_PayrollDate}" />
+											<input type="text" class="form-control" name="t_TreasuryDB_PayrollDate" value="${treasuryDBMain.t_TreasuryDB_PayrollDate}" />
 										</div>
 									</div>
 								 </div>
@@ -379,43 +379,43 @@ input.font-opstyle:hover{color:red}
 							</tr>
 						</thead>
 						<tbody>
-							<#list TreasuryDBStatisticOverAllList as treasuryDBInfo>
+							<#list TreasuryDBStatisticOverAllList as treasuryDBMain>
 								<tr>
 								    <td>&nbsp</td>
-									<td><input name="t_TreasuryDB_OrgName" id="t_TreasuryDB_OrgName" type="hidden" value="${treasuryDBInfo.t_TreasuryDB_OrgName}"/>${treasuryDBInfo.t_TreasuryDB_OrgName}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBInfo.t_TreasuryDB_Balance}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBInfo.t_TreasuryDB_TotAmtMth}</td>
+									<td><input name="t_TreasuryDB_OrgName" id="t_TreasuryDB_OrgName" type="hidden" value="${treasuryDBMain.t_TreasuryDB_OrgName}"/>${treasuryDBMain.t_TreasuryDB_OrgName}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBMain.t_TreasuryDB_Balance}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBMain.t_TreasuryDB_TotAmtMth}</td>
 									<@shiro.hasPermission name="TREASURYINFO_PAYMENTNEW">
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBInfo.t_TreasuryDB_BoPRatio}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBMain.t_TreasuryDB_BoPRatio}</td>
 									</@shiro.hasPermission>
 									<@shiro.hasPermission name="TREASURYINFO_PAYMENTNEW">
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBInfo.t_TreasuryDB_RiskMargin}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBMain.t_TreasuryDB_RiskMargin}</td>
 									</@shiro.hasPermission>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBInfo.platform}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBInfo.t_TreasuryDB_PoPRatio}%</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBInfo.t_TreasuryDB_Prooffund}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBInfo.t_TreasuryDB_TotAmtDaily}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBInfo.t_TreasuryDB_TotAmtDailySucc}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBInfo.t_TreasuryDB_Fee}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBInfo.t_TreasuryDB_OverdueInt}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBInfo.t_TreasuryDB_PayrollDate}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBInfo.t_TreasuryDB_Comment}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBInfo.remark}</td>									
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBMain.platform}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBMain.t_TreasuryDB_PoPRatio}%</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBMain.t_TreasuryDB_Prooffund}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBMain.t_TreasuryDB_TotAmtDaily}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBMain.t_TreasuryDB_TotAmtDailySucc}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBMain.t_TreasuryDB_Fee}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBMain.t_TreasuryDB_OverdueInt}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBMain.t_TreasuryDB_PayrollDate}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBMain.t_TreasuryDB_Comment}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBMain.remark}</td>									
 									<td class="col-xs-push-2" style="word-wrap:break-word;word-break:break-all;">
 										<@shiro.hasPermission name="TREASURYDBINFO_EDIT">
-										<input type="button" href="#" onclick="creditCtrlOn('${treasuryDBInfo.t_TreasuryDB_OrgName}')" class="btn btn-link btn-xs font-opstyle" value="开启授额">
+										<input type="button" href="#" onclick="creditCtrlOn('${treasuryDBMain.t_TreasuryDB_OrgName}')" class="btn btn-link btn-xs font-opstyle" value="开启授额">
 										</@shiro.hasPermission>
 										<@shiro.hasPermission name="TREASURYDBINFO_EDIT">
-										<input type="button" href="#" onclick="creditCtrlOff('${treasuryDBInfo.t_TreasuryDB_OrgName}')" class="btn btn-link btn-xs font-opstyle" value="关闭授额">
+										<input type="button" href="#" onclick="creditCtrlOff('${treasuryDBMain.t_TreasuryDB_OrgName}')" class="btn btn-link btn-xs font-opstyle" value="关闭授额">
 										</@shiro.hasPermission>
 										<@shiro.hasPermission name="TREASURYDBINFO_EDIT">
-										<input type="button" href="#" onclick="openEdit('${treasuryDBInfo.t_TreasuryDB_ID}')" class="btn btn-link btn-xs font-opstyle" value="编辑"><br>
+										<input type="button" href="#" onclick="openEdit('${treasuryDBMain.t_TreasuryDB_ID}')" class="btn btn-link btn-xs font-opstyle" value="编辑"><br>
 										</@shiro.hasPermission>
 									    <@shiro.hasPermission name="TREASURYINFO_PAYMENTNEW">
-										<input type="button" href="#" onclick="creditRefresh('${treasuryDBInfo.t_TreasuryDB_OrgName}')" class="btn btn-link btn-xs font-opstyle" value="结算完刷新">
+										<input type="button" href="#" onclick="creditRefresh('${treasuryDBMain.t_TreasuryDB_OrgName}')" class="btn btn-link btn-xs font-opstyle" value="结算完刷新">
 										</@shiro.hasPermission>
 										<@shiro.hasPermission name="TREASURYDBINFO_EDIT">
-										<input type="button" href="#" onclick="openPymtSwitch('${treasuryDBInfo.t_TreasuryDB_OrgName}')" class="btn btn-link btn-xs font-opstyle" value="切换支付账户">
+										<input type="button" href="#" onclick="openPymtSwitch('${treasuryDBMain.t_TreasuryDB_OrgName}')" class="btn btn-link btn-xs font-opstyle" value="切换支付账户">
 										</@shiro.hasPermission>
 									</td>
 								</tr>

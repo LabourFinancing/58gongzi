@@ -108,7 +108,7 @@ public class Ewallet implements Serializable {
 
     private BigDecimal t_personalewallet_DiscountRate;
 
-    private BigDecimal t_personalewallet_BalanceCreditNum;
+    private BigDecimal t_personalewallet_BalanceInterest;
 
     private Date t_personalewallet_OverdueRepaymentDate;
 
@@ -148,15 +148,15 @@ public class Ewallet implements Serializable {
 
     private String t_personalewallet_treasuryID;
 
-    private String t_personalewallet_treasuryID1;
+    private String t_personalewallet_eproposal;
 
-    private String t_personalewallet_treasuryID2;
+    private String t_personalewallet_Txt2;
 
-    private String t_personalewallet_treasuryID3;
+    private String t_personalewallet_Txt3;
 
-    private String t_personalewallet_treasuryID4;
+    private String t_personalewallet_Txt4;
 
-    private String t_personalewallet_treasuryID5;
+    private String t_personalewallet_Txt5;
 
     public String getCreator() {
         return creator;
@@ -510,12 +510,12 @@ public class Ewallet implements Serializable {
         this.t_personalewallet_DiscountRate = t_personalewallet_DiscountRate;
     }
 
-    public BigDecimal getT_personalewallet_BalanceCreditNum() {
-        return t_personalewallet_BalanceCreditNum;
+    public BigDecimal gett_personalewallet_BalanceInterest() {
+        return t_personalewallet_BalanceInterest;
     }
 
-    public void setT_personalewallet_BalanceCreditNum(BigDecimal t_personalewallet_BalanceCreditNum) {
-        this.t_personalewallet_BalanceCreditNum = t_personalewallet_BalanceCreditNum;
+    public void sett_personalewallet_BalanceInterest(BigDecimal t_personalewallet_BalanceInterest) {
+        this.t_personalewallet_BalanceInterest = t_personalewallet_BalanceInterest;
     }
 
     public Date getT_personalewallet_OverdueRepaymentDate() {
@@ -670,44 +670,44 @@ public class Ewallet implements Serializable {
         this.t_personalewallet_treasuryID = t_personalewallet_treasuryID;
     }
 
-    public String gett_personalewallet_treasuryID1() {
-        return t_personalewallet_treasuryID1;
+    public String gett_personalewallet_eproposal() {
+        return t_personalewallet_eproposal;
     }
 
-    public void sett_personalewallet_treasuryID1(String t_personalewallet_treasuryID1) {
-        this.t_personalewallet_treasuryID1 = t_personalewallet_treasuryID1;
+    public void sett_personalewallet_eproposal(String t_personalewallet_eproposal) {
+        this.t_personalewallet_eproposal = t_personalewallet_eproposal;
     }
 
-    public String gett_personalewallet_treasuryID2() {
-        return t_personalewallet_treasuryID2;
+    public String gett_personalewallet_Txt2() {
+        return t_personalewallet_Txt2;
     }
 
-    public void sett_personalewallet_treasuryID2(String t_personalewallet_treasuryID2) {
-        this.t_personalewallet_treasuryID2 = t_personalewallet_treasuryID2;
+    public void sett_personalewallet_Txt2(String t_personalewallet_Txt2) {
+        this.t_personalewallet_Txt2 = t_personalewallet_Txt2;
     }
 
-    public String gett_personalewallet_treasuryID3() {
-        return t_personalewallet_treasuryID3;
+    public String gett_personalewallet_Txt3() {
+        return t_personalewallet_Txt3;
     }
 
-    public void sett_personalewallet_treasuryID3(String t_personalewallet_treasuryID3) {
-        this.t_personalewallet_treasuryID3 = t_personalewallet_treasuryID3;
+    public void sett_personalewallet_Txt3(String t_personalewallet_Txt3) {
+        this.t_personalewallet_Txt3 = t_personalewallet_Txt3;
     }
 
-    public String gett_personalewallet_treasuryID4() {
-        return t_personalewallet_treasuryID4;
+    public String gett_personalewallet_Txt4() {
+        return t_personalewallet_Txt4;
     }
 
-    public void sett_personalewallet_treasuryID4(String t_personalewallet_treasuryID4) {
-        this.t_personalewallet_treasuryID4 = t_personalewallet_treasuryID4;
+    public void sett_personalewallet_Txt4(String t_personalewallet_Txt4) {
+        this.t_personalewallet_Txt4 = t_personalewallet_Txt4;
     }
 
-    public String gett_personalewallet_treasuryID5() {
-        return t_personalewallet_treasuryID5;
+    public String gett_personalewallet_Txt5() {
+        return t_personalewallet_Txt5;
     }
 
-    public void sett_personalewallet_treasuryID5(String t_personalewallet_treasuryID5) {
-        this.t_personalewallet_treasuryID5 = t_personalewallet_treasuryID5;
+    public void sett_personalewallet_Txt5(String t_personalewallet_Txt5) {
+        this.t_personalewallet_Txt5 = t_personalewallet_Txt5;
     }
 
 }

@@ -29,7 +29,7 @@
 		<result column="t_WalletTxn_CreditTxnAmt" property="t_WalletTxn_CreditTxnAmt" jdbcType="DECIMAL" />
 		<result column="t_WalletTxn_CreditBalanceNum" property="t_WalletTxn_CreditBalanceNum" jdbcType="DECIMAL" />
 		<result column="t_WalletTxn_CreditTxnAmtInit" property="t_WalletTxn_CreditTxnAmtInit" jdbcType="DECIMAL" />
-		<result column="t_WalletTxn_TotalPrepayAmt" property="t_WalletTxn_TotalPrepayAmt" jdbcType="DECIMAL" />
+		<result column="t_WalletTxn_TotalPayAmt" property="t_WalletTxn_TotalPayAmt" jdbcType="DECIMAL" />
 		<result column="t_WalletTxn_TotallvorchourAmt" property="t_WalletTxn_TotallvorchourAmt" jdbcType="DECIMAL" />
 		<result column="t_WalletTxn_TotalInterestDays" property="t_WalletTxn_TotalInterestDays" jdbcType="INTEGER" />
 		<result column="t_WalletTxn_TxnCounts" property="t_WalletTxn_TxnCounts" jdbcType="INTEGER" />
@@ -42,7 +42,7 @@
         <result column="t_WalletTxn_PayClear" property="t_WalletTxn_PayClear" jdbcType="VARCHAR" />
         <result column="t_WalletTxn_Overdue" property="t_WalletTxn_Overdue" jdbcType="INTEGER" />
         <result column="t_WalletTxn_OverdueDays" property="t_WalletTxn_OverdueDays" jdbcType="VARCHAR" />
-        <result column="t_WalletTxn_OverdueTotalAmount" property="t_WalletTxn_OverdueTotalAmount" jdbcType="VARCHAR" />
+        <result column="t_WalletTxn_RefundAmt" property="t_WalletTxn_RefundAmt" jdbcType="VARCHAR" />
         <result column="t_WalletTxn_FinancialInterest" property="t_WalletTxn_FinancialInterest" jdbcType="VARCHAR" />
         <result column="t_WalletTxn_ServiceFee" property="t_WalletTxn_ServiceFee" jdbcType="VARCHAR" />
         <result column="t_WalletTxn_Poundage" property="t_WalletTxn_Poundage" jdbcType="VARCHAR" />
@@ -96,7 +96,7 @@
         a.t_WalletTxn_CreditTxnAmt,
         a.t_WalletTxn_CreditBalanceNum,
         a.t_WalletTxn_CreditTxnAmtInit,
-        a.t_WalletTxn_TotalPrepayAmt,
+        a.t_WalletTxn_TotalPayAmt,
         a.t_WalletTxn_TotallvorchourAmt,
         a.t_WalletTxn_TotalInterestDays,
         a.t_WalletTxn_TxnCounts,
@@ -109,7 +109,7 @@
         a.t_WalletTxn_PayClear,
         a.t_WalletTxn_Overdue,
         a.t_WalletTxn_OverdueDays,
-        a.t_WalletTxn_OverdueTotalAmount,
+        a.t_WalletTxn_RefundAmt,
         a.t_WalletTxn_FinancialInterest,
         a.t_WalletTxn_ServiceFee,
         a.t_WalletTxn_Poundage,
@@ -268,8 +268,8 @@
 			<if test="t_WalletTxn_CreditTxnAmtInit != null">
                 t_WalletTxn_CreditTxnAmtInit,
 			</if>
-			<if test="t_WalletTxn_TotalPrepayAmt != null">
-                t_WalletTxn_TotalPrepayAmt,
+			<if test="t_WalletTxn_TotalPayAmt != null">
+                t_WalletTxn_TotalPayAmt,
 			</if>
 			<if test="t_WalletTxn_TotallvorchourAmt != null">
                 t_WalletTxn_TotallvorchourAmt,
@@ -307,8 +307,8 @@
             <if test="t_WalletTxn_OverdueDays != null">
                 t_WalletTxn_OverdueDays,
             </if>
-            <if test="t_WalletTxn_OverdueTotalAmount != null">
-                t_WalletTxn_OverdueTotalAmount,
+            <if test="t_WalletTxn_RefundAmt != null">
+                t_WalletTxn_RefundAmt,
             </if>
             <if test="t_WalletTxn_FinancialInterest != null">
                 t_WalletTxn_FinancialInterest,
@@ -465,8 +465,8 @@
 			<if test="t_WalletTxn_CreditTxnAmtInit != null">
 				#{t_WalletTxn_CreditTxnAmtInit,jdbcType=DECIMAL},
 			</if>
-			<if test="t_WalletTxn_TotalPrepayAmt != null">
-				#{t_WalletTxn_TotalPrepayAmt,jdbcType=DECIMAL},
+			<if test="t_WalletTxn_TotalPayAmt != null">
+				#{t_WalletTxn_TotalPayAmt,jdbcType=DECIMAL},
 			</if>
 			<if test="t_WalletTxn_TotallvorchourAmt != null">
 				#{t_WalletTxn_TotallvorchourAmt,jdbcType=DECIMAL},
@@ -504,8 +504,8 @@
             <if test="t_WalletTxn_OverdueDays != null">
                 #{t_WalletTxn_OverdueDays,jdbcType=INTEGER},
             </if>
-            <if test="t_WalletTxn_OverdueTotalAmount != null">
-                #{t_WalletTxn_OverdueTotalAmount,jdbcType=DECIMAL},
+            <if test="t_WalletTxn_RefundAmt != null">
+                #{t_WalletTxn_RefundAmt,jdbcType=DECIMAL},
             </if>
             <if test="t_WalletTxn_FinancialInterest != null">
                 #{t_WalletTxn_FinancialInterest,jdbcType=DECIMAL},
@@ -701,8 +701,8 @@
 			<if test="t_WalletTxn_CreditTxnAmtInit != null">
                 t_WalletTxn_CreditTxnAmtInit = #{t_WalletTxn_CreditTxnAmtInit,jdbcType=DECIMAL},
 			</if>
-			<if test="t_WalletTxn_TotalPrepayAmt != null">
-                t_WalletTxn_TotalPrepayAmt = #{t_WalletTxn_TotalPrepayAmt,jdbcType=DECIMAL},
+			<if test="t_WalletTxn_TotalPayAmt != null">
+                t_WalletTxn_TotalPayAmt = #{t_WalletTxn_TotalPayAmt,jdbcType=DECIMAL},
 			</if>
 			<if test="t_WalletTxn_TotallvorchourAmt != null">
                 t_WalletTxn_TotallvorchourAmt = #{t_WalletTxn_TotallvorchourAmt,jdbcType=DECIMAL},
@@ -740,8 +740,8 @@
             <if test="t_WalletTxn_OverdueDays != null">
                 t_WalletTxn_OverdueDays = #{t_WalletTxn_OverdueDays,jdbcType=INTEGER},
             </if>
-            <if test="t_WalletTxn_OverdueTotalAmount != null">
-                t_WalletTxn_OverdueTotalAmount = #{t_WalletTxn_OverdueTotalAmount,jdbcType=DECIMAL},
+            <if test="t_WalletTxn_RefundAmt != null">
+                t_WalletTxn_RefundAmt = #{t_WalletTxn_RefundAmt,jdbcType=DECIMAL},
             </if>
             <if test="t_WalletTxn_FinancialInterest != null">
                 t_WalletTxn_FinancialInterest = #{t_WalletTxn_FinancialInterest,jdbcType=DECIMAL},

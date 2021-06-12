@@ -116,4 +116,60 @@ public class OrganizationDashboardController {
         model.addAttribute("StaticInfoDaily",StaticInfoDaily);
         return "organizationDashboard/userCenter";
     }
+
+    @RequestMapping(value = {"ewalletdashboard"})
+    public String ewalletdashboard(OrganizationInfo organizationInfo, @RequestParam(defaultValue = "0") Integer platform,
+                                       HttpServletRequest request, HttpServletResponse response, Model model) throws ParseException {
+
+        Map<String, Object> paramMap = new HashMap<String, Object>();//新建map对象
+        Map<String, Object> rs = new HashMap<String, Object>();
+
+        Calendar cale = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String[] dayArray = new String[7];
+
+        for(int i=0;i<dayArray.length;i++){
+            Date date = DateUtils.addDays(new Date(), -i);
+            dayArray[i] = String.valueOf(df.format(date));
+        }
+
+        String t_P_Company = ShiroSessionUtil.getLoginSession().getCompany_name();
+        paramMap.put("t_P_Company", t_P_Company);
+        String errBatchDupDebitCard = null;
+        CompanyTxnStatic companyTxnStatic = null;
+        CompanyTxnCntWlyStatic companyTxnCntWlyStatic = null;
+//        CompanyTxnStatic companyTxnStaticAmtDaily = historicalTxnQueryService.SearchCompanyTxnStaticAmtWly(paramMap);
+//        CompanyTxnStatic companyTxnStaticAmtCount = historicalTxnQueryService.SearchCompanyTxnStatic(paramMap);
+
+        List<CompanyTxnStatic> companyTxnStaticRet = historicalTxnQueryService.SearchCompanyTxnStaticAmtDaily(paramMap);
+        List<CompanyTxnAmtWlyStatic> CompanyTxnAmtWlyStaticRet = historicalTxnQueryService.SearchCompanyTxnStaticAmtWly(paramMap);
+
+        String StaticInfo = null;
+        String StaticInfoDaily = null;
+        if (CompanyTxnAmtWlyStaticRet.size() != 0 || !CompanyTxnAmtWlyStaticRet.isEmpty()) {
+            StringBuffer errRecord = new StringBuffer();
+            for (int j = 0; j < CompanyTxnAmtWlyStaticRet.size(); j++) {
+                if (j == 0) {
+                    errRecord.append(dayArray[j]).append(":").append(CompanyTxnAmtWlyStaticRet.get(j).getT_CTxnAmt_Static_day1()).append("-");
+                } else {
+                    errRecord.append(",").append(dayArray[j]).append(":").append(CompanyTxnAmtWlyStaticRet.get(j).getT_CTxnAmt_Static_day1()).append("-");
+                }
+            }
+            StaticInfo = new String(errRecord);
+        }
+
+        if (companyTxnStaticRet.size() == 1) {
+            StringBuffer errRecord1 = new StringBuffer();
+            errRecord1.append("T_CTxn_Static_CompanyName:").append(companyTxnStaticRet.get(0).getT_CTxn_Static_CompanyName()).append("-").append("T_CTxn_Static_CompanyNameID:").append(companyTxnStaticRet.get(0).getT_CTxn_Static_CompanyNameID()
+            ).append("-").append("Txn_Static_TotTxnAmtDaily:").append(companyTxnStaticRet.get(0).getT_CTxn_Static_TotTxnAmtDaily()).append("-").append("Txn_Static_TotTxnCountDaily:").append(companyTxnStaticRet.get(0).getT_CTxn_Static_TotTxnCountDaily())
+                .append("-").append("T_CTxn_Succ_Txn():").append(companyTxnStaticRet.get(0).getT_CTxn_Succ_Txn()).append("-").append("T_CTxn_Fail_Txn():").append(companyTxnStaticRet.get(0).getT_CTxn_Fail_Txn());
+
+            StaticInfoDaily = new String(errRecord1);
+        }
+        OrganizationProfile organizationProfileDetail = organizationProfileService.selectAgencyName(ShiroSessionUtil.getLoginSession().getCompany_name());
+        model.addAttribute("organizationProfileDetail",organizationProfileDetail);
+        model.addAttribute("StaticInfo",StaticInfo);
+        model.addAttribute("StaticInfoDaily",StaticInfoDaily);
+        return "organizationDashboard/userCenter";
+    }
 }
