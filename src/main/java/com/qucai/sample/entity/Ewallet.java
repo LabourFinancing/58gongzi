@@ -102,7 +102,7 @@ public class Ewallet implements Serializable {
 
     private BigDecimal t_personalewallet_Interest;
 
-    private BigDecimal t_personalewallet_TopupLimit;
+    private BigDecimal t_personalewallet_TotLimit;
 
     private BigDecimal t_personalewallet_Worth;
 
@@ -486,12 +486,12 @@ public class Ewallet implements Serializable {
         this.t_personalewallet_Interest = t_personalewallet_Interest;
     }
 
-    public BigDecimal getT_personalewallet_TopupLimit() {
-        return t_personalewallet_TopupLimit;
+    public BigDecimal gett_personalewallet_TotLimit() {
+        return t_personalewallet_TotLimit;
     }
 
-    public void setT_personalewallet_TopupLimit(BigDecimal t_personalewallet_TopupLimit) {
-        this.t_personalewallet_TopupLimit = t_personalewallet_TopupLimit;
+    public void sett_personalewallet_TotLimit(BigDecimal t_personalewallet_TotLimit) {
+        this.t_personalewallet_TotLimit = t_personalewallet_TotLimit;
     }
 
     public BigDecimal gett_personalewallet_Worth() {

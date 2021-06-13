@@ -38,7 +38,7 @@
 		<result column="t_personalewallet_TotalInterestDays" property="t_personalewallet_TotalInterestDays" jdbcType="INTEGER" />
 		<result column="t_personalewallet_PayCounts" property="t_personalewallet_PayCounts" jdbcType="INTEGER" />
 		<result column="t_personalewallet_Interest" property="t_personalewallet_Interest" jdbcType="DECIMAL" />
-        <result column="t_personalewallet_TopupLimit" property="t_personalewallet_TopupLimit" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_TotLimit" property="t_personalewallet_TotLimit" jdbcType="DECIMAL" />
         <result column="t_personalewallet_Worth" property="t_personalewallet_Worth" jdbcType="DECIMAL" />
         <result column="t_personalewallet_DiscountRate" property="t_personalewallet_DiscountRate" jdbcType="DECIMAL" />
         <result column="t_personalewallet_BalanceInterest" property="t_personalewallet_BalanceInterest" jdbcType="DECIMAL" />
@@ -110,7 +110,7 @@
         a.t_personalewallet_TotalInterestDays,
         a.t_personalewallet_PayCounts,
         a.t_personalewallet_Interest,
-        a.t_personalewallet_TopupLimit,
+        a.t_personalewallet_TotLimit,
         a.t_personalewallet_Worth,
         a.t_personalewallet_DiscountRate,
         a.t_personalewallet_BalanceInterest,
@@ -294,8 +294,8 @@
 			<if test="t_personalewallet_Interest != null">
                 t_personalewallet_Interest,
 			</if>
-			<if test="t_personalewallet_TopupLimit != null">
-                t_personalewallet_TopupLimit,
+			<if test="t_personalewallet_TotLimit != null">
+                t_personalewallet_TotLimit,
 			</if>
             <if test="t_personalewallet_Worth != null">
                 t_personalewallet_Worth,
@@ -515,8 +515,8 @@
 			<if test="t_personalewallet_Interest != null">
 				#{t_personalewallet_Interest,jdbcType=DECIMAL},
 			</if>
-			<if test="t_personalewallet_TopupLimit != null">
-				#{t_personalewallet_TopupLimit,jdbcType=DECIMAL},
+			<if test="t_personalewallet_TotLimit != null">
+				#{t_personalewallet_TotLimit,jdbcType=DECIMAL},
 			</if>
             <if test="t_personalewallet_Worth != null">
                 #{t_personalewallet_Worth,jdbcType=DECIMAL},
@@ -765,8 +765,8 @@
             <if test="t_personalewallet_Interest != null">
                 t_personalewallet_Interest = #{t_personalewallet_Interest,jdbcType=DECIMAL},
             </if>
-            <if test="t_personalewallet_TopupLimit != null">
-                t_personalewallet_TopupLimit = #{t_personalewallet_TopupLimit,jdbcType=DECIMAL},
+            <if test="t_personalewallet_TotLimit != null">
+                t_personalewallet_TotLimit = #{t_personalewallet_TotLimit,jdbcType=DECIMAL},
             </if>
             <if test="t_personalewallet_Worth != null">
                 t_personalewallet_Worth = #{t_personalewallet_Worth,jdbcType=DECIMAL},

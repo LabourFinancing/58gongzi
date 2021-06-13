@@ -180,7 +180,7 @@ public class OauthController {
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
-                System.out.println("调用钱包成功");
+                System.out.println("调用财富管理成功");
                 rs.put("SMSverify",0);
             }
             return "redirect:/Ewalletcontroller/mobileewallet";
@@ -213,7 +213,7 @@ public class OauthController {
          ******************************************************************************************************************
          */
         //个人信息 personalinfo
-        if( method!=null&&page.equalsIgnoreCase("mobileme")&&method.equals("personalMain")&&action.equalsIgnoreCase("personalinfo")) {
+        if( method!=null&&page.equalsIgnoreCase("mobileme")&&method.equals("MobilePersonalMain")&&action.equalsIgnoreCase("personalinfo")) {
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
@@ -224,7 +224,7 @@ public class OauthController {
         }
 
         //个人银行卡 private bankcard
-        if( method!=null&&page.equalsIgnoreCase("mobileme")&&method.equals("personalMain")&&action.equalsIgnoreCase("bankcard")) {
+        if( method!=null&&page.equalsIgnoreCase("mobileme")&&method.equals("MobilePersonalMain")&&action.equalsIgnoreCase("bankcard")) {
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
@@ -234,7 +234,7 @@ public class OauthController {
             return "redirect:/PersonalMaincontroller/personalMMobiledashboard";
         }
         //个人服务的企业 served firm
-        if( method!=null&&page.equalsIgnoreCase("mobileme")&&method.equals("personalMain")&&action.equalsIgnoreCase("company")) {
+        if( method!=null&&page.equalsIgnoreCase("mobileme")&&method.equals("MobilePersonalMain")&&action.equalsIgnoreCase("company")) {
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
@@ -243,6 +243,8 @@ public class OauthController {
             }
             return "redirect:/PersonalMaincontroller/personalMMobiledashboard";
         }
+        
+        
         
         if (type.equals("resendPWD")) {
             token.setRememberMe(true);
