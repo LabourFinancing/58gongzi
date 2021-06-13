@@ -39,7 +39,7 @@ public class OauthController {
     @RequestMapping("/login")
     @ResponseBody
     public Object login(HttpServletRequest request, HttpServletResponse response, String userName,String pid, String password, String page,String remember,
-                        String paymentchannel,String mode,String gid,String from, String form,String method, String phone,String host,
+                        String paymentchannel,String action,String mode,String gid,String from, String form,String method, String phone,String host,
                         String SMSsendcode, String SMSstrret,String type, String API) throws Exception {
 
         CaptchaUsernamePasswordToken token = new CaptchaUsernamePasswordToken();
@@ -112,8 +112,54 @@ public class OauthController {
             return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
         }
 
+        /*
+         ************************************************** payment start 收付款 *************************************************
+         * mobilepay transmit, 58gongzi - Alipay/wechantpay/unionpay  --- 1st version
+         * FX/Remit 58gongzi - Paypal/Swift/visa/master/AE ---- 2nd version
+         ************************************************************************************************************************
+         */
         //Mobile APP 调用个人交易 移动端交易首页二维码扫一扫交易
-        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewalletTXN")&&SMSsendcode!=null){
+        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewalletTXN")&&action.equalsIgnoreCase("beneficiary")){
+            Map<String, Object> rs = new HashMap<String, Object>();
+            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
+                System.out.println("调用个人消费成功");
+                rs.put("SMSverify",0);
+            }
+            return "redirect:/EwalletTXNcontroller/personalEWTTxnMobile";
+        }
+
+        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewalletTXN")&&action.equalsIgnoreCase("payee")){
+            Map<String, Object> rs = new HashMap<String, Object>();
+            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
+                System.out.println("调用个人消费成功");
+                rs.put("SMSverify",0);
+            }
+            return "redirect:/EwalletTXNcontroller/personalEWTTxnMobile";
+        }
+
+        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewalletTXN")&&action.equalsIgnoreCase("shopping")){
+            Map<String, Object> rs = new HashMap<String, Object>();
+            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
+                System.out.println("调用个人消费成功");
+                rs.put("SMSverify",0);
+            }
+            return "redirect:/EwalletTXNcontroller/personalEWTTxnMobile";
+        }
+
+        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewalletTXN")&&action.equalsIgnoreCase("paymentswitch")){
+            Map<String, Object> rs = new HashMap<String, Object>();
+            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
+                System.out.println("调用个人消费成功");
+                rs.put("SMSverify",0);
+            }
+            return "redirect:/EwalletTXNcontroller/personalEWTTxnMobile";
+        }
+
+        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewalletTXN")&&action.equalsIgnoreCase("topup")){
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
@@ -123,8 +169,34 @@ public class OauthController {
             return "redirect:/EwalletTXNcontroller/personalEWTTxnMobile";
         }
         
-        //Mobile APP 调用个人首页 移动端首页
-        if( method!=null&&page.equalsIgnoreCase("mobileme")&&method.equals("ewalletdashboard")&&SMSsendcode!=null){
+        /*
+        ************************************************ Mobilehome begin 移动端首页开始 ************************************
+        * wealthmgt,voucher,topup,   58gongzi  ---1st version 
+        * blockchain , supplychian    wo-bank  ---2nd version
+        ******************************************************************************************************************
+         */
+        //钱包管理 wealthmgt
+        if( method!=null&&page.equalsIgnoreCase("mobilehome")&&method.equals("ewalletdashboard")&&action.equalsIgnoreCase("wealthmgt")){
+            Map<String, Object> rs = new HashMap<String, Object>();
+            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
+                System.out.println("调用钱包成功");
+                rs.put("SMSverify",0);
+            }
+            return "redirect:/Ewalletcontroller/mobileewallet";
+        }
+        //优惠券voucher
+        if( method!=null&&page.equalsIgnoreCase("mobilehome")&&method.equals("ewalletdashboard")&&action.equalsIgnoreCase("voucher")){
+            Map<String, Object> rs = new HashMap<String, Object>();
+            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
+                System.out.println("调用钱包成功");
+                rs.put("SMSverify",0);
+            }
+            return "redirect:/Ewalletcontroller/mobileewallet";
+        }
+        //充值 topup
+        if( method!=null&&page.equalsIgnoreCase("mobilehome")&&method.equals("ewalletdashboard")&&action.equalsIgnoreCase("topup")){
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
@@ -134,8 +206,14 @@ public class OauthController {
             return "redirect:/Ewalletcontroller/mobileewallet";
         }
 
-        //Mobile APP 调用个人信息 移动端我的
-        if( method!=null&&page.equalsIgnoreCase("mobilehome")&&method.equals("personalMain")&&SMSsendcode!=null) {
+        /*
+         ************************************************ Mobileme begin 移动端个人信息开始 ************************************
+         * Personalinfo , Customer Service , bank card,company 58gongzi  ---1st version
+         * Upgrade  --- 2nd version
+         ******************************************************************************************************************
+         */
+        //个人信息 personalinfo
+        if( method!=null&&page.equalsIgnoreCase("mobileme")&&method.equals("personalMain")&&action.equalsIgnoreCase("personalinfo")) {
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
@@ -145,8 +223,8 @@ public class OauthController {
             return "redirect:/PersonalMaincontroller/personalMMobiledashboard";
         }
 
-        //Mobile APP 调用个人信息
-        if( method!=null&&method.equals("personalEwallet")&&SMSsendcode!=null) {
+        //个人银行卡 private bankcard
+        if( method!=null&&page.equalsIgnoreCase("mobileme")&&method.equals("personalMain")&&action.equalsIgnoreCase("bankcard")) {
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
@@ -155,39 +233,15 @@ public class OauthController {
             }
             return "redirect:/PersonalMaincontroller/personalMMobiledashboard";
         }
-
-
-        //Mobile APP 调用优惠券
-        if( method!=null&&method.equals("vourchar")&&SMSsendcode!=null){
+        //个人服务的企业 served firm
+        if( method!=null&&page.equalsIgnoreCase("mobileme")&&method.equals("personalMain")&&action.equalsIgnoreCase("company")) {
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
                 System.out.println("调用个人信息");
-                rs.put("SMSverify",0);
+                rs.put("SMSverify", 0);
             }
-            return "redirect:/Vourcharcontroller/personalVourcharMobiledashboard";
-        }
-
-        //Mobile APP 调用全局系统信息
-        if( method!=null&&method.equals("mainboard")&&SMSsendcode!=null){
-            Map<String, Object> rs = new HashMap<String, Object>();
-            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
-            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
-                System.out.println("调用个人消费成功");
-                rs.put("SMSverify",0);
-            }
-            return "redirect:/Mainboardtcontroller/personalMainboard";
-        }
-
-        //Mobile APP 调用供应商管理
-        if( method!=null&&method.equals("vendormgt")&&SMSsendcode!=null){
-            Map<String, Object> rs = new HashMap<String, Object>();
-            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
-            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
-                System.out.println("调用个人消费成功");
-                rs.put("SMSverify",0);
-            }
-            return "redirect:/vendormgtcontroller/personalVDRdashboard";
+            return "redirect:/PersonalMaincontroller/personalMMobiledashboard";
         }
         
         if (type.equals("resendPWD")) {
