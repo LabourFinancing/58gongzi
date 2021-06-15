@@ -7,19 +7,18 @@
 		<result column="t_Product_SeriesID" property="t_Product_SeriesID" jdbcType="VARCHAR" />
 		<result column="t_Product_PID" property="t_Product_PID" jdbcType="VARCHAR" />
 		<result column="t_Product_Name" property="t_Product_Name" jdbcType="VARCHAR" />
-		<result column="t_Product_Cat" property="t_Product_Cat" jdbcType="VARCHAR" />
-		<result column="t_Product_Vendor" property="t_Product_Vendor" jdbcType="VARCHAR" />
-		<result column="t_Product_Company" property="t_Product_Company" jdbcType="VARCHAR" />
-		<result column="t_Product_3rdPartyService" property="t_Product_3rdPartyService" jdbcType="VARCHAR" />
-		<result column="t_Product_FOrg" property="t_Product_FOrg" jdbcType="VARCHAR" />
-		<result column="t_Product_Alias" property="t_Product_Alias" jdbcType="DECIMAL" />
-		<result column="t_Product_Site" property="t_Product_Site" jdbcType="VARCHAR" />
+		<result column="t_Product_EwalletProdCat" property="t_Product_EwalletProdCat" jdbcType="VARCHAR" />
+		<result column="t_Product_PayrollProdCat" property="t_Product_PayrollProdCat" jdbcType="VARCHAR" />
+		<result column="t_Product_SalaryAdvCat" property="t_Product_SalaryAdvCat" jdbcType="VARCHAR" />
+		<result column="t_Product_VoucherProdCat" property="t_Product_VoucherProdCat" jdbcType="VARCHAR" />
+		<result column="t_Product_TermIncProdCat" property="t_Product_TermIncProdCat" jdbcType="VARCHAR" />
+		<result column="t_Product_DigiProdCat" property="t_Product_DigiProdCat" jdbcType="VARCHAR" />
+		<result column="t_Product_CryptoProdCat" property="t_Product_CryptoProdCat" jdbcType="VARCHAR" />
 		<result column="t_Product_ServiceFss" property="t_Product_ServiceFss" jdbcType="DECIMAL" />
-		<result column="t_FProd_PersPool" property="t_FProd_PersPool" jdbcType="VARCHAR" />
         <result column="t_Product_TierPoundage" property="t_Product_TierPoundage" jdbcType="VARCHAR" />
         <result column="t_Product_Status" property="t_Product_Status" jdbcType="INTEGER" />
         <result column="t_Product_Cleardays" property="t_Product_Cleardays" jdbcType="INTEGER" />
-        <result column="t_Product_category" property="t_Product_category" jdbcType="VARCHAR" />
+        <result column="t_Product_EwalletProdCategory" property="t_Product_EwalletProdCategory" jdbcType="VARCHAR" />
         <result column="t_Product_CorpPool" property="t_Product_CorpPool" jdbcType="VARCHAR" />
         <result column="t_Product_PersPool" property="t_Product_PersPool" jdbcType="VARCHAR" />
         <result column="t_Product_Txt" property="t_Product_Txt" jdbcType="VARCHAR" />
@@ -39,18 +38,18 @@
         a.t_Product_SeriesID,
         a.t_Product_PID,
         a.t_Product_Name,
-        a.t_Product_Cat,
-        a.t_Product_Vendor,
-        a.t_Product_Company,
-        a.t_Product_3rdPartyService,
-        a.t_Product_FOrg,
-        a.t_Product_Alias,
-        a.t_Product_Site,
+        a.t_Product_EwalletProdCat,
+        a.t_Product_PayrollProdCat,
+        a.t_Product_SalaryAdvCat,
+        a.t_Product_VoucherProdCat,
+        a.t_Product_TermIncProdCat,
+        a.t_Product_DigiProdCat,
+        a.t_Product_CryptoProdCat,
         a.t_Product_ServiceFss,
         a.t_Product_TierPoundage,
         a.t_Product_Status,
         a.t_Product_Cleardays,
-        a.t_Product_category,
+        a.t_Product_EwalletProdCategory,
         a.t_Product_CorpPool,
         a.t_Product_PersPool,
         a.t_Product_Txt,
@@ -88,7 +87,7 @@
         a.t_Product_Name like CONCAT('%',#{t_Product_Name},'%')
         </if>
         <if test="t_Product_Name != null">
-        a.t_Product_Cat like CONCAT('%',#{t_Product_Cat},'%')
+        a.t_Product_EwalletProdCat like CONCAT('%',#{t_Product_EwalletProdCat},'%')
         </if>
 		<if test="t_Product_PersPool != null">
 		a.t_Product_PersPool like CONCAT('%',#{t_Product_PersPool},'%')
@@ -122,26 +121,26 @@
 			<if test="t_Product_Name != null">
                 t_Product_Name,
 			</if>
-			<if test="t_Product_Cat != null">
-                t_Product_Cat,
+			<if test="t_Product_EwalletProdCat != null">
+                t_Product_EwalletProdCat,
 			</if>
-			<if test="t_Product_Vendor != null">
-                t_Product_Vendor,
+			<if test="t_Product_PayrollProdCat != null">
+                t_Product_PayrollProdCat,
 			</if>
-			<if test="t_Product_Company != null">
-                t_Product_Company,
+			<if test="t_Product_SalaryAdvCat != null">
+                t_Product_SalaryAdvCat,
 			</if>
-			<if test="t_Product_3rdPartyService != null">
-                t_Product_3rdPartyService,
+			<if test="t_Product_VoucherProdCat != null">
+                t_Product_VoucherProdCat,
 			</if>
-			<if test="t_Product_FOrg != null">
-                t_Product_FOrg,
+			<if test="t_Product_TermIncProdCat != null">
+                t_Product_TermIncProdCat,
 			</if>
-			<if test="t_Product_Alias != null">
-                t_Product_Alias,
+			<if test="t_Product_DigiProdCat != null">
+                t_Product_DigiProdCat,
 			</if>
-			<if test="t_Product_Site != null">
-                t_Product_Site,
+			<if test="t_Product_CryptoProdCat != null">
+                t_Product_CryptoProdCat,
 			</if>
 			<if test="t_Product_ServiceFss != null">
                 t_Product_ServiceFss,
@@ -156,8 +155,8 @@
             <if test="t_Product_Cleardays != null">
                 t_Product_Cleardays,
             </if>
-            <if test="t_Product_category != null">
-                t_Product_category,
+            <if test="t_Product_EwalletProdCategory != null">
+                t_Product_EwalletProdCategory,
             </if>
             <if test="t_Product_CorpPool != null">
                 t_Product_CorpPool,
@@ -209,32 +208,32 @@
 			<if test="t_Product_Name != null">
 				#{t_Product_Name,jdbcType=VARCHAR},
 			</if>
-			<if test="t_Product_Cat != null">
-				#{t_Product_Cat,jdbcType=VARCHAR},
+			<if test="t_Product_EwalletProdCat != null">
+				#{t_Product_EwalletProdCat,jdbcType=VARCHAR},
 			</if>
-			<if test="t_Product_Vendor != null">
-				#{t_Product_Vendor,jdbcType=VARCHAR},
+			<if test="t_Product_PayrollProdCat != null">
+				#{t_Product_PayrollProdCat,jdbcType=VARCHAR},
 			</if>
-			<if test="t_Product_Company != null">
-				#{t_Product_Company,jdbcType=VARCHAR},
+			<if test="t_Product_SalaryAdvCat != null">
+				#{t_Product_SalaryAdvCat,jdbcType=VARCHAR},
 			</if>
-			<if test="t_Product_3rdPartyService != null">
-				#{t_Product_3rdPartyService,jdbcType=VARCHAR},
+			<if test="t_Product_VoucherProdCat != null">
+				#{t_Product_VoucherProdCat,jdbcType=VARCHAR},
 			</if>
-			<if test="t_Product_FOrg != null">
-				#{t_Product_FOrg,jdbcType=VARCHAR},
+			<if test="t_Product_TermIncProdCat != null">
+				#{t_Product_TermIncProdCat,jdbcType=VARCHAR},
 			</if>
-			<if test="t_Product_Alias != null">
-				#{t_Product_Alias,jdbcType=DECIMAL},
+			<if test="t_Product_DigiProdCat != null">
+				#{t_Product_DigiProdCat,jdbcType=VARCHAR},
 			</if>
-			<if test="t_Product_Site != null">
-				#{t_Product_Site,jdbcType=VARCHAR},
+			<if test="t_Product_CryptoProdCat != null">
+				#{t_Product_CryptoProdCat,jdbcType=VARCHAR},
 			</if>
 			<if test="t_Product_ServiceFss != null">
 				#{t_Product_ServiceFss,jdbcType=DECIMAL},
 			</if>
 			<if test="t_Product_TierPoundage != null">
-				#{t_Product_TierPoundage,jdbcType=DECIMAL},
+				#{t_Product_TierPoundage,jdbcType=VARCHAR},
 			</if>
             <if test="t_Product_Status != null">
                 #{t_Product_Status,jdbcType=INTEGER},
@@ -242,8 +241,8 @@
             <if test="t_Product_Cleardays != null">
                 #{t_Product_Cleardays,jdbcType=INTEGER},
             </if>
-            <if test="t_Product_category != null">
-                #{t_Product_category,jdbcType=VARCHAR},
+            <if test="t_Product_EwalletProdCategory != null">
+                #{t_Product_EwalletProdCategory,jdbcType=VARCHAR},
             </if>
             <if test="t_Product_CorpPool != null">
                 #{t_Product_CorpPool,jdbcType=VARCHAR},
@@ -334,35 +333,35 @@
 			<if test="t_Product_Name != null">
                 t_Product_Name = #{t_Product_Name,jdbcType=VARCHAR},
 			</if>
-			<if test="t_Product_Cat != null">
-                t_Product_Cat = #{t_Product_Cat,jdbcType=VARCHAR},
+			<if test="t_Product_EwalletProdCat != null">
+                t_Product_EwalletProdCat = #{t_Product_EwalletProdCat,jdbcType=VARCHAR},
 			</if>
-			<if test="t_Product_Vendor != null">
-                t_Product_Vendor = #{t_Product_Vendor,jdbcType=VARCHAR},
+			<if test="t_Product_PayrollProdCat != null">
+                t_Product_PayrollProdCat = #{t_Product_PayrollProdCat,jdbcType=VARCHAR},
 			</if>
-			<if test="t_Product_3rdPartyService != null">
-                t_Product_3rdPartyService = #{t_Product_3rdPartyService,jdbcType=VARCHAR},
+			<if test="t_Product_VoucherProdCat != null">
+                t_Product_VoucherProdCat = #{t_Product_VoucherProdCat,jdbcType=VARCHAR},
 			</if>
-			<if test="t_Product_FOrg != null">
-                t_Product_FOrg = #{t_Product_FOrg,jdbcType=VARCHAR},
+			<if test="t_Product_TermIncProdCat != null">
+                t_Product_TermIncProdCat = #{t_Product_TermIncProdCat,jdbcType=VARCHAR},
 			</if>
-			<if test="t_Product_Alias != null">
-                t_Product_Alias = #{t_Product_Alias,jdbcType=DECIMAL},
+			<if test="t_Product_DigiProdCat != null">
+                t_Product_DigiProdCat = #{t_Product_DigiProdCat,jdbcType=VARCHAR},
 			</if>
-			<if test="t_Product_Site != null">
-                t_Product_Site = #{t_Product_Site,jdbcType=VARCHAR},
+			<if test="t_Product_CryptoProdCat != null">
+                t_Product_CryptoProdCat = #{t_Product_CryptoProdCat,jdbcType=VARCHAR},
 			</if>
 		    <if test="t_Product_ServiceFss != null">
                 t_Product_ServiceFss = #{t_Product_ServiceFss,jdbcType=DECIMAL},
 			</if>
 			<if test="t_Product_TierPoundage != null">
-                t_Product_TierPoundage = #{t_Product_TierPoundage,jdbcType=DECIMAL},
+                t_Product_TierPoundage = #{t_Product_TierPoundage,jdbcType=VARCHAR},
 			</if>
 			<if test="t_Product_Status != null">
                 t_Product_Status = #{t_Product_Status,jdbcType=INTEGER},
 			</if>
-            <if test="t_Product_category != null">
-                t_Product_category = #{t_Product_category,jdbcType=INTEGER},
+            <if test="t_Product_EwalletProdCategory != null">
+                t_Product_EwalletProdCategory = #{t_Product_EwalletProdCategory,jdbcType=INTEGER},
             </if>
             <if test="t_Product_CorpPool != null">
                 t_Product_CorpPool = #{t_Product_CorpPool,jdbcType=VARCHAR},

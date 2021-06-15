@@ -57,9 +57,9 @@
         <result column="t_personalewallet_OverdueDays" property="t_personalewallet_OverdueDays" jdbcType="INTEGER" />
         <result column="t_personalewallet_Paystatus" property="t_personalewallet_Paystatus" jdbcType="VARCHAR" />
         <result column="t_personalewallet_SMS" property="t_personalewallet_SMS" jdbcType="VARCHAR" />
-        <result column="t_personalewallet_SMSRec" property="t_personalewallet_SMSRec" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_PaymentVersion" property="t_personalewallet_PaymentVersion" jdbcType="VARCHAR" />
         <result column="t_personalewallet_bkp" property="t_personalewallet_bkp" jdbcType="DECIMAL" />
-        <result column="t_personalewallet_bkp1" property="t_personalewallet_bkp1" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_AccCat" property="t_personalewallet_AccCat" jdbcType="DECIMAL" />
         <result column="t_personalewallet_treasuryID" property="t_personalewallet_treasuryID" jdbcType="VARCHAR" />
         <result column="t_personalewallet_eproposal" property="t_personalewallet_eproposal" jdbcType="VARCHAR" />
         <result column="t_personalewallet_Txt2" property="t_personalewallet_Txt2" jdbcType="VARCHAR" />
@@ -129,9 +129,9 @@
         a.t_personalewallet_OverdueDays,
         a.t_personalewallet_Paystatus,
         a.t_personalewallet_SMS,
-        a.t_personalewallet_SMSRec,
+        a.t_personalewallet_PaymentVersion,
         a.t_personalewallet_bkp,
-        a.t_personalewallet_bkp1,
+        a.t_personalewallet_AccCat,
         a.t_personalewallet_treasuryID,
         a.t_personalewallet_eproposal,
         a.t_personalewallet_Txt2,
@@ -351,14 +351,14 @@
             <if test="t_personalewallet_SMS != null">
                 t_personalewallet_SMS,
             </if>
-            <if test="t_personalewallet_SMSRec != null">
-                t_personalewallet_SMSRec,
+            <if test="t_personalewallet_PaymentVersion != null">
+                t_personalewallet_PaymentVersion,
             </if>
             <if test="t_personalewallet_bkp != null">
                 t_personalewallet_bkp,
             </if>
-            <if test="t_personalewallet_bkp1 != null">
-                t_personalewallet_bkp1,
+            <if test="t_personalewallet_AccCat != null">
+                t_personalewallet_AccCat,
             </if>
             <if test="t_personalewallet_treasuryID != null">
                 t_personalewallet_treasuryID,
@@ -572,20 +572,20 @@
             <if test="t_personalewallet_SMS != null">
                 #{t_personalewallet_SMS,jdbcType=VARCHAR},
             </if>
-            <if test="t_personalewallet_SMSRec != null">
-                #{t_personalewallet_SMSRec,jdbcType=VARCHAR},
+            <if test="t_personalewallet_PaymentVersion != null">
+                #{t_personalewallet_PaymentVersion,jdbcType=VARCHAR},
             </if>
             <if test="t_personalewallet_bkp != null">
                 #{t_personalewallet_bkp,jdbcType=DECIMAL},
             </if>
-            <if test="t_personalewallet_bkp1 != null">
-                #{t_personalewallet_bkp1,jdbcType=DECIMAL},
+            <if test="t_personalewallet_AccCat != null">
+                #{t_personalewallet_AccCat,jdbcType=DECIMAL},
             </if>
             <if test="t_personalewallet_SMS != null">
                 #{t_personalewallet_SMS,jdbcType=VARCHAR},
             </if>
-            <if test="t_personalewallet_SMSRec != null">
-                #{t_personalewallet_SMSRec,jdbcType=VARCHAR},
+            <if test="t_personalewallet_PaymentVersion != null">
+                #{t_personalewallet_PaymentVersion,jdbcType=VARCHAR},
             </if>
             <if test="t_personalewallet_treasuryID != null">
                 #{t_personalewallet_treasuryID,jdbcType=VARCHAR},
@@ -819,14 +819,14 @@
             <if test="t_personalewallet_SMS != null">
                 t_personalewallet_SMS = #{t_personalewallet_SMS,jdbcType=VARCHAR},
             </if>
-            <if test="t_personalewallet_SMSRec != null">
-                t_personalewallet_SMSRec = #{t_personalewallet_SMSRec,jdbcType=VARCHAR},
+            <if test="t_personalewallet_PaymentVersion != null">
+                t_personalewallet_PaymentVersion = #{t_personalewallet_PaymentVersion,jdbcType=VARCHAR},
             </if>
             <if test="t_personalewallet_bkp != null">
                 t_personalewallet_bkp = #{t_personalewallet_bkp,jdbcType=DECIMAL},
             </if>
-            <if test="t_personalewallet_bkp1 != null">
-                t_personalewallet_bkp1 = #{t_P_Probation,jdbcType=DECIMAL},
+            <if test="t_personalewallet_AccCat != null">
+                t_personalewallet_AccCat = #{t_P_Probation,jdbcType=DECIMAL},
             </if>
             <if test="t_personalewallet_treasuryID != null">
                 t_personalewallet_treasuryID = #{t_P_VendorEmployment,jdbcType=VARCHAR},

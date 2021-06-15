@@ -140,11 +140,11 @@ public class Ewallet implements Serializable {
 
     private String t_personalewallet_SMS;
 
-    private String t_personalewallet_SMSRec;
+    private String t_personalewallet_PaymentVersion;
 
     private BigDecimal t_personalewallet_bkp;
 
-    private BigDecimal t_personalewallet_bkp1;
+    private BigDecimal t_personalewallet_AccCat;
 
     private String t_personalewallet_treasuryID;
 
@@ -638,12 +638,12 @@ public class Ewallet implements Serializable {
         this.t_personalewallet_SMS = t_personalewallet_SMS;
     }
 
-    public String getT_personalewallet_SMSRec() {
-        return t_personalewallet_SMSRec;
+    public String gett_personalewallet_PaymentVersion() {
+        return t_personalewallet_PaymentVersion;
     }
 
-    public void setT_personalewallet_SMSRec(String t_personalewallet_SMSRec) {
-        this.t_personalewallet_SMSRec = t_personalewallet_SMSRec;
+    public void sett_personalewallet_PaymentVersion(String t_personalewallet_PaymentVersion) {
+        this.t_personalewallet_PaymentVersion = t_personalewallet_PaymentVersion;
     }
 
     public BigDecimal getT_personalewallet_bkp() {
@@ -654,12 +654,12 @@ public class Ewallet implements Serializable {
         this.t_personalewallet_bkp = t_personalewallet_bkp;
     }
 
-    public BigDecimal getT_personalewallet_bkp1() {
-        return t_personalewallet_bkp1;
+    public BigDecimal gett_personalewallet_AccCat() {
+        return t_personalewallet_AccCat;
     }
 
-    public void setT_personalewallet_bkp1(BigDecimal t_personalewallet_bkp1) {
-        this.t_personalewallet_bkp1 = t_personalewallet_bkp1;
+    public void sett_personalewallet_AccCat(BigDecimal t_personalewallet_AccCat) {
+        this.t_personalewallet_AccCat = t_personalewallet_AccCat;
     }
 
     public String gett_personalewallet_treasuryID() {

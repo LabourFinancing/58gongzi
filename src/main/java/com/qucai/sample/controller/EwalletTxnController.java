@@ -288,7 +288,7 @@ public class EwalletTxnController {
     	ewalletTxn.setCreator(ShiroSessionUtil.getLoginSession().getId());
     	ewalletTxn.setCreate_time(new Date());
     	ewalletTxn.setT_WalletTxn_ID(Tool.uuid());
-    	ewalletTxn.setT_WalletTxn_SysUpdateDate(new Date());
+    	ewalletTxn.sett_WalletTxn_TxnTimeout(new Date());
 
      	if (modify_time == null){
      		ewalletTxn.setModify_time(new Date());

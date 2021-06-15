@@ -66,36 +66,36 @@ public class ProductMain implements Serializable {
     /**
      * 服务费(融资成本)
      */
-    private BigDecimal t_Product_Cat;
+    private BigDecimal t_Product_EwalletProdCat;
 
     /**
      * 平台使用费(笔)
      */
-    private BigDecimal t_Product_Vendor;
+    private BigDecimal t_Product_PayrollProdCat;
 
     /**
      * 单笔限额
      */
-    private BigDecimal t_Product_Company;
+    private BigDecimal t_Product_SalaryAdvCat;
 
     /**
      * 区间平台使用费(笔)
      */
-    private String t_Product_3rdPartyService;
+    private String t_Product_VoucherProdCat;
 
 
     /**
      * 产品状态
      */
-    private String t_Product_FOrg;
+    private String t_Product_TermIncProdCat;
     /**
      * 产品更新时间
      */
-    private Date t_Product_Alias;
+    private String t_Product_DigiProdCat;
 
-    private String t_Product_Site;
+    private String t_Product_CryptoProdCat;
 
-    private String t_Product_ServiceFss;
+    private BigDecimal t_Product_ServiceFss;
 
     private String t_Product_TierPoundage;
 
@@ -103,7 +103,7 @@ public class ProductMain implements Serializable {
 
     private String t_Product_Cleardays;
 
-    private String t_Product_category;
+    private String t_Product_EwalletProdCategory;
 
     private String t_Product_CorpPool;
 
@@ -198,67 +198,67 @@ public class ProductMain implements Serializable {
         this.t_Product_Name = t_Product_Name;
     }
 
-    public BigDecimal getT_Product_Cat() {
-        return t_Product_Cat;
+    public BigDecimal gett_Product_EwalletProdCat() {
+        return t_Product_EwalletProdCat;
     }
 
-    public void setT_Product_Cat(BigDecimal t_Product_Cat) {
-        this.t_Product_Cat = t_Product_Cat;
+    public void sett_Product_EwalletProdCat(BigDecimal t_Product_EwalletProdCat) {
+        this.t_Product_EwalletProdCat = t_Product_EwalletProdCat;
     }
 
-    public BigDecimal getT_Product_Vendor() {
-        return t_Product_Vendor;
+    public BigDecimal gett_Product_PayrollProdCat() {
+        return t_Product_PayrollProdCat;
     }
 
-    public void setT_Product_Vendor(BigDecimal t_Product_Vendor) {
-        this.t_Product_Vendor = t_Product_Vendor;
+    public void sett_Product_PayrollProdCat(BigDecimal t_Product_PayrollProdCat) {
+        this.t_Product_PayrollProdCat = t_Product_PayrollProdCat;
     }
 
-    public BigDecimal getT_Product_Company() {
-        return t_Product_Company;
+    public BigDecimal gett_Product_SalaryAdvCat() {
+        return t_Product_SalaryAdvCat;
     }
 
-    public void setT_Product_Company(BigDecimal t_Product_Company) {
-        this.t_Product_Company = t_Product_Company;
+    public void sett_Product_SalaryAdvCat(BigDecimal t_Product_SalaryAdvCat) {
+        this.t_Product_SalaryAdvCat = t_Product_SalaryAdvCat;
     }
 
-    public String getT_Product_3rdPartyService() {
-        return t_Product_3rdPartyService;
+    public String gett_Product_VoucherProdCat() {
+        return t_Product_VoucherProdCat;
     }
 
-    public void setT_Product_3rdPartyService(String t_Product_3rdPartyService) {
-        this.t_Product_3rdPartyService = t_Product_3rdPartyService;
+    public void sett_Product_VoucherProdCat(String t_Product_VoucherProdCat) {
+        this.t_Product_VoucherProdCat = t_Product_VoucherProdCat;
     }
 
-    public String getT_Product_FOrg() {
-        return t_Product_FOrg;
+    public String gett_Product_TermIncProdCat() {
+        return t_Product_TermIncProdCat;
     }
 
-    public void setT_Product_FOrg(String t_Product_FOrg) {
-        this.t_Product_FOrg = t_Product_FOrg;
+    public void sett_Product_TermIncProdCat(String t_Product_TermIncProdCat) {
+        this.t_Product_TermIncProdCat = t_Product_TermIncProdCat;
     }
 
-    public Date getT_Product_Alias() {
-        return t_Product_Alias;
+    public String gett_Product_DigiProdCat() {
+        return t_Product_DigiProdCat;
     }
 
-    public void setT_Product_Alias(Date t_Product_Alias) {
-        this.t_Product_Alias = t_Product_Alias;
+    public void sett_Product_DigiProdCat(String t_Product_DigiProdCat) {
+        this.t_Product_DigiProdCat = t_Product_DigiProdCat;
     }
 
-    public String getT_Product_Site() {
-        return t_Product_Site;
+    public String gett_Product_CryptoProdCat() {
+        return t_Product_CryptoProdCat;
     }
 
-    public void setT_Product_Site(String t_Product_Site) {
-        this.t_Product_Site = t_Product_Site;
+    public void sett_Product_CryptoProdCat(String t_Product_CryptoProdCat) {
+        this.t_Product_CryptoProdCat = t_Product_CryptoProdCat;
     }
 
-    public String getT_Product_ServiceFss() {
+    public BigDecimal getT_Product_ServiceFss() {
         return t_Product_ServiceFss;
     }
 
-    public void setT_Product_ServiceFss(String t_Product_ServiceFss) {
+    public void setT_Product_ServiceFss(BigDecimal t_Product_ServiceFss) {
         this.t_Product_ServiceFss = t_Product_ServiceFss;
     }
 
@@ -286,12 +286,12 @@ public class ProductMain implements Serializable {
         this.t_Product_Cleardays = t_Product_Cleardays;
     }
 
-    public String getT_Product_category() {
-        return t_Product_category;
+    public String gett_Product_EwalletProdCategory() {
+        return t_Product_EwalletProdCategory;
     }
 
-    public void setT_Product_category(String t_Product_category) {
-        this.t_Product_category = t_Product_category;
+    public void sett_Product_EwalletProdCategory(String t_Product_EwalletProdCategory) {
+        this.t_Product_EwalletProdCategory = t_Product_EwalletProdCategory;
     }
 
     public String getT_Product_CorpPool() {

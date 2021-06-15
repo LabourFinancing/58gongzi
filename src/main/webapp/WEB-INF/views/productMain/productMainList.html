@@ -147,21 +147,19 @@ function openEdit(ProductMainId){
 						<thead>
 							<tr>
 								<th>产品名称</th>
-								<th>产品绑定个人身份证</th>
-								<th>产品分类</th>
-								<th>产品供应商</th>
-								<th>产品厂家</th>
-								<th>产品第三方服务商</th>
-								<th>产品组织</th>
-								<th>产品服务费(百分比)</th>
-								<th>手续费</th>
-								<th>单笔限额</th>
-								<th>区间手续费</th>
+								<th>产品描述</th>
+								<th>钱包产品适配</th>
+								<th>工资产品适配</th>
+								<th>预支工资产品适配</th>
+								<th>票券产品适配</th>
+								<th>周期性收益产品适配</th>
+								<th>数字资产产品适配</th>
+								<th>加密货币产品适配</th>
 								<th>产品状态</th>
                                 <th>结算周期</th>
                                 <th>产品类型</th>
-                                <th>产品适用企业</th>
-                                <th>产品适用人群</th>
+                                <th>产品个人适配</th>
+                                <th>产品企业适配</th>
                                 <th>备注</th>
 								<th>创建日期</th>
 								<th>最后更新日期</th>
@@ -173,18 +171,18 @@ function openEdit(ProductMainId){
 								<tr>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_Name}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_PID}</td>
-								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_Cat}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_Vendor}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_Company}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_3rdPartyService}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_FOrg}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_Alias.toString()}</td>
-								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_Site}</td>
+								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_EwalletProdCat}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_PayrollProdCat}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_SalaryAdvCat}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_VoucherProdCat}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_TermIncProdCat}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_DigiProdCat.toString()}</td>
+								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_CryptoProdCat}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_ServiceFss.toString()}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_TierPoundage.toString()}</td>
                                     <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_Status.toString()}</td>
                                     <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_Cleardays.toString()}</td>
-                                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_category}</td>
+                                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_EwalletProdCategory}</td>
                                     <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_CorpPool}</td>
                                     <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_PersPool}</td>
                                     <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.remark}</td>																		

@@ -95,9 +95,9 @@ public class EwalletTxn implements Serializable {
    
    private BigDecimal t_WalletTxn_Interest;
 
-   private String t_WalletTxn_ProductName;
+   private String t_WalletTxn_PaymentAccattr;
 	
-   private String t_WalletTxn_ProductID;
+   private String t_WalletTxn_RefundAccNo;
 
    private BigDecimal t_WalletTxn_TotBalance;
 
@@ -131,7 +131,7 @@ public class EwalletTxn implements Serializable {
 
     private String t_WalletTxn_ReceiverBankAcc;
 
-    private Date t_WalletTxn_SysUpdateDate;
+    private Date t_WalletTxn_TxnTimeout;
 
     private String t_WalletTxn_Paystatus;
 
@@ -447,20 +447,20 @@ public class EwalletTxn implements Serializable {
         this.t_WalletTxn_Interest = t_WalletTxn_Interest;
     }
 
-    public String getT_WalletTxn_ProductName() {
-        return t_WalletTxn_ProductName;
+    public String gett_WalletTxn_PaymentAccattr() {
+        return t_WalletTxn_PaymentAccattr;
     }
 
-    public void setT_WalletTxn_ProductName(String t_WalletTxn_ProductName) {
-        this.t_WalletTxn_ProductName = t_WalletTxn_ProductName;
+    public void sett_WalletTxn_PaymentAccattr(String t_WalletTxn_PaymentAccattr) {
+        this.t_WalletTxn_PaymentAccattr = t_WalletTxn_PaymentAccattr;
     }
 
-    public String getT_WalletTxn_ProductID() {
-        return t_WalletTxn_ProductID;
+    public String gett_WalletTxn_RefundAccNo() {
+        return t_WalletTxn_RefundAccNo;
     }
 
-    public void setT_WalletTxn_ProductID(String t_WalletTxn_ProductID) {
-        this.t_WalletTxn_ProductID = t_WalletTxn_ProductID;
+    public void sett_WalletTxn_RefundAccNo(String t_WalletTxn_RefundAccNo) {
+        this.t_WalletTxn_RefundAccNo = t_WalletTxn_RefundAccNo;
     }
 
     public BigDecimal gett_WalletTxn_TotBalance() {
@@ -591,12 +591,12 @@ public class EwalletTxn implements Serializable {
         this.t_WalletTxn_ReceiverBankAcc = t_WalletTxn_ReceiverBankAcc;
     }
 
-    public Date getT_WalletTxn_SysUpdateDate() {
-        return t_WalletTxn_SysUpdateDate;
+    public Date gett_WalletTxn_TxnTimeout() {
+        return t_WalletTxn_TxnTimeout;
     }
 
-    public void setT_WalletTxn_SysUpdateDate(Date t_WalletTxn_SysUpdateDate) {
-        this.t_WalletTxn_SysUpdateDate = t_WalletTxn_SysUpdateDate;
+    public void sett_WalletTxn_TxnTimeout(Date t_WalletTxn_TxnTimeout) {
+        this.t_WalletTxn_TxnTimeout = t_WalletTxn_TxnTimeout;
     }
 
     public String getT_WalletTxn_Paystatus() {

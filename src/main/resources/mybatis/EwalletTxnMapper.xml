@@ -34,8 +34,8 @@
 		<result column="t_WalletTxn_TotalInterestDays" property="t_WalletTxn_TotalInterestDays" jdbcType="INTEGER" />
 		<result column="t_WalletTxn_TxnCounts" property="t_WalletTxn_TxnCounts" jdbcType="INTEGER" />
 		<result column="t_WalletTxn_Interest" property="t_WalletTxn_Interest" jdbcType="DECIMAL" />
-		<result column="t_WalletTxn_ProductName" property="t_WalletTxn_ProductName" jdbcType="INTEGER" />
-		<result column="t_WalletTxn_ProductID" property="t_WalletTxn_ProductID" jdbcType="INTEGER" />
+		<result column="t_WalletTxn_PaymentAccattr" property="t_WalletTxn_PaymentAccattr" jdbcType="INTEGER" />
+		<result column="t_WalletTxn_RefundAccNo" property="t_WalletTxn_RefundAccNo" jdbcType="INTEGER" />
 		<result column="t_WalletTxn_TotBalance" property="t_WalletTxn_TotBalance" jdbcType="TIMESTAMP" />
         <result column="t_WalletTxn_BalancePrepayNum" property="t_WalletTxn_BalancePrepayNum" jdbcType="DECIMAL" />
         <result column="t_WalletTxn_OverdueRepaymentDate" property="t_WalletTxn_OverdueRepaymentDate" jdbcType="VARCHAR" />
@@ -52,7 +52,7 @@
         <result column="t_WalletTxn_InterestMargin" property="t_WalletTxn_InterestMargin" jdbcType="DECIMAL" />
         <result column="t_WalletTxn_PayerBankAcc" property="t_WalletTxn_PayerBankAcc" jdbcType="INTEGER" />
         <result column="t_WalletTxn_ReceiverBankAcc" property="t_WalletTxn_ReceiverBankAcc" jdbcType="INTEGER" />
-        <result column="t_WalletTxn_SysUpdateDate" property="t_WalletTxn_SysUpdateDate" jdbcType="TIMESTAMP" />
+        <result column="t_WalletTxn_TxnTimeout" property="t_WalletTxn_TxnTimeout" jdbcType="TIMESTAMP" />
         <result column="t_WalletTxn_Paystatus" property="t_WalletTxn_Paystatus" jdbcType="DECIMAL" />
         <result column="t_WalletTxn_SMSRec" property="t_WalletTxn_SMSRec" jdbcType="VARCHAR" />
         <result column="t_WalletTxn_type" property="t_WalletTxn_type" jdbcType="VARCHAR" />
@@ -101,8 +101,8 @@
         a.t_WalletTxn_TotalInterestDays,
         a.t_WalletTxn_TxnCounts,
         a.t_WalletTxn_Interest,
-        a.t_WalletTxn_ProductName,
-        a.t_WalletTxn_ProductID,
+        a.t_WalletTxn_PaymentAccattr,
+        a.t_WalletTxn_RefundAccNo,
         a.t_WalletTxn_TotBalance,
         a.t_WalletTxn_BalancePrepayNum,
         a.t_WalletTxn_OverdueRepaymentDate,
@@ -119,7 +119,7 @@
         a.t_WalletTxn_InterestMargin,
         a.t_WalletTxn_PayerBankAcc,
         a.t_WalletTxn_ReceiverBankAcc,
-        a.t_WalletTxn_SysUpdateDate,
+        a.t_WalletTxn_TxnTimeout,
         a.t_WalletTxn_Paystatus,
         a.t_WalletTxn_SMS,
         a.t_WalletTxn_SMSRec,
@@ -283,11 +283,11 @@
 			<if test="t_WalletTxn_Interest != null">
                 t_WalletTxn_Interest,
 			</if>
-			<if test="t_WalletTxn_ProductName != null">
-                t_WalletTxn_ProductName,
+			<if test="t_WalletTxn_PaymentAccattr != null">
+                t_WalletTxn_PaymentAccattr,
 			</if>
-			<if test="t_WalletTxn_ProductID != null">
-                t_WalletTxn_ProductID,
+			<if test="t_WalletTxn_RefundAccNo != null">
+                t_WalletTxn_RefundAccNo,
 			</if>
 			<if test="t_WalletTxn_TotBalance != null">
                 t_WalletTxn_TotBalance,
@@ -337,8 +337,8 @@
             <if test="t_WalletTxn_ReceiverBankAcc != null">
                 t_WalletTxn_ReceiverBankAcc,
             </if>
-            <if test="t_WalletTxn_SysUpdateDate != null">
-                t_WalletTxn_SysUpdateDate,
+            <if test="t_WalletTxn_TxnTimeout != null">
+                t_WalletTxn_TxnTimeout,
             </if>
             <if test="t_WalletTxn_Paystatus != null">
                 t_WalletTxn_Paystatus,
@@ -480,11 +480,11 @@
 			<if test="t_WalletTxn_Interest != null">
 				#{t_WalletTxn_Interest,jdbcType=DECIMAL},
 			</if>
-			<if test="t_WalletTxn_ProductName != null">
-				#{t_WalletTxn_ProductName,jdbcType=VARCHAR},
+			<if test="t_WalletTxn_PaymentAccattr != null">
+				#{t_WalletTxn_PaymentAccattr,jdbcType=VARCHAR},
 			</if>
-			<if test="t_WalletTxn_ProductID != null">
-				#{t_WalletTxn_ProductID,jdbcType=VARCHAR},
+			<if test="t_WalletTxn_RefundAccNo != null">
+				#{t_WalletTxn_RefundAccNo,jdbcType=VARCHAR},
 			</if>
 			<if test="t_WalletTxn_TotBalance != null">
 				#{t_WalletTxn_TotBalance,jdbcType=DECIMAL},
@@ -531,8 +531,8 @@
             <if test="t_WalletTxn_ReceiverBankAcc != null">
                 #{t_WalletTxn_ReceiverBankAcc,jdbcType=VARCHAR},
             </if>
-            <if test="t_WalletTxn_SysUpdateDate != null">
-                #{t_WalletTxn_SysUpdateDate,jdbcType=TIMESTAMP},
+            <if test="t_WalletTxn_TxnTimeout != null">
+                #{t_WalletTxn_TxnTimeout,jdbcType=TIMESTAMP},
             </if>
             <if test="t_WalletTxn_Paystatus != null">
                 #{t_WalletTxn_Paystatus,jdbcType=VARCHAR},
@@ -716,11 +716,11 @@
 			<if test="t_WalletTxn_Interest != null">
                 t_WalletTxn_Interest = #{t_WalletTxn_Interest,jdbcType=DECIMAL},
 			</if>
-			<if test="t_WalletTxn_ProductName != null">
-                t_WalletTxn_ProductName = #{t_WalletTxn_ProductName,jdbcType=VARCHAR},
+			<if test="t_WalletTxn_PaymentAccattr != null">
+                t_WalletTxn_PaymentAccattr = #{t_WalletTxn_PaymentAccattr,jdbcType=VARCHAR},
 			</if>
-			<if test="t_WalletTxn_ProductID != null">
-                t_WalletTxn_ProductID = #{t_WalletTxn_ProductID,jdbcType=VARCHAR},
+			<if test="t_WalletTxn_RefundAccNo != null">
+                t_WalletTxn_RefundAccNo = #{t_WalletTxn_RefundAccNo,jdbcType=VARCHAR},
 			</if>
 			<if test="t_WalletTxn_TotBalance != null">
                 t_WalletTxn_TotBalance = #{t_WalletTxn_TotBalance,jdbcType=DECIMAL},
@@ -770,8 +770,8 @@
             <if test="t_WalletTxn_ReceiverBankAcc != null">
                 t_WalletTxn_ReceiverBankAcc = #{t_WalletTxn_ReceiverBankAcc,jdbcType=VARCHAR},
             </if>
-            <if test="t_WalletTxn_SysUpdateDate != null">
-                t_WalletTxn_SysUpdateDate = #{t_WalletTxn_SysUpdateDate,jdbcType=TIMESTAMP},
+            <if test="t_WalletTxn_TxnTimeout != null">
+                t_WalletTxn_TxnTimeout = #{t_WalletTxn_TxnTimeout,jdbcType=TIMESTAMP},
             </if>
             <if test="t_WalletTxn_Paystatus != null">
                 t_WalletTxn_Paystatus = #{t_WalletTxn_Paystatus,jdbcType=VARCHAR},

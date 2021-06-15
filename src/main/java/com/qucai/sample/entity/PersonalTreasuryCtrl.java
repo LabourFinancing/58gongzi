@@ -29,7 +29,7 @@ public class PersonalTreasuryCtrl implements Serializable {
 
     private BigDecimal t_personalewallet_treasuryctrlBeneTotalLimit;
 
-    private BigDecimal t_personalewallet_treasuryctrlBeneFee;
+    private String t_personalewallet_treasuryctrlBeneFee;
 
     private BigDecimal t_personalewallet_treasuryctrlBeneDailyCntLimit;
 
@@ -41,7 +41,7 @@ public class PersonalTreasuryCtrl implements Serializable {
 
     private BigDecimal t_personalewallet_treasuryctrlPayTotalLimit;
 
-    private BigDecimal t_personalewallet_treasuryctrlPayFee;
+    private String t_personalewallet_treasuryctrlPayFee;
     
     private String t_personalewallet_treasuryctrlPayDailyCntLimit ;
 
@@ -53,7 +53,7 @@ public class PersonalTreasuryCtrl implements Serializable {
 
     private BigDecimal t_personalewallet_treasuryctrlTopupTotalLimit;
 
-    private BigDecimal t_personalewallet_treasuryctrlTopupFee;
+    private String t_personalewallet_treasuryctrlTopupFee;
 
     private BigDecimal t_personalewallet_treasuryctrlTopupDailyCntLimit;
 
@@ -65,7 +65,7 @@ public class PersonalTreasuryCtrl implements Serializable {
 
     private BigDecimal t_personalewallet_treasuryctrlCashoutTotalLimit;
 
-    private BigDecimal t_personalewallet_treasuryctrlCashoutFee;
+    private String t_personalewallet_treasuryctrlCashbackFee;
 
     private BigDecimal t_personalewallet_treasuryctrlCashoutDailyCntLimit;
 
@@ -77,19 +77,19 @@ public class PersonalTreasuryCtrl implements Serializable {
 
     private String t_personalewallet_treasuryctrlPersonalCatList;
 
-    private String t_personalewallet_bkp;
+    private String t_personalewallet_treasuryctrlbkp;
 
-    private BigDecimal t_personalewallet_bkp1;
+    private BigDecimal t_personalewallet_treasuryctrlAccCat;
 
-    private BigDecimal t_personalewallet_status;
+    private BigDecimal t_personalewallet_treasuryctrlstatus;
 
-    private String t_personalewallet_Txt;
+    private String t_personalewallet_treasuryctrlTxt;
 
-    private String t_personalewallet_Txt1;
+    private String t_personalewallet_treasuryctrlTxt1;
 
-    private String t_personalewallet_Txt2;
+    private String t_personalewallet_treasuryctrlTxt2;
 
-    private String t_personalewallet_Txt3;
+    private String t_personalewallet_treasuryctrlTxt3;
    /**
     * 创建人
     */
@@ -158,11 +158,11 @@ public class PersonalTreasuryCtrl implements Serializable {
         this.t_personalewallet_treasuryctrlBeneTotalLimit = t_personalewallet_treasuryctrlBeneTotalLimit;
     }
 
-    public BigDecimal getT_personalewallet_treasuryctrlBeneFee() {
+    public String getT_personalewallet_treasuryctrlBeneFee() {
         return t_personalewallet_treasuryctrlBeneFee;
     }
 
-    public void setT_personalewallet_treasuryctrlBeneFee(BigDecimal t_personalewallet_treasuryctrlBeneFee) {
+    public void setT_personalewallet_treasuryctrlBeneFee(String t_personalewallet_treasuryctrlBeneFee) {
         this.t_personalewallet_treasuryctrlBeneFee = t_personalewallet_treasuryctrlBeneFee;
     }
 
@@ -206,11 +206,11 @@ public class PersonalTreasuryCtrl implements Serializable {
         this.t_personalewallet_treasuryctrlPayTotalLimit = t_personalewallet_treasuryctrlPayTotalLimit;
     }
 
-    public BigDecimal getT_personalewallet_treasuryctrlPayFee() {
+    public String getT_personalewallet_treasuryctrlPayFee() {
         return t_personalewallet_treasuryctrlPayFee;
     }
 
-    public void setT_personalewallet_treasuryctrlPayFee(BigDecimal t_personalewallet_treasuryctrlPayFee) {
+    public void setT_personalewallet_treasuryctrlPayFee(String t_personalewallet_treasuryctrlPayFee) {
         this.t_personalewallet_treasuryctrlPayFee = t_personalewallet_treasuryctrlPayFee;
     }
 
@@ -254,11 +254,11 @@ public class PersonalTreasuryCtrl implements Serializable {
         this.t_personalewallet_treasuryctrlTopupTotalLimit = t_personalewallet_treasuryctrlTopupTotalLimit;
     }
 
-    public BigDecimal getT_personalewallet_treasuryctrlTopupFee() {
+    public String getT_personalewallet_treasuryctrlTopupFee() {
         return t_personalewallet_treasuryctrlTopupFee;
     }
 
-    public void setT_personalewallet_treasuryctrlTopupFee(BigDecimal t_personalewallet_treasuryctrlTopupFee) {
+    public void setT_personalewallet_treasuryctrlTopupFee(String t_personalewallet_treasuryctrlTopupFee) {
         this.t_personalewallet_treasuryctrlTopupFee = t_personalewallet_treasuryctrlTopupFee;
     }
 
@@ -302,12 +302,12 @@ public class PersonalTreasuryCtrl implements Serializable {
         this.t_personalewallet_treasuryctrlCashoutTotalLimit = t_personalewallet_treasuryctrlCashoutTotalLimit;
     }
 
-    public BigDecimal getT_personalewallet_treasuryctrlCashoutFee() {
-        return t_personalewallet_treasuryctrlCashoutFee;
+    public String gett_personalewallet_treasuryctrlCashbackFee() {
+        return t_personalewallet_treasuryctrlCashbackFee;
     }
 
-    public void setT_personalewallet_treasuryctrlCashoutFee(BigDecimal t_personalewallet_treasuryctrlCashoutFee) {
-        this.t_personalewallet_treasuryctrlCashoutFee = t_personalewallet_treasuryctrlCashoutFee;
+    public void sett_personalewallet_treasuryctrlCashbackFee(String t_personalewallet_treasuryctrlCashbackFee) {
+        this.t_personalewallet_treasuryctrlCashbackFee = t_personalewallet_treasuryctrlCashbackFee;
     }
 
     public BigDecimal getT_personalewallet_treasuryctrlCashoutDailyCntLimit() {
@@ -349,61 +349,60 @@ public class PersonalTreasuryCtrl implements Serializable {
     public void setT_personalewallet_treasuryctrlPersonalCatList(String t_personalewallet_treasuryctrlPersonalCatList) {
         this.t_personalewallet_treasuryctrlPersonalCatList = t_personalewallet_treasuryctrlPersonalCatList;
     }
-
-    public String getT_personalewallet_bkp() {
-        return t_personalewallet_bkp;
+    public String getT_personalewallet_treasuryctrlbkp() {
+        return t_personalewallet_treasuryctrlbkp;
     }
 
-    public void setT_personalewallet_bkp(String t_personalewallet_bkp) {
-        this.t_personalewallet_bkp = t_personalewallet_bkp;
+    public void setT_personalewallet_treasuryctrlbkp(String t_personalewallet_treasuryctrlbkp) {
+        this.t_personalewallet_treasuryctrlbkp = t_personalewallet_treasuryctrlbkp;
     }
 
-    public BigDecimal getT_personalewallet_bkp1() {
-        return t_personalewallet_bkp1;
+    public BigDecimal getT_personalewallet_treasuryctrlAccCat() {
+        return t_personalewallet_treasuryctrlAccCat;
     }
 
-    public void setT_personalewallet_bkp1(BigDecimal t_personalewallet_bkp1) {
-        this.t_personalewallet_bkp1 = t_personalewallet_bkp1;
+    public void setT_personalewallet_treasuryctrlAccCat(BigDecimal t_personalewallet_treasuryctrlAccCat) {
+        this.t_personalewallet_treasuryctrlAccCat = t_personalewallet_treasuryctrlAccCat;
     }
 
-    public BigDecimal gett_personalewallet_status() {
-        return t_personalewallet_status;
+    public BigDecimal getT_personalewallet_treasuryctrlstatus() {
+        return t_personalewallet_treasuryctrlstatus;
     }
 
-    public void sett_personalewallet_status(BigDecimal t_personalewallet_status) {
-        this.t_personalewallet_status = t_personalewallet_status;
+    public void setT_personalewallet_treasuryctrlstatus(BigDecimal t_personalewallet_treasuryctrlstatus) {
+        this.t_personalewallet_treasuryctrlstatus = t_personalewallet_treasuryctrlstatus;
     }
 
-    public String getT_personalewallet_Txt() {
-        return t_personalewallet_Txt;
+    public String getT_personalewallet_treasuryctrlTxt() {
+        return t_personalewallet_treasuryctrlTxt;
     }
 
-    public void setT_personalewallet_Txt(String t_personalewallet_Txt) {
-        this.t_personalewallet_Txt = t_personalewallet_Txt;
+    public void setT_personalewallet_treasuryctrlTxt(String t_personalewallet_treasuryctrlTxt) {
+        this.t_personalewallet_treasuryctrlTxt = t_personalewallet_treasuryctrlTxt;
     }
 
-    public String getT_personalewallet_Txt1() {
-        return t_personalewallet_Txt1;
+    public String getT_personalewallet_treasuryctrlTxt1() {
+        return t_personalewallet_treasuryctrlTxt1;
     }
 
-    public void setT_personalewallet_Txt1(String t_personalewallet_Txt1) {
-        this.t_personalewallet_Txt1 = t_personalewallet_Txt1;
+    public void setT_personalewallet_treasuryctrlTxt1(String t_personalewallet_treasuryctrlTxt1) {
+        this.t_personalewallet_treasuryctrlTxt1 = t_personalewallet_treasuryctrlTxt1;
     }
 
-    public String getT_personalewallet_Txt2() {
-        return t_personalewallet_Txt2;
+    public String getT_personalewallet_treasuryctrlTxt2() {
+        return t_personalewallet_treasuryctrlTxt2;
     }
 
-    public void setT_personalewallet_Txt2(String t_personalewallet_Txt2) {
-        this.t_personalewallet_Txt2 = t_personalewallet_Txt2;
+    public void setT_personalewallet_treasuryctrlTxt2(String t_personalewallet_treasuryctrlTxt2) {
+        this.t_personalewallet_treasuryctrlTxt2 = t_personalewallet_treasuryctrlTxt2;
     }
 
-    public String getT_personalewallet_Txt3() {
-        return t_personalewallet_Txt3;
+    public String getT_personalewallet_treasuryctrlTxt3() {
+        return t_personalewallet_treasuryctrlTxt3;
     }
 
-    public void setT_personalewallet_Txt3(String t_personalewallet_Txt3) {
-        this.t_personalewallet_Txt3 = t_personalewallet_Txt3;
+    public void setT_personalewallet_treasuryctrlTxt3(String t_personalewallet_treasuryctrlTxt3) {
+        this.t_personalewallet_treasuryctrlTxt3 = t_personalewallet_treasuryctrlTxt3;
     }
 
     public String getCreator() {

@@ -51,7 +51,7 @@ public class ProductMainController {
      *  改动：根据所属平台来确定是哪个平台的资源 , 2017/11/14 回家改一下代码 新建产品详细页.
      */
 
-    @RequestMapping(value = {"ProductMainList",""})
+    @RequestMapping(value = {"ProductMainList"})
     public String ProductMainList(ProductMain ProductMain, @RequestParam( defaultValue = "0" )  Integer platform,
     		HttpServletRequest request, HttpServletResponse response, Model model) {
 

@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSONObject;
+import com.qucai.sample.entity.EwalletTxn;
 import com.qucai.sample.entity.StaffPrepayApplicationPayment;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo.OrderCreateDemo;
-import com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo.OrderPayDemo;
 import com.qucai.sample.util.Tool;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.shiro.SecurityUtils;
@@ -29,6 +29,9 @@ import com.qucai.sample.service.ManagerService;
 import com.qucai.sample.smss.src.example.json.HttpJsonExample;
 import com.qucai.sample.util.JsonBizTool;
 
+import com.qucai.sample.vo.MobileEwalletDashboard;
+import com.qucai.sample.vo.MobilePersonalMain;
+
 @Controller
 @RequestMapping(value = "/oauthController")
 public class OauthController {
@@ -38,9 +41,10 @@ public class OauthController {
 
     @RequestMapping("/login")
     @ResponseBody
-    public Object login(HttpServletRequest request, HttpServletResponse response, String userName,String pid, String password, String page,String remember,
-                        String paymentchannel,String action,String mode,String gid,String from, String form,String method, String phone,String host,
-                        String SMSsendcode, String SMSstrret,String type, String API) throws Exception {
+    public Object login(HttpServletRequest request, HttpServletResponse response, EwalletTxn ewalletTxn, MobileEwalletDashboard ewalletDashboard, MobilePersonalMain mobilePersonalMain,
+                        String userName, String pid, String password, String page, String remember, String paymentchannel, String action,
+                        String mode, String gid, String method, String phone, String host,
+                        String SMSsendcode, String SMSstrret, String type, String API) throws Exception {
 
         CaptchaUsernamePasswordToken token = new CaptchaUsernamePasswordToken();
         token.setUsername(userName);
@@ -116,9 +120,10 @@ public class OauthController {
          ************************************************** payment start 收付款 *************************************************
          * mobilepay transmit, 58gongzi - Alipay/wechantpay/unionpay  --- 1st version
          * FX/Remit 58gongzi - Paypal/Swift/visa/master/AE ---- 2nd version
+         * Mobile APP 调用个人交易 移动端交易首页二维码扫一扫交易
          ************************************************************************************************************************
          */
-        //Mobile APP 调用个人交易 移动端交易首页二维码扫一扫交易
+        //个人收款
         if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewalletTXN")&&action.equalsIgnoreCase("beneficiary")){
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
@@ -128,7 +133,7 @@ public class OauthController {
             }
             return "redirect:/EwalletTXNcontroller/personalEWTTxnMobile";
         }
-
+        //个人付款
         if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewalletTXN")&&action.equalsIgnoreCase("payee")){
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
@@ -138,7 +143,7 @@ public class OauthController {
             }
             return "redirect:/EwalletTXNcontroller/personalEWTTxnMobile";
         }
-
+        //个人消费
         if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewalletTXN")&&action.equalsIgnoreCase("shopping")){
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
@@ -148,7 +153,7 @@ public class OauthController {
             }
             return "redirect:/EwalletTXNcontroller/personalEWTTxnMobile";
         }
-
+        //个人支付渠道切换
         if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewalletTXN")&&action.equalsIgnoreCase("paymentswitch")){
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
@@ -158,7 +163,7 @@ public class OauthController {
             }
             return "redirect:/EwalletTXNcontroller/personalEWTTxnMobile";
         }
-
+        //个人充值
         if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewalletTXN")&&action.equalsIgnoreCase("topup")){
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
@@ -173,9 +178,10 @@ public class OauthController {
         ************************************************ Mobilehome begin 移动端首页开始 ************************************
         * wealthmgt,voucher,topup,   58gongzi  ---1st version 
         * blockchain , supplychian    wo-bank  ---2nd version
-        ******************************************************************************************************************
+        * 钱包管理
+        *******************************************************************************************************************
          */
-        //钱包管理 wealthmgt
+        //财富管理 wealthmgt
         if( method!=null&&page.equalsIgnoreCase("mobilehome")&&method.equals("ewalletdashboard")&&action.equalsIgnoreCase("wealthmgt")){
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
