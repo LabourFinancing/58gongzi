@@ -163,38 +163,34 @@ function openEdit(personalTreasuryCtrlId){
 						<thead>
 							<tr>
 								<th>个人收付管理名称</th>
+                                <th>个人匹配</th>
 								<th>收款日限额</th>
 								<th>收款单笔限额</th>
 								<th>收款总限额</th>
-								<th>收款日限额</th>
 								<th>收款费率</th>
-								<th>收款次数</th>
+								<th>收款日限次数</th>
 								<th>收款状态</th>
                                 <th>付款日限额</th>
                                 <th>付款单笔限额</th>
                                 <th>付款总限额</th>
-                                <th>付款日限额</th>
                                 <th>付款费率</th>
-                                <th>付款次数</th>
+                                <th>付款日限次数</th>
                                 <th>付款状态</th>
                                 <th>充值日限额</th>
                                 <th>充值单笔限额</th>
                                 <th>充值总限额</th>
-                                <th>充值日限额</th>
                                 <th>充值费率</th>
-                                <th>充值次数</th>
+                                <th>充值日限次数</th>
                                 <th>充值状态</th>
                                 <th>提现日限额</th>
                                 <th>提现单笔限额</th>
                                 <th>提现总限额</th>
-                                <th>提现日限额</th>
                                 <th>提现费率</th>
-                                <th>提现次数</th>
+                                <th>提现日限次数</th>
                                 <th>提现状态</th>
                                 <th>退款状态</th>
                                 <th>产品适配</th>
-                                <th>收款费率</th>
-                                <th>人员适配</th>
+                                <th>人群适配</th>
                                 <th>备注</th>
                                 <th>创建时间</th>
                                 <th>更新时间</th>
@@ -227,7 +223,7 @@ function openEdit(personalTreasuryCtrlId){
                                     <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalTreasuryCtrl.t_personalewallet_treasuryctrlCashoutDailyLimit.toString()}</td>
                                     <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalTreasuryCtrl.t_personalewallet_treasuryctrlCashoutTxnLimit.toString()}</td>
                                     <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalTreasuryCtrl.t_personalewallet_treasuryctrlCashoutTotalLimit.toString()}</td>
-                                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalTreasuryCtrl.t_personalewallet_treasuryctrlCashbackFee}</td>
+                                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalTreasuryCtrl.t_personalewallet_treasuryctrlCashoutFee.toString()}</td>
                                     <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalTreasuryCtrl.t_personalewallet_treasuryctrlCashoutDailyCntLimit.toString()}</td>
                                     <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalTreasuryCtrl.t_personalewallet_treasuryctrlCashoutStat}</td>
                                     <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalTreasuryCtrl.t_personalewallet_treasuryctrlRefundStat}</td>
@@ -235,7 +231,7 @@ function openEdit(personalTreasuryCtrlId){
                                     <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalTreasuryCtrl.t_personalewallet_treasuryctrlPersonalCatList}</td>
                                     <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalTreasuryCtrl.remark}</td>																	
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalTreasuryCtrl.create_time?string("yyyy-MM-dd HH:mm:ss")}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalTreasuryCtrl.t_FProd_SysupdateDate?string("yyyy-MM-dd HH:mm:ss")}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalTreasuryCtrl.modify_time?string("yyyy-MM-dd HH:mm:ss")}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">
 										<@shiro.hasPermission name="FINANCEPRODUCT_EDIT">
 										<a href="#" onclick="openEdit('${personalTreasuryCtrl.t_personalewallet_treasuryctrlID}')">编辑</a>

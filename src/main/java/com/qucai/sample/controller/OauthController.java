@@ -49,6 +49,7 @@ public class OauthController {
         CaptchaUsernamePasswordToken token = new CaptchaUsernamePasswordToken();
         token.setUsername(userName);
         
+        //http://localhost:8080/sample/oauthController/login?method=QRcode
         if(method!=null&&method.equals("getUserInfo")){
             Map<String, Object> rs = new HashMap<String, Object>();
             String merchantId = "S2135052";

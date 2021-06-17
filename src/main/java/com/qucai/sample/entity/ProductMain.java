@@ -23,7 +23,7 @@ public class ProductMain implements Serializable {
     /**
      * 创建时间
      */
-    private Date createTime;
+    private Date create_time;
     /**
      * 修改人
      *
@@ -61,22 +61,22 @@ public class ProductMain implements Serializable {
     /**
      * 产品超期利率
      */
-    private BigDecimal t_Product_Name;
+    private String t_Product_Name;
 
     /**
      * 服务费(融资成本)
      */
-    private BigDecimal t_Product_EwalletProdCat;
+    private String t_Product_EwalletProdCat;
 
     /**
      * 平台使用费(笔)
      */
-    private BigDecimal t_Product_PayrollProdCat;
+    private String t_Product_PayrollProdCat;
 
     /**
      * 单笔限额
      */
-    private BigDecimal t_Product_SalaryAdvCat;
+    private String t_Product_SalaryAdvCat;
 
     /**
      * 区间平台使用费(笔)
@@ -126,12 +126,12 @@ public class ProductMain implements Serializable {
         this.creator = creator;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Date getCreate_time() {
+        return create_time;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setCreate_time(Date Create_time) {
+        this.create_time = create_time;
     }
 
     public String getModifier() {
@@ -190,35 +190,35 @@ public class ProductMain implements Serializable {
         this.t_Product_PID = t_Product_PID;
     }
 
-    public BigDecimal getT_Product_Name() {
+    public String getT_Product_Name() {
         return t_Product_Name;
     }
 
-    public void setT_Product_Name(BigDecimal t_Product_Name) {
+    public void setT_Product_Name(String t_Product_Name) {
         this.t_Product_Name = t_Product_Name;
     }
 
-    public BigDecimal gett_Product_EwalletProdCat() {
+    public String gett_Product_EwalletProdCat() {
         return t_Product_EwalletProdCat;
     }
 
-    public void sett_Product_EwalletProdCat(BigDecimal t_Product_EwalletProdCat) {
+    public void sett_Product_EwalletProdCat(String t_Product_EwalletProdCat) {
         this.t_Product_EwalletProdCat = t_Product_EwalletProdCat;
     }
 
-    public BigDecimal gett_Product_PayrollProdCat() {
+    public String gett_Product_PayrollProdCat() {
         return t_Product_PayrollProdCat;
     }
 
-    public void sett_Product_PayrollProdCat(BigDecimal t_Product_PayrollProdCat) {
+    public void sett_Product_PayrollProdCat(String t_Product_PayrollProdCat) {
         this.t_Product_PayrollProdCat = t_Product_PayrollProdCat;
     }
 
-    public BigDecimal gett_Product_SalaryAdvCat() {
+    public String gett_Product_SalaryAdvCat() {
         return t_Product_SalaryAdvCat;
     }
 
-    public void sett_Product_SalaryAdvCat(BigDecimal t_Product_SalaryAdvCat) {
+    public void sett_Product_SalaryAdvCat(String t_Product_SalaryAdvCat) {
         this.t_Product_SalaryAdvCat = t_Product_SalaryAdvCat;
     }
 

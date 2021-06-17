@@ -4,9 +4,9 @@
 
 	<resultMap id="BaseResultMap" type="com.qucai.sample.entity.ProductMain">
 		<result column="t_Product_ID" property="t_Product_ID" jdbcType="VARCHAR" />
-		<result column="t_Product_SeriesID" property="t_Product_SeriesID" jdbcType="VARCHAR" />
 		<result column="t_Product_PID" property="t_Product_PID" jdbcType="VARCHAR" />
 		<result column="t_Product_Name" property="t_Product_Name" jdbcType="VARCHAR" />
+        <result column="t_Product_SeriesID" property="t_Product_SeriesID" jdbcType="VARCHAR" />
 		<result column="t_Product_EwalletProdCat" property="t_Product_EwalletProdCat" jdbcType="VARCHAR" />
 		<result column="t_Product_PayrollProdCat" property="t_Product_PayrollProdCat" jdbcType="VARCHAR" />
 		<result column="t_Product_SalaryAdvCat" property="t_Product_SalaryAdvCat" jdbcType="VARCHAR" />
@@ -17,7 +17,7 @@
 		<result column="t_Product_ServiceFss" property="t_Product_ServiceFss" jdbcType="DECIMAL" />
         <result column="t_Product_TierPoundage" property="t_Product_TierPoundage" jdbcType="VARCHAR" />
         <result column="t_Product_Status" property="t_Product_Status" jdbcType="INTEGER" />
-        <result column="t_Product_Cleardays" property="t_Product_Cleardays" jdbcType="INTEGER" />
+        <result column="t_Product_Cleardays" property="t_Product_Cleardays" jdbcType="VARCHAR" />
         <result column="t_Product_EwalletProdCategory" property="t_Product_EwalletProdCategory" jdbcType="VARCHAR" />
         <result column="t_Product_CorpPool" property="t_Product_CorpPool" jdbcType="VARCHAR" />
         <result column="t_Product_PersPool" property="t_Product_PersPool" jdbcType="VARCHAR" />
@@ -35,9 +35,9 @@
 	
 	<sql id="Base_Column_List">
         a.t_Product_ID,
-        a.t_Product_SeriesID,
         a.t_Product_PID,
         a.t_Product_Name,
+        a.t_Product_SeriesID,
         a.t_Product_EwalletProdCat,
         a.t_Product_PayrollProdCat,
         a.t_Product_SalaryAdvCat,
@@ -239,7 +239,7 @@
                 #{t_Product_Status,jdbcType=INTEGER},
             </if>
             <if test="t_Product_Cleardays != null">
-                #{t_Product_Cleardays,jdbcType=INTEGER},
+                #{t_Product_Cleardays,jdbcType=VARCHAR},
             </if>
             <if test="t_Product_EwalletProdCategory != null">
                 #{t_Product_EwalletProdCategory,jdbcType=VARCHAR},
@@ -292,9 +292,6 @@
 		<if test="typeEnd != null">
 			<![CDATA[ and type <= #{typeEnd} ]]>
 		</if>
-        <if test="t_CompanyName != ALL">
-            and a.platform =  #{t_CompanyName,jdbcType=VARCHAR}
-        </if>
 		order by a.create_time
 	</select>
 

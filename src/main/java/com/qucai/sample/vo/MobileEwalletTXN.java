@@ -12,24 +12,7 @@ import java.util.Date;
  */
 public class MobileEwalletTXN implements Serializable {
 
-       private static final long serialVersionUID = 1;
-
-    /**
-     * 创建人
-     */
-    private String creator;
-
-    private Date create_time;
-
-    private String modifier;
-
-    private Date modify_time;
-
-    private String platform;
-
-    private String remark;
-
-    /* biz info char */
+    /* Txn info char */
 
     private String t_mobileWalletTxn_ID;
 
@@ -101,7 +84,7 @@ public class MobileEwalletTXN implements Serializable {
 
     private BigDecimal t_mobileWalletTxn_BalancePrepayNum;
 
-    private java.util.Date t_mobileWalletTxn_OverdueRepaymentDate;
+    private Date t_mobileWalletTxn_OverdueRepaymentDate;
 
     private String t_mobileWalletTxn_PayClear;
 

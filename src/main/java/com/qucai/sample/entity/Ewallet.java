@@ -150,8 +150,6 @@ public class Ewallet implements Serializable {
 
     private String t_personalewallet_eproposal;
 
-    private String t_personalewallet_Txt2;
-
     private String t_personalewallet_Txt3;
 
     private String t_personalewallet_Txt4;
@@ -676,14 +674,6 @@ public class Ewallet implements Serializable {
 
     public void sett_personalewallet_eproposal(String t_personalewallet_eproposal) {
         this.t_personalewallet_eproposal = t_personalewallet_eproposal;
-    }
-
-    public String gett_personalewallet_Txt2() {
-        return t_personalewallet_Txt2;
-    }
-
-    public void sett_personalewallet_Txt2(String t_personalewallet_Txt2) {
-        this.t_personalewallet_Txt2 = t_personalewallet_Txt2;
     }
 
     public String gett_personalewallet_Txt3() {

@@ -26,16 +26,16 @@
         <result column="t_personalewallet_treasuryctrlCashoutDailyLimit" property="t_personalewallet_treasuryctrlCashoutDailyLimit" jdbcType="DECIMAL" />
         <result column="t_personalewallet_treasuryctrlCashoutTxnLimit" property="t_personalewallet_treasuryctrlCashoutTxnLimit" jdbcType="DECIMAL" />
         <result column="t_personalewallet_treasuryctrlCashoutTotalLimit" property="t_personalewallet_treasuryctrlCashoutTotalLimit" jdbcType="DECIMAL" />
-        <result column="t_personalewallet_treasuryctrlCashbackFee" property="t_personalewallet_treasuryctrlCashbackFee" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_treasuryctrlCashoutFee" property="t_personalewallet_treasuryctrlCashoutFee" jdbcType="VARCHAR" />
         <result column="t_personalewallet_treasuryctrlCashoutDailyCntLimit" property="t_personalewallet_treasuryctrlCashoutDailyCntLimit" jdbcType="DECIMAL" />
         <result column="t_personalewallet_treasuryctrlCashoutStat" property="t_personalewallet_treasuryctrlCashoutStat" jdbcType="VARCHAR" />
         <result column="t_personalewallet_treasuryctrlRefundStat" property="t_personalewallet_treasuryctrlRefundStat" jdbcType="VARCHAR" />
         <result column="t_personalewallet_treasuryctrlProdSerList" property="t_personalewallet_treasuryctrlProdSerList" jdbcType="VARCHAR" />
         <result column="t_personalewallet_treasuryctrlPersonalCatList" property="t_personalewallet_treasuryctrlPersonalCatList" jdbcType="VARCHAR" />
         <result column="t_personalewallet_treasuryctrlbkp" property="t_personalewallet_treasuryctrlbkp" jdbcType="DECIMAL" />
-        <result column="t_personalewallet_treasuryctrlAccCat" property="t_personalewallet_treasuryctrlAccCat" jdbcType="DECIMAL" />
-        <result column="t_personalewallet_treasuryctrlstatus" property="t_personalewallet_treasuryctrlstatus" jdbcType="DECIMAL" />
-        <result column="t_personalewallet_treasuryctrlAccCat" property="t_personalewallet_treasuryctrlAccCat" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_treasuryctrlAccList" property="t_personalewallet_treasuryctrlAccList" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_treasuryctrlstatus" property="t_personalewallet_treasuryctrlstatus" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_treasuryctrlAccList" property="t_personalewallet_treasuryctrlAccList" jdbcType="VARCHAR" />
         <result column="t_personalewallet_treasuryctrlTxt1" property="t_personalewallet_treasuryctrlTxt1" jdbcType="VARCHAR" />
         <result column="t_personalewallet_treasuryctrlTxt2" property="t_personalewallet_treasuryctrlTxt2" jdbcType="VARCHAR" />
         <result column="t_personalewallet_treasuryctrlTxt3" property="t_personalewallet_treasuryctrlTxt3" jdbcType="VARCHAR" />
@@ -72,16 +72,16 @@
         a.t_personalewallet_treasuryctrlCashoutDailyLimit,
         a.t_personalewallet_treasuryctrlCashoutTxnLimit,
         a.t_personalewallet_treasuryctrlCashoutTotalLimit,
-        a.t_personalewallet_treasuryctrlCashbackFee,
+        a.t_personalewallet_treasuryctrlCashoutFee,
         a.t_personalewallet_treasuryctrlCashoutDailyCntLimit,
         a.t_personalewallet_treasuryctrlCashoutStat,
         a.t_personalewallet_treasuryctrlRefundStat,
         a.t_personalewallet_treasuryctrlProdSerList,
         a.t_personalewallet_treasuryctrlPersonalCatList,
         a.t_personalewallet_treasuryctrlbkp,
-        a.t_personalewallet_treasuryctrlAccCat,
+        a.t_personalewallet_treasuryctrlAccList,
         a.t_personalewallet_treasuryctrlstatus,
-        a.t_personalewallet_treasuryctrlAccCat,
+        a.t_personalewallet_treasuryctrlAccList,
         a.t_personalewallet_treasuryctrlTxt1,
         a.t_personalewallet_treasuryctrlTxt2,
         a.t_personalewallet_treasuryctrlTxt3,
@@ -207,8 +207,8 @@
             <if test="t_personalewallet_treasuryctrlCashoutTotalLimit != null">
                 t_personalewallet_treasuryctrlCashoutTotalLimit,
             </if>
-            <if test="t_personalewallet_treasuryctrlCashbackFee != null">
-                t_personalewallet_treasuryctrlCashbackFee,
+            <if test="t_personalewallet_treasuryctrlCashoutFee != null">
+                t_personalewallet_treasuryctrlCashoutFee,
             </if>
             <if test="t_personalewallet_treasuryctrlCashoutDailyCntLimit != null">
                 t_personalewallet_treasuryctrlCashoutDailyCntLimit,
@@ -228,14 +228,14 @@
             <if test="t_personalewallet_treasuryctrlbkp != null">
                 t_personalewallet_treasuryctrlbkp,
             </if>
-            <if test="t_personalewallet_treasuryctrlAccCat != null">
-                t_personalewallet_treasuryctrlAccCat,
+            <if test="t_personalewallet_treasuryctrlAccList != null">
+                t_personalewallet_treasuryctrlAccList,
             </if>
             <if test="t_personalewallet_treasuryctrlstatus != null">
                 t_personalewallet_treasuryctrlstatus,
             </if>
-            <if test="t_personalewallet_treasuryctrlAccCat != null">
-                t_personalewallet_treasuryctrlAccCat,
+            <if test="t_personalewallet_treasuryctrlAccList != null">
+                t_personalewallet_treasuryctrlAccList,
             </if>
             <if test="t_personalewallet_treasuryctrlTxt1 != null">
                 t_personalewallet_treasuryctrlTxt1,
@@ -338,8 +338,8 @@
             <if test="t_personalewallet_treasuryctrlCashoutTotalLimit != null">
                 #{t_personalewallet_treasuryctrlCashoutTotalLimit,jdbcType=DECIMAL},
             </if>
-            <if test="t_personalewallet_treasuryctrlCashbackFee != null">
-                #{t_personalewallet_treasuryctrlCashbackFee,jdbcType=VARCHAR},
+            <if test="t_personalewallet_treasuryctrlCashoutFee != null">
+                #{t_personalewallet_treasuryctrlCashoutFee,jdbcType=VARCHAR},
             </if>
             <if test="t_personalewallet_treasuryctrlCashoutDailyCntLimit != null">
                 #{t_personalewallet_treasuryctrlCashoutDailyCntLimit,jdbcType=DECIMAL},
@@ -359,14 +359,14 @@
             <if test="t_personalewallet_treasuryctrlbkp != null">
                 #{t_personalewallet_treasuryctrlbkp,jdbcType=DECIMAL},
             </if>
-            <if test="t_personalewallet_treasuryctrlAccCat != null">
-                #{t_personalewallet_treasuryctrlAccCat,jdbcType=DECIMAL},
+            <if test="t_personalewallet_treasuryctrlAccList != null">
+                #{t_personalewallet_treasuryctrlAccList,jdbcType=DECIMAL},
             </if>
             <if test="t_personalewallet_treasuryctrlstatus != null">
-                #{t_personalewallet_treasuryctrlstatus,jdbcType=DECIMAL},
+                #{t_personalewallet_treasuryctrlstatus,jdbcType=VARCHAR},
             </if>
-            <if test="t_personalewallet_treasuryctrlAccCat != null">
-                #{t_personalewallet_treasuryctrlAccCat,jdbcType=VARCHAR},
+            <if test="t_personalewallet_treasuryctrlAccList != null">
+                #{t_personalewallet_treasuryctrlAccList,jdbcType=VARCHAR},
             </if>
             <if test="t_personalewallet_treasuryctrlTxt1 != null">
                 #{t_personalewallet_treasuryctrlTxt1,jdbcType=VARCHAR},
@@ -508,8 +508,8 @@
             <if test="t_personalewallet_treasuryctrlCashoutTotalLimit != null">
                 t_personalewallet_treasuryctrlCashoutTotalLimit = #{t_personalewallet_treasuryctrlCashoutTotalLimit,jdbcType=DECIMAL},
             </if>
-            <if test="t_personalewallet_treasuryctrlCashbackFee != null">
-                t_personalewallet_treasuryctrlCashbackFee = #{t_personalewallet_treasuryctrlCashbackFee,jdbcType=VARCHAR},
+            <if test="t_personalewallet_treasuryctrlCashoutFee != null">
+                t_personalewallet_treasuryctrlCashoutFee = #{t_personalewallet_treasuryctrlCashoutFee,jdbcType=VARCHAR},
             </if>
             <if test="t_personalewallet_treasuryctrlCashoutDailyCntLimit != null">
                 t_personalewallet_treasuryctrlCashoutDailyCntLimit = #{t_FProd_PersPool,jdbcType=DECIMAL},
@@ -526,14 +526,14 @@
             <if test="t_personalewallet_treasuryctrlbkp != null">
                 t_personalewallet_treasuryctrlbkp = #{t_personalewallet_treasuryctrlbkp,jdbcType=VARCHAR},
             </if>
-            <if test="t_personalewallet_treasuryctrlAccCat != null">
-                t_personalewallet_treasuryctrlAccCat = #{t_personalewallet_treasuryctrlAccCat,jdbcType=DECIMAL},
+            <if test="t_personalewallet_treasuryctrlAccList != null">
+                t_personalewallet_treasuryctrlAccList = #{t_personalewallet_treasuryctrlAccList,jdbcType=DECIMAL},
             </if>
             <if test="t_personalewallet_treasuryctrlstatus != null">
                 t_personalewallet_treasuryctrlstatus = #{t_personalewallet_treasuryctrlstatus,jdbcType=DECIMAL},
             </if>
-            <if test="t_personalewallet_treasuryctrlAccCat != null">
-                t_personalewallet_treasuryctrlAccCat = #{t_personalewallet_treasuryctrlAccCat,jdbcType=VARCHAR},
+            <if test="t_personalewallet_treasuryctrlAccList != null">
+                t_personalewallet_treasuryctrlAccList = #{t_personalewallet_treasuryctrlAccList,jdbcType=VARCHAR},
             </if>
             <if test="t_personalewallet_treasuryctrlTxt1 != null">
                 t_personalewallet_treasuryctrlTxt1 = #{t_personalewallet_treasuryctrlTxt1,jdbcType=VARCHAR},

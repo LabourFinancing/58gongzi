@@ -12,21 +12,7 @@ import java.util.Date;
  */
 public class MobilePersonalMain implements Serializable {
 
-    private static final long serialVersionUID = 1;
-
-    private String creator;
-
-    private Date create_time;
-
-    private String modifier;
-
-    private Date modify_time;
-
-    private Integer platform;
-
-    private String remark;
-
-    /* biz info char */
+    /* Txn info char */
 
     private String t_mobilePersonalMain_id;
 
@@ -87,10 +73,6 @@ public class MobilePersonalMain implements Serializable {
     private String t_mobilePersonalMain_productCat;
 
     private String t_mobilePersonalMain_prodlist;
-
-    private String status;
-
-    private String email;
 
 
 }

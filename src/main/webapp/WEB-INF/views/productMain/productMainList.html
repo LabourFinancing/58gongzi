@@ -146,8 +146,9 @@ function openEdit(ProductMainId){
 					 <table class="table table-bordered" id="ProductMainTable" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
 						<thead>
 							<tr>
+                                <th>产品编号</th>
 								<th>产品名称</th>
-								<th>产品描述</th>
+								<th>个人关联</th>
 								<th>钱包产品适配</th>
 								<th>工资产品适配</th>
 								<th>预支工资产品适配</th>
@@ -155,20 +156,21 @@ function openEdit(ProductMainId){
 								<th>周期性收益产品适配</th>
 								<th>数字资产产品适配</th>
 								<th>加密货币产品适配</th>
+                                <th>服务手续费</th>
+                                <th>区间收费</th>
 								<th>产品状态</th>
                                 <th>结算周期</th>
                                 <th>产品类型</th>
-                                <th>产品个人适配</th>
-                                <th>产品企业适配</th>
+                                <th>产品人群适配</th>
+                                <th>产品企业群适配</th>
                                 <th>备注</th>
-								<th>创建日期</th>
-								<th>最后更新日期</th>
 								<th>操作</th>
 							</tr>
 						</thead>
 						<tbody>
 							<#list page.list as ProductMain>
 								<tr>
+                                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_SeriesID}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_Name}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_PID}</td>
 								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_EwalletProdCat}</td>
@@ -185,9 +187,7 @@ function openEdit(ProductMainId){
                                     <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_EwalletProdCategory}</td>
                                     <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_CorpPool}</td>
                                     <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_Product_PersPool}</td>
-                                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.remark}</td>																		
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.create_time?string("yyyy-MM-dd HH:mm:ss")}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.t_FProd_SysupdateDate?string("yyyy-MM-dd HH:mm:ss")}</td>
+                                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ProductMain.remark}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">
 										<@shiro.hasPermission name="FINANCEPRODUCT_EDIT">
 										<a href="#" onclick="openEdit('${ProductMain.t_FProd_ID}')">编辑</a>

@@ -11,24 +11,8 @@ import java.util.Date;
  * @version 1.0 2021-06-14
  */
 public class MobileEwalletDashboard implements Serializable {
-    
-    private static final long serialVersionUID = 1;
-    /**
-     * 创建人
-     */
-    private String creator;
 
-    private java.util.Date create_time;
-
-    private String modifier;
-
-    private java.util.Date modify_time;
-
-    private String platform;
-
-    private String remark;
-
-    /* biz info char */
+    /* Txn info char */
 
     private String t_mobilePersonalEwallet_ID;
 
@@ -85,7 +69,7 @@ public class MobileEwalletDashboard implements Serializable {
     private BigDecimal t_mobilePersonalEwallet_DebitPayAmt;
 
     private BigDecimal t_mobilePersonalEwallet_ApplyPayAmount;
-
+ 
     private BigDecimal t_mobilePersonalEwallet_CreditPrepayBalanceNum;
 
     private BigDecimal t_mobilePersonalEwallet_CreditPayAmt;

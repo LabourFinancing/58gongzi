@@ -62,7 +62,6 @@
         <result column="t_personalewallet_AccCat" property="t_personalewallet_AccCat" jdbcType="DECIMAL" />
         <result column="t_personalewallet_treasuryID" property="t_personalewallet_treasuryID" jdbcType="VARCHAR" />
         <result column="t_personalewallet_eproposal" property="t_personalewallet_eproposal" jdbcType="VARCHAR" />
-        <result column="t_personalewallet_Txt2" property="t_personalewallet_Txt2" jdbcType="VARCHAR" />
         <result column="t_personalewallet_Txt3" property="t_personalewallet_Txt3" jdbcType="VARCHAR" />
         <result column="t_personalewallet_Txt4" property="t_personalewallet_Txt4" jdbcType="VARCHAR" />
         <result column="t_personalewallet_Txt5" property="t_personalewallet_Txt5" jdbcType="VARCHAR" />
@@ -134,7 +133,6 @@
         a.t_personalewallet_AccCat,
         a.t_personalewallet_treasuryID,
         a.t_personalewallet_eproposal,
-        a.t_personalewallet_Txt2,
         a.t_personalewallet_Txt3,
         a.t_personalewallet_Txt4,
         a.t_personalewallet_Txt5,
@@ -366,9 +364,6 @@
             <if test="t_personalewallet_eproposal != null">
                 t_personalewallet_eproposal,
             </if>
-            <if test="t_personalewallet_Txt2 != null">
-                t_personalewallet_Txt2,
-            </if>
             <if test="t_personalewallet_Txt3 != null">
                 t_personalewallet_Txt3,
             </if>
@@ -592,9 +587,6 @@
             </if>
             <if test="t_personalewallet_eproposal != null">
                 #{t_personalewallet_eproposal,jdbcType=VARCHAR},
-            </if>
-            <if test="t_personalewallet_Txt2 != null">
-                #{t_personalewallet_Txt2,jdbcType=VARCHAR},
             </if>
             <if test="t_personalewallet_Txt3 != null">
                 #{t_personalewallet_Txt3,jdbcType=VARCHAR},
@@ -833,9 +825,6 @@
             </if>
             <if test="t_personalewallet_eproposal != null">
                 t_personalewallet_eproposal = #{t_personalewallet_eproposal,jdbcType=VARCHAR},
-            </if>
-            <if test="t_personalewallet_Txt2 != null">
-                t_personalewallet_Txt2 = #{t_personalewallet_Txt2,jdbcType=VARCHAR},
             </if>
             <if test="t_personalewallet_Txt3 != null">
                 t_personalewallet_Txt3 = #{t_personalewallet_Txt3,jdbcType=VARCHAR},

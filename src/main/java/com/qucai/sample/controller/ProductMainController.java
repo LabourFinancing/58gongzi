@@ -59,9 +59,8 @@ public class ProductMainController {
 
         PageInfo<ProductMain> page = ProductMainService.findAllList(new HashMap<String, Object>(), pp);
         model.addAttribute("page", page);
-
-
-    	return "ProductMain/ProductMainList";
+        
+    	return "productMain/productMainList";
     }
 
     /*
@@ -87,14 +86,14 @@ public class ProductMainController {
             model.addAttribute("page", page);
         }
 		if(0 == platform) {
-     		return "ProductMain/ProductMainList";
+     		return "productMain/productMainList";
 //    	} else if(1 == platform) {
-//    		return "ProductMain/ProductMainEntList";
+//    		return "productMain/ProductMainEntList";
 //    	} else if(2 == platform) {
 //    		//个人端，暂时不考虑
-//    		return "ProductMain/ProductMainList";
+//    		return "productMain/ProductMainList";
     	}else {
-    		return "ProductMain/ProductMainList";
+    		return "productMain/productMainList";
     	}
     }
 
@@ -110,15 +109,15 @@ public class ProductMainController {
           paramMap.put("platform", platform); //给platform,赋值为前台拿进来的值
 
          if (OperationTypeConstant.NEW.equals(operationType)) { //用OperationTypeConstant函数封装的赋值函数方法判断值是否相等,并调用相应的页面
-        	return "ProductMain/ProductMainNewForm";
+        	return "productMain/ProductMainNewForm";
             } else if (OperationTypeConstant.EDIT.equals(operationType)) 
             {
             ProductMain ProductMain = ProductMainService.selectByPrimaryKey(t_Product_ID);
-            return "ProductMain/ProductMainEditForm";
+            return "productMain/ProductMainEditForm";
           } else if (OperationTypeConstant.VIEW.equals(operationType)) {
-            return "ProductMain/ProductMainViewForm";
+            return "productMain/ProductMainViewForm";
           } else if (OperationTypeConstant.VERIFY.equals(operationType)) {
-              return "ProductMain/ProductMainVerifyList";
+              return "productMain/ProductMainVerifyList";
           } else {
             return "redirect:/ProductMainController/dashboard";
         }
@@ -129,10 +128,10 @@ public class ProductMainController {
     public String addProductMain(ProductMain ProductMain, HttpServletRequest request,Integer platform,
             HttpServletResponse response, Model model) {
     	model.addAttribute("platform", platform);
-    	ProductMain.setCreator(ShiroSessionUtil.getLoginSession().getId());
-   	    ProductMain.setCreateTime(new Date());
-   	    ProductMain.setT_Product_ID(Tool.uuid());
-    	ProductMain.setT_Product_SysupdateDate(new Date());
+        ProductMain.setCreator(ShiroSessionUtil.getLoginSession().getId());
+        ProductMain.setCreate_time(new Date());
+        ProductMain.setT_Product_ID(Tool.uuid());
+        ProductMain.setT_Product_SysupdateDate(new Date());
     	ProductMainService.insertSelective(ProductMain);
         return JsonBizTool.genJson(ExRetEnum.SUCCESS);
     }
@@ -150,8 +149,8 @@ public class ProductMainController {
     @ResponseBody
     public String editProductMain(ProductMain ProductMain, HttpServletRequest request,
             HttpServletResponse response, Model model) {
-    	ProductMain.setModifier(ShiroSessionUtil.getLoginSession().getId());
-    	ProductMain.setModifyTime(new Date());
+        ProductMain.setModifier(ShiroSessionUtil.getLoginSession().getId());
+        ProductMain.setModifyTime(new Date());
     	ProductMainService.updateByPrimaryKeySelective(ProductMain);
         return JsonBizTool.genJson(ExRetEnum.SUCCESS);
     }   
