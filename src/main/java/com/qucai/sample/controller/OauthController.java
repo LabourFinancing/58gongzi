@@ -136,12 +136,12 @@ public class OauthController {
         新用户注册 node发起注册 开通钱包 支付时要求绑定卡
          */
         //http://localhost:8080/sample/oauthController/login?method=NewUser&facialret=$&pid=$&phone=&realName=$
-        //http://localhost:8080/sample/oauthController/login?method=NewUser&facialret=0&pid=31011519830805251X&phone=18001869161
+        //http://localhost:8080/sample/oauthController/login?method=NewUser&facialret=0&pid=31011519830805251X&phone=18001869161&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475
         if(method!=null&&method.equalsIgnoreCase("NewUser")){
             Map<String, Object> rs = new HashMap<String, Object>();
 
             PersonalMainController personalMainController = new PersonalMainController();
-            String RetNewUserPersonalMain = personalMainController.addMobilePersonalMain(pid,phone,facialret);
+            String RetNewUserPersonalMain = personalMainController.addMobilePersonalMain(personalMID,pid,phone,facialret);
             rs.put("RetNewUserPersonalMain",RetNewUserPersonalMain);
             if(RetNewUserPersonalMain.equalsIgnoreCase("succ")){
                 EwalletController ewalletController = new EwalletController();

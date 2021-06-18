@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
 public class DBConnection {
     private static String driver = "com.mysql.jdbc.Driver";
     private static String url = "jdbc:mysql://39.97.176.13:3306/gognzi?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&useSSL=true";
@@ -31,7 +32,7 @@ public class DBConnection {
         return conn;
     }
 
-    public static void closeDB(Connection conn, PreparedStatement pstm,
+    public static void closeDB(Connection conn, PreparedStatement ptmt,
                                ResultSet rs) {
         if (rs != null) {
             try {
@@ -42,9 +43,9 @@ public class DBConnection {
             }
         }
 
-        if (pstm != null) {
+        if (ptmt != null) {
             try {
-                pstm.close();
+                ptmt.close();
             } catch (SQLException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
