@@ -66,7 +66,7 @@ public class OauthController {
             return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
         }
         
-        //支付调用
+        //支付测试调用
 //        if(method!=null&&method.equals("QRcode")&&pid!=null&&userName!=null&&paymentchannel!=null&&mode!=null){
         if(method!=null&&method.equals("QRcode")){
             Map<String, Object> rs = new HashMap<String, Object>();
@@ -79,7 +79,7 @@ public class OauthController {
             return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
         }
 
-        //支付返回
+        //支付测试返回
         if(method!=null&&method.equals("QRScanRet")&&pid!=null&&userName!=null&&paymentchannel!=null&&mode!=null){
             Map<String, Object> rs = new HashMap<String, Object>();
             String merchantId = "S2135052";
@@ -130,9 +130,29 @@ public class OauthController {
          * Mobile APP 调用个人交易 移动端交易首页二维码扫一扫交易
          ************************************************************************************************************************
          */
+        //http://localhost:8080/sample/oauthController/login?method=58scan-txn-58qr&action=transaction&page=mobilepay
         //个人收付款58-58  ( payee - 58,receiver - 58 )
-        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("58scan-txn-58qr")&&action.equalsIgnoreCase("beneficiary")){
+        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("58scan-txn-58qr")&&action.equalsIgnoreCase("transaction")){
             Map<String, Object> rs = new HashMap<String, Object>();
+            String[] txnMethod = method.split("-");
+            for(int i=0;i<txnMethod.length;i++){
+                switch (i) {
+                    case 0 : System.out.println("Payee:");
+                    case 1 : System.out.println("txn:");
+                    case 2 : System.out.println("Receiver:");
+                }
+                System.out.print(txnMethod[i]);
+            }
+            // general treasury mgt
+            // personal treasury mgt
+            // personal ewallet and personal evaluation
+            // transaction address
+            // 3rd party payment interface
+            // ret checking personal ewallet repo and personal revaluation
+            // buffer checking
+            System.out.println(txnMethod[0]);
+            txnMethod[1].equalsIgnoreCase("58scan");
+            txnMethod[3].equalsIgnoreCase("58qr");
             ewalletTxn.setT_WalletTxn_TotTxnAmount(new BigDecimal(10.00));
             ewalletTxn.setT_WalletTxn_ID(Tool.PayId());
             ewalletTxn.setT_WalletTxn_PayerPID("31011598308052521X");
@@ -149,7 +169,7 @@ public class OauthController {
         
         //个人收付款58-wechat
         //个人收付款58qr-wechatscan/alipayscan/unionpayscan ( payee - 58,receiver-wechat )
-        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("58qr-txn-wechatscan")&&action.equalsIgnoreCase("beneficiary")){
+        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("58qr-txn-wechatscan")&&action.equalsIgnoreCase("transaction")){
             Map<String, Object> rs = new HashMap<String, Object>();
             ewalletTxn.setT_WalletTxn_TotTxnAmount(new BigDecimal(10.00));
             ewalletTxn.setT_WalletTxn_ID(Tool.PayId());
@@ -165,7 +185,7 @@ public class OauthController {
             return "redirect:/EwalletTXNcontroller/personalEWTTxnMobile";
         }
         //个人收付款58scan-wechatqr/aliqr/unionpayqr    ( payee - 58,receiver-wechat )
-        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("58scan-txn-wechatqr")&&action.equalsIgnoreCase("beneficiary")){
+        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("58scan-txn-wechatqr")&&action.equalsIgnoreCase("transaction")){
             Map<String, Object> rs = new HashMap<String, Object>();
             ewalletTxn.setT_WalletTxn_TotTxnAmount(new BigDecimal(10.00));
             ewalletTxn.setT_WalletTxn_ID(Tool.PayId());
@@ -181,7 +201,7 @@ public class OauthController {
             return "redirect:/EwalletTXNcontroller/personalEWTTxnMobile";
         }
         //个人收付款wechatqr/aliqr/unionpayqr-58  ( payee - wechat,receiver-58 )
-        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("wechatqr-txn-58scan")&&action.equalsIgnoreCase("beneficiary")){
+        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("wechatqr-txn-58scan")&&action.equalsIgnoreCase("transaction")){
             Map<String, Object> rs = new HashMap<String, Object>();
             ewalletTxn.setT_WalletTxn_TotTxnAmount(new BigDecimal(10.00));
             ewalletTxn.setT_WalletTxn_ID(Tool.PayId());
@@ -197,7 +217,7 @@ public class OauthController {
             return "redirect:/EwalletTXNcontroller/personalEWTTxnMobile";
         }
         //个人收付款wechatscan/alipayscan/unionpayscan-58qr  ( payee - wechat,receiver-58 )
-        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("wechatscan-txn-58qr")&&action.equalsIgnoreCase("beneficiary")){
+        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("wechatscan-txn-58qr")&&action.equalsIgnoreCase("transaction")){
             Map<String, Object> rs = new HashMap<String, Object>();
             ewalletTxn.setT_WalletTxn_TotTxnAmount(new BigDecimal(10.00));
             ewalletTxn.setT_WalletTxn_ID(Tool.PayId());
@@ -259,7 +279,7 @@ public class OauthController {
         }
         
         //个人充值
-        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewalletTXN")&&action.equalsIgnoreCase("topup")){
+        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewallettoup")&&action.equalsIgnoreCase("topup")){
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
