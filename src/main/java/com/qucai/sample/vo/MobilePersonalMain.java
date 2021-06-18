@@ -73,6 +73,6 @@ public class MobilePersonalMain implements Serializable {
     private String t_mobilePersonalMain_productCat;
 
     private String t_mobilePersonalMain_prodlist;
-
-
+    
+    
 }

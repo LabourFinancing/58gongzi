@@ -132,4 +132,10 @@ public class MobileEwalletTXN implements Serializable {
 
     private String t_mobileWalletTxn_Txt5;
 
+    private Date txn_current_time; //
+
+    private Boolean txn_sendpayment_succ;
+
+    private Boolean txn_ret_data;
+
 }

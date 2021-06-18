@@ -1,6 +1,7 @@
 package com.qucai.sample.controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,9 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSONObject;
-import com.qucai.sample.entity.EwalletTxn;
-import com.qucai.sample.entity.StaffPrepayApplicationPayment;
+import com.qucai.sample.entity.*;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo.OrderCreateDemo;
+import com.qucai.sample.service.PersonalMainService;
+import com.qucai.sample.service.PersonalTreasuryCtrlService;
+import com.qucai.sample.service.ProductMainService;
 import com.qucai.sample.util.Tool;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.shiro.SecurityUtils;
@@ -22,7 +25,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.qucai.sample.entity.Manager;
 import com.qucai.sample.exception.ExRetEnum;
 import com.qucai.sample.security.CaptchaUsernamePasswordToken;
 import com.qucai.sample.service.ManagerService;
@@ -38,6 +40,10 @@ public class OauthController {
 
     @Autowired
     private ManagerService managerService;
+
+    @Autowired
+    private PersonalMainService personalMainService;
+    
 
     @RequestMapping("/login")
     @ResponseBody
@@ -124,8 +130,91 @@ public class OauthController {
          * Mobile APP 调用个人交易 移动端交易首页二维码扫一扫交易
          ************************************************************************************************************************
          */
-        //个人收款
-        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewalletTXN")&&action.equalsIgnoreCase("beneficiary")){
+        //个人收付款58-58  ( payee - 58,receiver - 58 )
+        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("58scan-txn-58qr")&&action.equalsIgnoreCase("beneficiary")){
+            Map<String, Object> rs = new HashMap<String, Object>();
+            ewalletTxn.setT_WalletTxn_TotTxnAmount(new BigDecimal(10.00));
+            ewalletTxn.setT_WalletTxn_ID(Tool.PayId());
+            ewalletTxn.setT_WalletTxn_PayerPID("31011598308052521X");
+            ewalletTxn.setT_WalletTxn_ReceiverID("430528198502043837");
+            
+            System.out.print(ewalletTxn);
+            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
+                System.out.println("调用个人消费成功");
+                rs.put("SMSverify",0);
+            }
+            return "redirect:/EwalletTXNcontroller/personalEWTTxnMobile";
+        }
+        
+        //个人收付款58-wechat
+        //个人收付款58qr-wechatscan/alipayscan/unionpayscan ( payee - 58,receiver-wechat )
+        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("58qr-txn-wechatscan")&&action.equalsIgnoreCase("beneficiary")){
+            Map<String, Object> rs = new HashMap<String, Object>();
+            ewalletTxn.setT_WalletTxn_TotTxnAmount(new BigDecimal(10.00));
+            ewalletTxn.setT_WalletTxn_ID(Tool.PayId());
+            ewalletTxn.setT_WalletTxn_PayerPID(pid);
+            ewalletTxn.setT_WalletTxn_ReceiverID("430528198502043837");
+
+            System.out.print(ewalletTxn);
+            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
+                System.out.println("调用个人消费成功");
+                rs.put("SMSverify",0);
+            }
+            return "redirect:/EwalletTXNcontroller/personalEWTTxnMobile";
+        }
+        //个人收付款58scan-wechatqr/aliqr/unionpayqr    ( payee - 58,receiver-wechat )
+        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("58scan-txn-wechatqr")&&action.equalsIgnoreCase("beneficiary")){
+            Map<String, Object> rs = new HashMap<String, Object>();
+            ewalletTxn.setT_WalletTxn_TotTxnAmount(new BigDecimal(10.00));
+            ewalletTxn.setT_WalletTxn_ID(Tool.PayId());
+            ewalletTxn.setT_WalletTxn_PayerPID(pid);
+            ewalletTxn.setT_WalletTxn_ReceiverID("430528198502043837");
+
+            System.out.print(ewalletTxn);
+            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
+                System.out.println("调用个人消费成功");
+                rs.put("SMSverify",0);
+            }
+            return "redirect:/EwalletTXNcontroller/personalEWTTxnMobile";
+        }
+        //个人收付款wechatqr/aliqr/unionpayqr-58  ( payee - wechat,receiver-58 )
+        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("wechatqr-txn-58scan")&&action.equalsIgnoreCase("beneficiary")){
+            Map<String, Object> rs = new HashMap<String, Object>();
+            ewalletTxn.setT_WalletTxn_TotTxnAmount(new BigDecimal(10.00));
+            ewalletTxn.setT_WalletTxn_ID(Tool.PayId());
+            ewalletTxn.setT_WalletTxn_PayerPID(pid);
+            ewalletTxn.setT_WalletTxn_ReceiverID("430528198502043837");
+
+            System.out.print(ewalletTxn);
+            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
+                System.out.println("调用个人消费成功");
+                rs.put("SMSverify",0);
+            }
+            return "redirect:/EwalletTXNcontroller/personalEWTTxnMobile";
+        }
+        //个人收付款wechatscan/alipayscan/unionpayscan-58qr  ( payee - wechat,receiver-58 )
+        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("wechatscan-txn-58qr")&&action.equalsIgnoreCase("beneficiary")){
+            Map<String, Object> rs = new HashMap<String, Object>();
+            ewalletTxn.setT_WalletTxn_TotTxnAmount(new BigDecimal(10.00));
+            ewalletTxn.setT_WalletTxn_ID(Tool.PayId());
+            ewalletTxn.setT_WalletTxn_PayerPID(pid);
+            ewalletTxn.setT_WalletTxn_ReceiverID("430528198502043837");
+
+            System.out.print(ewalletTxn);
+            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
+                System.out.println("调用个人消费成功");
+                rs.put("SMSverify",0);
+            }
+            return "redirect:/EwalletTXNcontroller/personalEWTTxnMobile";
+        }
+        
+        //个人消费  ( payee - 58,payee representer- GFwechat )
+        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("scan-shopping-58qr")&&action.equalsIgnoreCase("payee")){
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
@@ -134,8 +223,8 @@ public class OauthController {
             }
             return "redirect:/EwalletTXNcontroller/personalEWTTxnMobile";
         }
-        //个人付款
-        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewalletTXN")&&action.equalsIgnoreCase("payee")){
+        // ( payee - 58,payee representer- GFwechat )
+        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("58scan-shopping-qr")&&action.equalsIgnoreCase("payee")){
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
@@ -144,6 +233,8 @@ public class OauthController {
             }
             return "redirect:/EwalletTXNcontroller/personalEWTTxnMobile";
         }
+        
+        /*
         //个人消费
         if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewalletTXN")&&action.equalsIgnoreCase("shopping")){
             Map<String, Object> rs = new HashMap<String, Object>();
@@ -154,8 +245,10 @@ public class OauthController {
             }
             return "redirect:/EwalletTXNcontroller/personalEWTTxnMobile";
         }
+        */
+        
         //个人支付渠道切换
-        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewalletTXN")&&action.equalsIgnoreCase("paymentswitch")){
+        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("personalpymtswitch")&&action.equalsIgnoreCase("paymentswitch")){
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
@@ -164,6 +257,7 @@ public class OauthController {
             }
             return "redirect:/EwalletTXNcontroller/personalEWTTxnMobile";
         }
+        
         //个人充值
         if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewalletTXN")&&action.equalsIgnoreCase("topup")){
             Map<String, Object> rs = new HashMap<String, Object>();
@@ -206,6 +300,9 @@ public class OauthController {
         if( method!=null&&page.equalsIgnoreCase("mobilehome")&&method.equals("ewalletdashboard")&&action.equalsIgnoreCase("topup")){
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+            ewalletTxn.setT_WalletTxn_TotTxnAmount(new BigDecimal(10.00));
+            ewalletTxn.setT_WalletTxn_ID(Tool.PayId());
+            ewalletTxn.setT_WalletTxn_ReceiverID("430528198502043837");
             if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
                 System.out.println("调用钱包成功");
                 rs.put("SMSverify",0);
