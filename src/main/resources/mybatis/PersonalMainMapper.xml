@@ -89,8 +89,15 @@
 		select
 		<include refid="Base_Column_List" />
 		from t_personal_main a
-		where a.t_personal_main_id = #{t_personal_main_id,jdbcType=VARCHAR}
-		order by a.create_time
+		where 
+		1=1
+        <if test="t_personal_main_id != null">
+		   or a.t_personal_main_id = #{t_personal_main_id,jdbcType=VARCHAR}
+        </if>
+        <if test="pid != null">
+           or a.t_personal_main_pid = #{pid,jdbcType=VARCHAR}
+        </if>
+        order by a.create_time
 	</select>
 	
 	<select id="findSearchList" resultMap="BaseResultMap"
@@ -509,6 +516,9 @@
 			</if>
 		</set>
 		where t_personal_main_id = #{t_personal_main_id,jdbcType=VARCHAR}
+        <if test="pid != null">
+            and a.t_personal_main_pid != #{pid}
+        </if>
 	</update>
 
    <select id="existPersonalMainName" resultType="Integer"

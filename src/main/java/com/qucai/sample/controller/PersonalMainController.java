@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.qucai.sample.util.DBConnection;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +27,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 @Controller
 @RequestMapping(value = "/PersonalMainController")
@@ -57,7 +63,8 @@ public class PersonalMainController {
                             String t_personal_main_securityret,String t_personal_main_passport,HttpServletRequest request,Model model) {
         PersonalMain entity = null;
         t_personal_main_name = ShiroSessionUtil.getLoginSession().getCompany_name().trim();
-        t_personal_main_pid = ShiroSessionUtil.getLoginSession().getCompany_name().trim(); 
+        t_personal_main_pid = ShiroSessionUtil.getLoginSession().getCompany_name().trim();
+        String pid = ShiroSessionUtil.getLoginSession().getCompany_name().trim();
 //    	 if (AgencyOrgnization.getT_O_listOrg().equals("off")){
 //    		t_P_Company = ShiroSessionUtil.getLoginSession().getCompany_name().trim();
 //            t_P_VendorEmployeeName = null;
@@ -66,7 +73,7 @@ public class PersonalMainController {
 //    		t_P_VendorEmployeeName = ShiroSessionUtil.getLoginSession().getCompany_name().trim();
 //    	 }
         if (StringUtils.isNotBlank(t_personal_main_id)) {
-               entity = personalMainService.selectByPrimaryKey(t_personal_main_id);//用PersonalMainService对象属性方法去调用t_FProd_ID并返回
+               entity = personalMainService.selectByPrimaryKey(t_personal_main_id,pid);//用PersonalMainService对象属性方法去调用t_FProd_ID并返回
                return entity;
         }
         if (entity == null) {
@@ -223,7 +230,7 @@ public class PersonalMainController {
 
     @RequestMapping(value = "form")
     public String form(PersonalMain personalMain,OrganizationInfo organizationInfo,String t_personal_main_id, String operationType, Integer platform, 
-            HttpServletRequest request, HttpServletResponse response,String t_P_Company,
+            HttpServletRequest request, HttpServletResponse response,String t_P_Company,String pid,
             Model model) {
        	  model.addAttribute("platform", platform);
           Map<String, Object> paramMap = new HashMap<String, Object>();// 申明一个新对象
@@ -278,13 +285,13 @@ public class PersonalMainController {
             	 model.addAttribute("OrganizationInfo", OrganizationInfo);
             	 model.addAttribute("OrganizationInfoAgency", OrganizationInfoAgency);
              }
-            personalMain = personalMainService.selectByPrimaryKey(t_personal_main_id);
+            personalMain = personalMainService.selectByPrimaryKey(t_personal_main_id,pid);
             return "personalMain/personalMainEditForm";
           } else if (OperationTypeConstant.EDITCREDITBALANCE.equals(operationType)) {
-            personalMain = personalMainService.selectByPrimaryKey(t_personal_main_id);
+            personalMain = personalMainService.selectByPrimaryKey(t_personal_main_id,pid);
             return "personalMain/personalMainEditCredit";
           } else if (OperationTypeConstant.VIEW.equals(operationType)) {
-        	personalMain = personalMainService.selectByPrimaryKey(t_personal_main_id);
+        	personalMain = personalMainService.selectByPrimaryKey(t_personal_main_id,pid);
             return "personalMain/personalMainViewForm";
           } else if (OperationTypeConstant.VERIFY.equals(operationType)) {
               return "personalMain/personalMainVerifyList";	
@@ -319,9 +326,9 @@ public class PersonalMainController {
     }
 
     @RequestMapping(value = "creditRefreshPersonalMain")
-    public String creditRefreshPersonalMain(String t_personal_main_id, Integer platform, HttpServletRequest request,
+    public String creditRefreshPersonalMain(String t_personal_main_id, Integer platform, HttpServletRequest request,String pid,
             HttpServletResponse response, Model model) {
-    	PersonalMain personalMain = personalMainService.selectByPrimaryKey(t_personal_main_id);
+    	PersonalMain personalMain = personalMainService.selectByPrimaryKey(t_personal_main_id,pid);
     	String t_Txn_PrepayApplierName = personalMain.getT_personal_main_realname();
     	String t_Txn_PrepayApplierPID = personalMain.getT_personal_main_pid();
     	String t_Txn_Paystatus = personalMain.getT_personal_main_mobile();
@@ -337,14 +344,15 @@ public class PersonalMainController {
             HttpServletResponse response, Model model) {
     	personalMain.setModifier(ShiroSessionUtil.getLoginSession().getId());
     	personalMain.setModify_time(new Date());
-    	personalMainService.updateByPrimaryKeySelective(personalMain);
+    	String pid = personalMain.getT_personal_main_pid();
+    	personalMainService.updateByPrimaryKeySelective(personalMain,pid);
         return JsonBizTool.genJson(ExRetEnum.SUCCESS);
     }
 
     @RequestMapping(value = "editCreditBalance")
     @ResponseBody
-    public String editCreditBalance(PersonalMain personalMain, HttpServletRequest request,String t_personal_main_mobile,BigDecimal t_P_NetMonthlyBonusAmount,
-            HttpServletResponse response, Model model) {
+    public String editCreditBalance( HttpServletRequest request, HttpServletResponse response, 
+                                     PersonalMain personalMain,String t_personal_main_mobile,BigDecimal t_P_NetMonthlyBonusAmount, Model model) {
     	personalMain.setModifier(ShiroSessionUtil.getLoginSession().getId());
     	personalMain.setModify_time(new Date());
     	String OrderCodeUpdate = null;
@@ -401,4 +409,46 @@ public class PersonalMainController {
 
         return RetMobilePay;
     }
+
+    /*
+移动端个人新注册
+ */
+    public String addMobilePersonalMain(String pid,String phone,String facialret) throws SQLException {
+        String ewallet = "58ewallet";
+        PersonalMain personalMain = null;
+//        personalMain.setT_personal_main_paymentmethod(ewallet);
+        DBConnection dao = new DBConnection();
+        Connection conn = dao.getConnection();
+        String userid = Tool.uuid();
+        String sql="insert into t_personal_main(t_personal_main_id,t_personal_main_name,t_personal_main_pid,t_personal_main_mobile) values(?,?,?,?)";
+        try {
+            PreparedStatement ptmt=conn.prepareStatement(sql);
+            ptmt.setString(1,userid);
+            ptmt.setString(2,facialret);
+            ptmt.setString(3,pid);
+            ptmt.setString(4,phone);
+            ptmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            conn.close();
+        }
+
+//        personalMain.setT_personal_main_id(Tool.uuid());
+//        personalMain.setT_personal_main_facialret(facialret);
+//        personalMain.setModifier(ShiroSessionUtil.getLoginSession().getId());
+//        personalMain.setModify_time(new Date());
+//        String OrderCodeUpdate = null;
+//        BigDecimal CreditBalanceAmtRefund = null;
+        int rs = 0;
+        String RetNewUserPersonalMain = null;
+        if (rs == 1){
+            RetNewUserPersonalMain =  "succ";
+        }
+        String paymentmethod = "debitcard";
+        String retPersonalMainController = "debitcard";
+
+        return RetNewUserPersonalMain;
+    }
+    
 }

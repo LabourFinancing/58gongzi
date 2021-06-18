@@ -85,7 +85,7 @@ public class PersonalTreasuryCtrl implements Serializable {
 
     private String t_personalewallet_treasuryctrlTxt;
 
-    private String t_personalewallet_treasuryctrlTxt1;
+    private String t_personalewallet_treasuryctrlCashbackStat;
 
     private String t_personalewallet_treasuryctrlTxt2;
 
@@ -381,12 +381,12 @@ public class PersonalTreasuryCtrl implements Serializable {
         this.t_personalewallet_treasuryctrlTxt = t_personalewallet_treasuryctrlTxt;
     }
 
-    public String getT_personalewallet_treasuryctrlTxt1() {
-        return t_personalewallet_treasuryctrlTxt1;
+    public String gett_personalewallet_treasuryctrlCashbackStat() {
+        return t_personalewallet_treasuryctrlCashbackStat;
     }
 
-    public void setT_personalewallet_treasuryctrlTxt1(String t_personalewallet_treasuryctrlTxt1) {
-        this.t_personalewallet_treasuryctrlTxt1 = t_personalewallet_treasuryctrlTxt1;
+    public void sett_personalewallet_treasuryctrlCashbackStat(String t_personalewallet_treasuryctrlCashbackStat) {
+        this.t_personalewallet_treasuryctrlCashbackStat = t_personalewallet_treasuryctrlCashbackStat;
     }
 
     public String getT_personalewallet_treasuryctrlTxt2() {

@@ -12,9 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.alibaba.fastjson.JSONObject;
 import com.qucai.sample.entity.*;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo.OrderCreateDemo;
-import com.qucai.sample.service.PersonalMainService;
-import com.qucai.sample.service.PersonalTreasuryCtrlService;
-import com.qucai.sample.service.ProductMainService;
+import com.qucai.sample.service.*;
 import com.qucai.sample.util.Tool;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.shiro.SecurityUtils;
@@ -22,12 +20,12 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.qucai.sample.exception.ExRetEnum;
 import com.qucai.sample.security.CaptchaUsernamePasswordToken;
-import com.qucai.sample.service.ManagerService;
 import com.qucai.sample.smss.src.example.json.HttpJsonExample;
 import com.qucai.sample.util.JsonBizTool;
 
@@ -43,12 +41,21 @@ public class OauthController {
 
     @Autowired
     private PersonalMainService personalMainService;
-    
+
+    @Autowired
+    private RoleService roleService;
+
+    @Autowired
+    private OrganizationInfoService organizationInfoService; //申明一个对象
+
+    @Autowired
+    private PersonalInfoBatchUploadService personalInfoBatchUploadService;
+
 
     @RequestMapping("/login")
     @ResponseBody
-    public Object login(HttpServletRequest request, HttpServletResponse response,String facialret,String txnAmount,
-                        String walletTxn_PayerPID,String walletTxn_ReceiverID, String PaymentChannel, String TopupAmount,
+    public Object login(HttpServletRequest request, HttpServletResponse response,String facialret,String txnAmount,String personalMID,
+                        String walletTxn_PayerPID,String walletTxn_ReceiverID, String PaymentChannel, String TopupAmount,String realName,
                         String userName, String pid, String password, String page, String remember, String paymentchannel, String action,
                         String mode, String gid, String method, String phone, String host,
                         String SMSsendcode, String SMSstrret, String type, String API) throws Exception {
@@ -66,7 +73,7 @@ public class OauthController {
             rs.put("QRcodeinit", QRcodeinit);
             return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
         }
-        
+
         //支付测试调用
 //        if(method!=null&&method.equals("QRcode")&&pid!=null&&userName!=null&&paymentchannel!=null&&mode!=null){
         if(method!=null&&method.equals("QRcode")){
@@ -90,7 +97,7 @@ public class OauthController {
             rs.put("QRcodeinit", QRcodeinit);
             return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
         }
-        
+
         if( method!=null&&method.equals("SMSreq")){
             byte[] SMSstr;
             Map<String, Object> rs = new HashMap<String, Object>();
@@ -110,7 +117,7 @@ public class OauthController {
             }
             return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
         }
-        
+
         if( method!=null&&method.equals("SMSverify")&&SMSsendcode!=null&&SMSstrret!=null){
             String SMSgetstringseq = Tool.StringSeq(SMSstrret);
             Map<String, Object> rs = new HashMap<String, Object>();
@@ -128,20 +135,30 @@ public class OauthController {
         /*
         新用户注册 node发起注册 开通钱包 支付时要求绑定卡
          */
-        //http://localhost:8080/sample/oauthController/login?method=NewUser&facialret=$&pid=$&phone=$
+        //http://localhost:8080/sample/oauthController/login?method=NewUser&facialret=$&pid=$&phone=&realName=$
+        //http://localhost:8080/sample/oauthController/login?method=NewUser&facialret=0&pid=31011519830805251X&phone=18001869161
         if(method!=null&&method.equalsIgnoreCase("NewUser")){
             Map<String, Object> rs = new HashMap<String, Object>();
-            //personalMain
-            //ewallet
-            //productMain bind
-            //personalTreasury bind
-            //
-            String merchantId = "S2135052";
-            StaffPrepayApplicationPayment staffPrepayApplicationPay = null;
-            JSONObject resp = OrderCreateDemo.main(staffPrepayApplicationPay,merchantId);
-            String QRcodeinit = resp.getString("qrCode");
-            rs.put("QRcodeinit", QRcodeinit);
-            return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
+
+            PersonalMainController personalMainController = new PersonalMainController();
+            String RetNewUserPersonalMain = personalMainController.addMobilePersonalMain(pid,phone,facialret);
+            rs.put("RetNewUserPersonalMain",RetNewUserPersonalMain);
+            if(RetNewUserPersonalMain.equalsIgnoreCase("succ")){
+                EwalletController ewalletController = new EwalletController();
+                Ewallet ewallet = null;
+                ewallet.setT_personalewallet_TotCNYBalance(new BigDecimal("0.00"));
+                ewallet.setT_personalewallet_ID(Tool.uuid());
+                String RetNewUserEwallet = ewalletController.addMobileEwallet(ewallet);
+                rs.put("RetNewUserEwallet",RetNewUserEwallet);
+                if(RetNewUserEwallet.equals(0)){
+                    return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
+                }else {
+                    return JsonBizTool.genJson(ExRetEnum.FAIL, rs);
+                }
+            }else{
+                return JsonBizTool.genJson(ExRetEnum.FAIL, rs);
+            }
+
         }
 
         /*
@@ -160,11 +177,11 @@ public class OauthController {
             for(int i=0;i < txnMethod.length;i++){
                 switch (i) {
                     case 0 : System.out.println("Payee:");
-                    break;
+                        break;
                     case 1 : System.out.println("txn:");
-                    break;
+                        break;
                     case 2 : System.out.println("Receiver:");
-                    break;
+                        break;
                 }
                 System.out.print(txnMethod[i]);
             }
@@ -190,8 +207,8 @@ public class OauthController {
             // ret checking personal ewallet repo and personal revaluation
             // buffer checking
             PersonalMainController personalMainController =  new PersonalMainController();
-            String retPersonalMainController = personalMainController.personalMMobiledashboard(ewalletTxn);
-            
+//            String retPersonalMainController = personalMainController.creditRefreshPersonalMain(t_personal_main_id);
+
             System.out.print(ewalletTxn);
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
@@ -200,7 +217,7 @@ public class OauthController {
             }
             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
         }
-        
+
         //个人收付款58-wechat
         //个人收付款58qr-wechatscan/alipayscan/unionpayscan ( payee - 58,receiver-wechat )
         if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("58qr-txn-wechatscan")&&action.equalsIgnoreCase("transaction")){
@@ -270,7 +287,7 @@ public class OauthController {
             }
             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
         }
-        
+
         //个人消费  ( payee - 58,payee representer- GFwechat )
         if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("scan-shopping-58qr")&&action.equalsIgnoreCase("payee")){
             Map<String, Object> rs = new HashMap<String, Object>();
@@ -317,12 +334,12 @@ public class OauthController {
             ewallet.sett_personalewallet_AccCat(PaymentChannel);
             PersonalMainController personalMainController =  new PersonalMainController();
             EwalletController ewalletController =  new EwalletController();
-            String retPaymentSwitch = ewalletController.mobileewallet(ewallet);
+            String retPaymentSwitch = ewalletController.ewalletList(ewallet);
             String retPersonalMainController = personalMainController.personalMMobiledashboard(ewalletTxn);
 
             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
         }
-        
+
         //个人充值
         //个人支付渠道切换 http://localhost:8080/sample/oauthController/login?method=ewallettoup&action=topup&page=mobilepay&TopupAmount=$
         if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewallettoup")&&action.equalsIgnoreCase("topup")){
@@ -335,13 +352,13 @@ public class OauthController {
             }
             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
         }
-        
+
         /*
-        ************************************************ Mobilehome begin 移动端首页开始 ************************************
-        * wealthmgt,voucher,topup,   58gongzi  ---1st version 
-        * blockchain , supplychian    wo-bank  ---2nd version
-        * 钱包管理
-        *******************************************************************************************************************
+         ************************************************ Mobilehome begin 移动端首页开始 ************************************
+         * wealthmgt,voucher,topup,   58gongzi  ---1st version
+         * blockchain , supplychian    wo-bank  ---2nd version
+         * 钱包管理
+         *******************************************************************************************************************
          */
         //财富管理 wealthmgt
         if( method!=null&&page.equalsIgnoreCase("mobilehome")&&method.equals("ewalletdashboard")&&action.equalsIgnoreCase("wealthmgt")){
@@ -415,9 +432,9 @@ public class OauthController {
             }
             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
         }
-        
-        
-        
+
+
+
         if (type.equals("resendPWD")) {
             token.setRememberMe(true);
             Manager entity = null;

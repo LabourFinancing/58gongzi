@@ -36,13 +36,13 @@ public class PersonalMainServiceImpl implements PersonalMainService {
         return personalMainDao.insertSelective(record);
     }
 
-    public PersonalMain selectByPrimaryKey(String t_personal_main_id) {
-        return personalMainDao.selectByPrimaryKey(t_personal_main_id);
+    public PersonalMain selectByPrimaryKey(String t_personal_main_id,String pid) {
+        return personalMainDao.selectByPrimaryKey(t_personal_main_id,pid);
     }
 
     @Override
-    public int updateByPrimaryKeySelective(PersonalMain record) {
-        return personalMainDao.updateByPrimaryKeySelective(record);
+    public int updateByPrimaryKeySelective(PersonalMain record,String pid) {
+        return personalMainDao.updateByPrimaryKeySelective(record,pid);
     }
 //
 //    @Override

@@ -13,9 +13,9 @@ public interface PersonalMainDao {
 
     int insertSelective(PersonalMain record);
 
-    PersonalMain selectByPrimaryKey(String t_personal_main_id);
+    PersonalMain selectByPrimaryKey(String t_personal_main_id, String pid);
     
-    int updateByPrimaryKeySelective(PersonalMain record);
+    int updateByPrimaryKeySelective(PersonalMain record,String pid);
     
 //    FinanceProduct selectBySearch(String t_FProd_Name, Date create_time);
 //

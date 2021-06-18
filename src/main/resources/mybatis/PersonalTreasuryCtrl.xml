@@ -36,7 +36,7 @@
         <result column="t_personalewallet_treasuryctrlAccList" property="t_personalewallet_treasuryctrlAccList" jdbcType="DECIMAL" />
         <result column="t_personalewallet_treasuryctrlstatus" property="t_personalewallet_treasuryctrlstatus" jdbcType="VARCHAR" />
         <result column="t_personalewallet_treasuryctrlAccList" property="t_personalewallet_treasuryctrlAccList" jdbcType="VARCHAR" />
-        <result column="t_personalewallet_treasuryctrlTxt1" property="t_personalewallet_treasuryctrlTxt1" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_treasuryctrlCashbackStat" property="t_personalewallet_treasuryctrlCashbackStat" jdbcType="VARCHAR" />
         <result column="t_personalewallet_treasuryctrlTxt2" property="t_personalewallet_treasuryctrlTxt2" jdbcType="VARCHAR" />
         <result column="t_personalewallet_treasuryctrlTxt3" property="t_personalewallet_treasuryctrlTxt3" jdbcType="VARCHAR" />
         <result column="platform" property="platform" jdbcType="VARCHAR" />
@@ -82,7 +82,7 @@
         a.t_personalewallet_treasuryctrlAccList,
         a.t_personalewallet_treasuryctrlstatus,
         a.t_personalewallet_treasuryctrlAccList,
-        a.t_personalewallet_treasuryctrlTxt1,
+        a.t_personalewallet_treasuryctrlCashbackStat,
         a.t_personalewallet_treasuryctrlTxt2,
         a.t_personalewallet_treasuryctrlTxt3,
 		a.platform,
@@ -237,8 +237,8 @@
             <if test="t_personalewallet_treasuryctrlAccList != null">
                 t_personalewallet_treasuryctrlAccList,
             </if>
-            <if test="t_personalewallet_treasuryctrlTxt1 != null">
-                t_personalewallet_treasuryctrlTxt1,
+            <if test="t_personalewallet_treasuryctrlCashbackStat != null">
+                t_personalewallet_treasuryctrlCashbackStat,
             </if>
             <if test="t_personalewallet_treasuryctrlTxt2 != null">
                 t_personalewallet_treasuryctrlTxt2,
@@ -368,8 +368,8 @@
             <if test="t_personalewallet_treasuryctrlAccList != null">
                 #{t_personalewallet_treasuryctrlAccList,jdbcType=VARCHAR},
             </if>
-            <if test="t_personalewallet_treasuryctrlTxt1 != null">
-                #{t_personalewallet_treasuryctrlTxt1,jdbcType=VARCHAR},
+            <if test="t_personalewallet_treasuryctrlCashbackStat != null">
+                #{t_personalewallet_treasuryctrlCashbackStat,jdbcType=VARCHAR},
             </if>
             <if test="t_personalewallet_treasuryctrlTxt2 != null">
                 #{t_personalewallet_treasuryctrlTxt2,jdbcType=VARCHAR},
@@ -535,8 +535,8 @@
             <if test="t_personalewallet_treasuryctrlAccList != null">
                 t_personalewallet_treasuryctrlAccList = #{t_personalewallet_treasuryctrlAccList,jdbcType=VARCHAR},
             </if>
-            <if test="t_personalewallet_treasuryctrlTxt1 != null">
-                t_personalewallet_treasuryctrlTxt1 = #{t_personalewallet_treasuryctrlTxt1,jdbcType=VARCHAR},
+            <if test="t_personalewallet_treasuryctrlCashbackStat != null">
+                t_personalewallet_treasuryctrlCashbackStat = #{t_personalewallet_treasuryctrlCashbackStat,jdbcType=VARCHAR},
             </if>
             <if test="t_personalewallet_treasuryctrlTxt2 != null">
                 t_personalewallet_treasuryctrlTxt2 = #{t_personalewallet_treasuryctrlTxt2,jdbcType=VARCHAR},

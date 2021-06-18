@@ -14,7 +14,7 @@ public interface PersonalMainService {
 
     int insertSelective(PersonalMain record);
 
-    PersonalMain selectByPrimaryKey(String t_personal_main_id);
+    PersonalMain selectByPrimaryKey(String t_personal_main_id, String pid);
 //    
 //	int updateCompanyStaffsCreditOn(String t_TreasuryDB_OrgName_get);
 //	
@@ -25,7 +25,7 @@ public interface PersonalMainService {
     
 //    FinanceProduct selectBySearch(String t_FProd_Name, Date create_time);
 
-    int updateByPrimaryKeySelective(PersonalMain record);
+    int updateByPrimaryKeySelective(PersonalMain record,String pid);
     
     List<PersonalMain> findAllList(Map<String, Object> paramMap);
     

@@ -378,29 +378,24 @@ public class EwalletController {
  /*
     移动端我的模块
      */
-    public String mobileewallet(Ewallet ewallet) {
-        PersonalMain personalMain = null;
-        personalMain.setModifier(ShiroSessionUtil.getLoginSession().getId());
-        personalMain.setModify_time(new Date());
-        String RetMobilePay = null;
+    public String addMobileEwallet(Ewallet ewallet) {
+        ewallet.setModifier(ShiroSessionUtil.getLoginSession().getId());
+        ewallet.setModify_time(new Date());
+        ewallet.setT_personalewallet_TotCNYBalance(new BigDecimal("0.00"));
+        String RetEwalletNew = null;
         BigDecimal CreditBalanceAmtRefund = null;
-        StaffPrepayApplicationList staffPrepayApplicationCredit = staffPrepayApplicationService.findPrepayApplierCredit(RetMobilePay);
         int rs = 0;
+        rs = ewalletService.insertSelective(ewallet);
+        if (rs == 0){
+            RetEwalletNew =  "succ";  
+        }
         String paymentmethod = "debitcard";
         String retPersonalMainController = "debitcard";
-//        if(staffPrepayApplicationCredit != null){
-//	        staffPrepayApplicationCredit.setT_Txn_BalanceCreditNum(t_P_NetMonthlyBonusAmount);
-//	        staffPrepayApplicationCredit.setT_Txn_PrepayCounts(staffPrepayApplicationCredit.getT_Txn_CreditPrepayBalanceNum().intValue());
-//	        staffPrepayApplicationCredit.setT_Txn_CreditPrepayBalanceNum(t_P_NetMonthlyBonusAmount);
-//	         paymentmethod = "alipay";
-//	        OrderCodeUpdate = staffPrepayApplicationCredit.getT_Txn_Num();
-//	        rs = staffPrepayApplicationService.updateCreditBalanceAmt(CreditBalanceAmtRefund, OrderCodeUpdate);
-//        }else{
-//             paymentmethod = "wechatpay";
-//        	personalMain.setT_personal_main_paymentmethod(paymentmethod);
-//        	rs = personalMainService.updateByPrimaryKeySelective(personalMain);
-//        }
 
-        return RetMobilePay;
+        return RetEwalletNew;
+    }
+    public String ewalletList(Ewallet ewallet) {
+        System.out.print("succ");
+        return "succ";
     }
 }
