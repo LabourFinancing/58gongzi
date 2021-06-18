@@ -144,7 +144,7 @@ public class Ewallet implements Serializable {
 
     private BigDecimal t_personalewallet_bkp;
 
-    private BigDecimal t_personalewallet_AccCat;
+    private String t_personalewallet_AccCat;
 
     private String t_personalewallet_treasuryID;
 
@@ -652,11 +652,11 @@ public class Ewallet implements Serializable {
         this.t_personalewallet_bkp = t_personalewallet_bkp;
     }
 
-    public BigDecimal gett_personalewallet_AccCat() {
+    public String gett_personalewallet_AccCat() {
         return t_personalewallet_AccCat;
     }
 
-    public void sett_personalewallet_AccCat(BigDecimal t_personalewallet_AccCat) {
+    public void sett_personalewallet_AccCat(String t_personalewallet_AccCat) {
         this.t_personalewallet_AccCat = t_personalewallet_AccCat;
     }
 

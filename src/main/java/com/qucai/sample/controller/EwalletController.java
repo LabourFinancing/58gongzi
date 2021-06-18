@@ -3,12 +3,7 @@ package com.qucai.sample.controller;
 import com.github.pagehelper.PageInfo;
 import com.qucai.sample.OperationTypeConstant;
 import com.qucai.sample.common.PageParam;
-import com.qucai.sample.entity.FinanceProduct;
-import com.qucai.sample.entity.OrganizationInfo;
-import com.qucai.sample.entity.PersonalInfo;
-import com.qucai.sample.entity.Ewallet;
-import com.qucai.sample.entity.PersonalMain;
-import com.qucai.sample.entity.StaffPrepayApplicationList;
+import com.qucai.sample.entity.*;
 import com.qucai.sample.exception.ExRetEnum;
 import com.qucai.sample.service.*;
 import com.qucai.sample.util.JsonBizTool;
@@ -380,33 +375,32 @@ public class EwalletController {
     /*
     钱包首页 移动端首页
      */
-
-    @RequestMapping(value = "mobileewallet")
-    @ResponseBody
-    public String mobileewallet(Ewallet ewallet, HttpServletRequest request,String t_P_Mobil,BigDecimal t_P_NetMonthlyBonusAmount,
-                                    HttpServletResponse response, Model model) {
-        ewallet.setModifier(ShiroSessionUtil.getLoginSession().getId());
-        ewallet.setModify_time(new Date());
-        String OrderCodeUpdate = null;
+ /*
+    移动端我的模块
+     */
+    public String mobileewallet(Ewallet ewallet) {
+        PersonalMain personalMain = null;
+        personalMain.setModifier(ShiroSessionUtil.getLoginSession().getId());
+        personalMain.setModify_time(new Date());
+        String RetMobilePay = null;
         BigDecimal CreditBalanceAmtRefund = null;
-        StaffPrepayApplicationList staffPrepayApplicationCredit = staffPrepayApplicationService.findPrepayApplierCredit(t_P_Mobil);
+        StaffPrepayApplicationList staffPrepayApplicationCredit = staffPrepayApplicationService.findPrepayApplierCredit(RetMobilePay);
         int rs = 0;
-        if(staffPrepayApplicationCredit != null){
-            staffPrepayApplicationCredit.setT_Txn_BalanceCreditNum(t_P_NetMonthlyBonusAmount);
-            staffPrepayApplicationCredit.setT_Txn_PrepayCounts(staffPrepayApplicationCredit.getT_Txn_CreditPrepayBalanceNum().intValue());
-            staffPrepayApplicationCredit.setT_Txn_CreditPrepayBalanceNum(t_P_NetMonthlyBonusAmount);
-            CreditBalanceAmtRefund = t_P_NetMonthlyBonusAmount;
-            OrderCodeUpdate = staffPrepayApplicationCredit.getT_Txn_Num();
-            rs = staffPrepayApplicationService.updateCreditBalanceAmt(CreditBalanceAmtRefund, OrderCodeUpdate);
-        }else{
-            CreditBalanceAmtRefund = t_P_NetMonthlyBonusAmount;
-            ewallet.setT_personalewallet_TotCNYBalance(CreditBalanceAmtRefund);
-            rs = ewalletService.updateByPrimaryKeySelective(ewallet);
-        }
-        if(rs==1){
-            return JsonBizTool.genJson(ExRetEnum.SUCCESS);
-        }else{
-            return JsonBizTool.genJson(ExRetEnum.FAIL);
-        }
+        String paymentmethod = "debitcard";
+        String retPersonalMainController = "debitcard";
+//        if(staffPrepayApplicationCredit != null){
+//	        staffPrepayApplicationCredit.setT_Txn_BalanceCreditNum(t_P_NetMonthlyBonusAmount);
+//	        staffPrepayApplicationCredit.setT_Txn_PrepayCounts(staffPrepayApplicationCredit.getT_Txn_CreditPrepayBalanceNum().intValue());
+//	        staffPrepayApplicationCredit.setT_Txn_CreditPrepayBalanceNum(t_P_NetMonthlyBonusAmount);
+//	         paymentmethod = "alipay";
+//	        OrderCodeUpdate = staffPrepayApplicationCredit.getT_Txn_Num();
+//	        rs = staffPrepayApplicationService.updateCreditBalanceAmt(CreditBalanceAmtRefund, OrderCodeUpdate);
+//        }else{
+//             paymentmethod = "wechatpay";
+//        	personalMain.setT_personal_main_paymentmethod(paymentmethod);
+//        	rs = personalMainService.updateByPrimaryKeySelective(personalMain);
+//        }
+
+        return RetMobilePay;
     }
 }

@@ -3,11 +3,7 @@ package com.qucai.sample.controller;
 import com.github.pagehelper.PageInfo;
 import com.qucai.sample.OperationTypeConstant;
 import com.qucai.sample.common.PageParam;
-import com.qucai.sample.entity.FinanceProduct;
-import com.qucai.sample.entity.OrganizationInfo;
-import com.qucai.sample.entity.PersonalMain;
-import com.qucai.sample.entity.PersonalInfo;
-import com.qucai.sample.entity.StaffPrepayApplicationList;
+import com.qucai.sample.entity.*;
 import com.qucai.sample.exception.ExRetEnum;
 import com.qucai.sample.service.*;
 import com.qucai.sample.util.JsonBizTool;
@@ -53,8 +49,10 @@ public class PersonalMainController {
     private FinanceProductService financeProductService; //申明一个对象
 
     private Object OrganizationInfo;
+    
+    private String RetMobilePay;
 
-	@ModelAttribute
+    @ModelAttribute
     public PersonalMain get(@RequestParam(required = false) String t_personal_main_id,String t_personal_main_name,String t_personal_main_pid,String t_personal_main_mobile,
                             String t_personal_main_securityret,String t_personal_main_passport,HttpServletRequest request,Model model) {
         PersonalMain entity = null;
@@ -378,17 +376,16 @@ public class PersonalMainController {
     /*
     移动端我的模块
      */
-    @RequestMapping(value = "personalMMobiledashboard")
-    @ResponseBody
-    public String personalMMobiledashboard(PersonalMain personalMain, HttpServletRequest request,String t_personal_main_mobile,BigDecimal t_P_NetMonthlyBonusAmount,
-                                    HttpServletResponse response, Model model) {
+    public String personalMMobiledashboard(EwalletTxn ewalletTxn) {
+        PersonalMain personalMain = null;
         personalMain.setModifier(ShiroSessionUtil.getLoginSession().getId());
         personalMain.setModify_time(new Date());
         String OrderCodeUpdate = null;
         BigDecimal CreditBalanceAmtRefund = null;
-        StaffPrepayApplicationList staffPrepayApplicationCredit = staffPrepayApplicationService.findPrepayApplierCredit(t_personal_main_mobile);
+        StaffPrepayApplicationList staffPrepayApplicationCredit = staffPrepayApplicationService.findPrepayApplierCredit(OrderCodeUpdate);
         int rs = 0;
         String paymentmethod = "debitcard";
+        String retPersonalMainController = "debitcard";
 //        if(staffPrepayApplicationCredit != null){
 //	        staffPrepayApplicationCredit.setT_Txn_BalanceCreditNum(t_P_NetMonthlyBonusAmount);
 //	        staffPrepayApplicationCredit.setT_Txn_PrepayCounts(staffPrepayApplicationCredit.getT_Txn_CreditPrepayBalanceNum().intValue());
@@ -402,11 +399,6 @@ public class PersonalMainController {
 //        	rs = personalMainService.updateByPrimaryKeySelective(personalMain);
 //        }
 
-        if(rs==1){
-            return JsonBizTool.genJson(ExRetEnum.SUCCESS);
-        }else{
-            return JsonBizTool.genJson(ExRetEnum.FAIL);
-        }
+        return RetMobilePay;
     }
-    
 }
