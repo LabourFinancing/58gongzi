@@ -47,7 +47,8 @@ public class OauthController {
 
     @RequestMapping("/login")
     @ResponseBody
-    public Object login(HttpServletRequest request, HttpServletResponse response, EwalletTxn ewalletTxn, MobileEwalletDashboard ewalletDashboard, MobilePersonalMain mobilePersonalMain,
+    public Object login(HttpServletRequest request, HttpServletResponse response,String TxnAmount,String walletTxn_PayerPID,String walletTxn_ReceiverID,
+                        EwalletTxn ewalletTxn, MobileEwalletDashboard ewalletDashboard, MobilePersonalMain mobilePersonalMain,
                         String userName, String pid, String password, String page, String remember, String paymentchannel, String action,
                         String mode, String gid, String method, String phone, String host,
                         String SMSsendcode, String SMSstrret, String type, String API) throws Exception {
