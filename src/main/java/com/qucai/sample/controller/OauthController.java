@@ -47,7 +47,7 @@ public class OauthController {
 
     @RequestMapping("/login")
     @ResponseBody
-    public Object login(HttpServletRequest request, HttpServletResponse response,String TxnAmount,String walletTxn_PayerPID,String walletTxn_ReceiverID,
+    public Object login(HttpServletRequest request, HttpServletResponse response,String txnAmount,String walletTxn_PayerPID,String walletTxn_ReceiverID,
                         EwalletTxn ewalletTxn, MobileEwalletDashboard ewalletDashboard, MobilePersonalMain mobilePersonalMain,
                         String userName, String pid, String password, String page, String remember, String paymentchannel, String action,
                         String mode, String gid, String method, String phone, String host,
@@ -144,11 +144,12 @@ public class OauthController {
                 }
                 System.out.print(txnMethod[i]);
             }
+            // buffer checking
             // general treasury mgt
             // personal treasury mgt
             // personal ewallet and personal evaluation
             // transaction address
-            // 3rd party payment interface
+            // 3rd party payment call
             // ret checking personal ewallet repo and personal revaluation
             // buffer checking
             System.out.println(txnMethod[0]);
