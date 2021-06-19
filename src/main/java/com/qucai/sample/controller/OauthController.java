@@ -1,3 +1,12 @@
+/**
+ ***********************************   58gongzi API core  ***********************************
+ *  Core API Controller,Interface for Internal System Node 58gongzi system upgrade          *
+ *  and outface - - ewallet , wechat/alipay integration                                     *
+ *  Author: Spear Yao                                                                       *
+ *  Date: 06/16/2021                                                                        *
+ ********************************************************************************************
+ */
+
 package com.qucai.sample.controller;
 
 import java.io.IOException;
@@ -31,6 +40,7 @@ import com.qucai.sample.util.JsonBizTool;
 
 import com.qucai.sample.vo.MobileEwalletDashboard;
 import com.qucai.sample.vo.MobilePersonalMain;
+
 
 @Controller
 @RequestMapping(value = "/oauthController")
@@ -132,23 +142,35 @@ public class OauthController {
         }
 
 
-        /*
-        新用户注册 node发起注册 开通钱包 支付时要求绑定卡
+        /******************
+        New User Register 新用户注册 node发起注册 开通钱包 支付时要求绑定卡
          */
         //http://localhost:8080/sample/oauthController/login?method=NewUser&facialret=$&pid=$&phone=&realName=$
         //http://localhost:8080/sample/oauthController/login?method=NewUser&facialret=0&pid=31011519830805251X&phone=18001869161&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475
         if(method!=null&&method.equalsIgnoreCase("NewUser")){
             Map<String, Object> rs = new HashMap<String, Object>();
-
+            // buffer checking
+            // personalMain register
+            // personalEwallet register
+            // personal Product bind
+            // Personal Treasury Management bind
+            // personal Company Info checking - Company Ops handling - new add Manager/personalinfo
+            // personal ewallet and personal evaluation
+            // blacklist verify
+            // transaction address
+            // 3rd party payment call
+            // ret checking personal ewallet repo and personal revaluation
+            // buffer checking
             PersonalMainController personalMainController = new PersonalMainController();
-            String RetNewUserPersonalMain = personalMainController.addMobilePersonalMain(personalMID,pid,phone,facialret);
-            rs.put("RetNewUserPersonalMain",RetNewUserPersonalMain);
-            if(RetNewUserPersonalMain.equalsIgnoreCase("succ")){
+            String rsPersonalMainReg = personalMainController.addMobilePersonalMain(personalMID,pid,phone);
+            
+            rs.put("rsPersonalMainReg",rsPersonalMainReg);
+            if(rsPersonalMainReg.equalsIgnoreCase("succ")){
                 EwalletController ewalletController = new EwalletController();
                 Ewallet ewallet = null;
                 ewallet.setT_personalewallet_TotCNYBalance(new BigDecimal("0.00"));
                 ewallet.setT_personalewallet_ID(Tool.uuid());
-                String RetNewUserEwallet = ewalletController.addMobileEwallet(ewallet);
+                String RetNewUserEwallet = ewalletController.addMobileEwallet(personalMID,pid,phone);
                 rs.put("RetNewUserEwallet",RetNewUserEwallet);
                 if(RetNewUserEwallet.equals(0)){
                     return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
@@ -161,13 +183,12 @@ public class OauthController {
 
         }
 
-        /*
-         ************************************************** payment start 收付款 *************************************************
+        /*************************************************** payment start 收付款 *******************************************
          * mobilepay transmit, 58gongzi - Alipay/wechantpay/unionpay  --- 1st version
          * FX/Remit 58gongzi - Paypal/Swift/visa/master/AE ---- 2nd version
          * Mobile APP 调用个人交易 移动端交易首页二维码扫一扫交易
-         ************************************************************************************************************************
-         */
+         ********************************************************************************************************************/
+        
         //http://localhost:8080/sample/oauthController/login?method=58scan-txn-58qr&action=transaction&page=mobilepay
         //个人收付款58-58  ( payee - 58,receiver - 58 )
         if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("58scan-txn-58qr")&&action.equalsIgnoreCase("transaction")){
@@ -353,13 +374,12 @@ public class OauthController {
             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
         }
 
-        /*
-         ************************************************ Mobilehome begin 移动端首页开始 ************************************
+        /************************************************* Mobilehome begin 移动端首页开始 ************************************
          * wealthmgt,voucher,topup,   58gongzi  ---1st version
          * blockchain , supplychian    wo-bank  ---2nd version
          * 钱包管理
-         *******************************************************************************************************************
-         */
+         ********************************************************************************************************************/
+        
         //财富管理 wealthmgt
         if( method!=null&&page.equalsIgnoreCase("mobilehome")&&method.equals("ewalletdashboard")&&action.equalsIgnoreCase("wealthmgt")){
             Map<String, Object> rs = new HashMap<String, Object>();
@@ -395,12 +415,11 @@ public class OauthController {
             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
         }
 
-        /*
-         ************************************************ Mobileme begin 移动端个人信息开始 ************************************
+        /************************************************* Mobileme begin 移动端个人信息开始 ************************************
          * Personalinfo , Customer Service , bank card,company 58gongzi  ---1st version
          * Upgrade  --- 2nd version
-         ******************************************************************************************************************
-         */
+         *********************************************************************************************************************/
+        
         //个人信息 personalinfo
         if( method!=null&&page.equalsIgnoreCase("mobileme")&&method.equals("MobilePersonalMain")&&action.equalsIgnoreCase("personalinfo")) {
             Map<String, Object> rs = new HashMap<String, Object>();
@@ -456,7 +475,7 @@ public class OauthController {
 
             token.setPassword(password.toCharArray());
 //            token.setRememberMe(true);
-            
+            // 移动端判断
 /*            String[] mobileAgents = { "iphone", "android","ipad", "phone", "mobile", "wap", "netfront", "java", "opera mobi",
                     "opera mini", "ucweb", "windows ce", "symbian", "series", "webos", "sony", "blackberry", "dopod", "oppo",
                     "nokia", "samsung", "palmsource", "xda", "pieplus", "meizu", "midp", "cldc", "motorola", "foma", "vivo",

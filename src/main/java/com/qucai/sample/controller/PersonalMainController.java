@@ -6,9 +6,7 @@ import com.qucai.sample.common.PageParam;
 import com.qucai.sample.entity.*;
 import com.qucai.sample.exception.ExRetEnum;
 import com.qucai.sample.service.*;
-import com.qucai.sample.util.JsonBizTool;
-import com.qucai.sample.util.ShiroSessionUtil;
-import com.qucai.sample.util.Tool;
+import com.qucai.sample.util.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.qucai.sample.util.DBConnection;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -414,16 +411,19 @@ public class PersonalMainController {
 移动端个人新注册
  */
     public String addMobilePersonalMain(String personalMID,String pid,String phone,String facialret) throws SQLException {
+        String rsPersonalMainReg = null;
         String ewallet = "58ewallet";
         DBConnection dao = new DBConnection();
         Connection conn = dao.getConnection();
         String userid = Tool.uuid();
         String cryptoc = "gfcoin";
+        String initialProductMain = "gfshxxkjfwyxgs-v-a";
         String sql="update t_personal_main a " +
             "set t_personal_main_digi3 = ?," +
             "t_personal_main_pid = ?," +
             "t_personal_main_facialret = ?," +
             "t_personal_main_crypto = ? " +
+            "t_personal_main_productCat = ? " +
             "where a.t_personal_main_id = ?";
 //        String sql="insert into t_personal_main(t_personal_main_id,t_personal_main_name,t_personal_main_pid,t_personal_main_mobile) values(?,?,?,?)";
         try {
@@ -433,9 +433,12 @@ public class PersonalMainController {
             ptmt.setString(3,facialret);
             ptmt.setString(4,cryptoc);
             ptmt.setString(5,personalMID);
+            ptmt.setString(6,initialProductMain);
             ptmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+            rsPersonalMainReg = "failed";
+            return rsPersonalMainReg;
         }finally {
             conn.close();
         }
@@ -446,15 +449,10 @@ public class PersonalMainController {
 //        personalMain.setModify_time(new Date());
 //        String OrderCodeUpdate = null;
 //        BigDecimal CreditBalanceAmtRefund = null;
-        int rs = 0;
-        String RetNewUserPersonalMain = null;
-        if (rs == 1){
-            RetNewUserPersonalMain =  "succ";
-        }
-        String paymentmethod = "debitcard";
-        String retPersonalMainController = "debitcard";
 
-        return RetNewUserPersonalMain;
+        rsPersonalMainReg =  "succ";
+
+        return rsPersonalMainReg;
     }
 
     /*参考 查询

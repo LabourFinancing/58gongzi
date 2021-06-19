@@ -6,6 +6,7 @@ import com.qucai.sample.common.PageParam;
 import com.qucai.sample.entity.*;
 import com.qucai.sample.exception.ExRetEnum;
 import com.qucai.sample.service.*;
+import com.qucai.sample.util.DBConnection;
 import com.qucai.sample.util.JsonBizTool;
 import com.qucai.sample.util.ShiroSessionUtil;
 import com.qucai.sample.util.Tool;
@@ -21,6 +22,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -378,21 +382,177 @@ public class EwalletController {
  /*
     移动端我的模块
      */
-    public String addMobileEwallet(Ewallet ewallet) {
-        ewallet.setModifier(ShiroSessionUtil.getLoginSession().getId());
-        ewallet.setModify_time(new Date());
-        ewallet.setT_personalewallet_TotCNYBalance(new BigDecimal("0.00"));
-        String RetEwalletNew = null;
-        BigDecimal CreditBalanceAmtRefund = null;
-        int rs = 0;
-        rs = ewalletService.insertSelective(ewallet);
-        if (rs == 0){
-            RetEwalletNew =  "succ";  
-        }
-        String paymentmethod = "debitcard";
-        String retPersonalMainController = "debitcard";
+    public String addMobileEwallet(String personalMID,String pid,String phone) throws SQLException {
+//        ewallet.setModifier(ShiroSessionUtil.getLoginSession().getId());
+//        ewallet.setModify_time(new Date());
+//        ewallet.setT_personalewallet_TotCNYBalance(new BigDecimal("0.00"));
 
-        return RetEwalletNew;
+        String rsPersonalEwallet = null;
+        DBConnection dao = new DBConnection();
+        Connection conn = dao.getConnection();
+        
+        String t_personalewallet_ID = Tool.uuid();
+        String t_personalewallet_ApplierID = pid;
+        String initialPersonalEwallet = "gfshxxkjfwyxgs-v-a";
+        String sql="insert into t_personal_ewallet " +
+            "(t_personalewallet_ID," +
+            "t_personalewallet_ApplierID," +
+            "t_personalewallet_ApplierPID," +
+            "t_personalewallet_ApplierName," +
+            "t_personalewallet_Passport," +
+            "t_personalewallet_ScanCode," +
+            "t_personalewallet_QRcode," +
+            "t_personalewallet_alipayAcc," +
+            "t_personalewallet_wechatpayAcc," +
+            "t_personalewallet_unionpayAcc," +
+            "t_personalewallet_CryptoC," +
+            "t_personalewallet_Voucher," +
+            "t_personalewallet_VoucherDigi," +
+            "t_personalewallet_Creditcard," +
+            "t_personalewallet_Debitcard," +
+            "t_personalewallet_ClearNum," +
+            "t_personalewallet_ClearOrg," +
+            "t_personalewallet_PayCat," +
+            "t_personalewallet_PayDate," +
+            "t_personalewallet_ProdName," +
+            "t_personalewallet_PayDays," +
+            "t_personalewallet_Reciept," +
+            "t_personalewallet_TotCNYBalance," +
+            "t_personalewallet_TotFXBalance," +
+            "t_personalewallet_TotCryptoBalance," +
+            "t_personalewallet_TotAssetES," +
+            "t_personalewallet_DebitPayAmt," +
+            "t_personalewallet_ApplyPayAmount," +
+            "t_personalewallet_CreditPrepayBalanceNum," +
+            "t_personalewallet_CreditPayAmt," +
+            "t_personalewallet_CreditPayAmtInit," +
+            "t_personalewallet_TotalPrepayAmt," +
+            "t_personalewallet_TotalInterestDays," +
+            "t_personalewallet_PayCounts," +
+            "t_personalewallet_Interest," +
+            "t_personalewallet_TotLimit," +
+            "t_personalewallet_Worth," +
+            "t_personalewallet_DiscountRate," +
+            "t_personalewallet_BalanceInterest," +
+            "t_personalewallet_OverdueRepaymentDate," +
+            "t_personalewallet_PrepayClear," +
+            "t_personalewallet_Overdue," +
+            "t_personalewallet_OverdueTotalAmount," +
+            "t_personalewallet_FinancialInterest," +
+            "t_personalewallet_ServiceFee," +
+            "t_personalewallet_Poundage," +
+            "t_personalewallet_TierPoundage," +
+            "t_personalewallet_InterestMargin," +
+            "t_personalewallet_BankAccName," +
+            "t_personalewallet_BankAcc," +
+            "t_personalewallet_SysUpdateDate," +
+            "t_personalewallet_OverdueDays," +
+            "t_personalewallet_Paystatus," +
+            "t_personalewallet_SMS," +
+            "t_personalewallet_PaymentVersion," +
+            "t_personalewallet_AccCat," +
+            "t_personalewallet_bkp," +
+            "t_personalewallet_treasuryID," +
+            "t_personalewallet_eproposal," +
+            "t_personalewallet_Txt3," +
+            "t_personalewallet_Txt4," +
+            "t_personalewallet_Txt5," +
+            "platform," +
+            "remark," +
+            "creator," +
+            "create_time," +
+            "modifier," +
+            "modify_time" +
+            "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement ptmt=conn.prepareStatement(sql);
+            ptmt.setString(1,t_personalewallet_ID);
+            ptmt.setString(2,t_personalewallet_ApplierID);
+            ptmt.setString(3,"");
+            ptmt.setString(4,"");
+            ptmt.setString(5,"");
+            ptmt.setString(6,"");
+            ptmt.setString(7,"");
+            ptmt.setString(8,"");
+            ptmt.setString(9,"");
+            ptmt.setString(10,"");
+            ptmt.setString(11,"");
+            ptmt.setString(12,t_personalewallet_ApplierID);
+            ptmt.setString(13,facialret);
+            ptmt.setString(14,cryptoc);
+            ptmt.setString(15,personalMID);
+            ptmt.setString(16,initialProductMain);
+            ptmt.setString(17,t_personalewallet_ApplierID);
+            ptmt.setString(18,facialret);
+            ptmt.setString(19,cryptoc);
+            ptmt.setString(20,personalMID);
+            ptmt.setString(21,initialProductMain);
+            ptmt.setString(22,t_personalewallet_ApplierID);
+            ptmt.setString(23,facialret);
+            ptmt.setString(24,cryptoc);
+            ptmt.setString(25,personalMID);
+            ptmt.setString(26,initialProductMain);
+            ptmt.setString(27,t_personalewallet_ApplierID);
+            ptmt.setString(28,facialret);
+            ptmt.setString(29,cryptoc);
+            ptmt.setString(30,personalMID);
+            ptmt.setString(31,initialProductMain);
+            ptmt.setString(32,t_personalewallet_ApplierID);
+            ptmt.setString(33,facialret);
+            ptmt.setString(34,cryptoc);
+            ptmt.setString(35,personalMID);
+            ptmt.setString(36,initialProductMain);
+            ptmt.setString(37,t_personalewallet_ApplierID);
+            ptmt.setString(38,facialret);
+            ptmt.setString(39,cryptoc);
+            ptmt.setString(40,personalMID);
+            ptmt.setString(41,initialProductMain);
+            ptmt.setString(42,t_personalewallet_ApplierID);
+            ptmt.setString(43,facialret);
+            ptmt.setString(44,cryptoc);
+            ptmt.setString(45,personalMID);
+            ptmt.setString(46,initialProductMain);
+            ptmt.setString(47,t_personalewallet_ApplierID);
+            ptmt.setString(48,facialret);
+            ptmt.setString(49,cryptoc);
+            ptmt.setString(50,personalMID);
+            ptmt.setString(51,initialProductMain);
+            ptmt.setString(52,t_personalewallet_ApplierID);
+            ptmt.setString(53,facialret);
+            ptmt.setString(54,cryptoc);
+            ptmt.setString(55,personalMID);
+            ptmt.setString(56,initialProductMain);
+            ptmt.setString(57,t_personalewallet_ApplierID);
+            ptmt.setString(58,facialret);
+            ptmt.setString(59,cryptoc);
+            ptmt.setString(60,personalMID);
+            ptmt.setString(61,initialProductMain);
+            ptmt.setString(62,t_personalewallet_ApplierID);
+            ptmt.setString(63,facialret);
+            ptmt.setString(64,cryptoc);
+            ptmt.setString(65,personalMID);
+            ptmt.setString(66,initialProductMain);
+            ptmt.setString(67,t_personalewallet_ApplierID);
+            ptmt.setString(68,facialret);
+            ptmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            rsPersonalEwallet = "failed";
+            return rsPersonalEwallet;
+        }finally {
+            conn.close();
+        }
+
+//        personalMain.setT_personal_main_id(Tool.uuid());
+//        personalMain.setT_personal_main_facialret(facialret);
+//        personalMain.setModifier(ShiroSessionUtil.getLoginSession().getId());
+//        personalMain.setModify_time(new Date());
+//        String OrderCodeUpdate = null;
+//        BigDecimal CreditBalanceAmtRefund = null;
+
+        rsPersonalMainReg =  "succ";
+
+        return rsPersonalMainReg;
     }
     public String ewalletList(Ewallet ewallet) {
         System.out.print("succ");

@@ -103,7 +103,14 @@ public class DataRefreshTTJob {
 "0 15 10 ? * 6L 2002-2005" 2002年至2005年的每月的最后一个星期五上午10:15触发 
 "0 15 10 ? * 6#3" 每月的第三个星期五上午10:15触发
 */
+
+    /***********************************
+     * ewallet TT 
+     **********************************/
 	
+	/***********************************
+     * prepay TT
+	 **********************************/
 	@Scheduled(cron = "0 0/5 5-23 * * ?") 
 	public void RealTimeTxnStatistic() throws Exception {
 		logger.info("定时每5分钟当日成功交易记录统计开始：" + System.currentTimeMillis());
