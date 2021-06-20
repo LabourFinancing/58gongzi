@@ -150,37 +150,39 @@ public class OauthController {
         //http://localhost:8080/sample/oauthController/login?method=NewUser&facialret=0&pid=31011519830805251X&phone=18001869161&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475
         if(method!=null&&method.equalsIgnoreCase("NewUser")){
             Map<String, Object> rs = new HashMap<String, Object>();
+            Map<String, Object> rsNewUserEwallet = new HashMap<String, Object>();
+            Map<String, Object> rsPersonalMainReg = new HashMap<String, Object>();
             // buffer checking
+
             // personalMain register
-            // personalEwallet register
-            // personal Product bind
-            // Personal Treasury Management bind
+            PersonalMainController personalMainController = new PersonalMainController();
+            rsPersonalMainReg = personalMainController.addMobilePersonalMain(personalMID,pid,phone,facialret,realName);
+            
+            if(rsPersonalMainReg.get("SQL-PersonalMain").equals("0")){
+                EwalletController ewalletController = new EwalletController();
+                Ewallet ewallet = null;
+                ewallet.setT_personalewallet_TotCNYBalance(new BigDecimal("0.00"));
+                ewallet.setT_personalewallet_ID(Tool.uuid());
+                // personalEwallet register
+                // personal Product bind - gf-Be-Db 默认绑定产品
+                // Personal Treasury Management bind - payment-a-v
+                rsNewUserEwallet = ewalletController.addMobileEwallet(personalMID,pid,phone,realName);
+                if(rsNewUserEwallet.get("SQL-PersonalEwallet").equals("0")){
+                    return JsonBizTool.genJson(ExRetEnum.SUCCESS, rsNewUserEwallet);
+                }else {
+                    return JsonBizTool.genJson(ExRetEnum.FAIL, rsNewUserEwallet);
+                }
+            }else{
+                return JsonBizTool.genJson(ExRetEnum.FAIL, rsNewUserEwallet);
+            }
+            
             // personal Company Info checking - Company Ops handling - new add Manager/personalinfo
             // personal ewallet and personal evaluation
             // blacklist verify
             // transaction address
             // 3rd party payment call
-            // ret checking personal ewallet repo and personal revaluation
+            // ret checking personal ewallet repo and personal revaluation 
             // buffer checking
-            PersonalMainController personalMainController = new PersonalMainController();
-            String rsPersonalMainReg = personalMainController.addMobilePersonalMain(personalMID,pid,phone,facialret,realName);
-            
-            rs.put("rsPersonalMainReg",rsPersonalMainReg);
-            if(rsPersonalMainReg.equalsIgnoreCase("succ")){
-                EwalletController ewalletController = new EwalletController();
-                Ewallet ewallet = null;
-                ewallet.setT_personalewallet_TotCNYBalance(new BigDecimal("0.00"));
-                ewallet.setT_personalewallet_ID(Tool.uuid());
-                String RetNewUserEwallet = ewalletController.addMobileEwallet(personalMID,pid,phone,realName);
-                rs.put("RetNewUserEwallet",RetNewUserEwallet);
-                if(RetNewUserEwallet.equals(0)){
-                    return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
-                }else {
-                    return JsonBizTool.genJson(ExRetEnum.FAIL, rs);
-                }
-            }else{
-                return JsonBizTool.genJson(ExRetEnum.FAIL, rs);
-            }
 
         }
 

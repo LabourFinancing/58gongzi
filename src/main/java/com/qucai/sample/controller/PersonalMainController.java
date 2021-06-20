@@ -26,9 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Controller
@@ -411,44 +409,14 @@ public class PersonalMainController {
     /*
 移动端个人新注册
  */
-    public String addMobilePersonalMain(String personalMID,String pid,String phone,String facialret,String realName) throws SQLException {
-        String rsPersonalMainReg = null;
+    public Map<String, Object> addMobilePersonalMain(String personalMID, String pid, String phone, String facialret, String realName) throws SQLException {
+
+        Map<String, Object> rsPersonalMainReg = new HashMap<String, Object>();
         String ewallet = "58ewallet";
         DBConnection dao = new DBConnection();
         Connection conn = dao.getConnection();
 
         MobilePersonalMain mobilePersonalMain = null; // intial Personal Main Info
-        // set inital value into ewallet
-        mobilePersonalMain.setT_mobilePersonalMain_id(personalMID);
-        mobilePersonalMain.setT_mobilePersonalMain_name(realName);
-        mobilePersonalMain.setT_mobilePersonalMain_pid(pid);
-        mobilePersonalMain.setT_mobilePersonalMain_mobile(phone);
-        mobilePersonalMain.setT_mobilePersonalMain_mobile1(phone);
-        mobilePersonalMain.setT_mobilePersonalMain_contacts(phone);
-        mobilePersonalMain.setT_mobilePersonalMain_realname(realName);
-        mobilePersonalMain.setT_mobilePersonalMain_securityret(facialret);
-        mobilePersonalMain.setT_mobilePersonalMain_passport("");
-        mobilePersonalMain.setT_mobilePersonalMain_passport1("");
-        mobilePersonalMain.setT_mobilePersonalMain_visa("");
-        mobilePersonalMain.setT_mobilePersonalMain_visa1("");
-        mobilePersonalMain.setT_mobilePersonalMain_onlinepaymentcat("ewallet");
-        mobilePersonalMain.setT_mobilePersonalMain_onlinepayment("ewallet-balance");
-        mobilePersonalMain.setT_mobilePersonalMain_CNbankcard("");
-        mobilePersonalMain.setT_mobilePersonalMain_GLbankcard("");
-        mobilePersonalMain.setT_mobilePersonalMain_bankacc("");
-        mobilePersonalMain.setT_mobilePersonalMain_crypto("gfcoin");
-        mobilePersonalMain.setT_mobilePersonalMain_assetcat("CNY");
-        mobilePersonalMain.setT_mobilePersonalMain_voucher("off");
-        mobilePersonalMain.setT_mobilePersonalMain_creditscore(0);
-        mobilePersonalMain.setT_mobilePersonalMain_ewalletcat("gf-basic");
-        mobilePersonalMain.setT_mobilePersonalMain_digiasset("gf-digi-basic");
-        mobilePersonalMain.setT_mobilePersonalMain_companylist("");
-        mobilePersonalMain.setT_mobilePersonalMain_productCat("gfshxxkjfwyxgs");
-        mobilePersonalMain.setT_mobilePersonalMain_prodlist("");
-        mobilePersonalMain.setT_mobilePersonalMain_status("on");
-        mobilePersonalMain.setT_mobilePersonalMain_email("");
-        
-        
         
         String userid = Tool.uuid();
         String cryptoc = "gfcoin";
@@ -478,44 +446,43 @@ public class PersonalMainController {
             "t_personal_main_productCat = ?," +
             "t_personal_main_prodlist = ?," +
             "status = ? ," +
-            "email = ? ," +
             "modifier = ?," +
             "modify_time = ? " +
             "where a.t_personal_main_id = ?";
         try {
             PreparedStatement ptmt=conn.prepareStatement(sql);
-            ptmt.setString(1,mobilePersonalMain.getT_mobilePersonalMain_mobile1());
-            ptmt.setString(2,mobilePersonalMain.getT_mobilePersonalMain_contacts());
-            ptmt.setString(3,mobilePersonalMain.getT_mobilePersonalMain_securityret());
-            ptmt.setString(4,mobilePersonalMain.getT_mobilePersonalMain_passport());
-            ptmt.setString(5,mobilePersonalMain.getT_mobilePersonalMain_passport1());
-            ptmt.setString(6,mobilePersonalMain.getT_mobilePersonalMain_visa());
-            ptmt.setString(7,mobilePersonalMain.getT_mobilePersonalMain_visa1());
-            ptmt.setString(8,mobilePersonalMain.getT_mobilePersonalMain_onlinepaymentcat());
-            ptmt.setString(9,mobilePersonalMain.getT_mobilePersonalMain_onlinepayment());
-            ptmt.setString(10,mobilePersonalMain.getT_mobilePersonalMain_paymentmethod());
-            ptmt.setString(11,mobilePersonalMain.getT_mobilePersonalMain_paymentmethod1());
-            ptmt.setString(12,mobilePersonalMain.getT_mobilePersonalMain_CNbankcard());
-            ptmt.setString(13,mobilePersonalMain.getT_mobilePersonalMain_GLbankcard());
-            ptmt.setString(14,mobilePersonalMain.getT_mobilePersonalMain_bankacc());
-            ptmt.setString(15,mobilePersonalMain.getT_mobilePersonalMain_crypto());
-            ptmt.setString(16,mobilePersonalMain.getT_mobilePersonalMain_assetcat());
-            ptmt.setString(17,mobilePersonalMain.getT_mobilePersonalMain_voucher());
-            ptmt.setInt(18,mobilePersonalMain.getT_mobilePersonalMain_creditscore());
-            ptmt.setString(19,mobilePersonalMain.getT_mobilePersonalMain_ewalletcat());
-            ptmt.setString(20,mobilePersonalMain.getT_mobilePersonalMain_digiasset());
-            ptmt.setString(21,mobilePersonalMain.getT_mobilePersonalMain_companylist());
-            ptmt.setString(22,mobilePersonalMain.getT_mobilePersonalMain_productCat());
-            ptmt.setString(23,mobilePersonalMain.getT_mobilePersonalMain_prodlist());
-            ptmt.setString(24,mobilePersonalMain.getT_mobilePersonalMain_status());
-            ptmt.setString(25,mobilePersonalMain.getT_mobilePersonalMain_email());
-            ptmt.setString(25,mobilePersonalMain.getT_mobilePersonalMain_id());
-            ptmt.setDate(25, (java.sql.Date) new Date());
+            ptmt.setString(1,phone);
+            ptmt.setString(2,phone);
+            ptmt.setString(3,facialret);
+            ptmt.setString(4,"");
+            ptmt.setString(5,"");
+            ptmt.setString(6,"");
+            ptmt.setString(7,"");
+            ptmt.setString(8,"ewallet");
+            ptmt.setString(9,"ewallet-Cash-Acc");
+            ptmt.setString(10,"");
+            ptmt.setString(11,"");
+            ptmt.setString(12,"");
+            ptmt.setString(13,"");
+            ptmt.setString(14,"");
+            ptmt.setString(15,"gf-coin");
+            ptmt.setString(16,"CNY");
+            ptmt.setString(17,"off");
+            ptmt.setInt(18,0);
+            ptmt.setString(19,"gf-basic");
+            ptmt.setString(20,"gf-digi-basic");
+            ptmt.setString(21,"");
+            ptmt.setString(22,"gf-Be-Db");
+            ptmt.setString(23,"");
+            ptmt.setString(24,"on");
+            ptmt.setString(25,personalMID);
+            ptmt.setDate(26, (java.sql.Date) new Date(new java.util.Date().getTime()));
             
             ptmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            rsPersonalMainReg = "failed";
+            rsPersonalMainReg.put("PersonalMainReg-ErrorCode",String.valueOf(e.getErrorCode()));
+            rsPersonalMainReg.put("PersonalMainReg-SQLstat:",String.valueOf(e.getSQLState()));
             return rsPersonalMainReg;
         }finally {
             conn.close();
@@ -528,8 +495,7 @@ public class PersonalMainController {
 //        String OrderCodeUpdate = null;
 //        BigDecimal CreditBalanceAmtRefund = null;
 
-        rsPersonalMainReg =  "succ";
-
+        rsPersonalMainReg.put("SQL-PersonalMain","0");
         return rsPersonalMainReg;
     }
 
