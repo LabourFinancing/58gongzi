@@ -10,6 +10,7 @@ import com.qucai.sample.util.DBConnection;
 import com.qucai.sample.util.JsonBizTool;
 import com.qucai.sample.util.ShiroSessionUtil;
 import com.qucai.sample.util.Tool;
+import com.qucai.sample.vo.MobileEwalletDashboard;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -382,16 +383,83 @@ public class EwalletController {
  /*
     移动端我的模块
      */
-    public String addMobileEwallet(String personalMID,String pid,String phone) throws SQLException {
+    public String addMobileEwallet(String personalMID,String pid,String phone,String realName) throws SQLException {
 //        ewallet.setModifier(ShiroSessionUtil.getLoginSession().getId());
 //        ewallet.setModify_time(new Date());
-//        ewallet.setT_personalewallet_TotCNYBalance(new BigDecimal("0.00"));
+//        ewallet.setT_personalewallet_TotCNYBalance(new BigDecimal(new BigDecimal("0.00")));
 
         String rsPersonalEwallet = null;
         DBConnection dao = new DBConnection();
         Connection conn = dao.getConnection();
         
-        String t_personalewallet_ID = Tool.uuid();
+        MobileEwalletDashboard mobileEwalletDashboard = null; // intial Personal Ewallet
+        // set inital value into ewallet
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_ID(Tool.uuid());
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_ApplierID(personalMID);
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_ApplierPID(pid);
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_ApplierName(realName);
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_Passport("");
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_ScanCode("");
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_QRcode("");
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_alipayAcc("");
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_wechatpayAcc("");
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_unionpayAcc("");
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_CryptoC("");
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_Voucher("");
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_VoucherDigi("");
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_Creditcard("");
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_Debitcard("");
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_ClearNum("");
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_ClearOrg("");
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_PayCat("");
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_PayDate(new Date());
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_ProdName("");
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_PayDays(0);
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_Reciept("");
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_TotCNYBalance(new BigDecimal("0.00"));
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_TotFXBalance(new BigDecimal("0.00"));
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_TotCryptoBalance(new BigDecimal("0.00"));
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_TotAssetES(new BigDecimal("0.00"));
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_DebitPayAmt(new BigDecimal("0.00"));
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_ApplyPayAmount(new BigDecimal("0.00"));
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_CreditPrepayBalanceNum(new BigDecimal("0.00"));
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_CreditPayAmt(new BigDecimal("0.00"));
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_CreditPayAmtInit(new BigDecimal("0.00"));
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_TotalPrepayAmt(new BigDecimal("0.00"));
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_TotalInterestDays(0);
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_PayCounts(0);
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_Interest(new BigDecimal("0.00"));
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_TotLimit(new BigDecimal("0.00"));
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_Worth(new BigDecimal("0.00"));
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_DiscountRate(new BigDecimal("0.00"));
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_BalanceInterest(new BigDecimal("0.00"));
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_OverdueRepaymentDate(null);
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_PrepayClear("0");
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_Overdue("0");
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_OverdueTotalAmount(new BigDecimal("0.00"));
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_FinancialInterest(new BigDecimal("0.00"));
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_ServiceFee(new BigDecimal("0.00"));
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_Poundage(new BigDecimal("0.00"));
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_TierPoundage(new BigDecimal("0.00"));
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_InterestMargin(new BigDecimal("0.00"));
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_BankAccName("");
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_BankAcc("");
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_SysUpdateDate(new Date());
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_OverdueDays(0);
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_Paystatus("1");
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_SMS("");
+        mobileEwalletDashboard.setT_MobilePersonalewallet_PaymentVersion("");
+        mobileEwalletDashboard.setT_MobilePersonalewallet_AccCat("");
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_bkp("");
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_treasuryID("");
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_eproposal("");
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_Txt3("");
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_Txt4("");
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_Txt5("");
+        
+        
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_ApplyPayAmount(new BigDecimal("0.00"));
+        
         String t_personalewallet_ApplierID = pid;
         String initialPersonalEwallet = "gfshxxkjfwyxgs-v-a";
         String sql="insert into t_personal_ewallet " +
@@ -458,82 +526,76 @@ public class EwalletController {
             "t_personalewallet_Txt4," +
             "t_personalewallet_Txt5," +
             "platform," +
-            "remark," +
-            "creator," +
-            "create_time," +
             "modifier," +
             "modify_time" +
-            "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ptmt=conn.prepareStatement(sql);
-            ptmt.setString(1,t_personalewallet_ID);
-            ptmt.setString(2,t_personalewallet_ApplierID);
-            ptmt.setString(3,"");
-            ptmt.setString(4,"");
-            ptmt.setString(5,"");
-            ptmt.setString(6,"");
-            ptmt.setString(7,"");
-            ptmt.setString(8,"");
-            ptmt.setString(9,"");
-            ptmt.setString(10,"");
-            ptmt.setString(11,"");
-            ptmt.setString(12,t_personalewallet_ApplierID);
-            ptmt.setString(13,facialret);
-            ptmt.setString(14,cryptoc);
-            ptmt.setString(15,personalMID);
-            ptmt.setString(16,initialProductMain);
-            ptmt.setString(17,t_personalewallet_ApplierID);
-            ptmt.setString(18,facialret);
-            ptmt.setString(19,cryptoc);
-            ptmt.setString(20,personalMID);
-            ptmt.setString(21,initialProductMain);
-            ptmt.setString(22,t_personalewallet_ApplierID);
-            ptmt.setString(23,facialret);
-            ptmt.setString(24,cryptoc);
-            ptmt.setString(25,personalMID);
-            ptmt.setString(26,initialProductMain);
-            ptmt.setString(27,t_personalewallet_ApplierID);
-            ptmt.setString(28,facialret);
-            ptmt.setString(29,cryptoc);
-            ptmt.setString(30,personalMID);
-            ptmt.setString(31,initialProductMain);
-            ptmt.setString(32,t_personalewallet_ApplierID);
-            ptmt.setString(33,facialret);
-            ptmt.setString(34,cryptoc);
-            ptmt.setString(35,personalMID);
-            ptmt.setString(36,initialProductMain);
-            ptmt.setString(37,t_personalewallet_ApplierID);
-            ptmt.setString(38,facialret);
-            ptmt.setString(39,cryptoc);
-            ptmt.setString(40,personalMID);
-            ptmt.setString(41,initialProductMain);
-            ptmt.setString(42,t_personalewallet_ApplierID);
-            ptmt.setString(43,facialret);
-            ptmt.setString(44,cryptoc);
-            ptmt.setString(45,personalMID);
-            ptmt.setString(46,initialProductMain);
-            ptmt.setString(47,t_personalewallet_ApplierID);
-            ptmt.setString(48,facialret);
-            ptmt.setString(49,cryptoc);
-            ptmt.setString(50,personalMID);
-            ptmt.setString(51,initialProductMain);
-            ptmt.setString(52,t_personalewallet_ApplierID);
-            ptmt.setString(53,facialret);
-            ptmt.setString(54,cryptoc);
-            ptmt.setString(55,personalMID);
-            ptmt.setString(56,initialProductMain);
-            ptmt.setString(57,t_personalewallet_ApplierID);
-            ptmt.setString(58,facialret);
-            ptmt.setString(59,cryptoc);
-            ptmt.setString(60,personalMID);
-            ptmt.setString(61,initialProductMain);
-            ptmt.setString(62,t_personalewallet_ApplierID);
-            ptmt.setString(63,facialret);
-            ptmt.setString(64,cryptoc);
-            ptmt.setString(65,personalMID);
-            ptmt.setString(66,initialProductMain);
-            ptmt.setString(67,t_personalewallet_ApplierID);
-            ptmt.setString(68,facialret);
+            ptmt.setString(1,mobileEwalletDashboard.getT_mobilePersonalEwallet_ID());
+            ptmt.setString(2,mobileEwalletDashboard.getT_mobilePersonalEwallet_ApplierID());
+            ptmt.setString(3,mobileEwalletDashboard.getT_mobilePersonalEwallet_ApplierPID());
+            ptmt.setString(4,mobileEwalletDashboard.getT_mobilePersonalEwallet_ApplierName());
+            ptmt.setString(5,mobileEwalletDashboard.getT_mobilePersonalEwallet_Passport());
+            ptmt.setString(6,mobileEwalletDashboard.getT_mobilePersonalEwallet_ScanCode());
+            ptmt.setString(7,mobileEwalletDashboard.getT_mobilePersonalEwallet_QRcode());
+            ptmt.setString(8,mobileEwalletDashboard.getT_mobilePersonalEwallet_alipayAcc());
+            ptmt.setString(9,mobileEwalletDashboard.getT_mobilePersonalEwallet_wechatpayAcc());
+            ptmt.setString(10,mobileEwalletDashboard.getT_mobilePersonalEwallet_unionpayAcc());
+            ptmt.setString(11,mobileEwalletDashboard.getT_mobilePersonalEwallet_CryptoC());
+            ptmt.setString(12,mobileEwalletDashboard.getT_mobilePersonalEwallet_Voucher());
+            ptmt.setString(13,mobileEwalletDashboard.getT_mobilePersonalEwallet_VoucherDigi());
+            ptmt.setString(14,mobileEwalletDashboard.getT_mobilePersonalEwallet_Creditcard());
+            ptmt.setString(15,mobileEwalletDashboard.getT_mobilePersonalEwallet_Debitcard());
+            ptmt.setString(16,mobileEwalletDashboard.getT_mobilePersonalEwallet_ClearNum());
+            ptmt.setString(17,mobileEwalletDashboard.getT_mobilePersonalEwallet_ClearOrg());
+            ptmt.setString(18,mobileEwalletDashboard.getT_mobilePersonalEwallet_PayCat());
+            ptmt.setDate(19, (java.sql.Date) mobileEwalletDashboard.getT_mobilePersonalEwallet_PayDate());
+            ptmt.setString(20,mobileEwalletDashboard.getT_mobilePersonalEwallet_ProdName());
+            ptmt.setInt(21,mobileEwalletDashboard.getT_mobilePersonalEwallet_PayDays());
+            ptmt.setString(22,mobileEwalletDashboard.getT_mobilePersonalEwallet_Reciept());
+            ptmt.setBigDecimal(23,mobileEwalletDashboard.getT_mobilePersonalEwallet_TotCNYBalance());
+            ptmt.setBigDecimal(24,mobileEwalletDashboard.getT_mobilePersonalEwallet_TotFXBalance());
+            ptmt.setBigDecimal(25,mobileEwalletDashboard.getT_mobilePersonalEwallet_TotCryptoBalance());
+            ptmt.setBigDecimal(26,mobileEwalletDashboard.getT_mobilePersonalEwallet_TotAssetES());
+            ptmt.setBigDecimal(27,mobileEwalletDashboard.getT_mobilePersonalEwallet_DebitPayAmt());
+            ptmt.setBigDecimal(28,mobileEwalletDashboard.getT_mobilePersonalEwallet_ApplyPayAmount());
+            ptmt.setBigDecimal(29,mobileEwalletDashboard.getT_mobilePersonalEwallet_CreditPrepayBalanceNum());
+            ptmt.setBigDecimal(30,mobileEwalletDashboard.getT_mobilePersonalEwallet_CreditPayAmt());
+            ptmt.setBigDecimal(31,mobileEwalletDashboard.getT_mobilePersonalEwallet_CreditPayAmtInit());
+            ptmt.setBigDecimal(32,mobileEwalletDashboard.getT_mobilePersonalEwallet_TotalPrepayAmt());
+            ptmt.setInt(33,mobileEwalletDashboard.getT_mobilePersonalEwallet_TotalInterestDays());
+            ptmt.setInt(34,mobileEwalletDashboard.getT_mobilePersonalEwallet_PayCounts());
+            ptmt.setBigDecimal(35,mobileEwalletDashboard.getT_mobilePersonalEwallet_Interest());
+            ptmt.setBigDecimal(36,mobileEwalletDashboard.getT_mobilePersonalEwallet_TotLimit());
+            ptmt.setBigDecimal(37,mobileEwalletDashboard.getT_mobilePersonalEwallet_Worth());
+            ptmt.setBigDecimal(38,mobileEwalletDashboard.getT_mobilePersonalEwallet_DiscountRate());
+            ptmt.setBigDecimal(39,mobileEwalletDashboard.getT_mobilePersonalEwallet_BalanceInterest());
+            ptmt.setDate(40, (java.sql.Date) mobileEwalletDashboard.getT_mobilePersonalEwallet_OverdueRepaymentDate());
+            ptmt.setString(41,mobileEwalletDashboard.getT_mobilePersonalEwallet_PrepayClear());
+            ptmt.setString(42,mobileEwalletDashboard.getT_mobilePersonalEwallet_Overdue());
+            ptmt.setBigDecimal(43,mobileEwalletDashboard.getT_mobilePersonalEwallet_OverdueTotalAmount());
+            ptmt.setBigDecimal(44,mobileEwalletDashboard.getT_mobilePersonalEwallet_FinancialInterest());
+            ptmt.setBigDecimal(45,mobileEwalletDashboard.getT_mobilePersonalEwallet_ServiceFee());
+            ptmt.setBigDecimal(46,mobileEwalletDashboard.getT_mobilePersonalEwallet_Poundage());
+            ptmt.setBigDecimal(47,mobileEwalletDashboard.getT_mobilePersonalEwallet_TierPoundage());
+            ptmt.setBigDecimal(48,mobileEwalletDashboard.getT_mobilePersonalEwallet_InterestMargin());
+            ptmt.setString(49,mobileEwalletDashboard.getT_mobilePersonalEwallet_BankAccName());
+            ptmt.setString(50,mobileEwalletDashboard.getT_mobilePersonalEwallet_BankAcc());
+            ptmt.setDate(51,(java.sql.Date) mobileEwalletDashboard.getT_mobilePersonalEwallet_SysUpdateDate());
+            ptmt.setInt(52,mobileEwalletDashboard.getT_mobilePersonalEwallet_OverdueDays());
+            ptmt.setString(53,mobileEwalletDashboard.getT_mobilePersonalEwallet_Paystatus());
+            ptmt.setString(54,mobileEwalletDashboard.getT_mobilePersonalEwallet_SMS());
+            ptmt.setString(55,mobileEwalletDashboard.getT_MobilePersonalewallet_PaymentVersion());
+            ptmt.setString(56,mobileEwalletDashboard.getT_MobilePersonalewallet_AccCat());
+            ptmt.setString(57,mobileEwalletDashboard.getT_mobilePersonalEwallet_bkp()); 
+            ptmt.setString(58,mobileEwalletDashboard.getT_mobilePersonalEwallet_treasuryID());
+            ptmt.setString(59,mobileEwalletDashboard.getT_mobilePersonalEwallet_eproposal());
+            ptmt.setString(60,mobileEwalletDashboard.getT_mobilePersonalEwallet_Txt3());
+            ptmt.setString(61,mobileEwalletDashboard.getT_mobilePersonalEwallet_Txt4());
+            ptmt.setString(62,mobileEwalletDashboard.getT_mobilePersonalEwallet_Txt5());
+            ptmt.setString(63,"mobile");
+            ptmt.setString(64,"Java-backend-system");
+            ptmt.setDate(65,(java.sql.Date) new Date());
             ptmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -550,9 +612,9 @@ public class EwalletController {
 //        String OrderCodeUpdate = null;
 //        BigDecimal CreditBalanceAmtRefund = null;
 
-        rsPersonalMainReg =  "succ";
+        rsPersonalEwallet =  "succ";
 
-        return rsPersonalMainReg;
+        return rsPersonalEwallet;
     }
     public String ewalletList(Ewallet ewallet) {
         System.out.print("succ");

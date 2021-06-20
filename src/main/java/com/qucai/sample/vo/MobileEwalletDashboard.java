@@ -44,13 +44,13 @@ public class MobileEwalletDashboard implements Serializable {
 
     private String t_mobilePersonalEwallet_Debitcard;
 
-    private Integer t_mobilePersonalEwallet_ClearNum;
+    private String t_mobilePersonalEwallet_ClearNum;
 
     private String t_mobilePersonalEwallet_ClearOrg;
 
     private String t_mobilePersonalEwallet_PayCat;
 
-    private java.util.Date t_mobilePersonalEwallet_PayDate;
+    private Date t_mobilePersonalEwallet_PayDate;
 
     private String t_mobilePersonalEwallet_ProdName;
 
@@ -122,11 +122,11 @@ public class MobileEwalletDashboard implements Serializable {
 
     private String t_mobilePersonalEwallet_SMS;
 
-    private String t_mobilePersonalEwallet_SMSRec;
+    private String t_MobilePersonalewallet_PaymentVersion;
 
-    private BigDecimal t_mobilePersonalEwallet_bkp;
+    private String t_mobilePersonalEwallet_bkp;
 
-    private BigDecimal t_mobilePersonalEwallet_bkp1;
+    private String t_MobilePersonalewallet_AccCat;
 
     private String t_mobilePersonalEwallet_treasuryID;
 
@@ -259,11 +259,11 @@ public class MobileEwalletDashboard implements Serializable {
         this.t_mobilePersonalEwallet_Debitcard = t_mobilePersonalEwallet_Debitcard;
     }
 
-    public Integer getT_mobilePersonalEwallet_ClearNum() {
+    public String getT_mobilePersonalEwallet_ClearNum() {
         return t_mobilePersonalEwallet_ClearNum;
     }
 
-    public void setT_mobilePersonalEwallet_ClearNum(Integer t_mobilePersonalEwallet_ClearNum) {
+    public void setT_mobilePersonalEwallet_ClearNum(String t_mobilePersonalEwallet_ClearNum) {
         this.t_mobilePersonalEwallet_ClearNum = t_mobilePersonalEwallet_ClearNum;
     }
 
@@ -571,28 +571,28 @@ public class MobileEwalletDashboard implements Serializable {
         this.t_mobilePersonalEwallet_SMS = t_mobilePersonalEwallet_SMS;
     }
 
-    public String getT_mobilePersonalEwallet_SMSRec() {
-        return t_mobilePersonalEwallet_SMSRec;
+    public String getT_MobilePersonalewallet_PaymentVersion() {
+        return t_MobilePersonalewallet_PaymentVersion;
     }
 
-    public void setT_mobilePersonalEwallet_SMSRec(String t_mobilePersonalEwallet_SMSRec) {
-        this.t_mobilePersonalEwallet_SMSRec = t_mobilePersonalEwallet_SMSRec;
+    public void setT_MobilePersonalewallet_PaymentVersion(String t_MobilePersonalewallet_PaymentVersion) {
+        this.t_MobilePersonalewallet_PaymentVersion = t_MobilePersonalewallet_PaymentVersion;
     }
 
-    public BigDecimal getT_mobilePersonalEwallet_bkp() {
+    public String getT_mobilePersonalEwallet_bkp() {
         return t_mobilePersonalEwallet_bkp;
     }
 
-    public void setT_mobilePersonalEwallet_bkp(BigDecimal t_mobilePersonalEwallet_bkp) {
+    public void setT_mobilePersonalEwallet_bkp(String t_mobilePersonalEwallet_bkp) {
         this.t_mobilePersonalEwallet_bkp = t_mobilePersonalEwallet_bkp;
     }
 
-    public BigDecimal getT_mobilePersonalEwallet_bkp1() {
-        return t_mobilePersonalEwallet_bkp1;
+    public String getT_MobilePersonalewallet_AccCat() {
+        return t_MobilePersonalewallet_AccCat;
     }
 
-    public void setT_mobilePersonalEwallet_bkp1(BigDecimal t_mobilePersonalEwallet_bkp1) {
-        this.t_mobilePersonalEwallet_bkp1 = t_mobilePersonalEwallet_bkp1;
+    public void setT_MobilePersonalewallet_AccCat(String t_MobilePersonalewallet_AccCat) {
+        this.t_MobilePersonalewallet_AccCat = t_MobilePersonalewallet_AccCat;
     }
 
     public String getT_mobilePersonalEwallet_treasuryID() {

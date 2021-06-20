@@ -4,6 +4,7 @@
  *  and outface - - ewallet , wechat/alipay integration                                     *
  *  Author: Spear Yao                                                                       *
  *  Date: 06/16/2021                                                                        *
+ *  version 1.0                                                                             *
  ********************************************************************************************
  */
 
@@ -162,7 +163,7 @@ public class OauthController {
             // ret checking personal ewallet repo and personal revaluation
             // buffer checking
             PersonalMainController personalMainController = new PersonalMainController();
-            String rsPersonalMainReg = personalMainController.addMobilePersonalMain(personalMID,pid,phone);
+            String rsPersonalMainReg = personalMainController.addMobilePersonalMain(personalMID,pid,phone,facialret);
             
             rs.put("rsPersonalMainReg",rsPersonalMainReg);
             if(rsPersonalMainReg.equalsIgnoreCase("succ")){
@@ -170,7 +171,7 @@ public class OauthController {
                 Ewallet ewallet = null;
                 ewallet.setT_personalewallet_TotCNYBalance(new BigDecimal("0.00"));
                 ewallet.setT_personalewallet_ID(Tool.uuid());
-                String RetNewUserEwallet = ewalletController.addMobileEwallet(personalMID,pid,phone);
+                String RetNewUserEwallet = ewalletController.addMobileEwallet(personalMID,pid,phone,realName);
                 rs.put("RetNewUserEwallet",RetNewUserEwallet);
                 if(RetNewUserEwallet.equals(0)){
                     return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
