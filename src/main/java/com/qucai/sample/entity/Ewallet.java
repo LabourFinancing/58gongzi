@@ -150,7 +150,7 @@ public class Ewallet implements Serializable {
 
     private String t_personalewallet_eproposal;
 
-    private String t_personalewallet_Txt3;
+    private String t_personalewallet_DigiAddress;
 
     private String t_personalewallet_Txt4;
 
@@ -676,12 +676,12 @@ public class Ewallet implements Serializable {
         this.t_personalewallet_eproposal = t_personalewallet_eproposal;
     }
 
-    public String gett_personalewallet_Txt3() {
-        return t_personalewallet_Txt3;
+    public String gett_personalewallet_DigiAddress() {
+        return t_personalewallet_DigiAddress;
     }
 
-    public void sett_personalewallet_Txt3(String t_personalewallet_Txt3) {
-        this.t_personalewallet_Txt3 = t_personalewallet_Txt3;
+    public void sett_personalewallet_DigiAddress(String t_personalewallet_DigiAddress) {
+        this.t_personalewallet_DigiAddress = t_personalewallet_DigiAddress;
     }
 
     public String gett_personalewallet_Txt4() {

@@ -163,7 +163,7 @@ public class OauthController {
             // ret checking personal ewallet repo and personal revaluation
             // buffer checking
             PersonalMainController personalMainController = new PersonalMainController();
-            String rsPersonalMainReg = personalMainController.addMobilePersonalMain(personalMID,pid,phone,facialret);
+            String rsPersonalMainReg = personalMainController.addMobilePersonalMain(personalMID,pid,phone,facialret,realName);
             
             rs.put("rsPersonalMainReg",rsPersonalMainReg);
             if(rsPersonalMainReg.equalsIgnoreCase("succ")){

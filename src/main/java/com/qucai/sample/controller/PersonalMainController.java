@@ -7,6 +7,7 @@ import com.qucai.sample.entity.*;
 import com.qucai.sample.exception.ExRetEnum;
 import com.qucai.sample.service.*;
 import com.qucai.sample.util.*;
+import com.qucai.sample.vo.MobilePersonalMain;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -410,65 +411,107 @@ public class PersonalMainController {
     /*
 移动端个人新注册
  */
-    public String addMobilePersonalMain(String personalMID,String pid,String phone,String facialret) throws SQLException {
+    public String addMobilePersonalMain(String personalMID,String pid,String phone,String facialret,String realName) throws SQLException {
         String rsPersonalMainReg = null;
         String ewallet = "58ewallet";
         DBConnection dao = new DBConnection();
         Connection conn = dao.getConnection();
+
+        MobilePersonalMain mobilePersonalMain = null; // intial Personal Main Info
+        // set inital value into ewallet
+        mobilePersonalMain.setT_mobilePersonalMain_id(personalMID);
+        mobilePersonalMain.setT_mobilePersonalMain_name(realName);
+        mobilePersonalMain.setT_mobilePersonalMain_pid(pid);
+        mobilePersonalMain.setT_mobilePersonalMain_mobile(phone);
+        mobilePersonalMain.setT_mobilePersonalMain_mobile1(phone);
+        mobilePersonalMain.setT_mobilePersonalMain_contacts(phone);
+        mobilePersonalMain.setT_mobilePersonalMain_realname(realName);
+        mobilePersonalMain.setT_mobilePersonalMain_securityret(facialret);
+        mobilePersonalMain.setT_mobilePersonalMain_passport("");
+        mobilePersonalMain.setT_mobilePersonalMain_passport1("");
+        mobilePersonalMain.setT_mobilePersonalMain_visa("");
+        mobilePersonalMain.setT_mobilePersonalMain_visa1("");
+        mobilePersonalMain.setT_mobilePersonalMain_onlinepaymentcat("ewallet");
+        mobilePersonalMain.setT_mobilePersonalMain_onlinepayment("ewallet-balance");
+        mobilePersonalMain.setT_mobilePersonalMain_CNbankcard("");
+        mobilePersonalMain.setT_mobilePersonalMain_GLbankcard("");
+        mobilePersonalMain.setT_mobilePersonalMain_bankacc("");
+        mobilePersonalMain.setT_mobilePersonalMain_crypto("gfcoin");
+        mobilePersonalMain.setT_mobilePersonalMain_assetcat("CNY");
+        mobilePersonalMain.setT_mobilePersonalMain_voucher("off");
+        mobilePersonalMain.setT_mobilePersonalMain_creditscore(0);
+        mobilePersonalMain.setT_mobilePersonalMain_ewalletcat("gf-basic");
+        mobilePersonalMain.setT_mobilePersonalMain_digiasset("gf-digi-basic");
+        mobilePersonalMain.setT_mobilePersonalMain_companylist("");
+        mobilePersonalMain.setT_mobilePersonalMain_productCat("gfshxxkjfwyxgs");
+        mobilePersonalMain.setT_mobilePersonalMain_prodlist("");
+        mobilePersonalMain.setT_mobilePersonalMain_status("on");
+        mobilePersonalMain.setT_mobilePersonalMain_email("");
+        
+        
+        
         String userid = Tool.uuid();
         String cryptoc = "gfcoin";
         String initialProductMain = "gfshxxkjfwyxgs-v-a";
         String sql="update t_personal_main a " +
-            "set t_personal_main_digi3 = ?," +
-            "t_personal_main_pid = ?," +
-            "t_personal_main_facialret = ?," +
-            "t_personal_main_crypto = ? " +
-            "t_personal_main_productCat = ? " +
-            "t_personal_main_pid = ?," +
-            "t_personal_main_facialret = ?," +
-            "t_personal_main_crypto = ? " +
-            "t_personal_main_productCat = ? " +
-            "t_personal_main_pid = ?," +
-            "t_personal_main_facialret = ?," +
-            "t_personal_main_crypto = ? " +
-            "t_personal_main_productCat = ? " +
-            "t_personal_main_pid = ?," +
-            "t_personal_main_facialret = ?," +
-            "t_personal_main_crypto = ? " +
-            "t_personal_main_productCat = ? " +
-            "t_personal_main_pid = ?," +
-            "t_personal_main_facialret = ?," +
-            "t_personal_main_crypto = ? " +
-            "t_personal_main_productCat = ? " +
-            "t_personal_main_pid = ?," +
-            "t_personal_main_facialret = ?," +
-            "t_personal_main_crypto = ? " +
-            "t_personal_main_productCat = ? " +
-            "t_personal_main_pid = ?," +
-            "t_personal_main_facialret = ?," +
-            "t_personal_main_crypto = ? " +
-            "t_personal_main_productCat = ? " +
-            "t_personal_main_pid = ?," +
-            "t_personal_main_facialret = ?," +
-            "t_personal_main_crypto = ? " +
-            "t_personal_main_productCat = ? " +
-            "t_personal_main_pid = ?," +
-            "t_personal_main_facialret = ?," +
-            "t_personal_main_crypto = ? " +
-            "t_personal_main_productCat = ? " +
-            "t_personal_main_pid = ?," +
-            "t_personal_main_facialret = ?," +
-            "t_personal_main_crypto = ? " +
-            "t_personal_main_productCat = ? " +
+            "set  t_personal_main_mobile1 = ?," +
+            "t_personal_main_contacts = ?," +
+            "t_personal_main_securityret = ?," +
+            "t_personal_main_passport = ? " +
+            "t_personal_main_passport1 = ? " +
+            "t_personal_main_visa = ?," +
+            "t_personal_main_visa1 = ?," +
+            "t_personal_main_onlinepaymentcat = ? " +
+            "t_personal_main_onlinepayment = ? " +
+            "t_personal_main_paymentmethod = ?," +
+            "t_personal_main_paymentmethod1 = ?," +
+            "t_personal_main_CNbankcard = ? " +
+            "t_personal_main_GLbankcard = ? " +
+            "t_personal_main_bankacc = ?," +
+            "t_personal_main_crypto = ?," +
+            "t_personal_main_assetcat = ? " +
+            "t_personal_main_voucher = ? " +
+            "t_personal_main_creditscore = ?," +
+            "t_personal_main_ewalletcat = ?," +
+            "t_personal_main_digiasset = ? " +
+            "t_personal_main_companylist = ? " +
+            "t_personal_main_productCat = ?," +
+            "t_personal_main_prodlist = ?," +
+            "status = ? ," +
+            "email = ? ," +
+            "modifier = ?," +
+            "modify_time = ? " +
             "where a.t_personal_main_id = ?";
         try {
             PreparedStatement ptmt=conn.prepareStatement(sql);
-            ptmt.setString(1,userid);
-            ptmt.setString(2,pid);
-            ptmt.setString(3,facialret);
-            ptmt.setString(4,cryptoc);
-            ptmt.setString(5,personalMID);
-            ptmt.setString(6,initialProductMain);
+            ptmt.setString(1,mobilePersonalMain.getT_mobilePersonalMain_mobile1());
+            ptmt.setString(2,mobilePersonalMain.getT_mobilePersonalMain_contacts());
+            ptmt.setString(3,mobilePersonalMain.getT_mobilePersonalMain_securityret());
+            ptmt.setString(4,mobilePersonalMain.getT_mobilePersonalMain_passport());
+            ptmt.setString(5,mobilePersonalMain.getT_mobilePersonalMain_passport1());
+            ptmt.setString(6,mobilePersonalMain.getT_mobilePersonalMain_visa());
+            ptmt.setString(7,mobilePersonalMain.getT_mobilePersonalMain_visa1());
+            ptmt.setString(8,mobilePersonalMain.getT_mobilePersonalMain_onlinepaymentcat());
+            ptmt.setString(9,mobilePersonalMain.getT_mobilePersonalMain_onlinepayment());
+            ptmt.setString(10,mobilePersonalMain.getT_mobilePersonalMain_paymentmethod());
+            ptmt.setString(11,mobilePersonalMain.getT_mobilePersonalMain_paymentmethod1());
+            ptmt.setString(12,mobilePersonalMain.getT_mobilePersonalMain_CNbankcard());
+            ptmt.setString(13,mobilePersonalMain.getT_mobilePersonalMain_GLbankcard());
+            ptmt.setString(14,mobilePersonalMain.getT_mobilePersonalMain_bankacc());
+            ptmt.setString(15,mobilePersonalMain.getT_mobilePersonalMain_crypto());
+            ptmt.setString(16,mobilePersonalMain.getT_mobilePersonalMain_assetcat());
+            ptmt.setString(17,mobilePersonalMain.getT_mobilePersonalMain_voucher());
+            ptmt.setInt(18,mobilePersonalMain.getT_mobilePersonalMain_creditscore());
+            ptmt.setString(19,mobilePersonalMain.getT_mobilePersonalMain_ewalletcat());
+            ptmt.setString(20,mobilePersonalMain.getT_mobilePersonalMain_digiasset());
+            ptmt.setString(21,mobilePersonalMain.getT_mobilePersonalMain_companylist());
+            ptmt.setString(22,mobilePersonalMain.getT_mobilePersonalMain_productCat());
+            ptmt.setString(23,mobilePersonalMain.getT_mobilePersonalMain_prodlist());
+            ptmt.setString(24,mobilePersonalMain.getT_mobilePersonalMain_status());
+            ptmt.setString(25,mobilePersonalMain.getT_mobilePersonalMain_email());
+            ptmt.setString(25,mobilePersonalMain.getT_mobilePersonalMain_id());
+            ptmt.setDate(25, (java.sql.Date) new Date());
+            
             ptmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

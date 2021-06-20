@@ -394,8 +394,8 @@ public class EwalletController {
         
         MobileEwalletDashboard mobileEwalletDashboard = null; // intial Personal Ewallet
         // set inital value into ewallet
-        mobileEwalletDashboard.setT_mobilePersonalEwallet_ID(Tool.uuid());
-        mobileEwalletDashboard.setT_mobilePersonalEwallet_ApplierID(personalMID);
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_ID(personalMID);
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_ApplierID(pid);
         mobileEwalletDashboard.setT_mobilePersonalEwallet_ApplierPID(pid);
         mobileEwalletDashboard.setT_mobilePersonalEwallet_ApplierName(realName);
         mobileEwalletDashboard.setT_mobilePersonalEwallet_Passport("");
@@ -522,7 +522,7 @@ public class EwalletController {
             "t_personalewallet_bkp," +
             "t_personalewallet_treasuryID," +
             "t_personalewallet_eproposal," +
-            "t_personalewallet_Txt3," +
+            "t_personalewallet_DigiAddress," +
             "t_personalewallet_Txt4," +
             "t_personalewallet_Txt5," +
             "platform," +
@@ -594,7 +594,7 @@ public class EwalletController {
             ptmt.setString(61,mobileEwalletDashboard.getT_mobilePersonalEwallet_Txt4());
             ptmt.setString(62,mobileEwalletDashboard.getT_mobilePersonalEwallet_Txt5());
             ptmt.setString(63,"mobile");
-            ptmt.setString(64,"Java-backend-system");
+            ptmt.setString(64,personalMID);
             ptmt.setDate(65,(java.sql.Date) new Date());
             ptmt.executeUpdate();
         } catch (SQLException e) {

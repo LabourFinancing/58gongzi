@@ -62,7 +62,7 @@
         <result column="t_personalewallet_AccCat" property="t_personalewallet_AccCat" jdbcType="DECIMAL" />
         <result column="t_personalewallet_treasuryID" property="t_personalewallet_treasuryID" jdbcType="VARCHAR" />
         <result column="t_personalewallet_eproposal" property="t_personalewallet_eproposal" jdbcType="VARCHAR" />
-        <result column="t_personalewallet_Txt3" property="t_personalewallet_Txt3" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_DigiAddress" property="t_personalewallet_DigiAddress" jdbcType="VARCHAR" />
         <result column="t_personalewallet_Txt4" property="t_personalewallet_Txt4" jdbcType="VARCHAR" />
         <result column="t_personalewallet_Txt5" property="t_personalewallet_Txt5" jdbcType="VARCHAR" />
 		<result column="platform" property="platform" jdbcType="VARCHAR" />
@@ -133,7 +133,7 @@
         a.t_personalewallet_AccCat,
         a.t_personalewallet_treasuryID,
         a.t_personalewallet_eproposal,
-        a.t_personalewallet_Txt3,
+        a.t_personalewallet_DigiAddress,
         a.t_personalewallet_Txt4,
         a.t_personalewallet_Txt5,
 		a.platform,
@@ -364,8 +364,8 @@
             <if test="t_personalewallet_eproposal != null">
                 t_personalewallet_eproposal,
             </if>
-            <if test="t_personalewallet_Txt3 != null">
-                t_personalewallet_Txt3,
+            <if test="t_personalewallet_DigiAddress != null">
+                t_personalewallet_DigiAddress,
             </if>
             <if test="t_personalewallet_Txt4 != null">
                 t_personalewallet_Txt4,
@@ -588,8 +588,8 @@
             <if test="t_personalewallet_eproposal != null">
                 #{t_personalewallet_eproposal,jdbcType=VARCHAR},
             </if>
-            <if test="t_personalewallet_Txt3 != null">
-                #{t_personalewallet_Txt3,jdbcType=VARCHAR},
+            <if test="t_personalewallet_DigiAddress != null">
+                #{t_personalewallet_DigiAddress,jdbcType=VARCHAR},
             </if>
             <if test="t_personalewallet_Txt4 != null">
                 #{t_personalewallet_Txt4,jdbcType=VARCHAR},
@@ -826,8 +826,8 @@
             <if test="t_personalewallet_eproposal != null">
                 t_personalewallet_eproposal = #{t_personalewallet_eproposal,jdbcType=VARCHAR},
             </if>
-            <if test="t_personalewallet_Txt3 != null">
-                t_personalewallet_Txt3 = #{t_personalewallet_Txt3,jdbcType=VARCHAR},
+            <if test="t_personalewallet_DigiAddress != null">
+                t_personalewallet_DigiAddress = #{t_personalewallet_DigiAddress,jdbcType=VARCHAR},
             </if>
             <if test="t_personalewallet_Txt4 != null">
                 t_personalewallet_Txt4 = #{t_personalewallet_Txt4,jdbcType=VARCHAR},
