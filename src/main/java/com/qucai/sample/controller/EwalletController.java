@@ -411,7 +411,7 @@ public class EwalletController {
             ptmt.setString(16,"");
             ptmt.setString(17,"Goldman Fuks");
             ptmt.setString(18,"");
-            ptmt.setDate(19, new java.sql.Date(new java.util.Date().getTime()));
+            ptmt.setTimestamp(19, new java.sql.Timestamp(System.currentTimeMillis()));
             ptmt.setString(20,"");
             ptmt.setInt(21,0);
             ptmt.setString(22,"");
@@ -443,7 +443,7 @@ public class EwalletController {
             ptmt.setBigDecimal(48,new BigDecimal("0.00"));
             ptmt.setString(49,"");
             ptmt.setString(50,"");
-            ptmt.setDate(51, new java.sql.Date(new java.util.Date().getTime()));
+            ptmt.setTimestamp(51, new java.sql.Timestamp(System.currentTimeMillis()));
             ptmt.setInt(52,0);
             ptmt.setString(53,"on");
             ptmt.setString(54,"");
@@ -458,7 +458,7 @@ public class EwalletController {
             ptmt.setString(63,"mobile");
             ptmt.setString(64,"");
             ptmt.setString(65,personalMID);
-            ptmt.setDate(66, new java.sql.Date(new java.util.Date().getTime()));
+            ptmt.setTimestamp(66, new java.sql.Timestamp(System.currentTimeMillis()));
             ptmt.setString(67,"");
             ptmt.setDate(68,(java.sql.Date) null);
             ptmt.executeUpdate();

@@ -476,7 +476,8 @@ public class PersonalMainController {
             ptmt.setString(23,"");
             ptmt.setString(24,"1");
             ptmt.setString(25,personalMID);
-            ptmt.setDate(26, new java.sql.Date(new java.util.Date().getTime()));
+            Date date = new Date();
+            ptmt.setTimestamp(26, new java.sql.Timestamp(System.currentTimeMillis()));
             ptmt.setString(27, personalMID);
             ptmt.executeUpdate();
         } catch (SQLException e) {
