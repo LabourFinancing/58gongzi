@@ -390,74 +390,6 @@ public class EwalletController {
         Connection conn = dao.getConnection();
 
         String sql="insert into t_personal_ewallet " +
-            "(t_personalewallet_ID," +
-            "t_personalewallet_ApplierID," +
-            "t_personalewallet_ApplierPID," +
-            "t_personalewallet_ApplierName," +
-            "t_personalewallet_Passport," +
-            "t_personalewallet_ScanCode," +
-            "t_personalewallet_QRcode," +
-            "t_personalewallet_alipayAcc," +
-            "t_personalewallet_wechatpayAcc," +
-            "t_personalewallet_unionpayAcc," +
-            "t_personalewallet_CryptoC," +
-            "t_personalewallet_Voucher," +
-            "t_personalewallet_VoucherDigi," +
-            "t_personalewallet_Creditcard," +
-            "t_personalewallet_Debitcard," +
-            "t_personalewallet_ClearNum," +
-            "t_personalewallet_ClearOrg," +
-            "t_personalewallet_PayCat," +
-            "t_personalewallet_PayDate," +
-            "t_personalewallet_ProdName," +
-            "t_personalewallet_PayDays," +
-            "t_personalewallet_Reciept," +
-            "t_personalewallet_TotCNYBalance," +
-            "t_personalewallet_TotFXBalance," +
-            "t_personalewallet_TotCryptoBalance," +
-            "t_personalewallet_TotAssetES," +
-            "t_personalewallet_DebitPayAmt," +
-            "t_personalewallet_ApplyPayAmount," +
-            "t_personalewallet_CreditPrepayBalanceNum," +
-            "t_personalewallet_CreditPayAmt," +
-            "t_personalewallet_CreditPayAmtInit," +
-            "t_personalewallet_TotalPrepayAmt," +
-            "t_personalewallet_TotalInterestDays," +
-            "t_personalewallet_PayCounts," +
-            "t_personalewallet_Interest," +
-            "t_personalewallet_TotLimit," +
-            "t_personalewallet_Worth," +
-            "t_personalewallet_DiscountRate," +
-            "t_personalewallet_BalanceInterest," +
-            "t_personalewallet_OverdueRepaymentDate," +
-            "t_personalewallet_PrepayClear," +
-            "t_personalewallet_Overdue," +
-            "t_personalewallet_OverdueTotalAmount," +
-            "t_personalewallet_FinancialInterest," +
-            "t_personalewallet_ServiceFee," +
-            "t_personalewallet_Poundage," +
-            "t_personalewallet_TierPoundage," +
-            "t_personalewallet_InterestMargin," +
-            "t_personalewallet_BankAccName," +
-            "t_personalewallet_BankAcc," +
-            "t_personalewallet_SysUpdateDate," +
-            "t_personalewallet_OverdueDays," +
-            "t_personalewallet_Paystatus," +
-            "t_personalewallet_SMS," +
-            "t_personalewallet_PaymentVersion," +
-            "t_personalewallet_AccCat," +
-            "t_personalewallet_bkp," +
-            "t_personalewallet_treasuryID," +
-            "t_personalewallet_eproposal," +
-            "t_personalewallet_DigiAddress," +
-            "t_personalewallet_Txt4," +
-            "t_personalewallet_Txt5," +
-            "platform," +
-            "remark," +
-            "creator," +
-            "create_time," +
-            "modifier," +
-            "modify_time " +
             "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ptmt = conn.prepareStatement(sql);
@@ -517,7 +449,7 @@ public class EwalletController {
             ptmt.setString(54,"");
             ptmt.setString(55,"");
             ptmt.setString(56,"");
-            ptmt.setString(57,""); 
+            ptmt.setBigDecimal(57,new BigDecimal("0.00")); 
             ptmt.setString(58,"");
             ptmt.setString(59,"");
             ptmt.setString(60,"");

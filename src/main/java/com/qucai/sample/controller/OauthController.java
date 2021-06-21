@@ -144,9 +144,8 @@ public class OauthController {
 
 
         /******************
-        New User Register 新用户注册 node发起注册 开通钱包 支付时要求绑定卡
+        New User Register 新用户注册 node发起注册 开通钱包 支付时要求绑定卡 - done
          */
-        //http://localhost:8080/sample/oauthController/login?method=NewUser&facialret=$&pid=$&phone=&realName=$
         //http://localhost:8080/sample/oauthController/login?method=NewUser&facialret=0&pid=31011519830805251X&phone=18001869161&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475&realName=姚诚铭
         if(method!=null&&method.equalsIgnoreCase("NewUser")){
             Map<String, Object> rs = new HashMap<String, Object>();
