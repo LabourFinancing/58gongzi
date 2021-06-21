@@ -1,6 +1,7 @@
 package com.qucai.sample.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.mchange.v2.c3p0.impl.NewProxyCallableStatement;
 import com.qucai.sample.OperationTypeConstant;
 import com.qucai.sample.common.PageParam;
 import com.qucai.sample.entity.*;
@@ -398,87 +399,96 @@ public class EwalletTxnController {
     /*
 移动端个人
 */
-//    public Map<String, Object> addMobileEwalletTxn(BigDecimal txnAmt,String walletTxn_PayerPID,String walletTxn_ReceiverID) throws SQLException {
-//
-//        Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
-//        String ewallet = "58ewallet";
-//        DBConnection dao = new DBConnection();
-//        Connection conn = dao.getConnection();
-//
-//        MobilePersonalMain mobilePersonalMain = null; // intial Personal Main Info
-//
-//        String userid = Tool.uuid();
-//        String cryptoc = "gfcoin";
-//        String initialProductMain = "gfshxxkjfwyxgs-v-a";
-//        String sql="update t_personal_main a " +
-//            "set  t_personal_main_mobile1 = ?," +
-//            "t_personal_main_contacts = ?," +
-//            "t_personal_main_securityret = ?," +
-//            "t_personal_main_passport = ?," +
-//            "t_personal_main_passport1 = ?," +
-//            "t_personal_main_visa = ?," +
-//            "t_personal_main_visa1 = ?," +
-//            "t_personal_main_onlinepaymentcat = ?," +
-//            "t_personal_main_onlinepayment = ?," +
-//            "t_personal_main_paymentmethod = ?," +
-//            "t_personal_main_paymentmethod1 = ?," +
-//            "t_personal_main_CNbankcard = ?," +
-//            "t_personal_main_GLbankcard = ?," +
-//            "t_personal_main_bankacc = ?," +
-//            "t_personal_main_crypto = ?," +
-//            "t_personal_main_assetcat = ?," +
-//            "t_personal_main_voucher = ?," +
-//            "t_personal_main_creditscore = ?," +
-//            "t_personal_main_ewalletcat = ?," +
-//            "t_personal_main_digiasset = ?," +
-//            "t_personal_main_companylist = ?," +
-//            "t_personal_main_productCat = ?," +
-//            "t_personal_main_prodlist = ?," +
-//            "status = ?," +
-//            "modifier = ?," +
-//            "modify_time = ? " +
-//            "where a.t_personal_main_id = ?";
-//        try {
-//            PreparedStatement ptmt=conn.prepareStatement(sql);
-//            ptmt.setString(1,phone);
-//            ptmt.setString(2,phone);
-//            ptmt.setString(3,facialret);
-//            ptmt.setString(4,"");
-//            ptmt.setString(5,"");
-//            ptmt.setString(6,"");
-//            ptmt.setString(7,"");
-//            ptmt.setString(8,"ewallet");
-//            ptmt.setString(9,"ewallet-Cash-Acc");
-//            ptmt.setString(10,"");
-//            ptmt.setString(11,"");
-//            ptmt.setString(12,"");
-//            ptmt.setString(13,"");
-//            ptmt.setString(14,"");
-//            ptmt.setString(15,"gf-coin");
-//            ptmt.setString(16,"CNY");
-//            ptmt.setString(17,"off");
-//            ptmt.setInt(18,0);
-//            ptmt.setString(19,"gf-basic");
-//            ptmt.setString(20,"gf-digi-basic");
-//            ptmt.setString(21,"");
-//            ptmt.setString(22,"gf-Be-Db");
-//            ptmt.setString(23,"");
-//            ptmt.setString(24,"1");
-//            ptmt.setString(25,personalMID);
-//            Date date = new Date();
-//            ptmt.setTimestamp(26, new java.sql.Timestamp(System.currentTimeMillis()));
-//            ptmt.setString(27, personalMID);
-//            ptmt.executeUpdate();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            rsPersonalMainReg.put("PersonalMainReg-ErrorCode",String.valueOf(e.getErrorCode()));
-//            rsPersonalMainReg.put("PersonalMainReg-SQLstat:",String.valueOf(e.getSQLState()));
-//            return rsPersonalMainReg;
-//        }finally {
-//            conn.close();
-//            rsPersonalMainReg.put("SQL-PersonalMain","0");
-//        }
-//
-//        return rsPersonalMainReg;
-//    }
+    public Map<String, Object> addMobileEwalletTxn(BigDecimal txnAmt,String walletTxn_PayerPID,String walletTxn_ReceiverID,String personalMID) throws SQLException {
+
+        Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
+        String ewallet = "58ewallet";
+        DBConnection dao = new DBConnection();
+        Connection conn = dao.getConnection();
+
+
+        String sql="insert into t_ewallettxn_info " +
+            "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement ptmt = null;
+            ptmt = conn.prepareStatement(sql);
+            ptmt.setString(1,Tool.uuid());
+            ptmt.setString(2,"");
+            ptmt.setString(3,Tool.PayId());
+            ptmt.setString(4,"");
+            ptmt.setString(5,"");
+            ptmt.setString(6,"");
+            ptmt.setString(7,"");
+            ptmt.setString(8,"");
+            ptmt.setString(9,"");
+            ptmt.setString(10,"");
+            ptmt.setString(11,"");
+            ptmt.setString(12,"");
+            ptmt.setString(13,"");
+            ptmt.setString(14,"");
+            ptmt.setString(15,"");
+            ptmt.setString(16,"");
+            ptmt.setString(17,"Goldman Fuks");
+            ptmt.setString(18,"");
+            ptmt.setTimestamp(19, new java.sql.Timestamp(System.currentTimeMillis()));
+            ptmt.setString(20,"");
+            ptmt.setInt(21,0);
+            ptmt.setString(22,"");
+            ptmt.setBigDecimal(23,new BigDecimal("0.00"));
+            ptmt.setBigDecimal(24,new BigDecimal("0.00"));
+            ptmt.setBigDecimal(25,new BigDecimal("0.00"));
+            ptmt.setBigDecimal(26,new BigDecimal("0.00"));
+            ptmt.setBigDecimal(27,new BigDecimal("0.00"));
+            ptmt.setBigDecimal(28,new BigDecimal("0.00"));
+            ptmt.setBigDecimal(29,new BigDecimal("0.00"));
+            ptmt.setBigDecimal(30,new BigDecimal("0.00"));
+            ptmt.setBigDecimal(31,new BigDecimal("0.00"));
+            ptmt.setBigDecimal(32,new BigDecimal("0.00"));
+            ptmt.setInt(33,0);
+            ptmt.setInt(34,0);
+            ptmt.setBigDecimal(35,new BigDecimal("0.00"));
+            ptmt.setBigDecimal(36,new BigDecimal("0.00"));
+            ptmt.setBigDecimal(37,new BigDecimal("0.00"));
+            ptmt.setBigDecimal(38,new BigDecimal("0.00"));
+            ptmt.setBigDecimal(39,new BigDecimal("0.00"));
+            ptmt.setDate(40, (java.sql.Date) null);
+            ptmt.setBigDecimal(41,new BigDecimal("0.00"));
+            ptmt.setBigDecimal(42,new BigDecimal("0.00"));
+            ptmt.setBigDecimal(43,new BigDecimal("0.00"));
+            ptmt.setBigDecimal(44,new BigDecimal("0.00"));
+            ptmt.setBigDecimal(45,new BigDecimal("0.00"));
+            ptmt.setBigDecimal(46,new BigDecimal("0.00"));
+            ptmt.setBigDecimal(47,new BigDecimal("0.00"));
+            ptmt.setBigDecimal(48,new BigDecimal("0.00"));
+            ptmt.setString(49,"");
+            ptmt.setTimestamp(50,null);
+            ptmt.setString(51,"");
+            ptmt.setString(52,"");
+            ptmt.setString(53,"");
+            ptmt.setString(54,"");  //b2b,b2c,c2b,c2c 交易类型
+            ptmt.setString(55,"no"); //voucher
+            ptmt.setString(56,""); //备用字段
+            ptmt.setString(57,""); //备用字段
+            ptmt.setString(58,""); //备用字段
+            ptmt.setString(59,""); //备用字段
+            ptmt.setString(60,"mobile"); //平台
+            ptmt.setString(61,"");
+            ptmt.setString(62,walletTxn_PayerPID);
+            ptmt.setTimestamp(63,new java.sql.Timestamp(System.currentTimeMillis()));
+            ptmt.setString(64,"");
+            ptmt.setTimestamp(65, null);
+            System.out.println(ptmt.executeUpdate());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            rsMobileEwalletTxn.put("SQL-PersonalEwalletTxn-ErrorCode:",String.valueOf(e.getErrorCode()));
+            rsMobileEwalletTxn.put("SQL-PersonalEwalletTxn-SQLstat:",String.valueOf(e.getSQLState()));
+            rsMobileEwalletTxn.put("SQL-PersonalEwalletTxn-SQLcause:",String.valueOf(e.getCause()));
+            return rsMobileEwalletTxn;
+        }finally {
+            conn.close();
+            rsMobileEwalletTxn.put("SQL-PersonalEwalletTxn","0");
+        }
+
+        return rsMobileEwalletTxn;
+    }
 }

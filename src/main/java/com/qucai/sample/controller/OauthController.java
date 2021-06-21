@@ -192,6 +192,7 @@ public class OauthController {
         //个人收付款58-58  ( payee - 58,receiver - 58 )
         if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("58scan-txn-58qr")&&action.equalsIgnoreCase("transaction")){
             Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
+            MobilePersonalMain mobilePersonalMain = null;
             String[] txnMethod = method.split("-");
             for(int i=0;i < txnMethod.length;i++){
                 switch (i) {
@@ -218,8 +219,19 @@ public class OauthController {
 //            ewalletTxn.setT_WalletTxn_PayerPID(walletTxn_PayerPID);
 //            ewalletTxn.setT_WalletTxn_ReceiverID(walletTxn_ReceiverID);
             
+            //find payee personal Info and 
+            String personalPID = walletTxn_PayerPID;
+            PersonalMainController personalMainController = new PersonalMainController();
+
+            mobilePersonalMain = (MobilePersonalMain) personalMainController.findPersonalMainInfo(personalPID);
+            //find personal Ewallet Info
+            EwalletController ewalletController = new EwalletController();
+            MobileEwalletDashboard mobileEwalletDashboard = new MobileEwalletDashboard();
+
+            mobileEwalletDashboard = (MobileEwalletDashboard) ewalletController.findPersonalEwallet(personalPID);
+            
             EwalletTxnController ewalletTxnController = new EwalletTxnController();
-//            rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(txnAmt,walletTxn_PayerPID,walletTxn_ReceiverID);
+            rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(txnAmt,walletTxn_PayerPID,walletTxn_ReceiverID,personalMID);
 //            if (rsMobileEwalletTxn.get())
             
             // buffer checking
@@ -230,13 +242,9 @@ public class OauthController {
             // 3rd party payment call
             // ret checking personal ewallet repo and personal revaluation
             // buffer checking
-//            String retPersonalMainController = personalMainController.creditRefreshPersonalMain(t_personal_main_id);
 
 //            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
-//            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
-//                System.out.println("调用个人消费成功");
-//                rs.put("SMSverify",0);
-//            }
+
             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
         }
 

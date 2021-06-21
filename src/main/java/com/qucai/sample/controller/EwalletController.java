@@ -11,6 +11,7 @@ import com.qucai.sample.util.JsonBizTool;
 import com.qucai.sample.util.ShiroSessionUtil;
 import com.qucai.sample.util.Tool;
 import com.qucai.sample.vo.MobileEwalletDashboard;
+import com.qucai.sample.vo.MobilePersonalMain;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
@@ -429,7 +431,7 @@ public class EwalletController {
             ptmt.setInt(34,0);
             ptmt.setBigDecimal(35,new BigDecimal("0.00"));
             ptmt.setBigDecimal(36,new BigDecimal("0.00"));
-            ptmt.setBigDecimal(37,new BigDecimal("0.00"));
+            ptmt.setBigDecimal(37,new BigDecimal("100.00")); // 职场指数
             ptmt.setBigDecimal(38,new BigDecimal("0.00"));
             ptmt.setBigDecimal(39,new BigDecimal("0.00"));
             ptmt.setDate(40, (java.sql.Date) null);
@@ -460,8 +462,8 @@ public class EwalletController {
             ptmt.setString(65,personalMID);
             ptmt.setTimestamp(66, new java.sql.Timestamp(System.currentTimeMillis()));
             ptmt.setString(67,"");
-            ptmt.setDate(68,(java.sql.Date) null);
-            ptmt.executeUpdate();
+            ptmt.setTimestamp(68,null);
+            System.out.println(ptmt.executeUpdate());
         } catch (SQLException e) {
             e.printStackTrace();
             rsNewUserEwallet.put("SQL-PersonalEwallet-ErrorCode:",String.valueOf(e.getErrorCode()));
@@ -474,6 +476,33 @@ public class EwalletController {
         }
         return rsNewUserEwallet;
     }
+
+    //Get PersonalMaininfo and EwalletInfo
+    public MobileEwalletDashboard findPersonalEwallet(String personalPID) throws SQLException {
+        Map<String, Object> mobilePersonalMain1 =  new HashMap<String, Object>();
+        MobileEwalletDashboard mobileEwalletDashboard = new MobileEwalletDashboard();
+        DBConnection dao = new DBConnection();
+        Connection conn = dao.getConnection();
+        ResultSet rs = null;
+
+        String sql = "select * from t_personal_ewallet where t_personalewallet_ApplierPID = ?";
+        try {
+            PreparedStatement ptmt=conn.prepareStatement(sql);
+            ptmt.setString(1, personalPID);
+            rs = ptmt.executeQuery();
+            if (rs.next()) {
+                mobileEwalletDashboard.setT_mobilePersonalEwallet_ID(rs.getString("t_personalewallet_ID"));
+                mobileEwalletDashboard.setT_mobilePersonalEwallet_ApplierName(rs.getString("t_personalewallet_ApplierName"));
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            conn.close();
+        }
+        return mobileEwalletDashboard;
+    }
+    
     public String ewalletList(Ewallet ewallet) {
         System.out.print("succ");
         return "succ";

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
+import java.sql.ResultSet;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -418,9 +419,6 @@ public class PersonalMainController {
 
         MobilePersonalMain mobilePersonalMain = null; // intial Personal Main Info
         
-        String userid = Tool.uuid();
-        String cryptoc = "gfcoin";
-        String initialProductMain = "gfshxxkjfwyxgs-v-a";
         String sql="update t_personal_main a " +
             "set  t_personal_main_mobile1 = ?," +
             "t_personal_main_contacts = ?," +
@@ -479,7 +477,7 @@ public class PersonalMainController {
             Date date = new Date();
             ptmt.setTimestamp(26, new java.sql.Timestamp(System.currentTimeMillis()));
             ptmt.setString(27, personalMID);
-            ptmt.executeUpdate();
+            System.out.println(ptmt.executeUpdate());
         } catch (SQLException e) {
             e.printStackTrace();
             rsPersonalMainReg.put("PersonalMainReg-ErrorCode",String.valueOf(e.getErrorCode()));
@@ -493,58 +491,31 @@ public class PersonalMainController {
         return rsPersonalMainReg;
     }
 
-    /*参考 查询
-    public EndUser find(EndUser user) {
-        Connection conn = null;
-        PreparedStatement pstmt = null;
+    //Get PersonalMaininfo
+    public MobilePersonalMain findPersonalMainInfo(String personalPID) throws SQLException {
+        Map<String, Object> mobilePersonalMain1 =  new HashMap<String, Object>();
+        MobilePersonalMain mobilePersonalMain = new MobilePersonalMain();
+        DBConnection dao = new DBConnection();
+        Connection conn = dao.getConnection();
         ResultSet rs = null;
-        conn = DbConnection .getConnection();
-        EndUser user2 = null;
-        String sql = "select * from  user where  username=? and password=?";
+        
+        String sql = "select * from t_personal_main where t_personal_main_pid = ?";
         try {
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, user.getUsername());
-            pstmt.setString(2, user.getPassword());
-            rs = pstmt.executeQuery();
+            PreparedStatement ptmt = conn.prepareStatement(sql);
+            ptmt.setString(1, personalPID);
+            rs = ptmt.executeQuery();
             if (rs.next()) {
-                user2 = new EndUser();
-                user2.setId(rs.getInt("id"));
-                user2.setUsername(rs.getString("username"));
-                user2.setPassword(rs.getString("password"));
-                user2.setRelname(rs.getString("relname"));
-
+                mobilePersonalMain.setT_mobilePersonalMain_id(rs.getString("t_personal_main_id"));
+                mobilePersonalMain.setT_mobilePersonalMain_realname(rs.getString("t_personal_main_name"));
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+            mobilePersonalMain.setT_mobilePersonalMain_status("exception");
+            return mobilePersonalMain;
         } finally {
-            DbConnection.closeDB(conn, pstmt, rs);
-
+            conn.close();
+            return mobilePersonalMain;
         }
-        return user2;
-
     }
-    
-    Connection conn = null;
-        PreparedStatement stmt =  null;
-        try{
-            conn = JdbcUtil.getConnection();
-            stmt = conn.prepareStatement("insert into t1 (id,name) values(?,?)");
-
-            for(int i=0;i<10;i++){
-                stmt.setInt(1, i+1);
-                stmt.setString(2, "aa"+(i+1));
-                stmt.addBatch();//向缓存中加的参数
-            }
-
-            int [] ii = stmt.executeBatch();//批处理.每条语句影响的行数
-
-            for(int i:ii)
-                System.out.println(i);
-        }catch(Exception e){
-            e.printStackTrace();
-        }finally{
-            JdbcUtil.release(null, stmt, conn);
-        }
-     */
 }
