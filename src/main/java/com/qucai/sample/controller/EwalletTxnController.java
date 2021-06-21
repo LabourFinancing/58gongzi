@@ -448,7 +448,7 @@ public class EwalletTxnController {
             ptmt.setBigDecimal(34,new BigDecimal("0.00")); // 钱包总余额
             ptmt.setBigDecimal(35,new BigDecimal("0.00")); // 额度变化(小于一个月工资)
             ptmt.setTimestamp(36,null); // 返款时间
-            ptmt.setString(37,"1"); // 结算状态,1-欠款,0-已还清
+            ptmt.setString(37,"1"); // 结算状态,0-已结清,1-未结算,2-已逾期
             ptmt.setString(38,""); // 是否预期
             ptmt.setInt(39,0); // 逾期天数
             ptmt.setBigDecimal(40,new BigDecimal("0.00")); // 退款金额
