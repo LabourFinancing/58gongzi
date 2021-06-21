@@ -408,75 +408,76 @@ public class EwalletTxnController {
 
 
         String sql="insert into t_ewallettxn_info " +
-            "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ptmt = null;
             ptmt = conn.prepareStatement(sql);
             ptmt.setString(1,Tool.uuid());
             ptmt.setString(2,"");
-            ptmt.setString(3,Tool.PayId());
-            ptmt.setString(4,"");
-            ptmt.setString(5,"");
-            ptmt.setString(6,"");
-            ptmt.setString(7,"");
-            ptmt.setString(8,"");
-            ptmt.setString(9,"");
-            ptmt.setString(10,"");
-            ptmt.setString(11,"");
-            ptmt.setString(12,"");
-            ptmt.setString(13,"");
-            ptmt.setString(14,"");
-            ptmt.setString(15,"");
-            ptmt.setString(16,"");
-            ptmt.setString(17,"Goldman Fuks");
-            ptmt.setString(18,"");
-            ptmt.setTimestamp(19, new java.sql.Timestamp(System.currentTimeMillis()));
-            ptmt.setString(20,"");
-            ptmt.setInt(21,0);
-            ptmt.setString(22,"");
-            ptmt.setBigDecimal(23,new BigDecimal("0.00"));
-            ptmt.setBigDecimal(24,new BigDecimal("0.00"));
-            ptmt.setBigDecimal(25,new BigDecimal("0.00"));
-            ptmt.setBigDecimal(26,new BigDecimal("0.00"));
-            ptmt.setBigDecimal(27,new BigDecimal("0.00"));
-            ptmt.setBigDecimal(28,new BigDecimal("0.00"));
-            ptmt.setBigDecimal(29,new BigDecimal("0.00"));
-            ptmt.setBigDecimal(30,new BigDecimal("0.00"));
-            ptmt.setBigDecimal(31,new BigDecimal("0.00"));
-            ptmt.setBigDecimal(32,new BigDecimal("0.00"));
-            ptmt.setInt(33,0);
-            ptmt.setInt(34,0);
-            ptmt.setBigDecimal(35,new BigDecimal("0.00"));
-            ptmt.setBigDecimal(36,new BigDecimal("0.00"));
-            ptmt.setBigDecimal(37,new BigDecimal("0.00"));
-            ptmt.setBigDecimal(38,new BigDecimal("0.00"));
-            ptmt.setBigDecimal(39,new BigDecimal("0.00"));
-            ptmt.setDate(40, (java.sql.Date) null);
-            ptmt.setBigDecimal(41,new BigDecimal("0.00"));
-            ptmt.setBigDecimal(42,new BigDecimal("0.00"));
-            ptmt.setBigDecimal(43,new BigDecimal("0.00"));
-            ptmt.setBigDecimal(44,new BigDecimal("0.00"));
-            ptmt.setBigDecimal(45,new BigDecimal("0.00"));
-            ptmt.setBigDecimal(46,new BigDecimal("0.00"));
-            ptmt.setBigDecimal(47,new BigDecimal("0.00"));
-            ptmt.setBigDecimal(48,new BigDecimal("0.00"));
-            ptmt.setString(49,"");
-            ptmt.setTimestamp(50,null);
-            ptmt.setString(51,"");
-            ptmt.setString(52,"");
+            ptmt.setString(3,Tool.PayId());// 交易流水号
+            ptmt.setString(4,""); // 交易机构编号
+            ptmt.setString(5,""); // 清算号
+            ptmt.setString(6,""); // 交易企业对账号
+            ptmt.setString(7,""); // 付款人姓名
+            ptmt.setString(8,""); // 付款人ID
+            ptmt.setString(9,""); // 付款人主身份
+            ptmt.setString(10,""); // 收款人姓名
+            ptmt.setString(11,""); // 收款人ID
+            ptmt.setString(12,""); // 收款人身份证
+            ptmt.setString(13,""); // 付款人手机号
+            ptmt.setString(14,"Payment"); // 充值,支付,收款,消费,退款
+            ptmt.setString(15,""); // 币种
+            ptmt.setTimestamp(16,new java.sql.Timestamp(System.currentTimeMillis())); // 交易时间
+            ptmt.setString(17,""); // 产品名
+            ptmt.setInt(18,0); // 天数周期天数
+            ptmt.setBigDecimal(19,new BigDecimal("0.00")); // 当前可预支额度
+            ptmt.setBigDecimal(20,txnAmt); // 总支付金额
+            ptmt.setBigDecimal(21,new BigDecimal("0.00")); // 充值金额
+            ptmt.setBigDecimal(22,new BigDecimal("0.00")); // 数字币支付金额
+            ptmt.setBigDecimal(23,new BigDecimal("0.00")); // 借记卡支付金额
+            ptmt.setBigDecimal(24,new BigDecimal("0.00")); // 信用卡支付金额
+            ptmt.setBigDecimal(25,new BigDecimal("0.00")); // 剩余信用额度
+            ptmt.setBigDecimal(26,new BigDecimal("0.00")); // 信用支付金额
+            ptmt.setBigDecimal(27,txnAmt); // 实付金额
+            ptmt.setBigDecimal(28,new BigDecimal("0.00")); // 优惠券金额
+            ptmt.setInt(29,0); // 结算周期 T+0 当天 T+1 隔天
+            ptmt.setInt(30,1); // 交易次数
+            ptmt.setBigDecimal(31,new BigDecimal("0.00")); // 贴现差额
+            ptmt.setString(32,""); //对私-0；对公-1
+            ptmt.setString(33,""); // 退款账号
+            ptmt.setBigDecimal(34,new BigDecimal("0.00")); // 钱包总余额
+            ptmt.setBigDecimal(35,new BigDecimal("0.00")); // 额度变化(小于一个月工资)
+            ptmt.setTimestamp(36,null); // 返款时间
+            ptmt.setString(37,"1"); // 结算状态,1-欠款,0-已还清
+            ptmt.setString(38,""); // 是否预期
+            ptmt.setInt(39,0); // 逾期天数
+            ptmt.setBigDecimal(40,new BigDecimal("0.00")); // 退款金额
+            ptmt.setBigDecimal(41,new BigDecimal("0.00")); // 融资利息(日)
+            ptmt.setBigDecimal(42,new BigDecimal("0.00")); // 服务费费
+            ptmt.setBigDecimal(43,new BigDecimal("0.00")); // 手续费
+            ptmt.setBigDecimal(44,new BigDecimal("0.00")); // 区间手续费
+            ptmt.setBigDecimal(45,new BigDecimal("0.00")); // 优惠金额 扣减数
+            ptmt.setBigDecimal(46,new BigDecimal("0.00")); // 结算金额
+            ptmt.setBigDecimal(47,new BigDecimal("0.00")); // 算法公式
+            ptmt.setString(48,"");//支付人银行账号
+            ptmt.setString(49,"");//收款人账户号
+            ptmt.setString(50,"");
+            ptmt.setTimestamp(51,null); // 订单超时时间
+            ptmt.setString(52,"");//查询支付状态
             ptmt.setString(53,"");
-            ptmt.setString(54,"");  //b2b,b2c,c2b,c2c 交易类型
-            ptmt.setString(55,"no"); //voucher
-            ptmt.setString(56,""); //备用字段
+            ptmt.setString(54,"");
+            ptmt.setString(55,"");  //b2b,b2c,c2b,c2c 交易类型
+            ptmt.setString(56,"no"); //voucher
             ptmt.setString(57,""); //备用字段
             ptmt.setString(58,""); //备用字段
             ptmt.setString(59,""); //备用字段
-            ptmt.setString(60,"mobile"); //平台
-            ptmt.setString(61,"");
-            ptmt.setString(62,walletTxn_PayerPID);
-            ptmt.setTimestamp(63,new java.sql.Timestamp(System.currentTimeMillis()));
-            ptmt.setString(64,"");
-            ptmt.setTimestamp(65, null);
+            ptmt.setString(60,""); //备用字段
+            ptmt.setString(61,"mobile"); //平台
+            ptmt.setString(62,"");
+            ptmt.setString(63,walletTxn_PayerPID);
+            ptmt.setTimestamp(64,new java.sql.Timestamp(System.currentTimeMillis()));
+            ptmt.setString(65,"");
+            ptmt.setTimestamp(66, null);
             System.out.println(ptmt.executeUpdate());
         } catch (SQLException e) {
             e.printStackTrace();

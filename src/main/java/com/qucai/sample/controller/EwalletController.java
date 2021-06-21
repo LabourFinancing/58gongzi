@@ -497,10 +497,11 @@ public class EwalletController {
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+            mobileEwalletDashboard.setT_mobilePersonalEwallet_bkp("error");
         } finally {
             conn.close();
+            return mobileEwalletDashboard;
         }
-        return mobileEwalletDashboard;
     }
     
     public String ewalletList(Ewallet ewallet) {
