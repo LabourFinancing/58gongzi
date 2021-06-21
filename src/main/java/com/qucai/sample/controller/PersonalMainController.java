@@ -425,27 +425,27 @@ public class PersonalMainController {
             "set  t_personal_main_mobile1 = ?," +
             "t_personal_main_contacts = ?," +
             "t_personal_main_securityret = ?," +
-            "t_personal_main_passport = ? " +
-            "t_personal_main_passport1 = ? " +
+            "t_personal_main_passport = ?," +
+            "t_personal_main_passport1 = ?," +
             "t_personal_main_visa = ?," +
             "t_personal_main_visa1 = ?," +
-            "t_personal_main_onlinepaymentcat = ? " +
-            "t_personal_main_onlinepayment = ? " +
+            "t_personal_main_onlinepaymentcat = ?," +
+            "t_personal_main_onlinepayment = ?," +
             "t_personal_main_paymentmethod = ?," +
             "t_personal_main_paymentmethod1 = ?," +
-            "t_personal_main_CNbankcard = ? " +
-            "t_personal_main_GLbankcard = ? " +
+            "t_personal_main_CNbankcard = ?," +
+            "t_personal_main_GLbankcard = ?," +
             "t_personal_main_bankacc = ?," +
             "t_personal_main_crypto = ?," +
-            "t_personal_main_assetcat = ? " +
-            "t_personal_main_voucher = ? " +
+            "t_personal_main_assetcat = ?," +
+            "t_personal_main_voucher = ?," +
             "t_personal_main_creditscore = ?," +
             "t_personal_main_ewalletcat = ?," +
-            "t_personal_main_digiasset = ? " +
-            "t_personal_main_companylist = ? " +
+            "t_personal_main_digiasset = ?," +
+            "t_personal_main_companylist = ?," +
             "t_personal_main_productCat = ?," +
             "t_personal_main_prodlist = ?," +
-            "status = ? ," +
+            "status = ?," +
             "modifier = ?," +
             "modify_time = ? " +
             "where a.t_personal_main_id = ?";
@@ -474,10 +474,10 @@ public class PersonalMainController {
             ptmt.setString(21,"");
             ptmt.setString(22,"gf-Be-Db");
             ptmt.setString(23,"");
-            ptmt.setString(24,"on");
+            ptmt.setString(24,"1");
             ptmt.setString(25,personalMID);
-            ptmt.setDate(26, (java.sql.Date) new Date(new java.util.Date().getTime()));
-            
+            ptmt.setDate(26, new java.sql.Date(new java.util.Date().getTime()));
+            ptmt.setString(27, personalMID);
             ptmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -486,16 +486,9 @@ public class PersonalMainController {
             return rsPersonalMainReg;
         }finally {
             conn.close();
+            rsPersonalMainReg.put("SQL-PersonalMain","0");
         }
 
-//        personalMain.setT_personal_main_id(Tool.uuid());
-//        personalMain.setT_personal_main_facialret(facialret);
-//        personalMain.setModifier(ShiroSessionUtil.getLoginSession().getId());
-//        personalMain.setModify_time(new Date());
-//        String OrderCodeUpdate = null;
-//        BigDecimal CreditBalanceAmtRefund = null;
-
-        rsPersonalMainReg.put("SQL-PersonalMain","0");
         return rsPersonalMainReg;
     }
 

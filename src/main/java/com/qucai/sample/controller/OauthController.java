@@ -147,7 +147,7 @@ public class OauthController {
         New User Register 新用户注册 node发起注册 开通钱包 支付时要求绑定卡
          */
         //http://localhost:8080/sample/oauthController/login?method=NewUser&facialret=$&pid=$&phone=&realName=$
-        //http://localhost:8080/sample/oauthController/login?method=NewUser&facialret=0&pid=31011519830805251X&phone=18001869161&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475
+        //http://localhost:8080/sample/oauthController/login?method=NewUser&facialret=0&pid=31011519830805251X&phone=18001869161&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475&realName=姚诚铭
         if(method!=null&&method.equalsIgnoreCase("NewUser")){
             Map<String, Object> rs = new HashMap<String, Object>();
             Map<String, Object> rsNewUserEwallet = new HashMap<String, Object>();
@@ -160,13 +160,10 @@ public class OauthController {
             
             if(rsPersonalMainReg.get("SQL-PersonalMain").equals("0")){
                 EwalletController ewalletController = new EwalletController();
-                Ewallet ewallet = null;
-                ewallet.setT_personalewallet_TotCNYBalance(new BigDecimal("0.00"));
-                ewallet.setT_personalewallet_ID(Tool.uuid());
                 // personalEwallet register
                 // personal Product bind - gf-Be-Db 默认绑定产品
                 // Personal Treasury Management bind - payment-a-v
-                rsNewUserEwallet = ewalletController.addMobileEwallet(personalMID,pid,phone,realName);
+                rsNewUserEwallet = ewalletController.addMobileEwallet(personalMID,pid,realName);
                 if(rsNewUserEwallet.get("SQL-PersonalEwallet").equals("0")){
                     return JsonBizTool.genJson(ExRetEnum.SUCCESS, rsNewUserEwallet);
                 }else {

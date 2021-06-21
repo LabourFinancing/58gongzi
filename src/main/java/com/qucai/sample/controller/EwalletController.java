@@ -383,22 +383,12 @@ public class EwalletController {
  /*
     移动端我的模块
      */
-    public Map<String, Object> addMobileEwallet(String personalMID, String pid, String phone, String realName) throws SQLException {
-//        ewallet.setModifier(ShiroSessionUtil.getLoginSession().getId());
-//        ewallet.setModify_time(new Date());
-//        ewallet.setT_personalewallet_TotCNYBalance(new BigDecimal(new BigDecimal("0.00")));
-        
+    public Map<String, Object> addMobileEwallet(String personalMID, String pid, String realName) throws SQLException {
+        String personalID = pid;
         Map<String, Object> rsNewUserEwallet = new HashMap<String, Object>();
         DBConnection dao = new DBConnection();
         Connection conn = dao.getConnection();
-        
-        MobileEwalletDashboard mobileEwalletDashboard = null; // intial Personal Ewallet
-        // set inital value into ewallet
-        
-        mobileEwalletDashboard.setT_mobilePersonalEwallet_ApplyPayAmount(new BigDecimal("0.00"));
-        
-        String t_personalewallet_ApplierID = pid;
-        String initialPersonalEwallet = "gfshxxkjfwyxgs-v-a";
+
         String sql="insert into t_personal_ewallet " +
             "(t_personalewallet_ID," +
             "t_personalewallet_ApplierID," +
@@ -463,13 +453,16 @@ public class EwalletController {
             "t_personalewallet_Txt4," +
             "t_personalewallet_Txt5," +
             "platform," +
+            "remark," +
+            "creator," +
+            "create_time," +
             "modifier," +
-            "modify_time" +
-            "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            "modify_time " +
+            "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
-            PreparedStatement ptmt=conn.prepareStatement(sql);
+            PreparedStatement ptmt = conn.prepareStatement(sql);
             ptmt.setString(1,personalMID);
-            ptmt.setString(2,pid);
+            ptmt.setString(2,"");
             ptmt.setString(3,pid);
             ptmt.setString(4,realName);
             ptmt.setString(5,"");
@@ -478,18 +471,18 @@ public class EwalletController {
             ptmt.setString(8,"");
             ptmt.setString(9,"");
             ptmt.setString(10,"");
-            ptmt.setString(11,mobileEwalletDashboard.getT_mobilePersonalEwallet_CryptoC());
-            ptmt.setString(12,mobileEwalletDashboard.getT_mobilePersonalEwallet_Voucher());
-            ptmt.setString(13,mobileEwalletDashboard.getT_mobilePersonalEwallet_VoucherDigi());
-            ptmt.setString(14,mobileEwalletDashboard.getT_mobilePersonalEwallet_Creditcard());
-            ptmt.setString(15,mobileEwalletDashboard.getT_mobilePersonalEwallet_Debitcard());
-            ptmt.setString(16,mobileEwalletDashboard.getT_mobilePersonalEwallet_ClearNum());
-            ptmt.setString(17,mobileEwalletDashboard.getT_mobilePersonalEwallet_ClearOrg());
-            ptmt.setString(18,mobileEwalletDashboard.getT_mobilePersonalEwallet_PayCat());
-            ptmt.setDate(19, (java.sql.Date) new Date(new java.util.Date().getTime()));
-            ptmt.setString(20,mobileEwalletDashboard.getT_mobilePersonalEwallet_ProdName());
+            ptmt.setString(11,"");
+            ptmt.setString(12,"");
+            ptmt.setString(13,"");
+            ptmt.setString(14,"");
+            ptmt.setString(15,"");
+            ptmt.setString(16,"");
+            ptmt.setString(17,"Goldman Fuks");
+            ptmt.setString(18,"");
+            ptmt.setDate(19, new java.sql.Date(new java.util.Date().getTime()));
+            ptmt.setString(20,"");
             ptmt.setInt(21,0);
-            ptmt.setString(22,mobileEwalletDashboard.getT_mobilePersonalEwallet_Reciept());
+            ptmt.setString(22,"");
             ptmt.setBigDecimal(23,new BigDecimal("0.00"));
             ptmt.setBigDecimal(24,new BigDecimal("0.00"));
             ptmt.setBigDecimal(25,new BigDecimal("0.00"));
@@ -518,7 +511,7 @@ public class EwalletController {
             ptmt.setBigDecimal(48,new BigDecimal("0.00"));
             ptmt.setString(49,"");
             ptmt.setString(50,"");
-            ptmt.setDate(51,(java.sql.Date) new Date(new java.util.Date().getTime()));
+            ptmt.setDate(51, new java.sql.Date(new java.util.Date().getTime()));
             ptmt.setInt(52,0);
             ptmt.setString(53,"on");
             ptmt.setString(54,"");
@@ -531,8 +524,11 @@ public class EwalletController {
             ptmt.setString(61,"");
             ptmt.setString(62,"");
             ptmt.setString(63,"mobile");
-            ptmt.setString(64,personalMID);
-            ptmt.setDate(65,(java.sql.Date) new Date(new java.util.Date().getTime()));
+            ptmt.setString(64,"");
+            ptmt.setString(65,personalMID);
+            ptmt.setDate(66, new java.sql.Date(new java.util.Date().getTime()));
+            ptmt.setString(67,"");
+            ptmt.setDate(68,(java.sql.Date) null);
             ptmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -541,17 +537,8 @@ public class EwalletController {
             return rsNewUserEwallet;
         }finally {
             conn.close();
+            rsNewUserEwallet.put("SQL-PersonalEwallet","0");
         }
-
-//        personalMain.setT_personal_main_id(Tool.uuid());
-//        personalMain.setT_personal_main_facialret(facialret);
-//        personalMain.setModifier(ShiroSessionUtil.getLoginSession().getId());
-//        personalMain.setModify_time(new Date());
-//        String OrderCodeUpdate = null;
-//        BigDecimal CreditBalanceAmtRefund = null;
-
-        rsNewUserEwallet.put("SQL-PersonalEwallet","0");
-
         return rsNewUserEwallet;
     }
     public String ewalletList(Ewallet ewallet) {
