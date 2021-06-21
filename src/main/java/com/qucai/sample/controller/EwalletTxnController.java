@@ -6,9 +6,11 @@ import com.qucai.sample.common.PageParam;
 import com.qucai.sample.entity.*;
 import com.qucai.sample.exception.ExRetEnum;
 import com.qucai.sample.service.*;
+import com.qucai.sample.util.DBConnection;
 import com.qucai.sample.util.JsonBizTool;
 import com.qucai.sample.util.ShiroSessionUtil;
 import com.qucai.sample.util.Tool;
+import com.qucai.sample.vo.MobilePersonalMain;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -389,4 +394,91 @@ public class EwalletTxnController {
             return JsonBizTool.genJson(ExRetEnum.FAIL);
         }
     }
+
+    /*
+移动端个人
+*/
+//    public Map<String, Object> addMobileEwalletTxn(BigDecimal txnAmt,String walletTxn_PayerPID,String walletTxn_ReceiverID) throws SQLException {
+//
+//        Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
+//        String ewallet = "58ewallet";
+//        DBConnection dao = new DBConnection();
+//        Connection conn = dao.getConnection();
+//
+//        MobilePersonalMain mobilePersonalMain = null; // intial Personal Main Info
+//
+//        String userid = Tool.uuid();
+//        String cryptoc = "gfcoin";
+//        String initialProductMain = "gfshxxkjfwyxgs-v-a";
+//        String sql="update t_personal_main a " +
+//            "set  t_personal_main_mobile1 = ?," +
+//            "t_personal_main_contacts = ?," +
+//            "t_personal_main_securityret = ?," +
+//            "t_personal_main_passport = ?," +
+//            "t_personal_main_passport1 = ?," +
+//            "t_personal_main_visa = ?," +
+//            "t_personal_main_visa1 = ?," +
+//            "t_personal_main_onlinepaymentcat = ?," +
+//            "t_personal_main_onlinepayment = ?," +
+//            "t_personal_main_paymentmethod = ?," +
+//            "t_personal_main_paymentmethod1 = ?," +
+//            "t_personal_main_CNbankcard = ?," +
+//            "t_personal_main_GLbankcard = ?," +
+//            "t_personal_main_bankacc = ?," +
+//            "t_personal_main_crypto = ?," +
+//            "t_personal_main_assetcat = ?," +
+//            "t_personal_main_voucher = ?," +
+//            "t_personal_main_creditscore = ?," +
+//            "t_personal_main_ewalletcat = ?," +
+//            "t_personal_main_digiasset = ?," +
+//            "t_personal_main_companylist = ?," +
+//            "t_personal_main_productCat = ?," +
+//            "t_personal_main_prodlist = ?," +
+//            "status = ?," +
+//            "modifier = ?," +
+//            "modify_time = ? " +
+//            "where a.t_personal_main_id = ?";
+//        try {
+//            PreparedStatement ptmt=conn.prepareStatement(sql);
+//            ptmt.setString(1,phone);
+//            ptmt.setString(2,phone);
+//            ptmt.setString(3,facialret);
+//            ptmt.setString(4,"");
+//            ptmt.setString(5,"");
+//            ptmt.setString(6,"");
+//            ptmt.setString(7,"");
+//            ptmt.setString(8,"ewallet");
+//            ptmt.setString(9,"ewallet-Cash-Acc");
+//            ptmt.setString(10,"");
+//            ptmt.setString(11,"");
+//            ptmt.setString(12,"");
+//            ptmt.setString(13,"");
+//            ptmt.setString(14,"");
+//            ptmt.setString(15,"gf-coin");
+//            ptmt.setString(16,"CNY");
+//            ptmt.setString(17,"off");
+//            ptmt.setInt(18,0);
+//            ptmt.setString(19,"gf-basic");
+//            ptmt.setString(20,"gf-digi-basic");
+//            ptmt.setString(21,"");
+//            ptmt.setString(22,"gf-Be-Db");
+//            ptmt.setString(23,"");
+//            ptmt.setString(24,"1");
+//            ptmt.setString(25,personalMID);
+//            Date date = new Date();
+//            ptmt.setTimestamp(26, new java.sql.Timestamp(System.currentTimeMillis()));
+//            ptmt.setString(27, personalMID);
+//            ptmt.executeUpdate();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            rsPersonalMainReg.put("PersonalMainReg-ErrorCode",String.valueOf(e.getErrorCode()));
+//            rsPersonalMainReg.put("PersonalMainReg-SQLstat:",String.valueOf(e.getSQLState()));
+//            return rsPersonalMainReg;
+//        }finally {
+//            conn.close();
+//            rsPersonalMainReg.put("SQL-PersonalMain","0");
+//        }
+//
+//        return rsPersonalMainReg;
+//    }
 }

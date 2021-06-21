@@ -188,11 +188,10 @@ public class OauthController {
          * Mobile APP 调用个人交易 移动端交易首页二维码扫一扫交易
          ********************************************************************************************************************/
         
-        //http://localhost:8080/sample/oauthController/login?method=58scan-txn-58qr&action=transaction&page=mobilepay
+        //http://localhost:8080/sample/oauthController/login?method=58scan-txn-58qr&action=transaction&page=mobilepay&walletTxn_PayerPID=31011519830805251X&walletTxn_ReceiverID=430528198502043837&txnAmount=0.1
         //个人收付款58-58  ( payee - 58,receiver - 58 )
         if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("58scan-txn-58qr")&&action.equalsIgnoreCase("transaction")){
-            Map<String, Object> rs = new HashMap<String, Object>();
-            EwalletTxn ewalletTxn = null;
+            Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
             String[] txnMethod = method.split("-");
             for(int i=0;i < txnMethod.length;i++){
                 switch (i) {
@@ -213,11 +212,16 @@ public class OauthController {
             if(txnMethod[2].equalsIgnoreCase("58qr")){
                 System.out.println("Succ-Bene: 58qr");
             };
-            ewalletTxn.setT_WalletTxn_TotTxnAmount(new BigDecimal(txnAmount));
-            ewalletTxn.setT_WalletTxn_ID(Tool.PayId());
-            ewalletTxn.setT_WalletTxn_PayerPID(walletTxn_PayerPID);
-            ewalletTxn.setT_WalletTxn_ReceiverID(walletTxn_ReceiverID);
-
+            
+            BigDecimal txnAmt = new BigDecimal(txnAmount);
+//            ewalletTxn.setT_WalletTxn_ID(Tool.PayId());
+//            ewalletTxn.setT_WalletTxn_PayerPID(walletTxn_PayerPID);
+//            ewalletTxn.setT_WalletTxn_ReceiverID(walletTxn_ReceiverID);
+            
+            EwalletTxnController ewalletTxnController = new EwalletTxnController();
+//            rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(txnAmt,walletTxn_PayerPID,walletTxn_ReceiverID);
+//            if (rsMobileEwalletTxn.get())
+            
             // buffer checking
             // general treasury mgt
             // personal treasury mgt
@@ -226,15 +230,13 @@ public class OauthController {
             // 3rd party payment call
             // ret checking personal ewallet repo and personal revaluation
             // buffer checking
-            PersonalMainController personalMainController =  new PersonalMainController();
 //            String retPersonalMainController = personalMainController.creditRefreshPersonalMain(t_personal_main_id);
 
-            System.out.print(ewalletTxn);
-            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
-            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
-                System.out.println("调用个人消费成功");
-                rs.put("SMSverify",0);
-            }
+//            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+//            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
+//                System.out.println("调用个人消费成功");
+//                rs.put("SMSverify",0);
+//            }
             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
         }
 

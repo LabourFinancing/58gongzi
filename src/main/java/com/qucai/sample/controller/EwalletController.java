@@ -466,6 +466,7 @@ public class EwalletController {
             e.printStackTrace();
             rsNewUserEwallet.put("SQL-PersonalEwallet-ErrorCode:",String.valueOf(e.getErrorCode()));
             rsNewUserEwallet.put("SQL-PersonalEwallet-SQLstat:",String.valueOf(e.getSQLState()));
+            rsNewUserEwallet.put("SQL-PersonalEwallet-SQLcause:",String.valueOf(e.getCause()));
             return rsNewUserEwallet;
         }finally {
             conn.close();
