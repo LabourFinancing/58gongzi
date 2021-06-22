@@ -4,8 +4,10 @@ import com.github.pagehelper.PageInfo;
 import com.qucai.sample.OperationTypeConstant;
 import com.qucai.sample.common.PageParam;
 import com.qucai.sample.entity.PersonalTreasuryCtrl;
+import com.qucai.sample.entity.ProductMain;
 import com.qucai.sample.exception.ExRetEnum;
 import com.qucai.sample.service.PersonalTreasuryCtrlService;
+import com.qucai.sample.util.DBConnection;
 import com.qucai.sample.util.JsonBizTool;
 import com.qucai.sample.util.ShiroSessionUtil;
 import com.qucai.sample.util.Tool;
@@ -20,6 +22,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -154,5 +160,37 @@ public class PersonalTreasuryCtrlController {
     	personalTreasuryCtrl.setModify_time(new Date());
     	personalTreasuryCtrlService.updateByPrimaryKeySelective(personalTreasuryCtrl);
         return JsonBizTool.genJson(ExRetEnum.SUCCESS);
-    }   
+    }
+
+    //Get PersonalTreasuryinfo
+    public PersonalTreasuryCtrl findPersonalTreasury(String personalTreasuryCat) throws SQLException {
+//        Map<String, Object> mobilePersonalMain1 =  new HashMap<String, Object>();
+        PersonalTreasuryCtrl MobilePersonalTreasuryCtrl = new PersonalTreasuryCtrl();
+        DBConnection dao = new DBConnection();
+        Connection conn = dao.getConnection();
+        ResultSet rs = null;
+
+        String sql = "select * from t_personal_treasuryctrl where t_personalewallet_treasuryctrlID = ?";
+        try {
+            PreparedStatement ptmt = conn.prepareStatement(sql);
+            ptmt.setString(1, personalTreasuryCat);
+            rs = ptmt.executeQuery();
+            if (rs.next()) {
+                MobilePersonalTreasuryCtrl.setT_personalewallet_treasuryctrlPayDailyCntLimit(rs.getBigDecimal("t_personalewallet_treasuryctrlPayDailyCntLimit"));
+                MobilePersonalTreasuryCtrl.setT_personalewallet_treasuryctrlPayDailyLimit(rs.getBigDecimal("t_personalewallet_treasuryctrlPayDailyLimit"));
+                MobilePersonalTreasuryCtrl.setT_personalewallet_treasuryctrlPayFee(rs.getBigDecimal("t_personalewallet_treasuryctrlPayFee"));
+                MobilePersonalTreasuryCtrl.setT_personalewallet_treasuryctrlPayStat(rs.getString("t_personalewallet_treasuryctrlPayStat"));
+                MobilePersonalTreasuryCtrl.setT_personalewallet_treasuryctrlPayTxnLimit(rs.getBigDecimal("t_personalewallet_treasuryctrlPayTxnLimit"));
+                MobilePersonalTreasuryCtrl.setT_personalewallet_treasuryctrlPayTotalLimit(rs.getBigDecimal("t_personalewallet_treasuryctrlPayTotalLimit"));
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            MobilePersonalTreasuryCtrl.setT_personalewallet_treasuryctrlstatus("exception");
+            return MobilePersonalTreasuryCtrl;
+        } finally {
+            conn.close();
+            return MobilePersonalTreasuryCtrl;
+        }
+    }
 }

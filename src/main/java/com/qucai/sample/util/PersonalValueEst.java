@@ -1,13 +1,12 @@
 package com.qucai.sample.util;
 
 import com.qucai.sample.common.PageParam;
+import com.qucai.sample.entity.PersonalTreasuryCtrl;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -173,6 +172,12 @@ public class PersonalValueEst {
 		String PayId = String.valueOf(ps.append(PayIdHead.format(new Date()).toString()).append(PayNum));
 		return PayId;
 	}
+
+    public static Map<String, Object> PersonalTreasuryChk(PersonalTreasuryCtrl MobilePersonalTreasuryCtrl){
+        Map<String,Object> PersonalTreasuryChk = new HashMap<String, Object>();
+        
+        return PersonalTreasuryChk;
+    }
 	
 
 }

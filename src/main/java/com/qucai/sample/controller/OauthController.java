@@ -23,6 +23,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.qucai.sample.entity.*;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo.OrderCreateDemo;
 import com.qucai.sample.service.*;
+import com.qucai.sample.util.PersonalValueEst;
 import com.qucai.sample.util.Tool;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.shiro.SecurityUtils;
@@ -41,6 +42,7 @@ import com.qucai.sample.util.JsonBizTool;
 
 import com.qucai.sample.vo.MobileEwalletDashboard;
 import com.qucai.sample.vo.MobilePersonalMain;
+import com.qucai.sample.util.PersonalValueEst;
 
 
 @Controller
@@ -224,6 +226,26 @@ public class OauthController {
             PersonalMainController personalMainController = new PersonalMainController();
 
             mobilePersonalMain = (MobilePersonalMain) personalMainController.findPersonalMainInfo(personalPID);
+            mobilePersonalMain.getT_mobilePersonalMain_name();
+            mobilePersonalMain.getT_mobilePersonalMain_mobile();
+            mobilePersonalMain.getT_mobilePersonalMain_onlinepayment();
+            mobilePersonalMain.getT_mobilePersonalMain_productCat();
+            mobilePersonalMain.getT_mobilePersonalMain_onlinepaymentcat();
+            
+            ProductMainController productMainController = new ProductMainController();
+            ProductMain MobileProductMain = (ProductMain) productMainController.findPersonalProduct(mobilePersonalMain.getT_mobilePersonalMain_productCat());
+
+            System.out.print(MobileProductMain);
+            MobileProductMain.gett_Product_SalaryAdvCat();
+            MobileProductMain.gett_Product_PayrollProdCat();
+            MobileProductMain.gett_Product_PaymentCat();
+            
+            PersonalTreasuryCtrlController personalTreasuryCtrlController = new PersonalTreasuryCtrlController();
+            PersonalTreasuryCtrl MobilePersonalTreasuryCtrl = (PersonalTreasuryCtrl) personalTreasuryCtrlController.findPersonalTreasury(MobileProductMain.gett_Product_PaymentCat());
+            
+            System.out.print(MobilePersonalTreasuryCtrl);
+            Map<String,Object> PersonalTreasuryChk = PersonalValueEst.PersonalTreasuryChk(MobilePersonalTreasuryCtrl);
+            
             //find personal Ewallet Info
             EwalletController ewalletController = new EwalletController();
             MobileEwalletDashboard mobileEwalletDashboard = new MobileEwalletDashboard();
@@ -232,6 +254,8 @@ public class OauthController {
             
             EwalletTxnController ewalletTxnController = new EwalletTxnController();
             rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(txnAmt,walletTxn_PayerPID,walletTxn_ReceiverID,personalMID);
+            
+            
 //            if (rsMobileEwalletTxn.get())
             
             // buffer checking

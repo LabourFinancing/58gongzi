@@ -6,6 +6,7 @@ import com.qucai.sample.common.PageParam;
 import com.qucai.sample.entity.ProductMain;
 import com.qucai.sample.exception.ExRetEnum;
 import com.qucai.sample.service.ProductMainService;
+import com.qucai.sample.util.DBConnection;
 import com.qucai.sample.util.JsonBizTool;
 import com.qucai.sample.util.ShiroSessionUtil;
 import com.qucai.sample.util.Tool;
@@ -20,6 +21,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -153,5 +158,34 @@ public class ProductMainController {
         ProductMain.setModifyTime(new Date());
     	ProductMainService.updateByPrimaryKeySelective(ProductMain);
         return JsonBizTool.genJson(ExRetEnum.SUCCESS);
-    }   
+    }
+
+    //Get PersonalProductinfo
+    public ProductMain findPersonalProduct(String productCat) throws SQLException {
+//        Map<String, Object> mobilePersonalMain1 =  new HashMap<String, Object>();
+        ProductMain mobileProductMain = new ProductMain();
+        DBConnection dao = new DBConnection();
+        Connection conn = dao.getConnection();
+        ResultSet rs = null;
+
+        String sql = "select * from t_product_main where t_product_SeriesID = ?";
+        try {
+            PreparedStatement ptmt = conn.prepareStatement(sql);
+            ptmt.setString(1, productCat);
+            rs = ptmt.executeQuery();
+            if (rs.next()) {
+                mobileProductMain.sett_Product_PaymentCat(rs.getString("t_Product_PaymentCat"));
+                mobileProductMain.sett_Product_PayrollProdCat(rs.getString("t_Product_PayrollProdCat"));
+                mobileProductMain.sett_Product_SalaryAdvCat(rs.getString("t_Product_SalaryAdvCat"));
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            mobileProductMain.setT_Product_Status("exception");
+            return mobileProductMain;
+        } finally {
+            conn.close();
+            return mobileProductMain;
+        }
+    }
 }

@@ -66,7 +66,7 @@ public class ProductMain implements Serializable {
     /**
      * 服务费(融资成本)
      */
-    private String t_Product_EwalletProdCat;
+    private String t_Product_PaymentCat;
 
     /**
      * 平台使用费(笔)
@@ -103,7 +103,7 @@ public class ProductMain implements Serializable {
 
     private String t_Product_Cleardays;
 
-    private String t_Product_EwalletProdCategory;
+    private String t_Product_PaymentCategory;
 
     private String t_Product_CorpPool;
 
@@ -198,12 +198,12 @@ public class ProductMain implements Serializable {
         this.t_Product_Name = t_Product_Name;
     }
 
-    public String gett_Product_EwalletProdCat() {
-        return t_Product_EwalletProdCat;
+    public String gett_Product_PaymentCat() {
+        return t_Product_PaymentCat;
     }
 
-    public void sett_Product_EwalletProdCat(String t_Product_EwalletProdCat) {
-        this.t_Product_EwalletProdCat = t_Product_EwalletProdCat;
+    public void sett_Product_PaymentCat(String t_Product_PaymentCat) {
+        this.t_Product_PaymentCat = t_Product_PaymentCat;
     }
 
     public String gett_Product_PayrollProdCat() {
@@ -286,12 +286,12 @@ public class ProductMain implements Serializable {
         this.t_Product_Cleardays = t_Product_Cleardays;
     }
 
-    public String gett_Product_EwalletProdCategory() {
-        return t_Product_EwalletProdCategory;
+    public String gett_Product_PaymentCategory() {
+        return t_Product_PaymentCategory;
     }
 
-    public void sett_Product_EwalletProdCategory(String t_Product_EwalletProdCategory) {
-        this.t_Product_EwalletProdCategory = t_Product_EwalletProdCategory;
+    public void sett_Product_PaymentCategory(String t_Product_PaymentCategory) {
+        this.t_Product_PaymentCategory = t_Product_PaymentCategory;
     }
 
     public String getT_Product_CorpPool() {
