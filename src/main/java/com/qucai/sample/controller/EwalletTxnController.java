@@ -399,10 +399,18 @@ public class EwalletTxnController {
     /*
 移动端个人
 */
-    public Map<String, Object> addMobileEwalletTxn(BigDecimal txnAmt,String walletTxn_PayerPID,String walletTxn_ReceiverID,String personalMID) throws SQLException {
+    public Map<String, Object> addMobileEwalletTxn(String txnCat,BigDecimal txnAmt,String walletTxn_PayerPID,String walletTxn_ReceiverID,String personalMID) throws SQLException {
 
         Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
+        BigDecimal t_MobileWalletTxn_TopupAmt = null;
         String ewallet = "58ewallet";
+        switch (txnCat){
+            case "58scan-txn-58qr" : System.out.print("58scan-txn-58qr transit");
+            break;
+            case "PersonalEwalletTopup" : System.out.print("PersonalEwalletTopup transit");
+            t_MobileWalletTxn_TopupAmt = txnAmt;
+            break;
+        }
         DBConnection dao = new DBConnection();
         Connection conn = dao.getConnection();
 
@@ -425,14 +433,14 @@ public class EwalletTxnController {
             ptmt.setString(11,""); // 收款人ID
             ptmt.setString(12,""); // 收款人身份证
             ptmt.setString(13,""); // 付款人手机号
-            ptmt.setString(14,"Payment"); // 充值,支付,收款,消费,退款
+            ptmt.setString(14,txnCat); // 充值,支付,收款,消费,退款
             ptmt.setString(15,""); // 币种
             ptmt.setTimestamp(16,new java.sql.Timestamp(System.currentTimeMillis())); // 交易时间
             ptmt.setString(17,""); // 产品名
             ptmt.setInt(18,0); // 天数周期天数
             ptmt.setBigDecimal(19,new BigDecimal("0.00")); // 当前可预支额度
             ptmt.setBigDecimal(20,txnAmt); // 总支付金额
-            ptmt.setBigDecimal(21,new BigDecimal("0.00")); // 充值金额
+            ptmt.setBigDecimal(21,t_MobileWalletTxn_TopupAmt); // 充值金额
             ptmt.setBigDecimal(22,new BigDecimal("0.00")); // 数字币支付金额
             ptmt.setBigDecimal(23,new BigDecimal("0.00")); // 借记卡支付金额
             ptmt.setBigDecimal(24,new BigDecimal("0.00")); // 信用卡支付金额
@@ -461,8 +469,8 @@ public class EwalletTxnController {
             ptmt.setBigDecimal(47,new BigDecimal("0.00")); // 算法公式
             ptmt.setString(48,"");//支付人银行账号
             ptmt.setString(49,"");//收款人账户号
-            ptmt.setString(50,"");
-            ptmt.setTimestamp(51,null); // 订单超时时间
+            ptmt.setTimestamp(50,null);
+            ptmt.setString(51,""); // 订单超时时间
             ptmt.setString(52,"");//查询支付状态
             ptmt.setString(53,"");
             ptmt.setString(54,"");
@@ -488,8 +496,10 @@ public class EwalletTxnController {
         }finally {
             conn.close();
             rsMobileEwalletTxn.put("SQL-PersonalEwalletTxn","0");
+            Map<String,Object> retUpdatePersonalEwallet = EwalletController.UpdatePersonalEwalletBalance(txnAmt,personalMID);
         }
 
         return rsMobileEwalletTxn;
     }
+    
 }

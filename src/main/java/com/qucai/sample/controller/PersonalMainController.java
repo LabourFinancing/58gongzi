@@ -493,7 +493,7 @@ public class PersonalMainController {
 
     //Get PersonalMaininfo
     public MobilePersonalMain findPersonalMainInfo(String personalPID) throws SQLException {
-        Map<String, Object> mobilePersonalMain1 =  new HashMap<String, Object>();
+//        Map<String, Object> mobilePersonalMain1 =  new HashMap<String, Object>();
         MobilePersonalMain mobilePersonalMain = new MobilePersonalMain();
         DBConnection dao = new DBConnection();
         Connection conn = dao.getConnection();

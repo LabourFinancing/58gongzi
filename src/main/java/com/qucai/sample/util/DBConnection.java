@@ -9,6 +9,7 @@ import java.sql.SQLException;
 public class DBConnection {
     private static String driver = "com.mysql.jdbc.Driver";
     private static String url = "jdbc:mysql://39.97.176.13:3306/gognzi?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&useSSL=true";
+//    private static String url = "jdbc:mysql://localhost:3306/gognzi?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&useSSL=true";
     private static String userName = "root";
     private static String userPassword = "Gf2021";
 

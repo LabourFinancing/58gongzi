@@ -60,7 +60,8 @@ public class EwalletController {
 
     private Object OrganizationInfo;
 
-	@ModelAttribute
+
+    @ModelAttribute
     public Ewallet get(@RequestParam(required = false) String t_personalewallet_ID,String t_P_Company,String t_P_VendorEmployeeName,String t_O_OrgName,HttpServletRequest request,Model model) {
     	Ewallet entity = null;
     	t_P_Company = ShiroSessionUtil.getLoginSession().getCompany_name().trim();
@@ -385,6 +386,7 @@ public class EwalletController {
  /*
     移动端我的模块
      */
+    // 新注册用户新电子钱包注册
     public Map<String, Object> addMobileEwallet(String personalMID, String pid, String realName) throws SQLException {
         String personalID = pid;
         Map<String, Object> rsNewUserEwallet = new HashMap<String, Object>();
@@ -502,6 +504,38 @@ public class EwalletController {
             conn.close();
             return mobileEwalletDashboard;
         }
+    }
+
+    public static Map<String, Object> UpdatePersonalEwalletBalance(BigDecimal txnAmt, String personalMID) throws SQLException {
+        Map<String,Object> retUpdatePersonalEwallet = new HashMap<>();
+        String ewallet = "58ewallet";
+        DBConnection dao = new DBConnection();
+        Connection conn = dao.getConnection();
+// intial Personal Main Info
+
+        String sql="update t_personal_ewallet a " +
+            "set  t_personalewallet_TotCNYBalance = t_personalewallet_TotCNYBalance + ?," +
+            "status = ?," +
+            "modifier = ?," +
+            "modify_time = ? " +
+            "where a.t_personal_main_id = ?";
+        try {
+            PreparedStatement ptmt=conn.prepareStatement(sql);
+            ptmt.setBigDecimal(1,txnAmt);
+            ptmt.setTimestamp(2, new java.sql.Timestamp(System.currentTimeMillis()));
+            ptmt.setString(3, personalMID);
+            System.out.println(ptmt.executeUpdate());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            retUpdatePersonalEwallet.put("PersonalEwalletUpdate-ErrorCode",String.valueOf(e.getErrorCode()));
+            retUpdatePersonalEwallet.put("PersonalEwalletUpdate-SQLstat:",String.valueOf(e.getSQLState()));
+            return retUpdatePersonalEwallet;
+        }finally {
+            conn.close();
+            retUpdatePersonalEwallet.put("SQL-PersonalEwalletUpdate","0");
+        }
+
+        return retUpdatePersonalEwallet;
     }
     
     public String ewalletList(Ewallet ewallet) {
