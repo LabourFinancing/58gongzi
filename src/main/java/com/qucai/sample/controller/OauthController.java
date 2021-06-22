@@ -217,9 +217,6 @@ public class OauthController {
             };
             
             BigDecimal txnAmt = new BigDecimal(txnAmount);
-//            ewalletTxn.setT_WalletTxn_ID(Tool.PayId());
-//            ewalletTxn.setT_WalletTxn_PayerPID(walletTxn_PayerPID);
-//            ewalletTxn.setT_WalletTxn_ReceiverID(walletTxn_ReceiverID);
             
             //find payee personal Info and 
             String personalPID = walletTxn_PayerPID;
@@ -236,15 +233,21 @@ public class OauthController {
             ProductMain MobileProductMain = (ProductMain) productMainController.findPersonalProduct(mobilePersonalMain.getT_mobilePersonalMain_productCat());
 
             System.out.print(MobileProductMain);
+            MobileProductMain.getT_Product_SeriesID();
             MobileProductMain.gett_Product_SalaryAdvCat();
             MobileProductMain.gett_Product_PayrollProdCat();
             MobileProductMain.gett_Product_PaymentCat();
             
+            //个人资金监控
             PersonalTreasuryCtrlController personalTreasuryCtrlController = new PersonalTreasuryCtrlController();
-            PersonalTreasuryCtrl MobilePersonalTreasuryCtrl = (PersonalTreasuryCtrl) personalTreasuryCtrlController.findPersonalTreasury(MobileProductMain.gett_Product_PaymentCat());
+            PersonalTreasuryCtrl MobilePersonalTreasuryCtrl = (PersonalTreasuryCtrl) personalTreasuryCtrlController.findPersonalTreasury(MobileProductMain.getT_Product_SeriesID());
             
             System.out.print(MobilePersonalTreasuryCtrl);
             Map<String,Object> PersonalTreasuryChk = PersonalValueEst.PersonalTreasuryChk(MobilePersonalTreasuryCtrl);
+            
+//            if（）{}else{};
+            //call topup 调用充值
+            // personal treasury mgt
             
             //find personal Ewallet Info
             EwalletController ewalletController = new EwalletController();
@@ -260,7 +263,7 @@ public class OauthController {
             
             // buffer checking
             // general treasury mgt
-            // personal treasury mgt
+
             // personal ewallet and personal evaluation
             // transaction address
             // 3rd party payment call

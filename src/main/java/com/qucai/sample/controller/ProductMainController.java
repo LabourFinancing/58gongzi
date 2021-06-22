@@ -174,6 +174,7 @@ public class ProductMainController {
             ptmt.setString(1, productCat);
             rs = ptmt.executeQuery();
             if (rs.next()) {
+                mobileProductMain.setT_Product_SeriesID(rs.getString("t_Product_SeriesID"));
                 mobileProductMain.sett_Product_PaymentCat(rs.getString("t_Product_PaymentCat"));
                 mobileProductMain.sett_Product_PayrollProdCat(rs.getString("t_Product_PayrollProdCat"));
                 mobileProductMain.sett_Product_SalaryAdvCat(rs.getString("t_Product_SalaryAdvCat"));

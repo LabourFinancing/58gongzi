@@ -507,6 +507,7 @@ public class PersonalMainController {
             if (rs.next()) {
                 mobilePersonalMain.setT_mobilePersonalMain_id(rs.getString("t_personal_main_id"));
                 mobilePersonalMain.setT_mobilePersonalMain_realname(rs.getString("t_personal_main_name"));
+                mobilePersonalMain.setT_mobilePersonalMain_productCat(rs.getString("t_personal_main_productCat"));
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
