@@ -394,24 +394,7 @@ public class OauthController {
 
             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
         }
-
-        //个人充值
-        //个人支付渠道切换 http://localhost:8080/sample/oauthController/login?method=ewallettopup&action=topup&page=mobilepay&TopupAmount=100.00
         
-        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewallettopup")&&action.equalsIgnoreCase("topup")){
-            Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
-            String txnCat = "PersonalEwalletTopup";
-            BigDecimal txnAmt = new BigDecimal(TopupAmount);
-            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
-            EwalletTxnController ewalletTxnController = new EwalletTxnController();
-            rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID, personalMID);
-            
-            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
-                System.out.println("调用个人消费成功");
-                rsMobileEwalletTxn.put("SMSverify",0);
-            }
-            return JsonBizTool.genJson(ExRetEnum.SUCCESS);
-        }
 
         /************************************************* Mobilehome begin 移动端首页开始 ************************************
          * wealthmgt,voucher,topup,   58gongzi  ---1st version
@@ -439,20 +422,26 @@ public class OauthController {
             }
             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
         }
-//        //充值 topup
-//        if( method!=null&&page.equalsIgnoreCase("mobilehome")&&method.equals("ewalletdashboard")&&action.equalsIgnoreCase("topup")){
-//            Map<String, Object> rs = new HashMap<String, Object>();
-//            EwalletTxn ewalletTxn = null;
-//            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
-//            ewalletTxn.setT_WalletTxn_TotTxnAmount(new BigDecimal(10.00));
-//            ewalletTxn.setT_WalletTxn_ID(Tool.PayId());
-//            ewalletTxn.setT_WalletTxn_ReceiverID("430528198502043837");
-//            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
-//                System.out.println("调用钱包成功");
-//                rs.put("SMSverify",0);
-//            }
-//            return JsonBizTool.genJson(ExRetEnum.SUCCESS);
-//        }
+        
+        //个人充值
+        //个人支付渠道切换 http://localhost:8080/sample/oauthController/login?method=ewallettopup&action=topup&page=mobilepay&TopupAmount=100.00
+
+        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewallettopup")&&action.equalsIgnoreCase("topup")){
+            Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
+            String txnCat = "PersonalEwalletTopup";
+            BigDecimal txnAmt = new BigDecimal(TopupAmount);
+            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+            EwalletTxnController ewalletTxnController = new EwalletTxnController();
+            rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID, personalMID);
+
+            if (!rsMobileEwalletTxn.get("UpdatePersonalEwalletSucc").equals("succ")) {
+                System.out.println("调用个人消费成功");
+                rsMobileEwalletTxn.put("SMSverify",0);
+            }else{
+                return JsonBizTool.genJson(ExRetEnum.FAIL, rsMobileEwalletTxn);
+            }
+
+        }
 
         /************************************************* Mobileme begin 移动端个人信息开始 ************************************
          * Personalinfo , Customer Service , bank card,company 58gongzi  ---1st version

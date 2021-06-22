@@ -497,6 +497,9 @@ public class EwalletTxnController {
             conn.close();
             rsMobileEwalletTxn.put("SQL-PersonalEwalletTxn","0");
             Map<String,Object> retUpdatePersonalEwallet = EwalletController.UpdatePersonalEwalletBalance(txnAmt,personalMID);
+            if(!retUpdatePersonalEwallet.isEmpty()){
+                rsMobileEwalletTxn.put("UpdatePersonalEwalletSucc","succ");
+            }
         }
 
         return rsMobileEwalletTxn;
