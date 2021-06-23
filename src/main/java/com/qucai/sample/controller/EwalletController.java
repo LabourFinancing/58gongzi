@@ -506,7 +506,7 @@ public class EwalletController {
         }
     }
 
-    public static Map<String, Object> UpdatePersonalEwalletBalance(BigDecimal txnAmt, String personalMID) throws SQLException {
+    public static Map<String, Object> UpdatePersonalEwalletBalance(BigDecimal txnAmt, String personalMID,String walletTxn_PayerPID) throws SQLException {
         Map<String,Object> retUpdatePersonalEwallet = new HashMap<>();
         String ewallet = "58ewallet";
         DBConnection dao = new DBConnection();
@@ -515,15 +515,17 @@ public class EwalletController {
 
         String sql="update t_personal_ewallet a " +
             "set  t_personalewallet_TotCNYBalance = t_personalewallet_TotCNYBalance + ?," +
-            "status = ?," +
+            "t_personalewallet_Paystatus = ?," +
             "modifier = ?," +
             "modify_time = ? " +
-            "where a.t_personal_main_id = ?";
+            "where a.t_personalewallet_ID = ?";
         try {
-            PreparedStatement ptmt=conn.prepareStatement(sql);
-            ptmt.setBigDecimal(1,txnAmt);
-            ptmt.setTimestamp(2, new java.sql.Timestamp(System.currentTimeMillis()));
-            ptmt.setString(3, personalMID);
+            PreparedStatement ptmt = conn.prepareStatement(sql);
+            ptmt.setBigDecimal(1, txnAmt);
+            ptmt.setString(2, "1");
+            ptmt.setString(3, walletTxn_PayerPID);
+            ptmt.setTimestamp(4, new java.sql.Timestamp(System.currentTimeMillis()));
+            ptmt.setString(5, personalMID);
             System.out.println(ptmt.executeUpdate());
         } catch (SQLException e) {
             e.printStackTrace();

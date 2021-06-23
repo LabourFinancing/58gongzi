@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.alibaba.fastjson.JSONObject;
 import com.qucai.sample.entity.*;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo.OrderCreateDemo;
+import com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo.OrderPayDemo;
 import com.qucai.sample.service.*;
 import com.qucai.sample.util.PersonalValueEst;
 import com.qucai.sample.util.Tool;
@@ -76,7 +77,7 @@ public class OauthController {
         CaptchaUsernamePasswordToken token = new CaptchaUsernamePasswordToken();
         token.setUsername(userName);
 
-        //http://localhost:8080/sample/oauthController/login?method=QRcode
+        //http://localhost:8080/sample/oauthController/login?method=QRCode
         if(method!=null&&method.equals("getUserInfo")){
             Map<String, Object> rs = new HashMap<String, Object>();
             String merchantId = "S2135052";
@@ -88,19 +89,21 @@ public class OauthController {
         }
 
         //支付测试调用
+        //http://localhost:8080/sample/oauthController/login?method=QRCode
 //        if(method!=null&&method.equals("QRcode")&&pid!=null&&userName!=null&&paymentchannel!=null&&mode!=null){
         if(method!=null&&method.equals("QRcode")){
             Map<String, Object> rs = new HashMap<String, Object>();
             String merchantId = "S2135052";
             StaffPrepayApplicationPayment staffPrepayApplicationPay = null;
-            JSONObject resp = OrderCreateDemo.main(staffPrepayApplicationPay,merchantId);
-//            JSONObject resp = OrderPayDemo.main(staffPrepayApplicationPay,merchantId);
+//            JSONObject resp = OrderCreateDemo.main(staffPrepayApplicationPay,merchantId);
+            JSONObject resp = OrderPayDemo.main(staffPrepayApplicationPay,merchantId);
             String QRcodeinit = resp.getJSONObject("body").getString("qrCode");
             rs.put("QRcodeinit", QRcodeinit);
             return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
         }
 
         //支付测试返回
+        //http://localhost:8080/sample/oauthController/login?method=QRCode&pid=31011519830805251X
         if(method!=null&&method.equals("QRScanRet")&&pid!=null&&userName!=null&&paymentchannel!=null&&mode!=null){
             Map<String, Object> rs = new HashMap<String, Object>();
             String merchantId = "S2135052";
@@ -396,19 +399,20 @@ public class OauthController {
         }
 
         //个人充值
-        //个人钱包充值 http://localhost:8080/sample/oauthController/login?method=ewallettopup&action=topup&page=mobilepay&TopupAmount=100.00
+        //个人钱包充值 http://localhost:8080/sample/oauthController/login?method=ewallettopup&action=topup&page=mobilepay&walletTxn_PayerPID=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475&TopupAmount=100.00
 
         if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewallettopup")&&action.equalsIgnoreCase("topup")){
             Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
             String txnCat = "PersonalEwalletTopup";
             BigDecimal txnAmt = new BigDecimal(TopupAmount);
-            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+//            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             EwalletTxnController ewalletTxnController = new EwalletTxnController();
             rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID, personalMID);
 
-            if (!rsMobileEwalletTxn.get("UpdatePersonalEwalletSucc").equals("succ")) {
+            if (rsMobileEwalletTxn.get("UpdatePersonalEwalletSucc").equals("succ")) {
                 System.out.println("调用个人消费成功");
                 rsMobileEwalletTxn.put("SMSverify",0);
+                return JsonBizTool.genJson(ExRetEnum.SUCCESS);
             }else{
                 return JsonBizTool.genJson(ExRetEnum.FAIL, rsMobileEwalletTxn);
             }
@@ -461,7 +465,7 @@ public class OauthController {
         }
 
         //个人银行卡 private bankcard
-        //个人信用卡接口 http://localhost:8080/sample/oauthController/login?method=ewallettopup&action=bankcard&page=mobileme&&pid=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475
+        //个人信用卡接口 http://localhost:8080/sample/oauthController/login?method=ewallettbankcard&action=bankcard&page=mobileme&&pid=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475
         if( method!=null&&page.equalsIgnoreCase("mobileme")&&method.equals("MobilePersonalMain")&&action.equalsIgnoreCase("bankcard")) {
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
@@ -472,7 +476,7 @@ public class OauthController {
             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
         }
         //个人服务的企业 served firm
-        //个人企业信息接口 http://localhost:8080/sample/oauthController/login?method=ewallettopup&action=company&page=mobileme&&pid=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475
+        //个人企业信息接口 http://localhost:8080/sample/oauthController/login?method=ewalletcompany&action=company&page=mobileme&&pid=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475
         if( method!=null&&page.equalsIgnoreCase("mobileme")&&method.equals("MobilePersonalMain")&&action.equalsIgnoreCase("company")) {
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);

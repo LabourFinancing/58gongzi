@@ -10,6 +10,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.cashier.sdk.CertUtil;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.cashier.sdk.SDKConfig;
 
+import java.math.BigDecimal;
+
 /**
  * 产品：银联聚合码<br>
  * 交易：统一下单并支付接口(被扫)<br>
@@ -44,12 +46,13 @@ public class OrderPayDemo {
 	};
 	
 	
-	public void setBody() {		
+	public void setBody(StaffPrepayApplicationPayment staffPrepayApplicationPay, String merchantId) {		
 		body.put("payTool", "0401");						//支付工具: 固定填写0403
 		body.put("orderCode", DemoBase.getOrderCode());		//商户订单号
 		body.put("scene", "1");								//支付场景 1-条码支付(默认) 2-声波支付
 		body.put("authCode", "135058488842509116");		//支付授权码,从支付宝、微信或者云闪付中获取
-		body.put("totalAmount","000001100000" );			//订单金额 12位长度，精确到分
+        body.put("totalAmount", staffPrepayApplicationPay.getTranAmt()); //订单金额 12位长度，精确到分
+//		body.put("totalAmount","000001100000" );			//订单金额 12位长度，精确到分
 		body.put("limitPay","4");							//限定支付方式 送1-限定不能使用贷记卡	送4-限定不能使用花呗	送5-限定不能使用贷记卡+花呗
 		body.put("subject", "话费充值");						//订单标题
 		body.put("body", "用户购买话费0.01");					//订单描述
@@ -82,7 +85,7 @@ public class OrderPayDemo {
 		//设置报文头
 		demo.setHeader();
 		//设置报文体
-		demo.setBody();
+		demo.setBody(staffPrepayApplicationPay,merchantId);
 		
 		JSONObject resp=DemoBase.requestServer(demo.header, demo.body, reqAddr);
 		
