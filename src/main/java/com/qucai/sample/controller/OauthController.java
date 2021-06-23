@@ -394,15 +394,35 @@ public class OauthController {
 
             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
         }
-        
+
+        //个人充值
+        //个人钱包充值 http://localhost:8080/sample/oauthController/login?method=ewallettopup&action=topup&page=mobilepay&TopupAmount=100.00
+
+        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewallettopup")&&action.equalsIgnoreCase("topup")){
+            Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
+            String txnCat = "PersonalEwalletTopup";
+            BigDecimal txnAmt = new BigDecimal(TopupAmount);
+            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+            EwalletTxnController ewalletTxnController = new EwalletTxnController();
+            rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID, personalMID);
+
+            if (!rsMobileEwalletTxn.get("UpdatePersonalEwalletSucc").equals("succ")) {
+                System.out.println("调用个人消费成功");
+                rsMobileEwalletTxn.put("SMSverify",0);
+            }else{
+                return JsonBizTool.genJson(ExRetEnum.FAIL, rsMobileEwalletTxn);
+            }
+
+        }
 
         /************************************************* Mobilehome begin 移动端首页开始 ************************************
          * wealthmgt,voucher,topup,   58gongzi  ---1st version
-         * blockchain , supplychian    wo-bank  ---2nd version
+         * blockchain , supplychain    wo-bank  ---2nd version
          * 钱包管理
          ********************************************************************************************************************/
         
         //财富管理 wealthmgt
+        //个人财富管理接口 http://localhost:8080/sample/oauthController/login?method=ewalletdashboard&action=wealthmgt&page=mobilehome&&pid=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475
         if( method!=null&&page.equalsIgnoreCase("mobilehome")&&method.equals("ewalletdashboard")&&action.equalsIgnoreCase("wealthmgt")){
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
@@ -422,26 +442,6 @@ public class OauthController {
             }
             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
         }
-        
-        //个人充值
-        //个人支付渠道切换 http://localhost:8080/sample/oauthController/login?method=ewallettopup&action=topup&page=mobilepay&TopupAmount=100.00
-
-        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewallettopup")&&action.equalsIgnoreCase("topup")){
-            Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
-            String txnCat = "PersonalEwalletTopup";
-            BigDecimal txnAmt = new BigDecimal(TopupAmount);
-            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
-            EwalletTxnController ewalletTxnController = new EwalletTxnController();
-            rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID, personalMID);
-
-            if (!rsMobileEwalletTxn.get("UpdatePersonalEwalletSucc").equals("succ")) {
-                System.out.println("调用个人消费成功");
-                rsMobileEwalletTxn.put("SMSverify",0);
-            }else{
-                return JsonBizTool.genJson(ExRetEnum.FAIL, rsMobileEwalletTxn);
-            }
-
-        }
 
         /************************************************* Mobileme begin 移动端个人信息开始 ************************************
          * Personalinfo , Customer Service , bank card,company 58gongzi  ---1st version
@@ -449,6 +449,7 @@ public class OauthController {
          *********************************************************************************************************************/
         
         //个人信息 personalinfo
+        //个人主信息接口 http://localhost:8080/sample/oauthController/login?method=ewallettopup&action=personalinfo&page=mobileme&&pid=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475
         if( method!=null&&page.equalsIgnoreCase("mobileme")&&method.equals("MobilePersonalMain")&&action.equalsIgnoreCase("personalinfo")) {
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
@@ -460,6 +461,7 @@ public class OauthController {
         }
 
         //个人银行卡 private bankcard
+        //个人信用卡接口 http://localhost:8080/sample/oauthController/login?method=ewallettopup&action=bankcard&page=mobileme&&pid=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475
         if( method!=null&&page.equalsIgnoreCase("mobileme")&&method.equals("MobilePersonalMain")&&action.equalsIgnoreCase("bankcard")) {
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
@@ -470,6 +472,7 @@ public class OauthController {
             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
         }
         //个人服务的企业 served firm
+        //个人企业信息接口 http://localhost:8080/sample/oauthController/login?method=ewallettopup&action=company&page=mobileme&&pid=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475
         if( method!=null&&page.equalsIgnoreCase("mobileme")&&method.equals("MobilePersonalMain")&&action.equalsIgnoreCase("company")) {
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
@@ -479,9 +482,7 @@ public class OauthController {
             }
             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
         }
-
-
-
+        
         if (type.equals("resendPWD")) {
             token.setRememberMe(true);
             Manager entity = null;
