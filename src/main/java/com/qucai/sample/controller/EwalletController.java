@@ -506,7 +506,7 @@ public class EwalletController {
         }
     }
 
-    public static Map<String, Object> UpdatePersonalEwalletBalance(BigDecimal txnAmt, String personalMID,String walletTxn_PayerPID) throws SQLException {
+    public static Map<String, Object> UpdatePersonalEwalletBalance(BigDecimal txnAmt, String personalMID,String walletTxn_PayerPID,String walletTxn_receiverPID) throws SQLException {
         Map<String,Object> retUpdatePersonalEwallet = new HashMap<>();
         String ewallet = "58ewallet";
         DBConnection dao = new DBConnection();

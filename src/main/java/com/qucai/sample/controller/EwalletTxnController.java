@@ -499,8 +499,9 @@ public class EwalletTxnController {
         }finally {
             conn.close();
             rsMobileEwalletTxn.put("SQL-PersonalEwalletTxn","0");
-            Map<String,Object> retUpdatePersonalEwallet = EwalletController.UpdatePersonalEwalletBalance(txnAmt,personalMID,walletTxn_PayerPID);
+            Map<String,Object> retUpdatePersonalEwallet = EwalletController.UpdatePersonalEwalletBalance(txnAmt,personalMID,walletTxn_PayerPID,walletTxn_ReceiverID);
             if(!retUpdatePersonalEwallet.isEmpty()){
+                Map<String,Object> retUpdatePersonalEwallet1 = EwalletController.UpdatePersonalEwalletBalance(txnAmt,personalMID,walletTxn_PayerPID,walletTxn_ReceiverID);
                 //payment call
 //                Map<String, Object> rs = new HashMap<String, Object>();
 //                String merchantId = "S2135052";
