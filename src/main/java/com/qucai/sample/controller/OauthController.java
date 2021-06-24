@@ -282,7 +282,7 @@ public class OauthController {
         if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("58qr-txn-wechatscan/alipayscan/unionpayscan")&&action.equalsIgnoreCase("transaction")){
             Map<String, Object> rs = new HashMap<String, Object>();
             EwalletTxn ewalletTxn = null;
-            ewalletTxn.setT_WalletTxn_TotTxnAmount(new BigDecimal(10.00));
+            ewalletTxn.setT_WalletTxn_TotTxnAmount(new BigDecimal(txnAmount));
             ewalletTxn.setT_WalletTxn_ID(Tool.PayId());
             ewalletTxn.setT_WalletTxn_PayerPID(pid);
             ewalletTxn.setT_WalletTxn_ReceiverID("430528198502043837");
@@ -300,7 +300,7 @@ public class OauthController {
         if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("58scan-txn-wechatqr/alipayqr/unionpayqr")&&action.equalsIgnoreCase("transaction")){
             Map<String, Object> rs = new HashMap<String, Object>();
             EwalletTxn ewalletTxn = null;
-            ewalletTxn.setT_WalletTxn_TotTxnAmount(new BigDecimal(10.00));
+            ewalletTxn.setT_WalletTxn_TotTxnAmount(new BigDecimal(txnAmount));
             ewalletTxn.setT_WalletTxn_ID(Tool.PayId());
             ewalletTxn.setT_WalletTxn_PayerPID(pid);
             ewalletTxn.setT_WalletTxn_ReceiverID("430528198502043837");
@@ -318,7 +318,7 @@ public class OauthController {
         if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("wechatqr/alipayqr/unionpayqr-txn-58scan")&&action.equalsIgnoreCase("transaction")){
             Map<String, Object> rs = new HashMap<String, Object>();
             EwalletTxn ewalletTxn = null;
-            ewalletTxn.setT_WalletTxn_TotTxnAmount(new BigDecimal(10.00));
+            ewalletTxn.setT_WalletTxn_TotTxnAmount(new BigDecimal(txnAmount));
             ewalletTxn.setT_WalletTxn_ID(Tool.PayId());
             ewalletTxn.setT_WalletTxn_PayerPID(pid);
             ewalletTxn.setT_WalletTxn_ReceiverID("430528198502043837");
@@ -336,7 +336,7 @@ public class OauthController {
         if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("wechatscan/alipayscan/unionpayscan-txn-58qr")&&action.equalsIgnoreCase("transaction")){
             Map<String, Object> rs = new HashMap<String, Object>();
             EwalletTxn ewalletTxn = null;
-            ewalletTxn.setT_WalletTxn_TotTxnAmount(new BigDecimal(10.00));
+            ewalletTxn.setT_WalletTxn_TotTxnAmount(new BigDecimal(txnAmount));
             ewalletTxn.setT_WalletTxn_ID(Tool.PayId());
             ewalletTxn.setT_WalletTxn_PayerPID(pid);
             ewalletTxn.setT_WalletTxn_ReceiverID("430528198502043837");
