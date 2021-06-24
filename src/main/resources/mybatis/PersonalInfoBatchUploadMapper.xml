@@ -480,11 +480,11 @@ delete from t_transaction_info where t_transaction_info.t_Txn_PrepayApplierPID i
 			<if test="t_P_Contact1Mobil != null">
 				t_P_Contact1Mobil = #{t_P_Contact1Mobil,jdbcType=VARCHAR},
 			</if>
-			<if test="t_P_Contact2 != null">
-				t_P_Contact2 = #{t_P_Contact2,jdbcType=VARCHAR},
+			<if test="t_P_Payroll != null">
+				t_P_Payroll = #{t_P_Payroll,jdbcType=VARCHAR},
 			</if>
-			<if test="t_P_Contact2Mobil != null">
-				t_P_Contact2Mobil = #{t_P_Contact2Mobil,jdbcType=VARCHAR},
+			<if test="t_P_ContactMobile2 != null">
+				t_P_ContactMobile2 = #{t_P_ContactMobile2,jdbcType=VARCHAR},
 			</if>
 			<if test="t_P_Company != null">
 				t_P_Company = #{t_P_Company,jdbcType=VARCHAR},

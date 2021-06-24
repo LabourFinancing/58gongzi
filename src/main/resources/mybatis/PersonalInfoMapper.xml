@@ -16,8 +16,8 @@
 		<result column="t_P_Spouse_Phone" property="t_P_Spouse_Phone" jdbcType="VARCHAR" />
 		<result column="t_P_Contact1" property="t_P_Contact1" jdbcType="VARCHAR" />
 		<result column="t_P_Contact1Mobil" property="t_P_Contact1Mobil" jdbcType="VARCHAR" />
-		<result column="t_P_Contact2" property="t_P_Contact2" jdbcType="VARCHAR" />
-		<result column="t_P_Contact2Mobil" property="t_P_Contact2Mobil" jdbcType="VARCHAR" />
+		<result column="t_P_Payroll" property="t_P_Payroll" jdbcType="VARCHAR" />
+		<result column="t_P_ContactMobile2" property="t_P_ContactMobile2" jdbcType="VARCHAR" />
 		<result column="t_P_Company" property="t_P_Company" jdbcType="VARCHAR" />
 		<result column="t_P_CompanyNum" property="t_P_CompanyNum" jdbcType="VARCHAR" />
 		<result column="t_P_SocialSecurityBaseAmount" property="t_P_SocialSecurityBaseAmount" jdbcType="DECIMAL" />
@@ -59,8 +59,8 @@
 		a.t_P_Spouse_Phone,
 		a.t_P_Contact1,
 		a.t_P_Contact1Mobil, 
-		a.t_P_Contact2, 
-		a.t_P_Contact2Mobil, 
+		a.t_P_Payroll, 
+		a.t_P_ContactMobile2, 
 		a.t_P_Company, 
 		a.t_P_CompanyNum,
 		a.t_P_SocialSecurityBaseAmount,
@@ -213,11 +213,11 @@
 			<if test="t_P_Contact1Mobil != null">
 				t_P_Contact1Mobil,
 			</if>
-			<if test="t_P_Contact2 != null">
-				t_P_Contact2,
+			<if test="t_P_Payroll != null">
+				t_P_Payroll,
 			</if>
-			<if test="t_P_Contact2Mobil != null">
-				t_P_Contact2Mobil,
+			<if test="t_P_ContactMobile2 != null">
+				t_P_ContactMobile2,
 			</if>
 			<if test="t_P_Company != null">
 				t_P_Company,
@@ -335,11 +335,11 @@
 			<if test="t_P_Contact1Mobil != null">
 				#{t_P_Contact1Mobil,jdbcType=VARCHAR},
 			</if>
-			<if test="t_P_Contact2 != null">
-				#{t_P_Contact2,jdbcType=VARCHAR},
+			<if test="t_P_Payroll != null">
+				#{t_P_Payroll,jdbcType=VARCHAR},
 			</if>
-			<if test="t_P_Contact2Mobil != null">
-				#{t_P_Contact2Mobil,jdbcType=VARCHAR},
+			<if test="t_P_ContactMobile2 != null">
+				#{t_P_ContactMobile2,jdbcType=VARCHAR},
 			</if>
 			<if test="t_P_Company != null">
 				#{t_P_Company,jdbcType=VARCHAR},
@@ -499,11 +499,11 @@
 			<if test="t_P_Contact1Mobil != null">
 				t_P_Contact1Mobil = #{t_P_Contact1Mobil,jdbcType=VARCHAR},
 			</if>
-			<if test="t_P_Contact2 != null">
-				t_P_Contact2 = #{t_P_Contact2,jdbcType=VARCHAR},
+			<if test="t_P_Payroll != null">
+				t_P_Payroll = #{t_P_Payroll,jdbcType=VARCHAR},
 			</if>
-			<if test="t_P_Contact2Mobil != null">
-				t_P_Contact2Mobil = #{t_P_Contact2Mobil,jdbcType=VARCHAR},
+			<if test="t_P_ContactMobile2 != null">
+				t_P_ContactMobile2 = #{t_P_ContactMobile2,jdbcType=VARCHAR},
 			</if>
 			<if test="t_P_Company != null">
 				t_P_Company = #{t_P_Company,jdbcType=VARCHAR},

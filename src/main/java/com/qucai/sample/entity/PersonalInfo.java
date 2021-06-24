@@ -57,9 +57,9 @@ public class PersonalInfo implements Serializable {
    
    private String t_P_Contact1Mobil;
 
-   private String t_P_Contact2;
+   private String t_P_Payroll;
 
-   private String t_P_Contact2Mobil;
+   private String t_P_ContactMobile2;
 
    private String t_P_Company;
 	
@@ -176,12 +176,12 @@ public String getT_P_Contact1Mobil() {
 	return t_P_Contact1Mobil;
 }
 
-public String getT_P_Contact2() {
-	return t_P_Contact2;
+public String gett_P_Payroll() {
+	return t_P_Payroll;
 }
 
-public String getT_P_Contact2Mobil() {
-	return t_P_Contact2Mobil;
+public String gett_P_ContactMobile2() {
+	return t_P_ContactMobile2;
 }
 
 public String getT_P_Company() {
@@ -336,12 +336,12 @@ public void setT_P_Contact1Mobil(String t_P_Contact1Mobil) {
 	this.t_P_Contact1Mobil = t_P_Contact1Mobil;
 }
 
-public void setT_P_Contact2(String t_P_Contact2) {
-	this.t_P_Contact2 = t_P_Contact2;
+public void sett_P_Payroll(String t_P_Payroll) {
+	this.t_P_Payroll = t_P_Payroll;
 }
 
-public void setT_P_Contact2Mobil(String t_P_Contact2Mobil) {
-	this.t_P_Contact2Mobil = t_P_Contact2Mobil;
+public void sett_P_ContactMobile2(String t_P_ContactMobile2) {
+	this.t_P_ContactMobile2 = t_P_ContactMobile2;
 }
 
 public void setT_P_Company(String t_P_Company) {
