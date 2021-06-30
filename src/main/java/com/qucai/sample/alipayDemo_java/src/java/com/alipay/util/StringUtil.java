@@ -1,4 +1,4 @@
-package com.alipay.util;
+package com.qucai.sample.alipayDemo_java.src.java.com.alipay.util;
 
 /**
  * @ClassName: StringUtil

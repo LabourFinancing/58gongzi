@@ -1,4 +1,4 @@
-package com.alipay.demo.controller;
+package com.qucai.sample.alipayDemo_java.src.java.com.alipay.demo.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.internal.util.AlipaySignature;
-import com.alipay.config.AlipayConfig;
+import com.qucai.sample.alipayDemo_java.src.java.com.alipay.config.AlipayConfig;
 
 @Controller
 public class NotifyController {

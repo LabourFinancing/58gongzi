@@ -1,4 +1,4 @@
-package com.alipay.config;
+package com.qucai.sample.alipayDemo_java.src.java.com.alipay.config;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Properties;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import com.alipay.util.StringUtil;
+import com.qucai.sample.alipayDemo_java.src.java.com.alipay.util.StringUtil;
 
 /**
  * @ClassName: PropConfig

@@ -1,4 +1,4 @@
-package com.alipay.demo.entites;
+package com.qucai.sample.alipayDemo_java.src.java.com.alipay.demo.entites;
 
 import java.io.Serializable;
 

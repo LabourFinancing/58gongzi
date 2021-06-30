@@ -480,7 +480,7 @@ public class EwalletController {
     }
 
     //Get PersonalMaininfo and EwalletInfo
-    public MobileEwalletDashboard findPersonalEwallet(String personalPID) throws SQLException {
+    public MobileEwalletDashboard findPersonalEwallet(String walletTxn_PayerPID) throws SQLException {
         Map<String, Object> mobilePersonalMain1 =  new HashMap<String, Object>();
         MobileEwalletDashboard mobileEwalletDashboard = new MobileEwalletDashboard();
         DBConnection dao = new DBConnection();
@@ -490,11 +490,12 @@ public class EwalletController {
         String sql = "select * from t_personal_ewallet where t_personalewallet_ApplierPID = ?";
         try {
             PreparedStatement ptmt=conn.prepareStatement(sql);
-            ptmt.setString(1, personalPID);
+            ptmt.setString(1, walletTxn_PayerPID);
             rs = ptmt.executeQuery();
             if (rs.next()) {
                 mobileEwalletDashboard.setT_mobilePersonalEwallet_ID(rs.getString("t_personalewallet_ID"));
                 mobileEwalletDashboard.setT_mobilePersonalEwallet_ApplierName(rs.getString("t_personalewallet_ApplierName"));
+                mobileEwalletDashboard.setT_mobilePersonalEwallet_TotCNYBalance(rs.getBigDecimal("t_personalewallet_TotCNYBalance"));
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -506,7 +507,7 @@ public class EwalletController {
         }
     }
 
-    public static Map<String, Object> UpdatePersonalEwalletBalance(BigDecimal txnAmt, String personalMID,String walletTxn_PayerPID,String walletTxn_receiverPID) throws SQLException {
+    public static Map<String, Object> UpdatePayeePersonalEwalletBalance(BigDecimal txnAmt,String walletTxn_PayerPID,String walletTxn_ReceiverID) throws SQLException {
         Map<String,Object> retUpdatePersonalEwallet = new HashMap<>();
         String ewallet = "58ewallet";
         DBConnection dao = new DBConnection();
@@ -518,14 +519,48 @@ public class EwalletController {
             "t_personalewallet_Paystatus = ?," +
             "modifier = ?," +
             "modify_time = ? " +
-            "where a.t_personalewallet_ID = ?";
+            "where a.t_personalewallet_ApplierPID = ?";
         try {
             PreparedStatement ptmt = conn.prepareStatement(sql);
             ptmt.setBigDecimal(1, txnAmt);
             ptmt.setString(2, "1");
-            ptmt.setString(3, walletTxn_PayerPID);
+            ptmt.setString(3, walletTxn_ReceiverID);
             ptmt.setTimestamp(4, new java.sql.Timestamp(System.currentTimeMillis()));
-            ptmt.setString(5, personalMID);
+            ptmt.setString(5, walletTxn_ReceiverID);
+            System.out.println(ptmt.executeUpdate());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            retUpdatePersonalEwallet.put("PersonalEwalletUpdate-ErrorCode",String.valueOf(e.getErrorCode()));
+            retUpdatePersonalEwallet.put("PersonalEwalletUpdate-SQLstat:",String.valueOf(e.getSQLState()));
+            return retUpdatePersonalEwallet;
+        }finally {
+            conn.close();
+            retUpdatePersonalEwallet.put("SQL-PersonalEwalletUpdate","0");
+        }
+
+        return retUpdatePersonalEwallet;
+    }
+
+    public static Map<String, Object> UpdatePayerPersonalEwalletBalance(BigDecimal txnAmt,String walletTxn_payerPID,String walletTxn_receiverPID) throws SQLException {
+        Map<String,Object> retUpdatePersonalEwallet = new HashMap<>();
+        String ewallet = "58ewallet";
+        DBConnection dao = new DBConnection();
+        Connection conn = dao.getConnection();
+// intial Personal Main Info
+
+        String sql="update t_personal_ewallet a " +
+            "set  t_personalewallet_TotCNYBalance = t_personalewallet_TotCNYBalance - ?," +
+            "t_personalewallet_Paystatus = ?," +
+            "modifier = ?," +
+            "modify_time = ? " +
+            "where a.t_personalewallet_ApplierPID = ?";
+        try {
+            PreparedStatement ptmt = conn.prepareStatement(sql);
+            ptmt.setBigDecimal(1, txnAmt);
+            ptmt.setString(2, "1");
+            ptmt.setString(3, walletTxn_payerPID);
+            ptmt.setTimestamp(4, new java.sql.Timestamp(System.currentTimeMillis()));
+            ptmt.setString(5, walletTxn_payerPID);
             System.out.println(ptmt.executeUpdate());
         } catch (SQLException e) {
             e.printStackTrace();

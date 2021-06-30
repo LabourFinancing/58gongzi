@@ -1,4 +1,4 @@
-package com.alipay.demo.controller;
+package com.qucai.sample.alipayDemo_java.src.java.com.alipay.demo.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,9 +14,9 @@ import com.alipay.api.AlipayClient;
 import com.alipay.api.domain.AlipayFundTransToaccountTransferModel;
 import com.alipay.api.request.AlipayFundTransToaccountTransferRequest;
 import com.alipay.api.response.AlipayFundTransToaccountTransferResponse;
-import com.alipay.config.AlipayConfig;
-import com.alipay.config.DefaultAlipayClientFactory;
-import com.alipay.demo.entites.Result;
+import com.qucai.sample.alipayDemo_java.src.java.com.alipay.config.AlipayConfig;
+import com.qucai.sample.alipayDemo_java.src.java.com.alipay.config.DefaultAlipayClientFactory;
+import com.qucai.sample.alipayDemo_java.src.java.com.alipay.demo.entites.Result;
 
 @Controller
 public class AlipayFundTransToaccountTransferController {

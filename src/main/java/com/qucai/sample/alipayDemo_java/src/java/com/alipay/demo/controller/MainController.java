@@ -1,4 +1,4 @@
-package com.alipay.demo.controller;
+package com.qucai.sample.alipayDemo_java.src.java.com.alipay.demo.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alipay.demo.entites.ApiInfoModel;
-import com.alipay.demo.entites.ApiParamModel;
+import com.qucai.sample.alipayDemo_java.src.java.com.alipay.demo.entites.ApiInfoModel;
+import com.qucai.sample.alipayDemo_java.src.java.com.alipay.demo.entites.ApiParamModel;
 
 @Controller
 public class MainController {

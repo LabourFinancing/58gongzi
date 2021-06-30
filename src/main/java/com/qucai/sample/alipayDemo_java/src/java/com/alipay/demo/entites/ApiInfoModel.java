@@ -1,8 +1,8 @@
-package com.alipay.demo.entites;
+package com.qucai.sample.alipayDemo_java.src.java.com.alipay.demo.entites;
 
 import java.util.List;
 
-import com.alipay.util.StringUtil;
+import com.qucai.sample.alipayDemo_java.src.java.com.alipay.util.StringUtil;
 
 public class ApiInfoModel {
     

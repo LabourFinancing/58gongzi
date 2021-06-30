@@ -1,4 +1,4 @@
-package com.alipay.config;
+package com.qucai.sample.alipayDemo_java.src.java.com.alipay.config;
 
 import java.util.Properties;
 import com.alipay.api.AlipayClient;
