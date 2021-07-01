@@ -182,6 +182,12 @@ public class PersonalTreasuryCtrlController {
                 MobilePersonalTreasuryCtrl.setT_personalewallet_treasuryctrlPayStat(rs.getString("t_personalewallet_treasuryctrlPayStat"));
                 MobilePersonalTreasuryCtrl.setT_personalewallet_treasuryctrlPayTxnLimit(rs.getBigDecimal("t_personalewallet_treasuryctrlPayTxnLimit"));
                 MobilePersonalTreasuryCtrl.setT_personalewallet_treasuryctrlPayTotalLimit(rs.getBigDecimal("t_personalewallet_treasuryctrlPayTotalLimit"));
+                MobilePersonalTreasuryCtrl.setT_personalewallet_treasuryctrlBeneDailyCntLimit(rs.getBigDecimal("t_personalewallet_treasuryctrlBeneDailyCntLimit"));
+                MobilePersonalTreasuryCtrl.setT_personalewallet_treasuryctrlBeneDailyLimit(rs.getBigDecimal("t_personalewallet_treasuryctrlBeneDailyLimit"));
+                MobilePersonalTreasuryCtrl.setT_personalewallet_treasuryctrlBeneFee(rs.getBigDecimal("t_personalewallet_treasuryctrlBeneFee"));
+                MobilePersonalTreasuryCtrl.setT_personalewallet_treasuryctrlBeneStat(rs.getString("t_personalewallet_treasuryctrlBeneStat"));
+                MobilePersonalTreasuryCtrl.setT_personalewallet_treasuryctrlBeneTotalLimit(rs.getBigDecimal("t_personalewallet_treasuryctrlPayTotalLimit"));
+                MobilePersonalTreasuryCtrl.setT_personalewallet_treasuryctrlPayTxnLimit(rs.getBigDecimal("t_personalewallet_treasuryctrlPayTxnLimit"));
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block

@@ -402,18 +402,27 @@ public class EwalletTxnController {
     /*
 移动端个人
 */
-    public Map<String, Object> addMobileEwalletTxn(String txnCat, BigDecimal txnAmt, String walletTxn_PayerPID, String walletTxn_ReceiverID,String method) throws SQLException {
+    public Map<String, Object> addMobileEwalletTxn(String txnCat, BigDecimal txnAmt, String walletTxn_PayerPID, 
+                                                   String walletTxn_ReceiverID,String method,String paymentID,String paymentStatus
+    ) throws SQLException {
 
         Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
         BigDecimal t_MobileWalletTxn_TopupAmt = null;
-        String ewallet = "58ewallet";
+        String ewalletTxnType = null;
+        String TxnID = Tool.PayId();
+        if(paymentID == null){
+            paymentID = TxnID;
+        }
         switch (txnCat){
             case "58scan-txn-58qr" : System.out.print("58scan-txn-58qr transit");
+                ewalletTxnType = "c2c 钱包转账";
             break;
             case "PersonalEwalletTopup" : System.out.print("PersonalEwalletTopup transit");
             t_MobileWalletTxn_TopupAmt = txnAmt;
+                ewalletTxnType = "c2b 充值";
             break;
         }
+        
         DBConnection dao = new DBConnection();
         Connection conn = dao.getConnection();
 
@@ -424,11 +433,11 @@ public class EwalletTxnController {
             PreparedStatement ptmt = null;
             ptmt = conn.prepareStatement(sql);
             ptmt.setString(1,Tool.uuid()); // uuid t_WalletTxn_ID 交易序列号
-            ptmt.setString(2,""); //QRcode t_WalletTxn_QRcode 二维码内容
-            ptmt.setString(3,Tool.PayId());// t_WalletTxn_Num 交易流水号
+            ptmt.setString(2,method); //QRcode t_WalletTxn_QRcode 二维码内容
+            ptmt.setString(3,TxnID);// t_WalletTxn_Num 交易流水号
             ptmt.setString(4,""); // t_WalletTxn_Vendor  交易机构编号
-            ptmt.setString(5,""); // t_WalletTxn_ClearNum 清算号
-            ptmt.setString(6,""); // t_WalletTxn_ClearOrg 交易企业对账号
+            ptmt.setString(5,paymentID); // t_WalletTxn_ClearNum 清算号
+            ptmt.setString(6,paymentID); // t_WalletTxn_ClearOrg 交易企业对账号
             ptmt.setString(7,""); // t_WalletTxn_PayerName 付款人姓名
             ptmt.setString(8,""); // t_WalletTxn_PayerID 付款人主ID
             ptmt.setString(9,walletTxn_PayerPID); // t_WalletTxn_PayerPID 付款人身份证
@@ -476,7 +485,7 @@ public class EwalletTxnController {
             ptmt.setString(51,""); // t_WalletTxn_Paystatus 查询支付状态
             ptmt.setString(52,""); // t_WalletTxn_SMS 短信验证
             ptmt.setString(53,""); // t_WalletTxn_SMSRec 验证返回
-            ptmt.setString(54,method);  // t_WalletTxn_type b2b,b2c,c2b,c2c 交易类型
+            ptmt.setString(54,ewalletTxnType);  // t_WalletTxn_type b2b,b2c,c2b,c2c 交易类型
             ptmt.setString(55,"no"); // t_WalletTxn_Voucher voucher
             ptmt.setString(56,""); // t_WalletTxn_Txt2 备用字段
             ptmt.setString(57,""); // t_WalletTxn_Txt3 备用字段
@@ -495,13 +504,18 @@ public class EwalletTxnController {
             rsMobileEwalletTxn.put("SQL-PersonalEwalletTxn-ErrorCode:",String.valueOf(e.getErrorCode()));
             rsMobileEwalletTxn.put("SQL-PersonalEwalletTxn-SQLstat:",String.valueOf(e.getSQLState()));
             rsMobileEwalletTxn.put("SQL-PersonalEwalletTxn-SQLcause:",String.valueOf(e.getCause()));
+            rsMobileEwalletTxn.put("SQL","SQL-PersonalEwalletTxn-ErrorCode");
             return rsMobileEwalletTxn;
         }finally {
             conn.close();
-            rsMobileEwalletTxn.put("SQL-PersonalEwalletTxn","0");
+            rsMobileEwalletTxn.put("SQL","SQL-PersonalEwalletTxnSucc");
             Map<String,Object> retUpdatePersonalEwallet = EwalletController.UpdatePayeePersonalEwalletBalance(txnAmt,walletTxn_PayerPID,walletTxn_ReceiverID);
             if(!retUpdatePersonalEwallet.isEmpty()){
-                Map<String,Object> retUpdatePersonalEwallet1 = EwalletController.UpdatePayerPersonalEwalletBalance(txnAmt,walletTxn_PayerPID,walletTxn_ReceiverID);
+                if(!method.equalsIgnoreCase("ewallettopup")) {
+                    Map<String, Object> retUpdatePersonalEwallet1 = EwalletController.UpdatePayerPersonalEwalletBalance(txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID);
+                }else{
+                    System.out.println("toptup section");
+                }
                 //payment call
 //                Map<String, Object> rs = new HashMap<String, Object>();
 //                String merchantId = "S2135052";
@@ -510,10 +524,9 @@ public class EwalletTxnController {
 //                JSONObject resp = OrderPayDemo.main(staffPrepayApplicationPay,merchantId);
 //                String QRcodeinit = resp.getJSONObject("body").getString("qrCode");
 //                rs.put("QRcodeinit", QRcodeinit);
-                rsMobileEwalletTxn.put("UpdatePersonalEwalletSucc","succ");
+                rsMobileEwalletTxn.put("SQL","UpdatePersonalEwalletSucc");
             }
         }
-
         return rsMobileEwalletTxn;
     }
 

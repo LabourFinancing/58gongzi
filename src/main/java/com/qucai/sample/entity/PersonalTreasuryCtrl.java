@@ -29,7 +29,7 @@ public class PersonalTreasuryCtrl implements Serializable {
 
     private BigDecimal t_personalewallet_treasuryctrlBeneTotalLimit;
 
-    private String t_personalewallet_treasuryctrlBeneFee;
+    private BigDecimal t_personalewallet_treasuryctrlBeneFee;
 
     private BigDecimal t_personalewallet_treasuryctrlBeneDailyCntLimit;
 
@@ -158,11 +158,11 @@ public class PersonalTreasuryCtrl implements Serializable {
         this.t_personalewallet_treasuryctrlBeneTotalLimit = t_personalewallet_treasuryctrlBeneTotalLimit;
     }
 
-    public String getT_personalewallet_treasuryctrlBeneFee() {
+    public BigDecimal getT_personalewallet_treasuryctrlBeneFee() {
         return t_personalewallet_treasuryctrlBeneFee;
     }
 
-    public void setT_personalewallet_treasuryctrlBeneFee(String t_personalewallet_treasuryctrlBeneFee) {
+    public void setT_personalewallet_treasuryctrlBeneFee(BigDecimal t_personalewallet_treasuryctrlBeneFee) {
         this.t_personalewallet_treasuryctrlBeneFee = t_personalewallet_treasuryctrlBeneFee;
     }
 

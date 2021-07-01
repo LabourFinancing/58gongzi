@@ -70,8 +70,8 @@ public class OauthController {
     @ResponseBody
     public Object login(HttpServletRequest request, HttpServletResponse response,String facialret,String txnAmount,String personalMID,
                         String walletTxn_PayerPID,String walletTxn_ReceiverID, String PaymentChannel, String TopupAmount,String realName,
-                        String userName, String pid, String password, String page, String remember, String paymentchannel, String action,
-                        String mode, String gid, String method, String phone, String host,
+                        String userName, String pid, String password, String page, String paymentchannel, String action,String cardAcc,
+                        String mode, String gid, String method, String phone, String host,String paymentID,String paymentStatus,
                         String SMSsendcode, String SMSstrret, String type, String API) throws Exception {
 
         CaptchaUsernamePasswordToken token = new CaptchaUsernamePasswordToken();
@@ -199,15 +199,22 @@ public class OauthController {
             Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
             String txnCat = method;
             Map<String,Object> rs = new HashMap<>();
+            if(walletTxn_PayerPID.equalsIgnoreCase(walletTxn_ReceiverID)){
+                rs.put("58scan-txn-58qr","payerPID can't equals to receiverPID");
+                return JsonBizTool.genJson(ExRetEnum.FAIL,rs);
+            }
             MobilePersonalMain mobilePersonalMain = null;
             String[] txnMethod = method.split("-");
+            Boolean ContainPayer58 = false,ContainReceiver58= false;
             for(int i=0;i < txnMethod.length;i++){
                 switch (i) {
-                    case 0 : System.out.println("Payee:");
+                    case 0 : System.out.println("Payer:");
+                        ContainPayer58 = txnMethod[i].contains("58");
                         break;
                     case 1 : System.out.println("txn:");
                         break;
                     case 2 : System.out.println("Receiver:");
+                         ContainReceiver58 = txnMethod[i].contains("58");
                         break;
                 }
                 System.out.print(txnMethod[i]);
@@ -248,11 +255,14 @@ public class OauthController {
             System.out.print(MobileProductMain);
             
             //个人资金监控
-            PersonalTreasuryCtrlController personalTreasuryCtrlController = new PersonalTreasuryCtrlController();
-            PersonalTreasuryCtrl MobilePersonalTreasuryCtrl = (PersonalTreasuryCtrl) personalTreasuryCtrlController.findPersonalTreasury(MobileProductMain.getT_Product_SeriesID());
-            
-            System.out.print(MobilePersonalTreasuryCtrl);
-            Map<String,Object> PersonalTreasuryChk = PersonalValueEst.PersonalTreasuryChk(MobilePersonalTreasuryCtrl);
+            if( ContainPayer58 && ContainReceiver58) {
+                System.out.println("58-58 transit no limited");
+            }else{
+                PersonalTreasuryCtrlController personalTreasuryCtrlController = new PersonalTreasuryCtrlController();
+                PersonalTreasuryCtrl MobilePersonalTreasuryCtrl = (PersonalTreasuryCtrl) personalTreasuryCtrlController.findPersonalTreasury(MobileProductMain.getT_Product_SeriesID());
+                System.out.print(MobilePersonalTreasuryCtrl);
+                Map<String,Object> PersonalTreasuryChk = PersonalValueEst.PersonalTreasuryChk(MobilePersonalTreasuryCtrl);
+            }
             
 //            if（）{}else{};
             //call topup 调用充值
@@ -260,7 +270,7 @@ public class OauthController {
             
             
             EwalletTxnController ewalletTxnController = new EwalletTxnController();
-            rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(txnCat,txnAmt,walletTxn_PayerPID,walletTxn_ReceiverID,method);
+            rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(txnCat,txnAmt,walletTxn_PayerPID,walletTxn_ReceiverID,method,paymentID,paymentStatus);
             
             if (!rsMobileEwalletTxn.isEmpty()){
                 return JsonBizTool.genJson(ExRetEnum.SUCCESS);
@@ -284,7 +294,7 @@ public class OauthController {
         }
 
         //个人收付款58-wechat/alipay/unionpay
-        //http://localhost:8080/sample/oauthController/login?method=58qr-txn-wechatscan&action=transaction&page=mobilepay&walletTxn_PayerPID=31011519830805251X&walletTxn_ReceiverID=wechat&txnAmount=0.1&paymentID=
+        //http://localhost:8080/sample/oauthController/login?method=58qr-txn-wechatscan&action=transaction&page=mobilepay&walletTxn_PayerPID=31011519830805251X&walletTxn_ReceiverID=wechat&txnAmount=0.1&paymentID=$&paymentStatus=&
         //个人收付款58qr-wechatscan/alipayscan/unionpayscan ( payee - 58,receiver-wechat )$
         if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("58qr-txn-wechatscan/alipayscan/unionpayscan")&&action.equalsIgnoreCase("transaction")){
             Map<String, Object> rs = new HashMap<String, Object>();
@@ -411,7 +421,7 @@ public class OauthController {
         }
 
         //个人充值
-        //个人钱包充值 http://localhost:8080/sample/oauthController/login?method=ewallettopup&action=topup&page=mobilepay&walletTxn_PayerPID=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475&TopupAmount=100.00
+        //个人钱包充值 http://localhost:8080/sample/oauthController/login?method=ewallettopup&action=topup&page=mobilepay&walletTxn_PayerPID=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475&TopupAmount=100.00&&paymentID=$&paymentStatus=&
 
         if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewallettopup")&&action.equalsIgnoreCase("topup")){
             Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
@@ -419,7 +429,7 @@ public class OauthController {
             BigDecimal txnAmt = new BigDecimal(TopupAmount);
 //            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             EwalletTxnController ewalletTxnController = new EwalletTxnController();
-            rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method);
+            rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method,paymentID,paymentStatus);
 
             if (rsMobileEwalletTxn.get("UpdatePersonalEwalletSucc").equals("succ")) {
                 System.out.println("调用个人消费成功");
@@ -477,15 +487,17 @@ public class OauthController {
         }
 
         //个人银行卡 private bankcard
-        //个人信用卡接口 http://localhost:8080/sample/oauthController/login?method=ewallettbankcard&action=bankcard&page=mobileme&&pid=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475
-        if( method!=null&&page.equalsIgnoreCase("mobileme")&&method.equals("MobilePersonalMain")&&action.equalsIgnoreCase("bankcard")) {
-            Map<String, Object> rs = new HashMap<String, Object>();
-            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
-            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
-                System.out.println("调用个人信息");
-                rs.put("SMSverify", 0);
-            }
-            return JsonBizTool.genJson(ExRetEnum.SUCCESS);
+        //个人信用卡接口 http://localhost:8080/sample/oauthController/login?method=ewallettbankcard&action=bankcard&page=mobileme&&pid=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475&cardAcc=5187188100953387-招商银行-creditcard
+        if( method!=null&&page.equalsIgnoreCase("mobileme")&&method.equals("ewallettbankcard")&&action.equalsIgnoreCase("bankcard")) {
+            Map<String, Object> rsUserEwalletbnkCard = new HashMap<String, Object>();
+            EwalletController ewalletController = new EwalletController();
+            rsUserEwalletbnkCard = ewalletController.UpdatePayerPersonalEwalletBindBnkCard(personalMID,pid,cardAcc);
+//            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+//            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
+//                System.out.println("调用个人信息");
+//                rs.put("SMSverify", 0);
+//            }
+            return JsonBizTool.genJson(ExRetEnum.SUCCESS, rsUserEwalletbnkCard);
         }
         //个人服务的企业 served firm
         //个人企业信息接口 http://localhost:8080/sample/oauthController/login?method=ewalletcompany&action=company&page=mobileme&&pid=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475
