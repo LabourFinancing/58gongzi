@@ -268,7 +268,6 @@ public class OauthController {
             //call topup 调用充值
             // personal treasury mgt
             
-            
             EwalletTxnController ewalletTxnController = new EwalletTxnController();
             rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(txnCat,txnAmt,walletTxn_PayerPID,walletTxn_ReceiverID,method,paymentID,paymentStatus);
             
@@ -289,8 +288,6 @@ public class OauthController {
             // buffer checking
 
 //            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
-
-
         }
 
         //个人收付款58-wechat/alipay/unionpay

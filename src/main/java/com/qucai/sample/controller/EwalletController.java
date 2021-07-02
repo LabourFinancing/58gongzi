@@ -542,7 +542,7 @@ public class EwalletController {
         return retUpdatePersonalEwallet;
     }
 
-    public static Map<String, Object> UpdatePayerPersonalEwalletBalance(BigDecimal txnAmt,String walletTxn_payerPID,String walletTxn_receiverPID) throws SQLException {
+    public static Map<String, Object> UpdatePayerPersonalEwalletBalance(BigDecimal txnAmtPayerMinus,String walletTxn_payerPID,String walletTxn_receiverPID) throws SQLException {
         Map<String,Object> retUpdatePersonalEwallet = new HashMap<>();
         String ewallet = "58ewallet";
         DBConnection dao = new DBConnection();
@@ -550,14 +550,14 @@ public class EwalletController {
 // intial Personal Main Info
 
         String sql="update t_personal_ewallet a " +
-            "set  t_personalewallet_TotCNYBalance = t_personalewallet_TotCNYBalance - ?," +
+            "set  t_personalewallet_TotCNYBalance = t_personalewallet_TotCNYBalance + ?," +
             "t_personalewallet_Paystatus = ?," +
             "modifier = ?," +
             "modify_time = ? " +
             "where a.t_personalewallet_ApplierPID = ?";
         try {
             PreparedStatement ptmt = conn.prepareStatement(sql);
-            ptmt.setBigDecimal(1, txnAmt);
+            ptmt.setBigDecimal(1, txnAmtPayerMinus);
             ptmt.setString(2, "1");
             ptmt.setString(3, walletTxn_payerPID);
             ptmt.setTimestamp(4, new java.sql.Timestamp(System.currentTimeMillis()));
@@ -643,17 +643,17 @@ public class EwalletController {
                     System.out.println(ptmt1.executeUpdate());
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    rsUserEwalletbnkCard.put("SQL",String.valueOf(e.getErrorCode()));
+                    rsUserEwalletbnkCard.put("SQL","PersonalEwalletBindCardFail");
                     rsUserEwalletbnkCard.put("PersonalEwalletCardBind-SQLstat:",String.valueOf(e.getSQLState()));
                     rsUserEwalletbnkCard.put("PersonalEwalletCardBind-ErrorCode",String.valueOf(e.getErrorCode()));
-                    rsUserEwalletbnkCard.put("SQL-ErrMsg","-PersonalEwalletBindCardFail");
+                    rsUserEwalletbnkCard.put("SQL-ErrMsg",String.valueOf(e.getErrorCode()));
                     return rsUserEwalletbnkCard;
                 }finally {
                     conn.close();
                     rsUserEwalletbnkCard.put("SQL","SQL-PersonalEwalletBindCardSucc");
                 }
             }else {
-                rsUserEwalletbnkCard.put("SQL", "PersonalEwalletBindCardInfoExist");
+                rsUserEwalletbnkCard.put("retMsg", "该银行卡已被绑定,请重新输入");
             }
         }
         return rsUserEwalletbnkCard;

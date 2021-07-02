@@ -114,7 +114,7 @@ a:hover{color:red}
 </head>
 <body>
 	<!-- BEGIN PAGE BASE CONTENT -->
-	<div class="row">
+	<div>
 		<div class="col-xs-push-15">
 			<!-- BEGIN EXAMPLE TABLE PORTLET-->
 			<div class="portlet light portlet-fit bordered">
@@ -169,12 +169,12 @@ a:hover{color:red}
 						            </div>
 						            </td>
 						            </@shiro.hasPermission>
-						            <td>
+						            <td colspan="2">
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label class="control-label col-sm-5" style="padding-left: 0">
                                                     <span class="required"> * </span>起始日期：</label>
-                                                <div class="col-sm-6" style="padding-left: 0">
+                                                <div class="col-sm-7" style="padding-left: 0">
                                                     <i class="fa"></i> <input name="begin_date" id="begin_date" class="form-control form-control-inline date-picker" type="text" style="width: 200px" placeholder="例：2020-01-01"
                                                                               data-date-format="yyyy-mm-dd"/>
                                                 </div>
@@ -184,7 +184,7 @@ a:hover{color:red}
                                             <div class="form-group">
                                                 <label class="control-label col-sm-5" style="padding-left: 0">
                                                     <span class="required"> * </span>结束日期：</label>
-                                                <div class="col-sm-6" style="padding-left: 0">
+                                                <div class="col-sm-7" style="padding-left: 0">
                                                     <i class="fa"></i> <input name="end_date" id="end_date" class="form-control form-control-inline date-picker" type="text" style="width: 200px" placeholder="例：2020-01-01"
                                                                               data-date-format="yyyy-mm-dd"/>
                                                 </div>
@@ -206,24 +206,13 @@ a:hover{color:red}
 					<div class="table-toolbar">
 					</form>
 					</div>
-					<div class="table-toolbar">
-						<div class="row">
-							<div class="col-sm-12">
-								<div class="btn-group pull-right">
-                                    <@shiro.hasPermission name="PERSONALINFO_ADD">
-									<button id="sample_editable_1_new" class="btn green" onclick="openNew('0')">新增</button>
-                                    </@shiro.hasPermission>
-								</div>
-							</div>
-						</div>
-					</div>
 			    </div>
-			  <div class="row ls-change-tit">
+			  <div class="ls-change-tit">
                 <div class="ls-seaarch-result">
                     <div class="table-responsive">
 					  <table class="table table-bordered" id="ewalletTxnTable" style="overflow:visible;text-overflow:ellipsis;white-space:nowrap;">
 							<tr>
-							    <th>&nbsp;&nbsp;&nbsp;</th>
+							    <th>结算ID</th>
 								<th>付款方</th>
 								<th>收款方</th>
 								<th>交易类型</th>
@@ -246,16 +235,15 @@ a:hover{color:red}
 								<th>交易优惠费率</th>
 								<th>交易状态</th>
 								<th>交易结算状态</th>
-								<th>最后更新时间</th>
+								<th>交易时间</th>
 								<th>操作</th>
-							    <th>&nbsp;&nbsp;&nbsp;</th>
 							</tr>
 						<tbody>
 							<#list page.list as ewalletTxn>
 								<tr>
-								    <td>&nbsp;&nbsp;&nbsp;</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewalletTxn.t_WalletTxn_PayerName}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewalletTxn.t_WalletTxn_ReceiverName}</td>
+                                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewalletTxn.t_WalletTxn_ClearNum}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewalletTxn.t_WalletTxn_PayerPID}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewalletTxn.t_WalletTxn_ReceiverPID}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewalletTxn.t_WalletTxn_TxnCat}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewalletTxn.t_WalletTxn_TotTxnAmount}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewalletTxn.t_WalletTxn_Num}</td>
@@ -276,7 +264,7 @@ a:hover{color:red}
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewalletTxn.t_WalletTxn_TierPoundage}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewalletTxn.t_WalletTxn_Paystatus}</td>	
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewalletTxn.t_WalletTxn_PayClear}</td>							
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewalletTxn.modify_time?string("yyyy-MM-dd HH:mm:ss")}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewalletTxn.create_time?string("yyyy-MM-dd HH:mm:ss")}</td>
 									<td class="col-xs-push-2" style="word-wrap:break-word;word-break:break-all">
 										<@shiro.hasPermission name="PERSONALINFO_VIEW">
 										<a href="#" onclick="openView('${ewalletTxn.t_WalletTxn_ID}')">查看</a>

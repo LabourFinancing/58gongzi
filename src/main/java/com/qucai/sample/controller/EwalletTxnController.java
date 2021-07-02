@@ -407,7 +407,7 @@ public class EwalletTxnController {
     ) throws SQLException {
 
         Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
-        BigDecimal t_MobileWalletTxn_TopupAmt = null;
+        BigDecimal t_MobileWalletTxn_TopupAmt = null,txnAmtPayerMinus = null;
         String ewalletTxnType = null;
         String TxnID = Tool.PayId();
         if(paymentID == null){
@@ -416,6 +416,7 @@ public class EwalletTxnController {
         switch (txnCat){
             case "58scan-txn-58qr" : System.out.print("58scan-txn-58qr transit");
                 ewalletTxnType = "c2c 钱包转账";
+                txnAmtPayerMinus = txnAmt.negate();
             break;
             case "PersonalEwalletTopup" : System.out.print("PersonalEwalletTopup transit");
             t_MobileWalletTxn_TopupAmt = txnAmt;
@@ -472,7 +473,7 @@ public class EwalletTxnController {
             ptmt.setString(38,""); // t_WalletTxn_Overdue 期数
             ptmt.setInt(39,0); // t_WalletTxn_OverdueDays 逾期天数
             ptmt.setBigDecimal(40,new BigDecimal("0.00")); // t_WalletTxn_RefundAmt 退款金额
-            ptmt.setBigDecimal(41,new BigDecimal("0.00")); // t_WalletTxn_FinancialInterest 融资利息(日)'
+            ptmt.setBigDecimal(41,txnAmtPayerMinus); // 付款人钱包扣款数额
             ptmt.setBigDecimal(42,new BigDecimal("0.00")); // t_WalletTxn_ServiceFee 服务费费
             ptmt.setBigDecimal(43,new BigDecimal("0.00")); // t_WalletTxn_Poundage 区间手续费
             ptmt.setBigDecimal(44,new BigDecimal("0.00")); // t_WalletTxn_TierPoundage 区间手续费
@@ -511,8 +512,8 @@ public class EwalletTxnController {
             rsMobileEwalletTxn.put("SQL","SQL-PersonalEwalletTxnSucc");
             Map<String,Object> retUpdatePersonalEwallet = EwalletController.UpdatePayeePersonalEwalletBalance(txnAmt,walletTxn_PayerPID,walletTxn_ReceiverID);
             if(!retUpdatePersonalEwallet.isEmpty()){
-                if(!method.equalsIgnoreCase("ewallettopup")) {
-                    Map<String, Object> retUpdatePersonalEwallet1 = EwalletController.UpdatePayerPersonalEwalletBalance(txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID);
+                if(method.equalsIgnoreCase("58scan-txn-58qr")) {
+                    Map<String, Object> retUpdatePersonalEwallet1 = EwalletController.UpdatePayerPersonalEwalletBalance(txnAmtPayerMinus, walletTxn_PayerPID, walletTxn_ReceiverID);
                 }else{
                     System.out.println("toptup section");
                 }
