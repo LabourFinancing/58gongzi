@@ -419,10 +419,29 @@ public class OauthController {
 
         //个人充值
         //个人钱包充值 http://localhost:8080/sample/oauthController/login?method=ewallettopup&action=topup&page=mobilepay&walletTxn_PayerPID=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475&TopupAmount=100.00&&paymentID=$&paymentStatus=&
-
         if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewallettopup")&&action.equalsIgnoreCase("topup")){
             Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
             String txnCat = "PersonalEwalletTopup";
+            BigDecimal txnAmt = new BigDecimal(TopupAmount);
+//            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+            EwalletTxnController ewalletTxnController = new EwalletTxnController();
+            rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method,paymentID,paymentStatus);
+
+            if (rsMobileEwalletTxn.get("UpdatePersonalEwalletSucc").equals("succ")) {
+                System.out.println("调用个人消费成功");
+                rsMobileEwalletTxn.put("SMSverify",0);
+                return JsonBizTool.genJson(ExRetEnum.SUCCESS);
+            }else{
+                return JsonBizTool.genJson(ExRetEnum.FAIL, rsMobileEwalletTxn);
+            }
+
+        }
+
+        //个人提现
+        //个人钱包提现 http://localhost:8080/sample/oauthController/login?method=ewalletcashout&action=cashout&page=mobilehome&walletTxn_PayerPID=31011519830805251X&walletTxn_ReceiverID=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475&TopupAmount=100.00&&paymentID=$&paymentStatus=&
+        if( method!=null&&page.equalsIgnoreCase("mobilehome")&&method.equals("ewalletcashout")&&action.equalsIgnoreCase("cashout")){
+            Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
+            String txnCat = "PersonalEwalletCashout";
             BigDecimal txnAmt = new BigDecimal(TopupAmount);
 //            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             EwalletTxnController ewalletTxnController = new EwalletTxnController();
@@ -472,7 +491,7 @@ public class OauthController {
          *********************************************************************************************************************/
         
         //个人信息 personalinfo
-        //个人主信息接口 http://localhost:8080/sample/oauthController/login?method=ewallettopup&action=personalinfo&page=mobileme&&pid=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475
+        //个人主信息接口 http://localhost:8080/sample/oauthController/login?method=MobilePersonalMain&action=personalinfo&page=mobileme&&pid=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475
         if( method!=null&&page.equalsIgnoreCase("mobileme")&&method.equals("MobilePersonalMain")&&action.equalsIgnoreCase("personalinfo")) {
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);

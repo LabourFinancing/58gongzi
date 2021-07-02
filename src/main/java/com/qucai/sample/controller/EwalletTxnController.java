@@ -407,7 +407,7 @@ public class EwalletTxnController {
     ) throws SQLException {
 
         Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
-        BigDecimal t_MobileWalletTxn_TopupAmt = null,txnAmtPayerMinus = null;
+        BigDecimal t_MobileWalletTxn_TopupAmt = null,txnAmtPayerMinus = null,t_MobileWalletTxn_CashoutAmt= null;
         String ewalletTxnType = null;
         String TxnID = Tool.PayId();
         if(paymentID == null){
@@ -421,6 +421,10 @@ public class EwalletTxnController {
             case "PersonalEwalletTopup" : System.out.print("PersonalEwalletTopup transit");
             t_MobileWalletTxn_TopupAmt = txnAmt;
                 ewalletTxnType = "c2b 充值";
+            case "PersonalEwalletCashout" : System.out.print("PersonalEwalletCashout transit");
+                txnAmtPayerMinus = txnAmt.negate();
+                txnAmt = txnAmtPayerMinus;
+                ewalletTxnType = "c2c 提现";
             break;
         }
         
@@ -444,7 +448,7 @@ public class EwalletTxnController {
             ptmt.setString(9,walletTxn_PayerPID); // t_WalletTxn_PayerPID 付款人身份证
             ptmt.setString(10,""); // t_WalletTxn_ReceiverName 收款人姓名
             ptmt.setString(11,""); // t_WalletTxn_ReceiverID 收款人ID
-            ptmt.setString(12,walletTxn_PayerPID); // t_WalletTxn_ReceiverPID 收款人身份证
+            ptmt.setString(12,walletTxn_ReceiverID); // t_WalletTxn_ReceiverPID 收款人身份证
             ptmt.setString(13,""); // t_WalletTxn_Mobile 付款人手机号
             ptmt.setString(14,txnCat); // t_WalletTxn_TxnCat 充值,支付,收款,消费,退款
             ptmt.setString(15,""); // t_WalletTxn_TxnCurrencyType 币种
