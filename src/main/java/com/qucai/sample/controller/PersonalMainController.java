@@ -492,11 +492,9 @@ public class PersonalMainController {
     }
 
     //Get PersonalMaininfo
-    public MobilePersonalMain findPersonalMainInfo(String personalPID) throws SQLException {
+    public MobilePersonalMain findPersonalMainInfo(String personalPID,Connection conn) throws SQLException {
 //        Map<String, Object> mobilePersonalMain1 =  new HashMap<String, Object>();
         MobilePersonalMain mobilePersonalMain = new MobilePersonalMain();
-        DBConnection dao = new DBConnection();
-        Connection conn = dao.getConnection();
         ResultSet rs = null;
         
         String sql = "select * from t_personal_main where t_personal_main_pid = ?";
@@ -515,7 +513,6 @@ public class PersonalMainController {
             mobilePersonalMain.setT_mobilePersonalMain_status("exception");
             return mobilePersonalMain;
         } finally {
-            conn.close();
             return mobilePersonalMain;
         }
     }

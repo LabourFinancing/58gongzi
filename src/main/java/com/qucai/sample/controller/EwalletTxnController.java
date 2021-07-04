@@ -14,6 +14,7 @@ import com.qucai.sample.util.DBConnection;
 import com.qucai.sample.util.JsonBizTool;
 import com.qucai.sample.util.ShiroSessionUtil;
 import com.qucai.sample.util.Tool;
+import com.qucai.sample.vo.MobileEwalletDashboard;
 import com.qucai.sample.vo.MobilePersonalMain;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -403,7 +404,7 @@ public class EwalletTxnController {
 移动端个人
 */
     public Map<String, Object> addMobileEwalletTxn(String txnCat, BigDecimal txnAmt, String walletTxn_PayerPID, 
-                                                   String walletTxn_ReceiverID,String method,String paymentID,String paymentStatus
+                                                   String walletTxn_ReceiverID,String method,String paymentID,String paymentStatus,Connection conn
     ) throws SQLException {
 
         Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
@@ -427,10 +428,6 @@ public class EwalletTxnController {
                 ewalletTxnType = "c2c 提现";
             break;
         }
-        
-        DBConnection dao = new DBConnection();
-        Connection conn = dao.getConnection();
-
 
         String sql="insert into t_ewallettxn_info " +
             "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -512,15 +509,18 @@ public class EwalletTxnController {
             rsMobileEwalletTxn.put("SQL","SQL-PersonalEwalletTxn-ErrorCode");
             return rsMobileEwalletTxn;
         }finally {
-            conn.close();
             rsMobileEwalletTxn.put("SQL","SQL-PersonalEwalletTxnSucc");
-            Map<String,Object> retUpdatePersonalEwallet = EwalletController.UpdatePayeePersonalEwalletBalance(txnAmt,walletTxn_PayerPID,walletTxn_ReceiverID);
+            Map<String,Object> retUpdatePersonalEwallet = EwalletController.UpdatePayeePersonalEwalletBalance(txnAmt,walletTxn_PayerPID,walletTxn_ReceiverID,conn);
             if(!retUpdatePersonalEwallet.isEmpty()){
                 if(method.equalsIgnoreCase("58scan-txn-58qr")) {
-                    Map<String, Object> retUpdatePersonalEwallet1 = EwalletController.UpdatePayerPersonalEwalletBalance(txnAmtPayerMinus, walletTxn_PayerPID, walletTxn_ReceiverID);
+                   retUpdatePersonalEwallet = EwalletController.UpdatePayerPersonalEwalletBalance(txnAmtPayerMinus, walletTxn_PayerPID, walletTxn_ReceiverID,conn);
+                    if(!retUpdatePersonalEwallet.isEmpty()){
+                        rsMobileEwalletTxn.put("SQL","SQL-PersonalEwalletPayerUpdateSucc");
+                    }
                 }else{
                     System.out.println("toptup section");
                 }
+                rsMobileEwalletTxn.put("SQL","SQL-PersonalEwalletReceiverUpdateSucc");
                 //payment call
 //                Map<String, Object> rs = new HashMap<String, Object>();
 //                String merchantId = "S2135052";
@@ -529,7 +529,6 @@ public class EwalletTxnController {
 //                JSONObject resp = OrderPayDemo.main(staffPrepayApplicationPay,merchantId);
 //                String QRcodeinit = resp.getJSONObject("body").getString("qrCode");
 //                rs.put("QRcodeinit", QRcodeinit);
-                rsMobileEwalletTxn.put("SQL","UpdatePersonalEwalletSucc");
             }
         }
         return rsMobileEwalletTxn;

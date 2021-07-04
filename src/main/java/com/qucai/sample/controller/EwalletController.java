@@ -480,42 +480,54 @@ public class EwalletController {
     }
 
     //Get PersonalMaininfo and EwalletInfo
-    public MobileEwalletDashboard findPersonalEwallet(String walletTxn_PayerPID) throws SQLException {
-        Map<String, Object> mobilePersonalMain1 =  new HashMap<String, Object>();
-        MobileEwalletDashboard mobileEwalletDashboard = new MobileEwalletDashboard();
-        DBConnection dao = new DBConnection();
-        Connection conn = dao.getConnection();
+    public Map<Object, String> findPersonalEwallet(String PersonalEwalletPayCat,String walletTxn_PayerPID,String walletTxn_ReceiverID,String personalEwalletType,Connection conn) throws SQLException {
+//        DBConnection dao = new DBConnection();
+//        Connection conn1 = dao.getConnection();
         ResultSet rs = null;
-
-        String sql = "select * from t_personal_ewallet where t_personalewallet_ApplierPID = ?";
+        String wallet_queryPID = null;
+        Map<Object, String> mobileFindPersonalEwalletResult = new HashMap<Object, String>();
+        if(personalEwalletType.equalsIgnoreCase("payerQuery")) {
+            wallet_queryPID = walletTxn_PayerPID;
+        }
+        if(personalEwalletType.equalsIgnoreCase("receiverQuery")) {
+            wallet_queryPID = walletTxn_ReceiverID;
+        }
+        String sql = "select * from t_personal_ewallet where t_personalewallet_ApplierPID = ? for update";
         try {
             PreparedStatement ptmt=conn.prepareStatement(sql);
-            ptmt.setString(1, walletTxn_PayerPID);
+            ptmt.setString(1, wallet_queryPID);
             rs = ptmt.executeQuery();
             if (rs.next()) {
-                mobileEwalletDashboard.setT_mobilePersonalEwallet_ID(rs.getString("t_personalewallet_ID"));
-                mobileEwalletDashboard.setT_mobilePersonalEwallet_ApplierName(rs.getString("t_personalewallet_ApplierName"));
-                mobileEwalletDashboard.setT_mobilePersonalEwallet_TotCNYBalance(rs.getBigDecimal("t_personalewallet_TotCNYBalance"));
+                if(personalEwalletType.equalsIgnoreCase("payerQuery")) {
+                    mobileFindPersonalEwalletResult.put("T_mobilePersonalEwallet_PayerPID",rs.getString("t_personalewallet_ID"));
+                    mobileFindPersonalEwalletResult.put("T_mobilePersonalEwallet_PayerName",rs.getString("t_personalewallet_ApplierName"));
+                    if (PersonalEwalletPayCat.equalsIgnoreCase("Payinput")) {
+                        mobileFindPersonalEwalletResult.put("T_mobilePersonalEwallet_PayerOriginTotCNYBalance",rs.getBigDecimal("t_personalewallet_TotCNYBalance").toString());
+                    }
+                }else if (personalEwalletType.equalsIgnoreCase("receiverQuery")){
+                    mobileFindPersonalEwalletResult.put("T_mobilePersonalEwallet_ReceiverID",rs.getString("t_personalewallet_ID"));
+                    mobileFindPersonalEwalletResult.put("T_mobilePersonalEwallet_ReceiverName",rs.getString("t_personalewallet_ApplierName"));
+                    if (PersonalEwalletPayCat.equalsIgnoreCase("Payinput")) {
+                        mobileFindPersonalEwalletResult.put("T_mobilePersonalEwallet_ReceiverOriginTotCNYBalance",rs.getBigDecimal("t_personalewallet_TotCNYBalance").toString());
+                    }else if(PersonalEwalletPayCat.equalsIgnoreCase("Payoutput")){
+                        mobileFindPersonalEwalletResult.put("T_mobilePersonalEwallet_ReceiverTotCNYBalance",rs.getBigDecimal("t_personalewallet_TotCNYBalance").toString());
+                    }
+                }
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            mobileEwalletDashboard.setT_mobilePersonalEwallet_bkp("error");
+            mobileFindPersonalEwalletResult.put("SQL","error");
         } finally {
-            conn.close();
-            return mobileEwalletDashboard;
+            return mobileFindPersonalEwalletResult;
         }
     }
 
-    public static Map<String, Object> UpdatePayeePersonalEwalletBalance(BigDecimal txnAmt,String walletTxn_PayerPID,String walletTxn_ReceiverID) throws SQLException {
+    public static Map<String, Object> UpdatePayeePersonalEwalletBalance(BigDecimal txnAmt,String walletTxn_PayerPID,String walletTxn_ReceiverID,Connection conn) throws SQLException {
         Map<String,Object> retUpdatePersonalEwallet = new HashMap<>();
         String ewallet = "58ewallet";
-        DBConnection dao = new DBConnection();
-        Connection conn = dao.getConnection();
-// intial Personal Main Info
-
-        String sql="update t_personal_ewallet a " +
-            "set  t_personalewallet_TotCNYBalance = t_personalewallet_TotCNYBalance + ?," +
+        String sql="update t_personal_ewallet " +
+            "set t_personalewallet_TotCNYBalance = t_personalewallet_TotCNYBalance + ?," +
             "t_personalewallet_Paystatus = ?," +
             "modifier = ?," +
             "modify_time = ? " +
@@ -528,6 +540,11 @@ public class EwalletController {
             ptmt.setTimestamp(4, new java.sql.Timestamp(System.currentTimeMillis()));
             ptmt.setString(5, walletTxn_ReceiverID);
             System.out.println(ptmt.executeUpdate());
+            String amount = null;
+//            if (ptmt.getResultSet().getString(amount)) {
+//                retUpdatePersonalEwallet.put(ptmt("t_personalewallet_ID"));
+//                retUpdatePersonalEwallet.put(ptmt("t_personalewallet_ApplierName"));
+//            }
         } catch (SQLException e) {
             e.printStackTrace();
             retUpdatePersonalEwallet.put("PersonalEwalletUpdate-ErrorCode",String.valueOf(e.getErrorCode()));
@@ -535,20 +552,15 @@ public class EwalletController {
             retUpdatePersonalEwallet.put("SQL","PersonalEwalletUpdate-ErrorCode");
             return retUpdatePersonalEwallet;
         }finally {
-            conn.close();
             retUpdatePersonalEwallet.put("SQL","SQL-PersonalEwalletUpdate");
         }
-
         return retUpdatePersonalEwallet;
     }
 
-    public static Map<String, Object> UpdatePayerPersonalEwalletBalance(BigDecimal txnAmtPayerMinus,String walletTxn_payerPID,String walletTxn_receiverPID) throws SQLException {
-        Map<String,Object> retUpdatePersonalEwallet = new HashMap<>();
+    public static Map<String, Object> UpdatePayerPersonalEwalletBalance(BigDecimal txnAmtPayerMinus,String walletTxn_payerPID,String walletTxn_receiverPID,Connection conn) throws SQLException {
         String ewallet = "58ewallet";
-        DBConnection dao = new DBConnection();
-        Connection conn = dao.getConnection();
 // intial Personal Main Info
-
+        Map<String,Object> retUpdatePersonalEwallet = new HashMap<>();
         String sql="update t_personal_ewallet a " +
             "set  t_personalewallet_TotCNYBalance = t_personalewallet_TotCNYBalance + ?," +
             "t_personalewallet_Paystatus = ?," +
@@ -565,12 +577,11 @@ public class EwalletController {
             System.out.println(ptmt.executeUpdate());
         } catch (SQLException e) {
             e.printStackTrace();
-            retUpdatePersonalEwallet.put("PersonalEwalletUpdate-ErrorCode",String.valueOf(e.getErrorCode()));
-            retUpdatePersonalEwallet.put("PersonalEwalletUpdate-SQLstat:",String.valueOf(e.getSQLState()));
-            retUpdatePersonalEwallet.put("SQL","PersonalEwalletUpdate-ErrorCode");
+            retUpdatePersonalEwallet.put("PersonalEwalletUpdatePayer-ErrorCode",String.valueOf(e.getErrorCode()));
+            retUpdatePersonalEwallet.put("PersonalEwalletUpdatePayer-SQLstat:",String.valueOf(e.getSQLState()));
+            retUpdatePersonalEwallet.put("SQL","PersonalEwalletUpdatePayer-ErrorCode");
             return retUpdatePersonalEwallet;
         }finally {
-            conn.close();
             retUpdatePersonalEwallet.put("SQL","SQL-PersonalEwalletUpdate");
         }
 

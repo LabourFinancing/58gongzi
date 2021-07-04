@@ -163,11 +163,9 @@ public class PersonalTreasuryCtrlController {
     }
 
     //Get PersonalTreasuryinfo
-    public PersonalTreasuryCtrl findPersonalTreasury(String personalTreasuryCat) throws SQLException {
+    public PersonalTreasuryCtrl findPersonalTreasury(String personalTreasuryCat,Connection conn) throws SQLException {
 //        Map<String, Object> mobilePersonalMain1 =  new HashMap<String, Object>();
         PersonalTreasuryCtrl MobilePersonalTreasuryCtrl = new PersonalTreasuryCtrl();
-        DBConnection dao = new DBConnection();
-        Connection conn = dao.getConnection();
         ResultSet rs = null;
 
         String sql = "select * from t_personal_treasuryctrl where t_personalewallet_treasuryctrlID = ?";
@@ -195,7 +193,6 @@ public class PersonalTreasuryCtrlController {
             MobilePersonalTreasuryCtrl.setT_personalewallet_treasuryctrlstatus("exception");
             return MobilePersonalTreasuryCtrl;
         } finally {
-            conn.close();
             return MobilePersonalTreasuryCtrl;
         }
     }

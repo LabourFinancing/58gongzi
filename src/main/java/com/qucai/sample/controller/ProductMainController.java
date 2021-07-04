@@ -161,11 +161,9 @@ public class ProductMainController {
     }
 
     //Get PersonalProductinfo
-    public ProductMain findPersonalProduct(String productCat) throws SQLException {
+    public ProductMain findPersonalProduct(String productCat,Connection conn) throws SQLException {
 //        Map<String, Object> mobilePersonalMain1 =  new HashMap<String, Object>();
         ProductMain mobileProductMain = new ProductMain();
-        DBConnection dao = new DBConnection();
-        Connection conn = dao.getConnection();
         ResultSet rs = null;
 
         String sql = "select * from t_product_main where t_product_SeriesID = ?";
@@ -185,7 +183,6 @@ public class ProductMainController {
             mobileProductMain.setT_Product_Status("exception");
             return mobileProductMain;
         } finally {
-            conn.close();
             return mobileProductMain;
         }
     }
