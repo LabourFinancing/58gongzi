@@ -76,7 +76,7 @@ public class PrepayApplicationListController {
     	
     	Map<String, Object> paramMap = new HashMap<String, Object>();//新建map对象
         PageParam pp = Tool.genPageParam(request);      
-       txnQuery.sett_TxnQuery_CompanyName(ShiroSessionUtil.getLoginSession().getCompany_name());
+       txnQuery.setT_TxnQuery_CompanyName(ShiroSessionUtil.getLoginSession().getCompany_name());
         
         if (actionflag == "All") {
         PageInfo<TxnQuery> page = txnQueryService.findAllList(new HashMap<String, Object>(), pp);
@@ -125,7 +125,7 @@ public class PrepayApplicationListController {
         	paramMap.put("t_TxnQuery_Date",t_TxnQuery_Date);
         	paramMap.put("t_TxnQuery_Mobil",t_TxnQuery_Mobil);
         	
-            txnQuery.sett_TxnQuery_CompanyName(ShiroSessionUtil.getLoginSession().getCompany_name());
+            txnQuery.setT_TxnQuery_CompanyName(ShiroSessionUtil.getLoginSession().getCompany_name());
          	txnQuery.setCreator(ShiroSessionUtil.getLoginSession().getId());
          	txnQuery.setCreate_time(new Date());
          	txnQuery.setModifier(Tool.uuid());

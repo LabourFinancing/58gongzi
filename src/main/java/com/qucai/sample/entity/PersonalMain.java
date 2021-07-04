@@ -335,11 +335,11 @@ public class PersonalMain implements Serializable {
         this.t_personal_main_creditscore = t_personal_main_creditscore;
     }
 
-    public String gett_personal_main_ewalletcat() {
+    public String getT_personal_main_ewalletcat() {
         return t_personal_main_ewalletcat;
     }
 
-    public void sett_personal_main_ewalletcat(String t_personal_main_ewalletcat) {
+    public void setT_personal_main_ewalletcat(String t_personal_main_ewalletcat) {
         this.t_personal_main_ewalletcat = t_personal_main_ewalletcat;
     }
 
@@ -351,27 +351,27 @@ public class PersonalMain implements Serializable {
         this.t_personal_main_digiasset = t_personal_main_digiasset;
     }
 
-    public String gett_personal_main_companylist() {
+    public String getT_personal_main_companylist() {
         return t_personal_main_companylist;
     }
 
-    public void sett_personal_main_companylist(String t_personal_main_companylist) {
+    public void setT_personal_main_companylist(String t_personal_main_companylist) {
         this.t_personal_main_companylist = t_personal_main_companylist;
     }
 
-    public String gett_personal_main_productCat() {
+    public String getT_personal_main_productCat() {
         return t_personal_main_productCat;
     }
 
-    public void sett_personal_main_productCat(String t_personal_main_productCat) {
+    public void setT_personal_main_productCat(String t_personal_main_productCat) {
         this.t_personal_main_productCat = t_personal_main_productCat;
     }
 
-    public String gett_personal_main_prodlist() {
+    public String getT_personal_main_prodlist() {
         return t_personal_main_prodlist;
     }
 
-    public void sett_personal_main_prodlist(String t_personal_main_prodlist) {
+    public void setT_personal_main_prodlist(String t_personal_main_prodlist) {
         this.t_personal_main_prodlist = t_personal_main_prodlist;
     }
 

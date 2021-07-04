@@ -206,19 +206,19 @@ public class TreasuryDBMain implements Serializable {
         this.t_TreasuryDB_Main_TotMarginCashinout = t_TreasuryDB_Main_TotMarginCashinout;
     }
 
-    public BigDecimal gett_TreasuryDB_Main_TotIncomeYestD() {
+    public BigDecimal getT_TreasuryDB_Main_TotIncomeYestD() {
         return t_TreasuryDB_Main_TotIncomeYestD;
     }
 
-    public void sett_TreasuryDB_Main_TotIncomeYestD(BigDecimal t_TreasuryDB_Main_TotIncomeYestD) {
+    public void setT_TreasuryDB_Main_TotIncomeYestD(BigDecimal t_TreasuryDB_Main_TotIncomeYestD) {
         this.t_TreasuryDB_Main_TotIncomeYestD = t_TreasuryDB_Main_TotIncomeYestD;
     }
 
-    public BigDecimal gett_TreasuryDB_Main_InterestYestD() {
+    public BigDecimal getT_TreasuryDB_Main_InterestYestD() {
         return t_TreasuryDB_Main_InterestYestD;
     }
 
-    public void sett_TreasuryDB_Main_InterestYestD(BigDecimal t_TreasuryDB_Main_InterestYestD) {
+    public void setT_TreasuryDB_Main_InterestYestD(BigDecimal t_TreasuryDB_Main_InterestYestD) {
         this.t_TreasuryDB_Main_InterestYestD = t_TreasuryDB_Main_InterestYestD;
     }
 
@@ -270,11 +270,11 @@ public class TreasuryDBMain implements Serializable {
         this.t_TreasuryDB_Main_bkp1 = t_TreasuryDB_Main_bkp1;
     }
 
-    public BigDecimal gett_TreasuryDB_Main_TotBalance() {
+    public BigDecimal getT_TreasuryDB_Main_TotBalance() {
         return t_TreasuryDB_Main_TotBalance;
     }
 
-    public void sett_TreasuryDB_Main_TotBalance(BigDecimal t_TreasuryDB_Main_TotBalance) {
+    public void setT_TreasuryDB_Main_TotBalance(BigDecimal t_TreasuryDB_Main_TotBalance) {
         this.t_TreasuryDB_Main_TotBalance = t_TreasuryDB_Main_TotBalance;
     }
 

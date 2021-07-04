@@ -43,7 +43,7 @@
         <result column="t_WalletTxn_Overdue" property="t_WalletTxn_Overdue" jdbcType="INTEGER" />
         <result column="t_WalletTxn_OverdueDays" property="t_WalletTxn_OverdueDays" jdbcType="VARCHAR" />
         <result column="t_WalletTxn_RefundAmt" property="t_WalletTxn_RefundAmt" jdbcType="VARCHAR" />
-        <result column="t_WalletTxn_FinancialInterest" property="t_WalletTxn_FinancialInterest" jdbcType="VARCHAR" />
+        <result column="t_WalletTxn_PayerEwalletSubstractAmt" property="t_WalletTxn_PayerEwalletSubstractAmt" jdbcType="VARCHAR" />
         <result column="t_WalletTxn_ServiceFee" property="t_WalletTxn_ServiceFee" jdbcType="VARCHAR" />
         <result column="t_WalletTxn_Poundage" property="t_WalletTxn_Poundage" jdbcType="VARCHAR" />
         <result column="t_WalletTxn_TierPoundage" property="t_WalletTxn_TierPoundage" jdbcType="DECIMAL" />
@@ -110,7 +110,7 @@
         a.t_WalletTxn_Overdue,
         a.t_WalletTxn_OverdueDays,
         a.t_WalletTxn_RefundAmt,
-        a.t_WalletTxn_FinancialInterest,
+        a.t_WalletTxn_PayerEwalletSubstractAmt,
         a.t_WalletTxn_ServiceFee,
         a.t_WalletTxn_Poundage,
         a.t_WalletTxn_TierPoundage,
@@ -310,8 +310,8 @@
             <if test="t_WalletTxn_RefundAmt != null">
                 t_WalletTxn_RefundAmt,
             </if>
-            <if test="t_WalletTxn_FinancialInterest != null">
-                t_WalletTxn_FinancialInterest,
+            <if test="t_WalletTxn_PayerEwalletSubstractAmt != null">
+                t_WalletTxn_PayerEwalletSubstractAmt,
             </if>
             <if test="t_WalletTxn_ServiceFee != null">
                 t_WalletTxn_ServiceFee,
@@ -507,8 +507,8 @@
             <if test="t_WalletTxn_RefundAmt != null">
                 #{t_WalletTxn_RefundAmt,jdbcType=DECIMAL},
             </if>
-            <if test="t_WalletTxn_FinancialInterest != null">
-                #{t_WalletTxn_FinancialInterest,jdbcType=DECIMAL},
+            <if test="t_WalletTxn_PayerEwalletSubstractAmt != null">
+                #{t_WalletTxn_PayerEwalletSubstractAmt,jdbcType=DECIMAL},
             </if>
             <if test="t_WalletTxn_ServiceFee != null">
                 #{t_WalletTxn_ServiceFee,jdbcType=DECIMAL},
@@ -743,8 +743,8 @@
             <if test="t_WalletTxn_RefundAmt != null">
                 t_WalletTxn_RefundAmt = #{t_WalletTxn_RefundAmt,jdbcType=DECIMAL},
             </if>
-            <if test="t_WalletTxn_FinancialInterest != null">
-                t_WalletTxn_FinancialInterest = #{t_WalletTxn_FinancialInterest,jdbcType=DECIMAL},
+            <if test="t_WalletTxn_PayerEwalletSubstractAmt != null">
+                t_WalletTxn_PayerEwalletSubstractAmt = #{t_WalletTxn_PayerEwalletSubstractAmt,jdbcType=DECIMAL},
             </if>
             <if test="t_WalletTxn_ServiceFee != null">
                 t_WalletTxn_ServiceFee = #{t_WalletTxn_ServiceFee,jdbcType=DECIMAL},

@@ -531,7 +531,7 @@ public class EwalletController {
             "t_personalewallet_Paystatus = ?," +
             "modifier = ?," +
             "modify_time = ? " +
-            "where a.t_personalewallet_ApplierPID = ?";
+            "where t_personalewallet_ApplierPID = ?";
         try {
             PreparedStatement ptmt = conn.prepareStatement(sql);
             ptmt.setBigDecimal(1, txnAmt);
@@ -561,12 +561,12 @@ public class EwalletController {
         String ewallet = "58ewallet";
 // intial Personal Main Info
         Map<String,Object> retUpdatePersonalEwallet = new HashMap<>();
-        String sql="update t_personal_ewallet a " +
+        String sql="update t_personal_ewallet " +
             "set  t_personalewallet_TotCNYBalance = t_personalewallet_TotCNYBalance + ?," +
             "t_personalewallet_Paystatus = ?," +
             "modifier = ?," +
             "modify_time = ? " +
-            "where a.t_personalewallet_ApplierPID = ?";
+            "where t_personalewallet_ApplierPID = ?";
         try {
             PreparedStatement ptmt = conn.prepareStatement(sql);
             ptmt.setBigDecimal(1, txnAmtPayerMinus);
@@ -582,7 +582,7 @@ public class EwalletController {
             retUpdatePersonalEwallet.put("SQL","PersonalEwalletUpdatePayer-ErrorCode");
             return retUpdatePersonalEwallet;
         }finally {
-            retUpdatePersonalEwallet.put("SQL","SQL-PersonalEwalletUpdate");
+            retUpdatePersonalEwallet.put("SQL","SQL-PersonalPayerEwalletUpdate");
         }
 
         return retUpdatePersonalEwallet;

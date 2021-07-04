@@ -198,59 +198,59 @@ public class ProductMain implements Serializable {
         this.t_Product_Name = t_Product_Name;
     }
 
-    public String gett_Product_PaymentCat() {
+    public String getT_Product_PaymentCat() {
         return t_Product_PaymentCat;
     }
 
-    public void sett_Product_PaymentCat(String t_Product_PaymentCat) {
+    public void setT_Product_PaymentCat(String t_Product_PaymentCat) {
         this.t_Product_PaymentCat = t_Product_PaymentCat;
     }
 
-    public String gett_Product_PayrollProdCat() {
+    public String getT_Product_PayrollProdCat() {
         return t_Product_PayrollProdCat;
     }
 
-    public void sett_Product_PayrollProdCat(String t_Product_PayrollProdCat) {
+    public void setT_Product_PayrollProdCat(String t_Product_PayrollProdCat) {
         this.t_Product_PayrollProdCat = t_Product_PayrollProdCat;
     }
 
-    public String gett_Product_SalaryAdvCat() {
+    public String getT_Product_SalaryAdvCat() {
         return t_Product_SalaryAdvCat;
     }
 
-    public void sett_Product_SalaryAdvCat(String t_Product_SalaryAdvCat) {
+    public void setT_Product_SalaryAdvCat(String t_Product_SalaryAdvCat) {
         this.t_Product_SalaryAdvCat = t_Product_SalaryAdvCat;
     }
 
-    public String gett_Product_VoucherProdCat() {
+    public String getT_Product_VoucherProdCat() {
         return t_Product_VoucherProdCat;
     }
 
-    public void sett_Product_VoucherProdCat(String t_Product_VoucherProdCat) {
+    public void setT_Product_VoucherProdCat(String t_Product_VoucherProdCat) {
         this.t_Product_VoucherProdCat = t_Product_VoucherProdCat;
     }
 
-    public String gett_Product_TermIncProdCat() {
+    public String getT_Product_TermIncProdCat() {
         return t_Product_TermIncProdCat;
     }
 
-    public void sett_Product_TermIncProdCat(String t_Product_TermIncProdCat) {
+    public void setT_Product_TermIncProdCat(String t_Product_TermIncProdCat) {
         this.t_Product_TermIncProdCat = t_Product_TermIncProdCat;
     }
 
-    public String gett_Product_DigiProdCat() {
+    public String getT_Product_DigiProdCat() {
         return t_Product_DigiProdCat;
     }
 
-    public void sett_Product_DigiProdCat(String t_Product_DigiProdCat) {
+    public void setT_Product_DigiProdCat(String t_Product_DigiProdCat) {
         this.t_Product_DigiProdCat = t_Product_DigiProdCat;
     }
 
-    public String gett_Product_CryptoProdCat() {
+    public String getT_Product_CryptoProdCat() {
         return t_Product_CryptoProdCat;
     }
 
-    public void sett_Product_CryptoProdCat(String t_Product_CryptoProdCat) {
+    public void setT_Product_CryptoProdCat(String t_Product_CryptoProdCat) {
         this.t_Product_CryptoProdCat = t_Product_CryptoProdCat;
     }
 
@@ -286,11 +286,11 @@ public class ProductMain implements Serializable {
         this.t_Product_Cleardays = t_Product_Cleardays;
     }
 
-    public String gett_Product_PaymentCategory() {
+    public String getT_Product_PaymentCategory() {
         return t_Product_PaymentCategory;
     }
 
-    public void sett_Product_PaymentCategory(String t_Product_PaymentCategory) {
+    public void setT_Product_PaymentCategory(String t_Product_PaymentCategory) {
         this.t_Product_PaymentCategory = t_Product_PaymentCategory;
     }
 

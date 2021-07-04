@@ -298,7 +298,7 @@ public class EwalletTxnController {
     	ewalletTxn.setCreator(ShiroSessionUtil.getLoginSession().getId());
     	ewalletTxn.setCreate_time(new Date());
     	ewalletTxn.setT_WalletTxn_ID(Tool.uuid());
-    	ewalletTxn.sett_WalletTxn_TxnTimeout(new Date());
+    	ewalletTxn.setT_WalletTxn_TxnTimeout(new Date());
 
      	if (modify_time == null){
      		ewalletTxn.setModify_time(new Date());
@@ -516,11 +516,12 @@ public class EwalletTxnController {
                    retUpdatePersonalEwallet = EwalletController.UpdatePayerPersonalEwalletBalance(txnAmtPayerMinus, walletTxn_PayerPID, walletTxn_ReceiverID,conn);
                     if(!retUpdatePersonalEwallet.isEmpty()){
                         rsMobileEwalletTxn.put("SQL","SQL-PersonalEwalletPayerUpdateSucc");
+                    }else{
+                        rsMobileEwalletTxn.put("SQL","SQL-PersonalEwalletReceiverUpdateSucc");
                     }
                 }else{
                     System.out.println("toptup section");
                 }
-                rsMobileEwalletTxn.put("SQL","SQL-PersonalEwalletReceiverUpdateSucc");
                 //payment call
 //                Map<String, Object> rs = new HashMap<String, Object>();
 //                String merchantId = "S2135052";
@@ -530,6 +531,7 @@ public class EwalletTxnController {
 //                String QRcodeinit = resp.getJSONObject("body").getString("qrCode");
 //                rs.put("QRcodeinit", QRcodeinit);
             }
+            rsMobileEwalletTxn.put("SQL","SQL-PersonalEwalletReceiverUpdateSucc");
         }
         return rsMobileEwalletTxn;
     }

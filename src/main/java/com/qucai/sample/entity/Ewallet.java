@@ -484,35 +484,35 @@ public class Ewallet implements Serializable {
         this.t_personalewallet_Interest = t_personalewallet_Interest;
     }
 
-    public BigDecimal gett_personalewallet_TotLimit() {
+    public BigDecimal getT_personalewallet_TotLimit() {
         return t_personalewallet_TotLimit;
     }
 
-    public void sett_personalewallet_TotLimit(BigDecimal t_personalewallet_TotLimit) {
+    public void setT_personalewallet_TotLimit(BigDecimal t_personalewallet_TotLimit) {
         this.t_personalewallet_TotLimit = t_personalewallet_TotLimit;
     }
 
-    public BigDecimal gett_personalewallet_Worth() {
+    public BigDecimal getT_personalewallet_Worth() {
         return t_personalewallet_Worth;
     }
 
-    public void sett_personalewallet_Worth(BigDecimal t_personalewallet_Worth) {
+    public void setT_personalewallet_Worth(BigDecimal t_personalewallet_Worth) {
         this.t_personalewallet_Worth = t_personalewallet_Worth;
     }
 
-    public BigDecimal gett_personalewallet_DiscountRate() {
+    public BigDecimal getT_personalewallet_DiscountRate() {
         return t_personalewallet_DiscountRate;
     }
 
-    public void sett_personalewallet_DiscountRate(BigDecimal t_personalewallet_DiscountRate) {
+    public void setT_personalewallet_DiscountRate(BigDecimal t_personalewallet_DiscountRate) {
         this.t_personalewallet_DiscountRate = t_personalewallet_DiscountRate;
     }
 
-    public BigDecimal gett_personalewallet_BalanceInterest() {
+    public BigDecimal getT_personalewallet_BalanceInterest() {
         return t_personalewallet_BalanceInterest;
     }
 
-    public void sett_personalewallet_BalanceInterest(BigDecimal t_personalewallet_BalanceInterest) {
+    public void setT_personalewallet_BalanceInterest(BigDecimal t_personalewallet_BalanceInterest) {
         this.t_personalewallet_BalanceInterest = t_personalewallet_BalanceInterest;
     }
 
@@ -636,11 +636,11 @@ public class Ewallet implements Serializable {
         this.t_personalewallet_SMS = t_personalewallet_SMS;
     }
 
-    public String gett_personalewallet_PaymentVersion() {
+    public String getT_personalewallet_PaymentVersion() {
         return t_personalewallet_PaymentVersion;
     }
 
-    public void sett_personalewallet_PaymentVersion(String t_personalewallet_PaymentVersion) {
+    public void setT_personalewallet_PaymentVersion(String t_personalewallet_PaymentVersion) {
         this.t_personalewallet_PaymentVersion = t_personalewallet_PaymentVersion;
     }
 
@@ -652,51 +652,51 @@ public class Ewallet implements Serializable {
         this.t_personalewallet_bkp = t_personalewallet_bkp;
     }
 
-    public String gett_personalewallet_AccCat() {
+    public String getT_personalewallet_AccCat() {
         return t_personalewallet_AccCat;
     }
 
-    public void sett_personalewallet_AccCat(String t_personalewallet_AccCat) {
+    public void setT_personalewallet_AccCat(String t_personalewallet_AccCat) {
         this.t_personalewallet_AccCat = t_personalewallet_AccCat;
     }
 
-    public String gett_personalewallet_treasuryID() {
+    public String getT_personalewallet_treasuryID() {
         return t_personalewallet_treasuryID;
     }
 
-    public void sett_personalewallet_treasuryID(String t_personalewallet_treasuryID) {
+    public void setT_personalewallet_treasuryID(String t_personalewallet_treasuryID) {
         this.t_personalewallet_treasuryID = t_personalewallet_treasuryID;
     }
 
-    public String gett_personalewallet_eproposal() {
+    public String getT_personalewallet_eproposal() {
         return t_personalewallet_eproposal;
     }
 
-    public void sett_personalewallet_eproposal(String t_personalewallet_eproposal) {
+    public void setT_personalewallet_eproposal(String t_personalewallet_eproposal) {
         this.t_personalewallet_eproposal = t_personalewallet_eproposal;
     }
 
-    public String gett_personalewallet_DigiAddress() {
+    public String getT_personalewallet_DigiAddress() {
         return t_personalewallet_DigiAddress;
     }
 
-    public void sett_personalewallet_DigiAddress(String t_personalewallet_DigiAddress) {
+    public void setT_personalewallet_DigiAddress(String t_personalewallet_DigiAddress) {
         this.t_personalewallet_DigiAddress = t_personalewallet_DigiAddress;
     }
 
-    public String gett_personalewallet_Txt4() {
+    public String getT_personalewallet_Txt4() {
         return t_personalewallet_Txt4;
     }
 
-    public void sett_personalewallet_Txt4(String t_personalewallet_Txt4) {
+    public void setT_personalewallet_Txt4(String t_personalewallet_Txt4) {
         this.t_personalewallet_Txt4 = t_personalewallet_Txt4;
     }
 
-    public String gett_personalewallet_Txt5() {
+    public String getT_personalewallet_Txt5() {
         return t_personalewallet_Txt5;
     }
 
-    public void sett_personalewallet_Txt5(String t_personalewallet_Txt5) {
+    public void setT_personalewallet_Txt5(String t_personalewallet_Txt5) {
         this.t_personalewallet_Txt5 = t_personalewallet_Txt5;
     }
 

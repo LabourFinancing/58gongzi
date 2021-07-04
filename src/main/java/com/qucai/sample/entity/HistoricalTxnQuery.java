@@ -256,10 +256,10 @@ public String getT_P_Contact1_his() {
 public String getT_P_Contact1Mobil_his() {
 	return t_P_Contact1Mobil_his;
 }
-public String gett_P_Payroll_his() {
+public String getT_P_Payroll_his() {
 	return t_P_Payroll_his;
 }
-public String gett_P_ContactMobile2_his() {
+public String getT_P_ContactMobile2_his() {
 	return t_P_ContactMobile2_his;
 }
 public String getT_P_Company_his() {
@@ -502,10 +502,10 @@ public void setT_P_Contact1_his(String t_P_Contact1_his) {
 public void setT_P_Contact1Mobil_his(String t_P_Contact1Mobil_his) {
 	this.t_P_Contact1Mobil_his = t_P_Contact1Mobil_his;
 }
-public void sett_P_Payroll_his(String t_P_Payroll_his) {
+public void setT_P_Payroll_his(String t_P_Payroll_his) {
 	this.t_P_Payroll_his = t_P_Payroll_his;
 }
-public void sett_P_ContactMobile2_his(String t_P_ContactMobile2_his) {
+public void setT_P_ContactMobile2_his(String t_P_ContactMobile2_his) {
 	this.t_P_ContactMobile2_his = t_P_ContactMobile2_his;
 }
 public void setT_P_Company_his(String t_P_Company_his) {

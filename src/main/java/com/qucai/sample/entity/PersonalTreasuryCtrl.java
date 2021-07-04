@@ -302,11 +302,11 @@ public class PersonalTreasuryCtrl implements Serializable {
         this.t_personalewallet_treasuryctrlCashoutTotalLimit = t_personalewallet_treasuryctrlCashoutTotalLimit;
     }
 
-    public String gett_personalewallet_treasuryctrlCashoutFee() {
+    public String getT_personalewallet_treasuryctrlCashoutFee() {
         return t_personalewallet_treasuryctrlCashoutFee;
     }
 
-    public void sett_personalewallet_treasuryctrlCashoutFee(String t_personalewallet_treasuryctrlCashoutFee) {
+    public void setT_personalewallet_treasuryctrlCashoutFee(String t_personalewallet_treasuryctrlCashoutFee) {
         this.t_personalewallet_treasuryctrlCashoutFee = t_personalewallet_treasuryctrlCashoutFee;
     }
 
@@ -357,11 +357,11 @@ public class PersonalTreasuryCtrl implements Serializable {
         this.t_personalewallet_treasuryctrlbkp = t_personalewallet_treasuryctrlbkp;
     }
 
-    public BigDecimal gett_personalewallet_treasuryctrlAccList() {
+    public BigDecimal getT_personalewallet_treasuryctrlAccList() {
         return t_personalewallet_treasuryctrlAccList;
     }
 
-    public void sett_personalewallet_treasuryctrlAccList(BigDecimal t_personalewallet_treasuryctrlAccList) {
+    public void setT_personalewallet_treasuryctrlAccList(BigDecimal t_personalewallet_treasuryctrlAccList) {
         this.t_personalewallet_treasuryctrlAccList = t_personalewallet_treasuryctrlAccList;
     }
 
@@ -381,11 +381,11 @@ public class PersonalTreasuryCtrl implements Serializable {
         this.t_personalewallet_treasuryctrlTxt = t_personalewallet_treasuryctrlTxt;
     }
 
-    public String gett_personalewallet_treasuryctrlCashbackStat() {
+    public String getT_personalewallet_treasuryctrlCashbackStat() {
         return t_personalewallet_treasuryctrlCashbackStat;
     }
 
-    public void sett_personalewallet_treasuryctrlCashbackStat(String t_personalewallet_treasuryctrlCashbackStat) {
+    public void setT_personalewallet_treasuryctrlCashbackStat(String t_personalewallet_treasuryctrlCashbackStat) {
         this.t_personalewallet_treasuryctrlCashbackStat = t_personalewallet_treasuryctrlCashbackStat;
     }
 

@@ -113,7 +113,7 @@ public class EwalletTxn implements Serializable {
 
     private BigDecimal t_WalletTxn_RefundAmt;
 
-    private BigDecimal t_WalletTxn_FinancialInterest;
+    private BigDecimal t_WalletTxn_PayerEwalletSubstractAmt;
 
     private BigDecimal t_WalletTxn_ServiceFee;
 
@@ -407,11 +407,11 @@ public class EwalletTxn implements Serializable {
         this.t_WalletTxn_CreditTxnAmtInit = t_WalletTxn_CreditTxnAmtInit;
     }
 
-    public BigDecimal gett_WalletTxn_TotalPayAmt() {
+    public BigDecimal getT_WalletTxn_TotalPayAmt() {
         return t_WalletTxn_TotalPayAmt;
     }
 
-    public void sett_WalletTxn_TotalPayAmt(BigDecimal t_WalletTxn_TotalPayAmt) {
+    public void setT_WalletTxn_TotalPayAmt(BigDecimal t_WalletTxn_TotalPayAmt) {
         this.t_WalletTxn_TotalPayAmt = t_WalletTxn_TotalPayAmt;
     }
 
@@ -447,35 +447,35 @@ public class EwalletTxn implements Serializable {
         this.t_WalletTxn_Interest = t_WalletTxn_Interest;
     }
 
-    public String gett_WalletTxn_PaymentAccattr() {
+    public String getT_WalletTxn_PaymentAccattr() {
         return t_WalletTxn_PaymentAccattr;
     }
 
-    public void sett_WalletTxn_PaymentAccattr(String t_WalletTxn_PaymentAccattr) {
+    public void setT_WalletTxn_PaymentAccattr(String t_WalletTxn_PaymentAccattr) {
         this.t_WalletTxn_PaymentAccattr = t_WalletTxn_PaymentAccattr;
     }
 
-    public String gett_WalletTxn_RefundAccNo() {
+    public String getT_WalletTxn_RefundAccNo() {
         return t_WalletTxn_RefundAccNo;
     }
 
-    public void sett_WalletTxn_RefundAccNo(String t_WalletTxn_RefundAccNo) {
+    public void setT_WalletTxn_RefundAccNo(String t_WalletTxn_RefundAccNo) {
         this.t_WalletTxn_RefundAccNo = t_WalletTxn_RefundAccNo;
     }
 
-    public BigDecimal gett_WalletTxn_TotBalance() {
+    public BigDecimal getT_WalletTxn_TotBalance() {
         return t_WalletTxn_TotBalance;
     }
 
-    public void sett_WalletTxn_TotBalance(BigDecimal t_WalletTxn_TotBalance) {
+    public void setT_WalletTxn_TotBalance(BigDecimal t_WalletTxn_TotBalance) {
         this.t_WalletTxn_TotBalance = t_WalletTxn_TotBalance;
     }
 
-    public BigDecimal gett_WalletTxn_BalancePrepayNum() {
+    public BigDecimal getT_WalletTxn_BalancePrepayNum() {
         return t_WalletTxn_BalancePrepayNum;
     }
 
-    public void sett_WalletTxn_BalancePrepayNum(BigDecimal t_WalletTxn_BalancePrepayNum) {
+    public void setT_WalletTxn_BalancePrepayNum(BigDecimal t_WalletTxn_BalancePrepayNum) {
         this.t_WalletTxn_BalancePrepayNum = t_WalletTxn_BalancePrepayNum;
     }
 
@@ -511,20 +511,20 @@ public class EwalletTxn implements Serializable {
         this.t_WalletTxn_OverdueDays = t_WalletTxn_OverdueDays;
     }
 
-    public BigDecimal gett_WalletTxn_RefundAmt() {
+    public BigDecimal getT_WalletTxn_RefundAmt() {
         return t_WalletTxn_RefundAmt;
     }
 
-    public void sett_WalletTxn_RefundAmt(BigDecimal t_WalletTxn_RefundAmt) {
+    public void setT_WalletTxn_RefundAmt(BigDecimal t_WalletTxn_RefundAmt) {
         this.t_WalletTxn_RefundAmt = t_WalletTxn_RefundAmt;
     }
 
-    public BigDecimal getT_WalletTxn_FinancialInterest() {
-        return t_WalletTxn_FinancialInterest;
+    public BigDecimal getT_WalletTxn_PayerEwalletSubstractAmt() {
+        return t_WalletTxn_PayerEwalletSubstractAmt;
     }
 
-    public void setT_WalletTxn_FinancialInterest(BigDecimal t_WalletTxn_FinancialInterest) {
-        this.t_WalletTxn_FinancialInterest = t_WalletTxn_FinancialInterest;
+    public void setT_WalletTxn_PayerEwalletSubstractAmt(BigDecimal t_WalletTxn_PayerEwalletSubstractAmt) {
+        this.t_WalletTxn_PayerEwalletSubstractAmt = t_WalletTxn_PayerEwalletSubstractAmt;
     }
 
     public BigDecimal getT_WalletTxn_ServiceFee() {
@@ -559,11 +559,11 @@ public class EwalletTxn implements Serializable {
         this.t_WalletTxn_discountamt = t_WalletTxn_discountamt;
     }
 
-    public BigDecimal gett_WalletTxn_ClearanceAmt() {
+    public BigDecimal getT_WalletTxn_ClearanceAmt() {
         return t_WalletTxn_ClearanceAmt;
     }
 
-    public void sett_WalletTxn_ClearanceAmt(BigDecimal t_WalletTxn_ClearanceAmt) {
+    public void setT_WalletTxn_ClearanceAmt(BigDecimal t_WalletTxn_ClearanceAmt) {
         this.t_WalletTxn_ClearanceAmt = t_WalletTxn_ClearanceAmt;
     }
 
@@ -575,27 +575,27 @@ public class EwalletTxn implements Serializable {
         this.t_WalletTxn_InterestMargin = t_WalletTxn_InterestMargin;
     }
 
-    public String gett_WalletTxn_PayerBankAcc() {
+    public String getT_WalletTxn_PayerBankAcc() {
         return t_WalletTxn_PayerBankAcc;
     }
 
-    public void sett_WalletTxn_PayerBankAcc(String t_WalletTxn_PayerBankAcc) {
+    public void setT_WalletTxn_PayerBankAcc(String t_WalletTxn_PayerBankAcc) {
         this.t_WalletTxn_PayerBankAcc = t_WalletTxn_PayerBankAcc;
     }
 
-    public String gett_WalletTxn_ReceiverBankAcc() {
+    public String getT_WalletTxn_ReceiverBankAcc() {
         return t_WalletTxn_ReceiverBankAcc;
     }
 
-    public void sett_WalletTxn_ReceiverBankAcc(String t_WalletTxn_ReceiverBankAcc) {
+    public void setT_WalletTxn_ReceiverBankAcc(String t_WalletTxn_ReceiverBankAcc) {
         this.t_WalletTxn_ReceiverBankAcc = t_WalletTxn_ReceiverBankAcc;
     }
 
-    public Date gett_WalletTxn_TxnTimeout() {
+    public Date getT_WalletTxn_TxnTimeout() {
         return t_WalletTxn_TxnTimeout;
     }
 
-    public void sett_WalletTxn_TxnTimeout(Date t_WalletTxn_TxnTimeout) {
+    public void setT_WalletTxn_TxnTimeout(Date t_WalletTxn_TxnTimeout) {
         this.t_WalletTxn_TxnTimeout = t_WalletTxn_TxnTimeout;
     }
 
@@ -631,11 +631,11 @@ public class EwalletTxn implements Serializable {
         this.t_WalletTxn_type = t_WalletTxn_type;
     }
 
-    public String gett_WalletTxn_Voucher() {
+    public String getT_WalletTxn_Voucher() {
         return t_WalletTxn_Voucher;
     }
 
-    public void sett_WalletTxn_Voucher(String t_WalletTxn_Voucher) {
+    public void setT_WalletTxn_Voucher(String t_WalletTxn_Voucher) {
         this.t_WalletTxn_Voucher = t_WalletTxn_Voucher;
     }
 

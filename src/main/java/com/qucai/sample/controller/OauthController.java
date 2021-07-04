@@ -284,18 +284,20 @@ public class OauthController {
             rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(txnCat,txnAmt,walletTxn_PayerPID,walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
             
             if(rsMobileEwalletTxn.get("SQL").equals("SQL-PersonalEwalletReceiverUpdateSucc")){
-                conn.close();
                 personalEwalletType = "receiverQuery";
                 mobileEwalletDashboard.setT_mobilePersonalEwallet_PayCat("Payoutput");
                 Map<Object, String> mobileEwalletDashboardResult1 = ewalletController.findPersonalEwallet(PersonalEwalletPayCat,walletTxn_PayerPID,walletTxn_ReceiverID,personalEwalletType,conn);
                 mobileEwalletDashboard.setT_mobilePersonalEwallet_ReceiverTotCNYBalance(mobileEwalletDashboard.getT_mobilePersonalEwallet_ReceiverOriginTotCNYBalance().add(txnAmt));
-            }else{
+                conn.close();
+            }else if(rsMobileEwalletTxn.get("SQL").equals("SQL-PersonalEwalletPayerUpdateSucc")){
                 conn.close();
                 mobileEwalletDashboard.setT_mobilePersonalEwallet_bkp("ReceiverEwallet Bene account hanging");
             }
 
             if (!rsMobileEwalletTxn.isEmpty()){
-                return mobileEwalletDashboard;
+                conn.close();
+                String mobileEwalletDashboardJson = JsonTool.genByFastJson(mobileEwalletDashboard);
+                return mobileEwalletDashboardJson;
             }else{
                 rs.put("errMsg","rsMobileEwalletTxn is Empty");
                 return JsonBizTool.genJson(ExRetEnum.FAIL,rs);
@@ -431,7 +433,7 @@ public class OauthController {
                 rs.put("SMSverify",0);
             }
             Ewallet ewallet = null;
-            ewallet.sett_personalewallet_AccCat(PaymentChannel);
+            ewallet.setT_personalewallet_AccCat(PaymentChannel);
             PersonalMainController personalMainController =  new PersonalMainController();
             EwalletController ewalletController =  new EwalletController();
             String retPaymentSwitch = ewalletController.ewalletList(ewallet);

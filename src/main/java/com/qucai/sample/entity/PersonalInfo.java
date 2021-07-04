@@ -176,11 +176,11 @@ public String getT_P_Contact1Mobil() {
 	return t_P_Contact1Mobil;
 }
 
-public String gett_P_Payroll() {
+public String getT_P_Payroll() {
 	return t_P_Payroll;
 }
 
-public String gett_P_ContactMobile2() {
+public String getT_P_ContactMobile2() {
 	return t_P_ContactMobile2;
 }
 
@@ -336,11 +336,11 @@ public void setT_P_Contact1Mobil(String t_P_Contact1Mobil) {
 	this.t_P_Contact1Mobil = t_P_Contact1Mobil;
 }
 
-public void sett_P_Payroll(String t_P_Payroll) {
+public void setT_P_Payroll(String t_P_Payroll) {
 	this.t_P_Payroll = t_P_Payroll;
 }
 
-public void sett_P_ContactMobile2(String t_P_ContactMobile2) {
+public void setT_P_ContactMobile2(String t_P_ContactMobile2) {
 	this.t_P_ContactMobile2 = t_P_ContactMobile2;
 }
 

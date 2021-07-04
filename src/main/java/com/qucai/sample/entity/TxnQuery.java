@@ -83,7 +83,7 @@ public String getT_TxnQuery_ApprovalStatus() {
 	return t_TxnQuery_ApprovalStatus;
 }
 
-public String gett_TxnQuery_CompanyName() {
+public String getT_TxnQuery_CompanyName() {
 	return t_TxnQuery_CompanyName;
 }
 
@@ -129,7 +129,7 @@ public void setT_TxnQuery_ApprovalStatus(String t_TxnQuery_ApprovalStatus) {
 	this.t_TxnQuery_ApprovalStatus = t_TxnQuery_ApprovalStatus;
 }
 
-public void sett_TxnQuery_CompanyName(String t_TxnQuery_CompanyName) {
+public void setT_TxnQuery_CompanyName(String t_TxnQuery_CompanyName) {
 	this.t_TxnQuery_CompanyName = t_TxnQuery_CompanyName;
 }
 
