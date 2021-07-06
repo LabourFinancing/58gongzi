@@ -489,7 +489,7 @@ public class EwalletController {
         if(personalEwalletType.equalsIgnoreCase("payerQuery")) {
             wallet_queryPID = walletTxn_PayerPID;
         }
-        if(personalEwalletType.equalsIgnoreCase("receiverQuery")) {
+        if(personalEwalletType.equalsIgnoreCase("RECEIVERQUERY")) {
             wallet_queryPID = walletTxn_ReceiverID;
         }
         String sql = "select * from t_personal_ewallet where t_personalewallet_ApplierPID = ? for update";
@@ -504,12 +504,12 @@ public class EwalletController {
                     if (PersonalEwalletPayCat.equalsIgnoreCase("Payinput")) {
                         mobileFindPersonalEwalletResult.put("T_mobilePersonalEwallet_PayerOriginTotCNYBalance",rs.getBigDecimal("t_personalewallet_TotCNYBalance").toString());
                     }
-                }else if (personalEwalletType.equalsIgnoreCase("receiverQuery")){
+                }else if (personalEwalletType.equalsIgnoreCase("RECEIVERQUERY")){
                     mobileFindPersonalEwalletResult.put("T_mobilePersonalEwallet_ReceiverID",rs.getString("t_personalewallet_ID"));
                     mobileFindPersonalEwalletResult.put("T_mobilePersonalEwallet_ReceiverName",rs.getString("t_personalewallet_ApplierName"));
                     if (PersonalEwalletPayCat.equalsIgnoreCase("Payinput")) {
                         mobileFindPersonalEwalletResult.put("T_mobilePersonalEwallet_ReceiverOriginTotCNYBalance",rs.getBigDecimal("t_personalewallet_TotCNYBalance").toString());
-                    }else if(PersonalEwalletPayCat.equalsIgnoreCase("Payoutput")){
+                    }else if(PersonalEwalletPayCat.equalsIgnoreCase("PAYOUTPUT")){
                         mobileFindPersonalEwalletResult.put("T_mobilePersonalEwallet_ReceiverTotCNYBalance",rs.getBigDecimal("t_personalewallet_TotCNYBalance").toString());
                     }
                 }

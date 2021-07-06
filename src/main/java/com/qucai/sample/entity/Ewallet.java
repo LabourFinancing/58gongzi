@@ -142,7 +142,7 @@ public class Ewallet implements Serializable {
 
     private String t_personalewallet_PaymentVersion;
 
-    private BigDecimal t_personalewallet_bkp;
+    private BigDecimal t_personalewallet_MarginShare;
 
     private String t_personalewallet_AccCat;
 
@@ -645,11 +645,11 @@ public class Ewallet implements Serializable {
     }
 
     public BigDecimal getT_personalewallet_bkp() {
-        return t_personalewallet_bkp;
+        return t_personalewallet_MarginShare;
     }
 
-    public void setT_personalewallet_bkp(BigDecimal t_personalewallet_bkp) {
-        this.t_personalewallet_bkp = t_personalewallet_bkp;
+    public void setT_personalewallet_bkp(BigDecimal t_personalewallet_MarginShare) {
+        this.t_personalewallet_MarginShare = t_personalewallet_MarginShare;
     }
 
     public String getT_personalewallet_AccCat() {

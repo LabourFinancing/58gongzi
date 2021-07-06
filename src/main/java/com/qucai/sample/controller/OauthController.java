@@ -247,8 +247,8 @@ public class OauthController {
                 rs.put("topup","outOfBalance");
                 return JsonBizTool.genJson(ExRetEnum.FAIL,rs);
             }else{
-                //正常金额收款人原始余额查询
-                personalEwalletType = "receiverQuery";
+                //正常金额收款人原始余额查询 
+                personalEwalletType = "RECEIVERQUERY";
                 mobileEwalletDashboard.setT_mobilePersonalEwallet_PayerTotCNYBalance(mobileEwalletDashboard.getT_mobilePersonalEwallet_PayerOriginTotCNYBalance().subtract(txnAmt));
                 Map<Object, String>  mobileReceiverOriginFindPersonalEwalletResult = ewalletController.findPersonalEwallet(PersonalEwalletPayCat,walletTxn_PayerPID,walletTxn_ReceiverID,personalEwalletType,conn);
                 mobileEwalletDashboard.setT_mobilePersonalEwallet_ReceiverOriginTotCNYBalance(new BigDecimal(mobileReceiverOriginFindPersonalEwalletResult.get("T_mobilePersonalEwallet_ReceiverOriginTotCNYBalance")));
@@ -283,15 +283,18 @@ public class OauthController {
             EwalletTxnController ewalletTxnController = new EwalletTxnController();
             rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(txnCat,txnAmt,walletTxn_PayerPID,walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
             
-            if(rsMobileEwalletTxn.get("SQL").equals("SQL-PersonalEwalletReceiverUpdateSucc")){
-                personalEwalletType = "receiverQuery";
-                mobileEwalletDashboard.setT_mobilePersonalEwallet_PayCat("Payoutput");
+            if(rsMobileEwalletTxn.get("SQL").equals("SQL-RECEIVEREWALLETUPDATESUCC")){
+                personalEwalletType = "RECEIVERQUERY";
+                mobileEwalletDashboard.setT_mobilePersonalEwallet_PayCat("PAYOUTPUT");
                 Map<Object, String> mobileEwalletDashboardResult1 = ewalletController.findPersonalEwallet(PersonalEwalletPayCat,walletTxn_PayerPID,walletTxn_ReceiverID,personalEwalletType,conn);
                 mobileEwalletDashboard.setT_mobilePersonalEwallet_ReceiverTotCNYBalance(mobileEwalletDashboard.getT_mobilePersonalEwallet_ReceiverOriginTotCNYBalance().add(txnAmt));
                 conn.close();
-            }else if(rsMobileEwalletTxn.get("SQL").equals("SQL-PersonalEwalletPayerUpdateSucc")){
+            }else if(rsMobileEwalletTxn.get("SQL").equals("SQL-PAYEREWALLETUPDATEUCC")){
                 conn.close();
                 mobileEwalletDashboard.setT_mobilePersonalEwallet_bkp("ReceiverEwallet Bene account hanging");
+            }else if(rsMobileEwalletTxn.get("SQL").equals("SQL-PAYEREWALLETUPDATEFAIL")){
+                conn.close();
+                mobileEwalletDashboard.setT_mobilePersonalEwallet_bkp("PayerEwallet Payer account hanging");
             }
 
             if (!rsMobileEwalletTxn.isEmpty()){
@@ -455,9 +458,9 @@ public class OauthController {
             rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
             conn.close();
             if (rsMobileEwalletTxn.get("UpdatePersonalEwalletSucc").equals("succ")) {
-                System.out.println("调用个人消费成功");
+                System.out.println("调用个人充值成功");
                 rsMobileEwalletTxn.put("SMSverify",0);
-                return JsonBizTool.genJson(ExRetEnum.SUCCESS);
+                return JsonBizTool.genJson(ExRetEnum.SUCCESS, rsMobileEwalletTxn);
             }else{
                 return JsonBizTool.genJson(ExRetEnum.FAIL, rsMobileEwalletTxn);
             }
@@ -477,7 +480,7 @@ public class OauthController {
             rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
             conn.close();
             if (rsMobileEwalletTxn.get("UpdatePersonalEwalletSucc").equals("succ")) {
-                System.out.println("调用个人消费成功");
+                System.out.println("调用个人提现成功");
                 rsMobileEwalletTxn.put("SMSverify",0);
                 return JsonBizTool.genJson(ExRetEnum.SUCCESS);
             }else{

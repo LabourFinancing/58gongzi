@@ -47,9 +47,9 @@
         <result column="t_WalletTxn_ServiceFee" property="t_WalletTxn_ServiceFee" jdbcType="VARCHAR" />
         <result column="t_WalletTxn_Poundage" property="t_WalletTxn_Poundage" jdbcType="VARCHAR" />
         <result column="t_WalletTxn_TierPoundage" property="t_WalletTxn_TierPoundage" jdbcType="DECIMAL" />
-        <result column="t_WalletTxn_discountamt" property="t_WalletTxn_discountamt" jdbcType="DECIMAL" />
-        <result column="t_WalletTxn_ClearanceAmt" property="t_WalletTxn_ClearanceAmt" jdbcType="INTEGER" />
-        <result column="t_WalletTxn_InterestMargin" property="t_WalletTxn_InterestMargin" jdbcType="DECIMAL" />
+        <result column="t_WalletTxn_DiscountAmt" property="t_WalletTxn_DiscountAmt" jdbcType="DECIMAL" />
+        <result column="t_WalletTxn_DiscountBlanceAmt" property="t_WalletTxn_DiscountBlanceAmt" jdbcType="INTEGER" />
+        <result column="t_WalletTxn_DiscountAmtCalc" property="t_WalletTxn_DiscountAmtCalc" jdbcType="DECIMAL" />
         <result column="t_WalletTxn_PayerBankAcc" property="t_WalletTxn_PayerBankAcc" jdbcType="INTEGER" />
         <result column="t_WalletTxn_ReceiverBankAcc" property="t_WalletTxn_ReceiverBankAcc" jdbcType="INTEGER" />
         <result column="t_WalletTxn_TxnTimeout" property="t_WalletTxn_TxnTimeout" jdbcType="TIMESTAMP" />
@@ -114,9 +114,9 @@
         a.t_WalletTxn_ServiceFee,
         a.t_WalletTxn_Poundage,
         a.t_WalletTxn_TierPoundage,
-        a.t_WalletTxn_discountamt,
-        a.t_WalletTxn_ClearanceAmt,
-        a.t_WalletTxn_InterestMargin,
+        a.t_WalletTxn_DiscountAmt,
+        a.t_WalletTxn_DiscountBlanceAmt,
+        a.t_WalletTxn_DiscountAmtCalc,
         a.t_WalletTxn_PayerBankAcc,
         a.t_WalletTxn_ReceiverBankAcc,
         a.t_WalletTxn_TxnTimeout,
@@ -322,14 +322,14 @@
             <if test="t_WalletTxn_TierPoundage != null">
                 t_WalletTxn_TierPoundage,
             </if>
-            <if test="t_WalletTxn_discountamt != null">
-                t_WalletTxn_discountamt,
+            <if test="t_WalletTxn_DiscountAmt != null">
+                t_WalletTxn_DiscountAmt,
             </if>
-            <if test="t_WalletTxn_ClearanceAmt != null">
-                t_WalletTxn_ClearanceAmt,
+            <if test="t_WalletTxn_DiscountBlanceAmt != null">
+                t_WalletTxn_DiscountBlanceAmt,
             </if>
-            <if test="t_WalletTxn_InterestMargin != null">
-                t_WalletTxn_InterestMargin,
+            <if test="t_WalletTxn_DiscountAmtCalc != null">
+                t_WalletTxn_DiscountAmtCalc,
             </if>
             <if test="t_WalletTxn_PayerBankAcc != null">
                 t_WalletTxn_PayerBankAcc,
@@ -519,11 +519,11 @@
             <if test="t_WalletTxn_TierPoundage != null">
                 #{t_WalletTxn_TierPoundage,jdbcType=DECIMAL},
             </if>
-            <if test="t_WalletTxn_discountamt != null">
-                #{t_WalletTxn_discountamt,jdbcType=DECIMAL},
+            <if test="t_WalletTxn_DiscountAmt != null">
+                #{t_WalletTxn_DiscountAmt,jdbcType=DECIMAL},
             </if>
-            <if test="t_WalletTxn_InterestMargin != null">
-                #{t_WalletTxn_InterestMargin,jdbcType=DECIMAL},
+            <if test="t_WalletTxn_DiscountAmtCalc != null">
+                #{t_WalletTxn_DiscountAmtCalc,jdbcType=DECIMAL},
             </if>
             <if test="t_WalletTxn_PayerBankAcc != null">
                 #{t_WalletTxn_PayerBankAcc,jdbcType=VARCHAR},
@@ -755,14 +755,14 @@
             <if test="t_WalletTxn_TierPoundage != null">
                 t_WalletTxn_TierPoundage = #{t_WalletTxn_TierPoundage,jdbcType=VARCHAR},
             </if>
-            <if test="t_WalletTxn_discountamt != null">
-                t_WalletTxn_discountamt = #{t_WalletTxn_discountamt,jdbcType=DECIMAL},
+            <if test="t_WalletTxn_DiscountAmt != null">
+                t_WalletTxn_DiscountAmt = #{t_WalletTxn_DiscountAmt,jdbcType=DECIMAL},
             </if>
-            <if test="t_WalletTxn_ClearanceAmt != null">
-                t_WalletTxn_ClearanceAmt = #{t_WalletTxn_ClearanceAmt,jdbcType=VARCHAR},
+            <if test="t_WalletTxn_DiscountBlanceAmt != null">
+                t_WalletTxn_DiscountBlanceAmt = #{t_WalletTxn_DiscountBlanceAmt,jdbcType=VARCHAR},
             </if>
-            <if test="t_WalletTxn_InterestMargin != null">
-                t_WalletTxn_InterestMargin = #{t_WalletTxn_InterestMargin,jdbcType=DECIMAL},
+            <if test="t_WalletTxn_DiscountAmtCalc != null">
+                t_WalletTxn_DiscountAmtCalc = #{t_WalletTxn_DiscountAmtCalc,jdbcType=DECIMAL},
             </if>
             <if test="t_WalletTxn_PayerBankAcc != null">
                 t_WalletTxn_PayerBankAcc = #{t_WalletTxn_PayerBankAcc,jdbcType=VARCHAR},

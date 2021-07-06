@@ -111,7 +111,6 @@ public class DemoBase {
 			logger.error(e.getMessage());
 			return null;
 		}
-		
 
 		Map<String, String> respMap = SDKUtil.convertResultStringToMap(result);		
 		String respData = respMap.get("data");

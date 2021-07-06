@@ -58,7 +58,7 @@
         <result column="t_personalewallet_Paystatus" property="t_personalewallet_Paystatus" jdbcType="VARCHAR" />
         <result column="t_personalewallet_SMS" property="t_personalewallet_SMS" jdbcType="VARCHAR" />
         <result column="t_personalewallet_PaymentVersion" property="t_personalewallet_PaymentVersion" jdbcType="VARCHAR" />
-        <result column="t_personalewallet_bkp" property="t_personalewallet_bkp" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_MarginShare" property="t_personalewallet_MarginShare" jdbcType="DECIMAL" />
         <result column="t_personalewallet_AccCat" property="t_personalewallet_AccCat" jdbcType="DECIMAL" />
         <result column="t_personalewallet_treasuryID" property="t_personalewallet_treasuryID" jdbcType="VARCHAR" />
         <result column="t_personalewallet_eproposal" property="t_personalewallet_eproposal" jdbcType="VARCHAR" />
@@ -129,7 +129,7 @@
         a.t_personalewallet_Paystatus,
         a.t_personalewallet_SMS,
         a.t_personalewallet_PaymentVersion,
-        a.t_personalewallet_bkp,
+        a.t_personalewallet_MarginShare,
         a.t_personalewallet_AccCat,
         a.t_personalewallet_treasuryID,
         a.t_personalewallet_eproposal,
@@ -352,8 +352,8 @@
             <if test="t_personalewallet_PaymentVersion != null">
                 t_personalewallet_PaymentVersion,
             </if>
-            <if test="t_personalewallet_bkp != null">
-                t_personalewallet_bkp,
+            <if test="t_personalewallet_MarginShare != null">
+                t_personalewallet_MarginShare,
             </if>
             <if test="t_personalewallet_AccCat != null">
                 t_personalewallet_AccCat,
@@ -570,8 +570,8 @@
             <if test="t_personalewallet_PaymentVersion != null">
                 #{t_personalewallet_PaymentVersion,jdbcType=VARCHAR},
             </if>
-            <if test="t_personalewallet_bkp != null">
-                #{t_personalewallet_bkp,jdbcType=DECIMAL},
+            <if test="t_personalewallet_MarginShare != null">
+                #{t_personalewallet_MarginShare,jdbcType=DECIMAL},
             </if>
             <if test="t_personalewallet_AccCat != null">
                 #{t_personalewallet_AccCat,jdbcType=DECIMAL},
@@ -814,8 +814,8 @@
             <if test="t_personalewallet_PaymentVersion != null">
                 t_personalewallet_PaymentVersion = #{t_personalewallet_PaymentVersion,jdbcType=VARCHAR},
             </if>
-            <if test="t_personalewallet_bkp != null">
-                t_personalewallet_bkp = #{t_personalewallet_bkp,jdbcType=DECIMAL},
+            <if test="t_personalewallet_MarginShare != null">
+                t_personalewallet_MarginShare = #{t_personalewallet_MarginShare,jdbcType=DECIMAL},
             </if>
             <if test="t_personalewallet_AccCat != null">
                 t_personalewallet_AccCat = #{t_P_Probation,jdbcType=DECIMAL},

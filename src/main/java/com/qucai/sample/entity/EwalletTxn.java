@@ -121,11 +121,11 @@ public class EwalletTxn implements Serializable {
 
     private BigDecimal t_WalletTxn_TierPoundage;
 
-    private BigDecimal t_WalletTxn_discountamt;
+    private BigDecimal t_WalletTxn_DiscountAmt;
 
-    private BigDecimal t_WalletTxn_ClearanceAmt;
+    private BigDecimal t_WalletTxn_DiscountBlanceAmt;
 
-    private BigDecimal t_WalletTxn_InterestMargin;
+    private BigDecimal t_WalletTxn_DiscountAmtCalc;
 
     private String t_WalletTxn_PayerBankAcc;
 
@@ -552,27 +552,27 @@ public class EwalletTxn implements Serializable {
     }
 
     public BigDecimal getT_WalletTxn_discountamt() {
-        return t_WalletTxn_discountamt;
+        return t_WalletTxn_DiscountAmt;
     }
 
-    public void setT_WalletTxn_discountamt(BigDecimal t_WalletTxn_discountamt) {
-        this.t_WalletTxn_discountamt = t_WalletTxn_discountamt;
+    public void setT_WalletTxn_discountamt(BigDecimal t_WalletTxn_DiscountAmt) {
+        this.t_WalletTxn_DiscountAmt = t_WalletTxn_DiscountAmt;
     }
 
     public BigDecimal getT_WalletTxn_ClearanceAmt() {
-        return t_WalletTxn_ClearanceAmt;
+        return t_WalletTxn_DiscountBlanceAmt;
     }
 
-    public void setT_WalletTxn_ClearanceAmt(BigDecimal t_WalletTxn_ClearanceAmt) {
-        this.t_WalletTxn_ClearanceAmt = t_WalletTxn_ClearanceAmt;
+    public void setT_WalletTxn_ClearanceAmt(BigDecimal t_WalletTxn_DiscountBlanceAmt) {
+        this.t_WalletTxn_DiscountBlanceAmt = t_WalletTxn_DiscountBlanceAmt;
     }
 
     public BigDecimal getT_WalletTxn_InterestMargin() {
-        return t_WalletTxn_InterestMargin;
+        return t_WalletTxn_DiscountAmtCalc;
     }
 
-    public void setT_WalletTxn_InterestMargin(BigDecimal t_WalletTxn_InterestMargin) {
-        this.t_WalletTxn_InterestMargin = t_WalletTxn_InterestMargin;
+    public void setT_WalletTxn_InterestMargin(BigDecimal t_WalletTxn_DiscountAmtCalc) {
+        this.t_WalletTxn_DiscountAmtCalc = t_WalletTxn_DiscountAmtCalc;
     }
 
     public String getT_WalletTxn_PayerBankAcc() {
