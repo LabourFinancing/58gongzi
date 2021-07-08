@@ -31,10 +31,7 @@ import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Controller
@@ -421,7 +418,9 @@ public class EwalletTxnController {
             break;
             case "PersonalEwalletTopup" : System.out.print("PersonalEwalletTopup transit");
                 t_MobileWalletTxn_TopupAmt = txnAmt;
+                walletTxn_ReceiverID = walletTxn_PayerPID;
                 ewalletTxnType = "c2b 充值";
+            break;
             case "PersonalEwalletCashout" : System.out.print("PersonalEwalletCashout transit");
                 txnAmtPayerMinus = txnAmt.negate();
                 txnAmt = txnAmtPayerMinus;
@@ -511,29 +510,39 @@ public class EwalletTxnController {
         }finally {
             //更新付款人扣款先更新 - 非统计数据不做时间脚本
             rsMobileEwalletTxn.put("SQL","SQL-PersonalEwalletTxnSucc");
-            Map<String,Object> retUpdatePersonalEwallet = EwalletController.UpdatePayerPersonalEwalletBalance(txnAmtPayerMinus, walletTxn_PayerPID, walletTxn_ReceiverID,conn);
-            if(!retUpdatePersonalEwallet.isEmpty()){
-                if(method.equalsIgnoreCase("58scan-txn-58qr")) {
-                    retUpdatePersonalEwallet = EwalletController.UpdatePayeePersonalEwalletBalance(txnAmt,walletTxn_PayerPID,walletTxn_ReceiverID,conn);
-                    if(!retUpdatePersonalEwallet.isEmpty()){
-                        rsMobileEwalletTxn.put("SQL","SQL-RECEIVEREWALLETUPDATESUCC");
-                    }else{
-                        rsMobileEwalletTxn.put("SQL","SQL-PAYEREWALLETUPDATEUCC");
-                    }
+            Map<String, Object> retUpdatePersonalEwallet = new Hashtable<String, Object>();
+            if(txnCat.equalsIgnoreCase("PersonalEwalletTopup")) {
+                retUpdatePersonalEwallet = EwalletController.UpdatePayeePersonalEwalletBalance(txnAmt,walletTxn_PayerPID,walletTxn_ReceiverID,conn);
+                if(!retUpdatePersonalEwallet.isEmpty()){
+                    rsMobileEwalletTxn.put("SQL","SQL-RECEIVEREWALLETTOPUPSUCC");
                 }else{
-                    System.out.println("toptup section");
+                    rsMobileEwalletTxn.put("SQL","SQL-RECEIVEREWALLETTOPUPFAIL");
                 }
-                //payment call
-//                Map<String, Object> rs = new HashMap<String, Object>();
-//                String merchantId = "S2135052";
-//                StaffPrepayApplicationPayment staffPrepayApplicationPay = null;
-//                staffPrepayApplicationPay.setTranAmt(String.format("%012d", txnAmt));
-//                JSONObject resp = OrderPayDemo.main(staffPrepayApplicationPay,merchantId);
-//                String QRcodeinit = resp.getJSONObject("body").getString("qrCode");
-//                rs.put("QRcodeinit", QRcodeinit);
-            }else {
-                rsMobileEwalletTxn.put("SQL", "SQL-PAYEREWALLETUPDATEFAIL");
-            }
+            }else if(method.equalsIgnoreCase("58scan-txn-58qr")) {
+                retUpdatePersonalEwallet = EwalletController.UpdatePayerPersonalEwalletBalance(txnAmtPayerMinus,walletTxn_PayerPID,walletTxn_ReceiverID,conn);
+                if(!retUpdatePersonalEwallet.isEmpty()){
+                    if(method.equalsIgnoreCase("58scan-txn-58qr")) {
+                        retUpdatePersonalEwallet = EwalletController.UpdatePayeePersonalEwalletBalance(txnAmt,walletTxn_PayerPID,walletTxn_ReceiverID,conn);
+                        if(!retUpdatePersonalEwallet.isEmpty()){
+                            rsMobileEwalletTxn.put("SQL","SQL-RECEIVEREWALLETUPDATESUCC");
+                        }else{
+                            rsMobileEwalletTxn.put("SQL","SQL-PAYEREWALLETUPDATEUCC");
+                        }
+                    }else{
+                        System.out.println("toptup section");
+                    }
+                    //payment call
+    //                Map<String, Object> rs = new HashMap<String, Object>();
+    //                String merchantId = "S2135052";
+    //                StaffPrepayApplicationPayment staffPrepayApplicationPay = null;
+    //                staffPrepayApplicationPay.setTranAmt(String.format("%012d", txnAmt));
+    //                JSONObject resp = OrderPayDemo.main(staffPrepayApplicationPay,merchantId);
+    //                String QRcodeinit = resp.getJSONObject("body").getString("qrCode");
+    //                rs.put("QRcodeinit", QRcodeinit);
+                }else {
+                    rsMobileEwalletTxn.put("SQL", "SQL-PAYEREWALLETUPDATEFAIL");
+                }
+            } 
         }
         return rsMobileEwalletTxn;
     }

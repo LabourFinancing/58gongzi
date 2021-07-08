@@ -33,7 +33,7 @@ public class DefaultAlipayClientFactory {
 		// 商户APP_ID
 		String APP_ID = prop.getProperty("APP_ID");
 		// 商户RSA 私钥
-		String APP_PRIVATE_KEY = prop.getProperty("RSA2_PRIVATE_KEY");
+        String APP_PRIVATE_KEY = prop.getProperty("RSA2_PRIVATE_KEY");
 		// 请求方式 json
 		String FORMAT = prop.getProperty("FORMAT");
 		// 编码格式，目前只支持UTF-8

@@ -21,7 +21,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSONObject;
+import com.alipay.api.domain.AlipayFundTransOrderQueryModel;
+import com.qucai.sample.alipayDemo_java.src.java.com.alipay.demo.controller.AlipayFundTransOrderQueryController;
+import com.qucai.sample.alipayDemo_java.src.java.com.alipay.demo.controller.AlipayFundTransToaccountTransferController;
+import com.qucai.sample.alipayDemo_java.src.java.com.alipay.demo.controller.MainController;
 import com.qucai.sample.entity.*;
+import com.qucai.sample.exception.RetEnumIntf;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo.OrderCreateDemo;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo.OrderPayDemo;
 import com.qucai.sample.service.*;
@@ -33,6 +38,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -76,15 +82,19 @@ public class OauthController {
         CaptchaUsernamePasswordToken token = new CaptchaUsernamePasswordToken();
         token.setUsername(userName);
 
-        //http://localhost:8080/sample/oauthController/login?method=QRCode
+        //http://localhost:8080/sample/oauthController/login?method=getUserInfo
         if(method!=null&&method.equals("getUserInfo")){
             Map<String, Object> rs = new HashMap<String, Object>();
-            String merchantId = "S2135052";
+//            String merchantId = "S2135052";
             StaffPrepayApplicationPayment staffPrepayApplicationPay = null;
-            JSONObject resp = OrderCreateDemo.main(staffPrepayApplicationPay,merchantId);
-            String QRcodeinit = resp.getString("qrCode");
-            rs.put("QRcodeinit", QRcodeinit);
-            return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
+//            JSONObject resp = OrderCreateDemo.main(staffPrepayApplicationPay,merchantId);
+            AlipayFundTransOrderQueryModel alipayModel = null;
+            ModelMap modelMap = null;
+            JSONObject resp = AlipayFundTransOrderQueryController.doPost(request,response,null, null);
+//            String QRcodeinit = resp.getString("qrCode");
+//            rs.put("QRcodeinit", QRcodeinit);
+//            return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
+            return JsonBizTool.genJson(ExRetEnum.SUCCESS, resp);
         }
 
         //支付测试调用
@@ -356,7 +366,7 @@ public class OauthController {
             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
         }
         //http://localhost:8080/sample/oauthController/login?method=wechatqr-txn-58scan&action=transaction&page=mobilepay&walletTxn_PayerPID=wechat&walletTxn_ReceiverID=31011519830805251X&txnAmount=0.1
-        //个人收付款wechatqr/aliqr/unionpayqr-58  ( payee - wechat,receiver-58 )
+        //个人收付款wechatqr/aliqr/unionpayqr-58  ( payer - wechat,receiver-58 )
         if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("wechatqr/alipayqr/unionpayqr-txn-58scan")&&action.equalsIgnoreCase("transaction")){
             Map<String, Object> rs = new HashMap<String, Object>();
             EwalletTxn ewalletTxn = null;
@@ -374,7 +384,7 @@ public class OauthController {
             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
         }
         //http://localhost:8080/sample/oauthController/login?method=wechatscan-txn-58qr&action=transaction&page=mobilepay&walletTxn_PayerPID=wechat&walletTxn_ReceiverID=31011519830805251X&txnAmount=0.1
-        //个人收付款wechatscan/alipayscan/unionpayscan-58qr  ( payee - wechat,receiver-58 )
+        //个人收付款wechatscan/alipayscan/unionpayscan-58qr  ( payer - wechat,receiver-58 )
         if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("wechatscan/alipayscan/unionpayscan-txn-58qr")&&action.equalsIgnoreCase("transaction")){
             Map<String, Object> rs = new HashMap<String, Object>();
             EwalletTxn ewalletTxn = null;
@@ -392,7 +402,7 @@ public class OauthController {
             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
         }
         //http://localhost:8080/sample/oauthController/login?method=scan-shopping-58qr&action=shopping&page=mobilepay&walletTxn_PayerPID=wechat&walletTxn_ReceiverID=31011519830805251X&txnAmount=0.1
-        //个人消费  ( payee - 58,payee representer- GFwechat )
+        //个人消费  ( payer - 58,receiver representer- GFwechat )
         if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("scan-shopping-58qr")&&action.equalsIgnoreCase("payee")){
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
@@ -457,14 +467,13 @@ public class OauthController {
             EwalletTxnController ewalletTxnController = new EwalletTxnController();
             rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
             conn.close();
-            if (rsMobileEwalletTxn.get("UpdatePersonalEwalletSucc").equals("succ")) {
+            if (rsMobileEwalletTxn.get("SQL").equals("SQL-RECEIVEREWALLETUPDATESUCC")) {
                 System.out.println("调用个人充值成功");
                 rsMobileEwalletTxn.put("SMSverify",0);
                 return JsonBizTool.genJson(ExRetEnum.SUCCESS, rsMobileEwalletTxn);
             }else{
                 return JsonBizTool.genJson(ExRetEnum.FAIL, rsMobileEwalletTxn);
             }
-
         }
 
         //个人提现
@@ -486,7 +495,6 @@ public class OauthController {
             }else{
                 return JsonBizTool.genJson(ExRetEnum.FAIL, rsMobileEwalletTxn);
             }
-
         }
 
         /************************************************* Mobilehome begin 移动端首页开始 ************************************
@@ -538,7 +546,7 @@ public class OauthController {
         //个人信用卡接口 http://localhost:8080/sample/oauthController/login?method=ewallettbankcard&action=bankcard&page=mobileme&&pid=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475&cardAcc=5187188100953387-招商银行-creditcard
         if( method!=null&&page.equalsIgnoreCase("mobileme")&&method.equals("ewallettbankcard")&&action.equalsIgnoreCase("bankcard")) {
             Map<String, Object> rsUserEwalletbnkCard = new HashMap<String, Object>();
-            EwalletController ewalletController = new EwalletController();
+            EwalletController ewalletController = new EwalletController();  
             rsUserEwalletbnkCard = ewalletController.UpdatePayerPersonalEwalletBindBnkCard(personalMID,pid,cardAcc);
 //            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
 //            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {

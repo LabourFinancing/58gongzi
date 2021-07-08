@@ -107,8 +107,34 @@ public class DataRefreshTTJob {
     /***********************************
      * ewallet TT 
      **********************************/
-	
-	/***********************************
+    @Scheduled(cron = "0 0/1 * * * ?")
+    public void EwalletTxnHisDataRefresh() throws Exception {
+        logger.info("定时每天钱包合并交易统计表开始：" + System.currentTimeMillis());
+        String sql = "INSERT INTO gognzi.t_ewallettxn_his select * from gognzi.t_ewallettxn_info INNER JOIN gognzi.t_personal_ewallet on "
+            + "gognzi.t_ewallettxn_info.t_WalletTxn_PayerPID = gognzi.t_personal_ewallet.t_personalewallet_ApplierPID "
+            + "where gognzi.t_ewallettxn_info.t_WalletTxn_Num not in (select gognzi.t_ewallettxn_his.t_WalletTxn_Num_his from gognzi.t_ewallettxn_his)";
+        String connectStr = "jdbc:mysql://localhost:3306/gognzi?rewriteBatchedStatements=true&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=true";
+        String username = "root";
+        String password = "Gf2021";
+
+        boolean RS = MysqlBatchUtil.SQLDataPatch(sql,connectStr,username,password);
+        logger.info("定时每天合并钱包交易统计表结束：" + RS);
+    }
+//    @Scheduled(cron = "0 0/5 5-23 * * ?")6
+//    public void RealTimeEwalletTxnStatistic() throws Exception {
+//        logger.info("定时每5分钟当日成功交易记录统计开始：" + System.currentTimeMillis());
+//        String sql = "update t_treasurydb_main a set t_TreasuryDB_TotAmtDailySucc = (select sum(t_Txn_ApplyPrepayAmount) from t_transaction_info b "
+//            + "where DATE(t_Txn_PrepayDate) = CURDATE() and b.t_Txn_PrepayApplierPID in "
+//            + "(select t_P_PID from t_personal_info c where c.t_P_Company = a.t_TreasuryDB_OrgName)) where t_TreasuryDB_OrgName != 'ALL'";
+//        String connectStr = "jdbc:mysql://localhost:3306/sample?rewriteBatchedStatements=true&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=true";
+//        String username = "root";
+//        String password = "Gf2021";
+//
+//        boolean RS = MysqlBatchUtil.SQLDataPatch(sql,connectStr,username,password);
+//        logger.info("定时每5分钟交易记录统计结束：" + RS);
+//    }
+    
+    /**********************************
      * prepay TT
 	 **********************************/
 	@Scheduled(cron = "0 0/5 5-23 * * ?") 
@@ -211,22 +237,20 @@ public class DataRefreshTTJob {
      boolean RS = MysqlBatchUtil.SQLDataPatch(sql,connectStr,username,password);
 		logger.info("定时每天备份交易表结束：" + RS);
 	}
-	
-	@Scheduled(cron = "0 0/10 * * * ?")
-	public void TxnHisDataRefresh() throws Exception {
-		logger.info("定时每天合并交易统计表开始：" + System.currentTimeMillis());
-	    String sql = "INSERT INTO sample.t_transaction_his select * from sample.t_transaction_info JOIN sample.t_personal_info on "
-	    		+ "t_transaction_info.t_Txn_PrepayApplierPID = t_personal_info.t_P_PID "
-               + "where t_transaction_info.t_Txn_Num not in (select t_transaction_his.t_Txn_Num_his from t_transaction_his)";
-	    String connectStr = "jdbc:mysql://localhost:3306/sample?rewriteBatchedStatements=true&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=true";
-	    String username = "root";
-	    String password = "Spearsharp1983";
 
-     boolean RS = MysqlBatchUtil.SQLDataPatch(sql,connectStr,username,password);
-		logger.info("定时每天合并交易统计表结束：" + RS);
-	}
-	
-	
+    @Scheduled(cron = "0 0/10 * * * ?")
+    public void TxnHisDataRefresh() throws Exception {
+        logger.info("定时每天合并交易统计表开始：" + System.currentTimeMillis());
+        String sql = "INSERT INTO sample.t_transaction_his select * from sample.t_transaction_info JOIN sample.t_personal_info on "
+            + "t_transaction_info.t_Txn_PrepayApplierPID = t_personal_info.t_P_PID "
+            + "where t_transaction_info.t_Txn_Num not in (select t_transaction_his.t_Txn_Num_his from t_transaction_his)";
+        String connectStr = "jdbc:mysql://localhost:3306/sample?rewriteBatchedStatements=true&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=true";
+        String username = "root";
+        String password = "Spearsharp1983";
+
+        boolean RS = MysqlBatchUtil.SQLDataPatch(sql,connectStr,username,password);
+        logger.info("定时每天合并交易统计表结束：" + RS);
+    }
 	@Scheduled(cron = "0 15 0 * * ?")
 	public void TxnDailyDataBKP() throws Exception {
 		logger.info("定时每天备份合并交易统计表开始：" + System.currentTimeMillis());

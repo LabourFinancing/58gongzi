@@ -6,6 +6,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.alibaba.fastjson.JSONObject;
+import com.qucai.sample.entity.StaffPrepayApplicationPayment;
+import com.qucai.sample.exception.RetEnumIntf;
+import com.qucai.sample.util.JsonBizTool;
+import com.qucai.sample.util.JsonTool;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +22,7 @@ import com.qucai.sample.alipayDemo_java.src.java.com.alipay.demo.entites.ApiPara
 
 @Controller
 public class MainController {
+    
 
     @RequestMapping(value="/main.htm")
     public String main(HttpServletRequest request,HttpServletResponse response,ModelMap modelMap){
@@ -25,9 +31,12 @@ public class MainController {
     
     @RequestMapping(value="/getApiInfo.json", method = RequestMethod.POST)
     @ResponseBody
-    public Object getApiInfo(HttpServletRequest request,HttpServletResponse response,ModelMap modelMap){
+    public static JSONObject getApiInfo(StaffPrepayApplicationPayment staffPrepayApplicationPay ){
         List<ApiInfoModel> list = new ArrayList<ApiInfoModel>();
-        
+        if(staffPrepayApplicationPay != null) {
+            String PaymentInfo = JsonTool.genByFastJson(staffPrepayApplicationPay);
+            System.out.println(PaymentInfo);
+        }
 		ApiInfoModel alipayFundTransToaccountTransferInfoModel = new ApiInfoModel();
 		list.add(alipayFundTransToaccountTransferInfoModel);
 		alipayFundTransToaccountTransferInfoModel.setApiName("alipay.fund.trans.toaccount.transfer");
@@ -315,7 +324,7 @@ public class MainController {
         
 
 
-        return list;
+        return (JSONObject) list;
         
     }
 }
