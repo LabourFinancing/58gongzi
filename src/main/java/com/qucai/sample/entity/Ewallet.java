@@ -40,7 +40,7 @@ public class Ewallet implements Serializable {
 
    private String t_personalewallet_ApplierName;
 
-   private String t_personalewallet_Passport;
+   private String t_personalewallet_PayRules;
 
    private String t_personalewallet_ScanCode;
 
@@ -92,7 +92,7 @@ public class Ewallet implements Serializable {
 
    private BigDecimal t_personalewallet_CreditPayAmt;
 
-   private BigDecimal t_personalewallet_CreditPayAmtInit;
+   private BigDecimal t_personalewallet_TotDailyAmt;
 
    private BigDecimal t_personalewallet_TotalPrepayAmt;
 
@@ -102,7 +102,7 @@ public class Ewallet implements Serializable {
 
     private BigDecimal t_personalewallet_Interest;
 
-    private BigDecimal t_personalewallet_TotLimit;
+    private BigDecimal t_personalewallet_BalaceYesterDay;
 
     private BigDecimal t_personalewallet_Worth;
 
@@ -118,7 +118,7 @@ public class Ewallet implements Serializable {
 
     private BigDecimal t_personalewallet_OverdueTotalAmount;
 
-    private BigDecimal t_personalewallet_FinancialInterest;
+    private BigDecimal t_personalewallet_TotalWorthCal;
 
     private BigDecimal t_personalewallet_ServiceFee;
 
@@ -134,9 +134,9 @@ public class Ewallet implements Serializable {
 
     private Date t_personalewallet_SysUpdateDate;
 
-    private Integer t_personalewallet_OverdueDays;
+    private Integer t_personalewallet_BalanceCntDays;
 
-    private String t_personalewallet_Paystatus;
+    private String t_personalewallet_ewalletAccStatus;
 
     private String t_personalewallet_SMS;
 
@@ -152,7 +152,7 @@ public class Ewallet implements Serializable {
 
     private String t_personalewallet_DigiAddress;
 
-    private String t_personalewallet_Txt4;
+    private String t_personalewallet_CalenderBlance;
 
     private String t_personalewallet_Txt5;
 
@@ -237,11 +237,11 @@ public class Ewallet implements Serializable {
     }
 
     public String getT_personalewallet_Passport() {
-        return t_personalewallet_Passport;
+        return t_personalewallet_PayRules;
     }
 
-    public void setT_personalewallet_Passport(String t_personalewallet_Passport) {
-        this.t_personalewallet_Passport = t_personalewallet_Passport;
+    public void setT_personalewallet_Passport(String t_personalewallet_PayRules) {
+        this.t_personalewallet_PayRules = t_personalewallet_PayRules;
     }
 
     public String getT_personalewallet_ScanCode() {
@@ -445,11 +445,11 @@ public class Ewallet implements Serializable {
     }
 
     public BigDecimal getT_personalewallet_CreditPayAmtInit() {
-        return t_personalewallet_CreditPayAmtInit;
+        return t_personalewallet_TotDailyAmt;
     }
 
-    public void setT_personalewallet_CreditPayAmtInit(BigDecimal t_personalewallet_CreditPayAmtInit) {
-        this.t_personalewallet_CreditPayAmtInit = t_personalewallet_CreditPayAmtInit;
+    public void setT_personalewallet_CreditPayAmtInit(BigDecimal t_personalewallet_TotDailyAmt) {
+        this.t_personalewallet_TotDailyAmt = t_personalewallet_TotDailyAmt;
     }
 
     public BigDecimal getT_personalewallet_TotalPrepayAmt() {
@@ -485,11 +485,11 @@ public class Ewallet implements Serializable {
     }
 
     public BigDecimal getT_personalewallet_TotLimit() {
-        return t_personalewallet_TotLimit;
+        return t_personalewallet_BalaceYesterDay;
     }
 
-    public void setT_personalewallet_TotLimit(BigDecimal t_personalewallet_TotLimit) {
-        this.t_personalewallet_TotLimit = t_personalewallet_TotLimit;
+    public void setT_personalewallet_TotLimit(BigDecimal t_personalewallet_BalaceYesterDay) {
+        this.t_personalewallet_BalaceYesterDay = t_personalewallet_BalaceYesterDay;
     }
 
     public BigDecimal getT_personalewallet_Worth() {
@@ -549,11 +549,11 @@ public class Ewallet implements Serializable {
     }
 
     public BigDecimal getT_personalewallet_FinancialInterest() {
-        return t_personalewallet_FinancialInterest;
+        return t_personalewallet_TotalWorthCal;
     }
 
-    public void setT_personalewallet_FinancialInterest(BigDecimal t_personalewallet_FinancialInterest) {
-        this.t_personalewallet_FinancialInterest = t_personalewallet_FinancialInterest;
+    public void setT_personalewallet_FinancialInterest(BigDecimal t_personalewallet_TotalWorthCal) {
+        this.t_personalewallet_TotalWorthCal = t_personalewallet_TotalWorthCal;
     }
 
     public BigDecimal getT_personalewallet_ServiceFee() {
@@ -613,19 +613,19 @@ public class Ewallet implements Serializable {
     }
 
     public Integer getT_personalewallet_OverdueDays() {
-        return t_personalewallet_OverdueDays;
+        return t_personalewallet_BalanceCntDays;
     }
 
-    public void setT_personalewallet_OverdueDays(Integer t_personalewallet_OverdueDays) {
-        this.t_personalewallet_OverdueDays = t_personalewallet_OverdueDays;
+    public void setT_personalewallet_OverdueDays(Integer t_personalewallet_BalanceCntDays) {
+        this.t_personalewallet_BalanceCntDays = t_personalewallet_BalanceCntDays;
     }
 
     public String getT_personalewallet_Paystatus() {
-        return t_personalewallet_Paystatus;
+        return t_personalewallet_ewalletAccStatus;
     }
 
-    public void setT_personalewallet_Paystatus(String t_personalewallet_Paystatus) {
-        this.t_personalewallet_Paystatus = t_personalewallet_Paystatus;
+    public void setT_personalewallet_Paystatus(String t_personalewallet_ewalletAccStatus) {
+        this.t_personalewallet_ewalletAccStatus = t_personalewallet_ewalletAccStatus;
     }
 
     public String getT_personalewallet_SMS() {
@@ -685,11 +685,11 @@ public class Ewallet implements Serializable {
     }
 
     public String getT_personalewallet_Txt4() {
-        return t_personalewallet_Txt4;
+        return t_personalewallet_CalenderBlance;
     }
 
-    public void setT_personalewallet_Txt4(String t_personalewallet_Txt4) {
-        this.t_personalewallet_Txt4 = t_personalewallet_Txt4;
+    public void setT_personalewallet_Txt4(String t_personalewallet_CalenderBlance) {
+        this.t_personalewallet_CalenderBlance = t_personalewallet_CalenderBlance;
     }
 
     public String getT_personalewallet_Txt5() {

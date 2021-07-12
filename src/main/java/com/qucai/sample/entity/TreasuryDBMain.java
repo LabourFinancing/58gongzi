@@ -65,7 +65,7 @@ public class TreasuryDBMain implements Serializable {
 
     private String t_TreasuryDB_Main_PersonalCat;
 
-    private BigDecimal t_TreasuryDB_Main_bkp1;
+    private BigDecimal t_TreasuryDB_Main_TotBal1DayAdv;
 
     private BigDecimal t_TreasuryDB_Main_TotBalance;
 
@@ -263,11 +263,11 @@ public class TreasuryDBMain implements Serializable {
     }
 
     public BigDecimal getT_TreasuryDB_Main_bkp1() {
-        return t_TreasuryDB_Main_bkp1;
+        return t_TreasuryDB_Main_TotBal1DayAdv;
     }
 
-    public void setT_TreasuryDB_Main_bkp1(BigDecimal t_TreasuryDB_Main_bkp1) {
-        this.t_TreasuryDB_Main_bkp1 = t_TreasuryDB_Main_bkp1;
+    public void setT_TreasuryDB_Main_bkp1(BigDecimal t_TreasuryDB_Main_TotBal1DayAdv) {
+        this.t_TreasuryDB_Main_TotBal1DayAdv = t_TreasuryDB_Main_TotBal1DayAdv;
     }
 
     public BigDecimal getT_TreasuryDB_Main_TotBalance() {

@@ -82,7 +82,7 @@ public class OauthController {
         CaptchaUsernamePasswordToken token = new CaptchaUsernamePasswordToken();
         token.setUsername(userName);
 
-        //http://localhost:8080/sample/oauthController/login?method=getUserInfo
+        //http://localhost:8080/sample/oauthController/login?method=getUserInfo - alipay
         if(method!=null&&method.equals("getUserInfo")){
             Map<String, Object> rs = new HashMap<String, Object>();
 //            String merchantId = "S2135052";
@@ -95,6 +95,17 @@ public class OauthController {
 //            rs.put("QRcodeinit", QRcodeinit);
 //            return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
             return JsonBizTool.genJson(ExRetEnum.SUCCESS, resp);
+        }
+        
+        //http://localhost:8080/sample/oauthController/login?method=qrCode
+        if(method!=null&&method.equals("getUserInfo")){
+            Map<String, Object> rs = new HashMap<String, Object>();
+            String merchantId = "S2135052";
+            StaffPrepayApplicationPayment staffPrepayApplicationPay = null;
+            JSONObject resp = OrderCreateDemo.main(staffPrepayApplicationPay,merchantId);
+            String QRcodeinit = resp.getString("qrCode");
+            rs.put("QRcodeinit", QRcodeinit);
+            return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
         }
 
         //支付测试调用

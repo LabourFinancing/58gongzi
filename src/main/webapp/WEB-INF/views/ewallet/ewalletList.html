@@ -224,23 +224,23 @@ a:hover{color:red}
 								<th>alipayacc-余额</th>
 								<th>wechatac-余额</th>
 								<th>unionpayacc-余额</th>
-								<th>数字货币名-数字货币码-状态-属性</th>
+								<th title="数字货币名-数字货币码-状态-属性">数字货币</th>
 								<th>优惠券关联</th>
-								<th>优惠券厂商-优惠券链接-优惠券码-优惠券状态</th>
+								<th title="优惠券厂商-优惠券链接-优惠券码-优惠券状态">优惠券</th>
 								<th>信用卡号-安全码-余额</th>
-								<th>借记卡号-安全码-余额</th>
+								<th title="借记卡号-安全码-余额">借记卡号</th>
 								<th>结算码</th>
 								<th>结算机构</th>
 								<th>支付类型(当前)</th>
-								<th>最后支付日期</th>
+								<th>最后交易日期</th>
 								<th>产品关联</th>
 								<th>总余额(人民币)</th>
 								<th>总余额(外汇)</th>
 								<th>总余额(数字资产)</th>
 								<th>总资产(现金+额度资产)</th>
                                 <th>总贴现额</th>
-                                <th>总交易限额(日)</th>
-                                <th>个人身价</th>
+                                <th>触碰交易规则(实时)</th>
+                                <th>总交易额(日)</th>
 								<th>备注</th>
 								<th>操作</th>
 							    <th>&nbsp;&nbsp;&nbsp;</th>
@@ -263,15 +263,15 @@ a:hover{color:red}
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewallet.t_personalewallet_ClearNum}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewallet.t_personalewallet_ClearOrg}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewallet.t_personalewallet_PayCat}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewallet.t_personalewallet_PayDate}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewallet.t_personalewallet_PayDate?string("yyyy-MM-dd HH:mm:ss")}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewallet.t_personalewallet_ProdName}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewallet.t_personalewallet_TotCNYBalance}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewallet.t_personalewallet_TotFXBalance}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewallet.t_personalewallet_TotCryptoBalance}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewallet.t_personalewallet_TotAssetES}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewallet.t_personalewallet_CreditPayAmt}</td>
-                                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewallet.t_personalewallet_TotLimit}</td>
-                                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewallet.t_personalewallet_CreditPayAmtInit}</td>
+                                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewallet.t_personalewallet_PayLimit}</td>
+                                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewallet.t_personalewallet_TotDailyAmt}</td>
                                     <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${ewallet.remark}</td>
 									<td class="col-xs-push-2" style="word-wrap:break-word;word-break:break-all">
                                         <@shiro.hasPermission name="PERSONALMAIN_VIEW">

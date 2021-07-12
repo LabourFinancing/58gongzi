@@ -20,7 +20,7 @@
 		<result column="t_TreasuryDB_Main_OpCat" property="t_TreasuryDB_Main_OpCat" jdbcType="VARCHAR" />
         <result column="t_TreasuryDB_Main_ProdSeriesID" property="t_TreasuryDB_Main_ProdSeriesID" jdbcType="VARCHAR" />
         <result column="t_TreasuryDB_Main_PersonalCat" property="t_TreasuryDB_Main_PersonalCat" jdbcType="VARCHAR" />
-        <result column="t_TreasuryDB_Main_bkp1" property="t_TreasuryDB_Main_bkp1" jdbcType="VARCHAR" />
+        <result column="t_TreasuryDB_Main_TotBal1DayAdv" property="t_TreasuryDB_Main_TotBal1DayAdv" jdbcType="VARCHAR" />
         <result column="t_TreasuryDB_Main_TotBalance" property="t_TreasuryDB_Main_TotBalance" jdbcType="VARCHAR" />
         <result column="t_TreasuryDB_Main_bkp3" property="t_TreasuryDB_Main_bkp3" jdbcType="VARCHAR" />
         <result column="t_TreasuryDB_Main_Txt1" property="t_TreasuryDB_Main_Txt1" jdbcType="VARCHAR" />
@@ -52,7 +52,7 @@
         a.t_TreasuryDB_Main_OpCat,
         a.t_TreasuryDB_Main_ProdSeriesID,
         a.t_TreasuryDB_Main_PersonalCat,
-        a.t_TreasuryDB_Main_bkp1,
+        a.t_TreasuryDB_Main_TotBal1DayAdv,
         a.t_TreasuryDB_Main_TotBalance,
         a.t_TreasuryDB_Main_bkp3,
         a.t_TreasuryDB_Main_Txt1,
@@ -164,8 +164,8 @@
             <if test="t_TreasuryDB_Main_PersonalCat != null">
                 t_TreasuryDB_Main_PersonalCat,
             </if>
-            <if test="t_TreasuryDB_Main_bkp1 != null">
-                t_TreasuryDB_Main_bkp1,
+            <if test="t_TreasuryDB_Main_TotBal1DayAdv != null">
+                t_TreasuryDB_Main_TotBal1DayAdv,
             </if>
             <if test="t_TreasuryDB_Main_TotBalance != null">
                 t_TreasuryDB_Main_TotBalance,
@@ -253,8 +253,8 @@
             <if test="t_TreasuryDB_Main_PersonalCat != null">
                 #{t_TreasuryDB_Main_PersonalCat,jdbcType=VARCHAR},
             </if>
-            <if test="t_TreasuryDB_Main_bkp1 != null">
-                #{t_TreasuryDB_Main_bkp1,jdbcType=DECIMAL},
+            <if test="t_TreasuryDB_Main_TotBal1DayAdv != null">
+                #{t_TreasuryDB_Main_TotBal1DayAdv,jdbcType=DECIMAL},
             </if>
             <if test="t_TreasuryDB_Main_TotBalance != null">
                 #{t_TreasuryDB_Main_TotBalance,jdbcType=DECIMAL},
@@ -347,8 +347,8 @@
             <if test="t_TreasuryDB_Main_PersonalCat != null">
                 t_TreasuryDB_Main_PersonalCat = #{t_TreasuryDB_Main_PersonalCat,jdbcType=VARCHAR},
             </if>
-            <if test="t_TreasuryDB_Main_bkp1 != null">
-                t_TreasuryDB_Main_bkp1 = #{t_TreasuryDB_Main_bkp1,jdbcType=DECIMAL},
+            <if test="t_TreasuryDB_Main_TotBal1DayAdv != null">
+                t_TreasuryDB_Main_TotBal1DayAdv = #{t_TreasuryDB_Main_TotBal1DayAdv,jdbcType=DECIMAL},
             </if>
             <if test="t_TreasuryDB_Main_TotBalance != null">
                 t_TreasuryDB_Main_TotBalance = #{t_TreasuryDB_Main_TotBalance,jdbcType=DECIMAL},
@@ -441,8 +441,8 @@
             <if test="t_TreasuryDB_Main_PersonalCat != null">
                 t_TreasuryDB_Main_PersonalCat = #{t_TreasuryDB_Main_PersonalCat,jdbcType=VARCHAR},
             </if>
-            <if test="t_TreasuryDB_Main_bkp1 != null">
-                t_TreasuryDB_Main_bkp1 = #{t_TreasuryDB_Main_bkp1,jdbcType=DECIMAL},
+            <if test="t_TreasuryDB_Main_TotBal1DayAdv != null">
+                t_TreasuryDB_Main_TotBal1DayAdv = #{t_TreasuryDB_Main_TotBal1DayAdv,jdbcType=DECIMAL},
             </if>
             <if test="t_TreasuryDB_Main_TotBalance != null">
                 t_TreasuryDB_Main_TotBalance = #{t_TreasuryDB_Main_TotBalance,jdbcType=DECIMAL},

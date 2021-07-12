@@ -433,7 +433,7 @@ public class EwalletController {
             ptmt.setInt(34,0);
             ptmt.setBigDecimal(35,new BigDecimal("0.00"));
             ptmt.setBigDecimal(36,new BigDecimal("0.00"));
-            ptmt.setBigDecimal(37,new BigDecimal("100.00")); // 职场指数
+            ptmt.setBigDecimal(37,new BigDecimal("10.00")); // 职场指数
             ptmt.setBigDecimal(38,new BigDecimal("0.00"));
             ptmt.setBigDecimal(39,new BigDecimal("0.00"));
             ptmt.setDate(40, (java.sql.Date) null);
@@ -459,7 +459,7 @@ public class EwalletController {
             ptmt.setString(60,"");
             ptmt.setString(61,"");
             ptmt.setString(62,"");
-            ptmt.setString(63,"mobile");
+            ptmt.setString(63,"mobile"); 
             ptmt.setString(64,"");
             ptmt.setString(65,personalMID);
             ptmt.setTimestamp(66, new java.sql.Timestamp(System.currentTimeMillis()));
@@ -528,7 +528,7 @@ public class EwalletController {
         String ewallet = "58ewallet";
         String sql="update t_personal_ewallet " +
             "set t_personalewallet_TotCNYBalance = t_personalewallet_TotCNYBalance + ?," +
-            "t_personalewallet_Paystatus = ?," +
+            "t_personalewallet_ewalletAccStatus = ?," +
             "modifier = ?," +
             "modify_time = ? " +
             "where t_personalewallet_ApplierPID = ?";
@@ -563,7 +563,7 @@ public class EwalletController {
         Map<String,Object> retUpdatePersonalEwallet = new HashMap<>();
         String sql="update t_personal_ewallet " +
             "set  t_personalewallet_TotCNYBalance = t_personalewallet_TotCNYBalance + ?," +
-            "t_personalewallet_Paystatus = ?," +
+            "t_personalewallet_ewalletAccStatus = ?," +
             "modifier = ?," +
             "modify_time = ? " +
             "where t_personalewallet_ApplierPID = ?";
