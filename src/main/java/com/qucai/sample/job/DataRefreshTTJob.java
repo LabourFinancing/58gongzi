@@ -120,6 +120,21 @@ public class DataRefreshTTJob {
         boolean RS = MysqlBatchUtil.SQLDataPatch(sql,connectStr,username,password);
         logger.info("定时每天合并钱包交易统计表结束：" + RS);
     }
+
+
+    @Scheduled(cron = "0 0 0 * * ??")
+    public void EwalletStaticDataRefresh() throws Exception {
+        logger.info("定时每天钱包合并交易统计表开始：" + System.currentTimeMillis());
+        String sql = "INSERT INTO gognzi.t_ewallettxn_his select * from gognzi.t_ewallettxn_info INNER JOIN gognzi.t_personal_ewallet on "
+            + "gognzi.t_ewallettxn_info.t_WalletTxn_PayerPID = gognzi.t_personal_ewallet.t_personalewallet_ApplierPID "
+            + "where gognzi.t_ewallettxn_info.t_WalletTxn_Num not in (select gognzi.t_ewallettxn_his.t_WalletTxn_Num_his from gognzi.t_ewallettxn_his)";
+        String connectStr = "jdbc:mysql://localhost:3306/gognzi?rewriteBatchedStatements=true&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=true";
+        String username = "root";
+        String password = "Gf2021";
+
+        boolean RS = MysqlBatchUtil.SQLDataPatch(sql,connectStr,username,password);
+        logger.info("定时每天合并钱包交易统计表结束：" + RS);
+    }
 //    @Scheduled(cron = "0 0/5 5-23 * * ?")6
 //    public void RealTimeEwalletTxnStatistic() throws Exception {
 //        logger.info("定时每5分钟当日成功交易记录统计开始：" + System.currentTimeMillis());

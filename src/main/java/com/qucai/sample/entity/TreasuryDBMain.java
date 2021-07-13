@@ -69,9 +69,9 @@ public class TreasuryDBMain implements Serializable {
 
     private BigDecimal t_TreasuryDB_Main_TotBalance;
 
-    private BigDecimal t_TreasuryDB_Main_bkp3;
+    private BigDecimal t_TreasuryDB_Main_BaselineValue;
 
-    private String t_TreasuryDB_Main_Txt1;
+    private BigDecimal t_TreasuryDB_Main_BaselineAdjustment;
 
     private String t_TreasuryDB_Main_Txt2;
 
@@ -279,19 +279,19 @@ public class TreasuryDBMain implements Serializable {
     }
 
     public BigDecimal getT_TreasuryDB_Main_bkp3() {
-        return t_TreasuryDB_Main_bkp3;
+        return t_TreasuryDB_Main_BaselineValue;
     }
 
-    public void setT_TreasuryDB_Main_bkp3(BigDecimal t_TreasuryDB_Main_bkp3) {
-        this.t_TreasuryDB_Main_bkp3 = t_TreasuryDB_Main_bkp3;
+    public void setT_TreasuryDB_Main_bkp3(BigDecimal t_TreasuryDB_Main_BaselineValue) {
+        this.t_TreasuryDB_Main_BaselineValue = t_TreasuryDB_Main_BaselineValue;
     }
 
-    public String getT_TreasuryDB_Main_Txt1() {
-        return t_TreasuryDB_Main_Txt1;
+    public BigDecimal getT_TreasuryDB_Main_Txt1() {
+        return t_TreasuryDB_Main_BaselineAdjustment;
     }
 
-    public void setT_TreasuryDB_Main_Txt1(String t_TreasuryDB_Main_Txt1) {
-        this.t_TreasuryDB_Main_Txt1 = t_TreasuryDB_Main_Txt1;
+    public void setT_TreasuryDB_Main_Txt1(BigDecimal t_TreasuryDB_Main_BaselineAdjustment) {
+        this.t_TreasuryDB_Main_BaselineAdjustment = t_TreasuryDB_Main_BaselineAdjustment;
     }
 
     public String getT_TreasuryDB_Main_Txt2() {

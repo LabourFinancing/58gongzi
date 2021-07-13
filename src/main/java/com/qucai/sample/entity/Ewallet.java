@@ -94,11 +94,11 @@ public class Ewallet implements Serializable {
 
    private BigDecimal t_personalewallet_TotDailyAmt;
 
-   private BigDecimal t_personalewallet_TotalPrepayAmt;
+   private BigDecimal t_personalewallet_DailyInterestRatio;
 
-   private Integer t_personalewallet_TotalInterestDays;
+   private Integer t_personalewallet_DayCntEq0;
 
-   private Integer t_personalewallet_PayCounts;
+   private Integer t_personalewallet_DayCntMorethan0;
 
     private BigDecimal t_personalewallet_Interest;
 
@@ -116,7 +116,7 @@ public class Ewallet implements Serializable {
 
     private String t_personalewallet_Overdue;
 
-    private BigDecimal t_personalewallet_OverdueTotalAmount;
+    private BigDecimal t_personalewallet_TotalPrepayAmt;
 
     private BigDecimal t_personalewallet_TotalWorthCal;
 
@@ -126,7 +126,7 @@ public class Ewallet implements Serializable {
 
     private BigDecimal t_personalewallet_TierPoundage;
 
-    private BigDecimal t_personalewallet_InterestMargin;
+    private BigDecimal t_personalewallet_InterestShareBalance;
 
     private String t_personalewallet_BankAccName;
 
@@ -453,27 +453,27 @@ public class Ewallet implements Serializable {
     }
 
     public BigDecimal getT_personalewallet_TotalPrepayAmt() {
-        return t_personalewallet_TotalPrepayAmt;
+        return t_personalewallet_DailyInterestRatio;
     }
 
-    public void setT_personalewallet_TotalPrepayAmt(BigDecimal t_personalewallet_TotalPrepayAmt) {
-        this.t_personalewallet_TotalPrepayAmt = t_personalewallet_TotalPrepayAmt;
+    public void setT_personalewallet_TotalPrepayAmt(BigDecimal t_personalewallet_DailyInterestRatio) {
+        this.t_personalewallet_DailyInterestRatio = t_personalewallet_DailyInterestRatio;
     }
 
     public Integer getT_personalewallet_TotalInterestDays() {
-        return t_personalewallet_TotalInterestDays;
+        return t_personalewallet_DayCntEq0;
     }
 
-    public void setT_personalewallet_TotalInterestDays(Integer t_personalewallet_TotalInterestDays) {
-        this.t_personalewallet_TotalInterestDays = t_personalewallet_TotalInterestDays;
+    public void setT_personalewallet_TotalInterestDays(Integer t_personalewallet_DayCntEq0) {
+        this.t_personalewallet_DayCntEq0 = t_personalewallet_DayCntEq0;
     }
 
     public Integer getT_personalewallet_PayCounts() {
-        return t_personalewallet_PayCounts;
+        return t_personalewallet_DayCntMorethan0;
     }
 
-    public void setT_personalewallet_PayCounts(Integer t_personalewallet_PayCounts) {
-        this.t_personalewallet_PayCounts = t_personalewallet_PayCounts;
+    public void setT_personalewallet_PayCounts(Integer t_personalewallet_DayCntMorethan0) {
+        this.t_personalewallet_DayCntMorethan0 = t_personalewallet_DayCntMorethan0;
     }
 
     public BigDecimal getT_personalewallet_Interest() {
@@ -541,11 +541,11 @@ public class Ewallet implements Serializable {
     }
 
     public BigDecimal getT_personalewallet_OverdueTotalAmount() {
-        return t_personalewallet_OverdueTotalAmount;
+        return t_personalewallet_TotalPrepayAmt;
     }
 
-    public void setT_personalewallet_OverdueTotalAmount(BigDecimal t_personalewallet_OverdueTotalAmount) {
-        this.t_personalewallet_OverdueTotalAmount = t_personalewallet_OverdueTotalAmount;
+    public void setT_personalewallet_OverdueTotalAmount(BigDecimal t_personalewallet_TotalPrepayAmt) {
+        this.t_personalewallet_TotalPrepayAmt = t_personalewallet_TotalPrepayAmt;
     }
 
     public BigDecimal getT_personalewallet_FinancialInterest() {
@@ -581,11 +581,11 @@ public class Ewallet implements Serializable {
     }
 
     public BigDecimal getT_personalewallet_InterestMargin() {
-        return t_personalewallet_InterestMargin;
+        return t_personalewallet_InterestShareBalance;
     }
 
-    public void setT_personalewallet_InterestMargin(BigDecimal t_personalewallet_InterestMargin) {
-        this.t_personalewallet_InterestMargin = t_personalewallet_InterestMargin;
+    public void setT_personalewallet_InterestMargin(BigDecimal t_personalewallet_InterestShareBalance) {
+        this.t_personalewallet_InterestShareBalance = t_personalewallet_InterestShareBalance;
     }
 
     public String getT_personalewallet_BankAccName() {

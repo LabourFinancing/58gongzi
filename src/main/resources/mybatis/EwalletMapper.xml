@@ -34,9 +34,9 @@
 		<result column="t_personalewallet_CreditPrepayBalanceNum" property="t_personalewallet_CreditPrepayBalanceNum" jdbcType="DECIMAL" />
 		<result column="t_personalewallet_CreditPayAmt" property="t_personalewallet_CreditPayAmt" jdbcType="DECIMAL" />
 		<result column="t_personalewallet_TotDailyAmt" property="t_personalewallet_TotDailyAmt" jdbcType="DECIMAL" />
-		<result column="t_personalewallet_TotalPrepayAmt" property="t_personalewallet_TotalPrepayAmt" jdbcType="DECIMAL" />
-		<result column="t_personalewallet_TotalInterestDays" property="t_personalewallet_TotalInterestDays" jdbcType="INTEGER" />
-		<result column="t_personalewallet_PayCounts" property="t_personalewallet_PayCounts" jdbcType="INTEGER" />
+		<result column="t_personalewallet_DailyInterestRatio" property="t_personalewallet_DailyInterestRatio" jdbcType="DECIMAL" />
+		<result column="t_personalewallet_DayCntEq0" property="t_personalewallet_DayCntEq0" jdbcType="INTEGER" />
+		<result column="t_personalewallet_DayCntMorethan0" property="t_personalewallet_DayCntMorethan0" jdbcType="INTEGER" />
 		<result column="t_personalewallet_Interest" property="t_personalewallet_Interest" jdbcType="DECIMAL" />
         <result column="t_personalewallet_BalaceYesterDay" property="t_personalewallet_BalaceYesterDay" jdbcType="DECIMAL" />
         <result column="t_personalewallet_Worth" property="t_personalewallet_Worth" jdbcType="DECIMAL" />
@@ -45,12 +45,12 @@
         <result column="t_personalewallet_OverdueRepaymentDate" property="t_personalewallet_OverdueRepaymentDate" jdbcType="TIMESTAMP" />
         <result column="t_personalewallet_PrepayClear" property="t_personalewallet_PrepayClear" jdbcType="VARCHAR" />
         <result column="t_personalewallet_Overdue" property="t_personalewallet_Overdue" jdbcType="VARCHAR" />
-        <result column="t_personalewallet_OverdueTotalAmount" property="t_personalewallet_OverdueTotalAmount" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_TotalPrepayAmt" property="t_personalewallet_TotalPrepayAmt" jdbcType="DECIMAL" />
         <result column="t_personalewallet_TotalWorthCal" property="t_personalewallet_TotalWorthCal" jdbcType="DECIMAL" />
         <result column="t_personalewallet_ServiceFee" property="t_personalewallet_ServiceFee" jdbcType="DECIMAL" />
         <result column="t_personalewallet_Poundage" property="t_personalewallet_Poundage" jdbcType="DECIMAL" />
         <result column="t_personalewallet_TierPoundage" property="t_personalewallet_TierPoundage" jdbcType="DECIMAL" />
-        <result column="t_personalewallet_InterestMargin" property="t_personalewallet_InterestMargin" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_InterestShareBalance" property="t_personalewallet_InterestShareBalance" jdbcType="DECIMAL" />
         <result column="t_personalewallet_BankAccName" property="t_personalewallet_BankAccName" jdbcType="VARCHAR" />
         <result column="t_personalewallet_BankAcc" property="t_personalewallet_BankAcc" jdbcType="VARCHAR" />
         <result column="t_personalewallet_SysUpdateDate" property="t_personalewallet_SysUpdateDate" jdbcType="TIMESTAMP" />
@@ -105,9 +105,9 @@
         a.t_personalewallet_CreditPrepayBalanceNum,
         a.t_personalewallet_CreditPayAmt,
         a.t_personalewallet_TotDailyAmt,
-        a.t_personalewallet_TotalPrepayAmt,
-        a.t_personalewallet_TotalInterestDays,
-        a.t_personalewallet_PayCounts,
+        a.t_personalewallet_DailyInterestRatio,
+        a.t_personalewallet_DayCntEq0,
+        a.t_personalewallet_DayCntMorethan0,
         a.t_personalewallet_Interest,
         a.t_personalewallet_BalaceYesterDay,
         a.t_personalewallet_Worth,
@@ -116,12 +116,12 @@
         a.t_personalewallet_OverdueRepaymentDate,
         a.t_personalewallet_PrepayClear,
         a.t_personalewallet_Overdue,
-        a.t_personalewallet_OverdueTotalAmount,
+        a.t_personalewallet_TotalPrepayAmt,
         a.t_personalewallet_TotalWorthCal,
         a.t_personalewallet_ServiceFee,
         a.t_personalewallet_Poundage,
         a.t_personalewallet_TierPoundage,
-        a.t_personalewallet_InterestMargin,
+        a.t_personalewallet_InterestShareBalance,
         a.t_personalewallet_BankAccName,
         a.t_personalewallet_BankAcc,
         a.t_personalewallet_SysUpdateDate,
@@ -280,14 +280,14 @@
 			<if test="t_personalewallet_TotDailyAmt != null">
                 t_personalewallet_TotDailyAmt,
 			</if>
-			<if test="t_personalewallet_TotalPrepayAmt != null">
-                t_personalewallet_TotalPrepayAmt,
+			<if test="t_personalewallet_DailyInterestRatio != null">
+                t_personalewallet_DailyInterestRatio,
 			</if>
-			<if test="t_personalewallet_TotalInterestDays != null">
-                t_personalewallet_TotalInterestDays,
+			<if test="t_personalewallet_DayCntEq0 != null">
+                t_personalewallet_DayCntEq0,
 			</if>
-			<if test="t_personalewallet_PayCounts != null">
-                t_personalewallet_PayCounts,
+			<if test="t_personalewallet_DayCntMorethan0 != null">
+                t_personalewallet_DayCntMorethan0,
 			</if>
 			<if test="t_personalewallet_Interest != null">
                 t_personalewallet_Interest,
@@ -313,8 +313,8 @@
             <if test="t_personalewallet_Overdue != null">
                 t_personalewallet_Overdue,
             </if>
-            <if test="t_personalewallet_OverdueTotalAmount != null">
-                t_personalewallet_OverdueTotalAmount,
+            <if test="t_personalewallet_TotalPrepayAmt != null">
+                t_personalewallet_TotalPrepayAmt,
             </if>
             <if test="t_personalewallet_TotalWorthCal != null">
                 t_personalewallet_TotalWorthCal,
@@ -328,8 +328,8 @@
             <if test="t_personalewallet_TierPoundage != null">
                 t_personalewallet_TierPoundage,
             </if>
-            <if test="t_personalewallet_InterestMargin != null">
-                t_personalewallet_InterestMargin,
+            <if test="t_personalewallet_InterestShareBalance != null">
+                t_personalewallet_InterestShareBalance,
             </if>
             <if test="t_personalewallet_BankAccName != null">
                 t_personalewallet_BankAccName,
@@ -498,14 +498,14 @@
             <if test="t_personalewallet_CreditPayAmt != null">
                 #{t_personalewallet_CreditPayAmt,jdbcType=DECIMAL},
             </if>
-			<if test="t_personalewallet_TotalPrepayAmt != null">
-				#{t_personalewallet_TotalPrepayAmt,jdbcType=DECIMAL},
+			<if test="t_personalewallet_DailyInterestRatio != null">
+				#{t_personalewallet_DailyInterestRatio,jdbcType=DECIMAL},
 			</if>
-			<if test="t_personalewallet_TotalInterestDays != null">
-				#{t_personalewallet_TotalInterestDays,jdbcType=INTEGER},
+			<if test="t_personalewallet_DayCntEq0 != null">
+				#{t_personalewallet_DayCntEq0,jdbcType=INTEGER},
 			</if>
-			<if test="t_personalewallet_PayCounts != null">
-				#{t_personalewallet_PayCounts,jdbcType=INTEGER},
+			<if test="t_personalewallet_DayCntMorethan0 != null">
+				#{t_personalewallet_DayCntMorethan0,jdbcType=INTEGER},
 			</if>
 			<if test="t_personalewallet_Interest != null">
 				#{t_personalewallet_Interest,jdbcType=DECIMAL},
@@ -531,8 +531,8 @@
             <if test="t_personalewallet_Overdue != null">
                 #{t_personalewallet_Overdue,jdbcType=DECIMAL},
             </if>
-            <if test="t_personalewallet_OverdueTotalAmount != null">
-                #{t_personalewallet_OverdueTotalAmount,jdbcType=DECIMAL},
+            <if test="t_personalewallet_TotalPrepayAmt != null">
+                #{t_personalewallet_TotalPrepayAmt,jdbcType=DECIMAL},
             </if>
             <if test="t_personalewallet_TotalWorthCal != null">
                 #{t_personalewallet_TotalWorthCal,jdbcType=DECIMAL},
@@ -546,8 +546,8 @@
             <if test="t_personalewallet_TierPoundage != null">
                 #{t_personalewallet_TierPoundage,jdbcType=DECIMAL},
             </if>
-            <if test="t_personalewallet_InterestMargin != null">
-                #{t_personalewallet_InterestMargin,jdbcType=DECIMAL},
+            <if test="t_personalewallet_InterestShareBalance != null">
+                #{t_personalewallet_InterestShareBalance,jdbcType=DECIMAL},
             </if>
             <if test="t_personalewallet_BankAccName != null">
                 #{t_personalewallet_BankAccName,jdbcType=VARCHAR},
@@ -745,14 +745,14 @@
 			<if test="t_personalewallet_TotDailyAmt != null">
                 t_personalewallet_TotDailyAmt = #{t_personalewallet_TotDailyAmt,jdbcType=DECIMAL},
 			</if>
-			<if test="t_personalewallet_TotalPrepayAmt != null">
-                t_personalewallet_TotalPrepayAmt = #{t_personalewallet_TotalPrepayAmt,jdbcType=DECIMAL},
+			<if test="t_personalewallet_DailyInterestRatio != null">
+                t_personalewallet_DailyInterestRatio = #{t_personalewallet_DailyInterestRatio,jdbcType=DECIMAL},
 			</if>
-			<if test="t_personalewallet_TotalInterestDays != null">
-                t_personalewallet_TotalInterestDays = #{t_personalewallet_TotalInterestDays,jdbcType=INTEGER},
+			<if test="t_personalewallet_DayCntEq0 != null">
+                t_personalewallet_DayCntEq0 = #{t_personalewallet_DayCntEq0,jdbcType=INTEGER},
 			</if>
-            <if test="t_personalewallet_PayCounts != null">
-                t_personalewallet_PayCounts = #{t_personalewallet_PayCounts,jdbcType=INTEGER},
+            <if test="t_personalewallet_DayCntMorethan0 != null">
+                t_personalewallet_DayCntMorethan0 = #{t_personalewallet_DayCntMorethan0,jdbcType=INTEGER},
             </if>
             <if test="t_personalewallet_Interest != null">
                 t_personalewallet_Interest = #{t_personalewallet_Interest,jdbcType=DECIMAL},
@@ -778,8 +778,8 @@
             <if test="t_personalewallet_Overdue != null">
                 t_personalewallet_Overdue = #{t_personalewallet_Overdue,jdbcType=VARCHAR},
             </if>
-            <if test="t_personalewallet_OverdueTotalAmount != null">
-                t_personalewallet_OverdueTotalAmount = #{t_personalewallet_OverdueTotalAmount,jdbcType=DECIMAL},
+            <if test="t_personalewallet_TotalPrepayAmt != null">
+                t_personalewallet_TotalPrepayAmt = #{t_personalewallet_TotalPrepayAmt,jdbcType=DECIMAL},
             </if>
             <if test="t_personalewallet_TotalWorthCal != null">
                 t_personalewallet_TotalWorthCal = #{t_personalewallet_TotalWorthCal,jdbcType=DECIMAL},
@@ -793,8 +793,8 @@
             <if test="t_personalewallet_TierPoundage != null">
                 t_personalewallet_TierPoundage = #{t_personalewallet_TierPoundage,jdbcType=DECIMAL},
             </if>
-            <if test="t_personalewallet_InterestMargin != null">
-                t_personalewallet_InterestMargin = #{t_personalewallet_InterestMargin,jdbcType=DECIMAL},
+            <if test="t_personalewallet_InterestShareBalance != null">
+                t_personalewallet_InterestShareBalance = #{t_personalewallet_InterestShareBalance,jdbcType=DECIMAL},
             </if>
             <if test="t_personalewallet_BankAccName != null">
                 t_personalewallet_BankAccName = #{t_personalewallet_BankAccName,jdbcType=VARCHAR},
