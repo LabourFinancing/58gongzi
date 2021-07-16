@@ -90,7 +90,7 @@ public class Ewallet implements Serializable {
 
    private BigDecimal t_personalewallet_CreditPrepayBalanceNum;
 
-   private BigDecimal t_personalewallet_CreditPayAmt;
+   private BigDecimal t_personalewallet_BaselineAdjustment;
 
    private BigDecimal t_personalewallet_TotDailyAmt;
 
@@ -437,11 +437,11 @@ public class Ewallet implements Serializable {
     }
 
     public BigDecimal getT_personalewallet_CreditPayAmt() {
-        return t_personalewallet_CreditPayAmt;
+        return t_personalewallet_BaselineAdjustment;
     }
 
-    public void setT_personalewallet_CreditPayAmt(BigDecimal t_personalewallet_CreditPayAmt) {
-        this.t_personalewallet_CreditPayAmt = t_personalewallet_CreditPayAmt;
+    public void setT_personalewallet_CreditPayAmt(BigDecimal t_personalewallet_BaselineAdjustment) {
+        this.t_personalewallet_BaselineAdjustment = t_personalewallet_BaselineAdjustment;
     }
 
     public BigDecimal getT_personalewallet_CreditPayAmtInit() {

@@ -33,7 +33,7 @@
 		<result column="t_WalletTxn_TotallvorchourAmt" property="t_WalletTxn_TotallvorchourAmt" jdbcType="DECIMAL" />
 		<result column="t_WalletTxn_TotalInterestDays" property="t_WalletTxn_TotalInterestDays" jdbcType="INTEGER" />
 		<result column="t_WalletTxn_TxnCounts" property="t_WalletTxn_TxnCounts" jdbcType="INTEGER" />
-		<result column="t_WalletTxn_Interest" property="t_WalletTxn_Interest" jdbcType="DECIMAL" />
+		<result column="t_WalletTxn_InterestBene" property="t_WalletTxn_InterestBene" jdbcType="DECIMAL" />
 		<result column="t_WalletTxn_PaymentAccattr" property="t_WalletTxn_PaymentAccattr" jdbcType="INTEGER" />
 		<result column="t_WalletTxn_RefundAccNo" property="t_WalletTxn_RefundAccNo" jdbcType="INTEGER" />
 		<result column="t_WalletTxn_TotBalance" property="t_WalletTxn_TotBalance" jdbcType="TIMESTAMP" />
@@ -57,7 +57,7 @@
         <result column="t_WalletTxn_SMSRec" property="t_WalletTxn_SMSRec" jdbcType="VARCHAR" />
         <result column="t_WalletTxn_type" property="t_WalletTxn_type" jdbcType="VARCHAR" />
         <result column="t_WalletTxn_Voucher" property="t_WalletTxn_Voucher" jdbcType="INTEGER" />
-        <result column="t_WalletTxn_Txt2" property="t_WalletTxn_Txt2" jdbcType="VARCHAR" />
+        <result column="t_WalletTxn_TotShareProfit" property="t_WalletTxn_TotShareProfit" jdbcType="VARCHAR" />
         <result column="t_WalletTxn_Txt3" property="t_WalletTxn_Txt3" jdbcType="VARCHAR" />
         <result column="t_WalletTxn_Txt4" property="t_WalletTxn_Txt4" jdbcType="VARCHAR" />
         <result column="t_WalletTxn_Txt5" property="t_WalletTxn_Txt5" jdbcType="VARCHAR" />
@@ -100,7 +100,7 @@
         a.t_WalletTxn_TotallvorchourAmt,
         a.t_WalletTxn_TotalInterestDays,
         a.t_WalletTxn_TxnCounts,
-        a.t_WalletTxn_Interest,
+        a.t_WalletTxn_InterestBene,
         a.t_WalletTxn_PaymentAccattr,
         a.t_WalletTxn_RefundAccNo,
         a.t_WalletTxn_TotBalance,
@@ -125,7 +125,7 @@
         a.t_WalletTxn_SMSRec,
         a.t_WalletTxn_type,
         a.t_WalletTxn_Voucher,
-        a.t_WalletTxn_Txt2,
+        a.t_WalletTxn_TotShareProfit,
         a.t_WalletTxn_Txt3,
         a.t_WalletTxn_Txt4,
         a.t_WalletTxn_Txt5,
@@ -280,8 +280,8 @@
 			<if test="t_WalletTxn_TxnCounts != null">
                 t_WalletTxn_TxnCounts,
 			</if>
-			<if test="t_WalletTxn_Interest != null">
-                t_WalletTxn_Interest,
+			<if test="t_WalletTxn_InterestBene != null">
+                t_WalletTxn_InterestBene,
 			</if>
 			<if test="t_WalletTxn_PaymentAccattr != null">
                 t_WalletTxn_PaymentAccattr,
@@ -355,8 +355,8 @@
             <if test="t_WalletTxn_Voucher != null">
                 t_WalletTxn_Voucher,
             </if>
-            <if test="t_WalletTxn_Txt2 != null">
-                t_WalletTxn_Txt2,
+            <if test="t_WalletTxn_TotShareProfit != null">
+                t_WalletTxn_TotShareProfit,
             </if>
             <if test="t_WalletTxn_Txt3 != null">
                 t_WalletTxn_Txt3,
@@ -477,8 +477,8 @@
 			<if test="t_WalletTxn_TxnCounts != null">
 				#{t_WalletTxn_TxnCounts,jdbcType=INTEGER},
 			</if>
-			<if test="t_WalletTxn_Interest != null">
-				#{t_WalletTxn_Interest,jdbcType=DECIMAL},
+			<if test="t_WalletTxn_InterestBene != null">
+				#{t_WalletTxn_InterestBene,jdbcType=DECIMAL},
 			</if>
 			<if test="t_WalletTxn_PaymentAccattr != null">
 				#{t_WalletTxn_PaymentAccattr,jdbcType=VARCHAR},
@@ -549,8 +549,8 @@
             <if test="t_WalletTxn_Voucher != null">
                 #{t_WalletTxn_Voucher,jdbcType=VARCHAR},
             </if>
-            <if test="t_WalletTxn_Txt2 != null">
-                #{t_WalletTxn_Txt2,jdbcType=VARCHAR},
+            <if test="t_WalletTxn_TotShareProfit != null">
+                #{t_WalletTxn_TotShareProfit,jdbcType=VARCHAR},
             </if>
             <if test="t_WalletTxn_Txt3 != null">
                 #{t_WalletTxn_Txt3,jdbcType=VARCHAR},
@@ -713,8 +713,8 @@
 			<if test="t_WalletTxn_TxnCounts != null">
                 t_WalletTxn_TxnCounts = #{t_WalletTxn_TxnCounts,jdbcType=INTEGER},
 			</if>
-			<if test="t_WalletTxn_Interest != null">
-                t_WalletTxn_Interest = #{t_WalletTxn_Interest,jdbcType=DECIMAL},
+			<if test="t_WalletTxn_InterestBene != null">
+                t_WalletTxn_InterestBene = #{t_WalletTxn_InterestBene,jdbcType=DECIMAL},
 			</if>
 			<if test="t_WalletTxn_PaymentAccattr != null">
                 t_WalletTxn_PaymentAccattr = #{t_WalletTxn_PaymentAccattr,jdbcType=VARCHAR},
@@ -788,8 +788,8 @@
             <if test="t_WalletTxn_Voucher != null">
                 t_WalletTxn_Voucher = #{t_WalletTxn_Voucher,jdbcType=VARCHAR},
             </if>
-            <if test="t_WalletTxn_Txt2 != null">
-                t_WalletTxn_Txt2 = #{t_WalletTxn_Txt2,jdbcType=VARCHAR},
+            <if test="t_WalletTxn_TotShareProfit != null">
+                t_WalletTxn_TotShareProfit = #{t_WalletTxn_TotShareProfit,jdbcType=VARCHAR},
             </if>
             <if test="t_WalletTxn_Txt3 != null">
                 t_WalletTxn_Txt3 = #{t_WalletTxn_Txt3,jdbcType=VARCHAR},

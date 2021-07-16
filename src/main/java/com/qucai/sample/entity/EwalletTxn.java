@@ -93,7 +93,7 @@ public class EwalletTxn implements Serializable {
 
    private Integer t_WalletTxn_TxnCounts;
    
-   private BigDecimal t_WalletTxn_Interest;
+   private BigDecimal t_WalletTxn_InterestBene;
 
    private String t_WalletTxn_PaymentAccattr;
 	
@@ -143,7 +143,7 @@ public class EwalletTxn implements Serializable {
 
     private String t_WalletTxn_Voucher;
 
-    private String t_WalletTxn_Txt2;
+    private String t_WalletTxn_TotShareProfit;
 
     private String t_WalletTxn_Txt3;
 
@@ -440,11 +440,11 @@ public class EwalletTxn implements Serializable {
     }
 
     public BigDecimal getT_WalletTxn_Interest() {
-        return t_WalletTxn_Interest;
+        return t_WalletTxn_InterestBene;
     }
 
-    public void setT_WalletTxn_Interest(BigDecimal t_WalletTxn_Interest) {
-        this.t_WalletTxn_Interest = t_WalletTxn_Interest;
+    public void setT_WalletTxn_Interest(BigDecimal t_WalletTxn_InterestBene) {
+        this.t_WalletTxn_InterestBene = t_WalletTxn_InterestBene;
     }
 
     public String getT_WalletTxn_PaymentAccattr() {
@@ -640,11 +640,11 @@ public class EwalletTxn implements Serializable {
     }
 
     public String getT_WalletTxn_Txt2() {
-        return t_WalletTxn_Txt2;
+        return t_WalletTxn_TotShareProfit;
     }
 
-    public void setT_WalletTxn_Txt2(String t_WalletTxn_Txt2) {
-        this.t_WalletTxn_Txt2 = t_WalletTxn_Txt2;
+    public void setT_WalletTxn_Txt2(String t_WalletTxn_TotShareProfit) {
+        this.t_WalletTxn_TotShareProfit = t_WalletTxn_TotShareProfit;
     }
 
     public String getT_WalletTxn_Txt3() {

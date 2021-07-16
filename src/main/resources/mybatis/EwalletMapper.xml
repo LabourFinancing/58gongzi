@@ -32,7 +32,7 @@
 		<result column="t_personalewallet_DebitPayAmt" property="t_personalewallet_DebitPayAmt" jdbcType="DECIMAL" />
 		<result column="t_personalewallet_ApplyPayAmount" property="t_personalewallet_ApplyPayAmount" jdbcType="DECIMAL" />
 		<result column="t_personalewallet_CreditPrepayBalanceNum" property="t_personalewallet_CreditPrepayBalanceNum" jdbcType="DECIMAL" />
-		<result column="t_personalewallet_CreditPayAmt" property="t_personalewallet_CreditPayAmt" jdbcType="DECIMAL" />
+		<result column="t_personalewallet_BaselineAdjustment" property="t_personalewallet_BaselineAdjustment" jdbcType="DECIMAL" />
 		<result column="t_personalewallet_TotDailyAmt" property="t_personalewallet_TotDailyAmt" jdbcType="DECIMAL" />
 		<result column="t_personalewallet_DailyInterestRatio" property="t_personalewallet_DailyInterestRatio" jdbcType="DECIMAL" />
 		<result column="t_personalewallet_DayCntEq0" property="t_personalewallet_DayCntEq0" jdbcType="INTEGER" />
@@ -103,7 +103,7 @@
         a.t_personalewallet_DebitPayAmt,
         a.t_personalewallet_ApplyPayAmount,
         a.t_personalewallet_CreditPrepayBalanceNum,
-        a.t_personalewallet_CreditPayAmt,
+        a.t_personalewallet_BaselineAdjustment,
         a.t_personalewallet_TotDailyAmt,
         a.t_personalewallet_DailyInterestRatio,
         a.t_personalewallet_DayCntEq0,
@@ -274,8 +274,8 @@
 			<if test="t_personalewallet_CreditPrepayBalanceNum != null">
                 t_personalewallet_CreditPrepayBalanceNum,
 			</if>
-			<if test="t_personalewallet_CreditPayAmt != null">
-                t_personalewallet_CreditPayAmt,
+			<if test="t_personalewallet_BaselineAdjustment != null">
+                t_personalewallet_BaselineAdjustment,
 			</if>
 			<if test="t_personalewallet_TotDailyAmt != null">
                 t_personalewallet_TotDailyAmt,
@@ -477,8 +477,8 @@
 			<if test="t_personalewallet_CreditPrepayBalanceNum != null">
 				#{t_personalewallet_CreditPrepayBalanceNum,jdbcType=DECIMAL},
 			</if>
-			<if test="t_personalewallet_CreditPayAmt != null">
-				#{t_personalewallet_CreditPayAmt,jdbcType=DECIMAL},
+			<if test="t_personalewallet_BaselineAdjustment != null">
+				#{t_personalewallet_BaselineAdjustment,jdbcType=DECIMAL},
 			</if>
             <if test="t_personalewallet_TotDailyAmt != null">
                 #{t_personalewallet_TotDailyAmt,jdbcType=DECIMAL},
@@ -495,8 +495,8 @@
             <if test="t_personalewallet_CreditPrepayBalanceNum != null">
                 #{t_personalewallet_CreditPrepayBalanceNum,jdbcType=DECIMAL},
             </if>
-            <if test="t_personalewallet_CreditPayAmt != null">
-                #{t_personalewallet_CreditPayAmt,jdbcType=DECIMAL},
+            <if test="t_personalewallet_BaselineAdjustment != null">
+                #{t_personalewallet_BaselineAdjustment,jdbcType=DECIMAL},
             </if>
 			<if test="t_personalewallet_DailyInterestRatio != null">
 				#{t_personalewallet_DailyInterestRatio,jdbcType=DECIMAL},
@@ -739,8 +739,8 @@
 			<if test="t_personalewallet_CreditPrepayBalanceNum != null">
                 t_personalewallet_CreditPrepayBalanceNum = #{t_personalewallet_CreditPrepayBalanceNum,jdbcType=DECIMAL},
 			</if>
-			<if test="t_personalewallet_CreditPayAmt != null">
-                t_personalewallet_CreditPayAmt = #{t_personalewallet_CreditPayAmt,jdbcType=DECIMAL},
+			<if test="t_personalewallet_BaselineAdjustment != null">
+                t_personalewallet_BaselineAdjustment = #{t_personalewallet_BaselineAdjustment,jdbcType=DECIMAL},
 			</if>
 			<if test="t_personalewallet_TotDailyAmt != null">
                 t_personalewallet_TotDailyAmt = #{t_personalewallet_TotDailyAmt,jdbcType=DECIMAL},

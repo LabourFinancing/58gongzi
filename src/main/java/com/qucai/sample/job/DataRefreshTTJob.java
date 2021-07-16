@@ -125,9 +125,13 @@ public class DataRefreshTTJob {
     @Scheduled(cron = "0 0 0 * * ??")
     public void EwalletStaticDataRefresh() throws Exception {
         logger.info("定时每天钱包合并交易统计表开始：" + System.currentTimeMillis());
-        String sql = "INSERT INTO gognzi.t_ewallettxn_his select * from gognzi.t_ewallettxn_info INNER JOIN gognzi.t_personal_ewallet on "
-            + "gognzi.t_ewallettxn_info.t_WalletTxn_PayerPID = gognzi.t_personal_ewallet.t_personalewallet_ApplierPID "
-            + "where gognzi.t_ewallettxn_info.t_WalletTxn_Num not in (select gognzi.t_ewallettxn_his.t_WalletTxn_Num_his from gognzi.t_ewallettxn_his)";
+        String sql = "UPDATE t_personal_ewallet, (select t_treasurydb_main.t_TreasuryDB_Main_BaselineValue as personalDays from t_treasurydb_main) as a"
+            + "SET t_personal_ewallet.t_personalewallet_DayCntEq0 = if(t_personal_ewallet.t_personalewallet_TotCNYBalance = 0 , 1, 0) + t_personal_ewallet.t_personalewallet_DayCntEq0, "
+            + "t_personal_ewallet.t_personalewallet_DayCntMorethan0 = if(t_personal_ewallet.t_personalewallet_TotCNYBalance > 0 , 1, 0) + t_personal_ewallet.t_personalewallet_DayCntMorethan0,"
+            + "t_personal_ewallet.t_personalewallet_BalanceCntDays = if(t_personal_ewallet.t_personalewallet_BalaceYesterDay <= t_personal_ewallet.t_personalewallet_TotCNYBalance,t_personalewallet_BalanceCntDays + 1,1),"
+            + "t_personal_ewallet.t_personalewallet_TotalWorthCal = t_personal_ewallet.t_personalewallet_TotalWorthCal + ( t_personal_ewallet.t_personalewallet_BalanceCntDays * t_personal_ewallet.t_personalewallet_TotCNYBalance),"
+            + "t_personal_ewallet.t_personalewallet_BaselineAdjustment = if(t_personal_ewallet.t_personalewallet_DayCntEq0 - t_personal_ewallet.t_personalewallet_DayCntMorethan0 <= 0,POWER(datediff(NOW(),t_personal_ewallet.create_time),SQRT(a.personalDays*10)/10),t_personal_ewallet.t_personalewallet_DayCntEq0 - t_personal_ewallet.t_personalewallet_DayCntMorethan0),"
+            + "t_personal_ewallet.t_personalewallet_Worth = if((SQRT(SQRT(SQRT(SQRT(SQRT(SQRT(t_personal_ewallet.t_personalewallet_TotalWorthCal/(t_personal_ewallet.t_personalewallet_BaselineAdjustment))))) * SQRT(a.personalDays*10)/10))) >= 1,0.999999,(SQRT(SQRT(SQRT(SQRT(SQRT(SQRT(t_personal_ewallet.t_personalewallet_TotalWorthCal/(t_personal_ewallet.t_personalewallet_BaselineAdjustment))))) * SQRT(a.personalDays*10)/10)))*1000000)";
         String connectStr = "jdbc:mysql://localhost:3306/gognzi?rewriteBatchedStatements=true&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=true";
         String username = "root";
         String password = "Gf2021";

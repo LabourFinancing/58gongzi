@@ -463,7 +463,7 @@ public class EwalletTxnController {
             ptmt.setBigDecimal(28,new BigDecimal("0.00")); // t_WalletTxn_TotallvorchourAmt 优惠券金额
             ptmt.setInt(29,0); // t_WalletTxn_TotalInterestDays 结算周期 T+0 当天 T+1 隔天
             ptmt.setInt(30,1); // t_WalletTxn_TxnCounts 交易次数
-            ptmt.setBigDecimal(31,new BigDecimal("0.00")); // t_WalletTxn_Interest 贴现差额
+            ptmt.setBigDecimal(31,new BigDecimal("0.00")); // t_WalletTxn_InterestBene 贴现差额
             ptmt.setString(32,""); // t_WalletTxn_PaymentAccattr 对私-0；对公-1
             ptmt.setString(33,""); // t_WalletTxn_RefundAccNo 退款账户号
             ptmt.setBigDecimal(34,new BigDecimal("0.00")); // t_WalletTxn_TotBalance 钱包总余额
@@ -488,7 +488,7 @@ public class EwalletTxnController {
             ptmt.setString(53,""); // t_WalletTxn_SMSRec 验证返回
             ptmt.setString(54,ewalletTxnType);  // t_WalletTxn_type b2b,b2c,c2b,c2c 交易类型
             ptmt.setString(55,"no"); // t_WalletTxn_Voucher voucher
-            ptmt.setString(56,""); // t_WalletTxn_Txt2 备用字段
+            ptmt.setString(56,""); // t_WalletTxn_TotShareProfit 备用字段
             ptmt.setString(57,""); // t_WalletTxn_Txt3 备用字段
             ptmt.setString(58,""); // t_WalletTxn_Txt4 备用字段
             ptmt.setString(59,""); // t_WalletTxn_Txt5 备用字段
