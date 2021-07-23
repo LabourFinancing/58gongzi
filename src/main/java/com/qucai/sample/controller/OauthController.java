@@ -478,7 +478,7 @@ public class OauthController {
             EwalletTxnController ewalletTxnController = new EwalletTxnController();
             rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
             conn.close();
-            if (rsMobileEwalletTxn.get("SQL").equals("SQL-RECEIVEREWALLETUPDATESUCC")) {
+            if (rsMobileEwalletTxn.get("SQL").equals("SQL-RECEIVEREWALLETTOPUPSUCC")) {
                 System.out.println("调用个人充值成功");
                 rsMobileEwalletTxn.put("SMSverify",0);
                 return JsonBizTool.genJson(ExRetEnum.SUCCESS, rsMobileEwalletTxn);

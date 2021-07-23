@@ -23,7 +23,7 @@
         <result column="t_Product_PersPool" property="t_Product_PersPool" jdbcType="VARCHAR" />
         <result column="t_Product_Txt" property="t_Product_Txt" jdbcType="VARCHAR" />
         <result column="t_Product_Txt1" property="t_Product_Txt1" jdbcType="VARCHAR" />
-        <result column="t_Product_Txt2" property="t_Product_Txt2" jdbcType="VARCHAR" />
+        <result column="t_Product_Pool" property="t_Product_Pool" jdbcType="VARCHAR" />
         <result column="t_Product_SysupdateDate" property="t_Product_SysupdateDate" jdbcType="TIMESTAMP" />
 		<result column="platform" property="platform" jdbcType="VARCHAR" />
 		<result column="remark" property="remark" jdbcType="VARCHAR" />
@@ -54,7 +54,7 @@
         a.t_Product_PersPool,
         a.t_Product_Txt,
         a.t_Product_Txt1,
-        a.t_Product_Txt2,
+        a.t_Product_Pool,
         a.t_Product_SysupdateDate,
 		a.platform,
 		a.remark,
@@ -170,8 +170,8 @@
             <if test="t_Product_Txt1 != null">
                 t_Product_Txt1,
             </if>
-            <if test="t_Product_Txt2 != null">
-                t_Product_Txt2,
+            <if test="t_Product_Pool != null">
+                t_Product_Pool,
             </if>
             <if test="t_Product_SysupdateDate != null">
                 t_Product_SysupdateDate,
@@ -256,8 +256,8 @@
             <if test="t_Product_Txt1 != null">
                 #{t_Product_Txt1,jdbcType=VARCHAR},
             </if>
-            <if test="t_Product_Txt2 != null">
-                #{t_Product_Txt2,jdbcType=VARCHAR},
+            <if test="t_Product_Pool != null">
+                #{t_Product_Pool,jdbcType=VARCHAR},
             </if>
             <if test="t_Product_SysupdateDate != null">
                 #{t_Product_SysupdateDate,jdbcType=TIMESTAMP},
@@ -372,8 +372,8 @@
             <if test="t_Product_Txt1 != null">
                 t_Product_Txt1 = #{t_Product_Txt1,jdbcType=VARCHAR},
             </if>
-            <if test="t_Product_Txt2 != null">
-                t_Product_Txt2 = #{t_Product_Txt2,jdbcType=VARCHAR},
+            <if test="t_Product_Pool != null">
+                t_Product_Pool = #{t_Product_Pool,jdbcType=VARCHAR},
             </if>
             <if test="t_Product_SysupdateDate != null">
                 t_Product_SysupdateDate = #{t_Product_SysupdateDate,jdbcType=TIMESTAMP},

@@ -113,7 +113,7 @@ public class ProductMain implements Serializable {
 
     private String t_Product_Txt1;
 
-    private String t_Product_Txt2;
+    private String t_Product_Pool;
 
     private Date t_Product_SysupdateDate;
 
@@ -327,11 +327,11 @@ public class ProductMain implements Serializable {
     }
 
     public String getT_Product_Txt2() {
-        return t_Product_Txt2;
+        return t_Product_Pool;
     }
 
-    public void setT_Product_Txt2(String t_Product_Txt2) {
-        this.t_Product_Txt2 = t_Product_Txt2;
+    public void setT_Product_Txt2(String t_Product_Pool) {
+        this.t_Product_Pool = t_Product_Pool;
     }
 
     public Date getT_Product_SysupdateDate() {

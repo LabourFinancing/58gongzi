@@ -654,14 +654,14 @@ public class EwalletController {
                     System.out.println(ptmt1.executeUpdate());
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    rsUserEwalletbnkCard.put("SQL","PersonalEwalletBindCardFail");
+                    rsUserEwalletbnkCard.put("SQL","PERSONALEWALLETBAINDCARDFAIL");
                     rsUserEwalletbnkCard.put("PersonalEwalletCardBind-SQLstat:",String.valueOf(e.getSQLState()));
                     rsUserEwalletbnkCard.put("PersonalEwalletCardBind-ErrorCode",String.valueOf(e.getErrorCode()));
                     rsUserEwalletbnkCard.put("SQL-ErrMsg",String.valueOf(e.getErrorCode()));
                     return rsUserEwalletbnkCard;
                 }finally {
                     conn.close();
-                    rsUserEwalletbnkCard.put("SQL","SQL-PersonalEwalletBindCardSucc");
+                    rsUserEwalletbnkCard.put("SQL","SQL-PERSONALEWALLETBINDCARDSUCC");
                 }
             }else {
                 rsUserEwalletbnkCard.put("retMsg", "该银行卡已被绑定,请重新输入");
