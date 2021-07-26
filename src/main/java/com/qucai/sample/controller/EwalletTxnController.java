@@ -10,10 +10,7 @@ import com.qucai.sample.exception.ExRetEnum;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo.OrderCreateDemo;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo.OrderPayDemo;
 import com.qucai.sample.service.*;
-import com.qucai.sample.util.DBConnection;
-import com.qucai.sample.util.JsonBizTool;
-import com.qucai.sample.util.ShiroSessionUtil;
-import com.qucai.sample.util.Tool;
+import com.qucai.sample.util.*;
 import com.qucai.sample.vo.MobileEwalletDashboard;
 import com.qucai.sample.vo.MobilePersonalMain;
 import org.apache.commons.lang3.StringUtils;
@@ -515,6 +512,11 @@ public class EwalletTxnController {
                 retUpdatePersonalEwallet = EwalletController.UpdatePayeePersonalEwalletBalance(txnAmt,walletTxn_PayerPID,walletTxn_ReceiverID,conn);
                 if(!retUpdatePersonalEwallet.isEmpty()){
                     rsMobileEwalletTxn.put("SQL","SQL-RECEIVEREWALLETTOPUPSUCC");
+                    if(txnCat.equalsIgnoreCase("PersonalEwalletCashout")){
+                        System.out.println("Ewallet Cashout Started");
+                        //Call cashout procedure
+//                        PaymentCall.Cashout();
+                    }
                 }else{
                     rsMobileEwalletTxn.put("SQL","SQL-RECEIVEREWALLETTOPUPFAIL");
                 }

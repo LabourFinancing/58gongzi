@@ -508,6 +508,27 @@ public class OauthController {
             }
         }
 
+        //个人预支
+        //个人钱包预支 http://localhost:8080/sample/oauthController/login?method=ewalletcashadvance&action=cashadvance&page=mobilehome&walletTxn_PayerPID=31011519830805251X&walletTxn_ReceiverID=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475&TopupAmount=100.00&&paymentID=$&paymentStatus=&
+        if( method!=null&&page.equalsIgnoreCase("mobilehome")&&method.equals("ewalletcashadvance")){
+            System.out.print(action); // action=cashadvance , action=cashadvancepay
+            DBConnection dao = new DBConnection();
+            Connection conn = dao.getConnection();
+            Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
+            String txnCat = "PersonalEwalletCashout";
+            BigDecimal txnAmt = new BigDecimal(TopupAmount); 
+//            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+            EwalletTxnController ewalletTxnController = new EwalletTxnController();
+            rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
+            conn.close();
+            if (rsMobileEwalletTxn.get("UpdatePersonalEwalletSucc").equals("succ")) {
+                System.out.println("调用个人提现成功");
+                rsMobileEwalletTxn.put("SMSverify",0);
+                return JsonBizTool.genJson(ExRetEnum.SUCCESS);
+            }else{
+                return JsonBizTool.genJson(ExRetEnum.FAIL, rsMobileEwalletTxn);
+            }
+        }
         /************************************************* Mobilehome begin 移动端首页开始 ************************************
          * wealthmgt,voucher,topup,   58gongzi  ---1st version
          * blockchain , supplychain    wo-bank  ---2nd version
