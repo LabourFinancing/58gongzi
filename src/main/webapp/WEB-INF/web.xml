@@ -104,12 +104,12 @@
 	</session-config>
 
 	<welcome-file-list>
-		<welcome-file>/index</welcome-file>
+		<welcome-file>/sample/index</welcome-file>
 	</welcome-file-list>
 
  	<error-page>
 		<exception-type>java.lang.NullPointerException</exception-type>
- 		<location>/WEB-INF/views/index.html</location>
+ 		<location>/WEB-INF/views/error/Nullpoint.html</location>
 	</error-page>
 	
 	<error-page>

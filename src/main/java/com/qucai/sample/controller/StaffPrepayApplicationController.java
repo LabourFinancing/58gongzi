@@ -121,6 +121,7 @@ public class StaffPrepayApplicationController {
 		Map<String, Object> rs = new HashMap<String, Object>();
 
 //checking Payment Account Balance
+        /*
     	if(PaymentTunnel.equalsIgnoreCase("电银支付")) {
     		if (!AgencyOrgnization.getT_O_OrgChinaebiAcc().equals(null)){
     			merchantId = AgencyOrgnization.getT_O_OrgChinaebiAcc();
@@ -184,7 +185,8 @@ public class StaffPrepayApplicationController {
     			return JsonBizTool.genJson(ExRetEnum.PAY_ACC_FAIL,rs);
     		}
     	}
-//        	    InitialBalance = new BigDecimal("20000.00"); // debug using
+    	*/
+        InitialBalance = new BigDecimal("6100.00"); // debug using
         
     	if (InitialBalance.intValue() <= treasuryDBInfoGetStatistic.getT_TreasuryDB_Balance().intValue() || 
             InitialBalance.intValue() <= Integer.valueOf(500) || 

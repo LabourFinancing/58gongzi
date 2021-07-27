@@ -119,7 +119,7 @@ class UserSyncJob {
                             personalInfo.t_P_HomeAddress = homeAddress
                             personalInfo.t_P_Phone = telephone
                             personalInfo.t_P_Contact1 = contactName
-                            personalInfo.t_P_Contact1Mobil = contactMobile
+                            personalInfo.t_P_Contact1Mobile = contactMobile
                             personalInfo.t_P_Company = companyName
                             personalInfo.t_P_CompanyNum = workNum
                             personalInfo.t_P_VendorEmployeeName = clientCompany

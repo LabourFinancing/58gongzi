@@ -477,14 +477,14 @@ delete from t_transaction_info where t_transaction_info.t_Txn_PrepayApplierPID i
 			<if test="t_P_Contact1 != null">
 				t_P_Contact1 = #{t_P_Contact1,jdbcType=VARCHAR},
 			</if>
-			<if test="t_P_Contact1Mobil != null">
-				t_P_Contact1Mobil = #{t_P_Contact1Mobil,jdbcType=VARCHAR},
+			<if test="t_P_Contact1Mobile != null">
+				t_P_Contact1Mobile = #{t_P_Contact1Mobile,jdbcType=VARCHAR},
 			</if>
 			<if test="t_P_Payroll != null">
 				t_P_Payroll = #{t_P_Payroll,jdbcType=VARCHAR},
 			</if>
-			<if test="t_P_ContactMobile2 != null">
-				t_P_ContactMobile2 = #{t_P_ContactMobile2,jdbcType=VARCHAR},
+			<if test="t_P_Contact2Mobile != null">
+				t_P_Contact2Mobile = #{t_P_Contact2Mobile,jdbcType=VARCHAR},
 			</if>
 			<if test="t_P_Company != null">
 				t_P_Company = #{t_P_Company,jdbcType=VARCHAR},
