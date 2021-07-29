@@ -57,6 +57,30 @@ public class OverallStatisticRefresh{
         }
     }
 
+    public static Map<String, Object> PersonalEwalletStatisticNew(String personalMID, String pid, String realName){
+        DBConnection dao = new DBConnection();
+        Connection conn = dao.getConnection();
+        Map<String,Object> retStatus = new HashMap<>();
+        String sql="Insert into t_personal_ewallet_statistics," +
+            "values (?,?,?,?,'','','','','','','','','','','','','','','','',?,?,'','')";
+        try {
+            PreparedStatement ptmt = conn.prepareStatement(sql);
+            ptmt.setString(1,personalMID);
+            ptmt.setString(2,pid);
+            ptmt.setString(3,pid);
+            ptmt.setString(4, realName);
+            ptmt.setString(5, pid);
+            ptmt.setTimestamp(6, new java.sql.Timestamp(System.currentTimeMillis()));
+            System.out.println(ptmt.executeUpdate());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            retStatus.put("SQL-CODE",String.valueOf(e.getErrorCode()));
+        }finally {
+            retStatus.put("SQL","SQL-PERSONALEWALLETSTATISTICADDSUCC");
+        }
+        return retStatus;
+    }
+
     public static Map<String, Object> PersonalEwalletStatisticRefresh(String PersonalPID){
         DBConnection dao = new DBConnection();
         Connection conn = dao.getConnection();
@@ -84,11 +108,15 @@ public class OverallStatisticRefresh{
             "t_personal_ewallet_statistics.t_personal_ewallet_statistic_treasuryctrlTopupDailyCnt=a.P_DAILY_TOPUP_CNT," +
             "t_personal_ewallet_statistics.t_personal_ewallet_statistic_treasuryctrlCashoutDailyAmt=a.P_DAILY_CASHOUT_AMT," +
             "t_personal_ewallet_statistics.t_personal_ewallet_statistic_treasuryctrlCashoutTotalAmt=IF(a.P_DAILY_CASHOUT_AMT=null,t_personal_ewallet_statistics.t_personal_ewallet_statistic_treasuryctrlCashoutTotalAmt,t_personal_ewallet_statistics.t_personal_ewallet_statistic_treasuryctrlCashoutTotalAmt+a.P_DAILY_CASHOUT_AMT)," +
-            "t_personal_ewallet_statistics.t_personal_ewallet_statistic_treasuryctrlCashoutDailyCnt=a.P_DAILY_CASHOUT_CNT" +
+            "t_personal_ewallet_statistics.t_personal_ewallet_statistic_treasuryctrlCashoutDailyCnt=a.P_DAILY_CASHOUT_CNT," +
+            "t_personal_ewallet_statistics.modifier=?," +
+            "t_personal_ewallet_statistics.modify_time=?" +
             "WHERE t_personal_ewallet_statistics.t_personal_ewallet_statistic_ApplierPID = ?";
         try {
             PreparedStatement ptmt = conn.prepareStatement(sql);
             ptmt.setString(1, PersonalPID);
+            ptmt.setTimestamp(2, new java.sql.Timestamp(System.currentTimeMillis()));
+            ptmt.setString(3, PersonalPID);
             System.out.println(ptmt.executeUpdate());
         } catch (SQLException e) {
             e.printStackTrace();

@@ -31,6 +31,7 @@ import com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo.OrderCreateDemo;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo.OrderPayDemo;
 import com.qucai.sample.service.*;
 import com.qucai.sample.util.*;
+import com.qucai.sample.vo.OverallStatisticRefresh;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -189,7 +190,12 @@ public class OauthController {
                 // Personal Treasury Management bind - payment-a-v
                 rsNewUserEwallet = ewalletController.addMobileEwallet(personalMID,pid,realName);
                 if(rsNewUserEwallet.get("SQL-PersonalEwallet").equals("0")){
-                    return JsonBizTool.genJson(ExRetEnum.SUCCESS, rsNewUserEwallet);
+                    Map<String, Object> rsNewUserEwalletStatistic = OverallStatisticRefresh.PersonalEwalletStatisticNew(personalMID,pid,realName);
+                    if(rsNewUserEwalletStatistic.get("SQL").equals("SQL-PERSONALEWALLETSTATISTICADDSUCC")) {
+                        return JsonBizTool.genJson(ExRetEnum.SUCCESS, rsNewUserEwallet);
+                    }else{
+                        return JsonBizTool.genJson(ExRetEnum.FAIL, rsNewUserEwallet); 
+                    }
                 }else {
                     return JsonBizTool.genJson(ExRetEnum.FAIL, rsNewUserEwallet);
                 }
