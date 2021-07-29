@@ -19,6 +19,8 @@ public interface TreasuryDBMainService {
 //    int updateCreditRefresh(String t_TreasuryDB_OrgName);
     
     TreasuryDBMain selectByPrimaryKey(String t_Treasury_ID);
+
+    TreasuryDBMain findTreasuryPlatformAcc(String salaryAdvanceEwalletAcc);
     
  //   TreasuryDBMain findOrgTreasuryCurrBalance(String t_TreasuryDB_OrgName);
     

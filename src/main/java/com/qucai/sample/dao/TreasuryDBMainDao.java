@@ -19,6 +19,8 @@ public interface TreasuryDBMainDao {
     int insertSelective(TreasuryDBMain record);
 
     TreasuryDBMain selectByPrimaryKey(String t_TreasuryDB_ID);
+
+    TreasuryDBMain findTreasuryPlatformAcc(String salaryAdvanceEwalletAcc);
     
     TreasuryDBMain findOrgTreasuryCurrBalance(String t_TreasuryDB_OrgName);
     
@@ -35,9 +37,9 @@ public interface TreasuryDBMainDao {
     int existTreasuryDBMainName(@Param("t_TreasuryDB_OrgName") String t_TreasuryDB_OrgName);
     
     int updateByBalanceRefresh(List<Map<String, Object>> ArrayPaymentBalance);
-  
-
     
+
+
     //企业端的资源
 //  List<FinanceProductGrant> findEntFinanceProductGrantAllList(String roleId);
 }

@@ -31,6 +31,12 @@ public class TreasuryDBMainServiceImpl implements TreasuryDBMainService {
         return TreasuryDBMainDao.selectByPrimaryKey(t_TreasuryDB_Main_ID);
     }
 
+    @Override
+    public TreasuryDBMain findTreasuryPlatformAcc(String salaryAdvanceEwalletAcc) {
+        return TreasuryDBMainDao.findTreasuryPlatformAcc(salaryAdvanceEwalletAcc);
+    }
+
+
     /*
     @Override
     public TreasuryDBMain findOrgTreasuryCurrBalance(String t_TreasuryDB_OrgName) {

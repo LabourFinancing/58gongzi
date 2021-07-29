@@ -1,6 +1,7 @@
 package com.qucai.sample.controller;
 
 import java.math.BigDecimal;
+import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -11,6 +12,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.qucai.sample.entity.*;
+import com.qucai.sample.service.*;
+import com.qucai.sample.util.*;
+import com.qucai.sample.vo.MobileEwalletDashboard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,24 +32,9 @@ import com.qucai.sample.sandpay.src.cn.com.sandpay.dsf.demo.AgentPayDemo;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.dsf.demo.MerBalanceQueryDemo;
 import com.qucai.sample.daifudemo.src.com.chinaebi.pay.servlet.AmtQueryServlet;
 import com.qucai.sample.daifudemo.src.com.chinaebi.pay.servlet.PayServlet;
-import com.qucai.sample.entity.OrganizationInfo;
-import com.qucai.sample.entity.Paymentvendormgt;
-import com.qucai.sample.entity.StaffPrepayApplicationList;
-import com.qucai.sample.entity.StaffPrepayApplicationPayment;
-import com.qucai.sample.entity.TreasuryDBInfo;
 import com.qucai.sample.exception.ExRetEnum;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.dsf.demo.MerBalanceQueryDemo;
-import com.qucai.sample.service.FinanceProductService;
-import com.qucai.sample.service.OrganizationInfoService;
-import com.qucai.sample.service.PaymentvendormgtService;
-import com.qucai.sample.service.PersonalInfoService;
-import com.qucai.sample.service.StaffPrepayApplicationService;
-import com.qucai.sample.service.TreasuryDBInfoService;
-import com.qucai.sample.service.TreasuryInfoService;
 import com.qucai.sample.smss.src.example.json.HttpJsonExample;
-import com.qucai.sample.util.JsonBizTool;
-import com.qucai.sample.util.ShiroSessionUtil;
-import com.qucai.sample.util.Tool;
 import com.qucai.sample.vo.StaffPrepayApplicationNew;
 
 @Controller
@@ -78,6 +68,9 @@ public class StaffPrepayApplicationController {
     
     @Autowired
     private PaymentvendormgtService paymentvendormgtService;
+
+    @Autowired
+    private TreasuryDBMainService treasuryDBMainService;
 
 	private BigDecimal t_FProd_ServiceFee_Total;
 	
@@ -121,7 +114,7 @@ public class StaffPrepayApplicationController {
 		Map<String, Object> rs = new HashMap<String, Object>();
 
 //checking Payment Account Balance
-        /*
+        
     	if(PaymentTunnel.equalsIgnoreCase("电银支付")) {
     		if (!AgencyOrgnization.getT_O_OrgChinaebiAcc().equals(null)){
     			merchantId = AgencyOrgnization.getT_O_OrgChinaebiAcc();
@@ -185,7 +178,7 @@ public class StaffPrepayApplicationController {
     			return JsonBizTool.genJson(ExRetEnum.PAY_ACC_FAIL,rs);
     		}
     	}
-    	*/
+    	
         InitialBalance = new BigDecimal("6100.00"); // debug using
         
     	if (InitialBalance.intValue() <= treasuryDBInfoGetStatistic.getT_TreasuryDB_Balance().intValue() || 
@@ -360,7 +353,7 @@ public class StaffPrepayApplicationController {
 			BigDecimal t_Txn_CreditPrepayCurrentNum,
 			BigDecimal t_Txn_CreditPrepayBalanceNum,
 			BigDecimal t_FProd_Poundage,BigDecimal t_FProd_ETxnAmtLimit, String t_FProd_TierPoundage, Integer tTxnPrepayDays,
-			BigDecimal tTxnInterest, HttpServletResponse response,
+			BigDecimal tTxnInterest, HttpServletResponse response,String paymentStatus,
 			HttpServletRequest request, Model model) throws Exception {
 		
 		model.addAttribute("t_Txn_ApplyPrepayAmount", t_Txn_ApplyPrepayAmount);
@@ -486,6 +479,9 @@ public class StaffPrepayApplicationController {
 		staffPrepayApplication.setT_Txn_PrepayCounts(t_Txn_PrepayCounts);
 		staffPrepayApplication.setT_Txn_PrepayDate(new Date());
 		staffPrepayApplication.setAgreement(agreement);
+        String salaryAdvanceEwalletAcc = "58gongziewallet";        
+        TreasuryDBMain treasuryDBMain = treasuryDBMainService.findTreasuryPlatformAcc(salaryAdvanceEwalletAcc);
+        staffPrepayApplication.setPlatform(treasuryDBMain.getT_TreasuryDB_Main_PaymentClearNum()); // checkout to 3rd prty platform acc
 		
 		String t_Txn_PrepayClear = "No";
 		String SessionSMS = ShiroSessionUtil.getLoginSession().getRemark();
@@ -493,6 +489,9 @@ public class StaffPrepayApplicationController {
 			SessionSMS = "";
 		}
 		if (SMScode.equals(SMScodeRec)){
+		    String[] TreasuryMgtOwner = treasuryDBMain.getPlatform().split("-");
+            String TreasuryMgtOwnerName = TreasuryMgtOwner[0].trim();
+            String TreasuryMgtOwnerPID = TreasuryMgtOwner[1].trim();
 //		    Insert PaymentList table
 					staffPrepayApplicationPay.setID(Tool.uuid());
 					staffPrepayApplicationPay.setOrderCode(TxnID);
@@ -500,13 +499,13 @@ public class StaffPrepayApplicationController {
 					staffPrepayApplicationPay.setProductId("00000004");
 		            staffPrepayApplicationPay.setTranTime(df.format(new Date()).toString());
 					staffPrepayApplicationPay.setTranAmt(t_Txn_TotalPrepayNum.setScale(0,BigDecimal.ROUND_UP).toString());
-					staffPrepayApplicationPay.setName(staffPrepayApplicationPNow.getT_P_Name());
+                    staffPrepayApplicationPay.setName(TreasuryMgtOwnerName);
 					staffPrepayApplicationPay.setCurrencyCode("156");
 					staffPrepayApplicationPay.setCertType("0101");
-					staffPrepayApplicationPay.setCertNo(staffPrepayApplicationPNow.getT_P_PID().trim());
+                    staffPrepayApplicationPay.setCertNo(TreasuryMgtOwnerPID); //Goldman Fuks shareholder pid
 					staffPrepayApplicationPay.setAccAttr("0");
-					staffPrepayApplicationPay.setAccNo(staffPrepayApplicationPNow.getT_P_PayrollDebitcardNum());
-					staffPrepayApplicationPay.setAccName(staffPrepayApplicationPNow.getT_P_Name());
+					staffPrepayApplicationPay.setAccNo(treasuryDBMain.getT_TreasuryDB_Main_PaymentClearNum()); // Goldman Fuks treasury mgt
+					staffPrepayApplicationPay.setAccName(TreasuryMgtOwnerName);
 					staffPrepayApplicationPay.setRemark(SMScodeRec);
 					staffPrepayApplicationPay.setAccType("4");
 					staffPrepayApplicationPay.setReturnPic("1");
@@ -567,7 +566,9 @@ public class StaffPrepayApplicationController {
 							staffPrepayApplication.setPlatform(merchantId);
 							staffPrepayApplicationPay.setVersion("sandpay");
 							staffPrepayApplication.setT_Txn_ClearOrg("sandpay");
+							//payto goldmanfuks sandpay pub account for cashout preparation
                             JSONObject obj = AgentPayDemo.main(staffPrepayApplicationPay,merchantId);  // sandpay
+                            
 				        	RCretData = (String) obj.get("respCode"); //  sandpay branch
 				        	remark = (String) obj.get("respDesc"); //  sandpay branch
 				        	if(RCretData.equals("4001")){
@@ -700,7 +701,31 @@ public class StaffPrepayApplicationController {
 									   RS = treasuryDBInfoService.updateByPrimaryKeySelective(treasuryDBInfoUpdateOverall);
 							         } 
 							  if (RS != 0){
-						  		  return JsonBizTool.genJson(ExRetEnum.PAY_SUCCESS);
+							      //call ewallet balance update
+                                  //call topup 提款到钱包余额
+                                  // personal treasury mgt
+                                  DBConnection dao = new DBConnection();
+                                  Connection conn = dao.getConnection();
+                                  Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
+                                  String txnCat = "PersonalEwalletTopup";
+                                  BigDecimal txnAmt = t_Txn_TotalPrepayNum;
+                                  String paymentID = TxnID;
+                                  String method = "ewallettopup";
+                                  String walletTxn_PayerPID = staffPrepayApplicationPNow.getT_P_PID();
+                                  String walletTxn_ReceiverID = null;
+                                   
+//            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+                                  EwalletTxnController ewalletTxnController = new EwalletTxnController();
+                                  rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
+                                  conn.close();
+                                  if (rsMobileEwalletTxn.get("SQL").equals("SQL-RECEIVEREWALLETTOPUPSUCC")) {
+                                      System.out.println("调用个人提款到钱包成功");
+                                      rsMobileEwalletTxn.put("SMSverify",0);
+                                      //call personal evaluation 
+                                      return JsonBizTool.genJson(ExRetEnum.SUCCESS, rsMobileEwalletTxn);
+                                  }else{
+                                      return JsonBizTool.genJson(ExRetEnum.FAIL, rsMobileEwalletTxn);
+                                  }
 							  } else {
 								  return JsonBizTool.genJson(ExRetEnum.PREPAY_APPFAIL);
 							  }

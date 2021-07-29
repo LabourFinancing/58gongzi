@@ -74,6 +74,14 @@
 		where a.t_TreasuryDB_Main_ID = #{t_TreasuryDB_Main_ID,jdbcType=VARCHAR}
 		order by a.create_time
 	</select>
+
+    <select id="findTreasuryPlatformAcc" resultMap="BaseResultMap"
+            parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List" />
+        from t_treasurydb_main a
+        where a.t_TreasuryDB_Main_3rdprtyPaymentVendor = #{salaryAdvanceEwalletAcc,jdbcType=VARCHAR}
+    </select>
 	
 	<select id="findOrgTreasuryCurrBalance" resultMap="BaseResultMap"
 		parameterType="java.lang.String">

@@ -74,7 +74,7 @@ public class OauthController {
     @RequestMapping("/login")
     @ResponseBody
     public Object login(HttpServletRequest request, HttpServletResponse response,String facialret,String txnAmount,String personalMID,
-                        String walletTxn_PayerPID,String walletTxn_ReceiverID, String PaymentChannel, String TopupAmount,String realName,
+                        String walletTxn_PayerPID,String walletTxn_ReceiverID, String PaymentChannel, String TopupAmount,String CashoutAmount,String realName,
                         String userName, String pid, String password, String page, String paymentchannel, String action,String cardAcc,
                         String mode, String gid, String method, String phone, String host,String paymentID,String paymentStatus,
                         String SMSsendcode, String SMSstrret, String type, String API) throws Exception {
@@ -302,7 +302,7 @@ public class OauthController {
             // personal treasury mgt
             
             EwalletTxnController ewalletTxnController = new EwalletTxnController();
-            rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(txnCat,txnAmt,walletTxn_PayerPID,walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
+            rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(action,txnCat,txnAmt,walletTxn_PayerPID,walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
             
             if(rsMobileEwalletTxn.get("SQL").equals("SQL-RECEIVEREWALLETUPDATESUCC")){
                 personalEwalletType = "RECEIVERQUERY";
@@ -484,7 +484,7 @@ public class OauthController {
             BigDecimal txnAmt = new BigDecimal(TopupAmount);
 //            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             EwalletTxnController ewalletTxnController = new EwalletTxnController();
-            rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
+            rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(action, txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
             conn.close();
             if (rsMobileEwalletTxn.get("SQL").equals("SQL-RECEIVEREWALLETTOPUPSUCC")) {
                 System.out.println("调用个人充值成功");
@@ -495,17 +495,17 @@ public class OauthController {
             }
         }
 
-        //个人提现
-        //个人钱包提现 http://localhost:8080/sample/oauthController/login?method=ewalletcashout&action=cashout&page=mobilehome&walletTxn_PayerPID=31011519830805251X&walletTxn_ReceiverID=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475&TopupAmount=100.00&&paymentID=$&paymentStatus=&
+        //个人提现 cashout target account alipayacc/debitcard/creditcard/wechatacc
+        //个人钱包提现 http://localhost:8080/sample/oauthController/login?method=ewalletcashout&action=debitcard&page=mobilehome&walletTxn_PayerPID=31011519830805251X&walletTxn_ReceiverID=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475&CashoutAmount=100.00&&paymentID=$&paymentStatus=&
         if( method!=null&&page.equalsIgnoreCase("mobilehome")&&method.equals("ewalletcashout")&&action.equalsIgnoreCase("cashout")){
             DBConnection dao = new DBConnection();
             Connection conn = dao.getConnection();
             Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
             String txnCat = "PersonalEwalletCashout";
-            BigDecimal txnAmt = new BigDecimal(TopupAmount);
+            BigDecimal txnAmt = new BigDecimal(CashoutAmount);
 //            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             EwalletTxnController ewalletTxnController = new EwalletTxnController();
-            rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
+            rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(action, txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
             conn.close();
             if (rsMobileEwalletTxn.get("UpdatePersonalEwalletSucc").equals("succ")) {
                 System.out.println("调用个人提现成功");
@@ -516,8 +516,8 @@ public class OauthController {
             }
         }
 
-        //个人预支
-        //个人钱包预支 http://localhost:8080/sample/oauthController/login?method=ewalletcashadvance&action=cashadvance&page=mobilehome&walletTxn_PayerPID=31011519830805251X&walletTxn_ReceiverID=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475&TopupAmount=100.00&&paymentID=$&paymentStatus=&
+        //个人预支支付或预支消费
+        //个人钱包预支支付或预支消费 http://localhost:8080/sample/oauthController/login?method=ewalletcashadvance&action=cashadvance&page=mobilehome&walletTxn_PayerPID=31011519830805251X&walletTxn_ReceiverID=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475&TopupAmount=100.00&&paymentID=$&paymentStatus=&
         if( method!=null&&page.equalsIgnoreCase("mobilehome")&&method.equals("ewalletcashadvance")){
             System.out.print(action); // action=cashadvance , action=cashadvancepay
             DBConnection dao = new DBConnection();
@@ -527,7 +527,7 @@ public class OauthController {
             BigDecimal txnAmt = new BigDecimal(TopupAmount); 
 //            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             EwalletTxnController ewalletTxnController = new EwalletTxnController();
-            rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
+            rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(action,txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
             conn.close();
             if (rsMobileEwalletTxn.get("UpdatePersonalEwalletSucc").equals("succ")) {
                 System.out.println("调用个人提现成功");
@@ -551,7 +551,6 @@ public class OauthController {
                 case "ewalletsalary" :
                     System.out.println("ewalletsalary");
                     // call salary dashboard
-                    
                 case "ewalletrental" :
                     System.out.println("ewalletrental");
                 case "ewalletservicesfees" :

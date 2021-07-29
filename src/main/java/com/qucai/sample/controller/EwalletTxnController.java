@@ -397,156 +397,174 @@ public class EwalletTxnController {
     /*
 移动端个人
 */
-    public Map<String, Object> addMobileEwalletTxn(String txnCat, BigDecimal txnAmt, String walletTxn_PayerPID, 
+    public Map<String, Object> addMobileEwalletTxn(String action,String txnCat, BigDecimal txnAmt, String walletTxn_PayerPID,
                                                    String walletTxn_ReceiverID,String method,String paymentID,String paymentStatus,Connection conn
     ) throws SQLException {
 
         Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
-        BigDecimal t_MobileWalletTxn_TopupAmt = null,txnAmtPayerMinus = null,t_MobileWalletTxn_CashoutAmt= null;
+        BigDecimal t_MobileWalletTxn_TopupAmt = null, txnAmtPayerMinus = null, t_MobileWalletTxn_CashoutAmt = null;
         String ewalletTxnType = null;
         String TxnID = Tool.PayId();
-        if(paymentID == null){
+        if (paymentID == null) {
             paymentID = TxnID;
         }
-        switch (txnCat){
-            case "58scan-txn-58qr" : System.out.print("58scan-txn-58qr transit");
+        switch (txnCat) {
+            case "58scan-txn-58qr":
+                System.out.print("58scan-txn-58qr transit");
                 ewalletTxnType = "c2c 钱包转账";
                 txnAmtPayerMinus = txnAmt.negate();
-            break;
-            case "PersonalEwalletTopup" : System.out.print("PersonalEwalletTopup transit");
+                break;
+            case "PersonalEwalletTopup":
+                System.out.print("PersonalEwalletTopup transit");
                 t_MobileWalletTxn_TopupAmt = txnAmt;
                 walletTxn_ReceiverID = walletTxn_PayerPID;
                 ewalletTxnType = "c2b 充值";
-            break;
-            case "PersonalEwalletCashout" : System.out.print("PersonalEwalletCashout transit");
+                break;
+            case "PersonalEwalletCashout":
+                System.out.print("PersonalEwalletCashout transit");
                 txnAmtPayerMinus = txnAmt.negate();
                 txnAmt = txnAmtPayerMinus;
                 ewalletTxnType = "c2c 提现";
-            break;
+                break;
         }
 
-        String sql="insert into t_ewallettxn_info " +
+        String sql = "insert into t_ewallettxn_info " +
             "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ptmt = null;
             ptmt = conn.prepareStatement(sql);
-            ptmt.setString(1,Tool.uuid()); // uuid t_WalletTxn_ID 交易序列号
-            ptmt.setString(2,method); //QRcode t_WalletTxn_QRcode 二维码内容
-            ptmt.setString(3,TxnID);// t_WalletTxn_Num 交易流水号
-            ptmt.setString(4,""); // t_WalletTxn_Vendor  交易机构编号
-            ptmt.setString(5,paymentID); // t_WalletTxn_ClearNum 清算号
-            ptmt.setString(6,paymentID); // t_WalletTxn_ClearOrg 交易企业对账号
-            ptmt.setString(7,""); // t_WalletTxn_PayerName 付款人姓名
-            ptmt.setString(8,""); // t_WalletTxn_PayerID 付款人主ID
-            ptmt.setString(9,walletTxn_PayerPID); // t_WalletTxn_PayerPID 付款人身份证
-            ptmt.setString(10,""); // t_WalletTxn_ReceiverName 收款人姓名
-            ptmt.setString(11,""); // t_WalletTxn_ReceiverID 收款人ID
-            ptmt.setString(12,walletTxn_ReceiverID); // t_WalletTxn_ReceiverPID 收款人身份证
-            ptmt.setString(13,""); // t_WalletTxn_Mobile 付款人手机号
-            ptmt.setString(14,txnCat); // t_WalletTxn_TxnCat 充值,支付,收款,消费,退款
-            ptmt.setString(15,""); // t_WalletTxn_TxnCurrencyType 币种
-            ptmt.setTimestamp(16,new java.sql.Timestamp(System.currentTimeMillis())); // t_WalletTxn_TxnDate 交易时间
-            ptmt.setString(17,""); // t_WalletTxn_ProdName 产品名
-            ptmt.setInt(18,0); // t_WalletTxn_PayDays 天数
-            ptmt.setBigDecimal(19,new BigDecimal("0.00")); // t_WalletTxn_CreditPayCurrentNum 当前可预支额度
-            ptmt.setBigDecimal(20,txnAmt); // t_WalletTxn_TotTxnAmount 总支付金额
-            ptmt.setBigDecimal(21,t_MobileWalletTxn_TopupAmt); // t_WalletTxn_TopupAmt 充值金额
-            ptmt.setBigDecimal(22,new BigDecimal("0.00")); // t_WalletTxn_CryptoTxnAmt 数字币支付金额
-            ptmt.setBigDecimal(23,new BigDecimal("0.00")); // t_WalletTxn_DebitTxnAmt 借记卡支付金额
-            ptmt.setBigDecimal(24,new BigDecimal("0.00")); // t_WalletTxn_CreditTxnAmt 信用卡支付金额
-            ptmt.setBigDecimal(25,new BigDecimal("0.00")); // t_WalletTxn_CreditBalanceNum 剩余信用额度
-            ptmt.setBigDecimal(26,new BigDecimal("0.00")); // t_WalletTxn_CreditTxnAmtInit 信用支付金额
-            ptmt.setBigDecimal(27,txnAmt); // t_WalletTxn_TotalPrepayAmt 实付金额
-            ptmt.setBigDecimal(28,new BigDecimal("0.00")); // t_WalletTxn_TotallvorchourAmt 优惠券金额
-            ptmt.setInt(29,0); // t_WalletTxn_TotalInterestDays 结算周期 T+0 当天 T+1 隔天
-            ptmt.setInt(30,1); // t_WalletTxn_TxnCounts 交易次数
-            ptmt.setBigDecimal(31,new BigDecimal("0.00")); // t_WalletTxn_InterestBene 贴现差额
-            ptmt.setString(32,""); // t_WalletTxn_PaymentAccattr 对私-0；对公-1
-            ptmt.setString(33,""); // t_WalletTxn_RefundAccNo 退款账户号
-            ptmt.setBigDecimal(34,new BigDecimal("0.00")); // t_WalletTxn_TotBalance 钱包总余额
-            ptmt.setBigDecimal(35,new BigDecimal("0.00")); //  t_WalletTxn_BalancePrepayNum 额度变化(小于一个月工资)
-            ptmt.setTimestamp(36,null); // t_WalletTxn_OverdueRepaymentDate 返款时间
-            ptmt.setString(37,"1"); // t_WalletTxn_PayClear 结算状态,0-已结清,1-未结算,2-已逾期
-            ptmt.setString(38,""); // t_WalletTxn_Overdue 期数
-            ptmt.setInt(39,0); // t_WalletTxn_OverdueDays 逾期天数
-            ptmt.setBigDecimal(40,new BigDecimal("0.00")); // t_WalletTxn_RefundAmt 退款金额
-            ptmt.setBigDecimal(41,txnAmtPayerMinus); // 付款人钱包扣款数额
-            ptmt.setBigDecimal(42,new BigDecimal("0.00")); // t_WalletTxn_ServiceFee 服务费费
-            ptmt.setBigDecimal(43,new BigDecimal("0.00")); // t_WalletTxn_Poundage 区间手续费
-            ptmt.setBigDecimal(44,new BigDecimal("0.00")); // t_WalletTxn_TierPoundage 区间手续费
-            ptmt.setBigDecimal(45,new BigDecimal("0.00")); // t_WalletTxn_DiscountAmt 优惠金额 扣减数
-            ptmt.setBigDecimal(46,new BigDecimal("0.00")); // t_WalletTxn_DiscountBlanceAmt 结算金额
-            ptmt.setBigDecimal(47,new BigDecimal("0.00")); // t_WalletTxn_DiscountAmtCalc 算法公式
-            ptmt.setString(48,""); // t_WalletTxn_PayerBankAcc 支付人银行账号
-            ptmt.setString(49,""); // t_WalletTxn_ReceiverBankAcc 收款人账户号
-            ptmt.setTimestamp(50,null); // t_WalletTxn_TxnTimeout 订单超时时间
-            ptmt.setString(51,""); // t_WalletTxn_Paystatus 查询支付状态
-            ptmt.setString(52,""); // t_WalletTxn_SMS 短信验证
-            ptmt.setString(53,""); // t_WalletTxn_SMSRec 验证返回
-            ptmt.setString(54,ewalletTxnType);  // t_WalletTxn_type b2b,b2c,c2b,c2c 交易类型
-            ptmt.setString(55,"no"); // t_WalletTxn_Voucher voucher
-            ptmt.setString(56,""); // t_WalletTxn_TotShareProfit 备用字段
-            ptmt.setString(57,""); // t_WalletTxn_Txt3 备用字段
-            ptmt.setString(58,""); // t_WalletTxn_Txt4 备用字段
-            ptmt.setString(59,""); // t_WalletTxn_Txt5 备用字段
-            ptmt.setString(60,""); // agreement 协议条款
-            ptmt.setString(61,"mobile"); // platform 平台
-            ptmt.setString(62,""); // remark 备注
-            ptmt.setString(63,walletTxn_PayerPID); // creator 创建时间
-            ptmt.setTimestamp(64,new java.sql.Timestamp(System.currentTimeMillis())); // create_time 创建时间
-            ptmt.setString(65,""); // modifier 更改账号
+            ptmt.setString(1, Tool.uuid()); // uuid t_WalletTxn_ID 交易序列号
+            ptmt.setString(2, method); //QRcode t_WalletTxn_QRcode 二维码内容
+            ptmt.setString(3, TxnID);// t_WalletTxn_Num 交易流水号
+            ptmt.setString(4, ""); // t_WalletTxn_Vendor  交易机构编号
+            ptmt.setString(5, paymentID); // t_WalletTxn_ClearNum 清算号
+            ptmt.setString(6, paymentID); // t_WalletTxn_ClearOrg 交易企业对账号
+            ptmt.setString(7, ""); // t_WalletTxn_PayerName 付款人姓名
+            ptmt.setString(8, ""); // t_WalletTxn_PayerID 付款人主ID
+            ptmt.setString(9, walletTxn_PayerPID); // t_WalletTxn_PayerPID 付款人身份证
+            ptmt.setString(10, ""); // t_WalletTxn_ReceiverName 收款人姓名
+            ptmt.setString(11, ""); // t_WalletTxn_ReceiverID 收款人ID
+            ptmt.setString(12, walletTxn_ReceiverID); // t_WalletTxn_ReceiverPID 收款人身份证
+            ptmt.setString(13, ""); // t_WalletTxn_Mobile 付款人手机号
+            ptmt.setString(14, txnCat); // t_WalletTxn_TxnCat 充值,支付,收款,消费,退款
+            ptmt.setString(15, ""); // t_WalletTxn_TxnCurrencyType 币种
+            ptmt.setTimestamp(16, new java.sql.Timestamp(System.currentTimeMillis())); // t_WalletTxn_TxnDate 交易时间
+            ptmt.setString(17, ""); // t_WalletTxn_ProdName 产品名
+            ptmt.setInt(18, 0); // t_WalletTxn_PayDays 天数
+            ptmt.setBigDecimal(19, new BigDecimal("0.00")); // t_WalletTxn_CreditPayCurrentNum 当前可预支额度
+            ptmt.setBigDecimal(20, txnAmt); // t_WalletTxn_TotTxnAmount 总支付金额
+            ptmt.setBigDecimal(21, t_MobileWalletTxn_TopupAmt); // t_WalletTxn_TopupAmt 充值金额
+            ptmt.setBigDecimal(22, new BigDecimal("0.00")); // t_WalletTxn_CryptoTxnAmt 数字币支付金额
+            ptmt.setBigDecimal(23, new BigDecimal("0.00")); // t_WalletTxn_DebitTxnAmt 借记卡支付金额
+            ptmt.setBigDecimal(24, new BigDecimal("0.00")); // t_WalletTxn_CreditTxnAmt 信用卡支付金额
+            ptmt.setBigDecimal(25, new BigDecimal("0.00")); // t_WalletTxn_CreditBalanceNum 剩余信用额度
+            ptmt.setBigDecimal(26, new BigDecimal("0.00")); // t_WalletTxn_CreditTxnAmtInit 信用支付金额
+            ptmt.setBigDecimal(27, txnAmt); // t_WalletTxn_TotalPrepayAmt 实付金额
+            ptmt.setBigDecimal(28, new BigDecimal("0.00")); // t_WalletTxn_TotallvorchourAmt 优惠券金额
+            ptmt.setInt(29, 0); // t_WalletTxn_TotalInterestDays 结算周期 T+0 当天 T+1 隔天
+            ptmt.setInt(30, 1); // t_WalletTxn_TxnCounts 交易次数
+            ptmt.setBigDecimal(31, new BigDecimal("0.00")); // t_WalletTxn_InterestBene 贴现差额
+            ptmt.setString(32, ""); // t_WalletTxn_PaymentAccattr 对私-0；对公-1
+            ptmt.setString(33, ""); // t_WalletTxn_RefundAccNo 退款账户号
+            ptmt.setBigDecimal(34, new BigDecimal("0.00")); // t_WalletTxn_TotBalance 钱包总余额
+            ptmt.setBigDecimal(35, new BigDecimal("0.00")); //  t_WalletTxn_BalancePrepayNum 额度变化(小于一个月工资)
+            ptmt.setTimestamp(36, null); // t_WalletTxn_OverdueRepaymentDate 返款时间
+            ptmt.setString(37, "1"); // t_WalletTxn_PayClear 结算状态,0-已结清,1-未结算,2-已逾期
+            ptmt.setString(38, ""); // t_WalletTxn_Overdue 期数
+            ptmt.setInt(39, 0); // t_WalletTxn_OverdueDays 逾期天数
+            ptmt.setBigDecimal(40, new BigDecimal("0.00")); // t_WalletTxn_RefundAmt 退款金额
+            ptmt.setBigDecimal(41, txnAmtPayerMinus); // 付款人钱包扣款数额
+            ptmt.setBigDecimal(42, new BigDecimal("0.00")); // t_WalletTxn_ServiceFee 服务费费
+            ptmt.setBigDecimal(43, new BigDecimal("0.00")); // t_WalletTxn_Poundage 区间手续费
+            ptmt.setBigDecimal(44, new BigDecimal("0.00")); // t_WalletTxn_TierPoundage 区间手续费
+            ptmt.setBigDecimal(45, new BigDecimal("0.00")); // t_WalletTxn_DiscountAmt 优惠金额 扣减数
+            ptmt.setBigDecimal(46, new BigDecimal("0.00")); // t_WalletTxn_DiscountBlanceAmt 结算金额
+            ptmt.setBigDecimal(47, new BigDecimal("0.00")); // t_WalletTxn_DiscountAmtCalc 算法公式
+            ptmt.setString(48, ""); // t_WalletTxn_PayerBankAcc 支付人银行账号
+            ptmt.setString(49, ""); // t_WalletTxn_ReceiverBankAcc 收款人账户号
+            ptmt.setTimestamp(50, null); // t_WalletTxn_TxnTimeout 订单超时时间
+            ptmt.setString(51, ""); // t_WalletTxn_Paystatus 查询支付状态
+            ptmt.setString(52, ""); // t_WalletTxn_SMS 短信验证
+            ptmt.setString(53, ""); // t_WalletTxn_SMSRec 验证返回
+            ptmt.setString(54, ewalletTxnType);  // t_WalletTxn_type b2b,b2c,c2b,c2c 交易类型
+            ptmt.setString(55, "no"); // t_WalletTxn_Voucher voucher
+            ptmt.setString(56, ""); // t_WalletTxn_TotShareProfit 备用字段
+            ptmt.setString(57, ""); // t_WalletTxn_Txt3 备用字段
+            ptmt.setString(58, ""); // t_WalletTxn_Txt4 备用字段
+            ptmt.setString(59, ""); // t_WalletTxn_Txt5 备用字段
+            ptmt.setString(60, ""); // agreement 协议条款
+            ptmt.setString(61, "mobile"); // platform 平台
+            ptmt.setString(62, ""); // remark 备注
+            ptmt.setString(63, walletTxn_PayerPID); // creator 创建时间
+            ptmt.setTimestamp(64, new java.sql.Timestamp(System.currentTimeMillis())); // create_time 创建时间
+            ptmt.setString(65, ""); // modifier 更改账号
             ptmt.setTimestamp(66, null); // modify_time 更改时间
             System.out.println(ptmt.executeUpdate());
         } catch (SQLException e) {
             e.printStackTrace();
-            rsMobileEwalletTxn.put("SQL-PersonalEwalletTxn-ErrorCode:",String.valueOf(e.getErrorCode()));
-            rsMobileEwalletTxn.put("SQL-PersonalEwalletTxn-SQLstat:",String.valueOf(e.getSQLState()));
-            rsMobileEwalletTxn.put("SQL-PersonalEwalletTxn-SQLcause:",String.valueOf(e.getCause()));
-            rsMobileEwalletTxn.put("SQL","SQL-PersonalEwalletTxn-ErrorCode");
+            rsMobileEwalletTxn.put("SQL-PersonalEwalletTxn-ErrorCode:", String.valueOf(e.getErrorCode()));
+            rsMobileEwalletTxn.put("SQL-PersonalEwalletTxn-SQLstat:", String.valueOf(e.getSQLState()));
+            rsMobileEwalletTxn.put("SQL-PersonalEwalletTxn-SQLcause:", String.valueOf(e.getCause()));
+            rsMobileEwalletTxn.put("SQL", "SQL-PersonalEwalletTxn-ErrorCode");
             return rsMobileEwalletTxn;
-        }finally {
+        } finally {
             //更新付款人扣款先更新 - 非统计数据不做时间脚本
-            rsMobileEwalletTxn.put("SQL","SQL-PersonalEwalletTxnSucc");
+            rsMobileEwalletTxn.put("SQL", "SQL-PersonalEwalletTxnSucc");
             Map<String, Object> retUpdatePersonalEwallet = new Hashtable<String, Object>();
-            if(txnCat.equalsIgnoreCase("PersonalEwalletTopup")) {
-                retUpdatePersonalEwallet = EwalletController.UpdatePayeePersonalEwalletBalance(txnAmt,walletTxn_PayerPID,walletTxn_ReceiverID,conn);
-                if(!retUpdatePersonalEwallet.isEmpty()){
-                    rsMobileEwalletTxn.put("SQL","SQL-RECEIVEREWALLETTOPUPSUCC");
-                    if(txnCat.equalsIgnoreCase("PersonalEwalletCashout")){
-                        System.out.println("Ewallet Cashout Started");
-                        //Call cashout procedure
-//                        PaymentCall.Cashout();
-                    }
-                }else{
-                    rsMobileEwalletTxn.put("SQL","SQL-RECEIVEREWALLETTOPUPFAIL");
+            if (txnCat.equalsIgnoreCase("PersonalEwalletTopup")) {
+                retUpdatePersonalEwallet = EwalletController.UpdatePayeePersonalEwalletBalance(txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID, conn);
+                if (!retUpdatePersonalEwallet.isEmpty()) {
+                    rsMobileEwalletTxn.put("SQL", "SQL-RECEIVEREWALLETTOPUPSUCC");
+                } else {
+                    rsMobileEwalletTxn.put("SQL", "SQL-RECEIVEREWALLETTOPUPFAIL");
                 }
-            }else if(method.equalsIgnoreCase("58scan-txn-58qr")) {
-                retUpdatePersonalEwallet = EwalletController.UpdatePayerPersonalEwalletBalance(txnAmtPayerMinus,walletTxn_PayerPID,walletTxn_ReceiverID,conn);
-                if(!retUpdatePersonalEwallet.isEmpty()){
-                    if(method.equalsIgnoreCase("58scan-txn-58qr")) {
-                        retUpdatePersonalEwallet = EwalletController.UpdatePayeePersonalEwalletBalance(txnAmt,walletTxn_PayerPID,walletTxn_ReceiverID,conn);
-                        if(!retUpdatePersonalEwallet.isEmpty()){
-                            rsMobileEwalletTxn.put("SQL","SQL-RECEIVEREWALLETUPDATESUCC");
-                        }else{
-                            rsMobileEwalletTxn.put("SQL","SQL-PAYEREWALLETUPDATEUCC");
+            } else if (method.equalsIgnoreCase("58scan-txn-58qr")) {
+                retUpdatePersonalEwallet = EwalletController.UpdatePayerPersonalEwalletBalance(txnAmtPayerMinus, walletTxn_PayerPID, walletTxn_ReceiverID, conn);
+                if (!retUpdatePersonalEwallet.isEmpty()) {
+                    if (method.equalsIgnoreCase("58scan-txn-58qr")) {
+                        retUpdatePersonalEwallet = EwalletController.UpdatePayeePersonalEwalletBalance(txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID, conn);
+                        if (!retUpdatePersonalEwallet.isEmpty()) {
+                            rsMobileEwalletTxn.put("SQL", "SQL-RECEIVEREWALLETUPDATESUCC");
+                        } else {
+                            rsMobileEwalletTxn.put("SQL", "SQL-PAYEREWALLETUPDATEUCC");
                         }
-                    }else{
+                    } else {
+                        System.out.println("None 58scan-txn-qr, update ewallet complete");
+                    }
+                } else {
+                    rsMobileEwalletTxn.put("SQL", "SQL-PAYEREWALLETUPDATEFAIL");
+                }
+            }
+            if (txnCat.equalsIgnoreCase("PersonalEwalletCashout")) {
+                retUpdatePersonalEwallet = EwalletController.UpdatePayerPersonalEwalletBalance(txnAmtPayerMinus, walletTxn_PayerPID, walletTxn_ReceiverID, conn);
+                if (!retUpdatePersonalEwallet.isEmpty()) {
+                    if (method.equalsIgnoreCase("PersonalEwalletCashout")) {
+                        retUpdatePersonalEwallet = EwalletController.UpdatePayeePersonalEwalletBalance(txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID, conn);
+                        if (!retUpdatePersonalEwallet.isEmpty()) {
+                            rsMobileEwalletTxn.put("SQL", "SQL-RECEIVEREWALLETUPDATESUCC");
+                        } else {
+                            rsMobileEwalletTxn.put("SQL", "SQL-PAYEREWALLETUPDATEUCC");
+                        }
+                    } else {
                         System.out.println("toptup section");
                     }
                     //payment call
-    //                Map<String, Object> rs = new HashMap<String, Object>();
-    //                String merchantId = "S2135052";
-    //                StaffPrepayApplicationPayment staffPrepayApplicationPay = null;
-    //                staffPrepayApplicationPay.setTranAmt(String.format("%012d", txnAmt));
-    //                JSONObject resp = OrderPayDemo.main(staffPrepayApplicationPay,merchantId);
-    //                String QRcodeinit = resp.getJSONObject("body").getString("qrCode");
-    //                rs.put("QRcodeinit", QRcodeinit);
-                }else {
+                    //Personal Treasury control - personal txn vol. trigger
+                    //Overall Treasury Acc. check
+                    //deposit acc. switch
+                    //
+                    //                Map<String, Object> rs = new HashMap<String, Object>();
+                    //                String merchantId = "S2135052";
+                    //                StaffPrepayApplicationPayment staffPrepayApplicationPay = null;
+                    //                staffPrepayApplicationPay.setTranAmt(String.format("%012d", txnAmt));
+                    //                JSONObject resp = OrderPayDemo.main(staffPrepayApplicationPay,merchantId);
+                    //                String QRcodeinit = resp.getJSONObject("body").getString("qrCode");
+                    //                rs.put("QRcodeinit", QRcodeinit);
+                } else {
                     rsMobileEwalletTxn.put("SQL", "SQL-PAYEREWALLETUPDATEFAIL");
                 }
-            } 
+            }
+            return rsMobileEwalletTxn;
         }
-        return rsMobileEwalletTxn;
     }
-
 }
