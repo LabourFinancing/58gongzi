@@ -97,13 +97,13 @@ public class OauthController {
             return JsonBizTool.genJson(ExRetEnum.SUCCESS, resp);
         }
         
-        //http://localhost:8080/sample/oauthController/login?method=qrCode
-        if(method!=null&&method.equals("getUserInfo")){
+        //http://localhost:8080/sample/oauthController/login?method=get58qrcode
+        if(method!=null&&method.equals("get58qrcode")){
             Map<String, Object> rs = new HashMap<String, Object>();
             String merchantId = "S2135052";
             StaffPrepayApplicationPayment staffPrepayApplicationPay = null;
             JSONObject resp = OrderCreateDemo.main(staffPrepayApplicationPay,merchantId);
-            String QRcodeinit = resp.getString("qrCode");
+            String QRcodeinit = resp.getJSONObject("body").getString("qrCode");
             rs.put("QRcodeinit", QRcodeinit);
             return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
         }
@@ -339,11 +339,19 @@ public class OauthController {
 //            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
         }
 
-        //个人收付款58-wechat/alipay/unionpay
+        //个人收付款58qr-txn-wechatscan/alipayscan/unionpayscan
         //http://localhost:8080/sample/oauthController/login?method=58qr-txn-wechatscan&action=transaction&page=mobilepay&walletTxn_PayerPID=31011519830805251X&walletTxn_ReceiverID=wechat&txnAmount=0.1&paymentID=$&paymentStatus=&
         //个人收付款58qr-wechatscan/alipayscan/unionpayscan ( payee - 58,receiver-wechat )$
-        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("58qr-txn-wechatscan/alipayscan/unionpayscan")&&action.equalsIgnoreCase("transaction")){
+        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&action.equalsIgnoreCase("58qr-receiver")){
             Map<String, Object> rs = new HashMap<String, Object>();
+            switch (method.toLowerCase()) {
+                case "58qr-txn-alipayscan" :
+                    ;
+                case "58qr-txn-wechatscan" :
+                    ;
+                case "58qr-txn-unionpayscan" :
+                    ;
+            }
             EwalletTxn ewalletTxn = null;
             ewalletTxn.setT_WalletTxn_TotTxnAmount(new BigDecimal(txnAmount));
             ewalletTxn.setT_WalletTxn_ID(Tool.PayId());
@@ -535,8 +543,34 @@ public class OauthController {
          * 钱包管理
          ********************************************************************************************************************/
         
-        //财富管理 wealthmgt
-        //个人财富管理接口 http://localhost:8080/sample/oauthController/login?method=ewalletdashboard&action=wealthmgt&page=mobilehome&&pid=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475
+        //钱包管理 ewalletmgt  action=ewalletsalary/ewalletrental/ewalletservicesfees/ewalletpurchasepayments
+        //个人钱包管理接口 http://localhost:8080/sample/oauthController/login?method=ewalletmgt&action=ewalletmgt&page=mobilehome&&pid=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475
+        if( method!=null&&page.equalsIgnoreCase("mobilehome")&&method.equals("ewalletdashboard")&&action.equalsIgnoreCase("wealthmgt")){
+            Map<String, Object> rsEwalletSalary = new HashMap<String, Object>();
+            switch (method.toLowerCase()) {
+                case "ewalletsalary" :
+                    System.out.println("ewalletsalary");
+                    // call salary dashboard
+                    
+                case "ewalletrental" :
+                    System.out.println("ewalletrental");
+                case "ewalletservicesfees" :
+                    System.out.println("ewalletservicesfees");
+                case "ewalletpurchasepayments" :
+                    System.out.println("ewalletpurchasepayments");
+            }
+//            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+            if (rsEwalletSalary.get("UpdatePersonalEwalletSucc").equals("succ")) {
+                System.out.println("调用个人提现成功");
+                rsEwalletSalary.put("SMSverify",0);
+                return JsonBizTool.genJson(ExRetEnum.SUCCESS);
+            }else{
+                return JsonBizTool.genJson(ExRetEnum.FAIL, rsEwalletSalary);
+            }
+        }
+
+        //营收管理 wealthmgt
+        //个人营收管理接口 http://localhost:8080/sample/oauthController/login?method=ewalletdashboard&action=wealthmgt&page=mobilehome&&pid=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475
         if( method!=null&&page.equalsIgnoreCase("mobilehome")&&method.equals("ewalletdashboard")&&action.equalsIgnoreCase("wealthmgt")){
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
@@ -546,6 +580,7 @@ public class OauthController {
             }
             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
         }
+        
         //优惠券voucher
         if( method!=null&&page.equalsIgnoreCase("mobilehome")&&method.equals("ewalletdashboard")&&action.equalsIgnoreCase("voucher")){
             Map<String, Object> rs = new HashMap<String, Object>();
