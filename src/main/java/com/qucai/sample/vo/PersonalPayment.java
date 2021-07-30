@@ -11,7 +11,7 @@ import com.qucai.sample.util.DBConnection;
 import com.qucai.sample.util.JsonBizTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
+import com.qucai.sample.vo.MobilePersonalEwalletTxnStatistic;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -44,38 +44,38 @@ public class PersonalPayment {
     @Autowired
     private FinanceProductService financeProductService; //申明一个对象
 
-    private Object OrganizationInfo;
+    private static Map<String,Object> PayerTreasuryRegulatory() {
+        System.out.println("PayerTreasuryRegulatory Started");
+        Map<String, Object> retRs = new HashMap<>();
+        return retRs;
+    }
+
+    private static Map<String,Object> ReceiverTreasuryRegulatory() {
+        System.out.println("ReceiverTreasuryRegulatory Started");
+        Map<String, Object> retRs = new HashMap<>();
+        return retRs;
+    }
+
+    private static Map<String,Object> PayerEwalletStatisicCheck() {
+        System.out.println("PayerEwalletStatisicCheck Started");
+        Map<String, Object> retRs = new HashMap<>();
+        return retRs;
+    };
+
+    private static Map<String,Object> ReceiverEwalletStatisicCheck() {
+        System.out.println("ReceiverEwalletStatisicCheck Started");
+        Map<String, Object> retRs = new HashMap<>();
+        return retRs;
+    };
     
     public static Object PersonalTreasuryRegulationCheck(String personalMID, String pid, String realName, String ProdCat, String method,
                                                          String action,String txnCat, BigDecimal txnAmt, String walletTxn_PayerPID, String walletTxn_ReceiverID
     ) throws SQLException {
-        BigDecimal personalTreasuryctrlBeneDailyLimit = null;
-        BigDecimal personalTreasuryctrlBeneTxnLimit = null;
-        BigDecimal personalTreasuryctrlBeneTotalLimit = null;
-        Integer personalTreasuryctrlBeneDailyCntLimit = null;
-        String personalTreasuryctrlBeneStat = null;
-        BigDecimal personalTreasuryctrlPayDailyLimit = null;
-        BigDecimal personalTreasuryctrlPayTxnLimit = null;
-        BigDecimal personalTreasuryctrlPayTotalLimit = null;
-        Integer personalTreasuryctrlPayDailyCntLimit = null;
-        String personalTreasuryctrlPayStat = null;
-        BigDecimal personalTreasuryctrlTopupDailyLimit = null;
-        BigDecimal personalTreasuryctrlTopupTxnLimit= null;
-        BigDecimal personalTreasuryctrlTopupTotalLimit = null;
-        Integer personalTreasuryctrlTopupDailyCntLimit = null;
-        String personalTreasuryctrlTopupStat= null;
-        BigDecimal personalTreasuryctrlCashoutDailyLimit= null;
-        BigDecimal personalTreasuryctrlCashoutTxnLimit = null;
-        BigDecimal personalTreasuryctrlCashoutTotalLimit = null;
-        Integer personalTreasuryctrlCashoutDailyCntLimit= null;
-        String personalTreasuryctrlCashoutStat= null;
-        String personalTreasuryctrlstatus = null;
-        String personalTreasuryctrlCashbackStat= null;
-        
         Map<String, Object> rs = new HashMap<>();
         DBConnection dao = new DBConnection();
         Connection conn = dao.getConnection();
         Map<String,Object> rsMobileEwalletTxn = new HashMap<>();
+        MobilePersonalEwalletTxnStatistic mobilePersonalEwalletTxnStatistic = null;
         System.out.print("Personal Ewallet Transaction Regulatory");
         //get Personal Treasury Controller Info
         ResultSet rsSelect1 = null;
@@ -91,55 +91,55 @@ public class PersonalPayment {
             return rsMobileEwalletTxn;
         } finally {
             if (rsSelect1.next()) {
-                 personalTreasuryctrlBeneDailyLimit = rsSelect1.getBigDecimal("t_personalewallet_treasuryctrlBeneDailyLimit");
-                 personalTreasuryctrlBeneTxnLimit = rsSelect1.getBigDecimal("t_personalewallet_treasuryctrlBeneTxnLimit");
-                 personalTreasuryctrlBeneTotalLimit = rsSelect1.getBigDecimal("t_personalewallet_treasuryctrlBeneTotalLimit");
-                 personalTreasuryctrlBeneDailyCntLimit = rsSelect1.getInt("t_personalewallet_treasuryctrlBeneDailyCntLimit");
-                 personalTreasuryctrlBeneStat = rsSelect1.getString("t_personalewallet_treasuryctrlBeneStat");
-                 personalTreasuryctrlPayDailyLimit = rsSelect1.getBigDecimal("t_personalewallet_treasuryctrlPayDailyLimit");
-                 personalTreasuryctrlPayTxnLimit = rsSelect1.getBigDecimal("t_personalewallet_treasuryctrlPayTxnLimit");
-                 personalTreasuryctrlPayTotalLimit = rsSelect1.getBigDecimal("t_personalewallet_treasuryctrlPayTotalLimit");
-                 personalTreasuryctrlPayDailyCntLimit = rsSelect1.getInt("t_personalewallet_treasuryctrlPayDailyCntLimit");
-                 personalTreasuryctrlPayStat = rsSelect1.getString("t_personalewallet_treasuryctrlPayStat");
-                 personalTreasuryctrlTopupDailyLimit = rsSelect1.getBigDecimal("t_personalewallet_treasuryctrlTopupDailyLimit");
-                 personalTreasuryctrlTopupTxnLimit= rsSelect1.getBigDecimal("t_personalewallet_treasuryctrlTopupTxnLimit");
-                 personalTreasuryctrlTopupTotalLimit = rsSelect1.getBigDecimal("t_personalewallet_treasuryctrlTopupTotalLimit");
-                 personalTreasuryctrlTopupDailyCntLimit = rsSelect1.getInt("t_personalewallet_treasuryctrlTopupDailyCntLimit");
-                 personalTreasuryctrlTopupStat= rsSelect1.getString("t_personalewallet_treasuryctrlTopupStat");
-                 personalTreasuryctrlCashoutDailyLimit= rsSelect1.getBigDecimal("t_personalewallet_treasuryctrlCashoutDailyLimit");
-                 personalTreasuryctrlCashoutTxnLimit = rsSelect1.getBigDecimal("t_personalewallet_treasuryctrlCashoutTxnLimit");
-                 personalTreasuryctrlCashoutTotalLimit = rsSelect1.getBigDecimal("t_personalewallet_treasuryctrlCashoutTotalLimit");
-                 personalTreasuryctrlCashoutDailyCntLimit= rsSelect1.getInt("t_personalewallet_treasuryctrlCashoutDailyCntLimit");
-                 personalTreasuryctrlCashoutStat= rsSelect1.getString("t_personalewallet_treasuryctrlCashoutStat");
-                 personalTreasuryctrlstatus = rsSelect1.getString("t_personalewallet_treasuryctrlstatus");
-                 personalTreasuryctrlCashbackStat= rsSelect1.getString("t_personalewallet_treasuryctrlCashbackStat");
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlBeneDailyLimit(rsSelect1.getBigDecimal("t_personalewallet_treasuryctrlBeneDailyLimit"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlBeneTxnLimit(rsSelect1.getBigDecimal("t_personalewallet_treasuryctrlBeneTxnLimit"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlBeneTotalLimit(rsSelect1.getBigDecimal("t_personalewallet_treasuryctrlBeneTotalLimit"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlBeneDailyCntLimit(rsSelect1.getInt("t_personalewallet_treasuryctrlBeneDailyCntLimit"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlBeneStat(rsSelect1.getString("t_personalewallet_treasuryctrlBeneStat"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlPayDailyLimit(rsSelect1.getBigDecimal("t_personalewallet_treasuryctrlPayDailyLimit"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlPayTxnLimit(rsSelect1.getBigDecimal("t_personalewallet_treasuryctrlPayTxnLimit"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlPayTotalLimit(rsSelect1.getBigDecimal("t_personalewallet_treasuryctrlPayTotalLimit"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlPayDailyCntLimit(rsSelect1.getInt("t_personalewallet_treasuryctrlPayDailyCntLimit"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlPayStat(rsSelect1.getString("t_personalewallet_treasuryctrlPayStat"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlTopupDailyLimit(rsSelect1.getBigDecimal("t_personalewallet_treasuryctrlTopupDailyLimit"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlTopupTxnLimit(rsSelect1.getBigDecimal("t_personalewallet_treasuryctrlTopupTxnLimit"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlTopupTotalLimit(rsSelect1.getBigDecimal("t_personalewallet_treasuryctrlTopupTotalLimit"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlTopupDailyCntLimit(rsSelect1.getInt("t_personalewallet_treasuryctrlTopupDailyCntLimit"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlTopupStat(rsSelect1.getString("t_personalewallet_treasuryctrlTopupStat"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlCashoutDailyLimit(rsSelect1.getBigDecimal("t_personalewallet_treasuryctrlCashoutDailyLimit"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlCashoutTxnLimit(rsSelect1.getBigDecimal("t_personalewallet_treasuryctrlCashoutTxnLimit"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlCashoutTotalLimit(rsSelect1.getBigDecimal("t_personalewallet_treasuryctrlCashoutTotalLimit"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlCashoutDailyCntLimit(rsSelect1.getInt("t_personalewallet_treasuryctrlCashoutDailyCntLimit"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlCashoutStat(rsSelect1.getString("t_personalewallet_treasuryctrlCashoutStat"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlstatus(rsSelect1.getString("t_personalewallet_treasuryctrlstatus"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlCashbackStat(rsSelect1.getString("t_personalewallet_treasuryctrlCashbackStat"));
             }else {
                 rsMobileEwalletTxn.put("retMsg", "Personal Treasury Controller Info not found");
                 conn.close();
             }
         }
         //check Payment delegation
-        if(personalTreasuryctrlCashbackStat.equalsIgnoreCase("off")){
+        if(mobilePersonalEwalletTxnStatistic.getPersonalTreasuryctrlCashbackStat().equalsIgnoreCase("off")){
             rs.put("alertMsg","Personal Treasury control Cashback is Off Status");
             return JsonBizTool.genJson(ExRetEnum.FAIL,rs);
         }
-        if(personalTreasuryctrlstatus.equalsIgnoreCase("off")){
+        if(mobilePersonalEwalletTxnStatistic.getPersonalTreasuryctrlstatus().equalsIgnoreCase("off")){
             rs.put("alertMsg","Personal Treasury control is Off Status");
             return JsonBizTool.genJson(ExRetEnum.FAIL,rs);
         }
-        if(personalTreasuryctrlCashoutStat.equalsIgnoreCase("off")){
+        if(mobilePersonalEwalletTxnStatistic.getPersonalTreasuryctrlCashoutStat().equalsIgnoreCase("off")){
             rs.put("alertMsg","Personal Treasury control Cashout is Off Status");
             return JsonBizTool.genJson(ExRetEnum.FAIL,rs);
         }
-        if(personalTreasuryctrlBeneStat.equalsIgnoreCase("off")){
+        if(mobilePersonalEwalletTxnStatistic.getPersonalTreasuryctrlBeneStat().equalsIgnoreCase("off")){
             rs.put("alertMsg","Personal Treasury control Bene is Off Status");
             return JsonBizTool.genJson(ExRetEnum.FAIL,rs);
         }
-        if(personalTreasuryctrlPayStat.equalsIgnoreCase("off")){
+        if(mobilePersonalEwalletTxnStatistic.getPersonalTreasuryctrlPayStat().equalsIgnoreCase("off")){
             rs.put("alertMsg","Personal Treasury control Pay is Off Status");
             return JsonBizTool.genJson(ExRetEnum.FAIL,rs);
         }
-        if(personalTreasuryctrlTopupStat.equalsIgnoreCase("off")){
+        if(mobilePersonalEwalletTxnStatistic.getPersonalTreasuryctrlTopupStat().equalsIgnoreCase("off")){
             rs.put("alertMsg","Personal Treasury control Topup is Off Status");
             return JsonBizTool.genJson(ExRetEnum.FAIL,rs);
         }
@@ -171,18 +171,6 @@ public class PersonalPayment {
         }
         
         //get Personal Treasury Statistic Info
-        BigDecimal personalTreasuryctrlBeneDailyAmt = null;
-        BigDecimal personalTreasuryctrlBeneTotalAmt = null;
-        Integer personalTreasuryctrlBeneDailyCnt = null;
-        BigDecimal personalTreasuryctrlPayDailyAmt = null;
-        BigDecimal personalTreasuryctrlPayTotalAmt = null;
-        Integer personalTreasuryctrlPayDailyCnt = null;
-        BigDecimal personalTreasuryctrlTopupDailyAmt = null;
-        BigDecimal personalTreasuryctrlTopupTotalAmt = null;
-        Integer personalTreasuryctrlTopupDailyCnt = null;
-        BigDecimal personalTreasuryctrlCashoutDailyAmt = null;
-        BigDecimal personalTreasuryctrlCashoutTotalAmt = null;
-        Integer personalTreasuryctrlCashoutDailyCnt= null;
         ResultSet rsSelect2 = null;
         String sql2 = "select * from t_personal_ewallet_statistics where t_personal_ewallet_statistic_ApplierPID = ? or t_personal_ewallet_statistic_ID = ?";
         try {
@@ -197,18 +185,18 @@ public class PersonalPayment {
             return rsMobileEwalletTxn;
         } finally {
             if (rsSelect2.next()) {
-                personalTreasuryctrlBeneDailyAmt = rsSelect2.getBigDecimal("t_personal_ewallet_statistic_treasuryctrlBeneDailyAmt");
-                personalTreasuryctrlBeneTotalAmt = rsSelect2.getBigDecimal("t_personal_ewallet_statistic_treasuryctrlBeneTotalAmt");
-                personalTreasuryctrlBeneDailyCnt = rsSelect2.getInt("t_personal_ewallet_statistic_treasuryctrlBeneDailyCnt");
-                personalTreasuryctrlPayDailyAmt = rsSelect2.getBigDecimal("t_personal_ewallet_statistic_treasuryctrlPayDailyAmt");
-                personalTreasuryctrlPayTotalAmt = rsSelect2.getBigDecimal("t_personal_ewallet_statistic_treasuryctrlPayTotalAmt");
-                personalTreasuryctrlPayDailyCnt = rsSelect2.getInt("t_personal_ewallet_statistic_treasuryctrlPayDailyCnt");
-                personalTreasuryctrlTopupDailyAmt = rsSelect2.getBigDecimal("t_personal_ewallet_statistic_treasuryctrlTopupDailyAmt");
-                personalTreasuryctrlTopupTotalAmt = rsSelect2.getBigDecimal("t_personal_ewallet_statistic_treasuryctrlTopupTotalAmt");
-                personalTreasuryctrlTopupDailyCnt = rsSelect2.getInt("t_personal_ewallet_statistic_treasuryctrlTopupDailyCnt");
-                personalTreasuryctrlCashoutDailyAmt = rsSelect2.getBigDecimal("t_personal_ewallet_statistic_treasuryctrlCashoutDailyAmt");
-                personalTreasuryctrlCashoutTotalAmt = rsSelect2.getBigDecimal("t_personal_ewallet_statistic_treasuryctrlCashoutTotalAmt");
-                personalTreasuryctrlCashoutDailyCnt= rsSelect2.getInt("t_personal_ewallet_statistic_treasuryctrlCashoutDailyCnt");
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlBeneDailyAmt(rsSelect2.getBigDecimal("t_personal_ewallet_statistic_treasuryctrlBeneDailyAmt"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlBeneTotalAmt(rsSelect2.getBigDecimal("t_personal_ewallet_statistic_treasuryctrlBeneTotalAmt"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlBeneDailyCnt(rsSelect2.getInt("t_personal_ewallet_statistic_treasuryctrlBeneDailyCnt"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlPayDailyAmt(rsSelect2.getBigDecimal("t_personal_ewallet_statistic_treasuryctrlPayDailyAmt"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlPayTotalAmt(rsSelect2.getBigDecimal("t_personal_ewallet_statistic_treasuryctrlPayTotalAmt"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlPayDailyCnt(rsSelect2.getInt("t_personal_ewallet_statistic_treasuryctrlPayDailyCnt"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlTopupDailyAmt(rsSelect2.getBigDecimal("t_personal_ewallet_statistic_treasuryctrlTopupDailyAmt"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlTopupTotalAmt(rsSelect2.getBigDecimal("t_personal_ewallet_statistic_treasuryctrlTopupTotalAmt"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlTopupDailyCnt(rsSelect2.getInt("t_personal_ewallet_statistic_treasuryctrlTopupDailyCnt"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlCashoutDailyAmt(rsSelect2.getBigDecimal("t_personal_ewallet_statistic_treasuryctrlCashoutDailyAmt"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlCashoutTotalAmt(rsSelect2.getBigDecimal("t_personal_ewallet_statistic_treasuryctrlCashoutTotalAmt"));
+                mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlCashoutDailyCnt(rsSelect2.getInt("t_personal_ewallet_statistic_treasuryctrlCashoutDailyCnt"));
             }else {
                 rsMobileEwalletTxn.put("retMsg", "Personal Treasury Statistic info failed not found");
                 conn.close();
