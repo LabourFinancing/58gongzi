@@ -5,57 +5,22 @@ package com.qucai.sample.vo;
  * Date : 29/07/2021
  ************************************************/
 
-import com.github.pagehelper.PageInfo;
-import com.qucai.sample.OperationTypeConstant;
-import com.qucai.sample.common.PageParam;
-import com.qucai.sample.entity.*;
 import com.qucai.sample.exception.ExRetEnum;
 import com.qucai.sample.service.*;
 import com.qucai.sample.util.DBConnection;
 import com.qucai.sample.util.JsonBizTool;
-import com.qucai.sample.util.ShiroSessionUtil;
-import com.qucai.sample.util.Tool;
-import com.qucai.sample.vo.MobileEwalletDashboard;
-import com.qucai.sample.vo.MobilePersonalMain;
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.qucai.sample.util.DBConnection;
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-
-import com.qucai.sample.entity.TreasuryDBInfo;
 import com.qucai.sample.service.OrganizationInfoService;
-import com.qucai.sample.service.TreasuryDBInfoService;
-import com.qucai.sample.service.TreasuryInfoService;
-import com.qucai.sample.util.ShiroSessionUtil;
 
 @Controller
 public class PersonalPayment {
@@ -81,7 +46,9 @@ public class PersonalPayment {
 
     private Object OrganizationInfo;
     
-    public static Map<String, Object> PersonalTreasuryRegulationCheck(String personalMID, String pid, String realName,String ProdCat) throws SQLException {
+    public static Object PersonalTreasuryRegulationCheck(String personalMID, String pid, String realName, String ProdCat, String method,
+                                                         String action,String txnCat, BigDecimal txnAmt, String walletTxn_PayerPID, String walletTxn_ReceiverID
+    ) throws SQLException {
         BigDecimal personalTreasuryctrlBeneDailyLimit = null;
         BigDecimal personalTreasuryctrlBeneTxnLimit = null;
         BigDecimal personalTreasuryctrlBeneTotalLimit = null;
@@ -105,10 +72,10 @@ public class PersonalPayment {
         String personalTreasuryctrlstatus = null;
         String personalTreasuryctrlCashbackStat= null;
         
-        Map<String, Object> retPerosnalTreasuryReg = new HashMap<>();
+        Map<String, Object> rs = new HashMap<>();
         DBConnection dao = new DBConnection();
         Connection conn = dao.getConnection();
-        Map<String,Object> rsPersonalTreasurySelect = new HashMap<>();
+        Map<String,Object> rsMobileEwalletTxn = new HashMap<>();
         System.out.print("Personal Ewallet Transaction Regulatory");
         //get Personal Treasury Controller Info
         ResultSet rsSelect1 = null;
@@ -120,8 +87,8 @@ public class PersonalPayment {
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            rsPersonalTreasurySelect.put("SQL-CODE","exception:get Personal Treasury Controller Info failed");
-            return rsPersonalTreasurySelect;
+            rsMobileEwalletTxn.put("SQL-CODE","exception:get Personal Treasury Controller Info failed");
+            return rsMobileEwalletTxn;
         } finally {
             if (rsSelect1.next()) {
                  personalTreasuryctrlBeneDailyLimit = rsSelect1.getBigDecimal("t_personalewallet_treasuryctrlBeneDailyLimit");
@@ -147,28 +114,60 @@ public class PersonalPayment {
                  personalTreasuryctrlstatus = rsSelect1.getString("t_personalewallet_treasuryctrlstatus");
                  personalTreasuryctrlCashbackStat= rsSelect1.getString("t_personalewallet_treasuryctrlCashbackStat");
             }else {
-                rsPersonalTreasurySelect.put("retMsg", "Personal Treasury Controller Info not found");
+                rsMobileEwalletTxn.put("retMsg", "Personal Treasury Controller Info not found");
                 conn.close();
             }
         }
-        //check Payment delegation 
+        //check Payment delegation
         if(personalTreasuryctrlCashbackStat.equalsIgnoreCase("off")){
-
+            rs.put("alertMsg","Personal Treasury control Cashback is Off Status");
+            return JsonBizTool.genJson(ExRetEnum.FAIL,rs);
         }
         if(personalTreasuryctrlstatus.equalsIgnoreCase("off")){
-
+            rs.put("alertMsg","Personal Treasury control is Off Status");
+            return JsonBizTool.genJson(ExRetEnum.FAIL,rs);
         }
         if(personalTreasuryctrlCashoutStat.equalsIgnoreCase("off")){
-
+            rs.put("alertMsg","Personal Treasury control Cashout is Off Status");
+            return JsonBizTool.genJson(ExRetEnum.FAIL,rs);
         }
         if(personalTreasuryctrlBeneStat.equalsIgnoreCase("off")){
-            
+            rs.put("alertMsg","Personal Treasury control Bene is Off Status");
+            return JsonBizTool.genJson(ExRetEnum.FAIL,rs);
         }
         if(personalTreasuryctrlPayStat.equalsIgnoreCase("off")){
-
+            rs.put("alertMsg","Personal Treasury control Pay is Off Status");
+            return JsonBizTool.genJson(ExRetEnum.FAIL,rs);
         }
         if(personalTreasuryctrlTopupStat.equalsIgnoreCase("off")){
-
+            rs.put("alertMsg","Personal Treasury control Topup is Off Status");
+            return JsonBizTool.genJson(ExRetEnum.FAIL,rs);
+        }
+        
+        switch (method) {            
+            case "58scan-txn-58qr":
+                System.out.println("58scan-txn-58qr transit");
+                String ewalletTxnType = "c2c 钱包转账";
+                BigDecimal txnAmtPayerMinus = txnAmt.negate();
+                break;
+            case "PersonalEwalletTopup":
+                System.out.println("PersonalEwalletTopup transit");
+                BigDecimal t_MobileWalletTxn_TopupAmt = txnAmt;
+                walletTxn_ReceiverID = walletTxn_PayerPID;
+                ewalletTxnType = "c2b 充值";
+                break;
+            case "PersonalEwalletCashout":
+                System.out.println("PersonalEwalletCashout transit");
+                txnAmtPayerMinus = txnAmt.negate();
+                txnAmt = txnAmtPayerMinus;
+                ewalletTxnType = "c2c 提现";
+                break;
+            case "PersonalEwalletShopping":
+                System.out.println("PersonalEwalletShopping transit");
+                txnAmtPayerMinus = txnAmt.negate();
+                txnAmt = txnAmtPayerMinus;
+                ewalletTxnType = "c2b 消费";
+                break;
         }
         
         //get Personal Treasury Statistic Info
@@ -194,8 +193,8 @@ public class PersonalPayment {
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            rsPersonalTreasurySelect.put("SQL-CODE","exception:get Personal Treasury Statistic info failed");
-            return rsPersonalTreasurySelect;
+            rsMobileEwalletTxn.put("SQL-CODE","exception:get Personal Treasury Statistic info failed");
+            return rsMobileEwalletTxn;
         } finally {
             if (rsSelect2.next()) {
                 personalTreasuryctrlBeneDailyAmt = rsSelect2.getBigDecimal("t_personal_ewallet_statistic_treasuryctrlBeneDailyAmt");
@@ -211,13 +210,13 @@ public class PersonalPayment {
                 personalTreasuryctrlCashoutTotalAmt = rsSelect2.getBigDecimal("t_personal_ewallet_statistic_treasuryctrlCashoutTotalAmt");
                 personalTreasuryctrlCashoutDailyCnt= rsSelect2.getInt("t_personal_ewallet_statistic_treasuryctrlCashoutDailyCnt");
             }else {
-                rsPersonalTreasurySelect.put("retMsg", "Personal Treasury Statistic info failed not found");
+                rsMobileEwalletTxn.put("retMsg", "Personal Treasury Statistic info failed not found");
                 conn.close();
             }
         }
 
         conn.close();
-        return rsPersonalTreasurySelect;
+        return rsMobileEwalletTxn;
     }
 
     public static Map<String, Object> PersonalEwalletTxnPayment(String personalMID, String pid, String realName){

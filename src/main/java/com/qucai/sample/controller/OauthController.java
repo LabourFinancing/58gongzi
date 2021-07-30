@@ -213,6 +213,7 @@ public class OauthController {
 
         }
 
+        //checking reinfrastructure the payment method
         /*************************************************** payment start 收付款 *******************************************
          * mobilepay transmit, 58gongzi - Alipay/wechantpay/unionpay  --- 1st version
          * FX/Remit 58gongzi - Paypal/Swift/visa/master/AE ---- 2nd version
@@ -476,24 +477,6 @@ public class OauthController {
             return "redirect:/EwalletTXNcontroller/personalEWTTxnMobile";
         }
         */
-        //个人支付渠道切换 http://localhost:8080/sample/oauthController/login?method=personalpymtswitch&action=paymentswitch&page=mobilepay&PaymentChannel=$
-        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("personalpymtswitch")&&action.equalsIgnoreCase("paymentswitch")){
-            Map<String, Object> rs = new HashMap<String, Object>();
-            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
-            EwalletTxn ewalletTxn = null;
-            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
-                System.out.println("调用个人消费成功");
-                rs.put("SMSverify",0);
-            }
-            Ewallet ewallet = null;
-            ewallet.setT_personalewallet_AccCat(PaymentChannel);
-            PersonalMainController personalMainController =  new PersonalMainController();
-            EwalletController ewalletController =  new EwalletController();
-            String retPaymentSwitch = ewalletController.ewalletList(ewallet);
-            String retPersonalMainController = personalMainController.personalMMobiledashboard(ewalletTxn);
-
-            return JsonBizTool.genJson(ExRetEnum.SUCCESS);
-        }
 
         //个人充值
         //个人钱包充值 http://localhost:8080/sample/oauthController/login?method=ewallettopup&action=topup&page=mobilepay&walletTxn_PayerPID=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475&TopupAmount=100.00&&paymentID=$&paymentStatus=&

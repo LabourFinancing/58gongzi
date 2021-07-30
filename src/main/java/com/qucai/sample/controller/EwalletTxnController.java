@@ -409,21 +409,27 @@ public class EwalletTxnController {
         }
         switch (txnCat) {
             case "58scan-txn-58qr":
-                System.out.print("58scan-txn-58qr transit");
+                System.out.println("58scan-txn-58qr transit");
                 ewalletTxnType = "c2c 钱包转账";
                 txnAmtPayerMinus = txnAmt.negate();
                 break;
             case "PersonalEwalletTopup":
-                System.out.print("PersonalEwalletTopup transit");
+                System.out.println("PersonalEwalletTopup transit");
                 t_MobileWalletTxn_TopupAmt = txnAmt;
                 walletTxn_ReceiverID = walletTxn_PayerPID;
                 ewalletTxnType = "c2b 充值";
                 break;
             case "PersonalEwalletCashout":
-                System.out.print("PersonalEwalletCashout transit");
+                System.out.println("PersonalEwalletCashout transit");
                 txnAmtPayerMinus = txnAmt.negate();
                 txnAmt = txnAmtPayerMinus;
                 ewalletTxnType = "c2c 提现";
+                break;
+            case "PersonalEwalletShopping":
+                System.out.println("PersonalEwalletShopping transit");
+                txnAmtPayerMinus = txnAmt.negate();
+                txnAmt = txnAmtPayerMinus;
+                ewalletTxnType = "c2b 消费";
                 break;
         }
 
@@ -545,7 +551,7 @@ public class EwalletTxnController {
                             rsMobileEwalletTxn.put("SQL", "SQL-PAYEREWALLETUPDATEUCC");
                         }
                     } else {
-                        System.out.println("toptup section");
+                        System.out.println("cashout section");
                     }
                     //Coding....
                     //payment call
