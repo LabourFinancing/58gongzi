@@ -68,15 +68,15 @@ public class OverallStatisticRefresh{
             ptmt.setString(1,personalMID);
             ptmt.setString(2,pid);
             ptmt.setString(3,pid);
-            ptmt.setString(4, realName);
-            ptmt.setString(5, pid);
+            ptmt.setString(4,realName);
+            ptmt.setString(5,pid);
             ptmt.setTimestamp(6, new java.sql.Timestamp(System.currentTimeMillis()));
             System.out.println(ptmt.executeUpdate());
         } catch (SQLException e) {
             e.printStackTrace();
             retStatus.put("SQL-CODE",String.valueOf(e.getErrorCode()));
         }finally {
-            retStatus.put("SQL","SQL-PERSONALEWALLETSTATISTICADDSUCC");
+            retStatus.put("SQL","SQL-PERSONALEWALLETSTATISTIC-ADDSUCC");
         }
         return retStatus;
     }
@@ -122,7 +122,7 @@ public class OverallStatisticRefresh{
             e.printStackTrace();
             retStatus.put("SQL-CODE",String.valueOf(e.getErrorCode()));
         }finally {
-            retStatus.put("SQL","SQL-PERSONALEWALLETSTATISTICUPDATESUCC");
+            retStatus.put("SQL","SQL-PERSONALEWALLETSTATISTIC-UPDATESUCC");
         }
         return retStatus;
     }

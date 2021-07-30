@@ -303,9 +303,8 @@ public class OauthController {
                 Map<String,Object> PersonalTreasuryChk = PersonalValueEst.PersonalTreasuryChk(MobilePersonalTreasuryCtrl);
             }
             
-//            if（）{}else{};
             //call topup 调用充值
-            // personal treasury mgt
+            //personal treasury mgt
             
             EwalletTxnController ewalletTxnController = new EwalletTxnController();
             rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(action,txnCat,txnAmt,walletTxn_PayerPID,walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
@@ -326,8 +325,24 @@ public class OauthController {
 
             if (!rsMobileEwalletTxn.isEmpty()){
                 conn.close();
-                String mobileEwalletDashboardJson = JsonTool.genByFastJson(mobileEwalletDashboard);
-                return mobileEwalletDashboardJson;
+                Map<String, Object> retPayerEwalletStatistic = new HashMap<>();
+                Map<String, Object> retReceiverEwalletStatistic = new HashMap<>();
+                //Renew PersonalEwallet Statistic
+                if(walletTxn_PayerPID != null) {
+                    String PersonalPID = walletTxn_PayerPID;
+                    retPayerEwalletStatistic = OverallStatisticRefresh.PersonalEwalletStatisticRefresh(PersonalPID);
+                }
+                if( walletTxn_ReceiverID != null) {
+                    String PersonalPID = walletTxn_ReceiverID;
+                    retReceiverEwalletStatistic = OverallStatisticRefresh.PersonalEwalletStatisticRefresh(PersonalPID);
+                }
+                if(retPayerEwalletStatistic.get("SQL") != null && retReceiverEwalletStatistic.get("SQL") != null) {
+                    String mobileEwalletDashboardJson = JsonTool.genByFastJson(mobileEwalletDashboard);
+                    return mobileEwalletDashboardJson;
+                }else{
+                    rs.put("errMsg","rsMobileEwalletStatisticRenew failed");
+                    return JsonBizTool.genJson(ExRetEnum.FAIL,rs);
+                }
             }else{
                 rs.put("errMsg","rsMobileEwalletTxn is Empty");
                 return JsonBizTool.genJson(ExRetEnum.FAIL,rs);
