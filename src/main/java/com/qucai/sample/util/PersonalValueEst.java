@@ -47,7 +47,7 @@ public class PersonalValueEst {
                 PersonalTreasuryChk.put("SQL-CAUSE",MobilePersonalTreasuryCtrl.getT_personalewallet_treasuryctrlTxt3());
                 return PersonalTreasuryChk;
             }else{
-//                MobileProductMain.get
+//                MobileProductMain.get  coding
             }
         }
         

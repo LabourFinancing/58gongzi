@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * 支付下单报文签名（仅供参考）
  *
- * @author sandpay
+ * @author sandpay -- fastpay
  */
 public class FastPayServlet extends HttpServlet {
 
