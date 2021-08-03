@@ -636,10 +636,8 @@ public class StaffPrepayApplicationController {
 								}else {
 									OverAllFee = staffPrepayApplication.getT_Txn_ApplyPrepayAmount().add(t_FProd_ServiceFee).add(t_FProd_Poundage).add(calc_TierPoundage).add(t_FProd_Interest);
 								}
-									//扣除总余额    
-
+									//扣除总余额
 									String t_TreasuryDB_OrgName = ShiroSessionUtil.getLoginSession().getCompany_name();
-									
 									//扣除机构余额
 									TreasuryDBInfo treasuryOrgDBInfoUpdate = treasuryDBInfoService.findOrgTreasuryCurrBalance(t_TreasuryDB_OrgName);
 								  	BigDecimal tTreasuryOrgDBBalance = treasuryOrgDBInfoUpdate.getT_TreasuryDB_Balance().subtract(OverAllFee);
@@ -648,33 +646,39 @@ public class StaffPrepayApplicationController {
 								  	treasuryOrgDBInfoUpdate.setT_TreasuryDB_BoPRatio(tTreasuryOrgDBPaymentBalance); 	
 									BigDecimal Sandebalance = null;
 									BigDecimal ebibalance = null;
-									switch(PaymentSwitch){
-									case "shdy" :
-						        	    String ret_Data = AmtQueryServlet.main(merchantId); // query Chinaebi Balance
-										JSONObject obj = (JSONObject) JSON.parse(ret_Data);
-										String balanceQuery = (String) obj.get("transAmt"); //  Chinaebipay branch
-										ebibalance = (new BigDecimal(balanceQuery)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
-										System.out.println("Query Chinaebipay balance:");
-										System.out.println(ebibalance);
-										break;
-									case "shsd" :
-						        	    JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId);
-//						  		      	String JSONretdata = QueryBalanceDemo.BalanceQuery(merchantId); // query Sande Balance
-//						  				JSONObject obj1 = (JSONObject) JSON.parse(JSONretdata); // old sdk
-						  		    	String BalanceData = (String) JSONretdata.get("balance");
-						  		    	Sandebalance = (new BigDecimal(BalanceData)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
-						  				System.out.println("Query Sande balance:");
-						  				System.out.println(Sandebalance);
-										break;
-						    		default:
-						    			merchantId = "S2135052";
-						        	    JSONObject JSONretdata1 = MerBalanceQueryDemo.main(merchantId);
-//						  		      	String JSONretdata1 = QueryBalanceDemo.BalanceQuery(merchantId); // query Goldman Fuks Sande Acc Balance
-//						  				JSONObject obj2 = (JSONObject) JSON.parse(JSONretdata1); // old sdk
-						  		    	String BalanceData1 = (String) JSONretdata1.get("balance");
-						  		    	Sandebalance = (new BigDecimal(BalanceData1)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
-						  				System.out.println("Query Sande balance:");
-						  				System.out.println(Sandebalance);
+									switch(PaymentSwitch){ 
+									    case "shdy" :
+                                            String ret_Data = AmtQueryServlet.main(merchantId); // query Chinaebi Balance
+                                            JSONObject obj = (JSONObject) JSON.parse(ret_Data);
+                                            String balanceQuery = (String) obj.get("transAmt"); //  Chinaebipay branch
+                                            ebibalance = (new BigDecimal(balanceQuery)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
+                                            System.out.println("Query Chinaebipay balance:");
+                                            System.out.println(ebibalance);
+                                            break;
+                                        case "shsd" :
+                                            JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId);
+                                            String BalanceData = (String) JSONretdata.get("balance");
+                                            Sandebalance = (new BigDecimal(BalanceData)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
+                                            System.out.println("Query Sande balance:");
+                                            System.out.println(Sandebalance);
+                                            break;
+										case "ewallet" :
+                                            merchantId = "S2135052";
+                                            JSONObject JSONretdata1 = MerBalanceQueryDemo.main(merchantId);
+                                            String BalanceData1 = (String) JSONretdata1.get("balance");
+                                            Sandebalance = (new BigDecimal(BalanceData1)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
+                                            System.out.println("Ewallet - Query Sande balance:");
+                                            System.out.println(Sandebalance);	
+                                            break;
+                                        default:
+                                            merchantId = "S2135052";
+                                            JSONObject JSONretdata2 = MerBalanceQueryDemo.main(merchantId);
+    //						  		      	String JSONretdata1 = QueryBalanceDemo.BalanceQuery(merchantId); // query Goldman Fuks Sande Acc Balance
+    //						  				JSONObject obj2 = (JSONObject) JSON.parse(JSONretdata1); // old sdk
+                                            String BalanceData2 = (String) JSONretdata2.get("balance");
+                                            Sandebalance = (new BigDecimal(BalanceData2)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
+                                            System.out.println("Query Sande balance:");
+                                            System.out.println(Sandebalance);
 									}
 									
 									if(ebibalance == null){
@@ -716,7 +720,9 @@ public class StaffPrepayApplicationController {
                                    
 //            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
                                   EwalletTxnController ewalletTxnController = new EwalletTxnController();
-                                  rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
+                                  String action = "WithdrawToEwallet";
+                                  rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(action,txnCat, txnAmt,  walletTxn_PayerPID,
+                                       walletTxn_ReceiverID, method, paymentID, paymentStatus, conn);
                                   conn.close();
                                   if (rsMobileEwalletTxn.get("SQL").equals("SQL-RECEIVEREWALLETTOPUPSUCC")) {
                                       System.out.println("调用个人提款到钱包成功");

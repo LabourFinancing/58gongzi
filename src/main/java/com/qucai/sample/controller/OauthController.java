@@ -301,7 +301,8 @@ public class OauthController {
                 PersonalTreasuryCtrlController personalTreasuryCtrlController = new PersonalTreasuryCtrlController();
                 PersonalTreasuryCtrl MobilePersonalTreasuryCtrl = (PersonalTreasuryCtrl) personalTreasuryCtrlController.findPersonalTreasury(MobileProductMain.getT_Product_SeriesID(),conn);
                 System.out.print(MobilePersonalTreasuryCtrl);
-                Map<String,Object> PersonalTreasuryChk = PersonalValueEst.PersonalTreasuryChk(MobilePersonalTreasuryCtrl);
+                //Personal Treasury Regulatory Chk
+                Map<String,Object> PersonalTreasuryChk = PersonalValueEst.PersonalTreasuryChk(action, txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
             }
             
             //call topup 调用充值
@@ -504,18 +505,27 @@ public class OauthController {
         if( method!=null&&page.equalsIgnoreCase("mobilehome")&&method.equals("ewalletcashout")&&action.equalsIgnoreCase("cashout")){
             DBConnection dao = new DBConnection();
             Connection conn = dao.getConnection();
-            Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
+            //verify personal treasury delegation
+            Map<String, Object> PersonalTreasuryChk = new HashMap<>();
             String txnCat = "PersonalEwalletCashout";
-            BigDecimal txnAmt = new BigDecimal(CashoutAmount);
+            //find Treasury prod alias
+            BigDecimal txnAmt = new BigDecimal(CashoutAmount).setScale(25,2);
+            PersonalTreasuryChk = PersonalValueEst.PersonalTreasuryChk(action, txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
+            Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
+            Map<String, Object> rsMobileEwalletCashoutTxn =  new HashMap<>();
 //            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             EwalletTxnController ewalletTxnController = new EwalletTxnController();
             rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(action, txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
             conn.close();
             if (rsMobileEwalletTxn.get("UpdatePersonalEwalletSucc").equals("succ")) {
-                System.out.println("调用个人提现成功");
+                System.out.println("调用个人钱包提现成功");
+                //Cashout to Personal Bank card
+//                rsMobileEwalletCashoutTxn = 
                 rsMobileEwalletTxn.put("SMSverify",0);
+                conn.close();
                 return JsonBizTool.genJson(ExRetEnum.SUCCESS);
             }else{
+                conn.close();
                 return JsonBizTool.genJson(ExRetEnum.FAIL, rsMobileEwalletTxn);
             }
         }

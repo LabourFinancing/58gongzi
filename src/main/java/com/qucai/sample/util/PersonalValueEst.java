@@ -1,183 +1,57 @@
 package com.qucai.sample.util;
 
-import com.qucai.sample.common.PageParam;
+import com.qucai.sample.controller.PersonalMainController;
+import com.qucai.sample.controller.PersonalTreasuryCtrlController;
+import com.qucai.sample.controller.ProductMainController;
 import com.qucai.sample.entity.PersonalTreasuryCtrl;
+import com.qucai.sample.entity.ProductMain;
+import com.qucai.sample.vo.MobilePersonalMain;
 
-import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 public class PersonalValueEst {
-
-    public static String StringSeq(String StrInput) {
-        
-        String str = StrInput;
-        char[] ch=str.toCharArray();
-        String strNew ="";
-        for(int i = ch.length - 1;i>=0;i--){
-            strNew +=ch[i];
-        }
-        System.out.println("字符串"+str+"倒叙排列结果为："+strNew);
-        return strNew;
+    
+    public static Map<String, Object>  PersonalEvaluateRenew() {
+        Map<String,Object> retPersonalEvalation = new HashMap<>();
+        String newPersonalEvaluateNum = "999999.99";
+        retPersonalEvalation.put("newPersonalEvaluateNum",new BigDecimal(newPersonalEvaluateNum));
+        return retPersonalEvalation;
     }
+    
 
-	public static PageParam genPageParam(HttpServletRequest request) {
-		String pageNum = request.getParameter("pageNum") == null ? "1"
-				: request.getParameter("pageNum");
-		String pageSize = request.getParameter("pageSize") == null ? "10"
-				: request.getParameter("pageSize");
-		PageParam pp = new PageParam();
-		pp.setPageNum(Integer.parseInt(pageNum));
-		pp.setPageSize(Integer.parseInt(pageSize));
-		return pp;
-	}
-
-	public static String uuid() {
-		return UUID.randomUUID().toString().replaceAll("-", "");
-	}
-
-	public static String genPassword(int length) {
-		String rs = "";
-		Random random = new Random();
-		// 参数8，表示生成8位随机数
-		for (int i = 0; i < length; i++) {
-			String charOrNum = random.nextInt(2) % 2 == 0 ? "char" : "num";
-			// 输出字母还是数字
-			if ("char".equalsIgnoreCase(charOrNum)) {
-				// 输出是大写字母还是小写字母
-				int temp = random.nextInt(2) % 2 == 0 ? 65 : 97;
-				rs += (char) (random.nextInt(26) + temp);
-			} else if ("num".equalsIgnoreCase(charOrNum)) {
-				rs += String.valueOf(random.nextInt(10));
-			}
-		}
-		return rs;
-	}
-	
-	public static BigDecimal gent_PeronalTreasuryEst(String t_FProd_TierPoundage,BigDecimal t_Txn_ApplyPrepayAmount) {
-		BigDecimal calc_TierPoundage = null,calc_TierPoundage_initial = null;
-		double[][] Tier_details;
-        if ( t_FProd_TierPoundage.equals("") || t_FProd_TierPoundage.equals(null) ){
-			calc_TierPoundage = new BigDecimal(0);
-		}else{
-    		 String[] arr = t_FProd_TierPoundage.split(";");
-			 Tier_details = new double[arr.length][];
-		    	Integer big_arr = arr.length - 1;
-			    for(int i=0; i<arr.length; i++) {
-			        String[] sSecond = arr[i].split(",");
-				    Tier_details[i] = new double[sSecond.length];
-				    for(int j=0;j<sSecond.length;j++){
-				    	Tier_details[i][j] = Double.parseDouble(sSecond[j]);
-				    }
-				    if (Tier_details[i][0] > t_Txn_ApplyPrepayAmount.doubleValue() ){
-				    	calc_TierPoundage = new BigDecimal(0);
-				    }else if ( Tier_details[i][0] < t_Txn_ApplyPrepayAmount.doubleValue() && Tier_details[i][1] >= t_Txn_ApplyPrepayAmount.doubleValue()){
-				        calc_TierPoundage_initial = new BigDecimal(Tier_details[i][2]);
-				        calc_TierPoundage = compareNumber(calc_TierPoundage_initial,t_Txn_ApplyPrepayAmount);		        	
-				    	break;
-				    }else if ( i == big_arr ){
-				    	if (Tier_details[big_arr][1] < t_Txn_ApplyPrepayAmount.doubleValue()){
-					        calc_TierPoundage_initial = new BigDecimal(Tier_details[i][2]);
-					        calc_TierPoundage = compareNumber(calc_TierPoundage_initial,t_Txn_ApplyPrepayAmount);	
-					    	break;
-				    	}else{
-				    		System.out.println("Tier Poundge Fee is out of range");
-				    		break;
-				    	}
-				    }
-			      }
-	    }
-		return calc_TierPoundage;
-	}
-	
-	public static boolean isChinaPhoneLegal(String str)  
-            throws PatternSyntaxException {
-        String regExp = "^((13[0-9])|(15[^4])|(16[5-7])|(17[0-8])|(18[0-9])|(19[0-9])|(14[5-8]))\\d{8}$"; 
-        Pattern p = Pattern.compile(regExp);  
-        Matcher m = p.matcher(str);  
-        return m.matches();  
-    }  
-	
-	public class CheckBankCard {
-	    /*
-	    校验过程： 
-	    1、从卡号最后一位数字开始，逆向将奇数位(1、3、5等等)相加。 
-	    2、从卡号最后一位数字开始，逆向将偶数位数字，先乘以2（如果乘积为两位数，将个位十位数字相加，即将其减去9），再求和。 
-	    3、将奇数位总和加上偶数位总和，结果应该可以被10整除。       
-	    */   
-	        /** 
-	        * 校验银行卡卡号 
-	        */  
-	       public boolean checkBankCard(String bankCard) {  
-	                if(bankCard.length() < 15 || bankCard.length() > 19) {
-	                    return false;
-	                }
-	                char bit = getBankCardCheckCode(bankCard.substring(0, bankCard.length() - 1));  
-	                if(bit == 'N'){  
-	                    return false;  
-	                }  
-	                return bankCard.charAt(bankCard.length() - 1) == bit;  
-	       }  
-
-	       /** 
-	        * 从不含校验位的银行卡卡号采用 Luhm 校验算法获得校验位 
-	        * @param nonCheckCodeBankCard 
-	        * @return 
-	        */  
-	       public char getBankCardCheckCode(String nonCheckCodeBankCard){  
-	           if(nonCheckCodeBankCard == null || nonCheckCodeBankCard.trim().length() == 0  
-	                   || !nonCheckCodeBankCard.matches("\\d+")) {  
-	               //如果传的不是数据返回N  
-	               return 'N';  
-	           }  
-	           char[] chs = nonCheckCodeBankCard.trim().toCharArray();  
-	           int luhmSum = 0;  
-	           for(int i = chs.length - 1, j = 0; i >= 0; i--, j++) {  
-	               int k = chs[i] - '0';  
-	               if(j % 2 == 0) {  
-	                   k *= 2;  
-	                   k = k / 10 + k % 10;  
-	               }  
-	               luhmSum += k;             
-	           }  
-	           return (luhmSum % 10 == 0) ? '0' : (char)((10 - luhmSum % 10) + '0');  
-	       } 
-	
-	}
-	
-	public static BigDecimal compareNumber(BigDecimal calc_TierPoundage_initial, BigDecimal t_Txn_ApplyPrepayAmount){
-		BigDecimal calc_TierPoundage = null;
-        if (!"".equals(calc_TierPoundage_initial) && calc_TierPoundage_initial != null){
-            if (new BigDecimal(calc_TierPoundage_initial.intValue()).compareTo(calc_TierPoundage_initial)==0){
-                //整数
-            	calc_TierPoundage = calc_TierPoundage_initial;
-            }else {
-                //小数
-            	calc_TierPoundage = t_Txn_ApplyPrepayAmount.multiply(calc_TierPoundage_initial).setScale(2, BigDecimal.ROUND_UP);
+    public static Map<String, Object> PersonalTreasuryChk(String action, String txnCat, BigDecimal txnAmt, String walletTxn_PayerPID, String walletTxn_ReceiverID,
+                                                          String method, String paymentID, String paymentStatus, Connection conn) throws SQLException {
+        Map<String,Object> PersonalTreasuryChk = new HashMap<String, Object>();
+        PersonalMainController personalMainController = new PersonalMainController();
+//https://blog.csdn.net/fgdfgasd/article/details/50534517  -- 改成三连left join提高效率 - 拿PID查出个人信息连接个人产品控制信息连接个人资金控制 同时获取个人当前交易资金统计信息
+        MobilePersonalMain mobilePersonalMain = (MobilePersonalMain) personalMainController.findPersonalMainInfo(walletTxn_PayerPID,conn);
+        ProductMainController productMainController = new ProductMainController();
+        ProductMain MobileProductMain = (ProductMain) productMainController.findPersonalProduct(mobilePersonalMain.getT_mobilePersonalMain_productCat(),conn);
+        if(MobileProductMain.getT_Product_Txt().equalsIgnoreCase("SQL-FindPersonalProduct-ErrorCode")){
+            PersonalTreasuryChk.put("SQL","findPersonalProduct-error");
+            PersonalTreasuryChk.put("SQL-CODE",MobileProductMain.getT_Product_Txt1());
+            PersonalTreasuryChk.put("SQL-CAUSE",MobileProductMain.getT_Product_Txt2());
+            return PersonalTreasuryChk;
+        }else{
+            PersonalTreasuryCtrlController personalTreasuryCtrlController = new PersonalTreasuryCtrlController();
+            PersonalTreasuryCtrl MobilePersonalTreasuryCtrl = (PersonalTreasuryCtrl) personalTreasuryCtrlController.findPersonalTreasury(MobileProductMain.getT_Product_SeriesID(),conn);
+            if(MobilePersonalTreasuryCtrl.getT_personalewallet_treasuryctrlTxt().equalsIgnoreCase("SQL-FindPersonalProduct-ErrorCode")){
+                PersonalTreasuryChk.put("SQL",MobilePersonalTreasuryCtrl.getT_personalewallet_treasuryctrlTxt());
+                PersonalTreasuryChk.put("SQL-CODE",MobilePersonalTreasuryCtrl.getT_personalewallet_treasuryctrlTxt2());
+                PersonalTreasuryChk.put("SQL-CAUSE",MobilePersonalTreasuryCtrl.getT_personalewallet_treasuryctrlTxt3());
+                return PersonalTreasuryChk;
+            }else{
+//                MobileProductMain.get
             }
         }
-        return calc_TierPoundage;
-    }
-	
-
-	public static String PayId() {
-		SimpleDateFormat PayIdHead = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-		double PayRadom = ((Math.random()*9+1)*100);
-		String PayNum = String.valueOf(PayRadom).substring(0,String.valueOf(PayRadom).indexOf("."));
-		StringBuffer ps = new StringBuffer();
-		String PayId = String.valueOf(ps.append(PayIdHead.format(new Date()).toString()).append(PayNum));
-		return PayId;
-	}
-
-    public static Map<String, Object> PersonalTreasuryChk(PersonalTreasuryCtrl MobilePersonalTreasuryCtrl){
-        Map<String,Object> PersonalTreasuryChk = new HashMap<String, Object>();
         
         return PersonalTreasuryChk;
     }
-	
 
 }

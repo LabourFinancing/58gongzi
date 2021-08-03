@@ -34,9 +34,11 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = "/PersonalTreasuryCtrlController")
 public class PersonalTreasuryCtrlController {
+    
+    private static ProductMain MobileProductMain;
 
-	
-	// 必须把new personalTreasuryCtrl的列进行全面修改, 新建personalTreasuryCtrlService
+
+    // 必须把new personalTreasuryCtrl的列进行全面修改, 新建personalTreasuryCtrlService
 	
     @Autowired
     private PersonalTreasuryCtrlService personalTreasuryCtrlService; //申明一个对象
@@ -191,9 +193,13 @@ public class PersonalTreasuryCtrlController {
             // TODO Auto-generated catch block
             e.printStackTrace();
             MobilePersonalTreasuryCtrl.setT_personalewallet_treasuryctrlstatus("exception");
+            MobilePersonalTreasuryCtrl.setT_personalewallet_treasuryctrlTxt("SQL-findPersonalTreasury-ErrorCode");
+            MobilePersonalTreasuryCtrl.setT_personalewallet_treasuryctrlTxt2(String.valueOf(e.getSQLState()));
+            MobilePersonalTreasuryCtrl.setT_personalewallet_treasuryctrlTxt3(String.valueOf(e.getCause()));
             return MobilePersonalTreasuryCtrl;
         } finally {
             return MobilePersonalTreasuryCtrl;
         }
     }
+
 }

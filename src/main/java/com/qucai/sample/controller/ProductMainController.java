@@ -162,7 +162,7 @@ public class ProductMainController {
 
     //Get PersonalProductinfo
     public ProductMain findPersonalProduct(String productCat,Connection conn) throws SQLException {
-//        Map<String, Object> mobilePersonalMain1 =  new HashMap<String, Object>();
+        Map<String, Object> rsFindPersonalProduct =  new HashMap<String, Object>();
         ProductMain mobileProductMain = new ProductMain();
         ResultSet rs = null;
 
@@ -181,6 +181,9 @@ public class ProductMainController {
             // TODO Auto-generated catch block
             e.printStackTrace();
             mobileProductMain.setT_Product_Status("exception");
+            mobileProductMain.setT_Product_Txt("SQL-FindPersonalProduct-ErrorCode");
+            mobileProductMain.setT_Product_Txt1(String.valueOf(e.getSQLState()));
+            mobileProductMain.setT_Product_Txt2( String.valueOf(e.getCause()));
             return mobileProductMain;
         } finally {
             return mobileProductMain;
