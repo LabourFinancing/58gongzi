@@ -23,22 +23,18 @@ import javax.servlet.http.HttpServletResponse;
 import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.domain.AlipayFundTransOrderQueryModel;
 import com.qucai.sample.alipayDemo_java.src.java.com.alipay.demo.controller.AlipayFundTransOrderQueryController;
-import com.qucai.sample.alipayDemo_java.src.java.com.alipay.demo.controller.AlipayFundTransToaccountTransferController;
-import com.qucai.sample.alipayDemo_java.src.java.com.alipay.demo.controller.MainController;
 import com.qucai.sample.entity.*;
-import com.qucai.sample.exception.RetEnumIntf;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo.OrderCreateDemo;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo.OrderPayDemo;
 import com.qucai.sample.service.*;
 import com.qucai.sample.util.*;
-import com.qucai.sample.vo.OverallStatisticRefresh;
+import com.qucai.sample.util.OverallStatisticRefresh;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -285,7 +281,6 @@ public class OauthController {
             
             //find Payer personal Info and 
             PersonalMainController personalMainController = new PersonalMainController();
-//https://blog.csdn.net/fgdfgasd/article/details/50534517  -- 改成三连left join提高效率
             mobilePersonalMain = (MobilePersonalMain) personalMainController.findPersonalMainInfo(walletTxn_PayerPID,conn);
             System.out.print(mobilePersonalMain);
             
@@ -445,14 +440,30 @@ public class OauthController {
         }
         //http://localhost:8080/sample/oauthController/login?method=scan-shopping-58qr&action=shopping&page=mobilepay&walletTxn_PayerPID=wechat&walletTxn_ReceiverID=31011519830805251X&txnAmount=0.1
         //个人消费  ( payer - 58,receiver representer- GFwechat )
-        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("scan-shopping-58qr")&&action.equalsIgnoreCase("payee")){
-            Map<String, Object> rs = new HashMap<String, Object>();
-            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
-            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
-                System.out.println("调用个人消费成功");
-                rs.put("SMSverify",0);
+        if( method!=null&&page.equalsIgnoreCase("ewalletpay")&&method.equals("scan-shopping-58qr")&&action.equalsIgnoreCase("shopping")){
+            DBConnection dao = new DBConnection();
+            Connection conn = dao.getConnection();
+            //verify personal treasury delegation
+            Map<String, Object> PersonalTreasuryChk = new HashMap<>();
+            String txnCat = "PersonalEwalletCashout";
+            //find Treasury prod alias
+            BigDecimal txnAmt = new BigDecimal(CashoutAmount).setScale(25,2);
+            PersonalTreasuryChk = PersonalValueEst.PersonalTreasuryChk(action, txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
+            Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
+            Map<String, Object> rsMobileEwalletCashoutTxn =  new HashMap<>();
+//            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+            EwalletTxnController ewalletTxnController = new EwalletTxnController();
+            rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(action, txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
+            if (rsMobileEwalletTxn.get("UpdatePersonalEwalletSucc").equals("succ")) {
+                System.out.println("调用个人钱包提现成功");
+                //Pay via Org Wechatpay/alipay acc - call Node Org pay coding...
+                rsMobileEwalletTxn.put("SMSverify",0);
+                conn.close();
+                return JsonBizTool.genJson(ExRetEnum.SUCCESS);
+            }else{
+                conn.close();
+                return JsonBizTool.genJson(ExRetEnum.FAIL, rsMobileEwalletTxn);
             }
-            return JsonBizTool.genJson(ExRetEnum.SUCCESS);
         }
         //http://localhost:8080/sample/oauthController/login?method=58scan-shopping-qr&action=shopping&page=mobilepay&walletTxn_PayerPID=wechat&walletTxn_ReceiverID=31011519830805251X&txnAmount=0.1
         // ( payee - 58,payee representer- GFwechat )
@@ -466,7 +477,7 @@ public class OauthController {
             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
         }
         
-        /*
+        
         //个人消费
         if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewalletTXN")&&action.equalsIgnoreCase("shopping")){
             Map<String, Object> rs = new HashMap<String, Object>();
@@ -477,7 +488,6 @@ public class OauthController {
             }
             return "redirect:/EwalletTXNcontroller/personalEWTTxnMobile";
         }
-        */
 
         //个人充值
         //个人钱包充值 http://localhost:8080/sample/oauthController/login?method=ewallettopup&action=topup&page=mobilepay&walletTxn_PayerPID=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475&TopupAmount=100.00&&paymentID=$&paymentStatus=&
@@ -667,45 +677,6 @@ public class OauthController {
         } else {
 
             token.setPassword(password.toCharArray());
-//            token.setRememberMe(true);
-            // 移动端判断
-/*            String[] mobileAgents = { "iphone", "android","ipad", "phone", "mobile", "wap", "netfront", "java", "opera mobi",
-                    "opera mini", "ucweb", "windows ce", "symbian", "series", "webos", "sony", "blackberry", "dopod", "oppo",
-                    "nokia", "samsung", "palmsource", "xda", "pieplus", "meizu", "midp", "cldc", "motorola", "foma", "vivo",
-                    "docomo", "up.browser", "up.link", "blazer", "helio", "hosin", "huawei", "novarra", "coolpad", "webos",
-                    "techfaith", "palmsource", "alcatel", "amoi", "ktouch", "nexian", "ericsson", "philips", "sagem",
-                    "wellcom", "bunjalloo", "maui", "smartphone", "iemobile", "spice", "bird", "zte-", "longcos",
-                    "pantech", "gionee", "portalmmm", "jig browser", "hiptop", "benq", "haier", "^lct", "320x320",
-                    "240x320", "176x220", "w3c ", "acs-", "alav", "alca", "amoi", "audi", "avan", "benq", "bird", "blac",
-                    "blaz", "brew", "cell", "cldc", "cmd-", "dang", "doco", "eric", "hipt", "inno", "ipaq", "java", "jigs",
-                    "kddi", "keji", "leno", "lg-c", "lg-d", "lg-g", "lge-", "maui", "maxo", "midp", "mits", "mmef", "mobi",
-                    "mot-", "moto", "mwbp", "nec-", "newt", "noki", "oper", "palm", "pana", "pant", "phil", "play", "port",
-                    "prox", "qwap", "sage", "sams", "sany", "sch-", "sec-", "send", "seri", "sgh-", "shar", "sie-", "siem",
-                    "smal", "smar", "sony", "sph-", "symb", "t-mo", "teli", "tim-", "tosh", "tsm-", "upg1", "upsi", "vk-v",
-                    "voda", "wap-", "wapa", "wapi", "wapp", "wapr", "webc", "winw", "winw", "xda", "xda-",
-                    "Googlebot-Mobile" };
-            if (request.getHeader("User-Agent") != null) {
-                String agent=request.getHeader("User-Agent");
-                for (String mobileAgent : mobileAgents) {
-                    if (agent.toLowerCase().indexOf(mobileAgent) >= 0&&agent.toLowerCase().indexOf("windows nt")<=0 &&agent.toLowerCase().indexOf("macintosh")<=0) {
-                        if (userName.toLowerCase().contains("admin")) {
-                            token.setHost("P");
-                            host = "P";
-                        } else {
-                            token.setHost("M");
-                            host = "M" ;
-                            break;
-                        }
-                      }
-                   }
-                }
-*/
-/* get remote request IP address
-                if (request.getHeader("x-forwarded-for") == null) {
-                    return request.getRemoteAddr();
-                }
-                return request.getHeader("x-forwarded-for");
-*/
 
             if (userName.toLowerCase().contains("admin")) {
                 token.setHost("P");

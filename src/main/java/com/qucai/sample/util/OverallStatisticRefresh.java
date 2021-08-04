@@ -1,4 +1,4 @@
-package com.qucai.sample.vo;
+package com.qucai.sample.util;
 
 import java.math.BigDecimal;
 import java.sql.Connection;

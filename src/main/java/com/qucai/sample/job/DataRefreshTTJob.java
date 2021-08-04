@@ -128,6 +128,7 @@ public class DataRefreshTTJob {
         logger.info("定时每天钱包身价计算开始：" + System.currentTimeMillis());
         String sql = "UPDATE t_personal_ewallet, (select t_treasurydb_main.t_TreasuryDB_Main_BaselineValue as personalDays from t_treasurydb_main) as a "
             + "SET t_personal_ewallet.t_personalewallet_DayCntEq0 = if(t_personal_ewallet.t_personalewallet_TotCNYBalance=0, 1, 0) + t_personal_ewallet.t_personalewallet_DayCntEq0,"
+            + "t_personal_ewallet.modifier = 'System Time Trigger',t_personal_ewallet.modify_time = NOW(),"
             + "t_personal_ewallet.t_personalewallet_DayCntMorethan0 = if(t_personal_ewallet.t_personalewallet_TotCNYBalance>0, 1, 0) + t_personal_ewallet.t_personalewallet_DayCntMorethan0,"
             + "t_personal_ewallet.t_personalewallet_BalanceCntDays = if(t_personal_ewallet.t_personalewallet_BalaceYesterDay<=t_personal_ewallet.t_personalewallet_TotCNYBalance,t_personalewallet_BalanceCntDays + 1,1),"
             + "t_personal_ewallet.t_personalewallet_TotalWorthCal = t_personal_ewallet.t_personalewallet_TotalWorthCal + ( t_personal_ewallet.t_personalewallet_BalanceCntDays * t_personal_ewallet.t_personalewallet_TotCNYBalance),"

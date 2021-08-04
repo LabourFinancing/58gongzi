@@ -1,4 +1,4 @@
-package com.qucai.sample.vo;
+package com.qucai.sample.util;
 /************************************************
  * Personal Ewallet Payment Management
  * Author : Spear Yao
@@ -7,8 +7,6 @@ package com.qucai.sample.vo;
 
 import com.qucai.sample.exception.ExRetEnum;
 import com.qucai.sample.service.*;
-import com.qucai.sample.util.DBConnection;
-import com.qucai.sample.util.JsonBizTool;
 import com.qucai.sample.vo.MobilePersonalEwalletTxnStatistic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
