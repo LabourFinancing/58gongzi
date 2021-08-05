@@ -70,8 +70,9 @@ public class OauthController {
 
     @RequestMapping("/login")
     @ResponseBody
-    public Object login(HttpServletRequest request, HttpServletResponse response,String facialret,String txnAmount,String personalMID,
-                        String walletTxn_PayerPID,String walletTxn_ReceiverID, String PaymentChannel, String TopupAmount,String CashoutAmount,String realName,
+    public Object login(HttpServletRequest request, HttpServletResponse response,String facialret,String txnAmount,
+                        String personalMID,String walletTxn_PayerPID,String walletTxn_ReceiverID,
+                        String PaymentChannel,String shoppingAmount, String TopupAmount,String CashoutAmount,String realName,
                         String userName, String pid, String password, String page, String paymentchannel, String action,String cardAcc,
                         String mode, String gid, String method, String phone, String host,String paymentID,String paymentStatus,
                         String SMSsendcode, String SMSstrret, String type, String API) throws Exception {
@@ -447,26 +448,27 @@ public class OauthController {
             }
             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
         }
-        //http://localhost:8080/sample/oauthController/login?method=scan-shopping-58qr&action=shopping&page=mobilepay&walletTxn_PayerPID=wechat&walletTxn_ReceiverID=31011519830805251X&txnAmount=0.1
+        //http://localhost:8080/sample/oauthController/login?method=scan-shopping-58qr&action=shopping&page=mobilepay&walletTxn_PayerPID=wechat&walletTxn_ReceiverID=31011519830805251X&PaymentChannel=debitcardNum&shoppingAmount=0.1
         //个人消费  ( payer - 58,receiver representer- GFwechat )
         if( method!=null&&page.equalsIgnoreCase("ewalletpay")&&method.equals("scan-shopping-58qr")&&action.equalsIgnoreCase("shopping")){
             DBConnection dao = new DBConnection();
             Connection conn = dao.getConnection();
             //verify personal treasury delegation
             Map<String, Object> PersonalTreasuryChk = new HashMap<>();
-            String txnCat = "PersonalEwalletCashout";
+            String txnCat = "PersonalEwalletShopping";
             //find Treasury prod alias
-            BigDecimal txnAmt = new BigDecimal(CashoutAmount).setScale(25,2);
+            BigDecimal txnAmt = new BigDecimal(shoppingAmount).setScale(25,2);
             PersonalTreasuryChk = PersonalValueEst.PersonalTreasuryChk(action, txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
             Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
             Map<String, Object> rsMobileEwalletCashoutTxn =  new HashMap<>();
+            Map<String, Object> rsMobileEwalletShoppingTxn =  new HashMap<>();
 //            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             EwalletTxnController ewalletTxnController = new EwalletTxnController();
             rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(action, txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
             if (rsMobileEwalletTxn.get("UpdatePersonalEwalletSucc").equals("succ")) {
                 String PersonalPID = walletTxn_ReceiverID;
                 Map<String, Object> retPersonalWorthRenew = OverallStatisticRefresh.PersonalEwalletWorthRenew(PersonalPID);
-                System.out.println("调用个人钱包提现成功");
+                System.out.println("调用个人钱包消费扣款成功");
                 //Pay via Org Wechatpay/alipay acc - call Node Org pay coding...
                 rsMobileEwalletTxn.put("SMSverify",0);
                 conn.close();
@@ -549,6 +551,11 @@ public class OauthController {
                 Map<String, Object> retPersonalWorthRenew = OverallStatisticRefresh.PersonalEwalletWorthRenew(PersonalPID);
                 System.out.println("调用个人钱包提现成功");
                 //Cashout to Personal Bank card
+                StaffPrepayApplicationPayment PersonalApplicationPay = null;
+                //Input all Payment Info into it, coding...
+                PersonalApplicationPay.setTranAmt(txnAmount); 
+                String PaymentSwitch = "shsd";
+                Map<String, Object> retPersonalEwalletCashout =  PaymentCall.PersonalEwalletCashout(PaymentSwitch,PersonalApplicationPay);
 //                rsMobileEwalletCashoutTxn = 
                 rsMobileEwalletTxn.put("SMSverify",0);
                 conn.close();
