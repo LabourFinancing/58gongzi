@@ -165,7 +165,6 @@ public class ProductMainController {
         Map<String, Object> rsFindPersonalProduct =  new HashMap<String, Object>();
         ProductMain mobileProductMain = new ProductMain();
         ResultSet rs = null;
-
         String sql = "select * from t_product_main where t_product_SeriesID = ?";
         try {
             PreparedStatement ptmt = conn.prepareStatement(sql);
@@ -184,8 +183,10 @@ public class ProductMainController {
             mobileProductMain.setT_Product_Txt("SQL-FindPersonalProduct-ErrorCode");
             mobileProductMain.setT_Product_Txt1(String.valueOf(e.getSQLState()));
             mobileProductMain.setT_Product_Txt2( String.valueOf(e.getCause()));
+            conn.close();
             return mobileProductMain;
         } finally {
+            conn.close();
             return mobileProductMain;
         }
     }

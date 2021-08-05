@@ -55,7 +55,7 @@ public class PersonalValueEst {
         return PersonalTreasuryChk;
     }
 
-    public static Map<String, Object> PersonalTreasuryFind(String action,String PersonalPID, Connection conn) throws SQLException {
+    public static Map<String, Object> PersonalTreasuryFind(String action,String PersonalPID,BigDecimal txnAmt, Connection conn) throws SQLException {
         Map<String, Object> PersonalTreasuryFind = new HashMap<String, Object>();
 
 //四连innner join获取三张表的信息- 拿PID查出个人信息连接个人产品控制信息连接个人资金控制 同时获取个人当前交易资金统计信息
@@ -218,6 +218,7 @@ public class PersonalValueEst {
                 PersonalTreasuryFind.put("t_personalewallet_treasuryctrlTxt2",rs.getString("t_personalewallet_treasuryctrlTxt2"));
             }else{
                 PersonalTreasuryFind.put("SQL-RESULT", "Find None Mutiple Personal Info Exception");
+                return PersonalTreasuryFind;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -229,31 +230,31 @@ public class PersonalValueEst {
             if(action != null) {
                 switch (action) {
                     case "cashout":
-                        System.out.println("TreasuryChk verify");
+                        System.out.println("cashout verify");
                         break;
                     case "ewalletcashadvance":
-                        System.out.println("TreasuryChk verify");
+                        System.out.println("ewalletcashadvance verify");
                         break;
                     case "transaction":
-                        System.out.println("TreasuryChk verify");
+                        System.out.println("transaction verify");
                         break;
                     case "58qr-receiver":
-                        System.out.println("TreasuryChk verify");
+                        System.out.println("58qr-receiver verify");
                         break;
                     case "payee":
-                        System.out.println("TreasuryChk verify");
+                        System.out.println("payee verify");
                         break;
                     case "shopping":
-                        System.out.println("TreasuryChk verify");
+                        System.out.println("shopping verify");
                         break;
                     case "topup":
-                        System.out.println("TreasuryChk verify");
+                        System.out.println("topup verify");
                         break;
                     case "cashadvance":
-                        System.out.println("TreasuryChk verify");
+                        System.out.println("cashadvance verify");
                         break;
                     case "wealthmgt":
-                        System.out.println("TreasuryChk verify");
+                        System.out.println("wealthmgt verify");
                         break;
                     default:
                         System.out.println("TreasuryChk verify default");

@@ -483,7 +483,7 @@ public class EwalletController {
     public Map<Object, String> findPersonalEwallet(String PersonalEwalletPayCat,String walletTxn_PayerPID,String walletTxn_ReceiverID,String personalEwalletType,Connection conn) throws SQLException {
 //        DBConnection dao = new DBConnection();
 //        Connection conn1 = dao.getConnection();
-        ResultSet rs = null;
+
         String wallet_queryPID = null;
         Map<Object, String> mobileFindPersonalEwalletResult = new HashMap<Object, String>();
         if(personalEwalletType.equalsIgnoreCase("payerQuery")) {
@@ -496,7 +496,7 @@ public class EwalletController {
         try {
             PreparedStatement ptmt=conn.prepareStatement(sql);
             ptmt.setString(1, wallet_queryPID);
-            rs = ptmt.executeQuery();
+            ResultSet rs = ptmt.executeQuery();
             if (rs.next()) {
                 if(personalEwalletType.equalsIgnoreCase("payerQuery")) {
                     mobileFindPersonalEwalletResult.put("T_mobilePersonalEwallet_PayerPID",rs.getString("t_personalewallet_ID"));
@@ -584,7 +584,6 @@ public class EwalletController {
         }finally {
             retUpdatePersonalEwallet.put("SQL","SQL-PersonalPayerEwalletUpdate");
         }
-
         return retUpdatePersonalEwallet;
     }
 

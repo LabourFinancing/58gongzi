@@ -34,8 +34,7 @@ import java.util.*;
 @Controller
 @RequestMapping(value = "/EwalletTxnController")
 public class EwalletTxnController {
-
-
+    
 	// 必须把new financeProduct的列进行全面修改, 新建financeProductService
     @Autowired
     private EwalletTxnService ewalletTxnService; //申明一个对象

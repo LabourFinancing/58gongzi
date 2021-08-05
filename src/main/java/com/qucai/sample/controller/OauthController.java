@@ -328,10 +328,12 @@ public class OauthController {
                 if(walletTxn_PayerPID != null) {
                     String PersonalPID = walletTxn_PayerPID;
                     retPayerEwalletStatistic = OverallStatisticRefresh.PersonalEwalletStatisticRefresh(PersonalPID);
+                    Map<String, Object> retPersonalWorthRenew = OverallStatisticRefresh.PersonalEwalletWorthRenew(PersonalPID);
                 }
                 if( walletTxn_ReceiverID != null) {
                     String PersonalPID = walletTxn_ReceiverID;
                     retReceiverEwalletStatistic = OverallStatisticRefresh.PersonalEwalletStatisticRefresh(PersonalPID);
+                    Map<String, Object> retPersonalWorthRenew = OverallStatisticRefresh.PersonalEwalletWorthRenew(PersonalPID);
                 }
                 if(retPayerEwalletStatistic.get("SQL") != null && retReceiverEwalletStatistic.get("SQL") != null) {
                     String mobileEwalletDashboardJson = JsonTool.genByFastJson(mobileEwalletDashboard);
@@ -344,14 +346,13 @@ public class OauthController {
                 rs.put("errMsg","rsMobileEwalletTxn is Empty");
                 return JsonBizTool.genJson(ExRetEnum.FAIL,rs);
             }
-            
             // buffer checking
             // general treasury mgt
 
             // personal ewallet and personal evaluation
             // transaction address
             // 3rd party payment call
-            // ret checking personal ewallet repo and personal revaluation
+            // ret checking personal ewallet repo and personal revaluation, and PersonalWorthy Renew
             // buffer checking
 
 //            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
@@ -380,6 +381,8 @@ public class OauthController {
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
                 System.out.println("调用个人消费成功");
+                String PersonalPID = walletTxn_PayerPID;
+                Map<String, Object> retPersonalWorthRenew = OverallStatisticRefresh.PersonalEwalletWorthRenew(PersonalPID);
                 rs.put("SMSverify",0);
             }
             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
@@ -397,6 +400,8 @@ public class OauthController {
             System.out.print(ewalletTxn);
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
+                String PersonalPID = walletTxn_PayerPID;
+                Map<String, Object> retPersonalWorthRenew = OverallStatisticRefresh.PersonalEwalletWorthRenew(PersonalPID);
                 System.out.println("调用个人消费成功");
                 rs.put("SMSverify",0);
             }
@@ -415,6 +420,8 @@ public class OauthController {
             System.out.print(ewalletTxn);
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
+                String PersonalPID = walletTxn_ReceiverID;
+                Map<String, Object> retPersonalWorthRenew = OverallStatisticRefresh.PersonalEwalletWorthRenew(PersonalPID);
                 System.out.println("调用个人消费成功");
                 rs.put("SMSverify",0);
             }
@@ -433,6 +440,8 @@ public class OauthController {
             System.out.print(ewalletTxn);
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
+                String PersonalPID = walletTxn_ReceiverID;
+                Map<String, Object> retPersonalWorthRenew = OverallStatisticRefresh.PersonalEwalletWorthRenew(PersonalPID);
                 System.out.println("调用个人消费成功");
                 rs.put("SMSverify",0);
             }
@@ -455,6 +464,8 @@ public class OauthController {
             EwalletTxnController ewalletTxnController = new EwalletTxnController();
             rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(action, txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
             if (rsMobileEwalletTxn.get("UpdatePersonalEwalletSucc").equals("succ")) {
+                String PersonalPID = walletTxn_ReceiverID;
+                Map<String, Object> retPersonalWorthRenew = OverallStatisticRefresh.PersonalEwalletWorthRenew(PersonalPID);
                 System.out.println("调用个人钱包提现成功");
                 //Pay via Org Wechatpay/alipay acc - call Node Org pay coding...
                 rsMobileEwalletTxn.put("SMSverify",0);
@@ -471,19 +482,23 @@ public class OauthController {
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
+                String PersonalPID = walletTxn_ReceiverID;
+                Map<String, Object> retPersonalWorthRenew = OverallStatisticRefresh.PersonalEwalletWorthRenew(PersonalPID);
                 System.out.println("调用个人消费成功");
                 rs.put("SMSverify",0);
             }
             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
         }
         
-        
-        //个人消费
-        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewalletTXN")&&action.equalsIgnoreCase("shopping")){
+        //个人消费退款
+        http://localhost:8080/sample/oauthController/login?method=ewalletTXNrefund&action=refund&page=mobilepay&walletTxn_PayerPID=wechat&walletTxn_ReceiverID=31011519830805251X&txnNum=123123123123123
+        if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewalletTXNrefund")&&action.equalsIgnoreCase("refund")){
             Map<String, Object> rs = new HashMap<String, Object>();
             String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
-                System.out.println("调用个人消费成功");
+                String PersonalPID = walletTxn_ReceiverID;
+                Map<String, Object> retPersonalWorthRenew = OverallStatisticRefresh.PersonalEwalletWorthRenew(PersonalPID);
+                System.out.println("调用个人消费退款到钱包成功");
                 rs.put("SMSverify",0);
             }
             return "redirect:/EwalletTXNcontroller/personalEWTTxnMobile";
@@ -502,6 +517,8 @@ public class OauthController {
             rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(action, txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
             conn.close();
             if (rsMobileEwalletTxn.get("SQL").equals("SQL-RECEIVEREWALLETTOPUPSUCC")) {
+                String PersonalPID = walletTxn_PayerPID;
+                Map<String, Object> retPersonalWorthRenew = OverallStatisticRefresh.PersonalEwalletWorthRenew(PersonalPID);
                 System.out.println("调用个人充值成功");
                 rsMobileEwalletTxn.put("SMSverify",0);
                 return JsonBizTool.genJson(ExRetEnum.SUCCESS, rsMobileEwalletTxn);
@@ -528,6 +545,8 @@ public class OauthController {
             rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(action, txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
             conn.close();
             if (rsMobileEwalletTxn.get("UpdatePersonalEwalletSucc").equals("succ")) {
+                String PersonalPID = walletTxn_PayerPID;
+                Map<String, Object> retPersonalWorthRenew = OverallStatisticRefresh.PersonalEwalletWorthRenew(PersonalPID);
                 System.out.println("调用个人钱包提现成功");
                 //Cashout to Personal Bank card
 //                rsMobileEwalletCashoutTxn = 
@@ -554,6 +573,8 @@ public class OauthController {
             rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(action,txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
             conn.close();
             if (rsMobileEwalletTxn.get("UpdatePersonalEwalletSucc").equals("succ")) {
+                String PersonalPID = walletTxn_PayerPID;
+                Map<String, Object> retPersonalWorthRenew = OverallStatisticRefresh.PersonalEwalletWorthRenew(PersonalPID);
                 System.out.println("调用个人提现成功");
                 rsMobileEwalletTxn.put("SMSverify",0);
                 return JsonBizTool.genJson(ExRetEnum.SUCCESS);
