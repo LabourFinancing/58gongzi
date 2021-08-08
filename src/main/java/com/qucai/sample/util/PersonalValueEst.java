@@ -145,7 +145,7 @@ public class PersonalValueEst {
                 PersonalTreasuryFind.put("t_personalewallet_TotalWorthCal",rs.getBigDecimal("t_personalewallet_TotalWorthCal"));
                 PersonalTreasuryFind.put("t_personalewallet_ServiceFee",rs.getBigDecimal("t_personalewallet_ServiceFee"));
                 PersonalTreasuryFind.put("t_personalewallet_Poundage",rs.getBigDecimal("t_personalewallet_Poundage"));
-                PersonalTreasuryFind.put("t_personalewallet_TierPoundage",rs.getBigDecimal("t_personalewallet_TierPoundage"));
+                PersonalTreasuryFind.put("t_personalewallet_YesterdayWorthCal",rs.getBigDecimal("t_personalewallet_YesterdayWorthCal"));
                 PersonalTreasuryFind.put("t_personalewallet_InterestShareBalance",rs.getBigDecimal("t_personalewallet_InterestShareBalance"));
                 PersonalTreasuryFind.put("t_personalewallet_BankAccName",rs.getString("t_personalewallet_BankAccName"));
                 PersonalTreasuryFind.put("t_personalewallet_BankAcc",rs.getString("t_personalewallet_BankAcc"));
@@ -160,7 +160,7 @@ public class PersonalValueEst {
                 PersonalTreasuryFind.put("t_personalewallet_eproposal",rs.getString("t_personalewallet_eproposal"));
                 PersonalTreasuryFind.put("t_personalewallet_DigiAddress",rs.getString("t_personalewallet_DigiAddress"));
                 PersonalTreasuryFind.put("t_personalewallet_TermPaymentBalance",rs.getString("t_personalewallet_TermPaymentBalance"));
-                PersonalTreasuryFind.put("t_personalewallet_Txt5",rs.getString("t_personalewallet_Txt5"));
+                PersonalTreasuryFind.put("t_personalewallet_TermPaymentBal",rs.getString("t_personalewallet_TermPaymentBal"));
                 PersonalTreasuryFind.put("t_personal_ewallet_statistic_ID",rs.getString("t_personal_ewallet_statistic_ID"));
                 PersonalTreasuryFind.put("t_personal_ewallet_statistic_ApplierID",rs.getString("t_personal_ewallet_statistic_ApplierID"));
                 PersonalTreasuryFind.put("t_personal_ewallet_statistic_ApplierPID",rs.getString("t_personal_ewallet_statistic_ApplierPID"));

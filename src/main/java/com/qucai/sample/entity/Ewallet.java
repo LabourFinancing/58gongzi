@@ -124,7 +124,7 @@ public class Ewallet implements Serializable {
 
     private BigDecimal t_personalewallet_Poundage;
 
-    private BigDecimal t_personalewallet_TierPoundage;
+    private BigDecimal t_personalewallet_YesterdayWorthCal;
 
     private BigDecimal t_personalewallet_InterestShareBalance;
 
@@ -154,7 +154,7 @@ public class Ewallet implements Serializable {
 
     private String t_personalewallet_TermPaymentBalance;
 
-    private String t_personalewallet_Txt5;
+    private String t_personalewallet_TermPaymentBal;
 
     public String getCreator() {
         return creator;
@@ -573,11 +573,11 @@ public class Ewallet implements Serializable {
     }
 
     public BigDecimal getT_personalewallet_TierPoundage() {
-        return t_personalewallet_TierPoundage;
+        return t_personalewallet_YesterdayWorthCal;
     }
 
-    public void setT_personalewallet_TierPoundage(BigDecimal t_personalewallet_TierPoundage) {
-        this.t_personalewallet_TierPoundage = t_personalewallet_TierPoundage;
+    public void setT_personalewallet_TierPoundage(BigDecimal t_personalewallet_YesterdayWorthCal) {
+        this.t_personalewallet_YesterdayWorthCal = t_personalewallet_YesterdayWorthCal;
     }
 
     public BigDecimal getT_personalewallet_InterestMargin() {
@@ -693,11 +693,11 @@ public class Ewallet implements Serializable {
     }
 
     public String getT_personalewallet_Txt5() {
-        return t_personalewallet_Txt5;
+        return t_personalewallet_TermPaymentBal;
     }
 
-    public void setT_personalewallet_Txt5(String t_personalewallet_Txt5) {
-        this.t_personalewallet_Txt5 = t_personalewallet_Txt5;
+    public void setT_personalewallet_Txt5(String t_personalewallet_TermPaymentBal) {
+        this.t_personalewallet_TermPaymentBal = t_personalewallet_TermPaymentBal;
     }
 
 }

@@ -49,7 +49,7 @@
         <result column="t_personalewallet_TotalWorthCal" property="t_personalewallet_TotalWorthCal" jdbcType="DECIMAL" />
         <result column="t_personalewallet_ServiceFee" property="t_personalewallet_ServiceFee" jdbcType="DECIMAL" />
         <result column="t_personalewallet_Poundage" property="t_personalewallet_Poundage" jdbcType="DECIMAL" />
-        <result column="t_personalewallet_TierPoundage" property="t_personalewallet_TierPoundage" jdbcType="DECIMAL" />
+        <result column="t_personalewallet_YesterdayWorthCal" property="t_personalewallet_YesterdayWorthCal" jdbcType="DECIMAL" />
         <result column="t_personalewallet_InterestShareBalance" property="t_personalewallet_InterestShareBalance" jdbcType="DECIMAL" />
         <result column="t_personalewallet_BankAccName" property="t_personalewallet_BankAccName" jdbcType="VARCHAR" />
         <result column="t_personalewallet_BankAcc" property="t_personalewallet_BankAcc" jdbcType="VARCHAR" />
@@ -64,7 +64,7 @@
         <result column="t_personalewallet_eproposal" property="t_personalewallet_eproposal" jdbcType="VARCHAR" />
         <result column="t_personalewallet_DigiAddress" property="t_personalewallet_DigiAddress" jdbcType="VARCHAR" />
         <result column="t_personalewallet_TermPaymentBalance" property="t_personalewallet_TermPaymentBalance" jdbcType="VARCHAR" />
-        <result column="t_personalewallet_Txt5" property="t_personalewallet_Txt5" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_TermPaymentBal" property="t_personalewallet_TermPaymentBal" jdbcType="VARCHAR" />
 		<result column="platform" property="platform" jdbcType="VARCHAR" />
 		<result column="remark" property="remark" jdbcType="VARCHAR" />
 		<result column="creator" property="creator" jdbcType="VARCHAR" />
@@ -120,7 +120,7 @@
         a.t_personalewallet_TotalWorthCal,
         a.t_personalewallet_ServiceFee,
         a.t_personalewallet_Poundage,
-        a.t_personalewallet_TierPoundage,
+        a.t_personalewallet_YesterdayWorthCal,
         a.t_personalewallet_InterestShareBalance,
         a.t_personalewallet_BankAccName,
         a.t_personalewallet_BankAcc,
@@ -135,7 +135,7 @@
         a.t_personalewallet_eproposal,
         a.t_personalewallet_DigiAddress,
         a.t_personalewallet_TermPaymentBalance,
-        a.t_personalewallet_Txt5,
+        a.t_personalewallet_TermPaymentBal,
 		a.platform,
 		a.remark,
 		a.creator,
@@ -325,8 +325,8 @@
             <if test="t_personalewallet_Poundage != null">
                 t_personalewallet_Poundage,
             </if>
-            <if test="t_personalewallet_TierPoundage != null">
-                t_personalewallet_TierPoundage,
+            <if test="t_personalewallet_YesterdayWorthCal != null">
+                t_personalewallet_YesterdayWorthCal,
             </if>
             <if test="t_personalewallet_InterestShareBalance != null">
                 t_personalewallet_InterestShareBalance,
@@ -370,8 +370,8 @@
             <if test="t_personalewallet_TermPaymentBalance != null">
                 t_personalewallet_TermPaymentBalance,
             </if>
-            <if test="t_personalewallet_Txt5 != null">
-                t_personalewallet_Txt5,
+            <if test="t_personalewallet_TermPaymentBal != null">
+                t_personalewallet_TermPaymentBal,
             </if>
             <if test="platform != null">
                 platform,
@@ -543,8 +543,8 @@
             <if test="t_personalewallet_Poundage != null">
                 #{t_personalewallet_Poundage,jdbcType=DECIMAL},
             </if>
-            <if test="t_personalewallet_TierPoundage != null">
-                #{t_personalewallet_TierPoundage,jdbcType=DECIMAL},
+            <if test="t_personalewallet_YesterdayWorthCal != null">
+                #{t_personalewallet_YesterdayWorthCal,jdbcType=DECIMAL},
             </if>
             <if test="t_personalewallet_InterestShareBalance != null">
                 #{t_personalewallet_InterestShareBalance,jdbcType=DECIMAL},
@@ -594,8 +594,8 @@
             <if test="t_personalewallet_TermPaymentBalance != null">
                 #{t_personalewallet_TermPaymentBalance,jdbcType=VARCHAR},
             </if>
-            <if test="t_personalewallet_Txt5 != null">
-                #{t_personalewallet_Txt5,jdbcType=VARCHAR},
+            <if test="t_personalewallet_TermPaymentBal != null">
+                #{t_personalewallet_TermPaymentBal,jdbcType=VARCHAR},
             </if>
 			<if test="platform != null">
 				#{platform,jdbcType=VARCHAR},
@@ -790,8 +790,8 @@
             <if test="t_personalewallet_Poundage != null">
                 t_personalewallet_Poundage = #{t_personalewallet_Poundage,jdbcType=DECIMAL},
             </if>
-            <if test="t_personalewallet_TierPoundage != null">
-                t_personalewallet_TierPoundage = #{t_personalewallet_TierPoundage,jdbcType=DECIMAL},
+            <if test="t_personalewallet_YesterdayWorthCal != null">
+                t_personalewallet_YesterdayWorthCal = #{t_personalewallet_YesterdayWorthCal,jdbcType=DECIMAL},
             </if>
             <if test="t_personalewallet_InterestShareBalance != null">
                 t_personalewallet_InterestShareBalance = #{t_personalewallet_InterestShareBalance,jdbcType=DECIMAL},
@@ -832,8 +832,8 @@
             <if test="t_personalewallet_TermPaymentBalance != null">
                 t_personalewallet_TermPaymentBalance = #{t_personalewallet_TermPaymentBalance,jdbcType=VARCHAR},
             </if>
-            <if test="t_personalewallet_Txt5 != null">
-                t_personalewallet_Txt5 = #{t_personalewallet_Txt5,jdbcType=VARCHAR},
+            <if test="t_personalewallet_TermPaymentBal != null">
+                t_personalewallet_TermPaymentBal = #{t_personalewallet_TermPaymentBal,jdbcType=VARCHAR},
             </if>
 			<if test="platform != null">
 				platform = #{platform,jdbcType=VARCHAR},
