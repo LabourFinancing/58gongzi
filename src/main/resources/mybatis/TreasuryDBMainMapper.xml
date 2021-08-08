@@ -24,7 +24,7 @@
         <result column="t_TreasuryDB_Main_TotBalance" property="t_TreasuryDB_Main_TotBalance" jdbcType="VARCHAR" />
         <result column="t_TreasuryDB_Main_BaselineValue" property="t_TreasuryDB_Main_BaselineValue" jdbcType="DECIMAL" />
         <result column="t_TreasuryDB_Main_BaselineAdjustment" property="t_TreasuryDB_Main_BaselineAdjustment" jdbcType="DECIMAL" />
-        <result column="t_TreasuryDB_Main_Txt2" property="t_TreasuryDB_Main_Txt2" jdbcType="VARCHAR" />
+        <result column="t_TreasuryDB_Main_UpdateDate" property="t_TreasuryDB_Main_UpdateDate" jdbcType="TIMESTAMP" />
         <result column="t_TreasuryDB_Main_Txt3" property="t_TreasuryDB_Main_Txt3" jdbcType="VARCHAR" />
 		<result column="platform" property="platform" jdbcType="VARCHAR" />
 		<result column="remark" property="remark" jdbcType="VARCHAR" />
@@ -56,7 +56,7 @@
         a.t_TreasuryDB_Main_TotBalance,
         a.t_TreasuryDB_Main_BaselineValue,
         a.t_TreasuryDB_Main_BaselineAdjustment,
-        a.t_TreasuryDB_Main_Txt2,
+        a.t_TreasuryDB_Main_UpdateDate,
         a.t_TreasuryDB_Main_Txt3,
 		a.platform,
 		a.remark,
@@ -184,8 +184,8 @@
             <if test="t_TreasuryDB_Main_BaselineAdjustment != null">
                 t_TreasuryDB_Main_BaselineAdjustment,
             </if>
-            <if test="t_TreasuryDB_Main_Txt2 != null">
-                t_TreasuryDB_Main_Txt2,
+            <if test="t_TreasuryDB_Main_UpdateDate != null">
+                t_TreasuryDB_Main_UpdateDate,
             </if>
             <if test="t_TreasuryDB_Main_Txt3 != null">
                 t_TreasuryDB_Main_Txt3,
@@ -273,8 +273,8 @@
             <if test="t_TreasuryDB_Main_BaselineAdjustment != null">
                 #{t_TreasuryDB_Main_BaselineAdjustment,jdbcType=DECIMAL},
             </if>
-            <if test="t_TreasuryDB_Main_Txt2 != null">
-                #{t_TreasuryDB_Main_Txt2,jdbcType=VARCHAR},
+            <if test="t_TreasuryDB_Main_UpdateDate != null">
+                #{t_TreasuryDB_Main_UpdateDate,jdbcType=TIMESTAMP},
             </if>
             <if test="t_TreasuryDB_Main_Txt3 != null">
                 #{t_TreasuryDB_Main_Txt3,jdbcType=VARCHAR},
@@ -367,8 +367,8 @@
             <if test="t_TreasuryDB_Main_BaselineAdjustment != null">
                 t_TreasuryDB_Main_BaselineAdjustment = #{t_TreasuryDB_Main_BaselineAdjustment,jdbcType=DECIMAL},
             </if>
-            <if test="t_TreasuryDB_Main_Txt2 != null">
-                t_TreasuryDB_Main_Txt2 = #{t_TreasuryDB_Main_Txt2,jdbcType=VARCHAR},
+            <if test="t_TreasuryDB_Main_UpdateDate != null">
+                t_TreasuryDB_Main_UpdateDate = #{t_TreasuryDB_Main_UpdateDate,jdbcType=TIMESTAMP},
             </if>
             <if test="t_TreasuryDB_Main_Txt3 != null">
                 t_TreasuryDB_Main_Txt3 = #{t_TreasuryDB_Main_Txt3,jdbcType=VARCHAR},
@@ -461,8 +461,8 @@
             <if test="t_TreasuryDB_Main_BaselineAdjustment != null">
                 t_TreasuryDB_Main_BaselineAdjustment = #{t_TreasuryDB_Main_BaselineAdjustment,jdbcType=DECIMAL},
             </if>
-            <if test="t_TreasuryDB_Main_Txt2 != null">
-                t_TreasuryDB_Main_Txt2 = #{t_TreasuryDB_Main_Txt2,jdbcType=VARCHAR},
+            <if test="t_TreasuryDB_Main_UpdateDate != null">
+                t_TreasuryDB_Main_UpdateDate = #{t_TreasuryDB_Main_UpdateDate,jdbcType=TIMESTAMP},
             </if>
             <if test="t_TreasuryDB_Main_Txt3 != null">
                 t_TreasuryDB_Main_Txt3 = #{t_TreasuryDB_Main_Txt3,jdbcType=VARCHAR},

@@ -73,7 +73,7 @@ public class TreasuryDBMain implements Serializable {
 
     private BigDecimal t_TreasuryDB_Main_BaselineAdjustment;
 
-    private String t_TreasuryDB_Main_Txt2;
+    private Date t_TreasuryDB_Main_UpdateDate;
 
     private String t_TreasuryDB_Main_Txt3;
 
@@ -294,12 +294,12 @@ public class TreasuryDBMain implements Serializable {
         this.t_TreasuryDB_Main_BaselineAdjustment = t_TreasuryDB_Main_BaselineAdjustment;
     }
 
-    public String getT_TreasuryDB_Main_Txt2() {
-        return t_TreasuryDB_Main_Txt2;
+    public Date getT_TreasuryDB_Main_Txt2() {
+        return t_TreasuryDB_Main_UpdateDate;
     }
 
-    public void setT_TreasuryDB_Main_Txt2(String t_TreasuryDB_Main_Txt2) {
-        this.t_TreasuryDB_Main_Txt2 = t_TreasuryDB_Main_Txt2;
+    public void setT_TreasuryDB_Main_Txt2(Date t_TreasuryDB_Main_UpdateDate) {
+        this.t_TreasuryDB_Main_UpdateDate = t_TreasuryDB_Main_UpdateDate;
     }
 
     public String getT_TreasuryDB_Main_Txt3() {

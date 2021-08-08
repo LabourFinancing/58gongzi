@@ -556,7 +556,6 @@ public class OauthController {
                 PersonalApplicationPay.setTranAmt(txnAmount); 
                 String PaymentSwitch = "shsd";
                 Map<String, Object> retPersonalEwalletCashout =  PaymentCall.PersonalEwalletCashout(PaymentSwitch,PersonalApplicationPay);
-//                rsMobileEwalletCashoutTxn = 
                 rsMobileEwalletTxn.put("SMSverify",0);
                 conn.close();
                 return JsonBizTool.genJson(ExRetEnum.SUCCESS);
