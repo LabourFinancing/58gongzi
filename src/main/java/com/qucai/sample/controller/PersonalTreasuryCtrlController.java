@@ -67,7 +67,6 @@ public class PersonalTreasuryCtrlController {
         
         PageInfo<PersonalTreasuryCtrl> page = personalTreasuryCtrlService.findAllList(new HashMap<String, Object>(), pp);
         model.addAttribute("page", page);
-        
 
     	return "personalTreasuryCtrl/personalTreasuryCtrlList";
     }
@@ -196,6 +195,7 @@ public class PersonalTreasuryCtrlController {
             MobilePersonalTreasuryCtrl.setT_personalewallet_treasuryctrlTxt("SQL-findPersonalTreasury-ErrorCode");
             MobilePersonalTreasuryCtrl.setT_personalewallet_treasuryctrlTxt2(String.valueOf(e.getSQLState()));
             MobilePersonalTreasuryCtrl.setT_personalewallet_treasuryctrlTxt3(String.valueOf(e.getCause()));
+            conn.close();
             return MobilePersonalTreasuryCtrl;
         } finally {
             return MobilePersonalTreasuryCtrl;

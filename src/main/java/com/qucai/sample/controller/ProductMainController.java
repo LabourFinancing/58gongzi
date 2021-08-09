@@ -186,7 +186,6 @@ public class ProductMainController {
             conn.close();
             return mobileProductMain;
         } finally {
-            conn.close();
             return mobileProductMain;
         }
     }

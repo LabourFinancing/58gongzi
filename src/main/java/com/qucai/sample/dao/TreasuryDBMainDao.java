@@ -38,8 +38,6 @@ public interface TreasuryDBMainDao {
     
     int updateByBalanceRefresh(List<Map<String, Object>> ArrayPaymentBalance);
     
-
-
     //企业端的资源
 //  List<FinanceProductGrant> findEntFinanceProductGrantAllList(String roleId);
 }

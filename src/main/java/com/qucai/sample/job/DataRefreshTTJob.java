@@ -143,13 +143,17 @@ public class DataRefreshTTJob {
     }
 
     @Scheduled(cron = "0 0 1 * * ?")
-    public void EwalletYesterdayBalanceRenew() throws Exception {
+    public void EwalletTreasuryYstdayBalRenew() throws Exception {
         System.out.println("EwalletStaticDataRefresh started");
-        logger.info("定时每天钱包身价计算开始：" + System.currentTimeMillis());
+        logger.info("定时每天个人交易和资金池统计开始：" + System.currentTimeMillis());
         String sql = "UPDATE t_personal_ewallet,t_treasurydb_main" +
                      " set t_personal_ewallet.t_personalewallet_BalaceYesterDay=t_personal_ewallet.t_personalewallet_TotCNYBalance," +
                      " t_personal_ewallet.t_personalewallet_YesterdayWorthCal=t_personal_ewallet.t_personalewallet_TotalWorthCal," +
-                     " t_treasurydb_main.t_TreasuryDB_Main_TotBal1DayAdv=t_treasurydb_main.t_TreasuryDB_Main_TotBalance" +
+                     " t_personal_ewallet.modifier='SystemEwallet'," +
+                     " t_personal_ewallet.modify_time=NOW()," +
+                     " t_treasurydb_main.t_TreasuryDB_Main_TotBal1DayAdv=t_treasurydb_main.t_TreasuryDB_Main_TotBalance," +
+                     " t_treasurydb_main.modifier='SystemEwallet'," +
+                     " t_treasurydb_main.modify_time=NOW()," +
                      " where t_treasurydb_main.t_TreasuryDB_Main_3rdprtyPaymentVendor = '58gongziewallet'";
         String connectStr = "jdbc:mysql://localhost:3306/gognzi?rewriteBatchedStatements=true&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=true";
         String username = "root";

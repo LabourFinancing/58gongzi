@@ -47,6 +47,7 @@ public class MobilePersonalEwalletTxnStatistic implements Serializable {
     private BigDecimal personalTreasuryctrlCashoutDailyAmt;
     private BigDecimal personalTreasuryctrlCashoutTotalAmt;
     private Integer personalTreasuryctrlCashoutDailyCnt;
+    private String personalTreasuryctrlRemark;
 
     public BigDecimal getPersonalTreasuryctrlBeneDailyLimit() {
         return personalTreasuryctrlBeneDailyLimit;
@@ -319,5 +320,14 @@ public class MobilePersonalEwalletTxnStatistic implements Serializable {
     public void setPersonalTreasuryctrlCashoutDailyCnt(Integer personalTreasuryctrlCashoutDailyCnt) {
         this.personalTreasuryctrlCashoutDailyCnt = personalTreasuryctrlCashoutDailyCnt;
     }
+
+    public String getPersonalTreasuryctrlRemark() {
+        return personalTreasuryctrlRemark;
+    }
+
+    public void setPersonalTreasuryctrlRemark(String personalTreasuryctrlRemark) {
+        this.personalTreasuryctrlRemark = personalTreasuryctrlRemark;
+    }
+
 
 }

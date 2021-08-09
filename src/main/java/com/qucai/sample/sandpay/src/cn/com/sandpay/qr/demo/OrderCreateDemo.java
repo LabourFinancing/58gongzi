@@ -1,6 +1,7 @@
 package com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo;
 
 import com.qucai.sample.entity.StaffPrepayApplicationPayment;
+import com.qucai.sample.vo.MobileEwalletTXN;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,11 +44,11 @@ public class OrderCreateDemo {
 	};
 	
 	
-	public void setBody() {
+	public void setBody(MobileEwalletTXN ApplicationPay) {
 		body.put("payTool", "0403");						//支付工具: 0403-银联扫码
 		body.put("orderCode", DemoBase.getOrderCode());		//商户订单号
-		body.put("limitPay","4");							//限定支付方式 送1-限定不能使用贷记卡	送4-限定不能使用花呗	送5-限定不能使用贷记卡+花呗
-		body.put("totalAmount","000000000100" );			//订单金额 12位长度，精确到分
+		body.put("limitPay", ApplicationPay.getT_mobileWalletTxn_Txt2());							//限定支付方式 送1-限定不能使用贷记卡	送4-限定不能使用花呗	送5-限定不能使用贷记卡+花呗
+		body.put("totalAmount",String.valueOf(ApplicationPay.getT_mobileWalletTxn_TotTxnAmount()));			//订单金额 12位长度，精确到分
 		body.put("subject", "话费充值");						//订单标题
 		body.put("body", "用户购买话费0.01");					//订单描述
 		body.put("txnTimeOut",DemoBase.getNextDayTime());	//订单超时时间
@@ -65,7 +66,7 @@ public class OrderCreateDemo {
 	};
 	
 	
-	public static JSONObject main(StaffPrepayApplicationPayment staffPrepayApplicationPay, String merchantId) throws Exception {
+	public static JSONObject main(MobileEwalletTXN ApplicationPay, String merchantId) throws Exception {
 		
 		OrderCreateDemo demo=new OrderCreateDemo();
 		String reqAddr="/order/create";   //接口报文规范中获取
@@ -77,7 +78,7 @@ public class OrderCreateDemo {
 		//设置报文头
 		demo.setHeader();
 		//设置报文体
-		demo.setBody();
+		demo.setBody(ApplicationPay);
 		
 		JSONObject resp=DemoBase.requestServer(demo.header, demo.body, reqAddr);
 		

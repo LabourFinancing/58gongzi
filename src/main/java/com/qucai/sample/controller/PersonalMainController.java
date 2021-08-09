@@ -511,6 +511,7 @@ public class PersonalMainController {
             // TODO Auto-generated catch block
             e.printStackTrace();
             mobilePersonalMain.setT_mobilePersonalMain_status("exception");
+            conn.close();
             return mobilePersonalMain;
         } finally {
             return mobilePersonalMain;

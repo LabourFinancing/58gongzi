@@ -236,13 +236,10 @@ public class PersonalValueEst {
                         System.out.println("ewalletcashadvance verify");
                         break;
                     case "transaction":
-                        System.out.println("transaction verify");
+                        System.out.println("58-alipay/wechatpay/unionpay transaction verify");
                         break;
-                    case "58qr-receiver":
-                        System.out.println("58qr-receiver verify");
-                        break;
-                    case "payee":
-                        System.out.println("payee verify");
+                    case "58qr-58scan":
+                        System.out.println("58qr-58receiver verify");
                         break;
                     case "shopping":
                         System.out.println("shopping verify");

@@ -514,7 +514,7 @@
 		<if test="typeEnd != null">
 			<![CDATA[ and type <= #{typeEnd} ]]>
 		</if>
-		<if test="t_TreasuryDB_OrgName != 'ALL' ">
+		<if test="t_TreasuryDB_OrgName != 'ALL' and t_TreasuryDB_OrgName != null">
 		and a.t_TreasuryDB_OrgName = #{t_TreasuryDB_OrgName,jdbcType=VARCHAR}
 		</if>
 		<if test="t_TreasuryDB_AgencyName != null ">
