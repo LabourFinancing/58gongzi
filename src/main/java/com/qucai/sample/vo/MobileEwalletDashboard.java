@@ -150,9 +150,9 @@ public class MobileEwalletDashboard implements Serializable {
 
     private String t_mobilePersonalEwallet_Txt3;
 
-    private String t_mobilePersonalEwallet_Txt4;
+    private String t_mobilePersonalEwallet_ErrCode;
 
-    private String t_mobilePersonalEwallet_Txt5;
+    private String t_mobilePersonalEwallet_ErrMsg;
 
     public BigDecimal getT_mobilePersonalEwallet_PayerOriginTotCNYBalance() {
         return t_mobilePersonalEwallet_PayerOriginTotCNYBalance;
@@ -698,20 +698,20 @@ public class MobileEwalletDashboard implements Serializable {
         this.t_mobilePersonalEwallet_Txt3 = t_mobilePersonalEwallet_Txt3;
     }
 
-    public String getT_mobilePersonalEwallet_Txt4() {
-        return t_mobilePersonalEwallet_Txt4;
+    public String getT_mobilePersonalEwallet_ErrCode() {
+        return t_mobilePersonalEwallet_ErrCode;
     }
 
-    public void setT_mobilePersonalEwallet_Txt4(String t_mobilePersonalEwallet_Txt4) {
-        this.t_mobilePersonalEwallet_Txt4 = t_mobilePersonalEwallet_Txt4;
+    public void setT_mobilePersonalEwallet_ErrCode(String t_mobilePersonalEwallet_ErrCode) {
+        this.t_mobilePersonalEwallet_ErrCode = t_mobilePersonalEwallet_ErrCode;
     }
 
-    public String getT_mobilePersonalEwallet_Txt5() {
-        return t_mobilePersonalEwallet_Txt5;
+    public String getT_mobilePersonalEwallet_ErrMsg() {
+        return t_mobilePersonalEwallet_ErrMsg;
     }
 
-    public void setT_mobilePersonalEwallet_Txt5(String t_mobilePersonalEwallet_Txt5) {
-        this.t_mobilePersonalEwallet_Txt5 = t_mobilePersonalEwallet_Txt5;
+    public void setT_mobilePersonalEwallet_ErrMsg(String t_mobilePersonalEwallet_ErrMsg) {
+        this.t_mobilePersonalEwallet_ErrMsg = t_mobilePersonalEwallet_ErrMsg;
     }
 
 }

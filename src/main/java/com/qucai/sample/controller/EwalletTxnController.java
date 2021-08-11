@@ -518,9 +518,11 @@ public class EwalletTxnController {
             if (txnCat.equalsIgnoreCase("PersonalEwalletTopup")) {
                 retUpdatePersonalEwallet = EwalletController.UpdatePayeePersonalEwalletBalance(txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID, conn);
                 if (!retUpdatePersonalEwallet.isEmpty()) {
-                    rsMobileEwalletTxn.put("SQL", "SQL-RECEIVEREWALLETTOPUPSUCC");
+//                    rsMobileEwalletTxn.put("SQL", "SQL-RECEIVEREWALLETTOPUPSUCC");  // checking others
+                    rsMobileEwalletTxn.put("SQL", "SQL-RECEIVEREWALLETUPDATESUCC");
                 } else {
-                    rsMobileEwalletTxn.put("SQL", "SQL-RECEIVEREWALLETTOPUPFAIL");
+//                    rsMobileEwalletTxn.put("SQL", "SQL-RECEIVEREWALLETTOPUPFAIL");  // checking others
+                    rsMobileEwalletTxn.put("SQL", "SQL-PAYEREWALLETUPDATEFAIL");
                 }
             } else if (method.equalsIgnoreCase("58scan-txn-58qr")) {
                 retUpdatePersonalEwallet = EwalletController.UpdatePayerPersonalEwalletBalance(txnAmtPayerMinus, walletTxn_PayerPID, walletTxn_ReceiverID, conn);

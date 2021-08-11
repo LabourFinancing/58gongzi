@@ -10,6 +10,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.qucai.sample.controller.EwalletTxnController;
 import com.qucai.sample.daifudemo.src.com.chinaebi.pay.servlet.PayServlet;
 import com.qucai.sample.entity.StaffPrepayApplicationPayment;
+import com.qucai.sample.vo.MobileEwalletDashboard;
 import com.qucai.sample.vo.MobileEwalletTXN;
 import com.qucai.sample.exception.ExRetEnum;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.dsf.demo.AgentPayDemo;
@@ -48,20 +49,13 @@ public class PersonalPayment {
 
     @Autowired
     private FinanceProductService financeProductService; //申明一个
-
     
 
-
-    public static Map<String, Object> ReceiverEwalletStatisicCheck() {
-        System.out.println("ReceiverEwalletStatisicCheck Started");
-        Map<String, Object> retRs = new HashMap<>();
-        return retRs;
-    }
-
-    public static MobilePersonalEwalletTxnStatistic PersonalTreasuryRegulationCheck(String personalMID, String pid, String realName, String ProdCat,
+    public static Object mobilePersonalEwalletTxnStatistic(String personalMID, String pid, String realName, String ProdCat,
                                                          String method, String action, String txnCat, BigDecimal txnAmt,
                                                          String walletTxn_PayerPID, String walletTxn_ReceiverID) throws SQLException {
         //check Payment delegation
+        MobileEwalletDashboard mobileEwalletDashboard = new MobileEwalletDashboard();
         DBConnection dao = new DBConnection();
         Connection conn = dao.getConnection();
         Map<String, Object> rs = new HashMap<>();
@@ -69,35 +63,47 @@ public class PersonalPayment {
         MobilePersonalEwalletTxnStatistic mobilePersonalEwalletTxnStatistic = (MobilePersonalEwalletTxnStatistic) PersonalValueEst.PersonalTreasuryFind(action,PersonalPID,txnAmt, conn);
 
         if (mobilePersonalEwalletTxnStatistic.getPersonalTreasuryctrlstatus().equalsIgnoreCase("off")) {
-            mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlRemark("Personal Treasury control is Off Status");
-            return mobilePersonalEwalletTxnStatistic;
+            mobileEwalletDashboard.setT_mobilePersonalEwallet_ErrCode("Personal Treasury control is Off Status");
+            mobileEwalletDashboard.setT_mobilePersonalEwallet_ErrMsg("您的钱包部分功能受限");
+            String mobileEwalletDashboardJson = JsonTool.genByFastJson(mobileEwalletDashboard);
+            return mobileEwalletDashboardJson;
         }
         if (mobilePersonalEwalletTxnStatistic.getPersonalTreasuryctrlCashbackStat().equalsIgnoreCase("off") &&
             method.equalsIgnoreCase("58scan-txn-58qr")) {
-            mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlRemark("Personal Treasury control Cashback is Off Status");
-            return mobilePersonalEwalletTxnStatistic;
+            mobileEwalletDashboard.setT_mobilePersonalEwallet_ErrCode("Personal Treasury control Cashback is Off Status");
+            mobileEwalletDashboard.setT_mobilePersonalEwallet_ErrMsg("退款进行中,请耐心等待");
+            String mobileEwalletDashboardJson = JsonTool.genByFastJson(mobileEwalletDashboard);
+            return mobileEwalletDashboardJson;
         }
         // cashout
         if (mobilePersonalEwalletTxnStatistic.getPersonalTreasuryctrlCashoutStat().equalsIgnoreCase("off") &&
             method.equalsIgnoreCase("PersonalEwalletCashout")) {
-            mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlRemark("Personal Treasury control Cashout is Off Status");
-            return mobilePersonalEwalletTxnStatistic;
+            mobileEwalletDashboard.setT_mobilePersonalEwallet_ErrCode("Personal Treasury control Cashout is Off Status");
+            mobileEwalletDashboard.setT_mobilePersonalEwallet_ErrMsg("提现进行中,请耐心等待");
+            String mobileEwalletDashboardJson = JsonTool.genByFastJson(mobileEwalletDashboard);
+            return mobileEwalletDashboardJson;
         }
         if (mobilePersonalEwalletTxnStatistic.getPersonalTreasuryctrlBeneStat().equalsIgnoreCase("off") &&
             method.equalsIgnoreCase("58scan-txn-58qr")) {
-            mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlRemark("Personal Treasury control Bene is Off Status");
-            return mobilePersonalEwalletTxnStatistic;
+            mobileEwalletDashboard.setT_mobilePersonalEwallet_ErrCode("Personal Treasury control Bene is Off Status");
+            mobileEwalletDashboard.setT_mobilePersonalEwallet_ErrMsg("您当前收款功能受限,详情请咨询客服");
+            String mobileEwalletDashboardJson = JsonTool.genByFastJson(mobileEwalletDashboard);
+            return mobileEwalletDashboardJson;
         }
         if (mobilePersonalEwalletTxnStatistic.getPersonalTreasuryctrlPayStat().equalsIgnoreCase("off") &&
             method.equalsIgnoreCase("58scan-txn-58qr")) {
-            mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlRemark("Personal Treasury control Pay is Off Status");
-            return mobilePersonalEwalletTxnStatistic;
+            mobileEwalletDashboard.setT_mobilePersonalEwallet_ErrCode("Personal Treasury control Pay is Off Status");
+            mobileEwalletDashboard.setT_mobilePersonalEwallet_ErrMsg("您当前付款功能受限,详情请咨询客服");
+            String mobileEwalletDashboardJson = JsonTool.genByFastJson(mobileEwalletDashboard);
+            return mobileEwalletDashboardJson;
         }
         //shopping 
         if (mobilePersonalEwalletTxnStatistic.getPersonalTreasuryctrlTopupStat().equalsIgnoreCase("off") &&
             method.equalsIgnoreCase("PersonalEwalletShopping")) {
-            mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlRemark("Personal Treasury control Topup is Off Status");
-            return mobilePersonalEwalletTxnStatistic;
+            mobileEwalletDashboard.setT_mobilePersonalEwallet_ErrCode("Personal Treasury control Topup is Off Status");
+            mobileEwalletDashboard.setT_mobilePersonalEwallet_ErrMsg("您当前消费功能受限，详情请咨询客服");
+            String mobileEwalletDashboardJson = JsonTool.genByFastJson(mobileEwalletDashboard);
+            return mobileEwalletDashboardJson;
         }
 
         switch (method) {
@@ -106,8 +112,16 @@ public class PersonalPayment {
                 String ewalletTxnType = "c2c 钱包转账"; 
                 Map<String,Object> PersonalTreasuryFindEwalletTxn = PersonalValueEst.PersonalTreasuryFind( action, PersonalPID, txnAmt,  conn);
                 if(txnAmt.compareTo((BigDecimal) PersonalTreasuryFindEwalletTxn.get("t_personalewallet_TotCNYBalance")) == 1){  // pay amount bigger than ewallet CNY balace
-                    mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlRemark("out-of-balance");
-                    return mobilePersonalEwalletTxnStatistic;
+                    mobileEwalletDashboard.setT_mobilePersonalEwallet_ErrCode("Personal Treasury control Topup is Off Status");
+                    mobileEwalletDashboard.setT_mobilePersonalEwallet_ErrMsg("转账 钱包余额不足");
+                    String mobileEwalletDashboardJson = JsonTool.genByFastJson(mobileEwalletDashboard);
+                    return mobileEwalletDashboardJson;
+                }
+                if(txnAmt.compareTo((BigDecimal) PersonalTreasuryFindEwalletTxn.get("t_personalewallet_TotCNYBalance")) == 1){  // pay amount bigger than ewallet CNY balace
+                    mobileEwalletDashboard.setT_mobilePersonalEwallet_ErrCode("Personal Treasury control Topup limited");
+                    mobileEwalletDashboard.setT_mobilePersonalEwallet_ErrMsg("转账 钱包余额不足");
+                    String mobileEwalletDashboardJson = JsonTool.genByFastJson(mobileEwalletDashboard);
+                    return mobileEwalletDashboardJson;
                 }
                 BigDecimal txnAmtPayerMinus = txnAmt.negate();
                 break;
@@ -125,8 +139,9 @@ public class PersonalPayment {
                 ewalletTxnType = "c2c 提现";
                 Map<String,Object> PersonalTreasuryFindCashout = PersonalValueEst.PersonalTreasuryFind( action, PersonalPID, txnAmt,  conn);
                 if(txnAmt.compareTo((BigDecimal) PersonalTreasuryFindCashout.get("t_personalewallet_TotCNYBalance")) == 1){  // pay amount bigger than ewallet CNY balace
-                    mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlRemark("out-of-balance");
-                    return mobilePersonalEwalletTxnStatistic;
+                    mobileEwalletDashboard.setT_mobilePersonalEwallet_ErrMsg("提现 钱包余额不足");
+                    String mobileEwalletDashboardJson = JsonTool.genByFastJson(mobileEwalletDashboard);
+                    return mobileEwalletDashboardJson;
                 }else{
                     //call payment coding...
                 }
@@ -138,8 +153,9 @@ public class PersonalPayment {
                 ewalletTxnType = "c2b 消费";
                 Map<String,Object> PersonalTreasuryFindSjopping = PersonalValueEst.PersonalTreasuryFind( action, PersonalPID, txnAmt,  conn);
                 if(txnAmt.compareTo((BigDecimal) PersonalTreasuryFindSjopping.get("t_personalewallet_TotCNYBalance")) == 1){  // pay amount bigger than ewallet CNY balace
-                    mobilePersonalEwalletTxnStatistic.setPersonalTreasuryctrlRemark("out-of-balance");
-                    return mobilePersonalEwalletTxnStatistic;
+                    mobileEwalletDashboard.setT_mobilePersonalEwallet_ErrMsg("消费 钱包余额不足");
+                    String mobileEwalletDashboardJson = JsonTool.genByFastJson(mobileEwalletDashboard);
+                    return mobileEwalletDashboardJson;
                 }else{
                     //call payment coding...
                     
@@ -150,9 +166,10 @@ public class PersonalPayment {
     }
 
 //    3rd party payment call coding...
-    public static Map<String, Object> PersonalEwalletTxnPayment(MobileEwalletTXN ApplicationPay,String action, String txnCat,BigDecimal txnAmt,
+    public static Object PersonalEwalletTxnPayment(MobileEwalletTXN ApplicationPay,String action, String txnCat,BigDecimal txnAmt,
                                                                 String walletTxn_PayerPID,String walletTxn_ReceiverID,String method,String paymentID,String paymentStatus,Connection conn) throws Exception {
-        Map<String, Object> retPersonalEwalletTxnPayment = new HashMap<>();
+//        Map<String, Object> retPersonalEwalletTxnPayment = new HashMap<>();
+        MobileEwalletDashboard mobileEwalletDashboard = new MobileEwalletDashboard();
         Map<String, Object> rs = new HashMap<>();
         String merchantId = "S2135052";
         String PaymentSwitch = "shsd";
@@ -180,16 +197,17 @@ public class PersonalPayment {
                 ApplicationPay.setT_mobileWalletTxn_ClearOrg(merchantId);
 //                staffPrepayApplicationService.insertPayment(ApplicationPay);    // call insert Transaction
                 System.out.println(ApplicationPay.getT_mobileWalletTxn_Num());
-                return retPersonalEwalletTxnPayment;
+                mobileEwalletDashboard.setT_mobilePersonalEwallet_ErrMsg("您当前消费功能受限，详情请咨询客服");
+                String mobileEwalletDashboardJson = JsonTool.genByFastJson(mobileEwalletDashboard);
+                return mobileEwalletDashboardJson;
             }
         }
-        return retPersonalEwalletTxnPayment;
-    }
-
-    private static Map<String, Object> ReceiverTreasuryRegulatory() {
-        System.out.println("ReceiverTreasuryRegulatory Started");
-        Map<String, Object> retRs = new HashMap<>();
-        return retRs;
+        String mobileEwalletDashboardJson = JsonTool.genByFastJson(mobileEwalletDashboard);
+        return mobileEwalletDashboardJson;
     }
     
+    public static Object PaymentStatus(){
+        System.out.println();
+        return null;
+    }
 }

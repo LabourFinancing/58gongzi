@@ -25,7 +25,6 @@ public class PersonalValueEst {
         retPersonalEvalation.put("newPersonalEvaluateNum",new BigDecimal(newPersonalEvaluateNum));
         return retPersonalEvalation;
     }
-    
 
     public static Map<String, Object> PersonalTreasuryChk(String action, String txnCat, BigDecimal txnAmt, String walletTxn_PayerPID, String walletTxn_ReceiverID,
                                                           String method, String paymentID, String paymentStatus, Connection conn) throws SQLException {

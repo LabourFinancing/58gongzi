@@ -1,6 +1,7 @@
 package com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo;
 
 import com.qucai.sample.entity.StaffPrepayApplicationPayment;
+import com.qucai.sample.util.Tool;
 import com.qucai.sample.vo.MobileEwalletTXN;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -45,17 +46,23 @@ public class OrderCreateDemo {
 	
 	
 	public void setBody(MobileEwalletTXN ApplicationPay) {
+        Integer transactionAMT = Integer.valueOf(ApplicationPay.getT_mobileWalletTxn_TotTxnAmount().intValue())*100; //转型
+        String txnAmt = String.format("%012d", transactionAMT);
+        String TxnID= Tool.PayId();
+        StringBuffer retURL = new StringBuffer();
+        String method = "paymentreturn";
+        String retrul = String.valueOf(retURL.append("https://api.58gongzi.com.cn/callback/authcodepay?order=").append(TxnID).append("&method=").append(method));
 		body.put("payTool", "0403");						//支付工具: 0403-银联扫码
 		body.put("orderCode", DemoBase.getOrderCode());		//商户订单号
 		body.put("limitPay", ApplicationPay.getT_mobileWalletTxn_Txt2());							//限定支付方式 送1-限定不能使用贷记卡	送4-限定不能使用花呗	送5-限定不能使用贷记卡+花呗
-		body.put("totalAmount",String.valueOf(ApplicationPay.getT_mobileWalletTxn_TotTxnAmount()));			//订单金额 12位长度，精确到分
+		body.put("totalAmount",txnAmt);			//订单金额 12位长度，精确到分
 		body.put("subject", "话费充值");						//订单标题
 		body.put("body", "用户购买话费0.01");					//订单描述
 		body.put("txnTimeOut",DemoBase.getNextDayTime());	//订单超时时间
 		body.put("storeId", "");							//商户门店编号
 		body.put("terminalId", "");							//商户终端编号
 		body.put("operatorId", "");							//操作员编号
-		body.put("notifyUrl", "https://api.58gongzi.com.cn/sandpay-qr-demo/notice");	//异步通知地址
+		body.put("notifyUrl", retrul);	//异步通知地址
 //        body.put("notifyUrl", "https://www.58gongzi.com.cn:8080/sample/oauthController/login?method=QRScanRet");	//异步通知地址
 		body.put("bizExtendParams", "");					//业务扩展参数
 		body.put("merchExtendParams", "");					//商户扩展参数
