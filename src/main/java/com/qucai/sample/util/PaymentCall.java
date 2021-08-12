@@ -19,7 +19,7 @@ import java.util.regex.PatternSyntaxException;
 
 public class PaymentCall {
 
-    public static Map<String, Object> PersonalEwalletCashout(String PaymentSwitch,StaffPrepayApplicationPayment PersonalApplicationPay) throws Exception {
+    public static Map<String, Object> PersonalEwalletCashout(String PaymentSwitch,StaffPrepayApplicationPayment personalApplicationPay) throws Exception {
 
         Map<String,Object> retPaymentResult = new HashMap<>();
         String RCretData = null,remark = null,TxnID = Tool.PayId();
@@ -37,30 +37,30 @@ public class PaymentCall {
         }
 
         if (PaymentSwitch.equals("shsd")){
-            PersonalApplicationPay.setCompany(merchantId);
-            PersonalApplicationPay.setVersion("sandpay");
-            PersonalApplicationPay.setReqReserved("sandpay");
+            personalApplicationPay.setCompany(merchantId);
+            personalApplicationPay.setVersion("sandpay");
+            personalApplicationPay.setReqReserved("sandpay");
             //payto goldmanfuks sandpay pub account for cashout preparation
-            JSONObject obj = AgentPayDemo.main(PersonalApplicationPay,merchantId);  // sandpay
+            JSONObject obj = AgentPayDemo.main(personalApplicationPay,merchantId);  // sandpay
             RCretData = (String) obj.get("respCode"); //  sandpay branch
             remark = (String) obj.get("respDesc"); //  sandpay branch
             retPaymentResult.put("respCode",RCretData);
             retPaymentResult.put("respDesc",remark);
             if(RCretData.equals("4001")){
-                PersonalApplicationPay.setRCcode(RCretData);
-                PersonalApplicationPay.setReturnPic("Other");
-                PersonalApplicationPay.setRemark(remark);
-                PersonalApplicationPay.setCompany(merchantId);
+                personalApplicationPay.setRCcode(RCretData);
+                personalApplicationPay.setReturnPic("Other");
+                personalApplicationPay.setRemark(remark);
+                personalApplicationPay.setCompany(merchantId);
 //                staffPrepayApplicationService.insertPayment(staffPrepayApplicationPay);
-                System.out.println("Err txn log:");
-                System.out.println(TxnID);
-                return retPaymentResult;
+                retPaymentResult.put("TxnID",TxnID);
+                retPaymentResult.put("errCode","Err");
             }
+            return retPaymentResult;
         }else if (PaymentSwitch.equals("shdy")){
-            PersonalApplicationPay.setCompany(merchantId);
-            PersonalApplicationPay.setVersion("Chinaebi");
-            PersonalApplicationPay.setReqReserved("Chinaebi");
-            String retData = PayServlet.main(PersonalApplicationPay,merchantId);  // Chinaebipay
+            personalApplicationPay.setCompany(merchantId);
+            personalApplicationPay.setVersion("Chinaebi");
+            personalApplicationPay.setReqReserved("Chinaebi");
+            String retData = PayServlet.main(personalApplicationPay,merchantId);  // Chinaebipay
             JSONObject obj = (JSONObject) JSON.parse(retData);
             RCretData = (String) obj.get("transState"); //  Chinaebipay branch
             String RespMsg = (String) obj.get("rspCode"); //  Chinaebipay branch
@@ -69,18 +69,17 @@ public class PaymentCall {
             retPaymentResult.put("RespMsg",RespMsg);
             retPaymentResult.put("respDesc",remark);
             if(RespMsg.equalsIgnoreCase("ACM20048")){
-                PersonalApplicationPay.setRCcode(RCretData);
-                PersonalApplicationPay.setReturnPic("Other");
-                PersonalApplicationPay.setRemark(remark);
-                PersonalApplicationPay.setCompany(merchantId);
+                personalApplicationPay.setRCcode(RCretData);
+                personalApplicationPay.setReturnPic("Other");
+                personalApplicationPay.setRemark(remark);
+                personalApplicationPay.setCompany(merchantId);
 //                staffPrepayApplicationService.insertPayment(staffPrepayApplicationPay);
-                System.out.println("Err txn log:");
-                System.out.println(TxnID);
-                return retPaymentResult;
+                retPaymentResult.put("TxnID",TxnID);
+                retPaymentResult.put("errCode","Err");
             }
         }
         //check personal payment limitation
-        System.out.println("倒叙排列结果为：" + PersonalApplicationPay);
+        System.out.println("倒叙排列结果为：" + personalApplicationPay);
         return retPaymentResult;
     }
 }

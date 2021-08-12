@@ -411,6 +411,12 @@ public class EwalletTxnController {
                 txnAmtPayerMinus = txnAmt.negate();
                 break;
             case "PersonalEwalletTopup":
+                System.out.println("PersonalEwalletReceive transit");
+                t_MobileWalletTxn_TopupAmt = txnAmt;
+                walletTxn_ReceiverID = walletTxn_PayerPID;
+                ewalletTxnType = "c2c 三方转账";
+                break;
+            case "PersonalEwalletReceive" :
                 System.out.println("PersonalEwalletTopup transit");
                 t_MobileWalletTxn_TopupAmt = txnAmt;
                 walletTxn_ReceiverID = walletTxn_PayerPID;

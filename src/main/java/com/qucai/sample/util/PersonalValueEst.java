@@ -38,6 +38,8 @@ public class PersonalValueEst {
             PersonalTreasuryChk.put("SQL","findPersonalProduct-error");
             PersonalTreasuryChk.put("SQL-CODE",MobileProductMain.getT_Product_Txt1());
             PersonalTreasuryChk.put("SQL-CAUSE",MobileProductMain.getT_Product_Txt2());
+            PersonalTreasuryChk.put("PersonalName",mobilePersonalMain.getT_mobilePersonalMain_name());
+            PersonalTreasuryChk.put("PersonalMobile",mobilePersonalMain.getT_mobilePersonalMain_mobile());
             return PersonalTreasuryChk;
         }else{
             PersonalTreasuryCtrlController personalTreasuryCtrlController = new PersonalTreasuryCtrlController();

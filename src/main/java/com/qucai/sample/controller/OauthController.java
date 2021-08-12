@@ -12,7 +12,9 @@ package com.qucai.sample.controller;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.URLDecoder;
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,20 +22,22 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.domain.AlipayFundTransOrderQueryModel;
 import com.qucai.sample.alipayDemo_java.src.java.com.alipay.demo.controller.AlipayFundTransOrderQueryController;
 import com.qucai.sample.entity.*;
+import com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo.DemoBase;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo.OrderCreateDemo;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo.OrderPayDemo;
 import com.qucai.sample.service.*;
 import com.qucai.sample.util.*;
-import com.qucai.sample.util.OverallStatisticRefresh;
 import com.qucai.sample.vo.MobileEwalletTXN;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
+import org.codehaus.jackson.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -72,34 +76,68 @@ public class OauthController {
     @RequestMapping("/login")
     @ResponseBody
     public Object login(HttpServletRequest request, HttpServletResponse response,String facialret,String txnAmount,
-                        String personalMID,String walletTxn_PayerPID,String walletTxn_ReceiverID,
-                        String PaymentChannel,String shoppingAmount, String TopupAmount,String CashoutAmount,String realName,String RetPaymentMsg,
-                        String userName, String pid, String password, String page, String paymentchannel, String action,String cardAcc,
+                        String personalMID,String walletTxn_PayerPID,String walletTxn_ReceiverID,String txnDetail,
+                        String paymentChannel,String shoppingAmount, String topupAmount,String CashoutAmount,String realName,String retPaymentMsg,
+                        String userName, String pid, String password, String page,String action,String cardAcc,
                         String mode, String gid, String method, String phone, String host,String paymentID,String paymentStatus,String authNum,
                         String SMSsendcode, String SMSstrret, String type, String API) throws Exception {
 
         CaptchaUsernamePasswordToken token = new CaptchaUsernamePasswordToken();
         token.setUsername(userName);
 
-        //http://localhost:8080/sample/oauthController/login?method=paymentreturn&RetPaymentMsg
+        //http://localhost:8080/sample/oauthController/login?method=paymentreturn&retPaymentMsg=%7B%22head%22%3A%7B%22version%22%3A%221.0%22%2C%22respTime%22%3A%2220210811210526%22%2C%22respCode%22%3A%22000000%22%2C%22respMsg%22%3A%22%E6%88%90%E5%8A%9F%22%7D%2C%22body%22%3A%7B%22mid%22%3A%22S2135052%22%2C%22orderCode%22%3A%222021081121051232%22%2C%22tradeNo%22%3A%222021081121051232%22%2C%22clearDate%22%3A%2220210811%22%2C%22totalAmount%22%3A%22000000000200%22%2C%22orderStatus%22%3A%221%22%2C%22payTime%22%3A%2220210811210526%22%2C%22settleAmount%22%3A%22000000000200%22%2C%22buyerPayAmount%22%3A%22000000000200%22%2C%22discAmount%22%3A%22000000000000%22%2C%22txnCompleteTime%22%3A%2220210811210525%22%2C%22payOrderCode%22%3A%2220210811001253100000000000064405%22%2C%22accLogonNo%22%3A%22oI3GMv3oo5NItZfPtx6o5YrnqKbA%22%2C%22accNo%22%3A%22%22%2C%22midFee%22%3A%22000000000001%22%2C%22extraFee%22%3A%22000000000000%22%2C%22specialFee%22%3A%22000000000000%22%2C%22plMidFee%22%3A%22000000000000%22%2C%22bankserial%22%3A%224200001194202108114280394371%22%2C%22externalProductCode%22%3A%2200000005%22%2C%22cardNo%22%3A%22%22%2C%22creditFlag%22%3A%22%22%2C%22bid%22%3A%22%22%2C%22benefitAmount%22%3A%22000000000000%22%2C%22remittanceCode%22%3A%22%22%2C%22extend%22%3A%22%257B%2522t_mobileWalletTxn_TxnDate%2522%253A1628687112862%252C%2522t_mobileWalletTxn_Paystatus%2522%253A%252258QRreceivePay%2522%252C%2522t_mobileWalletTxn_TotTxnAmount%2522%253A2%252C%2522t_mobileWalletTxn_Num%2522%253A%25222021081121051232%2522%257D%22%7D%7D&
         if(method!=null&&method.equals("paymentreturn")){
             DBConnection dao = new DBConnection();
             Connection conn = dao.getConnection();
             MobileEwalletDashboard mobileEwalletDashboard = new MobileEwalletDashboard();
+            System.out.print(retPaymentMsg);
             Map<String, Object> rs = new HashMap<String, Object>();
-            
+            String json = retPaymentMsg;
+            String returnTxnDetail, returnPaymentCode = null,returnPaymentMsg = null,returnPaymentOrderNum = null,returnPaymentCompleteTime = null;
+            JSONObject jsonData = null, returnTxnDetailJson = null;
+            try {
+                jsonData = (JSONObject) JSON.parse(retPaymentMsg);
+            }catch (Exception e){
+                e.printStackTrace();
+                rs.put("JSONObject parse err","Payment return String JSON parse error");
+                return JsonBizTool.genJson(ExRetEnum.FAIL,rs);
+            }finally {
+                returnPaymentCode = jsonData.getJSONObject("head").getString("respCode");
+                returnPaymentMsg =  jsonData.getJSONObject("head").getString("respMsg");
+                returnPaymentOrderNum = jsonData.getJSONObject("body").getString("orderCode");
+                returnPaymentCompleteTime = jsonData.getJSONObject("body").getString("txnCompleteTime");
+                returnTxnDetail = URLDecoder.decode(jsonData.getJSONObject("body").getString("extend"));
+                System.out.print("txnDetail:");
+                System.out.print(returnTxnDetail);
+            }
+
             /*
             call 58gongzi payment txn add
              */
-            if(RetPaymentMsg != null) {
+            if(retPaymentMsg != null && returnPaymentCode.equals("000000")) {
                 Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
+                JSONObject jsonDataRetTxnDetails = null;
+                String txnAmt1= null, PayStatus=null ,PersonalPID = null;
+                try {
+                    jsonDataRetTxnDetails = (JSONObject) JSON.parse(returnTxnDetail);
+                }catch (Exception e){
+                    e.printStackTrace();
+                    rs.put("JSONObject parse err","Payment return String JSON parse error");
+                    return JsonBizTool.genJson(ExRetEnum.FAIL,rs);
+                }finally {
+                    System.out.print(jsonDataRetTxnDetails);
+                    txnAmt1 = jsonDataRetTxnDetails.getString("t_mobileWalletTxn_TotTxnAmount");
+                    PersonalPID = jsonDataRetTxnDetails.getString("t_mobileWalletTxn_ReceiverPID");
+                    PayStatus = returnTxnDetailJson.getString("T_mobileWalletTxn_Paystatus");
+                }
                 String txnCat = "PersonalEwalletTopup";
-                String PersonalPID = walletTxn_ReceiverID;
+                BigDecimal txnAmt = new BigDecimal(txnAmt1);
+//                paymentID = returnTxnDetailJson.get("T_mobileWalletTxn_Num").toString();
                 String personalEwalletType = null;
                 MobileEwalletDashboard mobileEwalletDashboardretpayment = new MobileEwalletDashboard();
-                BigDecimal txnAmt = new BigDecimal(txnAmount);
+
                 EwalletTxnController ewalletTxnController = new EwalletTxnController();
-    //                MarsMobileEwalletFind = PersonalValueEst.PersonalTreasuryFind(action,PersonalPID,txnAmt,conn);
+    // coding   MarsMobileEwalletFind = PersonalValueEst.PersonalTreasuryFind(action,PersonalPID,txnAmt,conn); 
                 rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(action,txnCat,txnAmt,walletTxn_PayerPID,walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
     
                 if(rsMobileEwalletTxn.get("SQL").equals("SQL-PERSONALEWALLETTXNHISTORY-SUCC")){
@@ -161,22 +199,33 @@ public class OauthController {
             return JsonBizTool.genJson(ExRetEnum.SUCCESS, resp);
         }
 
-        //http://localhost:8080/sample/oauthController/login?method=get58qrcode&walletTxn_PayerPID=430528198502043837&txnAmount=1
+        //58生成二维码收款 等待付款
+        //http://localhost:8080/sample/oauthController/login?method=get58qrcode&walletTxn_ReceiverID=430528198502043837&txnAmount=1
         if(method!=null&&method.equals("get58qrcode")){
             Map<String, Object> rs = new HashMap<String, Object>();
             String merchantId = "S2135052";
+
             MobileEwalletTXN ApplicationPay = new MobileEwalletTXN();
             BigDecimal txnAmt = new BigDecimal(txnAmount);
+            ApplicationPay.setT_mobileWalletTxn_Num(DemoBase.getOrderCode());
             ApplicationPay.setT_mobileWalletTxn_TotTxnAmount(txnAmt);
+            String PersonalPID = null;
+            if(walletTxn_PayerPID == null){
+                PersonalPID = walletTxn_ReceiverID;
+            }else{
+                PersonalPID = walletTxn_PayerPID;
+            }
+            ApplicationPay.setT_mobileWalletTxn_ReceiverPID(PersonalPID);
+            ApplicationPay.setT_mobileWalletTxn_Paystatus("58QRreceivePay");
             JSONObject resp = OrderCreateDemo.main(ApplicationPay,merchantId);
             String QRcodeinit = resp.getJSONObject("body").getString("qrCode");
             rs.put("QRcodeinit", QRcodeinit);
             return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
         }
 
-        //支付测试调用扫一扫获取付款码付款
-        //http://localhost:8080/sample/oauthController/login?method=authcodepay&txnAmount=1&walletTxn_ReceiverID=31011519830805251X&authNum=289523420127255545
-        if(method!=null&&method.equals("authcodepay")){
+        //支付测试调用58工资扫一扫获取付款码收款
+        //http://localhost:8080/sample/oauthController/login?method=authcodepay&txnAmount=1&action=transactionreceive&walletTxn_ReceiverID=31011519830805251X&authNum=289523420127255545
+        if(method!=null&&method.equals("authcodepay")  && action.equalsIgnoreCase("transactionreceive")){
             DBConnection dao = new DBConnection();
             Connection conn = dao.getConnection();
             Map<String, Object> rs = new HashMap<String, Object>();
@@ -184,29 +233,40 @@ public class OauthController {
             Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
             String merchantId = "S2135052";
             String paymentChannelCode = authNum.substring(0,2).trim();
-            String paymentChannel = null,paymentToolId = null;
+            String paymentChannelProduct = null,paymentToolId = null;
             StaffPrepayApplicationPayment staffPrepayApplicationPay = new StaffPrepayApplicationPayment();
             staffPrepayApplicationPay.setTranAmt(txnAmount);
+            switch (action) {
+                case "transctionreceive" :
+                    staffPrepayApplicationPay.setCertType("5");
+                    break;
+                case "transctionpay" :
+                    staffPrepayApplicationPay.setCertType("1");
+                    break;
+                default:
+                    staffPrepayApplicationPay.setCertType("5");
+                    break;
+            }
             switch (paymentChannelCode) {
                 case "13" :
-                    paymentChannel = "00000005";
+                    paymentChannelProduct = "00000005";
                     paymentToolId = "0402";
                     break;
                 case "28" :
-                    paymentChannel = "00000006";
+                    paymentChannelProduct = "00000006";
                     paymentToolId = "0401";
                     break;
                 case "62" :
-                    paymentChannel = "00000013";
+                    paymentChannelProduct = "00000013";
                     paymentToolId = "0403";
                     break;
                 default :
-                    paymentChannel = "00000006";
+                    paymentChannelProduct = "00000006";
                     paymentToolId = "0401";
                     break;
             }
             staffPrepayApplicationPay.setProductId(paymentToolId);
-            staffPrepayApplicationPay.setCompany(paymentChannel);
+            staffPrepayApplicationPay.setCompany(paymentChannelProduct);
             staffPrepayApplicationPay.setCertNo(authNum);            
             JSONObject resp = OrderPayDemo.main(staffPrepayApplicationPay,merchantId);
             String retCode = resp.getJSONObject("head").getString("respCode");
@@ -264,9 +324,110 @@ public class OauthController {
             return JsonBizTool.genJson(ExRetEnum.FAIL,rs);
         }
 
+        //支付测试调用58工资扫一扫获取付款码收款
+        //http://localhost:8080/sample/oauthController/login?method=authcodepay&txnAmount=1&action=transactionpay&walletTxn_ReceiverID=31011519830805251X&authNum=289523420127255545
+        if(method!=null&&method.equals("authcodepay") && action.equalsIgnoreCase("transactionpay")){
+            DBConnection dao = new DBConnection();
+            Connection conn = dao.getConnection();
+            Map<String, Object> rs = new HashMap<String, Object>();
+            Map<String, Object> MarsMobileEwalletFind = new HashMap<String, Object>();
+            Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
+            String merchantId = "S2135052";
+            String paymentChannelCode = authNum.substring(0,2).trim();
+            String paymentChannelProduct = null,paymentToolId = null;
+            StaffPrepayApplicationPayment staffPrepayApplicationPay = new StaffPrepayApplicationPayment();
+            staffPrepayApplicationPay.setTranAmt(txnAmount);
+            switch (action) {
+                case "transctionreceive" :
+                    staffPrepayApplicationPay.setCertType("5");
+                    break;
+                case "transctionpay" :
+                    staffPrepayApplicationPay.setCertType("1");
+                    break;
+                default:
+                    staffPrepayApplicationPay.setCertType("5");
+                    break;
+            }
+            switch (paymentChannelCode) {
+                case "13" :
+                    paymentChannelProduct = "00000005";
+                    paymentToolId = "0402";
+                    break;
+                case "28" :
+                    paymentChannelProduct = "00000006";
+                    paymentToolId = "0401";
+                    break;
+                case "62" :
+                    paymentChannelProduct = "00000013";
+                    paymentToolId = "0403";
+                    break;
+                default :
+                    paymentChannelProduct = "00000006";
+                    paymentToolId = "0401";
+                    break;
+            }
+            staffPrepayApplicationPay.setProductId(paymentToolId);
+            staffPrepayApplicationPay.setCompany(paymentChannelProduct);
+            staffPrepayApplicationPay.setCertNo(authNum);
+            JSONObject resp = OrderPayDemo.main(staffPrepayApplicationPay,merchantId);
+            String retCode = resp.getJSONObject("head").getString("respCode");
+            if(retCode.equalsIgnoreCase("000000")){
+                String txnCat = "PersonalEwalletTopup";
+                String PersonalPID = walletTxn_ReceiverID;
+                String personalEwalletType = null;
+                MobileEwalletDashboard mobileEwalletDashboard = new MobileEwalletDashboard();
+                BigDecimal txnAmt = new BigDecimal(txnAmount);
+                EwalletTxnController ewalletTxnController = new EwalletTxnController();
+//              MarsMobileEwalletFind = PersonalValueEst.PersonalTreasuryFind(action,PersonalPID,txnAmt,conn);
+                rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(action,txnCat,txnAmt,walletTxn_PayerPID,walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
+
+                if(rsMobileEwalletTxn.get("SQL").equals("SQL-PERSONALEWALLETTXNHISTORY-SUCC")){
+                    personalEwalletType = "RECEIVERQUERY";
+                    String PersonalEwalletPayCat = "Payinput";
+                    EwalletController ewalletController = new EwalletController();
+                    mobileEwalletDashboard.setT_mobilePersonalEwallet_PayCat("PAYOUTPUT");
+                    Map<Object, String> mobileEwalletDashboardResult1 = ewalletController.findPersonalEwallet(PersonalEwalletPayCat,walletTxn_PayerPID,walletTxn_ReceiverID,personalEwalletType,conn);
+                    mobileEwalletDashboard.setT_mobilePersonalEwallet_ReceiverTotCNYBalance(mobileEwalletDashboard.getT_mobilePersonalEwallet_ReceiverOriginTotCNYBalance().add(txnAmt));
+                }else if(rsMobileEwalletTxn.get("SQL").equals("SQL-PAYEREWALLETUPDATEUCC")){
+                    mobileEwalletDashboard.setT_mobilePersonalEwallet_bkp("ReceiverEwallet Bene account hanging");
+                }else if(rsMobileEwalletTxn.get("SQL").equals("SQL-PAYEREWALLETUPDATEFAIL")){
+                    mobileEwalletDashboard.setT_mobilePersonalEwallet_bkp("PayerEwallet Payer account hanging");
+                }
+
+                if (!rsMobileEwalletTxn.isEmpty()){
+                    conn.close();
+                    Map<String, Object> retPayerEwalletStatistic = new HashMap<>();
+                    Map<String, Object> retReceiverEwalletStatistic = new HashMap<>();
+                    //Renew PersonalEwallet Statistic
+                    if(walletTxn_PayerPID != null) {
+                        PersonalPID = walletTxn_PayerPID;
+                        retPayerEwalletStatistic = OverallStatisticRefresh.PersonalEwalletStatisticRefresh(PersonalPID);
+                        Map<String, Object> retPersonalWorthRenew = OverallStatisticRefresh.PersonalEwalletWorthRenew(PersonalPID);
+                    }
+                    if( walletTxn_ReceiverID != null) {
+                        PersonalPID = walletTxn_ReceiverID;
+                        retReceiverEwalletStatistic = OverallStatisticRefresh.PersonalEwalletStatisticRefresh(PersonalPID);
+                        Map<String, Object> retPersonalWorthRenew = OverallStatisticRefresh.PersonalEwalletWorthRenew(PersonalPID);
+                    }
+                    if(retPayerEwalletStatistic.get("SQL") != null && retReceiverEwalletStatistic.get("SQL") != null) {
+                        String mobileEwalletDashboardJson = JsonTool.genByFastJson(mobileEwalletDashboard);
+                        return mobileEwalletDashboardJson;
+                    }else{
+                        rs.put("errMsg","rsMobileEwalletStatisticRenew failed");
+                        return JsonBizTool.genJson(ExRetEnum.FAIL,rs);
+                    }
+                }else{
+                    rs.put("errMsg","rsMobileEwalletTxn is Empty");
+                    return JsonBizTool.genJson(ExRetEnum.FAIL,rs);
+                }
+            }
+            rs.put("errMsg","3rd party payment vendor pay failed");
+            return JsonBizTool.genJson(ExRetEnum.FAIL,rs);
+        }
+
         //支付测试返回
         //http://localhost:8080/sample/oauthController/login?method=QRCode&pid=31011519830805251X
-        if(method!=null&&method.equals("QRScanRet")&&pid!=null&&userName!=null&&paymentchannel!=null&&mode!=null){
+        if(method!=null&&method.equals("QRScanRet")&pid!=null&userName!=null&mode!=null){
             Map<String, Object> rs = new HashMap<String, Object>();
             String merchantId = "S2135052";
             MobileEwalletTXN ApplicationPay = new MobileEwalletTXN();
@@ -592,13 +753,13 @@ public class OauthController {
             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
         }
         
-        //http://localhost:8080/sample/oauthController/login?method=scan-shopping-58qr&action=shopping&page=mobilepay&walletTxn_PayerPID=wechat&walletTxn_ReceiverID=31011519830805251X&PaymentChannel=debitcardNum&shoppingAmount=0.1
+        //http://localhost:8080/sample/oauthController/login?method=scan-shopping-58qr&action=shopping&page=mobilepay&walletTxn_PayerPID=wechat&walletTxn_ReceiverID=31011519830805251X&paymentChannel=debitcardNum&shoppingAmount=0.1
         //个人消费  ( payer - 58,receiver representer- GFwechat )
         if( method!=null&&page.equalsIgnoreCase("ewalletpay")&&method.equals("scan-shopping-58qr")&&action.equalsIgnoreCase("shopping")){
             DBConnection dao = new DBConnection();
             Connection conn = dao.getConnection();
             MobileEwalletTXN ApplicationPay = new MobileEwalletTXN();
-            ApplicationPay.setT_mobileWalletTxn_Txt2("4");  // set Transaction Limited type
+            ApplicationPay.setT_mobileWalletTxn_productType("4");  // set Transaction Limited type
             //verify personal treasury delegation
             Map<String, Object> PersonalTreasuryChk = new HashMap<>();
             String txnCat = "PersonalEwalletShopping";
@@ -606,7 +767,6 @@ public class OauthController {
             BigDecimal txnAmt = new BigDecimal(shoppingAmount).setScale(25,2);
             PersonalTreasuryChk = PersonalValueEst.PersonalTreasuryChk(action, txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
             Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
-            Map<String, Object> rsMobileEwalletCashoutTxn =  new HashMap<>();
             Map<String, Object> rsMobileEwalletShoppingTxn =  new HashMap<>();
 //            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             EwalletTxnController ewalletTxnController = new EwalletTxnController();
@@ -654,13 +814,13 @@ public class OauthController {
         }
 
         //个人充值
-        //个人钱包充值 http://localhost:8080/sample/oauthController/login?method=ewallettopup&action=topup&page=mobilepay&walletTxn_PayerPID=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475&TopupAmount=100.00&&paymentID=$&paymentStatus=&
+        //个人钱包充值 http://localhost:8080/sample/oauthController/login?method=ewallettopup&action=topup&page=mobilepay&walletTxn_PayerPID=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475&topupAmount=100.00&&paymentID=$&paymentStatus=&
         if( method!=null&&page.equalsIgnoreCase("mobilepay")&&method.equals("ewallettopup")&&action.equalsIgnoreCase("topup")){
             DBConnection dao = new DBConnection();
             Connection conn = dao.getConnection();
             Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
             String txnCat = "PersonalEwalletTopup";
-            BigDecimal txnAmt = new BigDecimal(TopupAmount);
+            BigDecimal txnAmt = new BigDecimal(topupAmount);
 //            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             EwalletTxnController ewalletTxnController = new EwalletTxnController();
             rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(action, txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
@@ -677,7 +837,7 @@ public class OauthController {
         }
 
         //个人提现 cashout target account alipayacc/debitcard/creditcard/wechatacc
-        //个人钱包提现 http://localhost:8080/sample/oauthController/login?method=ewalletcashout&action=debitcard&page=mobilehome&walletTxn_PayerPID=31011519830805251X&walletTxn_ReceiverID=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475&CashoutAmount=100.00&&paymentID=$&paymentStatus=&
+        //个人钱包提现 http://localhost:8080/sample/oauthController/login?method=ewalletcashout&action=debitcard&page=mobilehome&walletTxn_PayerPID=31011519830805251X&walletTxn_ReceiverID=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475&CashoutAmount=100.00&&paymentID=$&paymentStatus=&paymentchannel=debitcard
         if( method!=null&&page.equalsIgnoreCase("mobilehome")&&method.equals("ewalletcashout")&&action.equalsIgnoreCase("cashout")){
             DBConnection dao = new DBConnection();
             Connection conn = dao.getConnection();
@@ -692,17 +852,55 @@ public class OauthController {
 //            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             EwalletTxnController ewalletTxnController = new EwalletTxnController();
             rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(action, txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);
-            conn.close();
             if (rsMobileEwalletTxn.get("UpdatePersonalEwalletSucc").equals("succ")) {
                 String PersonalPID = walletTxn_PayerPID;
                 Map<String, Object> retPersonalWorthRenew = OverallStatisticRefresh.PersonalEwalletWorthRenew(PersonalPID);
+                Map<String, Object> retPersonalEwalletCashoutResult = new HashMap<>();
                 System.out.println("调用个人钱包提现成功");
                 //Cashout to Personal Bank card
-                StaffPrepayApplicationPayment PersonalApplicationPay = null;
-                //Input all Payment Info into it, coding...
-                PersonalApplicationPay.setTranAmt(txnAmount);
                 String PaymentSwitch = "shsd";
-                Map<String, Object> retPersonalEwalletCashout =  PaymentCall.PersonalEwalletCashout(PaymentSwitch,PersonalApplicationPay);
+                StaffPrepayApplicationPayment personalApplicationPay = null;
+                personalApplicationPay.setAccName((String) PersonalTreasuryChk.get("PersonalName"));
+                personalApplicationPay.setPhone((String) PersonalTreasuryChk.get("PersonalMobile"));
+                personalApplicationPay.setID(paymentID);
+                personalApplicationPay.setOrderCode(Tool.PayId());
+                personalApplicationPay.setTranAmt(txnAmount);
+                personalApplicationPay.setTranTime(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()).toString());
+                
+                //personalApplicationPay.setTranAmt(t_Txn_TotalPrepayNum.setScale(0,BigDecimal.ROUND_UP).toString());
+                //Input all Payment Info into it, coding...
+                switch (paymentChannel) {
+                    case "debitcard" :
+                    case "creditcard" :
+                        personalApplicationPay.setVersion("01");
+                        personalApplicationPay.setProductId("00000004");
+                        personalApplicationPay.setName("sandpay");
+                        personalApplicationPay.setCurrencyCode("156");
+                        personalApplicationPay.setCertType("0101");
+                        personalApplicationPay.setCertNo(PersonalPID); //Goldman Fuks shareholder pid
+                        personalApplicationPay.setAccAttr("0");
+                        personalApplicationPay.setAccNo(cardAcc); // Goldman Fuks treasury mgt
+                        personalApplicationPay.setAccName(personalApplicationPay.getAccName());
+                        personalApplicationPay.setRemark("cashout");
+                        personalApplicationPay.setAccType("4");
+                        personalApplicationPay.setReturnPic("1");
+                        personalApplicationPay.setReqReserved("全渠道");
+                        retPersonalEwalletCashoutResult = PaymentCall.PersonalEwalletCashout(PaymentSwitch, personalApplicationPay);
+                        if(retPersonalEwalletCashoutResult.get("errCode").equals(null)){
+                            rsMobileEwalletTxn.put("paymmentStatus","Payment Succ");
+                        }else{
+                            rsMobileEwalletTxn.put("respCode",retPersonalEwalletCashoutResult.get("respCode"));
+                            rsMobileEwalletTxn.put("RespMsg",retPersonalEwalletCashoutResult.get("RespMsg"));
+                            rsMobileEwalletTxn.put("respDesc",retPersonalEwalletCashoutResult.get("respDesc"));
+                        }
+                        break;
+                    case "alipay" :
+                        //alipay channel
+                        break;
+                    case "wechat" :
+                        //wechat channel
+                        break;
+                }
                 rsMobileEwalletTxn.put("SMSverify",0);
                 conn.close();
                 return JsonBizTool.genJson(ExRetEnum.SUCCESS);
@@ -713,14 +911,14 @@ public class OauthController {
         }
 
         //个人预支支付或预支消费
-        //个人钱包预支支付或预支消费 http://localhost:8080/sample/oauthController/login?method=ewalletcashadvance&action=cashadvance&page=mobilehome&walletTxn_PayerPID=31011519830805251X&walletTxn_ReceiverID=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475&TopupAmount=100.00&&paymentID=$&paymentStatus=&
+        //个人钱包预支支付或预支消费 http://localhost:8080/sample/oauthController/login?method=ewalletcashadvance&action=cashadvance&page=mobilehome&walletTxn_PayerPID=31011519830805251X&walletTxn_ReceiverID=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475&topupAmount=100.00&&paymentID=$&paymentStatus=&
         if( method!=null&&page.equalsIgnoreCase("mobilehome")&&method.equals("ewalletcashadvance")){
             System.out.print(action); // action=cashadvance , action=cashadvancepay
             DBConnection dao = new DBConnection();
             Connection conn = dao.getConnection();
             Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
             String txnCat = "PersonalEwalletCashout";
-            BigDecimal txnAmt = new BigDecimal(TopupAmount);
+            BigDecimal txnAmt = new BigDecimal(topupAmount);
 //            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
             EwalletTxnController ewalletTxnController = new EwalletTxnController();
             rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(action,txnCat, txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID,method,paymentID,paymentStatus,conn);

@@ -58,7 +58,7 @@ public class OrderPayDemo {
 		body.put("authCode", staffPrepayApplicationPay.getCertNo());		//支付授权码,从支付宝、微信或者云闪付中获取
         body.put("totalAmount", txnAmt); //订单金额 12位长度，精确到分
 //		body.put("totalAmount","000001100000" );			//订单金额 12位长度，精确到分
-		body.put("limitPay","4");							//限定支付方式 送1-限定不能使用贷记卡	送4-限定不能使用花呗	送5-限定不能使用贷记卡+花呗
+		body.put("limitPay",staffPrepayApplicationPay.getCertType());							//限定支付方式 送1-限定不能使用贷记卡	送4-限定不能使用花呗	送5-限定不能使用贷记卡+花呗
 		body.put("subject", "充值");						//订单标题
 		body.put("body", "用户购买58流转券");					//订单描述
 		body.put("txnTimeOut",DemoBase.getNextDayTime());	//订单超时时间
@@ -74,7 +74,7 @@ public class OrderPayDemo {
 //        body.put("notifyUrl", "https://www.58gongzi.com.cn:8080/sample/oauthController/login?method=QRScanRet");	//异步通知地址
 		body.put("bizExtendParams", TxnID);					//业务扩展参数
 		body.put("merchExtendParams", "");					//商户扩展参数
-		body.put("extend", "");								//扩展域	
+		body.put("extend", "Scanpay testing");								//扩展域	
 	};
 	
 	

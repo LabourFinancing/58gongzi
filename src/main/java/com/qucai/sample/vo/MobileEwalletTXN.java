@@ -124,7 +124,7 @@ public class MobileEwalletTXN implements Serializable {
 
     private String t_mobileWalletTxn_Voucher;
 
-    private String t_mobileWalletTxn_Txt2;
+    private String t_mobileWalletTxn_productType; //payment product type
 
     private String t_mobileWalletTxn_Txt3;
 
@@ -578,12 +578,12 @@ public class MobileEwalletTXN implements Serializable {
         this.t_mobileWalletTxn_Voucher = t_mobileWalletTxn_Voucher;
     }
 
-    public String getT_mobileWalletTxn_Txt2() {
-        return t_mobileWalletTxn_Txt2;
+    public String getT_mobileWalletTxn_productType() {
+        return t_mobileWalletTxn_productType;
     }
 
-    public void setT_mobileWalletTxn_Txt2(String t_mobileWalletTxn_Txt2) {
-        this.t_mobileWalletTxn_Txt2 = t_mobileWalletTxn_Txt2;
+    public void setT_mobileWalletTxn_productType(String t_mobileWalletTxn_productType) {
+        this.t_mobileWalletTxn_productType = t_mobileWalletTxn_productType;
     }
 
     public String getT_mobileWalletTxn_Txt3() {

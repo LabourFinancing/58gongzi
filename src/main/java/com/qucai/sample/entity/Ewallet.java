@@ -156,6 +156,66 @@ public class Ewallet implements Serializable {
 
     private String t_personalewallet_TermPaymentBal;
 
+    private String t_personalewallet_ApplierMobile;
+
+    public String getT_personalewallet_ApplierMobile() {
+        return t_personalewallet_ApplierMobile;
+    }
+
+    public void setT_personalewallet_ApplierMobile(String t_personalewallet_ApplierMobile) {
+        this.t_personalewallet_ApplierMobile = t_personalewallet_ApplierMobile;
+    }
+
+    public String getT_personalewallet_AlipayQRcode() {
+        return t_personalewallet_AlipayQRcode;
+    }
+
+    public void setT_personalewallet_AlipayQRcode(String t_personalewallet_AlipayQRcode) {
+        this.t_personalewallet_AlipayQRcode = t_personalewallet_AlipayQRcode;
+    }
+
+    public String getT_personalewallet_WechatQRcode() {
+        return t_personalewallet_WechatQRcode;
+    }
+
+    public void setT_personalewallet_WechatQRcode(String t_personalewallet_WechatQRcode) {
+        this.t_personalewallet_WechatQRcode = t_personalewallet_WechatQRcode;
+    }
+
+    public String getT_personalewallet_UnionQRcode() {
+        return t_personalewallet_UnionQRcode;
+    }
+
+    public void setT_personalewallet_UnionQRcode(String t_personalewallet_UnionQRcode) {
+        this.t_personalewallet_UnionQRcode = t_personalewallet_UnionQRcode;
+    }
+
+    public String getT_personalewallet_Txt1() {
+        return t_personalewallet_Txt1;
+    }
+
+    public void setT_personalewallet_Txt1(String t_personalewallet_Txt1) {
+        this.t_personalewallet_Txt1 = t_personalewallet_Txt1;
+    }
+
+    public String getT_personalewallet_Txt2() {
+        return t_personalewallet_Txt2;
+    }
+
+    public void setT_personalewallet_Txt2(String t_personalewallet_Txt2) {
+        this.t_personalewallet_Txt2 = t_personalewallet_Txt2;
+    }
+
+    private String t_personalewallet_AlipayQRcode;
+
+    private String t_personalewallet_WechatQRcode;
+
+    private String t_personalewallet_UnionQRcode;
+
+    private String t_personalewallet_Txt1;
+
+    private String t_personalewallet_Txt2;
+
     public String getCreator() {
         return creator;
     }

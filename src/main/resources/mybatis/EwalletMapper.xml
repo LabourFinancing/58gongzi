@@ -70,8 +70,14 @@
 		<result column="creator" property="creator" jdbcType="VARCHAR" />
 		<result column="create_time" property="create_time" jdbcType="TIMESTAMP" />
 		<result column="modifier" property="modifier" jdbcType="VARCHAR" />
-		<result column="modify_time" property="modify_time" jdbcType="TIMESTAMP" />	
-	</resultMap>
+		<result column="modify_time" property="modify_time" jdbcType="TIMESTAMP" />
+        <result column="t_personalewallet_ApplierMobile" property="t_personalewallet_ApplierMobile" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_AlipayQRcode" property="t_personalewallet_AlipayQRcode" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_WechatQRcode" property="t_personalewallet_WechatQRcode" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_UnionQRcode" property="t_personalewallet_UnionQRcode" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_Txt1" property="t_personalewallet_Txt1" jdbcType="VARCHAR" />
+        <result column="t_personalewallet_Txt1" property="t_personalewallet_Txt2" jdbcType="VARCHAR" />
+    </resultMap>
 	
 	<sql id="Base_Column_List">
         a.t_personalewallet_ID,
@@ -141,7 +147,13 @@
 		a.creator,
 		a.create_time,
 		a.modifier,
-		a.modify_time
+		a.modify_time,
+		a.t_personalewallet_ApplierMobile,
+		a.t_personalewallet_AlipayQRcode,
+		a.t_personalewallet_WechatQRcode,
+		a.t_personalewallet_UnionQRcode,
+		a.t_personalewallet_Txt1,
+		a.t_personalewallet_Txt2
 	</sql>
 	
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
@@ -382,15 +394,33 @@
 			<if test="creator != null">
                 creator,
 			</if>
-			<if test="t_personalewallet_DiscountRate != null">
+			<if test="create_time != null">
 				create_time,
 			</if>
 			<if test="modifier != null">
 				modifier,
 			</if>
 			<if test="modify_time != null">
-				modify_time
+				modify_time,
 			</if>
+            <if test="t_personalewallet_ApplierMobile != null">
+                t_personalewallet_ApplierMobile,
+            </if>
+            <if test="t_personalewallet_AlipayQRcode != null">
+                t_personalewallet_AlipayQRcode,
+            </if>
+            <if test="t_personalewallet_WechatQRcode != null">
+                t_personalewallet_WechatQRcode,
+            </if>
+            <if test="t_personalewallet_UnionQRcode != null">
+                t_personalewallet_UnionQRcode,
+            </if>
+            <if test="t_personalewallet_Txt1 != null">
+                t_personalewallet_Txt1,
+            </if>
+            <if test="t_personalewallet_Txt2 != null">
+                t_personalewallet_Txt2
+            </if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="t_personalewallet_ID != null">
@@ -613,8 +643,26 @@
 				#{modifier,jdbcType=VARCHAR},
 			</if>
 			<if test="modify_time != null">
-				#{modify_time,jdbcType=TIMESTAMP}
+				#{modify_time,jdbcType=TIMESTAMP},
 			</if>
+            <if test="t_personalewallet_ApplierMobile != null">
+                #{t_personalewallet_ApplierMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_AlipayQRcode != null">
+                #{t_personalewallet_AlipayQRcode,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_WechatQRcode != null">
+                #{t_personalewallet_WechatQRcode,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_UnionQRcode != null">
+                #{t_personalewallet_UnionQRcode,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_Txt1 != null">
+                #{t_personalewallet_Txt1,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_Txt2 != null">
+                #{t_personalewallet_Txt2,jdbcType=VARCHAR}
+            </if>
 		</trim>
 	</insert>
 	
@@ -851,8 +899,26 @@
 				modifier = #{modifier,jdbcType=VARCHAR},
 			</if>
 			<if test="modify_time != null">
-				modify_time = #{modify_time,jdbcType=TIMESTAMP}
+				modify_time = #{modify_time,jdbcType=TIMESTAMP},
 			</if>
+            <if test="t_personalewallet_ApplierMobile != null">
+                t_personalewallet_ApplierMobile = #{t_personalewallet_ApplierMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_AlipayQRcode != null">
+                t_personalewallet_AlipayQRcode = #{t_personalewallet_AlipayQRcode,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_WechatQRcode != null">
+                t_personalewallet_WechatQRcode = #{t_personalewallet_WechatQRcode,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_UnionQRcode != null">
+                t_personalewallet_UnionQRcode = #{t_personalewallet_UnionQRcode,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_Txt1 != null">
+                t_personalewallet_Txt1 = #{t_personalewallet_Txt1,jdbcType=VARCHAR},
+            </if>
+            <if test="t_personalewallet_Txt2 != null">
+                t_personalewallet_Txt2 = #{t_personalewallet_Txt2,jdbcType=VARCHAR}
+            </if>
 		</set>
 		where t_personalewallet_ID = #{t_personalewallet_ID,jdbcType=VARCHAR}
 	</update>

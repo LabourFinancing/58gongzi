@@ -59,12 +59,12 @@ public class AgentPayDemo {
 		request.put("cityNo", "");                                              //收款人开会城市编码
 		request.put("bankName", "");                                            //收款账户开户行名称
 		request.put("bankType", "");                                			//收款人账户联行号 
-		request.put("remark", "工资,报销,补贴");                                          	//摘要       
+		request.put("remark", "劳务费,报销,补贴");                                          	//摘要       
 		request.put("payMode", ""); 											//付款模式
 		request.put("channelType", "");                                         //渠道类型   
 		request.put("extendParams", "");										//业务扩展参数
 		request.put("reqReserved", "");                                         //请求方保留域  
-		request.put("extend", "工资");                                              //扩展域
+		request.put("extend", "劳动报酬");                                              //扩展域
 		request.put("phone", staffPrepayApplicationPay.getPhone());												//手机号
 	}
 

@@ -1,8 +1,12 @@
 package com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo;
 
 import com.qucai.sample.entity.StaffPrepayApplicationPayment;
+import com.qucai.sample.util.JsonBizTool;
+import com.qucai.sample.util.JsonTool;
 import com.qucai.sample.util.Tool;
 import com.qucai.sample.vo.MobileEwalletTXN;
+import javafx.application.Application;
+import jxl.write.DateFormat;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +15,10 @@ import com.alibaba.fastjson.JSONObject;
 
 import com.qucai.sample.sandpay.src.cn.com.sandpay.cashier.sdk.CertUtil;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.cashier.sdk.SDKConfig;
+
+import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * 产品：银联聚合码<br>
@@ -44,32 +52,34 @@ public class OrderCreateDemo {
 		header.put("reqTime", DemoBase.getCurrentTime());	//请求时间		
 	};
 	
-	
 	public void setBody(MobileEwalletTXN ApplicationPay) {
         Integer transactionAMT = Integer.valueOf(ApplicationPay.getT_mobileWalletTxn_TotTxnAmount().intValue())*100; //转型
         String txnAmt = String.format("%012d", transactionAMT);
         String TxnID= Tool.PayId();
         StringBuffer retURL = new StringBuffer();
         String method = "paymentreturn";
-        String retrul = String.valueOf(retURL.append("https://api.58gongzi.com.cn/callback/authcodepay?order=").append(TxnID).append("&method=").append(method));
+        String retrul = String.valueOf(retURL.append("https://api.58gongzi.com.cn/callback/authcodepay?order=").append(TxnID));
+        Date currentTime = new Date();
+        ApplicationPay.setT_mobileWalletTxn_TxnDate(currentTime);
+        String applicationTxnDetail = URLEncoder.encode(JsonTool.genByFastJson(ApplicationPay));
 		body.put("payTool", "0403");						//支付工具: 0403-银联扫码
-		body.put("orderCode", DemoBase.getOrderCode());		//商户订单号
-		body.put("limitPay", ApplicationPay.getT_mobileWalletTxn_Txt2());							//限定支付方式 送1-限定不能使用贷记卡	送4-限定不能使用花呗	送5-限定不能使用贷记卡+花呗
+		body.put("orderCode", ApplicationPay.getT_mobileWalletTxn_Num());		//商户订单号
+		body.put("limitPay", ApplicationPay.getT_mobileWalletTxn_productType());							//限定支付方式 送1-限定不能使用贷记卡	送4-限定不能使用花呗	送5-限定不能使用贷记卡+花呗
 		body.put("totalAmount",txnAmt);			//订单金额 12位长度，精确到分
-		body.put("subject", "话费充值");						//订单标题
-		body.put("body", "用户购买话费0.01");					//订单描述
+		body.put("subject", "58流转券");						//订单标题
+		body.put("body", "");					//订单描述
 		body.put("txnTimeOut",DemoBase.getNextDayTime());	//订单超时时间
 		body.put("storeId", "");							//商户门店编号
 		body.put("terminalId", "");							//商户终端编号
-		body.put("operatorId", "");							//操作员编号
+		body.put("operatorId", TxnID);							//操作员编号
 		body.put("notifyUrl", retrul);	//异步通知地址
-//        body.put("notifyUrl", "https://www.58gongzi.com.cn:8080/sample/oauthController/login?method=QRScanRet");	//异步通知地址
-		body.put("bizExtendParams", "");					//业务扩展参数
+//        body.put("notifyUrl", "https://api.58gongzi.com.cn/callback/authcodepay?order=123");	//异步通知地址
+		body.put("bizExtendParams", new SimpleDateFormat("yyyyMMddHHmmss").format(ApplicationPay.getT_mobileWalletTxn_TxnDate()));					//业务扩展参数
 		body.put("merchExtendParams", "");					//商户扩展参数
 		body.put("hbFqFlag", "");							//花呗分期标识
 		body.put("hbFqNum", "");							//花呗分期期数
 		body.put("hbFqSellerPercent", "");					//卖家承担手续费比例
-		body.put("extend", "");								//扩展域
+		body.put("extend", applicationTxnDetail);								//扩展域
 	};
 	
 	
