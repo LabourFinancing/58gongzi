@@ -58,8 +58,8 @@
         <result column="t_WalletTxn_type" property="t_WalletTxn_type" jdbcType="VARCHAR" />
         <result column="t_WalletTxn_Voucher" property="t_WalletTxn_Voucher" jdbcType="INTEGER" />
         <result column="t_WalletTxn_TotShareProfit" property="t_WalletTxn_TotShareProfit" jdbcType="VARCHAR" />
-        <result column="t_WalletTxn_Txt3" property="t_WalletTxn_Txt3" jdbcType="VARCHAR" />
-        <result column="t_WalletTxn_Txt4" property="t_WalletTxn_Txt4" jdbcType="VARCHAR" />
+        <result column="t_WalletTxn_PayerEwalletAddress" property="t_WalletTxn_PayerEwalletAddress" jdbcType="VARCHAR" />
+        <result column="t_WalletTxn_ReceiverEwalletAddress" property="t_WalletTxn_ReceiverEwalletAddress" jdbcType="VARCHAR" />
         <result column="t_WalletTxn_Txt5" property="t_WalletTxn_Txt5" jdbcType="VARCHAR" />
 		<result column="platform" property="platform" jdbcType="VARCHAR" />
 		<result column="remark" property="remark" jdbcType="VARCHAR" />
@@ -126,8 +126,8 @@
         a.t_WalletTxn_type,
         a.t_WalletTxn_Voucher,
         a.t_WalletTxn_TotShareProfit,
-        a.t_WalletTxn_Txt3,
-        a.t_WalletTxn_Txt4,
+        a.t_WalletTxn_PayerEwalletAddress,
+        a.t_WalletTxn_ReceiverEwalletAddress,
         a.t_WalletTxn_Txt5,
 		a.platform,
 		a.remark,
@@ -358,11 +358,11 @@
             <if test="t_WalletTxn_TotShareProfit != null">
                 t_WalletTxn_TotShareProfit,
             </if>
-            <if test="t_WalletTxn_Txt3 != null">
-                t_WalletTxn_Txt3,
+            <if test="t_WalletTxn_PayerEwalletAddress != null">
+                t_WalletTxn_PayerEwalletAddress,
             </if>
-            <if test="t_WalletTxn_Txt4 != null">
-                t_WalletTxn_Txt4,
+            <if test="t_WalletTxn_ReceiverEwalletAddress != null">
+                t_WalletTxn_ReceiverEwalletAddress,
             </if>
             <if test="t_WalletTxn_Txt5 != null">
                 t_WalletTxn_Txt5,
@@ -552,11 +552,11 @@
             <if test="t_WalletTxn_TotShareProfit != null">
                 #{t_WalletTxn_TotShareProfit,jdbcType=VARCHAR},
             </if>
-            <if test="t_WalletTxn_Txt3 != null">
-                #{t_WalletTxn_Txt3,jdbcType=VARCHAR},
+            <if test="t_WalletTxn_PayerEwalletAddress != null">
+                #{t_WalletTxn_PayerEwalletAddress,jdbcType=VARCHAR},
             </if>
-            <if test="t_WalletTxn_Txt4 != null">
-                #{t_WalletTxn_Txt4,jdbcType=VARCHAR},
+            <if test="t_WalletTxn_ReceiverEwalletAddress != null">
+                #{t_WalletTxn_ReceiverEwalletAddress,jdbcType=VARCHAR},
             </if>
             <if test="t_WalletTxn_Txt5 != null">
                 #{t_WalletTxn_Txt5,jdbcType=VARCHAR},
@@ -791,11 +791,11 @@
             <if test="t_WalletTxn_TotShareProfit != null">
                 t_WalletTxn_TotShareProfit = #{t_WalletTxn_TotShareProfit,jdbcType=VARCHAR},
             </if>
-            <if test="t_WalletTxn_Txt3 != null">
-                t_WalletTxn_Txt3 = #{t_WalletTxn_Txt3,jdbcType=VARCHAR},
+            <if test="t_WalletTxn_PayerEwalletAddress != null">
+                t_WalletTxn_PayerEwalletAddress = #{t_WalletTxn_PayerEwalletAddress,jdbcType=VARCHAR},
             </if>
-            <if test="t_WalletTxn_Txt4 != null">
-                t_WalletTxn_Txt4 = #{t_WalletTxn_Txt4,jdbcType=VARCHAR},
+            <if test="t_WalletTxn_ReceiverEwalletAddress != null">
+                t_WalletTxn_ReceiverEwalletAddress = #{t_WalletTxn_ReceiverEwalletAddress,jdbcType=VARCHAR},
             </if>
             <if test="t_WalletTxn_Txt5 != null">
                 t_WalletTxn_Txt5 = #{t_WalletTxn_Txt5,jdbcType=VARCHAR},

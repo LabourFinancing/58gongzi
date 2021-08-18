@@ -1,12 +1,8 @@
 package com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo;
 
-import com.qucai.sample.entity.StaffPrepayApplicationPayment;
-import com.qucai.sample.util.JsonBizTool;
 import com.qucai.sample.util.JsonTool;
 import com.qucai.sample.util.Tool;
-import com.qucai.sample.vo.MobileEwalletTXN;
-import javafx.application.Application;
-import jxl.write.DateFormat;
+import com.qucai.sample.vo.MobileEwalletDashboard;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,57 +29,57 @@ public class OrderCreateDemo {
 	
 	JSONObject header = new JSONObject();
 	JSONObject body=new JSONObject();
-	
-	
-	public void setHeader() {
-		
-		header.put("version", DemoBase.version);			//版本号
-		header.put("method", DemoBase.QR_ORDERCREATE);		//接口名称:预下单
-		header.put("productId", DemoBase.PRODUCTID_YINLIAN);//产品编码
-		header.put("mid", SDKConfig.getConfig().getMid());	//商户号
-		String plMid=SDKConfig.getConfig().getPlMid();		//平台商户号
-		if(plMid!=null && StringUtils.isNotEmpty(plMid)) {  //平台商户存在时接入
-			header.put("accessType", "2");				    //接入类型设置为平台商户接入
-			header.put("plMid", plMid);
-		}else {
-			header.put("accessType", "1");					//接入类型设置为普通商户接入
-		}		
-		header.put("channelType", "07");					//渠道类型：07-互联网   08-移动端
-		header.put("reqTime", DemoBase.getCurrentTime());	//请求时间		
-	};
-	
-	public void setBody(MobileEwalletTXN ApplicationPay) {
-        Integer transactionAMT = Integer.valueOf(ApplicationPay.getT_mobileWalletTxn_TotTxnAmount().intValue())*100; //转型
+
+
+    public void setHeader() {
+
+        header.put("version", DemoBase.version);			//版本号
+        header.put("method", DemoBase.QR_ORDERCREATE);		//接口名称:预下单
+        header.put("productId", DemoBase.PRODUCTID_YINLIAN);//产品编码
+        header.put("mid", SDKConfig.getConfig().getMid());	//商户号
+        String plMid=SDKConfig.getConfig().getPlMid();		//平台商户号
+        if(plMid!=null && StringUtils.isNotEmpty(plMid)) {  //平台商户存在时接入
+            header.put("accessType", "2");				    //接入类型设置为平台商户接入
+            header.put("plMid", plMid);
+        }else {
+            header.put("accessType", "1");					//接入类型设置为普通商户接入
+        }
+        header.put("channelType", "07");					//渠道类型：07-互联网   08-移动端
+        header.put("reqTime", DemoBase.getCurrentTime());	//请求时间		
+    };
+
+
+    public void setBody(MobileEwalletDashboard ApplicationPay) { 
+        Integer transactionAMT = Integer.valueOf(ApplicationPay.getT_mobilePersonalEwallet_TxnAmount().intValue())*100; //转型
         String txnAmt = String.format("%012d", transactionAMT);
         String TxnID= Tool.PayId();
         StringBuffer retURL = new StringBuffer();
         String method = "paymentreturn";
         String retrul = String.valueOf(retURL.append("https://api.58gongzi.com.cn/callback/authcodepay?order=").append(TxnID));
-        Date currentTime = new Date();
-        ApplicationPay.setT_mobileWalletTxn_TxnDate(currentTime);
+        ApplicationPay.setT_mobilePersonalEwallet_TxnID(TxnID);
+        String orderCode = ApplicationPay.getT_mobilePersonalEwallet_OrderCode();
+        String limitePay = ApplicationPay.getT_MobilePersonalewallet_PaymentType();
         String applicationTxnDetail = URLEncoder.encode(JsonTool.genByFastJson(ApplicationPay));
-		body.put("payTool", "0403");						//支付工具: 0403-银联扫码
-		body.put("orderCode", ApplicationPay.getT_mobileWalletTxn_Num());		//商户订单号
-		body.put("limitPay", ApplicationPay.getT_mobileWalletTxn_productType());							//限定支付方式 送1-限定不能使用贷记卡	送4-限定不能使用花呗	送5-限定不能使用贷记卡+花呗
-		body.put("totalAmount",txnAmt);			//订单金额 12位长度，精确到分
-		body.put("subject", "58流转券");						//订单标题
-		body.put("body", "");					//订单描述
-		body.put("txnTimeOut",DemoBase.getNextDayTime());	//订单超时时间
-		body.put("storeId", "");							//商户门店编号
-		body.put("terminalId", "");							//商户终端编号
-		body.put("operatorId", TxnID);							//操作员编号
-		body.put("notifyUrl", retrul);	//异步通知地址
-//        body.put("notifyUrl", "https://api.58gongzi.com.cn/callback/authcodepay?order=123");	//异步通知地址
-		body.put("bizExtendParams", new SimpleDateFormat("yyyyMMddHHmmss").format(ApplicationPay.getT_mobileWalletTxn_TxnDate()));					//业务扩展参数
-		body.put("merchExtendParams", "");					//商户扩展参数
-		body.put("hbFqFlag", "");							//花呗分期标识
-		body.put("hbFqNum", "");							//花呗分期期数
-		body.put("hbFqSellerPercent", "");					//卖家承担手续费比例
-		body.put("extend", applicationTxnDetail);								//扩展域
-	};
-	
-	
-	public static JSONObject main(MobileEwalletTXN ApplicationPay, String merchantId) throws Exception {
+        body.put("payTool", "0403");						//支付工具: 0403-银联扫码
+		body.put("orderCode", orderCode);		//商户订单号
+        body.put("limitPay", limitePay);							//限定支付方式 送1-限定不能使用贷记卡	送4-限定不能使用花呗	送5-限定不能使用贷记卡+花呗
+        body.put("totalAmount",txnAmt);			//订单金额 12位长度，精确到分
+        body.put("subject", "话费充值");						//订单标题
+        body.put("body", "用户购买话费0.01");					//订单描述
+        body.put("txnTimeOut",DemoBase.getNextDayTime());	//订单超时时间
+        body.put("storeId", "");							//商户门店编号
+        body.put("terminalId", "");							//商户终端编号
+        body.put("operatorId", "");							//操作员编号
+        body.put("notifyUrl", retrul);	//异步通知地址
+        body.put("bizExtendParams", "");					//业务扩展参数
+        body.put("merchExtendParams", "");					//商户扩展参数
+        body.put("hbFqFlag", "");							//花呗分期标识
+        body.put("hbFqNum", "");							//花呗分期期数
+        body.put("hbFqSellerPercent", "");					//卖家承担手续费比例
+        body.put("extend", applicationTxnDetail);								//扩展域
+    };
+
+    public static JSONObject main(MobileEwalletDashboard ApplicationPay, String merchantId) throws Exception {
 		
 		OrderCreateDemo demo=new OrderCreateDemo();
 		String reqAddr="/order/create";   //接口报文规范中获取
@@ -104,6 +100,5 @@ public class OrderCreateDemo {
 			logger.info("生成的二维码信息为："+resp.getJSONObject("body").getString("qrCode"));
 		}
         return resp;
-
 	}
 }

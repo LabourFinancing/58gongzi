@@ -97,9 +97,9 @@ public class OverallStatisticRefresh{
             "COUNT(IF((t_ewallettxn_his.t_WalletTxn_TotTxnAmount_his < 0 AND t_ewallettxn_his.t_WalletTxn_TxnCat_his = '58scan-txn-58qr'),ABS(t_ewallettxn_his.t_WalletTxn_TotTxnAmount_his),null)) AS P_DAILY_OUTGOING_CNT," +
             "SUM(IF((t_ewallettxn_his.t_WalletTxn_TxnCat_his = 'PersonalEwalletTopup'),t_ewallettxn_his.t_WalletTxn_TotTxnAmount_his,null)) AS P_DAILY_TOPUP_AMT," +
             "COUNT(IF(( t_ewallettxn_his.t_WalletTxn_TxnCat_his = 'PersonalEwalletTopup'),t_ewallettxn_his.t_WalletTxn_TotTxnAmount_his,null)) AS P_DAILY_TOPUP_CNT," +
-            "SUM(IF((t_ewallettxn_his.t_WalletTxn_TxnCat_his = 'ewalletcashout'),t_ewallettxn_his.t_WalletTxn_TotTxnAmount_his,null)) AS P_DAILY_CASHOUT_AMT," +
-            "COUNT(IF((t_ewallettxn_his.t_WalletTxn_TxnCat_his = 'ewalletcashout'),t_ewallettxn_his.t_WalletTxn_TotTxnAmount_his,null)) AS P_DAILY_CASHOUT_CNT" +
-            "from t_ewallettxn_his GROUP BY t_ewallettxn_his.t_personalewallet_ApplierName_his) as a" +
+            "SUM(IF((t_ewallettxn_his.t_WalletTxn_TxnCat_his = 'PersonalEwalletTopup'),t_ewallettxn_his.t_WalletTxn_TotTxnAmount_his,null)) AS P_DAILY_CASHOUT_AMT," +
+            "COUNT(IF((t_ewallettxn_his.t_WalletTxn_TxnCat_his = 'PersonalEwalletTopup'),t_ewallettxn_his.t_WalletTxn_TotTxnAmount_his,null)) AS P_DAILY_CASHOUT_CNT" +
+            "from t_ewallettxn_his GROUP BY t_ewallettxn_his.t_personalewallet_ApplierName_his) as a " +
             "SET t_personal_ewallet_statistics.t_personal_ewallet_statistic_treasuryctrlBeneDailyAmt = a.P_DAILY_INCOME_AMT," +
             "t_personal_ewallet_statistics.t_personal_ewallet_statistic_treasuryctrlBeneTotalAmt=IF(a.P_DAILY_INCOME_AMT is null,t_personal_ewallet_statistics.t_personal_ewallet_statistic_treasuryctrlBeneTotalAmt,t_personal_ewallet_statistics.t_personal_ewallet_statistic_treasuryctrlBeneTotalAmt+a.P_DAILY_INCOME_AMT)," +
             "t_personal_ewallet_statistics.t_personal_ewallet_statistic_treasuryctrlBeneDailyCnt=a.P_DAILY_INCOME_CNT," +
@@ -138,7 +138,8 @@ public class OverallStatisticRefresh{
         Connection conn = dao.getConnection();
         Map<String,Object> retStatus = new HashMap<>();
         String sql = "UPDATE t_personal_ewallet, (select t_treasurydb_main.t_TreasuryDB_Main_BaselineValue,t_treasurydb_main.t_TreasuryDB_Main_BaselineValue as baseValue as personalDays from t_treasurydb_main) as a " +
-            "SET t_personal_ewallet.modifier = 'System Time Trigger',t_personal_ewallet.modify_time = NOW()," +
+            "SET t_personal_ewallet.modifier='System Time Trigger'," +
+            "t_personal_ewallet.modify_time = NOW()," +
             "t_personal_ewallet.t_personalewallet_TotalWorthCal = t_personal_ewallet.t_personalewallet_YesterdayWorthCal + t_personal_ewallet.t_personalewallet_TotCNYBalance," +
             "t_personal_ewallet.t_personalewallet_BaselineAdjustment = if(t_personal_ewallet.t_personalewallet_DayCntEq0 - t_personal_ewallet.t_personalewallet_DayCntMorethan0 <= 0,POWER(datediff(NOW(),t_personal_ewallet.create_time),SQRT(a.personalDays*10)/10),t_personal_ewallet.t_personalewallet_DayCntEq0 - t_personal_ewallet.t_personalewallet_DayCntMorethan0)," +
             "t_personal_ewallet.t_personalewallet_Worth = if((SQRT(SQRT(SQRT(SQRT(SQRT(SQRT(t_personal_ewallet.t_personalewallet_TotalWorthCal/(t_personal_ewallet.t_personalewallet_BaselineAdjustment))))) * SQRT(a.personalDays*10)/10)))>=1,a.baseValue,(SQRT(SQRT(SQRT(SQRT(SQRT(SQRT(t_personal_ewallet.t_personalewallet_TotalWorthCal/(t_personal_ewallet.t_personalewallet_BaselineAdjustment))))) * SQRT(a.personalDays*10)/10)))*1000000) " +

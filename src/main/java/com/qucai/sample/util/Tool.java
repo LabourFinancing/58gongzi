@@ -2,9 +2,7 @@ package com.qucai.sample.util;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -12,6 +10,7 @@ import java.util.regex.PatternSyntaxException;
 import javax.servlet.http.HttpServletRequest;
 
 import com.qucai.sample.common.PageParam;
+import org.apache.poi.poifs.filesystem.Entry;
 
 public class Tool {
 
@@ -248,5 +247,15 @@ public class Tool {
 	      luhmSum += k; 
 	    } 
 	    return (luhmSum % 10 == 0) ? '0' : (char) ((10 - luhmSum % 10) + '0'); 
-	  } 
+	  }
+
+    public static String[] mapToList(HashMap<String, Object> map){
+        String[] list = new String[map.size()];
+//将map对象里面的属性循环遍历出来
+        for(int i = map.size()-1;i >= 0;i--){
+            list[i].equals(map.entrySet());
+        }
+        return list;
+    }
+
 }

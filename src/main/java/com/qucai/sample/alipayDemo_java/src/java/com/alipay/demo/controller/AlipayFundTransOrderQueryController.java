@@ -61,6 +61,7 @@ public class AlipayFundTransOrderQueryController {
 				//TODO 实际业务处理，开发者编写。可以通过alipayResponse.getXXX的形式获取到返回值
 			} else {
 				System.out.println("调用失败");
+				System.out.println(alipayResponse);
                 resp.put("CALLALIPAY-ERRCODE",alipayResponse.getErrorCode());
                 resp.put("CALLALIPAY-STATUS",alipayResponse.getStatus());
                 resp.put("CALLALIPAY-MSG",alipayResponse.getMsg());

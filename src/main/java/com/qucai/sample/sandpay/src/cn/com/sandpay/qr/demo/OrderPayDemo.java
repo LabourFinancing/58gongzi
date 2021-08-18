@@ -1,6 +1,7 @@
 package com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo;
 
 import com.qucai.sample.entity.StaffPrepayApplicationPayment;
+import com.qucai.sample.util.JsonTool;
 import com.qucai.sample.util.Tool;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ import com.qucai.sample.sandpay.src.cn.com.sandpay.cashier.sdk.CertUtil;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.cashier.sdk.SDKConfig;
 
 import java.math.BigDecimal;
+import java.net.URLEncoder;
 
 /**
  * 产品：银联聚合码<br>
@@ -49,18 +51,19 @@ public class OrderPayDemo {
 	public void setBody(StaffPrepayApplicationPayment staffPrepayApplicationPay, String merchantId) {
         Integer transactionAMT = Integer.valueOf(staffPrepayApplicationPay.getTranAmt()).intValue()*100; //转型
         String txnAmt = String.format("%012d", transactionAMT);
-        String TxnID= Tool.PayId();
+        String OrderCode = DemoBase.getOrderCode();
         StringBuffer retURL = new StringBuffer();
-        String retrul = String.valueOf(retURL.append("https://api.58gongzi.com.cn/callback/authcodepay?order=").append(TxnID));
+        staffPrepayApplicationPay.setOrderCode(OrderCode);
+        String retrul = String.valueOf(retURL.append("https://api.58gongzi.com.cn/callback/authcodepay?order=").append(staffPrepayApplicationPay.getID()));
+        String applicationTxnDetail = URLEncoder.encode(JsonTool.genByFastJson(staffPrepayApplicationPay));
 		body.put("payTool", staffPrepayApplicationPay.getProductId());						//支付工具: 固定填写0403
-		body.put("orderCode", DemoBase.getOrderCode());		//商户订单号
+		body.put("orderCode", OrderCode);		//商户订单号
 		body.put("scene", "1");								//支付场景 1-条码支付(默认) 2-声波支付
 		body.put("authCode", staffPrepayApplicationPay.getCertNo());		//支付授权码,从支付宝、微信或者云闪付中获取
         body.put("totalAmount", txnAmt); //订单金额 12位长度，精确到分
-//		body.put("totalAmount","000001100000" );			//订单金额 12位长度，精确到分
 		body.put("limitPay",staffPrepayApplicationPay.getCertType());							//限定支付方式 送1-限定不能使用贷记卡	送4-限定不能使用花呗	送5-限定不能使用贷记卡+花呗
-		body.put("subject", "充值");						//订单标题
-		body.put("body", "用户购买58流转券");					//订单描述
+		body.put("subject", "会员优惠券");						//订单标题
+		body.put("body", "用户购买58优惠券");					//订单描述
 		body.put("txnTimeOut",DemoBase.getNextDayTime());	//订单超时时间
 		body.put("storeId", "");							//商户门店编号
 		body.put("terminalId", "");							//商户终端编号
@@ -70,11 +73,11 @@ public class OrderPayDemo {
 		body.put("hbFqFlag", "");							//花呗分期标识
 		body.put("hbFqNum", "");							//花呗分期期数
 		body.put("hbFqSellerPercent", "");					//卖家承担手续费比例
-		body.put("notifyUrl", retrul);	//异步通知地址
+		body.put("notifyUrl", "");	//异步通知地址
 //        body.put("notifyUrl", "https://www.58gongzi.com.cn:8080/sample/oauthController/login?method=QRScanRet");	//异步通知地址
-		body.put("bizExtendParams", TxnID);					//业务扩展参数
+		body.put("bizExtendParams", staffPrepayApplicationPay.getID());					//业务扩展参数
 		body.put("merchExtendParams", "");					//商户扩展参数
-		body.put("extend", "Scanpay testing");								//扩展域	
+		body.put("extend", applicationTxnDetail);								//扩展域	
 	};
 	
 	

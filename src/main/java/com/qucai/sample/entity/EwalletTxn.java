@@ -145,9 +145,9 @@ public class EwalletTxn implements Serializable {
 
     private String t_WalletTxn_TotShareProfit;
 
-    private String t_WalletTxn_Txt3;
+    private String t_WalletTxn_PayerEwalletAddress;
 
-    private String t_WalletTxn_Txt4;
+    private String t_WalletTxn_ReceiverEwalletAddress;
 
     private String t_WalletTxn_Txt5;
 
@@ -648,19 +648,19 @@ public class EwalletTxn implements Serializable {
     }
 
     public String getT_WalletTxn_Txt3() {
-        return t_WalletTxn_Txt3;
+        return t_WalletTxn_PayerEwalletAddress;
     }
 
-    public void setT_WalletTxn_Txt3(String t_WalletTxn_Txt3) {
-        this.t_WalletTxn_Txt3 = t_WalletTxn_Txt3;
+    public void setT_WalletTxn_Txt3(String t_WalletTxn_PayerEwalletAddress) {
+        this.t_WalletTxn_PayerEwalletAddress = t_WalletTxn_PayerEwalletAddress;
     }
 
     public String getT_WalletTxn_Txt4() {
-        return t_WalletTxn_Txt4;
+        return t_WalletTxn_ReceiverEwalletAddress;
     }
 
-    public void setT_WalletTxn_Txt4(String t_WalletTxn_Txt4) {
-        this.t_WalletTxn_Txt4 = t_WalletTxn_Txt4;
+    public void setT_WalletTxn_Txt4(String t_WalletTxn_ReceiverEwalletAddress) {
+        this.t_WalletTxn_ReceiverEwalletAddress = t_WalletTxn_ReceiverEwalletAddress;
     }
 
     public String getT_WalletTxn_Txt5() {

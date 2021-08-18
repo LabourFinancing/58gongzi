@@ -47,9 +47,10 @@ public class OrderQueryDemo {
 		
 	}
 
-	public static void main(String[] args,String merchantId) throws Exception {
+	public static String main(String[] args,String merchantId) throws Exception {
 		
 		OrderQueryDemo demo = new OrderQueryDemo();
+		String retData=null;
 		String reqAddr="/queryOrder";   //接口报文规范中获取
 		
 		//加载配置文件
@@ -68,13 +69,15 @@ public class OrderQueryDemo {
 			logger.info("响应码：["+resp.getString("respCode")+"]");	
 			logger.info("响应描述：["+resp.getString("respDesc")+"]");
 			logger.info("处理状态：["+resp.getString("resultFlag")+"]");
-			
+            retData = "处理状态：["+resp.getString("resultFlag")+"]";
 			System.out.println("响应码：["+resp.getString("respCode")+"]");
 			System.out.println("响应描述：["+resp.getString("respDesc")+"]");
 			System.out.println("处理状态：["+resp.getString("resultFlag")+"]");
 		}else {
-			logger.error("服务器请求异常！！！");	
+			logger.error("服务器请求异常！！！");
+            retData="服务器请求异常！！！";
 		}
+		return retData;
 	}
 
 	

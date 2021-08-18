@@ -720,8 +720,9 @@ public class StaffPrepayApplicationController {
                                    
 //            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
                                   EwalletTxnController ewalletTxnController = new EwalletTxnController();
+                                  MobileEwalletDashboard mobileEwalletDashboard = new MobileEwalletDashboard();
                                   String action = "WithdrawToEwallet";
-                                  rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(action,txnCat, txnAmt,  walletTxn_PayerPID,
+                                  rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(mobileEwalletDashboard,action,txnCat, txnAmt,  walletTxn_PayerPID,
                                        walletTxn_ReceiverID, method, paymentID, paymentStatus, conn);
                                   conn.close();
                                   if (rsMobileEwalletTxn.get("SQL").equals("SQL-RECEIVEREWALLETTOPUPSUCC")) {

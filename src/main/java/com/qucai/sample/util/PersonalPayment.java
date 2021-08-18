@@ -5,17 +5,12 @@ package com.qucai.sample.util;
  * Date : 29/07/2021
  ************************************************/
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.qucai.sample.controller.EwalletTxnController;
-import com.qucai.sample.daifudemo.src.com.chinaebi.pay.servlet.PayServlet;
 import com.qucai.sample.entity.StaffPrepayApplicationPayment;
 import com.qucai.sample.vo.MobileEwalletDashboard;
-import com.qucai.sample.vo.MobileEwalletTXN;
-import com.qucai.sample.exception.ExRetEnum;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.dsf.demo.AgentPayDemo;
 import com.qucai.sample.service.*;
-import com.qucai.sample.vo.MobileEwalletTXN;
 import com.qucai.sample.vo.MobilePersonalEwalletTxnStatistic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -166,45 +161,6 @@ public class PersonalPayment {
     }
 
 //    3rd party payment call coding...
-    public static Object PersonalEwalletTxnPayment(MobileEwalletTXN ApplicationPay,String action, String txnCat,BigDecimal txnAmt,
-                                                                String walletTxn_PayerPID,String walletTxn_ReceiverID,String method,String paymentID,String paymentStatus,Connection conn) throws Exception {
-//        Map<String, Object> retPersonalEwalletTxnPayment = new HashMap<>();
-        MobileEwalletDashboard mobileEwalletDashboard = new MobileEwalletDashboard();
-        Map<String, Object> rs = new HashMap<>();
-        String merchantId = "S2135052";
-        String PaymentSwitch = "shsd";
-        String RCretData = null;
-        String remark = null;
-        System.out.print("Personal Ewallet Transaction Regulatory");
-        Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
-        rsMobileEwalletTxn = EwalletTxnController.addMobileEwalletTxn( action, txnCat,  txnAmt,  walletTxn_PayerPID,
-            walletTxn_ReceiverID, method, paymentID, paymentStatus, conn);
-        System.out.println("Err txn log shsd:");
-        
-        if (PaymentSwitch.equals("shsd")){
-            ApplicationPay.setT_mobileWalletTxn_ClearOrg(merchantId);
-            ApplicationPay.setT_mobileWalletTxn_Vendor("sandpay");
-            //payto goldmanfuks sandpay pub account for cashout preparation
-            StaffPrepayApplicationPayment staffPrepayApplicationPay = new StaffPrepayApplicationPayment();
-//            staffPrepayApplicationPay.set   coding...
-            JSONObject obj = AgentPayDemo.main(staffPrepayApplicationPay,merchantId);  // sandpay
-            RCretData = (String) obj.get("respCode"); //  sandpay branch
-            remark = (String) obj.get("respDesc"); //  sandpay branch
-            if(RCretData.equals("4001")){
-                ApplicationPay.setT_mobileWalletTxn_Paystatus(RCretData);
-                ApplicationPay.setT_mobileWalletTxn_Txt3("Other");
-                ApplicationPay.setT_mobileWalletTxn_Txt4(remark);
-                ApplicationPay.setT_mobileWalletTxn_ClearOrg(merchantId);
-//                staffPrepayApplicationService.insertPayment(ApplicationPay);    // call insert Transaction
-                System.out.println(ApplicationPay.getT_mobileWalletTxn_Num());
-                mobileEwalletDashboard.setT_mobilePersonalEwallet_ErrMsg("您当前消费功能受限，详情请咨询客服");
-                String mobileEwalletDashboardJson = JsonTool.genByFastJson(mobileEwalletDashboard);
-                return mobileEwalletDashboardJson;
-            }
-        }
-        String mobileEwalletDashboardJson = JsonTool.genByFastJson(mobileEwalletDashboard);
-        return mobileEwalletDashboardJson;
-    }
     
     public static Object PaymentStatus(){
         System.out.println();
