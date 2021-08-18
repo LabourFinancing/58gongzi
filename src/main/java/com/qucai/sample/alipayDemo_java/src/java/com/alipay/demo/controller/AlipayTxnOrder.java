@@ -33,7 +33,7 @@ import com.qucai.sample.alipayDemo_java.src.java.com.alipay.demo.entites.Result;
 
 public class AlipayTxnOrder {
 
-    public static Map<String, Object>  alipayCreateOrder(MobileEwalletDashboard mobileEwalletDashboard, AlipayFundTransOrderQueryModel alipayModel) throws AlipayApiException {
+    public static Map<String, Object>  alipayCreateOrder(MobileEwalletDashboard mobileEwalletDashboard) throws AlipayApiException {
         Result<AlipayFundTransOrderQueryResponse> result = new Result<AlipayFundTransOrderQueryResponse>();
         JSONObject resp = JSONObject.parseObject(result.getErrorCode());
         Properties prop = AlipayConfig.getProperties();
@@ -43,7 +43,7 @@ public class AlipayTxnOrder {
         //添加demo请求标示，用于标记是demo发出
         alipayRequest.putOtherTextParam(AlipayConfig.ALIPAY_DEMO, AlipayConfig.ALIPAY_DEMO_VERSION);
         //设置业务参数，alipayModel为前端发送的请求信息，开发者需要根据实际情况填充此类
-        alipayRequest.setBizModel(alipayModel);
+//        alipayRequest.setBizModel(alipayModel);
         alipayRequest.setReturnUrl(prop.getProperty("RETURN_URL"));
         alipayRequest.setNotifyUrl(prop.getProperty("NOTIFY_URL"));
         
@@ -55,42 +55,36 @@ public class AlipayTxnOrder {
         certAlipayRequest.setFormat("json");  //参数返回格式，只支持 json 格式
         certAlipayRequest.setCharset(prop.getProperty("CHARSET"));  //请求和签名使用的字符编码格式，支持 GBK和 UTF-8
         certAlipayRequest.setSignType(prop.getProperty("SIGN_TYPE"));  //商户生成签名字符串所使用的签名算法类型，目前支持 RSA2 和 RSA，推荐商家使用 RSA2。   
-        certAlipayRequest.setCertPath(""); //应用公钥证书路径（app_cert_path 文件绝对路径）
-        certAlipayRequest.setAlipayPublicCertPath(""); //支付宝公钥证书文件路径（alipay_cert_path 文件绝对路径）
-        certAlipayRequest.setRootCertPath("");  //支付宝CA根证书文件路径（alipay_root_cert_path 文件绝对路径）
+        certAlipayRequest.setCertPath("/Users/project/58gongzi/src/main/resources/appCertPublicKey_H5.crt"); //应用公钥证书路径（app_cert_path 文件绝对路径）
+        certAlipayRequest.setAlipayPublicCertPath("/Users/project/58gongzi/src/main/resources/alipayCertPublicKey_RSA2_H5.crt"); //支付宝公钥证书文件路径（alipay_cert_path 文件绝对路径）
+        certAlipayRequest.setRootCertPath("/Users/project/58gongzi/src/main/resources/alipayRootCert_H5.crt");  //支付宝CA根证书文件路径（alipay_root_cert_path 文件绝对路径）
         
-        AlipayClient alipayClient = new DefaultAlipayClient("https://openapi.alipay.com/gateway.do", "2021002158619784", prop.getProperty("RSA2_PRIVATE_KEY"), "json", "GBK", prop.getProperty("ALIPAY_PUBLIC_KEY"), "RSA2");
-//        AlipayClient alipayClient = new DefaultAlipayClient(certAlipayRequest);
+//        AlipayClient alipayClient = new DefaultAlipayClient("https://openapi.alipay.com/gateway.do", "2021002158619784", prop.getProperty("RSA2_PRIVATE_KEY"), "json", "GBK", prop.getProperty("ALIPAY_PUBLIC_KEY"), "RSA2");
+        AlipayClient alipayClient = new DefaultAlipayClient(certAlipayRequest);
         AlipayFundTransUniTransferRequest request = new AlipayFundTransUniTransferRequest();
         mobileEwalletDashboard.setT_mobilePersonalEwallet_ProdName("Alipay Internal Transfer");
         Map<String, Object> rsAlipayTxn = new HashMap<>(); //uid支付宝用户唯一的标识2088开头的数字 spearsharp@163.com
+        String paymentID = DemoBase.getOrderCode();
+        mobileEwalletDashboard.setT_mobilePersonalEwallet_OrderCode(paymentID);
+        
         request.setBizContent("{" +
-            "\"out_biz_no\":\"202108130001\"," +
-            "\"trans_amount\":1.01," +
-            "\"product_code\":\"TRANS_ACCOUNT_NO_PWD\"," +
+            "\"out_biz_no\":\"202108180001\"," +  //唯一订单号
+            "\"trans_amount\":1.00," +
+            "\"product_code\":\"TRANS_ACCOUNT_NO_PWD\"," + 
             "\"biz_scene\":\"DIRECT_TRANSFER\"," +
-            "\"order_title\":\"PRODUCT_NAME\"," +
-            "\"original_order_id\":\"20210620110075000006640020210813\"," +
+            "\"order_title\":\"202108代发\"," +    // product Name
             "\"payee_info\":{" +
-            "\"identity\":\"18001869161\"," +
-            "\"identity_type\":\"ALIPAY_LOGON_ID\"," +
-            "\"name\":\"姚诚铭\"" +
-            "    }," +
+            "\"identity\":\"2088002082117160\"," +   // alipay userid
+            "\"identity_type\":\"ALIPAY_USER_ID\"," + 
+            "\"name\":\"姚诚铭\"," +   // receiver Name
+            "      }," +
             "\"remark\":\"单笔转账\"," +
-            "\"business_params\":\"{\\\"sub_biz_scene\\\":\\\"代发转账\\\"}\"," +
-            "\"sign_data\":{" +
-            "\"ori_sign\":\"EqHFP0z4a9iaQ1ep==\"," +
-            "\"ori_sign_type\":\"RSA2\"," +
-            "\"ori_char_set\":\"UTF-8\"," +
-            "\"partner_id\":\"2088002082117160\"," +
-            "\"pay_fund_order_id\":\"20210620110075000006640020210813\"," +
-            "\"ori_app_id\":\"2021002158619784\"," +
-            "\"ori_out_biz_no\":\"20210813000000001\"" +
-            "    }" +
+            "\"business_params\":\"{\\\"payer_show_name\\\":\\\"高孚信科\\\"}\"," +
             "  }");
         try {
-            AlipayFundTransUniTransferResponse alipayResponse = alipayClient.execute(request);
+            AlipayFundTransUniTransferResponse alipayResponse = alipayClient.certificateExecute(request);
             if (alipayResponse.isSuccess()) {
+                rsAlipayTxn.put("Msg","Succ");
                 System.out.println("调用成功");
             } else {
                 rsAlipayTxn.put("errMsg", "rsMobileEwalletTxn Alipay internal Transaction failed");
