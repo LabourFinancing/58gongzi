@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -395,6 +396,37 @@ public class EwalletTxnController {
     /*
 移动端个人
 */
+    public static Map<String, Object> TxnStatusCheck(String txnID, Connection conn) throws SQLException {
+        if  (conn.isClosed()) {
+            DBConnection dao = new DBConnection();
+            conn = dao.getConnection();
+        }
+        Map<String, Object> rsEwalletTxnStatus = new HashMap<String, Object>();
+        ResultSet rs = null;
+        String sql = "select * from gognzi.t_ewallettxn_info where t_ewallettxn_info.t_WalletTxn_ClearNum = ?";
+        try {
+            PreparedStatement ptmt = conn.prepareStatement(sql);
+            ptmt.setString(1, txnID);
+            rs = ptmt.executeQuery();
+            if (rs.next()) {
+                rsEwalletTxnStatus.put("txnStatus", rs.getString("t_WalletTxn_Paystatus"));
+            }else{
+                rsEwalletTxnStatus = null;
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            rsEwalletTxnStatus.put("SQL-PersonalEwalletTxnStatus-ErrorCode:", String.valueOf(e.getErrorCode()));
+            rsEwalletTxnStatus.put("SQL-PersonalEwalletTxnStatus-SQLstat:", String.valueOf(e.getSQLState()));
+            rsEwalletTxnStatus.put("SQL-PersonalEwalletTxnStatus-SQLcause:", String.valueOf(e.getCause()));
+            rsEwalletTxnStatus.put("SQL", "SQL-PersonalEwalletTxnStatus-ErrorCode");
+            conn.close();
+            return rsEwalletTxnStatus;
+        } finally {
+            return rsEwalletTxnStatus;
+        }
+    }
+    
     public static Map<String, Object> addMobileEwalletTxn(MobileEwalletDashboard mobileEwalletDashboard,String action,String txnCat, BigDecimal txnAmt, String walletTxn_PayerPID,
                                                    String walletTxn_ReceiverID,String method,String paymentID,String paymentStatus,Connection conn) throws SQLException {
         Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
@@ -451,23 +483,23 @@ public class EwalletTxnController {
             ptmt.setString(1, uuid); // uuid t_WalletTxn_ID 交易序列号 
             ptmt.setString(2, method); //QRcode t_WalletTxn_QRcode 二维码内容
             ptmt.setString(3, mobileEwalletDashboard.getT_mobilePersonalEwallet_TxnID());// t_WalletTxn_Num 交易单号-清算号
-            ptmt.setString(4, mobileEwalletDashboard.getT_MobilePersonalewallet_PaymentVersion()); // t_WalletTxn_Vendor  支付公司名称
+            ptmt.setString(4, mobileEwalletDashboard.getT_mobilePersonalewallet_PaymentVersion()); // t_WalletTxn_Vendor  支付公司名称
             ptmt.setString(5, paymentID); // t_WalletTxn_ClearNum 支付流水号
-            ptmt.setString(6, mobileEwalletDashboard.getT_mobilePersonalEwallet_ClearOrg()); // t_WalletTxn_ClearOrg 交易企业对账号
+            ptmt.setString(6, mobileEwalletDashboard.getT_mobilePersonalEwallet_ApplierPID()); // t_WalletTxn_ClearOrg 交易企业对账号
             ptmt.setString(7, mobileEwalletDashboard.getT_mobilePersonalEwallet_PayerName()); // t_WalletTxn_PayerName 付款人姓名
-            ptmt.setString(8, mobileEwalletDashboard.getT_mobilePersonalEwallet_PayerPID()); // t_WalletTxn_PayerID 付款人主ID
+            ptmt.setString(8, mobileEwalletDashboard.getT_mobilePersonalEwallet_PayerEwalletID()); // t_WalletTxn_PayerID 付款人主ID
             ptmt.setString(9, walletTxn_PayerPID); // t_WalletTxn_PayerPID 付款人身份证
             ptmt.setString(10, mobileEwalletDashboard.getT_mobilePersonalEwallet_ReceiverName()); // t_WalletTxn_ReceiverName 收款人姓名
             ptmt.setString(11, mobileEwalletDashboard.getT_mobilePersonalEwallet_ApplierPID()); // t_WalletTxn_ReceiverID 收款人ID
             ptmt.setString(12, mobileEwalletDashboard.getT_mobilePersonalEwallet_ReceiverPID()); // t_WalletTxn_ReceiverPID 收款人身份证
-            ptmt.setString(13, mobileEwalletDashboard.getT_mobilePersonalEwallet_PayerMobile()); // t_WalletTxn_Mobile 付款人手机号
-            ptmt.setString(14, txnCat); // t_WalletTxn_TxnCat 充值,支付,收款,消费,退款,提现
-            ptmt.setString(15, ""); // t_WalletTxn_TxnCurrencyType 币种
+            ptmt.setString(13, mobileEwalletDashboard.getT_mobilePersonalEwallet_PayerMobile()); // t_WalletTxn_Mobile 付款人手机号  
+            ptmt.setString(14, txnCat); // t_WalletTxn_TxnCat 充值,支付,收款,消费,退款,提现  t_mobilePersonalEwallet_TxnCat
+            ptmt.setString(15, "CNY"); // t_WalletTxn_TxnCurrencyType 币种  //中间字段
             ptmt.setTimestamp(16, new java.sql.Timestamp(System.currentTimeMillis())); // t_WalletTxn_TxnDate 交易时间
             ptmt.setString(17, mobileEwalletDashboard.getT_mobilePersonalEwallet_ProdName()); // t_WalletTxn_ProdName 产品名
-            ptmt.setInt(18, 0); // t_WalletTxn_PayDays 天数
-            ptmt.setBigDecimal(19, new BigDecimal("0.00")); // t_WalletTxn_CreditPayCurrentNum 当前可预支额度
-            ptmt.setBigDecimal(20, txnAmt); // t_WalletTxn_TotTxnAmount 总支付金额
+            ptmt.setInt(18, mobileEwalletDashboard.getT_mobilePersonalEwallet_PayDays()); // t_WalletTxn_PayDays 支付周期 天数
+            ptmt.setBigDecimal(19, mobileEwalletDashboard.getT_mobilePersonalEwallet_CreditPayAmtInit()); // t_WalletTxn_CreditPayCurrentNum 当前可预支额度
+            ptmt.setBigDecimal(20, txnAmt); // t_WalletTxn_TotTxnAmount 总支付金额 t_mobilePersonalEwallet_TxnAmount
             ptmt.setBigDecimal(21, t_MobileWalletTxn_TopupAmt); // t_WalletTxn_TopupAmt 收款/充值金额
             ptmt.setBigDecimal(22, new BigDecimal("0.00")); // t_WalletTxn_CryptoTxnAmt 数字币支付金额
             ptmt.setBigDecimal(23, new BigDecimal("0.00")); // t_WalletTxn_DebitTxnAmt 借记卡支付金额
@@ -479,7 +511,7 @@ public class EwalletTxnController {
             ptmt.setInt(29, 0); // t_WalletTxn_TotalInterestDays 结算周期 T+0 当天 T+1 隔天
             ptmt.setInt(30, 1); // t_WalletTxn_TxnCounts 交易次数
             ptmt.setBigDecimal(31, new BigDecimal("0.00")); // t_WalletTxn_InterestBene 贴现差额
-            ptmt.setString(32, "0"); // t_WalletTxn_PaymentAccattr 对私-0；对公-1
+            ptmt.setString(32, "0"); // t_WalletTxn_TreasuryID 对私-0；对公-1
             ptmt.setString(33, ""); // t_WalletTxn_RefundAccNo 退款账户号
             ptmt.setBigDecimal(34, new BigDecimal("0.00")); // t_WalletTxn_TotBalance 钱包总余额
             ptmt.setBigDecimal(35, new BigDecimal("0.00")); //  t_WalletTxn_BalancePrepayNum 额度变化(小于一个月工资)
@@ -500,13 +532,13 @@ public class EwalletTxnController {
             ptmt.setTimestamp(50, null); // t_WalletTxn_TxnTimeout 订单超时时间
             ptmt.setString(51, mobileEwalletDashboard.getT_mobilePersonalEwallet_Paystatus()); // t_WalletTxn_Paystatus 查询支付状态
             ptmt.setString(52, ""); // t_WalletTxn_SMS 短信验证
-            ptmt.setString(53, mobileEwalletDashboard.getT_MobilePersonalewallet_PaymentType()); // t_WalletTxn_SMSRec 支付类型
+            ptmt.setString(53, mobileEwalletDashboard.getT_MobilePersonalewallet_PaymentType()); // t_WalletTxn_PaymentType 支付类型
             ptmt.setString(54, ewalletTxnType);  // t_WalletTxn_type b2b,b2c,c2b,c2c 交易类型
             ptmt.setString(55, "no"); // t_WalletTxn_Voucher voucher
             ptmt.setString(56, ""); // t_WalletTxn_TotShareProfit 备用字段
             ptmt.setString(57, mobileEwalletDashboard.getT_mobilePersonalEwallet_PayerEwalletAddress()); // t_WalletTxn_PayerEwalletAddress 备用字段
             ptmt.setString(58, mobileEwalletDashboard.getT_mobilePersonalEwallet_ReceiverEwalletAddress()); // t_WalletTxn_ReceiverEwalletAddress 备用字段
-            ptmt.setString(59, mobileEwalletDashboard.getT_mobilePersonalEwallet_TxnID()); // t_WalletTxn_Txt5 备用字段
+            ptmt.setString(59, mobileEwalletDashboard.getT_mobilePersonalEwallet_PaymentTool()); // t_WalletTxn_PaymentToolID 备用字段
             ptmt.setString(60, ""); // agreement 协议条款
             ptmt.setString(61, "mobile"); // platform 平台
             ptmt.setString(62, mobileEwalletDashboard.getT_mobilePersonalEwallet_bkp()); // remark 备注
@@ -531,19 +563,19 @@ public class EwalletTxnController {
                 retUpdatePersonalEwallet = EwalletController.UpdatePayeePersonalEwalletBalance(txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID, conn);
                 if (!retUpdatePersonalEwallet.isEmpty()) {
 //                    rsMobileEwalletTxn.put("SQL", "SQL-RECEIVEREWALLETTOPUPSUCC");  // checking others
-                    rsMobileEwalletTxn.put("SQL", "SQL-RECEIVEREWALLETUPDATESUCC");
+                    rsMobileEwalletTxn.put("SQL", "SQL-EWALLETBALANCEUPDATESUCC");
                 } else {
 //                    rsMobileEwalletTxn.put("SQL", "SQL-RECEIVEREWALLETTOPUPFAIL");  // checking others
                     rsMobileEwalletTxn.put("SQL", "SQL-RECEIVEREWALLETUPDATEFAILED");
                 }
             } 
-            if (method.equalsIgnoreCase("58scan-txn-58qr")) {
+            if (txnCat.equalsIgnoreCase("58scan-txn-58qr")) {
                 retUpdatePersonalEwallet = EwalletController.UpdatePayerPersonalEwalletBalance(txnAmtPayerMinus, walletTxn_PayerPID, walletTxn_ReceiverID, conn);
                 if (!retUpdatePersonalEwallet.isEmpty()) {
                     if (method.equalsIgnoreCase("58scan-txn-58qr")) {
                         retUpdatePersonalEwallet = EwalletController.UpdatePayeePersonalEwalletBalance(txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID, conn);
                         if (!retUpdatePersonalEwallet.isEmpty()) {
-                            rsMobileEwalletTxn.put("SQL", "SQL-RECEIVEREWALLETUPDATESUCC");
+                            rsMobileEwalletTxn.put("SQL", "SQL-EWALLETBALANCEUPDATESUCC");
                         } else {
                             rsMobileEwalletTxn.put("SQL", "SQL-PAYEREWALLETUPDATEUCC");
                         }
@@ -560,7 +592,7 @@ public class EwalletTxnController {
                     if (method.equalsIgnoreCase("PersonalEwalletCashout")) {
                         retUpdatePersonalEwallet = EwalletController.UpdatePayerPersonalEwalletBalance(txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID, conn);
                         if (!retUpdatePersonalEwallet.isEmpty()) {
-                            rsMobileEwalletTxn.put("SQL", "SQL-RECEIVEREWALLETUPDATESUCC");
+                            rsMobileEwalletTxn.put("SQL", "SQL-EWALLETBALANCEUPDATESUCC");
                         } else {
                             rsMobileEwalletTxn.put("SQL", "SQL-CASHOUTEWALLETUPDATEUCC");
                         }
@@ -583,7 +615,7 @@ public class EwalletTxnController {
                     if (method.equalsIgnoreCase("Shopping")) {
                         retUpdatePersonalEwallet = EwalletController.UpdatePayerPersonalEwalletBalance(txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID, conn);
                         if (!retUpdatePersonalEwallet.isEmpty()) {
-                            rsMobileEwalletTxn.put("SQL", "SQL-RECEIVEREWALLETUPDATESUCC");
+                            rsMobileEwalletTxn.put("SQL", "SQL-EWALLETBALANCEUPDATESUCC");
                         } else {
                             rsMobileEwalletTxn.put("SQL", "SQL-PAYEREWALLETUPDATEUCC");
                         }
@@ -601,14 +633,14 @@ public class EwalletTxnController {
             }
             
             //insert PersonalEwalletTxnhistory
-            if(rsMobileEwalletTxn.get("SQL").equals("SQL-RECEIVEREWALLETUPDATESUCC")) {
+            if(rsMobileEwalletTxn.get("SQL").equals("SQL-EWALLETBALANCEUPDATESUCC")) {
                 String sql1 = "INSERT INTO gognzi.t_ewallettxn_his select * from gognzi.t_ewallettxn_info INNER JOIN gognzi.t_personal_ewallet on " +
-                    "gognzi.t_ewallettxn_info.t_WalletTxn_PayerPID = gognzi.t_personal_ewallet.t_personalewallet_ApplierPID " +
-                    "where gognzi.t_ewallettxn_info.t_WalletTxn_Num = ?";
+                    "gognzi.t_ewallettxn_info.t_WalletTxn_ClearOrg = gognzi.t_personal_ewallet.t_personalewallet_ApplierPID " +
+                    "where gognzi.t_ewallettxn_info.t_WalletTxn_ClearNum = ?";
                 try {
                     PreparedStatement ptmt = null;
                     ptmt = conn.prepareStatement(sql1);
-                    ptmt.setString(1, mobileEwalletDashboard.getT_mobilePersonalEwallet_TxnID()); // uuid t_WalletTxn_ID 交易序列号
+                    ptmt.setString(1, paymentID); // uuid t_WalletTxn_ID 交易序列号
                     System.out.println(ptmt.executeUpdate());
                 } catch (SQLException e) {
                     e.printStackTrace();

@@ -59,7 +59,6 @@ public class AlipayTxnOrder {
         certAlipayRequest.setAlipayPublicCertPath("/Users/project/58gongzi/src/main/resources/alipayCertPublicKey_RSA2_H5.crt"); //支付宝公钥证书文件路径（alipay_cert_path 文件绝对路径）
         certAlipayRequest.setRootCertPath("/Users/project/58gongzi/src/main/resources/alipayRootCert_H5.crt");  //支付宝CA根证书文件路径（alipay_root_cert_path 文件绝对路径）
         
-//        AlipayClient alipayClient = new DefaultAlipayClient("https://openapi.alipay.com/gateway.do", "2021002158619784", prop.getProperty("RSA2_PRIVATE_KEY"), "json", "GBK", prop.getProperty("ALIPAY_PUBLIC_KEY"), "RSA2");
         AlipayClient alipayClient = new DefaultAlipayClient(certAlipayRequest);
         AlipayFundTransUniTransferRequest request = new AlipayFundTransUniTransferRequest();
         mobileEwalletDashboard.setT_mobilePersonalEwallet_ProdName("Alipay Internal Transfer");
@@ -84,7 +83,7 @@ public class AlipayTxnOrder {
         try {
             AlipayFundTransUniTransferResponse alipayResponse = alipayClient.certificateExecute(request);
             if (alipayResponse.isSuccess()) {
-                rsAlipayTxn.put("Msg","Succ");
+                rsAlipayTxn.put("Msg","Alipay intern transmit Succ");
                 System.out.println("调用成功");
             } else {
                 rsAlipayTxn.put("errMsg", "rsMobileEwalletTxn Alipay internal Transaction failed");

@@ -49,12 +49,12 @@ public class OrderPayDemo {
 	
 	
 	public void setBody(StaffPrepayApplicationPayment staffPrepayApplicationPay, String merchantId) {
-        Integer transactionAMT = Integer.valueOf(staffPrepayApplicationPay.getTranAmt()).intValue()*100; //转型
+        Integer transactionAMT = Integer.valueOf(new BigDecimal(staffPrepayApplicationPay.getTranAmt()).setScale(2, BigDecimal.ROUND_DOWN).multiply(new BigDecimal(100)).intValue()); //转型
         String txnAmt = String.format("%012d", transactionAMT);
         String OrderCode = DemoBase.getOrderCode();
         StringBuffer retURL = new StringBuffer();
         staffPrepayApplicationPay.setOrderCode(OrderCode);
-        String retrul = String.valueOf(retURL.append("https://api.58gongzi.com.cn/callback/authcodepay?order=").append(staffPrepayApplicationPay.getID()));
+//        String retrul = String.valueOf(retURL.append("https://api.58gongzi.com.cn/callback/authcodepay?order=").append(staffPrepayApplicationPay.getID()));
         String applicationTxnDetail = URLEncoder.encode(JsonTool.genByFastJson(staffPrepayApplicationPay));
 		body.put("payTool", staffPrepayApplicationPay.getProductId());						//支付工具: 固定填写0403
 		body.put("orderCode", OrderCode);		//商户订单号

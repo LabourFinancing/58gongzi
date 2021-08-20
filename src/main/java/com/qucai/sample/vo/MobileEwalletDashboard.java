@@ -21,6 +21,8 @@ public class MobileEwalletDashboard implements Serializable {
 
     private String t_mobilePersonalEwallet_TxnCat;
 
+    private String t_mobilePersonalEwallet_PaymentTool;
+
     private String t_mobilePersonalEwallet_PayerEwalletID;
 
     private String t_mobilePersonalEwallet_PayerPID;
@@ -51,7 +53,7 @@ public class MobileEwalletDashboard implements Serializable {
 
     private String t_mobilePersonalEwallet_ID;
 
-    private String t_mobilePersonalEwallet_ApplierID;
+    private String t_mobilePersonalEwallet_ApplierMobile;
 
     private String t_mobilePersonalEwallet_ApplierPID;
 
@@ -125,11 +127,11 @@ public class MobileEwalletDashboard implements Serializable {
 
     private BigDecimal t_mobilePersonalEwallet_Worth;
 
-    private BigDecimal t_mobilePersonalEwallet_DiscountRate;
+    private BigDecimal t_mobilePersonalEwallet_DiscountAmt;
 
     private BigDecimal t_mobilePersonalEwallet_BalanceInterest;
 
-    private java.util.Date t_mobilePersonalEwallet_OverdueRepaymentDate;
+    private Date t_mobilePersonalEwallet_OverdueRepaymentDate;
 
     private String t_mobilePersonalEwallet_PrepayClear;
 
@@ -159,7 +161,7 @@ public class MobileEwalletDashboard implements Serializable {
 
     private String t_mobilePersonalEwallet_SMS;
 
-    private String t_MobilePersonalewallet_PaymentVersion;
+    private String t_mobilePersonalewallet_PaymentVersion;
 
     private String t_MobilePersonalewallet_PaymentType;
 
@@ -177,6 +179,34 @@ public class MobileEwalletDashboard implements Serializable {
 
     private String t_mobilePersonalEwallet_ErrMsg;
 
+    private String t_mobilePersonalEwallet_RefundAcc;
+
+    private BigDecimal t_mobilePersonalEwallet_RefundAmt;
+
+    public BigDecimal getT_mobilePersonalEwallet_RefundAmt() {
+        return t_mobilePersonalEwallet_RefundAmt;
+    }
+
+    public void setT_mobilePersonalEwallet_RefundAmt(BigDecimal t_mobilePersonalEwallet_RefundAmt) {
+        this.t_mobilePersonalEwallet_RefundAmt = t_mobilePersonalEwallet_RefundAmt;
+    }
+
+    public String getT_mobilePersonalEwallet_RefundAcc() {
+        return t_mobilePersonalEwallet_RefundAcc;
+    }
+
+    public void setT_mobilePersonalEwallet_RefundAcc(String t_mobilePersonalEwallet_RefundAcc) {
+        this.t_mobilePersonalEwallet_RefundAcc = t_mobilePersonalEwallet_RefundAcc;
+    }
+
+    public String getT_mobilePersonalEwallet_PaymentTool() {
+        return t_mobilePersonalEwallet_PaymentTool;
+    }
+
+    public void setT_mobilePersonalEwallet_PaymentTool(String t_mobilePersonalEwallet_PaymentTool) {
+        this.t_mobilePersonalEwallet_PaymentTool = t_mobilePersonalEwallet_PaymentTool;
+    }
+    
     public String getT_mobilePersonalEwallet_OrderCode() {
         return t_mobilePersonalEwallet_OrderCode;
     }
@@ -338,12 +368,12 @@ public class MobileEwalletDashboard implements Serializable {
         this.t_mobilePersonalEwallet_ID = t_mobilePersonalEwallet_ID;
     }
 
-    public String getT_mobilePersonalEwallet_ApplierID() {
-        return t_mobilePersonalEwallet_ApplierID;
+    public String getT_mobilePersonalEwallet_ApplierMobile() {
+        return t_mobilePersonalEwallet_ApplierMobile;
     }
 
-    public void setT_mobilePersonalEwallet_ApplierID(String t_mobilePersonalEwallet_ApplierID) {
-        this.t_mobilePersonalEwallet_ApplierID = t_mobilePersonalEwallet_ApplierID;
+    public void setT_mobilePersonalEwallet_ApplierMobile(String t_mobilePersonalEwallet_ApplierMobile) {
+        this.t_mobilePersonalEwallet_ApplierMobile = t_mobilePersonalEwallet_ApplierMobile;
     }
 
     public String getT_mobilePersonalEwallet_ApplierPID() {
@@ -634,12 +664,12 @@ public class MobileEwalletDashboard implements Serializable {
         this.t_mobilePersonalEwallet_Worth = t_mobilePersonalEwallet_Worth;
     }
 
-    public BigDecimal getT_mobilePersonalEwallet_DiscountRate() {
-        return t_mobilePersonalEwallet_DiscountRate;
+    public BigDecimal getT_mobilePersonalEwallet_DiscountAmt() {
+        return t_mobilePersonalEwallet_DiscountAmt;
     }
 
-    public void setT_mobilePersonalEwallet_DiscountRate(BigDecimal t_mobilePersonalEwallet_DiscountRate) {
-        this.t_mobilePersonalEwallet_DiscountRate = t_mobilePersonalEwallet_DiscountRate;
+    public void setT_mobilePersonalEwallet_DiscountAmt(BigDecimal t_mobilePersonalEwallet_DiscountAmt) {
+        this.t_mobilePersonalEwallet_DiscountAmt = t_mobilePersonalEwallet_DiscountAmt;
     }
 
     public BigDecimal getT_mobilePersonalEwallet_BalanceInterest() {
@@ -770,12 +800,12 @@ public class MobileEwalletDashboard implements Serializable {
         this.t_mobilePersonalEwallet_SMS = t_mobilePersonalEwallet_SMS;
     }
 
-    public String getT_MobilePersonalewallet_PaymentVersion() {
-        return t_MobilePersonalewallet_PaymentVersion;
+    public String getT_mobilePersonalewallet_PaymentVersion() {
+        return t_mobilePersonalewallet_PaymentVersion;
     }
 
-    public void setT_MobilePersonalewallet_PaymentVersion(String t_MobilePersonalewallet_PaymentVersion) {
-        this.t_MobilePersonalewallet_PaymentVersion = t_MobilePersonalewallet_PaymentVersion;
+    public void setT_mobilePersonalewallet_PaymentVersion(String t_mobilePersonalewallet_PaymentVersion) {
+        this.t_mobilePersonalewallet_PaymentVersion = t_mobilePersonalewallet_PaymentVersion;
     }
 
     public String getT_mobilePersonalEwallet_bkp() {

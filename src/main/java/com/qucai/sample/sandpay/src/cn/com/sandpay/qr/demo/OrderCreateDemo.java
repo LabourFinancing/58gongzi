@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.cashier.sdk.CertUtil;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.cashier.sdk.SDKConfig;
 
+import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -50,7 +51,7 @@ public class OrderCreateDemo {
 
 
     public void setBody(MobileEwalletDashboard ApplicationPay) { 
-        Integer transactionAMT = Integer.valueOf(ApplicationPay.getT_mobilePersonalEwallet_TxnAmount().intValue())*100; //转型
+        Integer transactionAMT = Integer.valueOf(ApplicationPay.getT_mobilePersonalEwallet_TxnAmount().setScale(2, BigDecimal.ROUND_DOWN).multiply(new BigDecimal(100)).intValue()); //转型
         String txnAmt = String.format("%012d", transactionAMT);
         String TxnID= Tool.PayId();
         StringBuffer retURL = new StringBuffer();

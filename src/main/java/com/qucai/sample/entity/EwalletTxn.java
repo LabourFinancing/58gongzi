@@ -95,7 +95,7 @@ public class EwalletTxn implements Serializable {
    
    private BigDecimal t_WalletTxn_InterestBene;
 
-   private String t_WalletTxn_PaymentAccattr;
+   private String t_WalletTxn_TreasuryID;
 	
    private String t_WalletTxn_RefundAccNo;
 
@@ -137,7 +137,7 @@ public class EwalletTxn implements Serializable {
 
     private String t_WalletTxn_SMS;
 
-    private String t_WalletTxn_SMSRec;
+    private String t_WalletTxn_PaymentType;
 
     private String t_WalletTxn_type;
 
@@ -149,7 +149,7 @@ public class EwalletTxn implements Serializable {
 
     private String t_WalletTxn_ReceiverEwalletAddress;
 
-    private String t_WalletTxn_Txt5;
+    private String t_WalletTxn_PaymentToolID;
 
 
     public String getCreator() {
@@ -447,12 +447,12 @@ public class EwalletTxn implements Serializable {
         this.t_WalletTxn_InterestBene = t_WalletTxn_InterestBene;
     }
 
-    public String getT_WalletTxn_PaymentAccattr() {
-        return t_WalletTxn_PaymentAccattr;
+    public String getT_WalletTxn_TreasuryID() {
+        return t_WalletTxn_TreasuryID;
     }
 
-    public void setT_WalletTxn_PaymentAccattr(String t_WalletTxn_PaymentAccattr) {
-        this.t_WalletTxn_PaymentAccattr = t_WalletTxn_PaymentAccattr;
+    public void setT_WalletTxn_TreasuryID(String t_WalletTxn_TreasuryID) {
+        this.t_WalletTxn_TreasuryID = t_WalletTxn_TreasuryID;
     }
 
     public String getT_WalletTxn_RefundAccNo() {
@@ -616,11 +616,11 @@ public class EwalletTxn implements Serializable {
     }
 
     public String getT_WalletTxn_SMSRec() {
-        return t_WalletTxn_SMSRec;
+        return t_WalletTxn_PaymentType;
     }
 
-    public void setT_WalletTxn_SMSRec(String t_WalletTxn_SMSRec) {
-        this.t_WalletTxn_SMSRec = t_WalletTxn_SMSRec;
+    public void setT_WalletTxn_SMSRec(String t_WalletTxn_PaymentType) {
+        this.t_WalletTxn_PaymentType = t_WalletTxn_PaymentType;
     }
 
     public String getT_WalletTxn_type() {
@@ -664,11 +664,11 @@ public class EwalletTxn implements Serializable {
     }
 
     public String getT_WalletTxn_Txt5() {
-        return t_WalletTxn_Txt5;
+        return t_WalletTxn_PaymentToolID;
     }
 
-    public void setT_WalletTxn_Txt5(String t_WalletTxn_Txt5) {
-        this.t_WalletTxn_Txt5 = t_WalletTxn_Txt5;
+    public void setT_WalletTxn_Txt5(String t_WalletTxn_PaymentToolID) {
+        this.t_WalletTxn_PaymentToolID = t_WalletTxn_PaymentToolID;
     }
 
 }
