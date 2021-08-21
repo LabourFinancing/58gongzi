@@ -152,7 +152,7 @@ public class Ewallet implements Serializable {
 
     private String t_personalewallet_DigiAddress;
 
-    private String t_personalewallet_TermPaymentBalance;
+    private String t_personalewallet_TermPayment;
 
     private String t_personalewallet_TermPaymentBal;
 
@@ -745,11 +745,11 @@ public class Ewallet implements Serializable {
     }
 
     public String getT_personalewallet_Txt4() {
-        return t_personalewallet_TermPaymentBalance;
+        return t_personalewallet_TermPayment;
     }
 
-    public void setT_personalewallet_Txt4(String t_personalewallet_TermPaymentBalance) {
-        this.t_personalewallet_TermPaymentBalance = t_personalewallet_TermPaymentBalance;
+    public void setT_personalewallet_Txt4(String t_personalewallet_TermPayment) {
+        this.t_personalewallet_TermPayment = t_personalewallet_TermPayment;
     }
 
     public String getT_personalewallet_Txt5() {

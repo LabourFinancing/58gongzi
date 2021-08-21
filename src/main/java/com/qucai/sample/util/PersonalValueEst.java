@@ -30,7 +30,9 @@ public class PersonalValueEst {
                                                           String method, String paymentID, String paymentStatus, Connection conn) throws SQLException {
         Map<String,Object> PersonalTreasuryChk = new HashMap<String, Object>();
         PersonalMainController personalMainController = new PersonalMainController();
-        
+        if(walletTxn_PayerPID == null && action.equalsIgnoreCase("cashout")){
+            walletTxn_PayerPID = walletTxn_ReceiverID;
+        }
         MobilePersonalMain mobilePersonalMain = (MobilePersonalMain) personalMainController.findPersonalMainInfo(walletTxn_PayerPID,conn);
         ProductMainController productMainController = new ProductMainController();
         ProductMain MobileProductMain = (ProductMain) productMainController.findPersonalProduct(mobilePersonalMain.getT_mobilePersonalMain_productCat(),conn);
@@ -69,7 +71,7 @@ public class PersonalValueEst {
             PreparedStatement ptmt = conn.prepareStatement(sql);
             ptmt.setString(1, PersonalPID);
             rs = ptmt.executeQuery();
-            if (rs.next() && rs.getFetchSize() == 1) {
+            if (rs.next() && rs.getRow() == 1) {
                 PersonalTreasuryFind.put("t_personal_main_id",rs.getString("t_personal_main_id"));
                 PersonalTreasuryFind.put("t_personal_main_name",rs.getString("t_personal_main_name"));
                 PersonalTreasuryFind.put("t_personal_main_pid",rs.getString("t_personal_main_pid"));
@@ -157,10 +159,10 @@ public class PersonalValueEst {
                 PersonalTreasuryFind.put("t_personalewallet_PaymentVersion",rs.getString("t_personalewallet_PaymentVersion"));
                 PersonalTreasuryFind.put("t_personalewallet_AccCat",rs.getString("t_personalewallet_AccCat"));
                 PersonalTreasuryFind.put("t_personalewallet_MarginShare",rs.getBigDecimal("t_personalewallet_MarginShare"));
-                PersonalTreasuryFind.put("t_personalewallet_treasuryID",rs.getBigDecimal("t_personalewallet_treasuryID"));
+                PersonalTreasuryFind.put("t_personalewallet_treasuryID",rs.getString("t_personalewallet_treasuryID"));
                 PersonalTreasuryFind.put("t_personalewallet_eproposal",rs.getString("t_personalewallet_eproposal"));
                 PersonalTreasuryFind.put("t_personalewallet_DigiAddress",rs.getString("t_personalewallet_DigiAddress"));
-                PersonalTreasuryFind.put("t_personalewallet_TermPaymentBalance",rs.getString("t_personalewallet_TermPaymentBalance"));
+                PersonalTreasuryFind.put("t_personalewallet_TermPayment",rs.getString("t_personalewallet_TermPayment"));
                 PersonalTreasuryFind.put("t_personalewallet_TermPaymentBal",rs.getString("t_personalewallet_TermPaymentBal"));
                 PersonalTreasuryFind.put("t_personal_ewallet_statistic_ID",rs.getString("t_personal_ewallet_statistic_ID"));
                 PersonalTreasuryFind.put("t_personal_ewallet_statistic_ApplierID",rs.getString("t_personal_ewallet_statistic_ApplierID"));
@@ -208,12 +210,12 @@ public class PersonalValueEst {
                 PersonalTreasuryFind.put("t_personalewallet_treasuryctrlCashoutDailyCntLimit",rs.getBigDecimal("t_personalewallet_treasuryctrlCashoutDailyCntLimit"));
                 PersonalTreasuryFind.put("t_personalewallet_treasuryctrlCashoutStat",rs.getString("t_personalewallet_treasuryctrlCashoutStat"));
                 PersonalTreasuryFind.put("t_personalewallet_treasuryctrlRefundStat",rs.getString("t_personalewallet_treasuryctrlRefundStat"));
-                PersonalTreasuryFind.put("t_personalewallet_treasuryctrlProdSerList",rs.getBigDecimal("t_personalewallet_treasuryctrlProdSerList"));
-                PersonalTreasuryFind.put("t_personalewallet_treasuryctrlPersonalCatList",rs.getBigDecimal("t_personalewallet_treasuryctrlPersonalCatList"));
-                PersonalTreasuryFind.put("t_personalewallet_treasuryctrlAccList",rs.getBigDecimal("t_personalewallet_treasuryctrlAccList"));
+                PersonalTreasuryFind.put("t_personalewallet_treasuryctrlProdSerList",rs.getString("t_personalewallet_treasuryctrlProdSerList"));
+                PersonalTreasuryFind.put("t_personalewallet_treasuryctrlPersonalCatList",rs.getString("t_personalewallet_treasuryctrlPersonalCatList"));
+                PersonalTreasuryFind.put("t_personalewallet_treasuryctrlAccList",rs.getString("t_personalewallet_treasuryctrlAccList"));
                 PersonalTreasuryFind.put("t_personalewallet_treasuryctrlstatus",rs.getString("t_personalewallet_treasuryctrlstatus"));
-                PersonalTreasuryFind.put("t_personalewallet_treasuryctrlbkp",rs.getString("t_personalewallet_treasuryctrlbkp"));
-                PersonalTreasuryFind.put("t_personalewallet_treasuryctrlbkp1",rs.getString("t_personalewallet_treasuryctrlbkp1"));
+                PersonalTreasuryFind.put("t_personalewallet_treasuryctrlbkp",rs.getBigDecimal("t_personalewallet_treasuryctrlbkp"));
+                PersonalTreasuryFind.put("t_personalewallet_treasuryctrlbkp1",rs.getBigDecimal("t_personalewallet_treasuryctrlbkp1"));
                 PersonalTreasuryFind.put("t_personalewallet_treasuryctrlTxt",rs.getString("t_personalewallet_treasuryctrlTxt"));
                 PersonalTreasuryFind.put("t_personalewallet_treasuryctrlCashbackStat",rs.getString("t_personalewallet_treasuryctrlCashbackStat"));
                 PersonalTreasuryFind.put("t_personalewallet_treasuryctrlTxt2",rs.getString("t_personalewallet_treasuryctrlTxt2"));
@@ -262,7 +264,6 @@ public class PersonalValueEst {
                 PersonalTreasuryFind.put("personalTreasuryData","personalTreasuryDataRet");
                 return PersonalTreasuryFind;
             }
-            conn.close();
             PersonalTreasuryFind.put("SQL", "SQL-PERSONALEWALLETSTATISTIC-UPDATESUCC");
         }
         return PersonalTreasuryFind;

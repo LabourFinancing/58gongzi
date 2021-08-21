@@ -187,6 +187,9 @@ public class PersonalTreasuryCtrlController {
                 MobilePersonalTreasuryCtrl.setT_personalewallet_treasuryctrlBeneStat(rs.getString("t_personalewallet_treasuryctrlBeneStat"));
                 MobilePersonalTreasuryCtrl.setT_personalewallet_treasuryctrlBeneTotalLimit(rs.getBigDecimal("t_personalewallet_treasuryctrlPayTotalLimit"));
                 MobilePersonalTreasuryCtrl.setT_personalewallet_treasuryctrlPayTxnLimit(rs.getBigDecimal("t_personalewallet_treasuryctrlPayTxnLimit"));
+                MobilePersonalTreasuryCtrl.setT_personalewallet_treasuryctrlTxt("SQL-findPersonalTreasury-Succ");
+            }else{
+                MobilePersonalTreasuryCtrl.setT_personalewallet_treasuryctrlTxt("SQL-findPersonalTreasury-ErrorCode");
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block

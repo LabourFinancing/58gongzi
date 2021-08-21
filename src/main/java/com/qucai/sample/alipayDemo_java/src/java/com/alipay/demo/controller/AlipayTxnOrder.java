@@ -1,5 +1,6 @@
 package com.qucai.sample.alipayDemo_java.src.java.com.alipay.demo.controller;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -66,29 +67,44 @@ public class AlipayTxnOrder {
         String paymentID = DemoBase.getOrderCode();
         mobileEwalletDashboard.setT_mobilePersonalEwallet_OrderCode(paymentID);
         
+//        request.setBizContent("{" +
+//            "\"out_biz_no\":\"202108180001\"," +  //唯一订单号
+//            "\"trans_amount\":1.00," +
+//            "\"product_code\":\"TRANS_ACCOUNT_NO_PWD\"," + 
+//            "\"biz_scene\":\"DIRECT_TRANSFER\"," +
+//            "\"order_title\":\"202108代发\"," +    // product Name
+//            "\"payee_info\":{" +
+//            "\"identity\":\"2088002082117160\"," +   // alipay userid
+//            "\"identity_type\":\"ALIPAY_USER_ID\"," +  // ALIPAY_LOGON_ID
+//            "\"name\":\"姚诚铭\"," +   // receiver Name
+//            "      }," +
+//            "\"remark\":\"单笔转账\"," +
+//            "\"business_params\":\"{\\\"payer_show_name\\\":\\\"高孚信科\\\"}\"," +
+//            "  }");
         request.setBizContent("{" +
-            "\"out_biz_no\":\"202108180001\"," +  //唯一订单号
-            "\"trans_amount\":1.00," +
-            "\"product_code\":\"TRANS_ACCOUNT_NO_PWD\"," + 
+            "\"out_biz_no\":\""+mobileEwalletDashboard.getT_mobilePersonalEwallet_OrderCode()+"\"," +  //唯一订单号
+            "\"trans_amount\":"+mobileEwalletDashboard.getT_mobilePersonalEwallet_TxnAmount().floatValue()+"," +
+            "\"product_code\":\"TRANS_ACCOUNT_NO_PWD\"," +
             "\"biz_scene\":\"DIRECT_TRANSFER\"," +
-            "\"order_title\":\"202108代发\"," +    // product Name
+            "\"order_title\":\""+mobileEwalletDashboard.getT_mobilePersonalEwallet_bkp()+"\"," +    // product Name
             "\"payee_info\":{" +
-            "\"identity\":\"2088002082117160\"," +   // alipay userid
-            "\"identity_type\":\"ALIPAY_USER_ID\"," + 
-            "\"name\":\"姚诚铭\"," +   // receiver Name
+            "\"identity\":\""+mobileEwalletDashboard.getT_mobilePersonalEwallet_ReceiverEwalletID()+"\"," +   // alipay userid
+            "\"identity_type\":\"ALIPAY_USER_ID\"," +  // ALIPAY_LOGON_ID
+            "\"name\":\""+mobileEwalletDashboard.getT_mobilePersonalEwallet_ReceiverName()+"\"," +   // receiver Name
             "      }," +
-            "\"remark\":\"单笔转账\"," +
+            "\"remark\":\""+mobileEwalletDashboard.getT_MobilePersonalewallet_PaymentType()+"\"," +
             "\"business_params\":\"{\\\"payer_show_name\\\":\\\"高孚信科\\\"}\"," +
             "  }");
         try {
             AlipayFundTransUniTransferResponse alipayResponse = alipayClient.certificateExecute(request);
             if (alipayResponse.isSuccess()) {
-                rsAlipayTxn.put("Msg","Alipay intern transmit Succ");
+                rsAlipayTxn.put("Msg","alipayInternTransmitSucc");
                 System.out.println("调用成功");
             } else {
                 rsAlipayTxn.put("errMsg", "rsMobileEwalletTxn Alipay internal Transaction failed");
                 System.out.println("调用失败");
                 System.out.println(alipayResponse);
+                rsAlipayTxn.put("Msg","alipayInternTransmitfailed");
                 rsAlipayTxn.put("CALLALIPAY-ERRCODE",alipayResponse.getErrorCode());
                 rsAlipayTxn.put("CALLALIPAY-STATUS",alipayResponse.getStatus());
                 rsAlipayTxn.put("CALLALIPAY-MSG",alipayResponse.getMsg());

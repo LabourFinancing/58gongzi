@@ -722,7 +722,8 @@ public class StaffPrepayApplicationController {
                                   EwalletTxnController ewalletTxnController = new EwalletTxnController();
                                   MobileEwalletDashboard mobileEwalletDashboard = new MobileEwalletDashboard();
                                   String action = "WithdrawToEwallet";
-                                  rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(mobileEwalletDashboard,action,txnCat, txnAmt,  walletTxn_PayerPID,
+                                  String cardAcc = null;
+                                  rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(mobileEwalletDashboard,action,txnCat,cardAcc,txnAmt,  walletTxn_PayerPID,
                                        walletTxn_ReceiverID, method, paymentID, paymentStatus, conn);
                                   conn.close();
                                   if (rsMobileEwalletTxn.get("SQL").equals("SQL-RECEIVEREWALLETTOPUPSUCC")) {

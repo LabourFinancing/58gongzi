@@ -57,7 +57,7 @@
         <result column="t_WalletTxn_PaymentType" property="t_WalletTxn_PaymentType" jdbcType="VARCHAR" />
         <result column="t_WalletTxn_type" property="t_WalletTxn_type" jdbcType="VARCHAR" />
         <result column="t_WalletTxn_Voucher" property="t_WalletTxn_Voucher" jdbcType="INTEGER" />
-        <result column="t_WalletTxn_TotShareProfit" property="t_WalletTxn_TotShareProfit" jdbcType="VARCHAR" />
+        <result column="t_WalletTxn_TotShareProfit" property="t_WalletTxn_TotShareProfit" jdbcType="DECIMAL" />
         <result column="t_WalletTxn_PayerEwalletAddress" property="t_WalletTxn_PayerEwalletAddress" jdbcType="VARCHAR" />
         <result column="t_WalletTxn_ReceiverEwalletAddress" property="t_WalletTxn_ReceiverEwalletAddress" jdbcType="VARCHAR" />
         <result column="t_WalletTxn_PaymentToolID" property="t_WalletTxn_PaymentToolID" jdbcType="VARCHAR" />
@@ -550,7 +550,7 @@
                 #{t_WalletTxn_Voucher,jdbcType=VARCHAR},
             </if>
             <if test="t_WalletTxn_TotShareProfit != null">
-                #{t_WalletTxn_TotShareProfit,jdbcType=VARCHAR},
+                #{t_WalletTxn_TotShareProfit,jdbcType=DECIMAL},
             </if>
             <if test="t_WalletTxn_PayerEwalletAddress != null">
                 #{t_WalletTxn_PayerEwalletAddress,jdbcType=VARCHAR},
@@ -789,7 +789,7 @@
                 t_WalletTxn_Voucher = #{t_WalletTxn_Voucher,jdbcType=VARCHAR},
             </if>
             <if test="t_WalletTxn_TotShareProfit != null">
-                t_WalletTxn_TotShareProfit = #{t_WalletTxn_TotShareProfit,jdbcType=VARCHAR},
+                t_WalletTxn_TotShareProfit = #{t_WalletTxn_TotShareProfit,jdbcType=DECIMAL},
             </if>
             <if test="t_WalletTxn_PayerEwalletAddress != null">
                 t_WalletTxn_PayerEwalletAddress = #{t_WalletTxn_PayerEwalletAddress,jdbcType=VARCHAR},

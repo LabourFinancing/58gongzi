@@ -175,6 +175,9 @@ public class ProductMainController {
                 mobileProductMain.setT_Product_PaymentCat(rs.getString("t_Product_PaymentCat"));
                 mobileProductMain.setT_Product_PayrollProdCat(rs.getString("t_Product_PayrollProdCat"));
                 mobileProductMain.setT_Product_SalaryAdvCat(rs.getString("t_Product_SalaryAdvCat"));
+                mobileProductMain.setT_Product_Txt("SQL-FindPersonalProduct-Succ");
+            }else{
+                mobileProductMain.setT_Product_Txt("SQL-FindPersonalProduct-ErrorCode");
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block

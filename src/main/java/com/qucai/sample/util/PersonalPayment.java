@@ -131,6 +131,7 @@ public class PersonalPayment {
                 System.out.println("PersonalEwalletCashout transit");
                 txnAmtPayerMinus = txnAmt.negate();
                 txnAmt = txnAmtPayerMinus;
+                mobileEwalletDashboard.setT_mobilePersonalEwallet_ApplyPayMinusAmount(txnAmtPayerMinus);
                 ewalletTxnType = "c2c 提现";
                 Map<String,Object> PersonalTreasuryFindCashout = PersonalValueEst.PersonalTreasuryFind( action, PersonalPID, txnAmt,  conn);
                 if(txnAmt.compareTo((BigDecimal) PersonalTreasuryFindCashout.get("t_personalewallet_TotCNYBalance")) == 1){  // pay amount bigger than ewallet CNY balace
@@ -145,6 +146,7 @@ public class PersonalPayment {
                 System.out.println("PersonalEwalletShopping transit");
                 txnAmtPayerMinus = txnAmt.negate();
                 txnAmt = txnAmtPayerMinus;
+                mobileEwalletDashboard.setT_mobilePersonalEwallet_ApplyPayMinusAmount(txnAmtPayerMinus);
                 ewalletTxnType = "c2b 消费";
                 Map<String,Object> PersonalTreasuryFindSjopping = PersonalValueEst.PersonalTreasuryFind( action, PersonalPID, txnAmt,  conn);
                 if(txnAmt.compareTo((BigDecimal) PersonalTreasuryFindSjopping.get("t_personalewallet_TotCNYBalance")) == 1){  // pay amount bigger than ewallet CNY balace

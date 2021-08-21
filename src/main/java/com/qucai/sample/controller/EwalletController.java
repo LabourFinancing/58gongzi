@@ -589,7 +589,13 @@ public class EwalletController {
             ptmt2.setString(3, walletTxn_payerPID);
             ptmt2.setTimestamp(4, new java.sql.Timestamp(System.currentTimeMillis()));
             ptmt2.setString(5, walletTxn_payerPID);
-            System.out.println(ptmt2.executeUpdate());
+            int updateret = ptmt2.executeUpdate();
+            if(updateret>0){
+                retUpdatePersonalEwallet.put("UpdatePersonalEwalletSucc","succ");
+                retUpdatePersonalEwallet.put("SQL","SQL-PersonalPayerEwalletUpdate");
+            }else{
+                retUpdatePersonalEwallet.put("SQL","PersonalEwalletUpdatePayer-ErrorCode");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             retUpdatePersonalEwallet.put("PersonalEwalletUpdatePayer-ErrorCode",String.valueOf(e.getErrorCode()));
@@ -597,7 +603,6 @@ public class EwalletController {
             retUpdatePersonalEwallet.put("SQL","PersonalEwalletUpdatePayer-ErrorCode");
             return retUpdatePersonalEwallet;
         }finally {
-            retUpdatePersonalEwallet.put("SQL","SQL-PersonalPayerEwalletUpdate");
             return retUpdatePersonalEwallet;
         }
     }

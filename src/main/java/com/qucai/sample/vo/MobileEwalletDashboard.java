@@ -73,7 +73,7 @@ public class MobileEwalletDashboard implements Serializable {
 
     private String t_mobilePersonalEwallet_CryptoC;
 
-    private String t_mobilePersonalEwallet_Voucher;
+    private BigDecimal t_mobilePersonalEwallet_Voucher;
 
     private String t_mobilePersonalEwallet_VoucherDigi;
 
@@ -107,13 +107,13 @@ public class MobileEwalletDashboard implements Serializable {
 
     private BigDecimal t_mobilePersonalEwallet_DebitPayAmt;
 
-    private BigDecimal t_mobilePersonalEwallet_ApplyPayAmount;
+    private BigDecimal t_mobilePersonalEwallet_ApplyPayMinusAmount;
  
     private BigDecimal t_mobilePersonalEwallet_CreditPrepayBalanceNum;
 
     private BigDecimal t_mobilePersonalEwallet_CreditPayAmt;
 
-    private BigDecimal t_mobilePersonalEwallet_CreditPayAmtInit;
+    private BigDecimal t_mobilePersonalEwallet_CreditPayCurrentNum;
 
     private BigDecimal t_mobilePersonalEwallet_TotalPrepayAmt;
 
@@ -166,6 +166,24 @@ public class MobileEwalletDashboard implements Serializable {
     private String t_MobilePersonalewallet_PaymentType;
 
     private String t_mobilePersonalEwallet_bkp;
+
+    public BigDecimal getT_mobilePersonalEwallet_CreditPayCurrentNum() {
+        return t_mobilePersonalEwallet_CreditPayCurrentNum;
+    }
+
+    public void setT_mobilePersonalEwallet_CreditPayCurrentNum(BigDecimal t_mobilePersonalEwallet_CreditPayCurrentNum) {
+        this.t_mobilePersonalEwallet_CreditPayCurrentNum = t_mobilePersonalEwallet_CreditPayCurrentNum;
+    }
+
+    public String getT_mobilePersonalEwallet_Sms() {
+        return t_mobilePersonalEwallet_Sms;
+    }
+
+    public void setT_mobilePersonalEwallet_Sms(String t_mobilePersonalEwallet_Sms) {
+        this.t_mobilePersonalEwallet_Sms = t_mobilePersonalEwallet_Sms;
+    }
+
+    private String t_mobilePersonalEwallet_Sms;
 
     private String t_MobilePersonalewallet_AccCat;
 
@@ -448,11 +466,11 @@ public class MobileEwalletDashboard implements Serializable {
         this.t_mobilePersonalEwallet_CryptoC = t_mobilePersonalEwallet_CryptoC;
     }
 
-    public String getT_mobilePersonalEwallet_Voucher() {
+    public BigDecimal getT_mobilePersonalEwallet_Voucher() {
         return t_mobilePersonalEwallet_Voucher;
     }
 
-    public void setT_mobilePersonalEwallet_Voucher(String t_mobilePersonalEwallet_Voucher) {
+    public void setT_mobilePersonalEwallet_Voucher(BigDecimal t_mobilePersonalEwallet_Voucher) {
         this.t_mobilePersonalEwallet_Voucher = t_mobilePersonalEwallet_Voucher;
     }
 
@@ -584,12 +602,12 @@ public class MobileEwalletDashboard implements Serializable {
         this.t_mobilePersonalEwallet_DebitPayAmt = t_mobilePersonalEwallet_DebitPayAmt;
     }
 
-    public BigDecimal getT_mobilePersonalEwallet_ApplyPayAmount() {
-        return t_mobilePersonalEwallet_ApplyPayAmount;
+    public BigDecimal getT_mobilePersonalEwallet_ApplyPayMinusAmount() {
+        return t_mobilePersonalEwallet_ApplyPayMinusAmount;
     }
 
-    public void setT_mobilePersonalEwallet_ApplyPayAmount(BigDecimal t_mobilePersonalEwallet_ApplyPayAmount) {
-        this.t_mobilePersonalEwallet_ApplyPayAmount = t_mobilePersonalEwallet_ApplyPayAmount;
+    public void setT_mobilePersonalEwallet_ApplyPayMinusAmount(BigDecimal t_mobilePersonalEwallet_ApplyPayMinusAmount) {
+        this.t_mobilePersonalEwallet_ApplyPayMinusAmount = t_mobilePersonalEwallet_ApplyPayMinusAmount;
     }
 
     public BigDecimal getT_mobilePersonalEwallet_CreditPrepayBalanceNum() {
@@ -606,14 +624,6 @@ public class MobileEwalletDashboard implements Serializable {
 
     public void setT_mobilePersonalEwallet_CreditPayAmt(BigDecimal t_mobilePersonalEwallet_CreditPayAmt) {
         this.t_mobilePersonalEwallet_CreditPayAmt = t_mobilePersonalEwallet_CreditPayAmt;
-    }
-
-    public BigDecimal getT_mobilePersonalEwallet_CreditPayAmtInit() {
-        return t_mobilePersonalEwallet_CreditPayAmtInit;
-    }
-
-    public void setT_mobilePersonalEwallet_CreditPayAmtInit(BigDecimal t_mobilePersonalEwallet_CreditPayAmtInit) {
-        this.t_mobilePersonalEwallet_CreditPayAmtInit = t_mobilePersonalEwallet_CreditPayAmtInit;
     }
 
     public BigDecimal getT_mobilePersonalEwallet_TotalPrepayAmt() {

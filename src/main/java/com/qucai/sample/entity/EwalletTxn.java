@@ -143,7 +143,7 @@ public class EwalletTxn implements Serializable {
 
     private String t_WalletTxn_Voucher;
 
-    private String t_WalletTxn_TotShareProfit;
+    private BigDecimal t_WalletTxn_TotShareProfit;
 
     private String t_WalletTxn_PayerEwalletAddress;
 
@@ -639,11 +639,11 @@ public class EwalletTxn implements Serializable {
         this.t_WalletTxn_Voucher = t_WalletTxn_Voucher;
     }
 
-    public String getT_WalletTxn_Txt2() {
+    public BigDecimal getT_WalletTxn_Txt2() {
         return t_WalletTxn_TotShareProfit;
     }
 
-    public void setT_WalletTxn_Txt2(String t_WalletTxn_TotShareProfit) {
+    public void setT_WalletTxn_Txt2(BigDecimal t_WalletTxn_TotShareProfit) {
         this.t_WalletTxn_TotShareProfit = t_WalletTxn_TotShareProfit;
     }
 

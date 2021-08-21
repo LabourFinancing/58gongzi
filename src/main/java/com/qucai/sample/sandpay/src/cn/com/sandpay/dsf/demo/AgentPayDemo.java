@@ -22,6 +22,8 @@ import com.qucai.sample.entity.StaffPrepayApplicationPayment;
 
 import com.alibaba.fastjson.JSONObject;
 
+import java.math.BigDecimal;
+
 /**
  * 产品：杉德代收付产品<br>
  * 交易：代付接口<br>
@@ -41,8 +43,7 @@ public class AgentPayDemo {
 	* 组织请求报文     
 	*/
 	private void setRequest(StaffPrepayApplicationPayment staffPrepayApplicationPay) {
-	    
-        Integer transactionAMT = Integer.valueOf(staffPrepayApplicationPay.getTranAmt())*100; //转型
+	    Integer transactionAMT = Integer.valueOf(new BigDecimal(staffPrepayApplicationPay.getTranAmt()).setScale(2, BigDecimal.ROUND_DOWN).multiply(new BigDecimal(100)).intValue());
         
 		request.put("version", DemoBase.version);								//版本号      
 		request.put("productId", DemoBase.PRODUCTID_AGENTPAY_TOC);              //产品ID     
