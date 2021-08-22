@@ -584,7 +584,7 @@ public class EwalletController {
             "where t_personalewallet_ApplierPID=?";
         try {
             PreparedStatement ptmt2 = conn.prepareStatement(sql);
-            ptmt2.setBigDecimal(1, txnAmtPayerMinus.setScale(2, BigDecimal.ROUND_UP));
+            ptmt2.setBigDecimal(1, txnAmtPayerMinus.setScale(2, BigDecimal.ROUND_DOWN));
             ptmt2.setString(2, "on");
             ptmt2.setString(3, walletTxn_payerPID);
             ptmt2.setTimestamp(4, new java.sql.Timestamp(System.currentTimeMillis()));

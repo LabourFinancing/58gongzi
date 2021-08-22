@@ -99,7 +99,7 @@ public class OauthController {
             Date TxnStartDate = null, TxnEndDate = null;
             String returnTxnDetail = null, returnPaymentCode = null,returnPaymentMsg = null,returnPaymentOrderNum = null,returnPaymentCompleteTime = null;
             JSONObject jsonData = null, returnTxnDetailJson = null;
-            if(action.equalsIgnoreCase("topup")){ //if node payment return
+            if(action.equalsIgnoreCase("nodetopup")){ //if node payment return
                 System.out.print("Alipay payment ret");
             }else {
                 try {
