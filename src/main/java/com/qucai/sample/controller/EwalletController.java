@@ -550,12 +550,14 @@ public class EwalletController {
             ptmt1.setString(3, walletTxn_ReceiverID);
             ptmt1.setTimestamp(4, new java.sql.Timestamp(System.currentTimeMillis()));
             ptmt1.setString(5, walletTxn_ReceiverID);
-            System.out.println(ptmt1.executeUpdate());
+            int updateret = ptmt1.executeUpdate();
             String amount = null;
-//            if (ptmt.getResultSet().getString(amount)) {
-//                retUpdatePersonalEwallet.put(ptmt("t_personalewallet_ID"));
-//                retUpdatePersonalEwallet.put(ptmt("t_personalewallet_ApplierName"));
-//            }
+            if(updateret>0){
+                retUpdatePersonalEwallet.put("UpdatePersonalEwalletSucc","succ");
+                retUpdatePersonalEwallet.put("SQL","SQL-PersonalPayerEwalletUpdate");
+            }else{
+                retUpdatePersonalEwallet.put("SQL","PersonalEwalletUpdatePayer-ErrorCode");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             retUpdatePersonalEwallet.put("PersonalEwalletUpdate-ErrorCode",String.valueOf(e.getErrorCode()));

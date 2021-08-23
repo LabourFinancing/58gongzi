@@ -585,7 +585,6 @@ public class EwalletTxnController {
                 if (txnCat.equalsIgnoreCase("PersonalEwalletTopup") || txnCat.equalsIgnoreCase("PersonalEwalletReceive")) {
                     retUpdatePersonalEwallet = EwalletController.UpdatePayeePersonalEwalletBalance(txnAmt, walletTxn_PayerPID, walletTxn_ReceiverID, conn);
                     if (!retUpdatePersonalEwallet.isEmpty()) {
-//                    rsMobileEwalletTxn.put("SQL", "SQL-RECEIVEREWALLETTOPUPSUCC");  // checking others
                         rsMobileEwalletTxn.put("SQL", "SQL-EWALLETBALANCEUPDATESUCC");
                     } else {
 //                    rsMobileEwalletTxn.put("SQL", "SQL-RECEIVEREWALLETTOPUPFAIL");  // checking others

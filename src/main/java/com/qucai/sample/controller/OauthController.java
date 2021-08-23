@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.qucai.sample.alipayDemo_java.src.java.com.alipay.demo.controller.AlipayTxnOrder;
 import com.qucai.sample.entity.*;
@@ -81,8 +82,8 @@ public class OauthController {
         CaptchaUsernamePasswordToken token = new CaptchaUsernamePasswordToken();
         token.setUsername(userName);
 
-        //http://localhost:8080/sample/oauthController/login?method=paymentreturn&retPaymentMsg=%7B%22head%22%3A%7B%22version%22%3A%221.0%22%2C%22respTime%22%3A%2220210819131753%22%2C%22respCode%22%3A%22000000%22%2C%22respMsg%22%3A%22%E6%88%90%E5%8A%9F%22%7D%2C%22body%22%3A%7B%22mid%22%3A%22S2135052%22%2C%22orderCode%22%3A%222021081913174259%22%2C%22tradeNo%22%3A%222021081913174259%22%2C%22clearDate%22%3A%2220210819%22%2C%22totalAmount%22%3A%22000000000100%22%2C%22orderStatus%22%3A%221%22%2C%22payTime%22%3A%2220210819131753%22%2C%22settleAmount%22%3A%22000000000100%22%2C%22buyerPayAmount%22%3A%22000000000100%22%2C%22discAmount%22%3A%22000000000000%22%2C%22txnCompleteTime%22%3A%2220210819131752%22%2C%22payOrderCode%22%3A%2220210819001333400000000000103941%22%2C%22accLogonNo%22%3A%22spe***%40163.com%22%2C%22accNo%22%3A%22%22%2C%22midFee%22%3A%22000000000000%22%2C%22extraFee%22%3A%22000000000000%22%2C%22specialFee%22%3A%22000000000000%22%2C%22plMidFee%22%3A%22000000000000%22%2C%22bankserial%22%3A%22252021081922001417161417823943%22%2C%22externalProductCode%22%3A%2200000006%22%2C%22cardNo%22%3A%22%22%2C%22creditFlag%22%3A%22%22%2C%22bid%22%3A%22%22%2C%22benefitAmount%22%3A%22000000000000%22%2C%22remittanceCode%22%3A%22%22%2C%22extend%22%3A%22%257B%2522t_mobilePersonalEwallet_ReceiverPID%2522%253A%2522430528198502043837%2522%252C%2522t_mobilePersonalEwallet_TxnID%2522%253A%252220210819131742348500%2522%252C%2522t_mobilePersonalEwallet_TxnCat%2522%253A%2522PersonalEwalletReceive%2522%252C%2522t_mobilePersonalEwallet_TxnAmount%2522%253A1%252C%2522t_mobilePersonalEwallet_OrderCode%2522%253A%25222021081913174259%2522%252C%2522t_MobilePersonalewallet_PaymentType%2522%253A%25225%2522%257D%22%7D%7D&
-        //http://localhost:8080/sample/oauthController/sample/oauthController/login?method=paymentreturn&action=PersonalEwalletReceive&retPaymentMsg=%7B%22head%22%3A%7B%22version%22%3A%221.0%22%2C%22respTime%22%3A%2220210819150717%22%2C%22respCode%22%3A%22000000%22%2C%22respMsg%22%3A%22%E6%88%90%E5%8A%9F%22%7D%2C%22body%22%3A%7B%22mid%22%3A%22S2135052%22%2C%22orderCode%22%3A%222021081915070561%22%2C%22tradeNo%22%3A%222021081915070561%22%2C%22clearDate%22%3A%2220210819%22%2C%22totalAmount%22%3A%22000000000100%22%2C%22orderStatus%22%3A%221%22%2C%22payTime%22%3A%2220210819150717%22%2C%22settleAmount%22%3A%22000000000100%22%2C%22buyerPayAmount%22%3A%22000000000100%22%2C%22discAmount%22%3A%22000000000000%22%2C%22txnCompleteTime%22%3A%2220210819150717%22%2C%22payOrderCode%22%3A%2220210819001259200000000000053663%22%2C%22accLogonNo%22%3A%22oI3GMv3oo5NItZfPtx6o5YrnqKbA%22%2C%22accNo%22%3A%22%22%2C%22midFee%22%3A%22000000000000%22%2C%22extraFee%22%3A%22000000000000%22%2C%22specialFee%22%3A%22000000000000%22%2C%22plMidFee%22%3A%22000000000000%22%2C%22bankserial%22%3A%224200001160202108197330672094%22%2C%22externalProductCode%22%3A%2200000005%22%2C%22cardNo%22%3A%22%22%2C%22creditFlag%22%3A%22%22%2C%22bid%22%3A%22%22%2C%22benefitAmount%22%3A%22000000000000%22%2C%22remittanceCode%22%3A%22%22%2C%22extend%22%3A%22%257B%2522t_mobilePersonalEwallet_ReceiverPID%2522%253A%2522430528198502043837%2522%252C%2522t_mobilePersonalEwallet_TxnID%2522%253A%252220210819150705148630%2522%252C%2522t_mobilePersonalEwallet_TxnCat%2522%253A%2522PersonalEwalletReceive%2522%252C%2522t_mobilePersonalEwallet_TxnAmount%2522%253A1%252C%2522t_mobilePersonalEwallet_OrderCode%2522%253A%25222021081915070561%2522%252C%2522t_MobilePersonalewallet_PaymentType%2522%253A%25225%2522%257D%22%7D%7D&
+        //总回调 http://localhost:8080/sample/oauthController/login?method=paymentreturn&retPaymentMsg=%7B%22head%22%3A%7B%22version%22%3A%221.0%22%2C%22respTime%22%3A%2220210819131753%22%2C%22respCode%22%3A%22000000%22%2C%22respMsg%22%3A%22%E6%88%90%E5%8A%9F%22%7D%2C%22body%22%3A%7B%22mid%22%3A%22S2135052%22%2C%22orderCode%22%3A%222021081913174259%22%2C%22tradeNo%22%3A%222021081913174259%22%2C%22clearDate%22%3A%2220210819%22%2C%22totalAmount%22%3A%22000000000100%22%2C%22orderStatus%22%3A%221%22%2C%22payTime%22%3A%2220210819131753%22%2C%22settleAmount%22%3A%22000000000100%22%2C%22buyerPayAmount%22%3A%22000000000100%22%2C%22discAmount%22%3A%22000000000000%22%2C%22txnCompleteTime%22%3A%2220210819131752%22%2C%22payOrderCode%22%3A%2220210819001333400000000000103941%22%2C%22accLogonNo%22%3A%22spe***%40163.com%22%2C%22accNo%22%3A%22%22%2C%22midFee%22%3A%22000000000000%22%2C%22extraFee%22%3A%22000000000000%22%2C%22specialFee%22%3A%22000000000000%22%2C%22plMidFee%22%3A%22000000000000%22%2C%22bankserial%22%3A%22252021081922001417161417823943%22%2C%22externalProductCode%22%3A%2200000006%22%2C%22cardNo%22%3A%22%22%2C%22creditFlag%22%3A%22%22%2C%22bid%22%3A%22%22%2C%22benefitAmount%22%3A%22000000000000%22%2C%22remittanceCode%22%3A%22%22%2C%22extend%22%3A%22%257B%2522t_mobilePersonalEwallet_ReceiverPID%2522%253A%2522430528198502043837%2522%252C%2522t_mobilePersonalEwallet_TxnID%2522%253A%252220210819131742348500%2522%252C%2522t_mobilePersonalEwallet_TxnCat%2522%253A%2522PersonalEwalletReceive%2522%252C%2522t_mobilePersonalEwallet_TxnAmount%2522%253A1%252C%2522t_mobilePersonalEwallet_OrderCode%2522%253A%25222021081913174259%2522%252C%2522t_MobilePersonalewallet_PaymentType%2522%253A%25225%2522%257D%22%7D%7D&
+        //node支付宝充值回调 http://localhost:8080/sample/oauthController/login?method=paymentreturn&paymentChannel=alipay&action=nodetopup&walletTxn_ReceiverID=31011519830805251X&retPaymentMsg=%7B%22from%22%3A%22430528198502043837%22%2C%22to%22%3A%22430528198502043837%22%2C%22value%22%3A%221%22%2C%22orderid%22%3A%223837_1629607850066%22%2C%22mid%22%3A%22e1e5ce20-5d85-4c7d-a6f2-b174c9760438%22%2C%22gmt_create%22%3A%222021-08-22%2012%3A51%3A03%22%2C%22charset%22%3A%22utf-8%22%2C%22seller_email%22%3A%22contact%40goldmanfuks.com%22%2C%22subject%22%3A%22%E5%85%85%E5%80%BC%22%2C%22sign%22%3A%22ch7JfF3L%2BqeVyIEqJp4uw7VouS94kgYLce%2Fvq3De5bhDNWvGI%2B4W57Y9D6bgPzPiOFSsuHxZmVrNs%2BT4qptzGTMoQ%2B98HDRNCSiGmKnCKG0AHFuvyza981B3Ne4dxKtedXQ%2BSReEkB38ptJno%2F4Js01scZvwTurTXsB5R4X7U2ihfA1LF13Yap04sMqQL8q5bzhTaJPme819EMQaTvOfh2NIz8k2Tq5JpgqwYcwbl%2BXh5psTDLogLLfFtpyfjIvHP1QBKcO1wcNLwSHUvWy0DGFAPuDit2CrkcvaIo8TZPVw9NxPW9bSUSMLnAlpFoA2dvK4RC9p0ow%2BmftvSn8Ljg%3D%3D%22%2C%22body%22%3A%22%7B%5C%22from%5C%22%3A%5C%22430528198502043837%5C%22%2C%5C%22to%5C%22%3A%5C%22430528198502043837%5C%22%2C%5C%22value%5C%22%3A%5C%221%5C%22%2C%5C%22subject%5C%22%3A%5C%22%E5%85%85%E5%80%BC%5C%22%2C%5C%22body%5C%22%3A%5C%22%E9%92%B1%E5%8C%85%E5%A2%9E%E5%80%BC%5C%22%2C%5C%22mid%5C%22%3A%5C%22e1e5ce20-5d85-4c7d-a6f2-b174c9760438%5C%22%7D%22%2C%22buyer_id%22%3A%222088702544399694%22%2C%22invoice_amount%22%3A%221.00%22%2C%22notify_id%22%3A%222021082200222125104099691411597139%22%2C%22fund_bill_list%22%3A%22%5B%7B%5C%22amount%5C%22%3A%5C%221.00%5C%22%2C%5C%22fundChannel%5C%22%3A%5C%22PCREDIT%5C%22%7D%5D%22%2C%22notify_type%22%3A%22trade_status_sync%22%2C%22trade_status%22%3A%22TRADE_SUCCESS%22%2C%22receipt_amount%22%3A%221.00%22%2C%22buyer_pay_amount%22%3A%221.00%22%2C%22app_id%22%3A%222021002148608251%22%2C%22sign_type%22%3A%22RSA2%22%2C%22seller_id%22%3A%222088141548340923%22%2C%22gmt_payment%22%3A%222021-08-22%2012%3A51%3A04%22%2C%22notify_time%22%3A%222021-08-22%2012%3A51%3A05%22%2C%22version%22%3A%221.0%22%2C%22out_trade_no%22%3A%223837_1629607850066%22%2C%22total_amount%22%3A%221.00%22%2C%22trade_no%22%3A%222021082222001499691414503778%22%2C%22auth_app_id%22%3A%222021002148608251%22%2C%22buyer_logon_id%22%3A%22136****1489%22%2C%22point_amount%22%3A%220.00%22%7D&page=mobilepay&walletTxn_PayerPID=undefined&personalMID=undefined&paymentID=2021082222001499691414503778&paymentStatus=TRADE_SUCCESS&TopupAmount=1.01&
         if(method!=null&&method.equals("paymentreturn")){
             //check payment unique
             DBConnection dao = new DBConnection();
@@ -93,14 +94,40 @@ public class OauthController {
             String orderCode = null;
             Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
             MobileEwalletDashboard mobileEwalletDashboard = new MobileEwalletDashboard(); // payment & transaction input
-            String txnAmt1 = null, ActionTime = null, OrderCode = null, PayStatus = null, PersonalPID = null, txnCat = null, txnID = null;
+            String txnAmt1 = null, ActionTime = null, OrderCode = null, PayStatus = null, PersonalPID = null, txnCat = null, txnID = null,returnPaymentCompleteTime=null,
+                returnAppID=null,returnApplierLogonID=null,returnApplierMID=null,returnPaymentMsg=null,returnPaymentOrderNum=null;
             String mobileEwalletDashboardJson = null;
-            JSONObject jsonDataRetTxnDetails = null;
+            JSONObject jsonDataRetTxnDetails = null, jsonData = null;
             Date TxnStartDate = null, TxnEndDate = null;
-            String returnTxnDetail = null, returnPaymentCode = null,returnPaymentMsg = null,returnPaymentOrderNum = null,returnPaymentCompleteTime = null;
-            JSONObject jsonData = null, returnTxnDetailJson = null;
-            if(action.equalsIgnoreCase("nodetopup")){ //if node payment return
+            String returnTxnDetail = null, returnPaymentCode = null;
+            if(action.equalsIgnoreCase("nodetopup") && paymentChannel.equalsIgnoreCase("alipay")){ //if node payment return
                 System.out.print("Alipay payment ret");
+                try {
+                    jsonData = (JSONObject) JSON.parseObject(retPaymentMsg);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    rs.put("JSONObject parse err", "Payment return String JSON parse error");
+                    return JsonBizTool.genJson(ExRetEnum.FAIL, rs);
+                } finally {
+                    String body = jsonData.getString("body");
+                    String jsonArray =  jsonData.getString("body");
+                    String returnPaymentSubject = jsonArray.substring(4);
+                    String returnPaymentOrderStatus = URLDecoder.decode(jsonData.getString("trade_status"));
+                    String returnPaymentApplierID = URLDecoder.decode(jsonData.getString("buyer_id"));
+                    txnAmt1 = URLDecoder.decode(jsonData.getString("total_amount"));
+                    paymentID = URLDecoder.decode(jsonData.getString("trade_no"));
+                    mobileEwalletDashboard.setT_mobilePersonalEwallet_ApplierPID(paymentID);
+                    returnAppID = URLDecoder.decode(jsonData.getString("auth_app_id"));
+                    returnApplierLogonID = jsonData.getString("buyer_logon_id");
+                    returnApplierMID = jsonData.getString("mid");
+                    PersonalPID = walletTxn_ReceiverID;
+                    if(returnPaymentOrderStatus.equalsIgnoreCase("TRADE_SUCCESS")){
+                        returnPaymentCode = "000000";
+                    }else{
+                        returnPaymentCode = "AlipayErr";
+                    }
+                }
+                txnCat = "PersonalEwalletReceive";
             }else {
                 try {
                     jsonData = (JSONObject) JSON.parse(retPaymentMsg);
@@ -119,22 +146,25 @@ public class OauthController {
             /*
             call 58gongzi payment txn add
              */
-            if(retPaymentMsg != null && returnPaymentCode.equals("000000")) {
-                try {
-                    jsonDataRetTxnDetails = JSONObject.parseObject(returnTxnDetail);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    rs.put("JSONObject parse err", "Payment return String JSON parse error");
-                    return JsonBizTool.genJson(ExRetEnum.FAIL, rs);
-                } finally {
-                    System.out.print(jsonDataRetTxnDetails);
-                    txnAmt1 = jsonDataRetTxnDetails.getString("t_mobilePersonalEwallet_TxnAmount"); //t_mobileWalletTxn_TotTxnAmount
-                    PersonalPID = jsonDataRetTxnDetails.getString("t_mobilePersonalEwallet_ReceiverPID"); //t_mobileWalletTxn_ReceiverPID
-                    paymentID = jsonDataRetTxnDetails.getString("t_mobilePersonalEwallet_OrderCode"); //t_mobileWalletTxn_Num
-                    txnCat = jsonDataRetTxnDetails.getString("t_mobilePersonalEwallet_TxnCat");
-                    ; //t_mobileWalletTxn_TxnCat
+            if(retPaymentMsg != null && returnPaymentCode.equals("000000") && action.contains("topup")) {
+                if (!paymentChannel.equalsIgnoreCase("alipay")){
+                    try {
+                        jsonDataRetTxnDetails = JSONObject.parseObject(returnTxnDetail);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        rs.put("JSONObject parse err", "Payment return String JSON parse error");
+                        return JsonBizTool.genJson(ExRetEnum.FAIL, rs);
+                    } finally {
+                        System.out.print(jsonDataRetTxnDetails);
+                        txnAmt1 = jsonDataRetTxnDetails.getString("t_mobilePersonalEwallet_TxnAmount"); //t_mobileWalletTxn_TotTxnAmount
+                        PersonalPID = jsonDataRetTxnDetails.getString("t_mobilePersonalEwallet_ReceiverPID"); //t_mobileWalletTxn_ReceiverPID
+                        paymentID = jsonDataRetTxnDetails.getString("t_mobilePersonalEwallet_OrderCode"); //t_mobileWalletTxn_Num
+                        txnCat = jsonDataRetTxnDetails.getString("t_mobilePersonalEwallet_TxnCat");
+                        ; //t_mobileWalletTxn_TxnCat
+                    }
+                    txnCat = "PersonalEwalletReceive";   // transperency code
                 }
-                txnCat = "PersonalEwalletReceive";   // transperency code
+
                 switch (txnCat) {
                     case "PersonalEwalletReceive":
                         paymentChannel = "PersonalEwalletReceive";
@@ -150,19 +180,27 @@ public class OauthController {
                         mobileEwalletDashboard.setT_mobilePersonalEwallet_ApplierPID(walletTxn_PayerPID);
                         break;
                 }
-            
-            
+                
                 // Check Txn Status
                 Map<String, Object> txnOpen = EwalletTxnController.TxnStatusCheck(paymentID,conn);
                 System.out.print(txnOpen);
                 
                 if (txnOpen == null) {   // if not generated , then new add
                     BigDecimal txnAmt = new BigDecimal(txnAmt1);
+                    String paymentVendor=null;
                     txnID = Tool.PayId();
-                    String paymentVendor = "sandpay";   // payment vendor switch
+                    switch (action){
+                        case "nodetopup":
+                            paymentVendor = "alipay";   // payment vendor switch
+                            break;
+                        case "topup":
+                            paymentVendor = "sandpay";   // payment vendor switch
+                            break;
+                    }
                     EwalletTxnController ewalletTxnController = new EwalletTxnController();
                     mobileEwalletDashboard.setT_mobilePersonalEwallet_TxnID(txnID);
                     mobileEwalletDashboard.setT_mobilePersonalEwallet_ClearOrg(mobileEwalletDashboard.getT_mobilePersonalEwallet_ApplierPID());
+                    mobileEwalletDashboard.setT_mobilePersonalEwallet_ClearNum(paymentID);
                     mobileEwalletDashboard.setT_mobilePersonalEwallet_OrderCode(paymentID);
                     mobileEwalletDashboard.setT_mobilePersonalEwallet_ReceiverPID(PersonalPID);
                     mobileEwalletDashboard.setT_mobilePersonalEwallet_bkp(paymentChannel);
