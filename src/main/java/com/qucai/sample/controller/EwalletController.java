@@ -538,7 +538,7 @@ public class EwalletController {
         Map<String,Object> retUpdatePersonalEwallet = new HashMap<>();
         String ewallet = "58ewallet";
         String sql="update t_personal_ewallet " +
-            "set t_personalewallet_TotCNYBalance = t_personalewallet_TotCNYBalance + ?," +
+            "set t_personalewallet_TotCNYBalance=t_personalewallet_TotCNYBalance+?," +
             "t_personalewallet_ewalletAccStatus=?," +
             "modifier=?," +
             "modify_time=? " +
@@ -551,7 +551,6 @@ public class EwalletController {
             ptmt1.setTimestamp(4, new java.sql.Timestamp(System.currentTimeMillis()));
             ptmt1.setString(5, walletTxn_ReceiverID);
             int updateret = ptmt1.executeUpdate();
-            String amount = null;
             if(updateret>0){
                 retUpdatePersonalEwallet.put("UpdatePersonalEwalletSucc","succ");
                 retUpdatePersonalEwallet.put("SQL","SQL-PersonalPayerEwalletUpdate");

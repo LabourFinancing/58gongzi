@@ -456,7 +456,7 @@ public class EwalletTxnController {
                 break;
             case "PersonalEwalletReceive" :
                 System.out.println("PersonalEwalletReceive transit");
-                t_MobileWalletTxn_TopupAmt = txnAmt;
+                t_MobileWalletTxn_TopupAmt = txnAmt.setScale(2,BigDecimal.ROUND_DOWN);
                 System.out.print(walletTxn_ReceiverID);
                 ewalletTxnType = "c2c 第三方转账";
                 if(mobileEwalletDashboard.getT_mobilePersonalEwallet_Creditcard() != null){

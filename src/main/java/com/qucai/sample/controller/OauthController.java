@@ -127,7 +127,7 @@ public class OauthController {
                         returnPaymentCode = "AlipayErr";
                     }
                 }
-                txnCat = "PersonalEwalletReceive";
+                txnCat = "PersonalEwalletTopup";
             }else {
                 try {
                     jsonData = (JSONObject) JSON.parse(retPaymentMsg);
@@ -186,7 +186,7 @@ public class OauthController {
                 System.out.print(txnOpen);
                 
                 if (txnOpen == null) {   // if not generated , then new add
-                    BigDecimal txnAmt = new BigDecimal(txnAmt1);
+                    BigDecimal txnAmt = new BigDecimal(txnAmt1).setScale(2,BigDecimal.ROUND_DOWN);
                     String paymentVendor=null;
                     txnID = Tool.PayId();
                     switch (action){
