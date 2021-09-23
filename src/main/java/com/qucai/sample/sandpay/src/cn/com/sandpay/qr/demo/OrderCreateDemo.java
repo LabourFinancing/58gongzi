@@ -29,7 +29,7 @@ public class OrderCreateDemo {
 	public static  Logger logger = LoggerFactory.getLogger(OrderCreateDemo.class);
 	
 	JSONObject header = new JSONObject();
-	JSONObject body=new JSONObject();
+	JSONObject body = new JSONObject();
 
 
     public void setHeader() {

@@ -1,5 +1,5 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd http://www.w3.org/2001/XMLSchema-instance">
 
     <modelVersion>4.0.0</modelVersion>
 	<repositories>  
@@ -72,6 +72,33 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.github.wechatpay-apiv3</groupId>
+            <artifactId>wechatpay-apache-httpclient</artifactId>
+            <version>0.2.2</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.9.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.4.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpmime</artifactId>
+            <version>4.5.12</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.12</version>
+        </dependency>
         <!-- Log -->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -217,6 +244,7 @@
             <artifactId>alipay-sdk-java</artifactId>
             <version>4.13.58.ALL</version>
         </dependency>
+        
 
         <!-- freemarker -->
         <dependency>
@@ -657,20 +685,8 @@
     </build>
 
     <!-- wechatpay section -->
-    <scm>
-        <url>https://github.com/objcoding/WXPay-SDK-Java</url>
-        <connection>git@github.com:objcoding/WXPay-SDK-Java.git</connection>
-        <developerConnection>https://github.com/objcoding/WXPay-SDK-Java</developerConnection>
-    </scm>
-
-    <developers>
-        <developer>
-            <name>wxpay</name>
-            <email>wxpay1888@foxmail.com</email>
-            <url>http://wxpay.github.io</url>
-        </developer>
-    </developers>
-
+    
+    
     <profiles>
         <profile>
             <id>release</id>

@@ -23,13 +23,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.qucai.sample.alipayDemo_java.src.java.com.alipay.demo.controller.AlipayTxnOrder;
 import com.qucai.sample.entity.*;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo.DemoBase;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo.OrderCreateDemo;
 import com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo.OrderPayDemo;
+import com.qucai.sample.sandpaybackstagefast.main.java.cn.com.sand.pay.sandpay.scm.demo.BindCardServlet;
 import com.qucai.sample.service.*;
 import com.qucai.sample.util.*;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -75,13 +75,29 @@ public class OauthController {
     public Object login(HttpServletRequest request, HttpServletResponse response,String facialret,String txnAmount,
                         String personalMID,String walletTxn_PayerPID,String walletTxn_ReceiverID,String txnDetail,String TopupAmount,
                         String paymentChannel,String shoppingAmount, String topupAmount,String CashoutAmount,String realName,String retPaymentMsg,
-                        String userName, String pid, String password, String page,String action,String cardAcc,String signPaymentMsg,
+                        String userName, String pid, String password, String page,String action,String cardAcc,String signPaymentMsg,String applierMobile,
                         String mode, String gid, String method, String phone, String host,String paymentID,String paymentStatus,String authNum,
                         String SMSsendcode, String SMSstrret, String type, String API) throws Exception {
 
         CaptchaUsernamePasswordToken token = new CaptchaUsernamePasswordToken();
         token.setUsername(userName);
-
+        //Personal bankcard bind
+        //http://localhost:8080/sample/oauthController/login?method=bankcardbind&paymentChannel=creditcard&cardAcc=6258101661184889&applierMobile=18001869161&userName=姚诚铭  - bankcard
+        //http://localhost:8080/sample/oauthController/login?method=bankcardbind&paymentChannel=debitcard&cardAcc=6228480031725525211&applierMobile=18001869161&userName=姚诚铭 - bankcard
+        if(method!=null&&method.equals("bankcardbind")){
+            MobileEwalletDashboard mobileEwalletDashboard = new MobileEwalletDashboard();
+            mobileEwalletDashboard.setT_mobilePersonalEwallet_ApplierName(userName);
+            mobileEwalletDashboard.setT_mobilePersonalEwallet_ApplierPID(pid);
+            if(paymentChannel.equalsIgnoreCase("creditcard")) {
+                mobileEwalletDashboard.setT_mobilePersonalEwallet_Creditcard(cardAcc);
+            }
+            if(paymentChannel.equalsIgnoreCase("debitcard")) {
+                mobileEwalletDashboard.setT_mobilePersonalEwallet_Debitcard(cardAcc);
+            }
+            mobileEwalletDashboard.setT_mobilePersonalEwallet_ApplierMobile(applierMobile);
+            JSONObject rs = BindCardServlet.cardbind( request, response,mobileEwalletDashboard);
+            return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
+        }
         //总回调 http://localhost:8080/sample/oauthController/login?method=paymentreturn&retPaymentMsg=%7B%22head%22%3A%7B%22version%22%3A%221.0%22%2C%22respTime%22%3A%2220210819131753%22%2C%22respCode%22%3A%22000000%22%2C%22respMsg%22%3A%22%E6%88%90%E5%8A%9F%22%7D%2C%22body%22%3A%7B%22mid%22%3A%22S2135052%22%2C%22orderCode%22%3A%222021081913174259%22%2C%22tradeNo%22%3A%222021081913174259%22%2C%22clearDate%22%3A%2220210819%22%2C%22totalAmount%22%3A%22000000000100%22%2C%22orderStatus%22%3A%221%22%2C%22payTime%22%3A%2220210819131753%22%2C%22settleAmount%22%3A%22000000000100%22%2C%22buyerPayAmount%22%3A%22000000000100%22%2C%22discAmount%22%3A%22000000000000%22%2C%22txnCompleteTime%22%3A%2220210819131752%22%2C%22payOrderCode%22%3A%2220210819001333400000000000103941%22%2C%22accLogonNo%22%3A%22spe***%40163.com%22%2C%22accNo%22%3A%22%22%2C%22midFee%22%3A%22000000000000%22%2C%22extraFee%22%3A%22000000000000%22%2C%22specialFee%22%3A%22000000000000%22%2C%22plMidFee%22%3A%22000000000000%22%2C%22bankserial%22%3A%22252021081922001417161417823943%22%2C%22externalProductCode%22%3A%2200000006%22%2C%22cardNo%22%3A%22%22%2C%22creditFlag%22%3A%22%22%2C%22bid%22%3A%22%22%2C%22benefitAmount%22%3A%22000000000000%22%2C%22remittanceCode%22%3A%22%22%2C%22extend%22%3A%22%257B%2522t_mobilePersonalEwallet_ReceiverPID%2522%253A%2522430528198502043837%2522%252C%2522t_mobilePersonalEwallet_TxnID%2522%253A%252220210819131742348500%2522%252C%2522t_mobilePersonalEwallet_TxnCat%2522%253A%2522PersonalEwalletReceive%2522%252C%2522t_mobilePersonalEwallet_TxnAmount%2522%253A1%252C%2522t_mobilePersonalEwallet_OrderCode%2522%253A%25222021081913174259%2522%252C%2522t_MobilePersonalewallet_PaymentType%2522%253A%25225%2522%257D%22%7D%7D&
         //node支付宝充值回调 http://localhost:8080/sample/oauthController/login?method=paymentreturn&paymentChannel=alipay&action=nodetopup&walletTxn_ReceiverID=31011519830805251X&retPaymentMsg=%7B%22from%22%3A%22430528198502043837%22%2C%22to%22%3A%22430528198502043837%22%2C%22value%22%3A%221%22%2C%22orderid%22%3A%223837_1629607850066%22%2C%22mid%22%3A%22e1e5ce20-5d85-4c7d-a6f2-b174c9760438%22%2C%22gmt_create%22%3A%222021-08-22%2012%3A51%3A03%22%2C%22charset%22%3A%22utf-8%22%2C%22seller_email%22%3A%22contact%40goldmanfuks.com%22%2C%22subject%22%3A%22%E5%85%85%E5%80%BC%22%2C%22sign%22%3A%22ch7JfF3L%2BqeVyIEqJp4uw7VouS94kgYLce%2Fvq3De5bhDNWvGI%2B4W57Y9D6bgPzPiOFSsuHxZmVrNs%2BT4qptzGTMoQ%2B98HDRNCSiGmKnCKG0AHFuvyza981B3Ne4dxKtedXQ%2BSReEkB38ptJno%2F4Js01scZvwTurTXsB5R4X7U2ihfA1LF13Yap04sMqQL8q5bzhTaJPme819EMQaTvOfh2NIz8k2Tq5JpgqwYcwbl%2BXh5psTDLogLLfFtpyfjIvHP1QBKcO1wcNLwSHUvWy0DGFAPuDit2CrkcvaIo8TZPVw9NxPW9bSUSMLnAlpFoA2dvK4RC9p0ow%2BmftvSn8Ljg%3D%3D%22%2C%22body%22%3A%22%7B%5C%22from%5C%22%3A%5C%22430528198502043837%5C%22%2C%5C%22to%5C%22%3A%5C%22430528198502043837%5C%22%2C%5C%22value%5C%22%3A%5C%221%5C%22%2C%5C%22subject%5C%22%3A%5C%22%E5%85%85%E5%80%BC%5C%22%2C%5C%22body%5C%22%3A%5C%22%E9%92%B1%E5%8C%85%E5%A2%9E%E5%80%BC%5C%22%2C%5C%22mid%5C%22%3A%5C%22e1e5ce20-5d85-4c7d-a6f2-b174c9760438%5C%22%7D%22%2C%22buyer_id%22%3A%222088702544399694%22%2C%22invoice_amount%22%3A%221.00%22%2C%22notify_id%22%3A%222021082200222125104099691411597139%22%2C%22fund_bill_list%22%3A%22%5B%7B%5C%22amount%5C%22%3A%5C%221.00%5C%22%2C%5C%22fundChannel%5C%22%3A%5C%22PCREDIT%5C%22%7D%5D%22%2C%22notify_type%22%3A%22trade_status_sync%22%2C%22trade_status%22%3A%22TRADE_SUCCESS%22%2C%22receipt_amount%22%3A%221.00%22%2C%22buyer_pay_amount%22%3A%221.00%22%2C%22app_id%22%3A%222021002148608251%22%2C%22sign_type%22%3A%22RSA2%22%2C%22seller_id%22%3A%222088141548340923%22%2C%22gmt_payment%22%3A%222021-08-22%2012%3A51%3A04%22%2C%22notify_time%22%3A%222021-08-22%2012%3A51%3A05%22%2C%22version%22%3A%221.0%22%2C%22out_trade_no%22%3A%223837_1629607850066%22%2C%22total_amount%22%3A%221.00%22%2C%22trade_no%22%3A%222021082222001499691414503778%22%2C%22auth_app_id%22%3A%222021002148608251%22%2C%22buyer_logon_id%22%3A%22136****1489%22%2C%22point_amount%22%3A%220.00%22%7D&page=mobilepay&walletTxn_PayerPID=undefined&personalMID=undefined&paymentID=2021082222001499691414503778&paymentStatus=TRADE_SUCCESS&TopupAmount=1.01&
         if(method!=null&&method.equals("paymentreturn")){
@@ -172,9 +188,6 @@ public class OauthController {
                         mobileEwalletDashboard.setT_mobilePersonalEwallet_ApplierPID(walletTxn_ReceiverID);
                         break;
                     case "PersonalEwalletShopping":
-                        walletTxn_PayerPID = jsonDataRetTxnDetails.getString("t_mobileWalletTxn_PayerPID");
-                        mobileEwalletDashboard.setT_mobilePersonalEwallet_ApplierPID(walletTxn_PayerPID);
-                        break;
                     case "PersonalEwalletCashout":
                         walletTxn_PayerPID = jsonDataRetTxnDetails.getString("t_mobileWalletTxn_PayerPID");
                         mobileEwalletDashboard.setT_mobilePersonalEwallet_ApplierPID(walletTxn_PayerPID);
@@ -813,7 +826,7 @@ public class OauthController {
             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
         }
 
-        //http://localhost:8080/sample/oauthController/login?method=scan-shopping-58qr&action=shopping&page=mobilepay&=wechat&walletTxn_ReceiverID=31011519830805251X&paymentChannel=debitcardNum&shoppingAmount=0.1
+        //http://localhost:8080/sample/oauthController/login?method=scan-shopping-58qr&action=shopping&page=mobilepay&=wechat&walletTxn_ReceiverID=31011519830805251X&paymentChannel=debitcard&shoppingAmount=0.1
         //个人消费  ( payer - 58,receiver representer- GFwechat )
         if( method!=null&&page.equalsIgnoreCase("ewalletpay")&&method.equals("scan-shopping-58qr")&&action.equalsIgnoreCase("shopping")){
             DBConnection dao = new DBConnection();
@@ -900,12 +913,17 @@ public class OauthController {
             Map<String, Object> rs = new HashMap<String, Object>();
             Map<String, Object> MarsMobileEwalletFind = new HashMap<String, Object>();
             Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
+            
             MobileEwalletDashboard mobileEwalletDashboard = new MobileEwalletDashboard();
             mobileEwalletDashboard.setT_mobilePersonalEwallet_OrderCode(paymentID);
             mobileEwalletDashboard.setT_mobilePersonalEwallet_TxnID(TxnID);
             mobileEwalletDashboard.setT_mobilePersonalEwallet_PayerPID(paymentID);
             mobileEwalletDashboard.setT_mobilePersonalEwallet_ApplierPID(walletTxn_PayerPID);
-            mobileEwalletDashboard.setT_mobilePersonalEwallet_treasuryID("alipay");
+            if(paymentChannel!=null) {
+                mobileEwalletDashboard.setT_mobilePersonalEwallet_treasuryID(paymentChannel);
+            }else{
+                mobileEwalletDashboard.setT_mobilePersonalEwallet_treasuryID("alipay");
+            }
             mobileEwalletDashboard.setT_mobilePersonalEwallet_PayDays(0);
             mobileEwalletDashboard.setT_mobilePersonalEwallet_TotalInterestDays(0);
             mobileEwalletDashboard.setT_mobilePersonalEwallet_PayCounts(0);
@@ -975,7 +993,7 @@ public class OauthController {
         //个人提现 cashout target account alipayacc/debitcard/creditcard/wechatacc
             //个人钱包借记卡提现 http://localhost:8080/sample/oauthController/login?method=ewalletcashout&action=cashout&page=mobilehome&cardAcc=6228480031725525211&walletTxn_ReceiverID=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475&CashoutAmount=1.01&&paymentID=$&paymentStatus=&paymentChannel=debitcard
         //个人钱包信用卡提现 http://localhost:8080/sample/oauthController/login?method=ewalletcashout&action=cashout&page=mobilehome&cardAcc=6258101661184889&walletTxn_ReceiverID=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475&CashoutAmount=1.01&&paymentID=$&paymentStatus=&paymentChannel=creditcard
-        //个人钱包支付宝提现 http://localhost:8080/sample/oauthController/login?method=ewalletcashout&action=cashout&page=mobilehome&cardAcc=2088002082117160&walletTxn_ReceiverID=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475&CashoutAmount=1.01&&paymentID=$&paymentStatus=&paymentChannel=alipay
+        //个人钱包支付宝提现 转账到支付宝内部账户 http://localhost:8080/sample/oauthController/login?method=ewalletcashout&action=cashout&page=mobilehome&cardAcc=2088002082117160&walletTxn_ReceiverID=31011519830805251X&personalMID=7d72156f-3bd8-4e03-a2d0-debcfaab8475&CashoutAmount=1.01&&paymentID=$&paymentStatus=&paymentChannel=alipay
         if( method!=null&&page.equalsIgnoreCase("mobilehome")&&method.equals("ewalletcashout")&&action.equalsIgnoreCase("cashout")){
             DBConnection dao = new DBConnection();
             Connection conn = dao.getConnection();
@@ -997,16 +1015,21 @@ public class OauthController {
             switch (paymentChannel){
                 case "debitcard" :
                     mobileEwalletDashboard.setT_mobilePersonalEwallet_Creditcard(cardAcc);
+                    //charge fee calc
+                    mobileEwalletDashboard.setT_mobilePersonalEwallet_ServiceFee(new BigDecimal("0.01").setScale(2,BigDecimal.ROUND_UP));
                     break;
                 case "creditcard" :
                     mobileEwalletDashboard.setT_mobilePersonalEwallet_Debitcard(cardAcc);
+                    //charge fee calc
                     break;
                 case "alipay" :
                     mobileEwalletDashboard.setT_mobilePersonalEwallet_ClearNum(cardAcc);
                     mobileEwalletDashboard.setT_MobilePersonalewallet_PaymentType(paymentChannel);
+                    //charge fee calc
                     break;
                 case "wechatpay" :
                     mobileEwalletDashboard.setT_MobilePersonalewallet_PaymentType(paymentChannel);
+                    //charge fee calc
                     break;
             }
             mobileEwalletDashboard.setT_mobilePersonalEwallet_ApplierPID(walletTxn_ReceiverID);
@@ -1063,7 +1086,7 @@ public class OauthController {
                         personalApplicationPay.setAccType("4");
                         personalApplicationPay.setReturnPic("1");
                         personalApplicationPay.setReqReserved("全渠道");
-                        retPersonalEwalletCashoutResult = PaymentCall.PersonalEwalletCashout(PaymentSwitch, personalApplicationPay);
+                        retPersonalEwalletCashoutResult = PaymentRoute.PersonalEwalletCashout(PaymentSwitch, personalApplicationPay);
                         if(retPersonalEwalletCashoutResult.get("respCode").equals("0000")){
                             rsMobileEwalletTxn.put("paymmentStatus","Payment Succ");
                             String mobileEwalletDashboardJson = JsonTool.genByFastJson(mobileEwalletDashboard);
@@ -1204,7 +1227,7 @@ public class OauthController {
         if( method!=null&&page.equalsIgnoreCase("mobileme")&&method.equals("ewallettbankcard")&&action.equalsIgnoreCase("bankcard")) {
             Map<String, Object> rsUserEwalletbnkCard = new HashMap<String, Object>();
             EwalletController ewalletController = new EwalletController();
-            rsUserEwalletbnkCard = ewalletController.UpdatePayerPersonalEwalletBindBnkCard(personalMID,pid,cardAcc);
+            rsUserEwalletbnkCard = ewalletController.UpdatePayerPersonalEwalletBindBnkCard(request,response,personalMID,pid,cardAcc);
 //            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
 //            if (SMSsendcode.equalsIgnoreCase(SMSsendcodecvt)) {
 //                System.out.println("调用个人信息");

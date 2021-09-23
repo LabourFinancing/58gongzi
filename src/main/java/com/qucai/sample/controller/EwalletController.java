@@ -1,15 +1,18 @@
 package com.qucai.sample.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import com.qucai.sample.OperationTypeConstant;
 import com.qucai.sample.common.PageParam;
 import com.qucai.sample.entity.*;
 import com.qucai.sample.exception.ExRetEnum;
+import com.qucai.sample.sandpaybackstagefast.main.java.cn.com.sand.pay.sandpay.scm.demo.BindCardServlet;
 import com.qucai.sample.service.*;
 import com.qucai.sample.util.DBConnection;
 import com.qucai.sample.util.JsonBizTool;
 import com.qucai.sample.util.ShiroSessionUtil;
 import com.qucai.sample.util.Tool;
+import com.qucai.sample.vo.MobileEwalletDashboard;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,14 +21,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.qucai.sample.sandpaybackstagefast.main.java.cn.com.sand.pay.sandpay.scm.demo.BindCardServlet;
+import com.qucai.sample.sandpaybackstagefast.main.java.cn.com.sand.pay.sandpay.scm.demo.FastPayServlet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -608,7 +610,7 @@ public class EwalletController {
         }
     }
 
-    public static Map<String, Object> UpdatePayerPersonalEwalletBindBnkCard(String personalMID,String pid,String cardAcc) throws SQLException {
+    public static Map<String, Object> UpdatePayerPersonalEwalletBindBnkCard(HttpServletRequest request, HttpServletResponse response,String personalMID,String pid,String cardAcc) throws Exception {
         Map<String,Object> rsUserEwalletbnkCard = new HashMap<>();
         String ewallet = "58ewallet";
         String[] bankcardInfo = cardAcc.split("-");
@@ -645,10 +647,13 @@ public class EwalletController {
             return rsUserEwalletbnkCard;
         } finally {
             if (!rsSelect.next()) {
-                //            conn.close();
-                //            DBConnection dao1 = new DBConnection();
-                //            Connection conn1 = dao1.getConnection();
                 String sql1 = null;
+                MobileEwalletDashboard mobileEwalletDashboard = new MobileEwalletDashboard();
+                mobileEwalletDashboard.setT_mobilePersonalEwallet_ApplierName(rsSelect.getString("t_personalewallet_ApplierName"));
+                mobileEwalletDashboard.setT_mobilePersonalEwallet_ApplierPID(rsSelect.getString("t_personalewallet_ApplierPID"));
+                mobileEwalletDashboard.setT_mobilePersonalEwallet_Creditcard(bankCreditCardInfo);
+                mobileEwalletDashboard.setT_mobilePersonalEwallet_Debitcard(bankDebitCardInfo);
+                mobileEwalletDashboard.setT_mobilePersonalEwallet_ApplierMobile(rsSelect.getString("t_personalewallet_ApplierMobile"));
                 if(bankDebitCardInfo != null) {
                     sql1 = "update t_personal_ewallet " +
                         "set " +
@@ -669,7 +674,7 @@ public class EwalletController {
                     PreparedStatement ptmt1 = conn.prepareStatement(sql1);
                     ptmt1.setString(1, ';' + cardAcc);
                     ptmt1.setString(2, personalMID);
-                    ptmt1.setTimestamp(3, new java.sql.Timestamp(System.currentTimeMillis()));
+                    ptmt1.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
                     ptmt1.setString(4, pid.replace("'",""));
                     System.out.println(ptmt1.executeUpdate());
                 } catch (SQLException e) {
@@ -681,7 +686,12 @@ public class EwalletController {
                     return rsUserEwalletbnkCard;
                 }finally {
                     conn.close();
-                    rsUserEwalletbnkCard.put("SQL","SQL-PERSONALEWALLETBINDCARDSUCC");
+                    rsUserEwalletbnkCard.put("SQL", "SQL-PERSONALEWALLETBINDCARDSUCC");
+                    JSONObject resp = BindCardServlet.cardbind( request,  response,mobileEwalletDashboard);
+                    //pending test - bind 
+                    if (resp.getJSONObject("sandpayCardBind") != null) {
+                        rsUserEwalletbnkCard.put("retMsg", "杉德银行卡绑定失败,请重新输入");
+                    }
                     return rsUserEwalletbnkCard;
                 }
             }else {
