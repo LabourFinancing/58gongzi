@@ -172,7 +172,7 @@ public String getT_P_Contact1() {
 	return t_P_Contact1;
 }
 
-public String getT_P_Contact1Mobil() {
+public String getT_P_Contact1Mobile() {
 	return t_P_Contact1Mobile;
 }
 
@@ -332,7 +332,7 @@ public void setT_P_Contact1(String t_P_Contact1) {
 	this.t_P_Contact1 = t_P_Contact1;
 }
 
-public void setT_P_Contact1Mobil(String t_P_Contact1Mobile) {
+public void setT_P_Contact1Mobile(String t_P_Contact1Mobile) {
 	this.t_P_Contact1Mobile = t_P_Contact1Mobile;
 }
 

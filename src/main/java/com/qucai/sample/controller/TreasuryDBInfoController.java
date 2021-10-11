@@ -126,15 +126,20 @@ public class TreasuryDBInfoController {
 		  		        	String ret_Data = AmtQueryServlet.main(merchantId); // query Chinaebi Balance
 		  		        	//input all orgs Chinaebi acc balance into treasurydb			   System.out.println(retData);
 		  				    JSONObject obj = (JSONObject) JSON.parse(ret_Data);
-		  				    balanceQuery = (String) obj.get("transAmt"); //  Chinaebipay branch
-		  				    ebibalance = (new BigDecimal(balanceQuery)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
-		  				    System.out.println("Query Chinaebipay balance:");
-		  				    System.out.println(balanceQuery);
-		  				    System.out.println("BigDecimal balance:");
-		  				    System.out.println(ebibalance);
-		  				    paramSQLmap.put("ChinaebiBalance", ebibalance);
-		  		  	        PayrollChannel = organizationInfoService.selectAgencyName(Org_paymentinfo[0]);
-			  		  	    String CurrentPaymentACC = "0";
+		  				    if(obj != null) {
+                                balanceQuery = (String) obj.get("transAmt"); //  Chinaebipay branch
+                                ebibalance = (new BigDecimal(balanceQuery)).divide(new BigDecimal(100)).setScale(2, BigDecimal.ROUND_DOWN);
+                                System.out.println("Query Chinaebipay balance:");
+                                System.out.println(balanceQuery);
+                                System.out.println("BigDecimal balance:");
+                                System.out.println(ebibalance);
+                                paramSQLmap.put("ChinaebiBalance", ebibalance);
+                                PayrollChannel = organizationInfoService.selectAgencyName(Org_paymentinfo[0]);
+                            }else{
+                                paramSQLmap.put("ChinaebiBalance", "00.00");
+		  				        break;
+                            }
+                                String CurrentPaymentACC = "0";
 		  		        	if (AgencyOrgnization.getT_O_OrgPayrollBankaccount().equalsIgnoreCase("电银支付")){
 		  		        		StringBuffer ss =  new StringBuffer();
 		  		        		CurrentPaymentACC = String.valueOf(ss.append("电银支付").append("-").append(ebibalance));
@@ -256,13 +261,19 @@ public class TreasuryDBInfoController {
 			  		        	String ret_Data = AmtQueryServlet.main(merchantId); // query Chinaebi Balance
 			  		        	//input all orgs Chinaebi acc balance into treasurydb			   System.out.println(retData);
 			  				    JSONObject obj = (JSONObject) JSON.parse(ret_Data);
-			  				    balanceQuery = (String) obj.get("transAmt"); //  Chinaebipay branch
-			  				    ebibalance = (new BigDecimal(balanceQuery)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
-			  				    System.out.println("Query Chinaebipay balance:");
-			  				    System.out.println(balanceQuery);
-			  				    System.out.println("BigDecimal balance:");
-			  				    System.out.println(ebibalance);
-			  				    paramSQLmap.put("ChinaebiBalance", ebibalance);
+			  				    if(obj != null) {
+                                    balanceQuery = (String) obj.get("transAmt"); //  Chinaebipay branch
+                                    ebibalance = (new BigDecimal(balanceQuery)).divide(new BigDecimal(100)).setScale(2, BigDecimal.ROUND_DOWN);
+                                    System.out.println("Query Chinaebipay balance:");
+                                    System.out.println(balanceQuery);
+                                    System.out.println("BigDecimal balance:");
+                                    System.out.println(ebibalance);
+                                    paramSQLmap.put("ChinaebiBalance", ebibalance);
+                                }else{
+                                    paramSQLmap.put("ChinaebiBalance", "00.00");
+                                    break;
+                                }
+			  				    
 		  		        	}
 		  		  	        PayrollChannel = organizationInfoService.selectAgencyName(Org_paymentinfo[0]);
 		  		        	if (AgencyOrgnization.getT_O_OrgPayrollBankaccount().equalsIgnoreCase("电银支付")){
@@ -383,12 +394,17 @@ public class TreasuryDBInfoController {
 			   System.out.println("Query Chinaebipay String:");
 			   System.out.println(retData);
 			   JSONObject obj = (JSONObject) JSON.parse(retData);
-			   String balanceQuery = (String) obj.get("transAmt"); //  Chinaebipay branch
-			   ebibalance = (new BigDecimal(balanceQuery)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
-			   System.out.println("Query Chinaebipay balance:");
-			   System.out.println(balanceQuery);
-			   System.out.println("BigDecimal balance:");
-			   System.out.println(ebibalance);
+			   if(obj != null) {
+                   String balanceQuery = (String) obj.get("transAmt"); //  Chinaebipay branch
+                   ebibalance = (new BigDecimal(balanceQuery)).divide(new BigDecimal(100)).setScale(2, BigDecimal.ROUND_DOWN);
+                   System.out.println("Query Chinaebipay balance:");
+                   System.out.println(balanceQuery);
+                   System.out.println("BigDecimal balance:");
+                   System.out.println(ebibalance);
+               }else{
+                   String balanceQuery = "00.00"; //  Chinaebipay branch
+                   ebibalance = new BigDecimal(00.00);
+               }
 
 			   TreasuryDBStatisticOverAll.setT_TreasuryDB_BoPRatio(ebibalance);
 		}
@@ -482,14 +498,19 @@ public class TreasuryDBInfoController {
 		  		        	String ret_Data = AmtQueryServlet.main(merchantId); // query Chinaebi Balance
 		  		        	//input all orgs Chinaebi acc balance into treasurydb			   System.out.println(retData);
 		  				    JSONObject obj = (JSONObject) JSON.parse(ret_Data);
-		  				    balanceQuery = (String) obj.get("transAmt"); //  Chinaebipay branch
-		  				    ebibalance = (new BigDecimal(balanceQuery)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
-		  				    System.out.println("Query Chinaebipay balance:");
-		  				    System.out.println(balanceQuery);
-		  				    System.out.println("BigDecimal balance:");
-		  				    System.out.println(ebibalance);
-		  				    paramSQLmap.put("ChinaebiBalance", ebibalance);
-		  		  	        PayrollChannel = organizationInfoService.selectAgencyName(Org_paymentinfo[0]);
+		  				    if(obj != null) {
+                                balanceQuery = (String) obj.get("transAmt"); //  Chinaebipay branch
+                                ebibalance = (new BigDecimal(balanceQuery)).divide(new BigDecimal(100)).setScale(2, BigDecimal.ROUND_DOWN);
+                                System.out.println("Query Chinaebipay balance:");
+                                System.out.println(balanceQuery);
+                                System.out.println("BigDecimal balance:");
+                                System.out.println(ebibalance);
+                                paramSQLmap.put("ChinaebiBalance", ebibalance);
+                                PayrollChannel = organizationInfoService.selectAgencyName(Org_paymentinfo[0]);
+                            }else{
+                                paramSQLmap.put("ChinaebiBalance", "00.00");
+                                break;
+                            }
 			  		  	    String CurrentPaymentACC = null;
 		  		        	if (AgencyOrgnization.getT_O_OrgPayrollBankaccount().equalsIgnoreCase("电银支付")){
 		  		        		StringBuffer ss =  new StringBuffer();
@@ -611,13 +632,18 @@ public class TreasuryDBInfoController {
 			  		        	String ret_Data = AmtQueryServlet.main(merchantId); // query Chinaebi Balance
 			  		        	//input all orgs Chinaebi acc balance into treasurydb			   System.out.println(retData);
 			  				    JSONObject obj = (JSONObject) JSON.parse(ret_Data);
-			  				    balanceQuery = (String) obj.get("transAmt"); //  Chinaebipay branch
-			  				    ebibalance = (new BigDecimal(balanceQuery)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
-			  				    System.out.println("Query Chinaebipay balance:");
-			  				    System.out.println(balanceQuery);
-			  				    System.out.println("BigDecimal balance:");
-			  				    System.out.println(ebibalance);
-			  				    paramSQLmap.put("ChinaebiBalance", ebibalance);
+			  				    if(obj != null) {
+                                    balanceQuery = (String) obj.get("transAmt"); //  Chinaebipay branch
+                                    ebibalance = (new BigDecimal(balanceQuery)).divide(new BigDecimal(100)).setScale(2, BigDecimal.ROUND_DOWN);
+                                    System.out.println("Query Chinaebipay balance:");
+                                    System.out.println(balanceQuery);
+                                    System.out.println("BigDecimal balance:");
+                                    System.out.println(ebibalance);
+                                    paramSQLmap.put("ChinaebiBalance", ebibalance);
+                                }else{
+                                    paramSQLmap.put("ChinaebiBalance", "00.00");
+                                    break;
+                                }
 		  		        	}
 		  		  	        PayrollChannel = organizationInfoService.selectAgencyName(Org_paymentinfo[0]);
 		  		        	if (AgencyOrgnization.getT_O_OrgPayrollBankaccount().equalsIgnoreCase("电银支付")){

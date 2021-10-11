@@ -92,7 +92,7 @@ CREATE TABLE `t_personal_info` (
   `t_P_Contact1` varchar(20) NOT NULL,
   `t_P_Contact1Mobile` varchar(13) NOT NULL,
   `t_P_Payroll` varchar(20) DEFAULT NULL,
-  `t_P_ContactMobile2` varchar(13) DEFAULT NULL,
+  `t_P_Contact2Mobile` varchar(13) DEFAULT NULL,
   `t_P_Company` varchar(60) NOT NULL,
   `t_P_CompanyNum` varchar(30) DEFAULT NULL,
   `t_P_SocialSecurityBaseAmount` varchar(30) NOT NULL,
