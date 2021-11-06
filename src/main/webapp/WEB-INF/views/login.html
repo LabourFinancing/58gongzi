@@ -140,10 +140,29 @@ text-align: center;
             color: #c2c2c2;
             -webkit-transition: color.5s;
         }
+
+        dot {
+            display: inline-block;
+            height: 1em;
+            line-height: 1;
+            text-align: left;
+            vertical-align: -.25em;
+            overflow: hidden;
+        }
+        dot::before {
+            display: block;
+            content: '...\A..\A.';
+            white-space: pre-wrap;   /* 也可以是white-space: pre */
+            animation: dot 1s infinite step-start both;
+        }
+        @keyframes dot {
+            33% { transform: translateY(-2em); }
+            66% { transform: translateY(-1em); }
+        }
 </style>
 <script type="text/javascript">
     var user_name = $("#userName").val();
-
+    
         window.onload = function ()//用window的onload事件，窗体加载完毕的时候
         {
             //single login
@@ -234,6 +253,7 @@ text-align: center;
 
                     submitHandler: function (form) {
                         var formData = new FormData($('#loginForm')[0]);
+                        document.getElementById("LoginLoading").style.display = "";
                         $.ajax({
                             url: "${ctx}/oauthController/login?type=login",
                             type: 'POST',
@@ -243,10 +263,11 @@ text-align: center;
                             contentType: false,
                             processData: false,
                             success: function (data) {
-                            	console.log('-----------success---------', data)
                                 var result = eval("(" + data + ")");
                                 if (result.ret == "-1") {
-                                    $("#msg").html("<font color='#f50000' style='font-weight:bold;'>" + result.msg + "</font>")
+                                    $("#msg").html("<font color='#f50000' style='font-weight:bold;'>" + result.msg + "</font>");
+                                    console.log('-----------fail---------', data);
+                                    document.getElementById("LoginLoading").style.display = "none";
                                 } else if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent) && result.host == "M") {
                                     console.info("***************mobile****************",data);
                                     window.location.href = "${ctx}/StaffPrepayApplicationController/staffPrepayApplicationNew";
@@ -257,6 +278,7 @@ text-align: center;
                             error: function (data, b,c) {
                             	console.log('---------error-----------', data,b,c)
                                 var result = eval("(" + data + ")");
+                                document.getElementById("LoginLoading").style.display = "none";
                                 alert(result.msg);
                             },
                         });
@@ -350,7 +372,7 @@ text-align: center;
 
             <div id="msg"></div>
             <div class="form-actions">
-                <button type="submit" class="btn green uppercase togomaincon">登录</button>
+                <button type="submit" class="btn green uppercase togomaincon">登录<span id="LoginLoading" style="display:none">中<dot>...</dot></span></button>
                 <a type="button" class="bgu" name="PWresend" id="PWresend" onclick="openReset()">找回密码</a>
             </div>
         </form>
@@ -441,6 +463,7 @@ text-align: center;
 		      }
 		    }
 		}
+    
 </script>
 </body>
 

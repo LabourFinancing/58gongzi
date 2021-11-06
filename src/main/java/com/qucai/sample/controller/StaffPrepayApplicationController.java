@@ -180,12 +180,21 @@ public class StaffPrepayApplicationController {
     	}
     	
         InitialBalance = new BigDecimal("6100.00"); // debug using
+        if(InitialBalance.intValue() <= treasuryDBInfoGetStatistic.getT_TreasuryDB_Balance().intValue()){
+            String RetCode = HttpJsonExample.TreasuryOutBal(InitialBalance.intValue(), treasuryDBInfoGetStatistic.getT_TreasuryDB_Balance().intValue(), treasuryDBInfoGetStatistic.getT_TreasuryDB_OrgName());
+            StringBuffer OutOfBalance = new StringBuffer();
+            StringBuffer RetMsg = OutOfBalance.append(String.valueOf(InitialBalance.intValue())).append("<>").append(treasuryDBInfoGetStatistic.getT_TreasuryDB_OrgName()).append(":")
+                .append(treasuryDBInfoGetStatistic.getT_TreasuryDB_Balance().intValue());
+            rs.put("RetMsg",RetMsg);
+            return JsonBizTool.genJson(ExRetEnum.TREASURYSUCCESS, rs);
+        }
         
-    	if (InitialBalance.intValue() <= treasuryDBInfoGetStatistic.getT_TreasuryDB_Balance().intValue() || 
-            InitialBalance.intValue() <= Integer.valueOf(100) || 
+    	if (InitialBalance.intValue() <= Integer.valueOf(100) || 
     		InitialBalance.intValue() <= treasuryDBInfoGetStatistic.getT_TreasuryDB_Prooffund().intValue() || 
             AgencyOrgnization.getT_O_OrgStatus().equalsIgnoreCase("off"))
-    			{
+        {   StringBuffer debugger = new StringBuffer();
+            System.out.print(String.valueOf(debugger.append(" - InitialVal:").append(InitialBalance.intValue()).append(" - TreasuryInitVal:").append(treasuryDBInfoGetStatistic.getT_TreasuryDB_Balance().intValue())
+            .append(" - TreasuryProofFund:").append(treasuryDBInfoGetStatistic.getT_TreasuryDB_Prooffund().intValue()).append(" - OrgStatus:").append(AgencyOrgnization.getT_O_OrgStatus())));
    		   return  "staffPrepayApplication/OverCreditLine";
     	}
  //checking Payment Account Balance end	
@@ -322,9 +331,13 @@ public class StaffPrepayApplicationController {
 		
 		if (treasuryDBInfoGetStatistic.getT_TreasuryDB_Balance().intValue() <= t_Txn_CreditPrepayBalanceNum.intValue() ||
 		    treasuryDBInfoGetStatistic.getT_TreasuryDB_Balance().intValue() < t_Txn_CreditPrepayCurrentNum.intValue() ||
-		    InitialBalance.intValue() <= t_Txn_CreditPrepayBalanceNum.intValue()) // check balance
+		    InitialBalance.intValue() <= t_Txn_CreditPrepayBalanceNum.intValue())  // check balance
     			{
-   		   return  "staffPrepayApplication/OverCreditLine";
+                    StringBuffer debugger2 = new StringBuffer();
+                    System.out.print(String.valueOf(debugger2.append("TreasuryBal:").append(treasuryDBInfoGetStatistic.getT_TreasuryDB_Balance().intValue())
+                        .append(" - InitialVal2:").append(InitialBalance.intValue()).append(" - TxnBalVal:").append(t_Txn_CreditPrepayBalanceNum.intValue())
+                        .append(" - CurrentBal:").append(t_Txn_CreditPrepayCurrentNum.intValue()).append(" - InitialBalance <= TxnBal InitBalVal:").append(InitialBalance.intValue())));
+                    return  "staffPrepayApplication/OverCreditLine";
     	}
     	
         model.addAttribute("StaffPrepayApplicationFPROD",StaffPrepayApplicationFPROD);
@@ -703,40 +716,44 @@ public class StaffPrepayApplicationController {
 									   BigDecimal tTreasuryDBBalanceOverall = treasuryDBInfoUpdateOverall.getT_TreasuryDB_Balance().subtract(OverAllFee);
 									   treasuryDBInfoUpdateOverall.setT_TreasuryDB_Balance(tTreasuryDBBalanceOverall);
 									   RS = treasuryDBInfoService.updateByPrimaryKeySelective(treasuryDBInfoUpdateOverall);
-							         } 
-							  if (RS != 0){
-							      //call ewallet balance update
-                                  //call topup 提款到钱包余额
-                                  // personal treasury mgt
-                                  DBConnection dao = new DBConnection();
-                                  Connection conn = dao.getConnection();
-                                  Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
-                                  String txnCat = "PersonalEwalletTopup";
-                                  BigDecimal txnAmt = t_Txn_TotalPrepayNum;
-                                  String paymentID = TxnID;
-                                  String method = "ewallettopup";
-                                  String walletTxn_PayerPID = staffPrepayApplicationPNow.getT_P_PID();
-                                  String walletTxn_ReceiverID = null;
-                                   
-//            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
-                                  EwalletTxnController ewalletTxnController = new EwalletTxnController();
-                                  MobileEwalletDashboard mobileEwalletDashboard = new MobileEwalletDashboard();
-                                  String action = "WithdrawToEwallet";
-                                  String cardAcc = null;
-                                  rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(mobileEwalletDashboard,action,txnCat,cardAcc,txnAmt,  walletTxn_PayerPID,
-                                       walletTxn_ReceiverID, method, paymentID, paymentStatus, conn);
-                                  conn.close();
-                                  if (rsMobileEwalletTxn.get("SQL").equals("SQL-RECEIVEREWALLETTOPUPSUCC")) {
-                                      System.out.println("调用个人提款到钱包成功");
-                                      rsMobileEwalletTxn.put("SMSverify",0);
-                                      //call personal evaluation 
-                                      return JsonBizTool.genJson(ExRetEnum.SUCCESS, rsMobileEwalletTxn);
-                                  }else{
-                                      return JsonBizTool.genJson(ExRetEnum.FAIL, rsMobileEwalletTxn);
-                                  }
-							  } else {
-								  return JsonBizTool.genJson(ExRetEnum.PREPAY_APPFAIL);
-							  }
+							         }
+			// wallet function ******************************
+//							  if (RS != 0){
+//							      //call ewallet balance update
+//                                  //call topup 提款到钱包余额
+//                                  // personal treasury mgt
+//                                  DBConnection dao = new DBConnection();
+//                                  Connection conn = dao.getConnection();
+//                                  Map<String, Object> rsMobileEwalletTxn = new HashMap<String, Object>();
+//                                  String txnCat = "PersonalEwalletTopup";
+//                                  BigDecimal txnAmt = t_Txn_TotalPrepayNum;
+//                                  String paymentID = TxnID;
+//                                  String method = "ewallettopup";
+//                                  String walletTxn_PayerPID = staffPrepayApplicationPNow.getT_P_PID();
+//                                  String walletTxn_ReceiverID = null;
+//                                   
+////            String SMSsendcodecvt = DigestUtils.md5Hex(SMSstrret);
+//                                  EwalletTxnController ewalletTxnController = new EwalletTxnController();
+//                                  MobileEwalletDashboard mobileEwalletDashboard = new MobileEwalletDashboard();
+//                                  String action = "WithdrawToEwallet";
+//                                  String cardAcc = null;
+//                                  rsMobileEwalletTxn = ewalletTxnController.addMobileEwalletTxn(mobileEwalletDashboard,action,txnCat,cardAcc,txnAmt,  walletTxn_PayerPID,
+//                                       walletTxn_ReceiverID, method, paymentID, paymentStatus, conn);
+//                                  conn.close();
+//                                  if (rsMobileEwalletTxn.get("SQL").equals("SQL-RECEIVEREWALLETTOPUPSUCC")) {
+//                                      System.out.println("调用个人提款到钱包成功");
+//                                      rsMobileEwalletTxn.put("SMSverify",0);
+//                                      //call personal evaluation 
+//                                      return JsonBizTool.genJson(ExRetEnum.SUCCESS, rsMobileEwalletTxn);
+//                                  }else{
+//                                      return JsonBizTool.genJson(ExRetEnum.FAIL, rsMobileEwalletTxn);
+//                                  }
+//							  } else {
+//								  return JsonBizTool.genJson(ExRetEnum.PREPAY_APPFAIL);
+//							  }
+							  // wallet function complete *****************************
+							rs.put("ret","0");
+							return JsonBizTool.genJson(ExRetEnum.PAY_SUCCESS,rs);
 							}
 						    else if(InsertRS != 1) {
 							   staffPrepayApplicationPay.setRemark("SQL INSERT ERR");
@@ -927,10 +944,10 @@ public class StaffPrepayApplicationController {
 	 public String staffPrepayApplicationResult(String t_Txn_id, HttpServletResponse response,
 			 HttpServletRequest request,Integer platform, Model model) {
      	model.addAttribute("platform", platform);
-		String SeesionLoginMobil = ShiroSessionUtil.getLoginSession().getMobile();
-		if (SeesionLoginMobil != null){
+		String SessionLoginMobil = ShiroSessionUtil.getLoginSession().getMobile();
+		if (SessionLoginMobil != null){
 			StaffPrepayApplicationList staffPrepayApplicationCredit = null;
-			staffPrepayApplicationCredit = staffPrepayApplicationService.findPrepayApplierCredit(SeesionLoginMobil);
+			staffPrepayApplicationCredit = staffPrepayApplicationService.findPrepayApplierCredit(SessionLoginMobil);
 			model.addAttribute("staffPrepayApplicationCredit",staffPrepayApplicationCredit);
 			return  "staffPrepayApplication/staffPrepayApplicationResult";
 		}else{

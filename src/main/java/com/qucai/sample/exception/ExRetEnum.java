@@ -16,6 +16,7 @@ public enum ExRetEnum implements RetEnumIntf {
 	SUCCESS("0", "成功"), FAIL("-1", "失败"),
 
 	SMSSUCCESS("0", "验证码短信已发送,请查看您的手机,15分钟有效!"),
+    TREASURYSUCCESS("0", "由于提款人过多，资金账户拥堵，请稍后再试！"),
     STATISICSUCCESS("0", "该企业本月交易统计信息"),
     Pullin_SuccNewPer("0", "成功上传并新增人员"),
 	UPDATEPWDSUCCESS("0", "密码更新成功,登录时请注意大小写"), 

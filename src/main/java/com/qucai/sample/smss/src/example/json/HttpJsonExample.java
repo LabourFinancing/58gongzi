@@ -18,6 +18,7 @@ public class HttpJsonExample {
 	public static String ContentTitle = "尊敬的"; // 发送预支短信验证码投信息
     public static String ContentTitle0 = "尊敬的用户"; // 发送预支短信验证码投信息
 	public static String ContentTitle1 = "薪酬福利系统的验证码: "; // 发送预支短信验证码投信息
+    public static String ContentTitle2 = "薪酬福利系统的余额不足: "; // 发送预支短信验证码投信息
 	public static String ContentTailer = ", 工作人员不会索取,请勿泄露。（15分钟有效）"; // 发送预支短信验证码投信息
 	public static String extend = "00";
 	public static String uid = "00";
@@ -207,7 +208,55 @@ public static String GroupPWDsend(String resendpassword,String mobil,String user
 		
 		return Username;
 	}
+    public static String TreasuryOutBal(Integer OverallTreasuryBal,Integer InitialBalance,String T_TreasuryDB_OrgName) {
 
+//		SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+
+        Date sendtime = new Date();
+
+        String RetCode= null,mobile = "18001869161",content= null;
+        mobile = "18001869161";
+
+        StringBuffer ss =  new StringBuffer();
+
+        content = String.valueOf(ss.append(sign).append(" ").append("资金不足告警！！！ --- 总资金池余额：").append(String.valueOf(OverallTreasuryBal)).append(" --- ").append(T_TreasuryDB_OrgName).append("资金池余额:").append(String.valueOf(InitialBalance)).append("     总资金池余额小于企业资金余额")).replaceAll("null", "").trim();
+
+
+        try {
+//			JSONHttpClient jsonHttpClient = new JSONHttpClient("https://api.ucpaas.com/sms-partner/access/b00713/sendsms");
+            JSONHttpClient jsonHttpClient = new JSONHttpClient("http://request.ucpaas.com/sms-partner/access/b02er2/sendsms");
+            jsonHttpClient.setRetryCount(1);
+            String sendhRes = jsonHttpClient.sendSms(clientid, password, mobile,smstype,content, sendtime, extend, uid);
+            LOG.info("提交单条普通短信响应：" + sendhRes);
+
+            //
+            // List<SmsData> list = new ArrayList<SmsData>();
+            // list.add(new
+            // SmsData("11111111,15711666133,15711777134,1738786465,44554545",
+            // content, msgid, sign, subcode, sendtime));
+            // list.add(new SmsData("15711616131", content, msgid, sign,
+            // subcode, sendtime));
+            // String sendBatchRes = jsonHttpClient.sendBatchSms(account,
+            // password, list);
+            // LOG.info("提交批量短信响应：" + sendBatchRes);
+            //
+            // String reportRes = jsonHttpClient.getReport(account, password);
+            // LOG.info("获取状态报告响应：" + reportRes);
+            //
+            // String smsRes = jsonHttpClient.getSms(account, password);
+            // LOG.info("获取上行短信响应：" + smsRes);
+
+            String balanceRe = jsonHttpClient.getBalance(clientid, password);
+            LOG.info("获取余额响应：" + balanceRe);
+
+        } catch (Exception e) {
+
+            LOG.error("应用异常", e);
+            return RetCode;
+        }
+
+        return RetCode;
+    }
 public static String SMSgroupSend(String t_SMS_Detail, String t_P_Mobile, String t_P_Name, String t_P_Company) {
 	
     Date sendtime = new Date();
