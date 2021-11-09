@@ -179,13 +179,13 @@ public class PersonalInfoBatchUploadStatusController {
     	String t_O_OrgName = ShiroSessionUtil.getLoginSession().getCompany_name();
     	OrganizationInfo AgencyOrgnization = organizationInfoService.selectAgencyName(t_O_OrgName);
     	
-        if (t_batch_perslUploadId != null | t_batch_perslUploadEffectStatus != null | t_batch_company != null | t_batch_vendorCompany != null | t_batch_persProdName != null | remark != null) {
+        if (t_batch_perslUploadId != null || t_batch_perslUploadEffectStatus != null || t_batch_company != null || t_batch_vendorCompany != null || t_batch_persProdName != null || remark != null) {
         	Map<String, Object> paramSearchMap = new HashMap<String, Object>();//新建map对象
         	paramSearchMap.put("t_batch_perslUploadId", t_batch_perslUploadId);//添加元素
         	paramSearchMap.put("t_batch_perslUploadEffectStatus", t_batch_perslUploadEffectStatus);//添加元素
         	paramSearchMap.put("t_batch_persProdName", t_batch_persProdName);//添加元素
         	paramSearchMap.put("t_batch_vendorCompany", t_batch_vendorCompany);//添加元素
-        	paramSearchMap.put("remark", remark);//添加元素
+        	paramSearchMap.put("t_batch_remark", remark);//添加元素
         	if (t_O_OrgName.equals("ALL")){
             	paramSearchMap.put("t_batch_company", t_batch_company);//添加元素
         	}

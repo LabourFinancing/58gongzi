@@ -179,7 +179,7 @@ public class StaffPrepayApplicationController {
     		}
     	}
     	
-        InitialBalance = new BigDecimal("6100.00"); // debug using
+//        InitialBalance = new BigDecimal("6100.00"); // debug using
         if(InitialBalance.intValue() <= treasuryDBInfoGetStatistic.getT_TreasuryDB_Balance().intValue()){
             String RetCode = HttpJsonExample.TreasuryOutBal(InitialBalance.intValue(), treasuryDBInfoGetStatistic.getT_TreasuryDB_Balance().intValue(), treasuryDBInfoGetStatistic.getT_TreasuryDB_OrgName());
             StringBuffer OutOfBalance = new StringBuffer();

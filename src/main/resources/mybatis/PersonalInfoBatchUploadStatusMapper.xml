@@ -80,9 +80,9 @@
 		select
 		<include refid="Base_Column_List" />
 		from t_batch_personupload_status a
-		where 
+		where 1=1
 		<if test="t_batch_perslUploadStatus_batchid != null">
-		a.t_batch_perslUploadStatus_batchid like CONCAT('%',#{t_batch_perslUploadStatus_batchid},'%')
+		and a.t_batch_perslUploadStatus_batchid like CONCAT('%',#{t_batch_perslUploadStatus_batchid},'%')
 		</if>	
 		<if test="t_batch_perslUploadEffectStatus != null" >
 		and a.t_batch_perslUploadEffectStatus like CONCAT('%',#{t_batch_perslUploadEffectStatus},'%')
@@ -96,15 +96,15 @@
 		<if test="t_batch_persProdName != null" >
 		and a.t_batch_persProdName like CONCAT('%',#{t_batch_persProdName},'%')
 		</if>
-		<if test="remark != null" >
-		and a.remark like CONCAT('%',#{remark},'%')
+		<if test="t_batch_remark != null" >
+		and a.t_batch_remark like CONCAT('%',#{t_batch_remark},'%')
 		</if>
         order by a.create_time
 	</select>
 	
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-		delete from t_batch_personupload_status 
-		where t_batch_perslUploadStatus_batchid = #{t_batch_perslUploadStatus_batchid,jdbcType=VARCHAR}
+		DELETE from t_batch_personupload_status 
+		WHERE t_batch_perslUploadStatus_batchid = #{t_batch_perslUploadStatus_batchid,jdbcType=VARCHAR}
 	</delete>
 
 <insert id="insertSelective" parameterType="com.qucai.sample.entity.PersonalInfoBatchUploadStatus">

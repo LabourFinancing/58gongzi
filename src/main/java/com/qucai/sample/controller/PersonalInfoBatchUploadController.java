@@ -234,36 +234,44 @@ public class PersonalInfoBatchUploadController {
     @RequestMapping(value="personalInfoBatchUploadPullin")
     @ResponseBody
     public String upload(HttpServletRequest request,MultipartFile file,PersonalInfoBatchUpload personalInfoBatchUpload,String t_PIBU_Orgname,String t_FPROD_Name,
-                         String payrollDate,String jobcat,Date EffectStartDate,Date EffectEndDate,Date TriggerTime,HttpServletResponse response, Model model) throws UnsupportedEncodingException{
+                         String payrollDate,String jobcat,Date EffectStartDate,Date EffectEndDate,Date TriggerTime,HttpServletResponse response, Model model) throws UnsupportedEncodingException {
         String CurrentCompany = ShiroSessionUtil.getLoginSession().getCompany_name();
 
         request.setCharacterEncoding("UTF-8");
-        // String a = request.getParameter("message");
 
-        StringBuffer PersonalInfoInputAreaText = new StringBuffer(request.getParameter("PersonalInfoInputArea"));
-        String PersonalInfoInputArea = PersonalInfoInputAreaText.toString();
+        String PersonalInfoInputArea = request.getParameter("PersonalInfoInputArea");
+        if (PersonalInfoInputArea != null) {
+            StringBuffer PersonalInfoInputAreaText = new StringBuffer(request.getParameter("PersonalInfoInputArea"));
+            PersonalInfoInputArea = PersonalInfoInputAreaText.toString();
+        }
         
         model.addAttribute("TriggerTime", TriggerTime);
         System.out.println(t_FPROD_Name);
         OrganizationInfo organizationInfo = organizationInfoService.selectAgencyName(t_PIBU_Orgname);
         Date date = new Date();//获取当前的日期
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String datestr = df.format(date).replaceAll(" ","");
+        if(EffectStartDate == null){
+            EffectStartDate = new Date();
+        }
+        if(EffectEndDate == null){
+            EffectEndDate = EffectStartDate;
+        }
+        String datestr = Tool.PayId();
         String batch_PB_batchID = null;
         String FProd_name = null;
         Integer insertNum = 0;
         try {
-            FProd_name = URLDecoder.decode(t_FPROD_Name,"UTF-8");
+            FProd_name = URLDecoder.decode(t_FPROD_Name, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
-        if (TriggerTime == null) {
-            StringBuffer ss =  new StringBuffer();
+        if (TriggerTime == null || EffectStartDate == null) {
+            StringBuffer ss = new StringBuffer();
             batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append(file.getOriginalFilename()).append("_").append(FProd_name).append("_").append("RT"));
-        }else{
-            StringBuffer ss =  new StringBuffer();
+        } else {
+            StringBuffer ss = new StringBuffer();
             batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append(file.getOriginalFilename()).append("_").append(FProd_name).append("_").append("TT"));
         }
         ArrayList<ArrayList<String>> row = new ArrayList<>();
@@ -271,7 +279,7 @@ public class PersonalInfoBatchUploadController {
         System.out.println("进入员工个人信息文件上传");
         System.out.println(file.getOriginalFilename());
         System.out.print(PersonalInfoInputArea);
-
+        
         if (PersonalInfoInputArea == null) {
             String filename = file.getOriginalFilename();
             Workbook workbook = null;
@@ -516,6 +524,7 @@ public class PersonalInfoBatchUploadController {
 
             insertNum = personalInfoBatchUploadService.insertCustomerMachineByBatch(cell);
         }
+        
 
 
         if(insertNum != 0){
@@ -723,6 +732,7 @@ public class PersonalInfoBatchUploadController {
         paramMap.put("batch_PB_batchID",personalInfoBatchUpload.getBatch_PB_batchID());
         paramMap.put("t_P_VendorCompany", organizationInfo.getT_O_OrgPending());//添加元素
         paramMap.put("t_P_Company",t_PIBU_Orgname);
+        paramMap.put("batch_PB_payrolldate", payrollDate);
         paramMap.put("payrollDate",payrollDate);
         paramMap.put("jobcat",jobcat);
         //假设这是一个service类的片段

@@ -167,9 +167,9 @@ function openDetails(t_batch_perslUploadStatus_batchid){
 }
 
 function batchcreditDelete(t_batch_perslUploadStatus_batchid){
-	if(window.confirm('你确定要刷新授额吗？')){
+	if(window.confirm('你确定要删除吗？')){
 	$.ajax({
-		url: '${ctx}/PersonalInfoBatchUploadStatusController/batchcreditDelete?t_batch_perslUploadStatus_batchid='+encodeURI(encodeURI(t_batch_perslUploadStatus_batchid))+'&operationType=off',
+		url: '${ctx}/PersonalInfoBatchUploadStatusController/deletepersonalInfoBatchUploadStatus?t_batch_perslUploadStatus_batchid='+encodeURI(encodeURI(t_batch_perslUploadStatus_batchid))+'&operationType=off',
 		type: 'POST',
 		async: true,
 		cache: false,
