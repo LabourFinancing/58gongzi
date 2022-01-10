@@ -58,7 +58,7 @@ public class IndexController {
             Map<String, Object> rs = new HashMap<String, Object>();
             token.setPassword(password.toCharArray());
             token.setUsername(userName);
-            token.setRememberMe(true);
+            //token.setRememberMe(false);
             try {
                 Subject subject = SecurityUtils.getSubject();
                 subject.login(token);
@@ -129,9 +129,9 @@ public class IndexController {
             Manager manager = managerService.selectByPrimaryKey(id);
             String userName = manager.getUserName();
 
-            if (userName == null) {
+            if (userName == null || host == null || userName == null) {
                 return "login";
-            } else if (userName.contains("Admin") || userName.contains("ADMIN") || userName.contains("admin")) {
+            } else if (userName.toLowerCase().contains("admin")) {
                 return "redirect:/OrganizationDashboardController/ewalletdashboard";
             } else if (host.equals("P")) {
                 return "redirect:/OrganizationDashboardController/dashboard";

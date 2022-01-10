@@ -185,8 +185,7 @@ public class StaffPrepayApplicationController {
             StringBuffer OutOfBalance = new StringBuffer();
             StringBuffer RetMsg = OutOfBalance.append(String.valueOf(InitialBalance.intValue())).append("<>").append(treasuryDBInfoGetStatistic.getT_TreasuryDB_OrgName()).append(":")
                 .append(treasuryDBInfoGetStatistic.getT_TreasuryDB_Balance().intValue());
-            rs.put("RetMsg",RetMsg);
-            return JsonBizTool.genJson(ExRetEnum.TREASURYSUCCESS, rs);
+            return  "staffPrepayApplication/OverCreditLine";
         }
         
     	if (InitialBalance.intValue() <= Integer.valueOf(100) || 

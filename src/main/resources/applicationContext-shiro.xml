@@ -62,21 +62,20 @@
 	<!-- 登录及权限验证 -->
 	<bean id="realm" class="com.qucai.sample.security.ShiroRealm" />
 
-	<!-- remenberMe配置 -->
+	<!-- remenberMe配置 
 	<bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
 		<constructor-arg value="rememberMe" />
-		<property name="httpOnly" value="true" />
-		<!-- 默认记住7天（单位：秒） -->
+		<property name="httpOnly" value="true" /
 		<property name="maxAge" value="604800" />
 	</bean>
-	
-	<!-- rememberMe管理器 -->
+-->
+	<!-- rememberMe管理器 
 	<bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
 		<property name="cipherKey"
 			value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}" />
 		<property name="cookie" ref="rememberMeCookie" />
 	</bean>
-
+-->
 	<!-- 超时拦截器 -->
 	<bean id="captchaFormAuthenticationFilter" class="com.qucai.sample.security.CaptchaFormAuthenticationFilter" />
 
@@ -85,9 +84,8 @@
 		<property name="realm" ref="realm" />
 		<property name="cacheManager" ref="shiroEhcacheManager" />
 		<property name="sessionManager" ref="sessionManager"/>
-		<property name="rememberMeManager" ref="rememberMeManager" />
 	</bean>
-
+    <!-- property name="rememberMeManager" ref="rememberMeManager" -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager"></property>
 		<!-- 要求登录时的链接(登录页面地址)，非必须的属性，默认会自动寻找Web工程根目录下的"/login.jsp"页面 -->

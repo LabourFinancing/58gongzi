@@ -17,15 +17,15 @@ public class HttpJsonExample {
 	public static String msgid = UUID.randomUUID().toString().replace("-", ""); // 短信id，查询短信状态报告时需要，（可选）
 	public static String ContentTitle = "尊敬的"; // 发送预支短信验证码投信息
     public static String ContentTitle0 = "尊敬的用户"; // 发送预支短信验证码投信息
-	public static String ContentTitle1 = "薪酬福利系统的验证码: "; // 发送预支短信验证码投信息
-    public static String ContentTitle2 = "薪酬福利系统的余额不足: "; // 发送预支短信验证码投信息
+	public static String ContentTitle1 = "薪酬系统的验证码: "; // 发送预支短信验证码投信息
+    public static String ContentTitle2 = "薪酬系统的余额不足: "; // 发送预支短信验证码投信息
 	public static String ContentTailer = ", 工作人员不会索取,请勿泄露。（15分钟有效）"; // 发送预支短信验证码投信息
 	public static String extend = "00";
 	public static String uid = "00";
 	public static String SMSPWDhead = "您所使用的";
 	public static String PasswordResetContent = ",密码为: ";
 	public static String PasswordResethead = "尊敬的员工，您所使用的";
-	public static String PasswordResethead1 = "薪酬福利系统用户名为: ";
+	public static String PasswordResethead1 = "薪酬系统用户名为: ";
 	public static String PasswordResetTail = ",请妥善保管好您的用户名密码!";
 	
 	public static String PaidTile = "您本次预支本月工资数: ";
