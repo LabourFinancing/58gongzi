@@ -218,12 +218,12 @@
             </div>
         </div>
     </div>
-    <div class="row ls-change-tit">
+    <div class="table table-bordered">
         <div class="ls-seaarch-result">
             <div class="table-responsive">
                 <table class="table table-bordered" id="personalMainTable" style="overflow:visible;text-overflow:ellipsis;white-space:nowrap;">
                     <tr>
-                        <th>&nbsp;&nbsp;&nbsp;</th>
+                        <th type="hidden"></th>
                         <th>姓名</th>
                         <th>状态</th>
                         <th>身份证</th>
@@ -256,7 +256,7 @@
                     <tbody>
                     <#list page.list as personalMain>
                     <tr>
-                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all" value="${personalMain.t_personal_main_id}"></td>
+                        <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all" value="${personalMain.t_personal_main_id}" type="hidden"></td>
                         <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_name}</td>
                         <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.status}</td>
                         <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalMain.t_personal_main_pid}</td>

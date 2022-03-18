@@ -307,84 +307,81 @@ border-radius: 10px;
 								</div>
 							</div>
 					</div>
+                    </form>
+                        <div class="table table-bordered">
+                            <div class="ls-seaarch-result">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="personalInfoBatchUploadStatusTable" style="overflow:visible;text-overflow:ellipsis;white-space:nowrap;">
+                                        <tr>
+                                            <th>批次名</th>
+                                            <th>上传总记录数</th>
+                                            <th>作用起始时间</th>
+                                            <th>作用结束时间</th>
+                                            <th>结算状态</th>
+                                            <th>公司名</th>
+                                            <th>经销商公司名</th>
+                                            <th>绑定产品名</th>
+                                            <th>工资总数</th>
+                                            <th>授额总数</th>
+                                            <th>结算信息</th>
+                                            <th>批次类别</th>
+                                            <th>批次注释</th>
+                                            <th>备注</th>
+                                            <th>完成状态</th>
+                                            <th>最后更新时间</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        <tbody>
+                                        <#list page.list as personalInfoBatchUploadStatus>
+                                        <tr>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_perslUploadStatus_batchid}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_perslUploadPer_num}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_EffectStartDate?string("yyyy-MM-dd HH:mm:ss")}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_EffectEndDate?string("yyyy-MM-dd HH:mm:ss")}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_perslUploadClearStatus}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_company}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_vendorCompany}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_persProdName}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_payroll_tot}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_payrollCredit_tot}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_remark}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_clearInfo}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_category}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_comment}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_progress}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.modify_time?string("yyyy-MM-dd HH:mm:ss")}</td>
+                                            <td class="col-xs-push-2" style="word-wrap:break-word;word-break:break-all;">
+                                                <@shiro.hasPermission name="PERSONALINFO_EDIT">
+                                                <a href="#" class="btn btn-link btn-xs font-opstyle" onclick="openDetails('${personalInfoBatchUploadStatus.t_batch_perslUploadStatus_batchid}')">批次详情</a>
+                                            </@shiro.hasPermission>
+                                            <@shiro.hasPermission name="PERSONALINFO_EDIT">
+                                            <a href="#" class="btn btn-link btn-xs font-opstyle" onclick="openEdit('${personalInfoBatchUploadStatus.t_batch_perslUploadStatus_batchid}')">编辑</a>
+                                        </@shiro.hasPermission>
+                                        <@shiro.hasPermission name="PERSONALINFO_DELETE">
+                                        <a type="button" href="#" onclick="batchcreditDelete('${personalInfoBatchUploadStatus.t_batch_perslUploadStatus_batchid}')" class="btn btn-link btn-xs font-opstyle">删除</a>
+                                        </@shiro.hasPermission>
+                                        <@shiro.hasPermission name="PERSONALINFO_DELETE">
+                                        <input type="button" href="#" onclick="batchcreditClear('${personalInfoBatchUploadStatus.t_batch_perslUploadStatus_batchid}')" class="btn btn-link btn-xs font-opstyle" value="结算">
+                                    </@shiro.hasPermission>
+                                    </br>
+                                        <@shiro.hasPermission name="PERSONALINFO_DELETE">
+                                    <input type="button" href="#" onclick="batchcreditOpen('${personalInfoBatchUploadStatus.t_batch_perslUploadStatus_batchid}')" class="btn btn-link btn-xs font-opstyle" value="开启授额">
+                                </@shiro.hasPermission>
+                                <@shiro.hasPermission name="PERSONALINFO_DELETE">
+                                <input type="button" href="#" onclick="batchcreditClose('${personalInfoBatchUploadStatus.t_batch_perslUploadStatus_batchid}')" class="btn btn-link btn-xs font-opstyle" value="关闭授额">
+                            </@shiro.hasPermission>
+                            <@shiro.hasPermission name="PERSONALINFO_DELETE">
+                            <input type="button" href="#" onclick="batchcreditRefresh('${personalInfoBatchUploadStatus.t_batch_perslUploadStatus_batchid}')" class="btn btn-link btn-xs font-opstyle" value="刷新授额">
+                        </@shiro.hasPermission>
+                        </td>
+                        </tr>
+                    </#list>
+                    </tbody>
+                    </table>
+                    </div>
+                    </div>
+                    </div>                          
 			    </div>
-			    </form>
-			  <div class="row ls-change-tit">
-                <div class="ls-seaarch-result">
-                    <div class="table-responsive">
-					  <table class="table table-bordered" id="personalInfoBatchUploadStatusTable" style="overflow:visible;text-overflow:ellipsis;white-space:nowrap;">
-							<tr>
-							    <th>&nbsp;&nbsp;&nbsp;</th>
-								<th>批次名</th>
-								<th>上传总记录数</th>
-								<th>作用起始时间</th>
-								<th>作用结束时间</th>
-								<th>结算状态</th>
-								<th>公司名</th>
-								<th>经销商公司名</th>
-								<th>绑定产品名</th>
-								<th>工资总数</th>
-								<th>授额总数</th>
-								<th>结算信息</th>
-								<th>批次类别</th>
-								<th>批次注释</th>
-								<th>备注</th>
-								<th>完成状态</th>
-								<th>最后更新时间</th>
-								<th>操作</th>
-							    <th>&nbsp;&nbsp;&nbsp;</th>
-							</tr>
-						<tbody>
-							<#list page.list as personalInfoBatchUploadStatus>
-								<tr>
-								    <td>&nbsp;&nbsp;&nbsp;</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_perslUploadStatus_batchid}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_perslUploadPer_num}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_EffectStartDate?string("yyyy-MM-dd HH:mm:ss")}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_EffectEndDate?string("yyyy-MM-dd HH:mm:ss")}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_perslUploadClearStatus}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_company}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_vendorCompany}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_persProdName}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_payroll_tot}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_payrollCredit_tot}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_remark}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_clearInfo}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_category}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_comment}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_progress}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.modify_time?string("yyyy-MM-dd HH:mm:ss")}</td>
-									<td class="col-xs-push-2" style="word-wrap:break-word;word-break:break-all;">
-										<@shiro.hasPermission name="PERSONALINFO_EDIT">
-										<a href="#" class="btn btn-link btn-xs font-opstyle" onclick="openDetails('${personalInfoBatchUploadStatus.t_batch_perslUploadStatus_batchid}')">批次详情</a>
-										</@shiro.hasPermission>
-										<@shiro.hasPermission name="PERSONALINFO_EDIT">
-										<a href="#" class="btn btn-link btn-xs font-opstyle" onclick="openEdit('${personalInfoBatchUploadStatus.t_batch_perslUploadStatus_batchid}')">编辑</a>
-										</@shiro.hasPermission>
-										<@shiro.hasPermission name="PERSONALINFO_DELETE">
-										<a type="button" href="#" onclick="batchcreditDelete('${personalInfoBatchUploadStatus.t_batch_perslUploadStatus_batchid}')" class="btn btn-link btn-xs font-opstyle">删除</a>
-										</@shiro.hasPermission>
-										<@shiro.hasPermission name="PERSONALINFO_DELETE">
-										<input type="button" href="#" onclick="batchcreditClear('${personalInfoBatchUploadStatus.t_batch_perslUploadStatus_batchid}')" class="btn btn-link btn-xs font-opstyle" value="结算">
-										</@shiro.hasPermission>
-										</br>
-										<@shiro.hasPermission name="PERSONALINFO_DELETE">
-										<input type="button" href="#" onclick="batchcreditOpen('${personalInfoBatchUploadStatus.t_batch_perslUploadStatus_batchid}')" class="btn btn-link btn-xs font-opstyle" value="开启授额">
-										</@shiro.hasPermission>
-										<@shiro.hasPermission name="PERSONALINFO_DELETE">
-										<input type="button" href="#" onclick="batchcreditClose('${personalInfoBatchUploadStatus.t_batch_perslUploadStatus_batchid}')" class="btn btn-link btn-xs font-opstyle" value="关闭授额">
-										</@shiro.hasPermission>
-										<@shiro.hasPermission name="PERSONALINFO_DELETE">
-										<input type="button" href="#" onclick="batchcreditRefresh('${personalInfoBatchUploadStatus.t_batch_perslUploadStatus_batchid}')" class="btn btn-link btn-xs font-opstyle" value="刷新授额">
-										</@shiro.hasPermission>
-									</td>
-								</tr>
-							</#list>
-						</tbody>
-				    </table>
-		          </div>
-			     </div>
-			   </div>
 			  </div>
 			</div>
 			<!-- END EXAMPLE TABLE PORTLET-->

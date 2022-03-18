@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<!-- 
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.5
+Version: 4.5.2
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+
+<head>
+<meta charset="utf-8" />
+<title>我发工资 | 注册</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+<meta content="" name="description" />
+<meta content="" name="author" />
+
+<#include "/common/cssResource.html"> 
+<!-- BEGIN PAGE LEVEL STYLES -->
+<link href="${ctx}/metronic/pages/css/login.min.css" rel="stylesheet" type="text/css" />
+<!-- END PAGE LEVEL STYLES -->
+
+<#include "/common/jsResource.html">
+
+<!--[if lt IE 10]>
+<meta http-equiv="Refresh" content="0; url=${ctx}/browserNotMatch" />
+<![endif]-->
+
+<style type="text/css">
+.error-color{
+	font-weight: bold;
+	color: #f50000
+}
+
+input::-webkit-input-placeholder { 
+color: #999; 
+-webkit-transition: color.5s; 
+} 
+input:focus::-webkit-input-placeholder, input:hover::-webkit-input-placeholder { 
+color: #c2c2c2; 
+-webkit-transition: color.5s; 
+} 
+</style>
+<script type="text/javascript">
+window.onload=function()//用window的onload事件，窗体加载完毕的时候
+{
+    var gid = getQueryVar("gid", "");
+    if (gid === 'lianfeng')
+	{document.all.logo_login.src="${ctx}/metronic/pages/img/lianfen_logo.png";
+	document.getElementById("ServiceInfo").style.display="none";
+	}
+    else if
+	(gid.length === 64)
+		{
+		$.ajax({
+			url: "${ctx}/index?gid=" + gid,
+			type: 'POST',  
+			async: true,  
+			cache: false,  
+			contentType: false,  
+			processData: false,  
+			success: function (data) { 
+				var result = eval("("+data+")");
+				console.info(data);
+				 if(result.ret == "-1"){
+						$("#msg").html("<font color='#f50000' style='font-weight:bold;'>" + result.msg + "</font>")
+					  } else if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent) && result.host == "M" ) {
+						    window.location.href = "${ctx}/StaffPrepayApplicationController/staffPrepayApplicationNew";
+					  } else {								      
+						    window.location.href="${request.getContextPath()}/mainFrame";   
+					  }
+			      	},  
+				error: function (data) {  
+					var result = eval("("+data+")");
+			    	alert(result.msg); 
+				},
+       });
+		}
+		;	
+}
+	$(document).ready(
+			function() {
+				var form = $('#loginForm');
+				form.validate({
+					errorElement : 'span', //default input error message container
+					errorClass : 'error-color', // default input error message class
+					focusInvalid : false, // do not focus the last invalid input
+					rules : {
+						userName : {
+							required : true
+						},
+						password : {
+							required : true
+						}
+					},
+					messages: {
+						userName: {
+		                    required: "<font color='#f50000' style='font-weight:bold;'>请填入用户名</font>"
+		                },
+		                password: {
+		                    required: "<font color='#f50000' style='font-weight:bold;'>请填入密码</font>"
+		                }
+		            },
+
+					invalidHandler : function(event, validator) { //display error alert on form submit              
+						App.scrollTo(form, 0);
+					},
+
+					highlight : function(element) { // hightlight error inputs
+						$(element).closest('.form-group').removeClass(
+								"has-success").addClass('has-error'); // set error class to the control group   
+					},
+
+					unhighlight : function(element) { // revert the change done by hightlight
+
+					},
+
+					success : function(label, element) {
+						var icon = $(element).parent('.input-icon').children(
+								'i');
+						$(element).closest('.form-group').removeClass(
+								'has-error').addClass('has-success'); // set success class to the control group
+						icon.removeClass("fa-warning").addClass("fa-check");
+					},
+
+					submitHandler : function(form) {
+						var formData = new FormData($('#loginForm')[0]); 
+						$.ajax({
+							url: "${ctx}/oauthController/login?type=login",
+							type: 'POST',  
+							data: formData,  
+							async: true,  
+							cache: false,  
+							contentType: false,  
+							processData: false,  
+							success: function (data) { 
+								var result = eval("("+data+")");
+								console.info(data);
+								 if(result.ret == "-1"){
+		    							$("#msg").html("<font color='#f50000' style='font-weight:bold;'>" + result.msg + "</font>")
+									  } else if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent) && result.host == "M" ) {
+										    window.location.href = "${ctx}/StaffPrepayApplicationController/staffPrepayApplicationNew";
+									  } else {								      
+										    window.location.href="${request.getContextPath()}/mainFrame";   
+									  }
+							      	},  
+								error: function (data) {  
+									var result = eval("("+data+")");
+							    	alert(result.msg); 
+								},
+			            });
+					}
+				});
+
+				$('.login-form input').keypress(function(e) {
+		            if (e.which == 13) {
+		                if ($('.login-form').validate().form()) {
+		                    $('.login-form').submit(); //form validation success, call ajax form submit
+		                }
+		                return false;
+		            }
+		        });
+			});
+	
+	function openReset() {
+		$.ajax({
+			type: 'POST',
+			url: "${ctx}/oauthController/login?type=resendPWD"+"&userName="+$("#userName").val(),
+			contentType: false,
+			processData: false,
+			success: alert("系统已把密码发送到您的手机")
+		});
+	}
+    function getQueryVar(name, defVal) {
+        var re = new RegExp('.*[?&]' + name + '=([^&#]*)');
+        var match = document.location.href.match(re);
+        if (typeof defVal === 'undefined') {
+            defVal = null;
+        }
+        if (match) {
+            return decodeURIComponent(match[1]);
+        }
+        return defVal;
+    }
+
+</script>
+
+</head>
+<!-- END HEAD -->
+
+<body class=" login">
+	<div class="menu-toggler sidebar-toggler"></div>
+	<!-- END SIDEBAR TOGGLER BUTTON -->
+	<!-- BEGIN LOGO -->
+	<div class="logo">
+		<a href="index.html"> <img
+		id="logo_login" src="${ctx}/metronic/pages/img/58gongzi-2.png" alt="" />
+		</a>
+	</div>
+	<!-- END LOGO -->
+	<!-- BEGIN LOGIN -->
+	<div class="content">
+		<!-- BEGIN LOGIN FORM -->
+		<form id="loginForm" class="login-form" method="post">
+			<h3 class="form-title font-green">登录</h3>
+			<div class="alert alert-danger display-hide">
+				<button class="close" data-close="alert"></button>
+				<span> 请输入用户名和密码. </span>
+			</div>
+			<div class="form-group">
+				<!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+				<label class="control-label visible-ie8 visible-ie9">用户名</label> <input
+					class="form-control form-control-solid placeholder-no-fix"
+					type="text" autocomplete="off" placeholder="请输入邮箱" id="userName" name="userName"/>
+			</div>
+			<div class="form-group">
+				<label class="control-label visible-ie8 visible-ie9">密码</label> <input
+					class="form-control form-control-solid placeholder-no-fix"
+					type="password" autocomplete="off" placeholder="密码为8-16位数字和字母组合 id="password" name="password" />
+			</div>
+            <div class="form-group"><input
+					class="form-control form-control-solid placeholder-no-fix"
+					type="text" autocomplete="off" id="platform" name="platform" />
+			</div>
+			
+			<div id="msg"></div>
+			<div class="form-actions">
+				<button type="submit" class="btn green uppercase">立即注册</button>
+				<a type="button" class="btn green uppercase" Name="PWresend" id="PWresend" onclick="openReset()">忘记密码</a>
+<!-- 				<label class="rememberme check"> <input type="checkbox" -->
+<!-- 					name="remember" value="1" />Remember -->
+<!-- 				</label> <a href="javascript:;" id="forget-password" class="forget-password">Forgot -->
+<!-- 					Password?</a> -->
+			</div>
+			<!--
+			<div id="ServiceInfo" class="create-account" >
+				<p>
+					<a>客户服务热线: 400-9181-006<br>QQ客服群: 608899682</a>
+				</p>
+			</div>
+		    -->
+		</form>
+		<!-- END LOGIN FORM -->
+		<!-- BEGIN FORGOT PASSWORD FORM -->
+		<form class="forget-form" action="index.html" method="post">
+			<h3 class="font-green">Forget Password ?</h3>
+			<p>Enter your e-mail address below to reset your password.</p>
+			<div class="form-actions">
+				<button type="button" id="back-btn" class="btn btn-default">Back</button>
+				<button type="submit" class="btn btn-success uppercase pull-right">Submit</button>
+			</div>
+		</form>
+		<!-- END FORGOT PASSWORD FORM -->
+	</div>
+	<div class="copyright">2018 © <a href="http://www.miitbeian.gov.cn/">沪ICP备18004941号-1</a> 
+	<div style="width:300px;margin:0 auto; padding:20px 0;">
+		 <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=35062202000124" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="${ctx}/metronic/pages/img/ghs.png" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">闽公网安备 35062202000124号</p></a>
+	</div>
+	</div>	 
+</body>
+
+</html>

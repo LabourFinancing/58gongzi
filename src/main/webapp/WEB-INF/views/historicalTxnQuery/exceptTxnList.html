@@ -196,52 +196,51 @@ var tableToExcel = (function() {
 					   </div>
 					  <div class="table-toolbar">
 					</form>
+                      </div>
+                          <div class="table table-bordered">
+                              <div class="ls-seaarch-result">
+                                      <lable>查询结果:</lable>
+                                      <div style="width:99.5%; height:608px; overflow:scroll;">
+                                          <table id="exceptTxnList" class="table table-bordered" id="exceptTxnListTable" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+                                              <thead>
+                                              <tr>
+                                                  <th>交易单号</th>
+                                                  <th>交易时间</th>
+                                                  <th>姓名</th>
+                                                  <th>公司</th>
+                                                  <th>身份证</th>
+                                                  <th>交易金额</th>
+                                                  <th>银行卡号</th>
+                                                  <th>手机号</th>
+                                                  <th>返回码</th>
+                                                  <th>返回错误码</th>
+                                                  <th>返回信息</th>
+                                                  <th>备注</th>
+                                              </tr>
+                                              </thead>
+                                              <tbody>
+                                              <#list StaffPrepayApplicationPaymentFailed as StaffPrepayApplicationPaymentFailedList>
+                                              <tr>
+                                                  <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.orderCode}</td>
+                                                  <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.tranTime}</td>
+                                                  <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.name}</td>
+                                                  <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.company}</td>
+                                                  <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.certNo}</td>
+                                                  <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${StaffPrepayApplicationPaymentFailedList.tranAmt}</td>
+                                                  <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.accNo}</td>
+                                                  <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.phone}</td>
+                                                  <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.returnPic}</td>
+                                                  <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.RCcode}</td>
+                                                  <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.remark}</td>
+                                                  <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.reqReserved}</td>
+                                              </tr>
+                                              </#list>
+                                              </tbody>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
 				</div>
-             <div class="row ls-change-tit">
-                <div class="ls-seaarch-result">
-                    <div class="table-responsive">
-                    <lable>&nbsp&nbsp&nbsp&nbsp查询结果:</lable>
-                    <div style="width:99.5%; height:608px; overflow:scroll;">
-					 <table id="exceptTxnList" class="table table-bordered" id="exceptTxnListTable" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
-						<thead>
-							<tr>
-								<th>交易单号</th>
-								<th>交易时间</th>
-								<th>姓名</th>
-								<th>公司</th>
-								<th>身份证</th>
-								<th>交易金额</th>
-								<th>银行卡号</th>
-								<th>手机号</th>
-								<th>返回码</th>
-								<th>返回错误码</th>
-								<th>返回信息</th>
-								<th>备注</th>
-							</tr>
-						</thead>
-					  <tbody>
-							<#list StaffPrepayApplicationPaymentFailed as StaffPrepayApplicationPaymentFailedList>
-								<tr>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.orderCode}</td>
-								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.tranTime}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.name}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.company}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.certNo}</td>
-								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">&yen${StaffPrepayApplicationPaymentFailedList.tranAmt}</td>
-								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.accNo}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.phone}</td>																	
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.returnPic}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.RCcode}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.remark}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${StaffPrepayApplicationPaymentFailedList.reqReserved}</td>
-								</tr>
-							</#list>
-						</tbody>
-					</table>
-					</div>
-		         </div>
-			    </div>
-			   </div>
 		     </div>
 			</div>
 			<!-- END EXAMPLE TABLE PORTLET-->

@@ -115,7 +115,7 @@ a:hover{color:red}
 <body>
 	<!-- BEGIN PAGE BASE CONTENT -->
 	<div class="row">
-		<div class="col-xs-push-15">
+		<div class="col-xs-push-12">
 			<!-- BEGIN EXAMPLE TABLE PORTLET-->
 			<div class="portlet light portlet-fit bordered">
 				<div class="portlet-title">
@@ -189,19 +189,19 @@ a:hover{color:red}
 						       </table>
 						  </div>
 						<div class="form-actions">
-							<div class="row">
+                            <div class="row">
 								<div class="col-sm-12">
 									<div class="btn-group pull-right">
 										<button type="submit" class="btn green">查询</button>
 									</div>
 								</div>
-							</div>
+                            </div>
 						</div> 
 					<div class="table-toolbar">
 					</form>
 					</div>
 					<div class="table-toolbar">
-						<div class="row">
+                        <div class="row">
 							<div class="col-sm-12">
 								<div class="btn-group pull-right">
                                     <@shiro.hasPermission name="PERSONALINFO_ADD">
@@ -209,96 +209,89 @@ a:hover{color:red}
                                     </@shiro.hasPermission>
 								</div>
 							</div>
-						</div>
+                    </div>
 					</div>
-			    </div>
-			  <div class="row ls-change-tit">
+            <div class="table table-bordered">
                 <div class="ls-seaarch-result">
                     <div class="table-responsive">
-					  <table class="table table-bordered" id="personalInfoTable" style="overflow:visible;text-overflow:ellipsis;white-space:nowrap;">
-							<tr>
-							    <th>&nbsp;&nbsp;&nbsp;</th>
-								<th>姓名</th>
-								<th>性别</th>
-								<th>年龄</th>
-								<th>身份证</th>
-								<th>公司名</th>
-								<th>所在部门</th>
-								<th>手机</th>
-								<th>第一联系人</th>
-								<th>第一联系人联系电话</th>
-								<th>经销商公司名</th>
-								<th>社保缴纳基数</th>
-								<th>公积金缴纳数</th>
-								<th>用工状态</th>
-								<th>用工性质</th>
-								<th>员工信用等级</th>
-								<th>工作年限</th>
-								<th>工资卡号</th>
-								<th>月税后基本工资</th>
-								<th>当前剩余额度</th>
-								<th>薪酬福利额度</th>
-								<th>工资发放日</th>
-								<th>备注</th>
-								<th>最后更新时间</th>
-								<th>操作</th>
-							    <th>&nbsp;&nbsp;&nbsp;</th>
-							</tr>
-						<tbody>
-							<#list page.list as personalInfo>
-								<tr>
-								    <td>&nbsp;&nbsp;&nbsp;</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_Name}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_Sex}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_Age}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_PID}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_Company}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_HomeAddress}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_Mobil}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_Contact1}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_Contact1Mobile}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_VendorEmployeeName}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_SocialSecurityBaseAmount}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_ProvidentFund}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_Employmentstatus}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_EmploymentCategory}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_Probation}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_WorkYears}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_PayrollDebitcardNum}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_NetBaseSalary}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_NetMonthlyBonusAmount}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_CreditPrepaySalaryAmount}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_PayrollDate}</td>	
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.remark}</td>							
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.modify_time?string("yyyy-MM-dd HH:mm:ss")}</td>
-									<td class="col-xs-push-2" style="word-wrap:break-word;word-break:break-all">
-										<@shiro.hasPermission name="PERSONALINFO_VIEW">
-										<a href="#" onclick="openView('${personalInfo.t_P_id}')">查看</a>
-										</@shiro.hasPermission>
-										<@shiro.hasPermission name="PERSONALINFO_EDIT">
-										<a href="#" onclick="openEdit('${personalInfo.t_P_id}')">编辑</a>
-										</@shiro.hasPermission>
-										<@shiro.hasPermission name="PERSONALINFO_DELETE">
-										<a href="${ctx}/PersonalInfoController/deletePersonalInfo?t_P_id=${personalInfo.t_P_id}&platform=0" onclick="return confirm('确认要执行 删除 操作吗？', this.href)">删除</a><br>
-										</@shiro.hasPermission>
-										<@shiro.hasPermission name="PERSONALINFO_EDIT">
-										<a href="#" onclick="editCreditBalance('${personalInfo.t_P_id}')">修改剩余授额</a>
-										</@shiro.hasPermission>
-										<@shiro.hasPermission name="PERSONALINFO_DELETE">
-										<a href="${ctx}/PersonalInfoController/creditRefreshPersonalInfo?t_P_id=${personalInfo.t_P_id}&platform=0" onclick="return confirm('确认要执行 授额刷新 操作吗？', this.href)">刷新授额</a>
-										</@shiro.hasPermission>
-									</td>
-								</tr>
-							</#list>
-						</tbody>
-				    </table>
-		          </div>
-			     </div>
-			   </div>
-			  </div>
-			</div>
-			<!-- END EXAMPLE TABLE PORTLET-->
-		</div>
+                        <table class="table table-bordered" id="personalInfoTable" style="overflow:visible;text-overflow:ellipsis;white-space:nowrap;">
+                            <tr>
+                                <th>姓名</th>
+                                <th>性别</th>
+                                <th>年龄</th>
+                                <th>身份证</th>
+                                <th>公司名</th>
+                                <th>所在部门</th>
+                                <th>手机</th>
+                                <th>第一联系人</th>
+                                <th>第一联系人联系电话</th>
+                                <th>经销商公司名</th>
+                                <th>社保缴纳基数</th>
+                                <th>公积金缴纳数</th>
+                                <th>用工状态</th>
+                                <th>用工性质</th>
+                                <th>员工信用等级</th>
+                                <th>工作年限</th>
+                                <th>工资卡号</th>
+                                <th>月税后基本工资</th>
+                                <th>当前剩余额度</th>
+                                <th>薪酬福利额度</th>
+                                <th>工资发放日</th>
+                                <th>备注</th>
+                                <th>最后更新时间</th>
+                                <th>操作</th>
+                            </tr>
+                            <tbody>
+                            <#list page.list as personalInfo>
+                            <tr>
+                                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_Name}</td>
+                                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_Sex}</td>
+                                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_Age}</td>
+                                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_PID}</td>
+                                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_Company}</td>
+                                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_HomeAddress}</td>
+                                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_Mobil}</td>
+                                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_Contact1}</td>
+                                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_Contact1Mobile}</td>
+                                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_VendorEmployeeName}</td>
+                                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_SocialSecurityBaseAmount}</td>
+                                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_ProvidentFund}</td>
+                                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_Employmentstatus}</td>
+                                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_EmploymentCategory}</td>
+                                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_Probation}</td>
+                                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_WorkYears}</td>
+                                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_PayrollDebitcardNum}</td>
+                                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_NetBaseSalary}</td>
+                                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_NetMonthlyBonusAmount}</td>
+                                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_CreditPrepaySalaryAmount}</td>
+                                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_PayrollDate}</td>
+                                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.remark}</td>
+                                <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.modify_time?string("yyyy-MM-dd HH:mm:ss")}</td>
+                                <td class="col-xs-push-2" style="word-wrap:break-word;word-break:break-all">
+                                    <@shiro.hasPermission name="PERSONALINFO_VIEW">
+                                    <a href="#" onclick="openView('${personalInfo.t_P_id}')">查看</a>
+                                </@shiro.hasPermission>
+                                <@shiro.hasPermission name="PERSONALINFO_EDIT">
+                                <a href="#" onclick="openEdit('${personalInfo.t_P_id}')">编辑</a>
+                            </@shiro.hasPermission>
+                            <@shiro.hasPermission name="PERSONALINFO_DELETE">
+                            <a href="${ctx}/PersonalInfoController/deletePersonalInfo?t_P_id=${personalInfo.t_P_id}&platform=0" onclick="return confirm('确认要执行 删除 操作吗？', this.href)">删除</a><br>
+                            </@shiro.hasPermission>
+                            <@shiro.hasPermission name="PERSONALINFO_EDIT">
+                            <a href="#" onclick="editCreditBalance('${personalInfo.t_P_id}')">修改剩余授额</a>
+                        </@shiro.hasPermission>
+                        <@shiro.hasPermission name="PERSONALINFO_DELETE">
+                        <a href="${ctx}/PersonalInfoController/creditRefreshPersonalInfo?t_P_id=${personalInfo.t_P_id}&platform=0" onclick="return confirm('确认要执行 授额刷新 操作吗？', this.href)">刷新授额</a>
+                    </@shiro.hasPermission>
+                    </td>
+                    </tr>
+                </#list>
+                </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+        </div>
 	<!-- END PAGE BASE CONTENT -->
 	    <@sc.pagination page=page />
 <!--

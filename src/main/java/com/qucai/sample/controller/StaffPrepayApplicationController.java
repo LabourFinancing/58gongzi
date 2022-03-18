@@ -134,10 +134,9 @@ public class StaffPrepayApplicationController {
         	    merchantId = AgencyOrgnization.getT_O_OrgSandeAcc();
         	    PaymentSwitch = "shsd";
         	    JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId);
-//  		      	String JSONretdata = QueryBalanceDemo.BalanceQuery(merchantId); // query Sande Balance
-//  				JSONObject obj = (JSONObject) JSON.parse(JSONretdata); // old sdk
   		    	String BalanceData = (String) JSONretdata.get("balance");
   		    	BigDecimal Sandebalance = (new BigDecimal(BalanceData)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
+//                BigDecimal Sandebalance = new BigDecimal("177.00").setScale(2,BigDecimal.ROUND_DOWN);
 				InitialBalance = Sandebalance;
   				System.out.println("Query Sande balance:");
   				System.out.println(Sandebalance);
@@ -164,8 +163,6 @@ public class StaffPrepayApplicationController {
     			merchantId = AgencyPaymentOrgnization.getT_O_OrgSandeAcc();
         	    PaymentSwitch = "shsd";
         	    JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId);
-//  		      	String JSONretdata = QueryBalanceDemo.BalanceQuery(merchantId); // query Sande Balance
-//  				JSONObject obj1 = (JSONObject) JSON.parse(JSONretdata); // old sdk
   		    	String BalanceData = (String) JSONretdata.get("balance");
   		    	BigDecimal Sandebalance = (new BigDecimal(BalanceData)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
 				InitialBalance = Sandebalance;

@@ -155,14 +155,7 @@ function checkAll() {
 
 //submit for clearpay
 function ClearAll(ClearSubmit){
- 
-        var HisTxnClearID = {};
-        var HisTxnSelectedIDs = [];
- 
-        $("input[name=ClearPaid]").parent('.checked').each(function () {
-          	HisTxnSelectedIDs.push($(this).find("input[name=ClearPaid]").val());
-     	});
-        
+    
         $.ajax({
             url: "${ctx}/HistoricalTxnQueryController/ClearPayList?operationType=Clear",
             data : {"HisTxnSelectedIDs":HisTxnSelectedIDs},

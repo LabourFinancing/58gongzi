@@ -219,7 +219,7 @@ input.font-opstyle:hover{color:red}
 </head>
 <body>
 	<!-- BEGIN PAGE BASE CONTENT -->
-	<div class="row">
+	<div class="table">
 		<div class="col-xs-push-12">
 			<!-- BEGIN EXAMPLE TABLE PORTLET-->
 			<div class="portlet light portlet-fit bordered">
@@ -234,7 +234,7 @@ input.font-opstyle:hover{color:red}
 	                   	<table class="table table-bordered">
 	                    	<thead>
 	                    	   <tr bgcolor="#006b8e" style="color:white">
-	                                <th>  商户名称</th>
+	                                <th>商户名称</th>
 	                                <th>总账户可用余额</th>
 	                                <th>冻结金额</th>
 	                                <th>押金（机构收取）</th>
@@ -245,28 +245,28 @@ input.font-opstyle:hover{color:red}
 	                            </tr>
 	                            <@shiro.hasPermission name="TREASURYDBINFO_OVERVIEW">
 	                            <tr>
-	                            	<td style="width:60px;height:18px">  预支工资平台</td>
-	                            	<td style="width:18px;height:18px"><span id="t_TreasuryDB_Balance" ><span>￥ </span>${TreasuryDBStatisticOverAll.t_TreasuryDB_Balance}<span>元</span></span></td>
-	                            	<td style="width:18px;height:18px"><span id="t_TreasuryDB_RiskMargin"><span>￥ </span>${TreasuryDBStatisticOverAll.t_TreasuryDB_RiskMargin}<span>元</span></td>
-	                            	<td style="width:18px;height:18px"><span id="t_TreasuryDB_Prooffund"><span>￥ </span>${TreasuryDBStatisticOverAll.t_TreasuryDB_Prooffund}<span>元</span></td>
-	                            	<td style="width:18px;height:18px"><span id="t_TreasuryDB_Fee"><span>￥ </span>${TreasuryDBStatisticOverAll.t_TreasuryDB_Fee}<span>元</span></td>
-	                            	<td style="width:18px;height:18px"><span id="t_TreasuryDB_TotAmtDaily"><span>￥ </span>${TreasuryDBStatisticOverAll.t_TreasuryDB_TotAmtDaily}<span>元</span></td>
-	                            	<td style="width:18px;height:18px"><span id="t_TreasuryDB_TotAmtDailySucc"><span>￥ </span>${TreasuryDBStatisticOverAll.t_TreasuryDB_TotAmtDailySucc}<span>元</span></td>
-	                            	<td style="width:18px;height:18px"><span id="t_TreasuryDB_TotAmtDailyFail"><span>￥ </span>${TreasuryDBStatisticOverAll.t_TreasuryDB_TotAmtDailyFail}<span>元</span></td>
+	                            	<td style="width:60px;height:18px">预支工资平台</td>
+	                            	<td style="width:18px;height:18px"><span id="t_TreasuryDB_Balance" ><span>￥</span>${TreasuryDBStatisticOverAll.t_TreasuryDB_Balance}<span>元</span></span></td>
+	                            	<td style="width:18px;height:18px"><span id="t_TreasuryDB_RiskMargin"><span>￥</span>${TreasuryDBStatisticOverAll.t_TreasuryDB_RiskMargin}<span>元</span></td>
+	                            	<td style="width:18px;height:18px"><span id="t_TreasuryDB_Prooffund"><span>￥</span>${TreasuryDBStatisticOverAll.t_TreasuryDB_Prooffund}<span>元</span></td>
+	                            	<td style="width:18px;height:18px"><span id="t_TreasuryDB_Fee"><span>￥</span>${TreasuryDBStatisticOverAll.t_TreasuryDB_Fee}<span>元</span></td>
+	                            	<td style="width:18px;height:18px"><span id="t_TreasuryDB_TotAmtDaily"><span>￥</span>${TreasuryDBStatisticOverAll.t_TreasuryDB_TotAmtDaily}<span>元</span></td>
+	                            	<td style="width:18px;height:18px"><span id="t_TreasuryDB_TotAmtDailySucc"><span>￥</span>${TreasuryDBStatisticOverAll.t_TreasuryDB_TotAmtDailySucc}<span>元</span></td>
+	                            	<td style="width:18px;height:18px"><span id="t_TreasuryDB_TotAmtDailyFail"><span>￥</span>${TreasuryDBStatisticOverAll.t_TreasuryDB_TotAmtDailyFail}<span>元</span></td>
 	                            </tr>
 	                            </@shiro.hasPermission>
 	                            <tr>
-	                            	<td style="width:60px;height:18px">  杉德支付平台</td>
-	                            	<td><span id="18554095zhyes">￥  ${TreasuryDBStatisticOverAll.t_TreasuryDB_RiskMargin}元</span></td>
-	                            	<td><span id="18554095ywdjsyjes">￥   ${TreasuryDBStatisticOverAll.t_TreasuryDB_RiskMargin} (授额)元</span></td>
-	                            	<td><span id="18554095fxbzjs">￥  元</span></td>
+	                            	<td style="width:60px;height:18px">杉德支付平台</td>
+	                            	<td><span id="18554095zhyes">￥${TreasuryDBStatisticOverAll.t_TreasuryDB_RiskMargin}元</span></td>
+	                            	<td><span id="18554095ywdjsyjes">￥${TreasuryDBStatisticOverAll.t_TreasuryDB_RiskMargin} (授额)元</span></td>
+	                            	<td><span id="18554095fxbzjs">￥ 元</span></td>
 	                            	<td><span id="18554095yysxfs">￥ 元</span></td>
 	                            	<td><span id="18554095drjyzjes">￥ 元</span></td>
 	                            	<td><span id="18554095drcgjyzjes">￥ 元</span></td>
-	                            	<td><span id="18554095drsbjyzjes">￥  元</span></td>
+	                            	<td><span id="18554095drsbjyzjes">￥ 元</span></td>
 	                            </tr>
 	                            <tr>
-	                            	<td style="width:60px;height:18px">  电银支付平台</td>
+	                            	<td style="width:60px;height:18px">电银支付平台</td>
 	                            	<td><span id="Chinaebizhyes">￥  ${TreasuryDBStatisticOverAll.t_TreasuryDB_BoPRatio}元</span></td>
 	                            	<td><span id="Chinaebiywdjsyjes">￥   ${treasuryDBInfo.t_TreasuryDB_BoPRatio} (授额)元</span></td>
 	                            	<td><span id="Chinaebifxbzjs">￥  元</span></td>
@@ -348,14 +348,13 @@ input.font-opstyle:hover{color:red}
                       </div>
 					</form>
 				</div>
-            <div class="row ls-change-tit">
+            <div class="table table-bordered">
                  <div class="ls-seaarch-result">
                     <div class="table-responsive">
                      <div style="width:1638px; height:588px; overflow:scroll;">
 					   <table class="table table-bordered" id="TreasuryRec" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
 						 <thead>
 							<tr bgcolor="#006b8e" style="color:white">
-								<th>&nbsp</th>
 								<th>公司名</th>
 								<th>预支账户余额</th>
 								<th>本月授额总数</th>
@@ -381,7 +380,6 @@ input.font-opstyle:hover{color:red}
 						<tbody>
 							<#list TreasuryDBStatisticOverAllList as treasuryDBInfo>
 								<tr>
-								    <td>&nbsp</td>
 									<td><input name="t_TreasuryDB_OrgName" id="t_TreasuryDB_OrgName" type="hidden" value="${treasuryDBInfo.t_TreasuryDB_OrgName}"/>${treasuryDBInfo.t_TreasuryDB_OrgName}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBInfo.t_TreasuryDB_Balance}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBInfo.t_TreasuryDB_TotAmtMth}</td>

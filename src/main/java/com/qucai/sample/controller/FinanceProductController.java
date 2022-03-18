@@ -26,6 +26,9 @@ import com.qucai.sample.util.JsonBizTool;
 import com.qucai.sample.util.ShiroSessionUtil;
 import com.qucai.sample.util.Tool;
 
+/**
+ * @author Spear Yao .
+ */
 
 @Controller
 @RequestMapping(value = "/FinanceProductController")

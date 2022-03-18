@@ -143,6 +143,27 @@ var tableToExcel = (function() {
 
 // select all
 
+function openVoucher() {
+
+    $.ajax({
+        url: "${ctx}/HistoricalTxnQueryController/printVoucher?operationType=printVoucher",
+        data : {"HisTxnSelectedIDs":${HistoricalTxnQuery.t_Txn_Num_his}},
+        dataType: "json",
+        traditional: true,
+        type: "POST",
+        async : false,
+        cache : false,
+        //traditional: true,  
+        success: function (responseJSON) {
+            // your logic  
+            alert('结算完成');
+            window.location.reload();
+        },
+        error : function() {// 请求失败处理函数
+            alert('结算失败');
+        }
+    });
+}
 
 function checkAll() {  
     var isChecked = !$('#SelectAll').parent().hasClass('checked');
@@ -415,7 +436,10 @@ function page(n,s){
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${HistoricalTxnQuery.t_P_PayrollDate_his}</td>
 									<@shiro.hasPermission name="TREASURYDBINFO_OVERVIEW">
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${HistoricalTxnQuery.t_Txn_PrepayClear_his}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;"><a title="个人用户后期开放" target="_blank" href="https://merchantservice.sandpay.com.cn/deal/print?id=${HistoricalTxnQuery.t_Txn_Num_his}"><input id="print" value="打印" type="button" id="printbill"> 
+                                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;"><a title="个人用户后期开放" target="_blank" onclick="openVoucher('${HistoricalTxnQuery.t_Txn_Num_his}')"><input id="print" value="打印凭证" type="button" id="printbill">
+                            <!--
+                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;"><a title="个人用户后期开放" target="_blank" href="https://merchantservice.sandpay.com.cn/deal/print?id=${HistoricalTxnQuery.t_Txn_Num_his}"><input id="print" value="打印凭证" type="button" id="printbill"> 
+                            -->
 									</input></a></td>
 									</@shiro.hasPermission>
 								</tr>
