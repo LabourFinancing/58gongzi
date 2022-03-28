@@ -121,7 +121,7 @@ function openEdit(financeProductId){
 							<div class="row">
 								<div class="col-xs-push-12">
 									<div class="btn-group pull-right">
-										<button type="submit" class="btn green">查询</button>
+										<button type="submit" class="btn green layui-anim-scale">查询</button>
 									</div>
 								</div>
 							</div>
@@ -134,7 +134,7 @@ function openEdit(financeProductId){
 							<div class="col-xs-push-12">
 								<div class="btn-group pull-right">
                                     <@shiro.hasPermission name="FINANCEPRODUCT_ADD">
-									<button id="sample_editable_1_new" class="btn green" onclick="openNew('0')">新增</button>
+									<button id="sample_editable_1_new" class="btn blue layui-anim-scale" onclick="openNew('0')">新增</button>
                                     </@shiro.hasPermission>
 								</div>
 							</div>
@@ -146,6 +146,7 @@ function openEdit(financeProductId){
 					 <table class="table table-bordered" id="financeProductTable" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
 						<thead>
 							<tr>
+                                <th>产品品类</th>
 								<th>产品名称</th>
 								<th>预支定价费率(日)</th>
 								<th>预支超期费率</th>
@@ -166,6 +167,7 @@ function openEdit(financeProductId){
 						<tbody>
 							<#list page.list as financeProduct>
 								<tr>
+                                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_ProdName}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_Name}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_Interest.toString()}</td>
 								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_OverdueInt.toString()}</td>

@@ -156,6 +156,12 @@ document.getElementById("updated_date").value=getDate();
 				<input type="hidden" name="platform" value="${platform}">
 				<div class="form-body">
 					<div class="form-group">
+                        <div class="col-sm-3">
+                            <select class="bs-select form-control" name="t_FProd_ProdName">
+                                <option value="salary">工资/劳务费</option>
+                                <option value="salaryAdv">预支工资/劳务费</option>
+                            </select>
+                        </div>
 						<label class="control-label col-sm-3">产品名称 <span
 							class="required"> * </span>
 						</label>

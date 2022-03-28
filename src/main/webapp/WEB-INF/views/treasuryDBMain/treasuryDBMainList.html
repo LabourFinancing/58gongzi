@@ -349,13 +349,11 @@ input.font-opstyle:hover{color:red}
 					</form>
 				</div>
             <div class="table table-bordered">
-                 <div class="ls-seaarch-result">
+                 <div class="table">
                     <div class="table-responsive">
-                     <div style="width:1638px; height:588px; overflow:scroll;">
 					   <table class="table table-bordered" id="TreasuryRec" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
 						 <thead>
 							<tr bgcolor="#006b8e" style="color:white">
-								<th>&nbsp</th>
 								<th>公司名</th>
 								<th>预支账户余额</th>
 								<th>本月授额总数</th>
@@ -381,7 +379,6 @@ input.font-opstyle:hover{color:red}
 						<tbody>
 							<#list TreasuryDBStatisticOverAllList as treasuryDBMain>
 								<tr>
-								    <td>&nbsp</td>
 									<td><input name="t_TreasuryDB_OrgName" id="t_TreasuryDB_OrgName" type="hidden" value="${treasuryDBMain.t_TreasuryDB_OrgName}"/>${treasuryDBMain.t_TreasuryDB_OrgName}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBMain.t_TreasuryDB_Balance}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryDBMain.t_TreasuryDB_TotAmtMth}</td>
