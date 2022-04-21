@@ -133,10 +133,10 @@ public class StaffPrepayApplicationController {
     		if (!AgencyOrgnization.getT_O_OrgChinaebiAcc().equals(null)){
         	    merchantId = AgencyOrgnization.getT_O_OrgSandeAcc();
         	    PaymentSwitch = "shsd";
-        	    JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId);
-  		    	String BalanceData = (String) JSONretdata.get("balance");
-  		    	BigDecimal Sandebalance = (new BigDecimal(BalanceData)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
-//                BigDecimal Sandebalance = new BigDecimal("177.00").setScale(2,BigDecimal.ROUND_DOWN);
+//        	    JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId);
+//  		    	String BalanceData = (String) JSONretdata.get("balance");
+//  		    	BigDecimal Sandebalance = (new BigDecimal(BalanceData)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
+                BigDecimal Sandebalance = new BigDecimal("131.18").setScale(2,BigDecimal.ROUND_DOWN);
 				InitialBalance = Sandebalance;
   				System.out.println("Query Sande balance:");
   				System.out.println(Sandebalance);
@@ -180,6 +180,7 @@ public class StaffPrepayApplicationController {
         if(InitialBalance.intValue() <= treasuryDBInfoGetStatistic.getT_TreasuryDB_Balance().intValue()){
             String RetCode = HttpJsonExample.TreasuryOutBal(InitialBalance.intValue(), treasuryDBInfoGetStatistic.getT_TreasuryDB_Balance().intValue(), treasuryDBInfoGetStatistic.getT_TreasuryDB_OrgName());
             StringBuffer OutOfBalance = new StringBuffer();
+            //inform SuperAdmin to topup overall cashpool immeadiately
             StringBuffer RetMsg = OutOfBalance.append(String.valueOf(InitialBalance.intValue())).append("<>").append(treasuryDBInfoGetStatistic.getT_TreasuryDB_OrgName()).append(":")
                 .append(treasuryDBInfoGetStatistic.getT_TreasuryDB_Balance().intValue());
             return  "staffPrepayApplication/OverCreditLine";
@@ -236,8 +237,8 @@ public class StaffPrepayApplicationController {
         t_FProd_ServiceFee = staffPrepayApplicationNew.getT_FProd_ServiceFee();
         t_FProd_Poundage = staffPrepayApplicationNew.getT_FProd_Poundage();
         t_FProd_TierPoundage = staffPrepayApplicationNew.getT_FProd_TierPoundage();
-//* get User current credit info       
-      
+        
+//* get User current credit info
         
         Calendar calendar = Calendar.getInstance();
 		calendar.setTime(new Date()); // 放入你的日期

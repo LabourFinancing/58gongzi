@@ -11,6 +11,7 @@
 		<result column="t_FProd_Poundage" property="t_FProd_Poundage" jdbcType="DECIMAL" />
 		<result column="t_FProd_ETxnAmtLimit" property="t_FProd_ETxnAmtLimit" jdbcType="DECIMAL" />
 		<result column="t_FProd_TierPoundage" property="t_FProd_TierPoundage" jdbcType="VARCHAR" />
+        <result column="t_FProd_MainCat" property="t_FProd_MainCat" jdbcType="VARCHAR" />
 		<result column="t_FProd_Status" property="t_FProd_Status" jdbcType="VARCHAR" />
 		<result column="t_FProd_SysupdateDate" property="t_FProd_SysupdateDate" jdbcType="TIMESTAMP" />
 		<result column="t_FProd_category" property="t_FProd_category" jdbcType="VARCHAR" />
@@ -33,6 +34,7 @@
 		a.t_FProd_Poundage,
 		a.t_FProd_ETxnAmtLimit,  
 		a.t_FProd_TierPoundage, 
+		a.t_FProd_MainCat,
 		a.t_FProd_Status,
 		a.t_FProd_SysupdateDate,
 		a.t_FProd_category,
@@ -61,13 +63,16 @@
 		<include refid="Base_Column_List" />
 		from t_fproduct_info a
 		<if test="batch_PB_company != 'ALL'">
-		where 
-		</if>	
-		<if test="t_FProd_Name != null">
-		a.t_FProd_Name like CONCAT('%',#{t_FProd_Name},'%')
+		where 1=1 
+		</if>    
+        <if test="t_FProd_MainCat != null">
+        and a.t_FProd_MainCat = #{t_FProd_MainCat,jdbcType=VARCHAR}
+        </if>
+        <if test="t_FProd_Name != null">
+		and a.t_FProd_Name like CONCAT('%',#{t_FProd_Name},'%') 
 		</if>	
 		<if test="t_FProd_CorpPool != null">
-		a.t_FProd_CorpPool like CONCAT('%',#{t_FProd_CorpPool},'%')
+		and a.t_FProd_CorpPool like CONCAT('%',#{t_FProd_CorpPool},'%')
 		</if>	
 		<if test="create_time != null">
 		and a.create_time like CONCAT('%',DATE(#{create_time}),'%')
@@ -110,6 +115,9 @@
 			<if test="t_FProd_TierPoundage != null">
 				t_FProd_TierPoundage,
 			</if>
+            <if test="t_FProd_MainCat != null">
+                t_FProd_MainCat,
+            </if>
 			<if test="t_FProd_Status != null">
 				t_FProd_Status,
 			</if>
@@ -169,6 +177,9 @@
 			<if test="t_FProd_TierPoundage != null">
 				#{t_FProd_TierPoundage,jdbcType=VARCHAR},
 			</if>
+            <if test="t_FProd_MainCat != null">
+                #{t_FProd_MainCat,jdbcType=VARCHAR},
+            </if>
 			<if test="t_FProd_Status != null">
 				#{t_FProd_Status,jdbcType=VARCHAR},
 			</if>
@@ -267,6 +278,9 @@
 			<if test="t_FProd_TierPoundage != null">
 				t_FProd_TierPoundage = #{t_FProd_TierPoundage,jdbcType=VARCHAR},
 			</if>
+            <if test="t_FProd_MainCat != null">
+                t_FProd_MainCat = #{t_FProd_MainCat,jdbcType=VARCHAR},
+            </if>
 			<if test="t_FProd_Status != null">
 				t_FProd_Status = #{t_FProd_Status,jdbcType=VARCHAR},
 			</if>

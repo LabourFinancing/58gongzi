@@ -64,6 +64,10 @@ public class FinanceProduct implements Serializable {
     */
    private String t_FProd_TierPoundage;
 
+    /**
+     * 产品总分类
+     */
+    private String t_FProd_MainCat;
 
    /**
     *产品状态
@@ -251,4 +255,14 @@ public class FinanceProduct implements Serializable {
 	public void setT_FProd_PersPool(String t_FProd_PersPool) {
 		this.t_FProd_PersPool = t_FProd_PersPool;
 	}
+
+
+    public String getT_FProd_MainCat() {
+        return t_FProd_MainCat;
+    }
+
+    public void setT_FProd_MainCat(String t_FProd_MainCat) {
+        this.t_FProd_MainCat = t_FProd_MainCat;
+    }
+
 }

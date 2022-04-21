@@ -61,25 +61,25 @@
                             <div data-v-div="" class="col-8 item">
                                 <div data-v-div="" class="bg-fff item-ctx">
                                     <div data-v-div="" class="cell-title clearfix">今日数据
-                                        <a data-v-div="" class="fr link-green">交易记录</a></div>
+                                        <a data-v-div="" class="fr link-green" href=${ctx}/HistoricalTxnQueryController/historicalTxnQueryList">交易记录</a></div>
                                     <div data-v-div="" class="cell-ctx p-15">
                                         <div data-v-div="" class="submit">今日交易量</div>
                                         <div data-v-div="" class="submit-num">笔</div>
                                         <div data-v-div="" class="send">交易情况</div>
                                         <div data-v-div="" class="clearfix send-num">
-                                            <div data-v-div="" class="fl grid1">交易中
+                                            <div data-v-div="" class="fl grid1" href="#">交易中
                                                 <span data-v-div="" class="orange">--</span>
                                             </div>
-                                            <div data-v-div="" class="fl grid2">交易成功
+                                            <div data-v-div="" class="fl grid2" href="#">交易成功
                                                 <span data-v-div="" class="green">--</span>
                                             </div>
-                                            <div data-v-div="" class="fl grid3">充值总额
+                                            <div data-v-div="" class="fl grid3"href="#">充值总额
                                                 <span data-v-div="" class="red">--</span>
                                             </div>
-                                            <div data-v-div="" class="fl grid1">未知
+                                            <div data-v-div="" class="fl grid1" href="#">未知
                                                 <span data-v-div="" class="orange">--</span>
                                             </div>
-                                            <div data-v-div="" class="fl grid2">交易失败
+                                            <div data-v-div="" class="fl grid2" href="#">交易失败
                                                 <span data-v-div="" class="red">--</span>
                                             </div>
                                         </div>
@@ -276,7 +276,7 @@
             axisLabel: {           // 坐标轴文本标签，详见axis.axisLabel
                 // formatter: null,
                 textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-                    fontSize:16,
+                    fontSize:16,    
                     fontWeight: 900
                 }
             }

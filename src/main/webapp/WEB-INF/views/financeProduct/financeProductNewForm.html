@@ -16,7 +16,6 @@
 <script>
 window.onload = function(){
 function getDate(){
-debugger;
 var today = new Date(); 
 var date; 
 date = (today.getFullYear()) +"-" + (today.getMonth() + 1 ) + "-" + today.getDate() + "-" + today.toLocaleTimeString(); 
@@ -144,6 +143,17 @@ document.getElementById("updated_date").value=getDate();
 		$("#parentId").val($(selector).find("option:selected").val());
 	}
 	
+	function CheckPrepayInput(){
+	    debugger;
+	    console.log(document.getElementById("t_FProd_MainCat").value);
+	    console.log(document.getElementById("PrepayCat").style.display);
+	    if (document.getElementById("t_FProd_MainCat").value == "TERMPYMT"){
+	        document.getElementById("PrepayCat").style.display = "";
+        }else{
+            document.getElementById("PrepayCat").style.display = "None";
+        }
+    }
+	
 </script>
 
 </head>
@@ -156,12 +166,6 @@ document.getElementById("updated_date").value=getDate();
 				<input type="hidden" name="platform" value="${platform}">
 				<div class="form-body">
 					<div class="form-group">
-                        <div class="col-sm-3">
-                            <select class="bs-select form-control" name="t_FProd_ProdName">
-                                <option value="salary">工资/劳务费</option>
-                                <option value="salaryAdv">预支工资/劳务费</option>
-                            </select>
-                        </div>
 						<label class="control-label col-sm-3">产品名称 <span
 							class="required"> * </span>
 						</label>
@@ -238,7 +242,20 @@ document.getElementById("updated_date").value=getDate();
 							</div>
 						</div>
 					</div>
-					<div class="form-group">
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">产品品类<span
+                            class="required"> * </span>
+                        </label>
+                        <div class="col-sm-9">
+                            <div class="input-icon right">
+                                <i class="fa"></i> <select name="t_FProd_MainCat" id="t_FProd_MainCat" onchange="CheckPrepayInput()">
+                                <option value="DEBITPYMT">实付类</option>
+                                <option value="TERMPYMT">预支类</option>
+                            </select>
+                            </div>
+                        </div>
+                    </div>
+					<div name="PrepayCat" id="PrepayCat" class="form-group" style="display:none;">
 						<label class="control-label col-sm-3">产品类型<span
 							class="required"> * </span>
 						</label>

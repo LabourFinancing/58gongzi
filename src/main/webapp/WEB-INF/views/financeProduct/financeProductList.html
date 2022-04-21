@@ -18,7 +18,21 @@
 
 
 <script type="text/javascript">
-
+    // console.log($page.list);
+    // console.log($financeProduct);
+    // mass change main prod cat
+    window.onload = function(){
+        var Mpcl = document.querySelectorAll('.col-xs-push-1');
+        console.log(Mpcl);
+        for(var i=0; i<Mpcl.length;i++){
+            console.log(Mpcl[i].innerText)
+            switch (Mpcl[i].innerText) {
+                case "TERMPYMT": Mpcl[i].innerText = "授额类";break;
+                case "DEBITPYMT": Mpcl[i].innerText = "应付类";break;
+            }
+        };
+    }
+    
 /* $(document).ready(function() {
 	$("#financeProductTable").treetable({clickableNodeNames : true, expandable : true}).treetable("expandAll");
 
@@ -67,6 +81,9 @@ function openEdit(financeProductId){
 		}
 	});
 }
+var ValueCnvrt = "";
+
+
 
 </script>
 
@@ -90,6 +107,16 @@ function openEdit(financeProductId){
 						<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}" />
 						<div class="form-body">
 							<div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3" style="padding-right: 0">产品分类：</label>
+                                        <select name="t_FProd_MainCat" id="t_FProd_MainCat" class="btn btn-default dropdown-toggler" style="align-items: end" onchange="CheckPrepayInput()">
+                                            <option value="ALLPYMT">全部</option>
+                                            <option value="DEBITPYMT">实付类</option>
+                                            <option value="TERMPYMT">预支类</option>
+                                        </select>
+                                    </div>
+                                </div>
 								<div class="col-sm-4">
 									<div class="form-group">
 										<label class="control-label col-sm-3" style="padding-right: 0">工资产品名：</label>
@@ -107,15 +134,17 @@ function openEdit(financeProductId){
 							        </div>
 						           </div>
 								</div>
-								<div class="col-sm-4">
-									<div class="form-group">
-										<label class="control-label col-sm-3" style="padding-right: 0">备注：</label>
-										<div class="col-sm-8" style="padding-left: 0;">
-											<input type="text" class="form-control" name="remark" value="${financeProduct.remark}" />
-										</div>
-									</div>
-								</div>
 							</div>
+                            <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" style="padding-right: 0">备注：</label>
+                                    <div class="col-sm-8" style="padding-left: 0;">
+                                        <input type="text" class="form-control" name="remark" value="${financeProduct.remark}" />
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
 						</div>
 						<div class="form-actions">
 							<div class="row">
@@ -146,7 +175,6 @@ function openEdit(financeProductId){
 					 <table class="table table-bordered" id="financeProductTable" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
 						<thead>
 							<tr>
-                                <th>产品品类</th>
 								<th>产品名称</th>
 								<th>预支定价费率(日)</th>
 								<th>预支超期费率</th>
@@ -154,7 +182,8 @@ function openEdit(financeProductId){
 								<th>平台使用费</th>
 								<th>单笔最高限额</th>
 								<th>区间平台使用费</th>
-								<th>产品类型</th>
+                                <th>产品品类</th>
+								<th>产品适用员工类型</th>
 								<th>产品状态</th>
 								<th>产品适用企业</th>
 								<th>产品适用人群</th>
@@ -167,7 +196,6 @@ function openEdit(financeProductId){
 						<tbody>
 							<#list page.list as financeProduct>
 								<tr>
-                                    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_ProdName}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_Name}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_Interest.toString()}</td>
 								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_OverdueInt.toString()}</td>
@@ -175,6 +203,7 @@ function openEdit(financeProductId){
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_Poundage}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_ETxnAmtLimit}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_TierPoundage}</td>
+                                    <td id="FProdMainCat" name="FProdMainCat" class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;" >${financeProduct.t_FProd_MainCat}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_category}</td>
 								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_Status}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_CorpPool}</td>
@@ -205,6 +234,6 @@ function openEdit(financeProductId){
 		<input id="pageNum" name="pageNum" type="hidden" value="${page.pageNum}" />
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}" />
 	</form>
-	-->
+-->
 </body>
 </html>

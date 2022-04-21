@@ -73,13 +73,17 @@ public class FinanceProductController {
      * Search Function
      */
     @RequestMapping(value = "financeProductSearchList")
-    public String financeProductSearchList(FinanceProduct financeProduct, @RequestParam( defaultValue = "0" )  Integer platform,String t_FProd_Name,Date create_time,
+    public String financeProductSearchList(FinanceProduct financeProduct, @RequestParam( defaultValue = "0" )  Integer platform,String t_FProd_MainCat,String t_FProd_Name,Date create_time,
     		String remark,HttpServletRequest request, HttpServletResponse response, Model model) {
     	
     	model.addAttribute("platform", platform); //key从数据库查询并返回,并索引对应JSP
+        if(t_FProd_MainCat.equals("ALLPYMT") || t_FProd_MainCat.equals(null)){
+            t_FProd_MainCat = null;
+        }
     	
     	if (t_FProd_Name != "" | create_time != null | remark != "") {
         	Map<String, Object> paramSearchMap = new HashMap<String, Object>();//新建map对象
+            paramSearchMap.put("t_FProd_MainCat", t_FProd_MainCat);
         	paramSearchMap.put("t_FProd_Name", t_FProd_Name);//添加元素
         	paramSearchMap.put("create_time", create_time);//添加元素
         	paramSearchMap.put("remark", remark);//添加元素
