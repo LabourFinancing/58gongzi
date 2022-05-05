@@ -60,6 +60,11 @@ public class OrganizationInfoServiceImpl implements OrganizationInfoService {
     public List<OrganizationInfo> findAllName(Map<String, Object> paramMap) {
         return organizationInfoDao.findAllName(paramMap);
     }
+
+    @Override
+    public List<OrganizationInfo> findAllNameOnly(Map<String, Object> paramMap) {
+        return organizationInfoDao.findAllName(paramMap);
+    }
     
     @Override
     public List<OrganizationInfo> findOrgName(Map<String, Object> paramMap) {

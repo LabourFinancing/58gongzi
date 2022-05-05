@@ -31,6 +31,8 @@ public interface OrganizationInfoService {
     List<OrganizationInfo> findAllList(Map<String, Object> paramMap);
     
     List<OrganizationInfo> findAllName(Map<String, Object> paramMap);
+
+    List<OrganizationInfo> findAllNameOnly(Map<String, Object> paramMap);
     
     List<OrganizationInfo> findOrgName(Map<String, Object> paramMap);
     

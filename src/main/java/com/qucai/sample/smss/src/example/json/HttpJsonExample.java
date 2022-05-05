@@ -89,7 +89,34 @@ public class HttpJsonExample {
 		
 		return SMScode;
 	}
-	
+
+    public static String SMSFirmRegCode(String Type, String mobile) {
+
+        Date sendtime = new Date();
+        String SMSreqinit = String.valueOf(((Math.random()*9+1)*100000));
+        String SMSreqcode = SMSreqinit.substring(0,SMSreqinit.indexOf("."));
+
+        StringBuffer ss =  new StringBuffer();
+
+        String SMSreq = String.valueOf(ss.append(sign).append(",").append(ContentTitle0).append("我发工资系统验证码:").append(SMSreqcode));
+
+        try {
+            JSONHttpClient jsonHttpClient = new JSONHttpClient("http://request.ucpaas.com/sms-partner/access/b02er2/sendsms");
+            jsonHttpClient.setRetryCount(1);
+            String sendhRes = jsonHttpClient.sendSms(clientid, password, mobile,smstype,SMSreq, sendtime, extend, uid);
+            LOG.info("提交单条普通短信响应：" + sendhRes);
+            String balanceRe = jsonHttpClient.getBalance(clientid, password);
+            LOG.info("获取余额响应：" + balanceRe);
+
+        } catch (Exception e) {
+
+            LOG.error("应用异常", e);
+            return SMSreqcode;
+        }
+
+        return SMSreqcode;
+    }
+    
 public static String SuccessPaid(String mobile,String SMSCompanyName,String PaidAmt,String ActPaidAmt,String ServiceFee, String BalanceAmt) {
 		
 //		SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");

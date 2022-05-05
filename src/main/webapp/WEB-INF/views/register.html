@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<!-- [if IE 8]> <html lang="en" class="ie8 no-js"> <![endif] -->
+<!-- [if IE 9]> <html lang="en" class="ie9 no-js"> <![endif] -->
+<!-- [if !IE]><! -->
+<!-- <html lang="en"> -->
+<!-- <![endif] -->
+<!-- BEGIN HEAD -->
+
+<head xmlns:javascript="http://www.w3.org/1999/xhtml">
+    <meta charset="utf-8">
+    <title>我发工资 | 企业注册</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <meta http-equiv="Cache-Control" content="no-store">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <#include "/common/commonContext.html">
+    <link rel="icon" href="${ctx}/metronic/global/img/58gongzi-3.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="${ctx}/metronic/global/img/58gongzi-3.png" type="image/x-icon" />
+    <script src="${ctx}/metronic/global/plugins/loading.js" type="text/javascript"></script>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="${ctx}/metronic/mobile/css/googleapis.css" rel="stylesheet" type="text/css">
+    <link href="${ctx}/metronic/mobile/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="${ctx}/metronic/mobile/css/simple-line-icons.min.css">
+    <link rel="stylesheet" href="${ctx}/metronic/mobile/bootstrap.min.css">
+<!--    <link rel="stylesheet" href="${ctx}/metronic/mobile/css/uniform.default.css">-->
+    <link rel="stylesheet" href="${ctx}/metronic/mobile/css/bootstrap-switch.min.css">
+    <!-- END GLOBAL MANDATORY STYLES -->
+
+    <!-- BEGIN THEME GLOBAL STYLES -->
+    <link rel="stylesheet" href="${ctx}/metronic/mobile/css/components.min.css" id="style_components" type="text/css">
+    <link rel="stylesheet" href="${ctx}/metronic/mobile/css/plugins.min.css">
+    <!-- END THEME GLOBAL STYLES -->
+
+    <!-- BEGIN THEME LAYOUT STYLES -->
+    <link rel="stylesheet" href="${ctx}/metronic/mobile/css/layout.min.css">
+    <link rel="stylesheet" href="${ctx}/metronic/mobile/css/light.min.css">
+    <link rel="stylesheet" href="${ctx}/metronic/mobile/css/custom.min.css">
+    <!-- END THEME LAYOUT STYLES -->
+
+    <!-- <link href="/metronic/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css"> -->
+
+    <link rel="stylesheet" href="${ctx}/metronic/mobile/css/copybootrstap.css">
+    <!-- <link href="/plugins/layer/skin/layer.css" rel="stylesheet" type="text/css"> -->
+    <link rel="stylesheet" href="${ctx}/metronic/mobile/layer/skin/layer.css">
+    <link rel="stylesheet" href="${ctx}/metronic/mobile/user/register.css" rel="stylesheet" type="text/css">
+    <!-- mask -->
+
+    <style>
+        /* 分页组件输入框的样式，保证高度的统一 */
+        .pagination .controls input {
+            border: 0;
+            color: #999;
+            width: 30px;
+            padding: 0;
+            text-align: center;
+        }
+    </style>
+
+    <!-- <link rel="shortcut icon" href="favicon.ico">BEGIN PAGE LEVEL STYLES -->
+    <!-- <link href="/metronic/pages/css/login.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- END PAGE LEVEL STYLES -->
+    <!--[if lt IE 9]>
+    <script src="/metronic/global/plugins/respond.min.js"></script>
+    <script src="/metronic/global/plugins/excanvas.min.js"></script>
+    <![endif] -->
+    <!-- BEGIN CORE PLUGINS -->
+    <script src="${ctx}/metronic/global/plugins/jsbridge-mini.js" type="text/javascript"></script>
+    <script src="${ctx}/metronic/mobile/js/jquery-2.1.3.js" type="text/javascript"></script>
+    <script src="${ctx}/metronic/mobile/js/jsbridge-mini.js" type="text/javascript"></script>
+    <script src="${ctx}/metronic/mobile/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="${ctx}/metronic/mobile/js/js.cookie.min.js" type="text/javascript"></script>
+    <script src="${ctx}/metronic/mobile/js/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+    <script src="${ctx}/metronic/mobile/js/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <script src="${ctx}/metronic/mobile/js/jquery.blockui.min.js" type="text/javascript"></script>
+    <script src="${ctx}/metronic/mobile/js/jquery.uniform.min.js" type="text/javascript"></script>
+    <script src="${ctx}/metronic/mobile/js/bootstrap-switch.min.js" type="text/javascript"></script>
+    <script src="${ctx}/metronic/mobile/js/js.cookie.min.js" type="text/javascript"></script>
+    <!-- END CORE PLUGINS -->
+
+    <!-- BEGIN COMMON PAGE LEVEL PLUGINS -->
+    <script src="${ctx}/metronic/mobile/js/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="${ctx}/metronic/mobile/js/additional-methods.min.js" type="text/javascript"></script>
+    <script src="${ctx}/metronic/mobile/js/messages_zh.min.js" type="text/javascript"></script>
+    <!-- END COMMON PAGE LEVEL PLUGINS -->
+
+    <!-- BEGIN THEME GLOBAL SCRIPTS -->
+    <script src="${ctx}/metronic/mobile/js/app.min.js" type="text/javascript"></script>
+    <!-- <script src="/metronic/global/scripts/app.min.js" type="text/javascript"></script> -->
+    <!-- END THEME GLOBAL SCRIPTS -->
+
+    <!-- BEGIN THEME LAYOUT SCRIPTS -->
+    <script src="${ctx}/metronic/mobile/js/layouts.js" type="text/javascript"></script>
+    <!-- <script src="/metronic/layouts/layout4/scripts/layout.min.js" type="text/javascript"></script> -->
+    <!-- <script src="/metronic/layouts/layout4/scripts/demo.min.js" type="text/javascript"></script> -->
+    <!-- <script src="/metronic/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script> -->
+    <!-- END THEME LAYOUT SCRIPTS -->
+
+    <!-- <script src="/metronic/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script> -->
+    <script src="${ctx}/metronic/mobile/js/components-date-time-picker.min.js" type="text/javascript"></script>
+    <!-- jQuery mask -->
+    <script src="${ctx}/metronic/mobile/layer/layer.js"></script>
+    <!-- jQuery new added -->
+    <script src="${ctx}/metronic/mobile/js/card.js" type="text/javascript"></script>
+    <!-- ip address get -->
+    <!-- <script src="http://pv.sohu.com/cityjson?ie=utf-8" type="text/javascript"></script> -->
+
+    <!-- END mask -->
+
+    <!--[if lt IE 10]>
+    <meta http-equiv="Refresh" content="0; url=/browserNotMatch" />
+    <![endif]-->
+
+    <style type="text/css">
+        .error-color {
+            font-weight: bold;
+            color: #f50000
+        }
+
+        input::-webkit-input-placeholder {
+            color: #999;
+            -webkit-transition: color.5s;
+        }
+
+        input:focus::-webkit-input-placeholder,
+        input:hover::-webkit-input-placeholder {
+            color: #c2c2c2;
+            -webkit-transition: color.5s;
+        }
+
+        dot {
+            display: inline-block;
+            height: 1em;
+            line-height: 1;
+            text-align: left;
+            vertical-align: -.25em;
+            overflow: hidden;
+        }
+        dot::before {
+            display: block;
+            content: '...\A..\A.';
+            white-space: pre-wrap;   /* 也可以是white-space: pre */
+            animation: dot 1s infinite step-start both;
+        }
+        @keyframes dot {
+            33% { transform: translateY(-2em); }
+            66% { transform: translateY(-1em); }
+        }
+        * Checkbox Five
+
+        .checkboxFive {
+            width: 25px;
+            margin: 20px 100px;
+            position: relative;
+        }
+        /**
+ * Create the box for the checkbox
+ */
+
+        .checkboxFive label {
+            cursor: pointer;
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            top: 0;
+            left: 0;
+            background: #eee;
+            border: 1px solid #ddd;
+        }
+        /**
+ * Display the tick inside the checkbox
+ */
+
+        .checkboxFive label:after {
+            opacity: 0.2;
+            content: '';
+            position: absolute;
+            width: 9px;
+            height: 5px;
+            background: transparent;
+            top: 6px;
+            left: 7px;
+            border: 3px solid #333;
+            border-top: none;
+            border-right: none;
+            -webkit-transform: rotate(-45deg);
+            -moz-transform: rotate(-45deg);
+            -o-transform: rotate(-45deg);
+            -ms-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+        }
+        /**
+ * Create the hover event of the tick
+ */
+
+        .checkboxFive label:hover::after {
+            opacity: 0.5;
+        }
+        /**
+ * Create the checkbox state for the tick
+ */
+
+        .checkboxFive input[type=checkboxFive]:checked + label:after {
+            opacity: 1;
+        }
+    </style>
+    <script type="text/javascript">
+        //自定义效验规则
+        $.validator.addMethod(
+            //规则名称
+            "checkUsername",
+            function (value,element,params) {
+
+                //定义一个标志
+                var flag=false;
+                //value:输入的内容
+                //element：被效验的元素对象
+                //params：规则对应的参数值
+                //目的：对输入的username进行ajax效验
+                // $.ajax({
+                //     "async":false,
+                //     "url":"${ctx}/registController/userNameFmtValidation?&platform=1" + "&userName=" + $("#userName").val(),
+                //     "type":"POST",
+                //     "dataType":"json",
+                //     "success":function (data) {
+                //         flag=data.isExist;
+                //     }
+                // });
+                
+                //javascript 校验
+                var regExpMobile = new RegExp("^1[2-9]\\d{9}$");
+                var regExpInvLtr =  new RegExp("^[a-zA-Z0-9_-]{5,25}$"); 
+                if(regExpMobile.test(document.getElementById("userName").value) || !regExpInvLtr.test(document.getElementById("userName").value) ){
+                    //如果是满足以上条件则为不通过
+                    return flag
+                }else {
+                    //如果false代表该效验不通过
+                    return !flag;
+                }
+            }
+
+        )
+        
+        var submitting = false;
+        var submitTimer = null;
+        //
+        var user_name = document.getElementById("userName");
+        var user_password = document.getElementById("password");
+        var user_mobile = document.getElementById("mobile");
+        var user_smsget = document.getElementById("smsget");
+        var tagstat = true;
+        var firmCat1Radio = document.getElementById("firmCat1")
+        var firmCat2Radio = document.getElementById("firmCat2")
+        var firmCatNlistRadio = document.getElementById("firmSelect")
+        
+        // function RegistSubmitConfirm() {
+            $(document).ready(
+                    function () {
+                            var form = $('#RegistForm');
+                            var firmCatRadioPicked = true;
+                            $(':radio').click(function () {
+                                var checkValue = $(this).val();
+                                switch (checkValue) {
+                                    case "registered" :
+                                        firmCatRadioPicked = false;
+                                        document.getElementById("t_PIBU_Orgname").style.display = "";
+                                        document.getElementById("firmName").style.display = "None";
+                                        if(document.getElementById("firmName-error") != null) {
+                                            document.getElementById("firmName-error").style.display = "None";
+                                        }
+                                        var firmNameList = $(t_PIBU_Orgname).val();
+                                        $("#t_PIBU_Orgname").empty();
+                                        $.ajax({
+                                            url: "${ctx}/registController/firmlistSelect?Type=select" + "&firmName=" + $("#t_PIBU_Orgname").val(),
+                                            type: "post",
+                                            contentType: "application/json",
+                                            async: true,
+                                            cache: false,
+                                            processData: false,
+                                            success: function (rs) {   //https://blog.csdn.net/haoaiqian/article/details/61921747 - mutiply BiArray refer
+                                                var data = eval("(" + rs + ")");
+                                                var batchPBbatchIDSelect = document.getElementById("t_PIBU_Orgname");
+                                                batchPBbatchIDSelect.options.length = 0;/**清空下拉框的值*/
+                                                if (!$.isEmptyObject(data)) {
+                                                    console.log(data);
+                                                    if ((data.OrganizationInfo != null) && (data.OrganizationInfo.length != 0)) {
+                                                        for (var i = 0; i <= data.OrganizationInfo.length; i++) {
+                                                            var opBatch = new Option();
+                                                            opBatch.text = data.OrganizationInfo[i].t_O_OrgName;
+                                                            opBatch.value = data.OrganizationInfo[i].t_O_OrgName;
+                                                            batchPBbatchIDSelect.options.add(opBatch);
+                                                        }
+                                                    }
+                                                } else {
+                                                    var opBatchE = new Option();
+                                                    opBatchE.text = "--- 空 ---";
+                                                    opBatchE.value = "empty";
+                                                    batchPBbatchIDSelect.options.add(opBatchE)
+                                                }
+                                            },
+                                            error: function (rs) {
+                                                var data = eval("(" + rs + ")");
+                                                console.log(data);
+                                            }
+                                        });
+                                        break;
+                                    case "corp" :
+                                        firmCatRadioPicked = true;
+                                        document.getElementById("t_PIBU_Orgname").style.display = "None"
+                                        document.getElementById("firmName").style.display = ""
+                                        break;
+                                    case "agent" :
+                                        firmCatRadioPicked = true;
+                                        document.getElementById("t_PIBU_Orgname").style.display = "None"
+                                        document.getElementById("firmName").style.display = ""
+                                        break;
+                                    default:
+                                        firmCatRadioPicked = true;
+                                        document.getElementById("t_PIBU_Orgname").style.display = "None"
+                                        document.getElementById("firmName").style.display = ""
+                                        break;
+                                }
+                            });
+
+                            form.validate({
+                                errorElement: 'span', //default input error message container
+                                errorClass: 'error-color', // default input error message class
+                                focusInvalid: false, // do not focus the last invalid input
+                                rules: {
+                                    userName: {
+                                        required: true,
+                                        remote:"${ctx}/registController/userNameDupChk?&platform=1" + "&userName=" + $("#userName").val(),
+                                        checkUsername: true
+                                    },
+                                    mobile: {
+                                        required: true,
+                                        digits: true,
+                                        remote: "${ctx}/registController/isChinaMobileLegal?&platform=1" + "&mobile=" + $("#mobile").val(),
+                                    },
+                                    password: {
+                                        required: true,
+                                        checkUsername: true,
+                                    },
+                                    repassword: {
+                                        required: true,
+                                        equalTo: '#password'
+                                    },
+                                    smscode: {
+                                        required: true,
+                                        equalTo: '#SMScodeRec',
+                                    },
+                                    firmName: {
+                                        required: true,
+                                        remote: "${ctx}/registController/firmNameDupChk?&platform=1" + "&firmName=" + $("#firmName").val()
+                                        },
+                                        firmCat: {
+                                            required: true,
+                                        },
+                                        regChecked: {
+                                            required: true,
+                                        }
+                                    },
+                                    messages: {
+                                        userName: {
+                                            required: "<font color='#f50000' style='font-weight:bold;'>请填入用户名</font>",
+                                            remote: "用户名不可用,请重新输入",
+                                            checkUsername: "用户名不能为手机号或包含非法字符",
+                                        },
+                                        mobile: {
+                                            remote: "手机号错误，请重新输入"
+                                        },
+                                        password: {
+                                            required: "<font color='#f50000' style='font-weight:bold;'>请填入密码</font>"
+                                        },
+                                        smscode: {
+                                            required: "<font color='#f50000' style='font-weight:bold;'>请填入短信验证码</font>",
+                                            remote: "验证码错误，请重新输入"
+                                        },
+                                        firmName: {
+                                            required: "请输入企业名称",
+                                            remote: "企业名已存在，请重新输入"
+                                        },
+                                        firmCat: {
+                                            required: "请选择企业类型"
+                                        },
+                                        repassword: {
+                                            required: "请再次输入您的密码",
+                                            equalTo: "两次密码不一致，请重新输入"
+                                        }
+                                    },
+
+                                    invalidHandler: function (event, validator) { //display error alert on form submit              
+                                        App.scrollTo(form, 0);
+                                    },
+
+                                    highlight: function (element) { // hightlight error inputs
+                                        $(element).closest('.form-group').removeClass(
+                                            "has-success").addClass('has-error'); // set error class to the control group   
+                                    },
+
+                                    unhighlight: function (element) { // revert the change done by hightlight
+
+                                    },
+
+                                    success: function (label, element) {
+                                        var icon = $(element).parent('.input-icon').children(
+                                            'i');
+                                        $(element).closest('.form-group').removeClass(
+                                            'has-error').addClass('has-success'); // set success class to the control group
+                                        icon.removeClass("fa-warning").addClass("fa-check");
+                                    },
+                            });
+
+
+                            $('.login-form input').keypress(function (e) {
+                                if (e.which == 13) {
+                                    if ($('.login-form').validate().form()) {
+                                        // $('.login-form').submit(); //form validation success, call ajax form submit
+                                        // validationchked = true
+                                        // validationchk()
+                                        $("#regsub").attr("disabled", false)
+                                    } else {
+                                        // validationchked = false
+                                        // validationchk()
+                                        $("#regsub").attr("disabled", true)
+                                    }
+                                    return false;
+                                }
+                            });
+                        });
+        
+        var form = $('#RegistForm');
+        function RegSubmit (form) {
+            var formData = new FormData($('#RegistForm')[0]);
+            document.getElementById("LoginLoading").style.display = "";
+            $.ajax({
+                url: "${ctx}/registController/form?type=regist" + "&firmcat=" + $("input[name='firmcat']:checked").val() +
+                "&username=" +  $("#userName").val() + 
+                "&password=" +  $("#password").val() +
+                "&mobile=" +  $("#mobile").val() +
+                "&firmName=" + $("#firmName").val() +
+                "&firmSelName=" + $("#t_PIBU_Orgname").val(),
+                type: 'POST',
+                data: formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    var result = eval("(" + data + ")");
+                    if (result.ret == "-1") {
+                        $("#msg").html("<font color='#f50000' style='font-weight:bold;'>" + result.msg + "</font>");
+                        console.log('-----------fail---------', data);
+                        document.getElementById("LoginLoading").style.display = "none";
+                    } else if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent) && result.host == "M") {
+                        console.info("***************mobile****************", data);
+                        window.location.href = "${ctx}/StaffPrepayApplicationController/staffPrepayApplicationNew";
+                    } else {
+                        window.location.href = "${request.getContextPath()}/mainFrame";
+                    }
+                },
+                error: function (data, b, c) {
+                    console.log('---------error-----------', data, b, c)
+                    var result = eval("(" + data + ")");
+                    document.getElementById("LoginLoading").style.display = "none";
+                    alert(result.msg);
+                },
+            });
+        }
+        // function() {
+        //     if (firmCatRadioPicked) {
+        //         return "required: true,\n" +
+        //             "remote: '\"${ctx}/registController/firmNameDupChk?&platform=1\" + \"&firmName=\" + $(\"#firmName\").val()',"
+        //     } else {
+        //         return "equalTo: 'ALL',"
+        //     }
+
+        // function() {
+        //     if (firmCatRadioPicked) {
+        //         return "required: '请填入企业名', \n" +
+        //             "remote: '\"企业名已注册,请重新输入\", "
+        //     } else {
+        //         return "equalTo: '请填入企业名', "
+        //     }
+        // }
+        function smssend(){
+            if(document.getElementById("userName").value == ""){
+                document.getElementById("userName").focus()
+            }
+            if(document.getElementById("mobile").value == "" ) {
+                document.getElementById("mobile").focus()
+            }
+            $.ajax({
+                type: 'POST',
+                url: "${ctx}/registController/SMSRegist?type=firmregsms" + "&userName=" + $("#userName").val() +
+                    "&mobile=" + $("#mobile").val(),
+                type: 'POST',
+                async: true,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(SMScodeRec) {
+                    if(SMScodeRec.length === 6) {
+                        $("#SMScodeRec").val(SMScodeRec);
+                        var countdown = 60;
+                        settime();
+                        function settime() {
+                            if(countdown == 0) {
+                                $("#smsget").attr("disabled", "false")
+                                document.getElementById("smsget").innerHTML = "获取验证码";
+                            } else {
+                                $("#smsget").attr("disabled", "true")
+                                document.getElementById("smsget").innerHTML = "重新发送(" + countdown + ")";
+                                document.getElementById("smsget").value = "重新发送(" + countdown + ")";
+                                countdown--;
+                                setTimeout(function() {
+                                    settime();
+                                }, 1000)
+                            }
+                        }
+                    }else{
+                        switch (SMScodeRec) {
+                            case "1" :
+                                alert("用户名已存在，请重新输入")
+                                break
+                            case "2" :
+                                alert("手机号码不正确，请重新输入")
+                                break
+                        }
+                        }
+                },
+                error: function(SMScodeRec) {
+                    alert("系统繁忙，请稍后再试");
+                }
+            })
+        }
+
+        function firmlistSelect(){
+            $.ajax({
+                url : "${ctx}/registController/firmSelect?operationType=firmSelect",
+                type: "post",
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                async: true,
+                data: data,
+                cache: false,
+                processData: false,
+                success : function(result) {
+                    alert(result);
+                    batchIDrefresh();
+                },
+                error : function(rs) {
+                    var result = eval("(" + rs + ")");
+                    alert(result.retMsg);
+                    alert("excel上传失败");
+                },
+                cache : false,
+                contentType : false,
+                processData : false
+            });
+        }
+
+        
+        // function firmCatChk(){
+        //     document.getElementById("t_PIBU_Orgname").style.display = "None"
+        //     document.getElementById("firmName").style.display = ""
+        // }
+        
+        function getQueryVar(name, defVal) {
+            var re = new RegExp('.*[?&]' + name + '=([^&#]*)');
+            var match = document.location.href.match(re);
+            if (typeof defVal === 'undefined') {
+                defVal = null;
+            }
+            if (match) {
+                return decodeURIComponent(match[1]);
+            }
+            return defVal;
+        }
+    </script>
+
+</head>
+<!-- END HEAD -->
+
+<body>
+<div class=" login">
+    <div class="menu-toggler sidebar-toggler"></div>
+    <!-- END SIDEBAR TOGGLER BUTTON -->
+    <!-- BEGIN LOGO -->
+    <div class="logo">
+        <a href="index.html"> <img id="logo_login" src="${ctx}/metronic/mobile/imgs/login-banner.png" alt="">
+        </a>
+    </div>
+    <!-- END LOGO -->
+    <!-- BEGIN LOGIN -->
+    <div class="content">
+        <!-- BEGIN LOGIN FORM -->
+        <form id="RegistForm" class="login-form" method="post" novalidate="novalidate">
+            <h3 class="form-title" style="text-align: center;">企业用户注册</h3>
+            <input name="SMScodeRec" id="SMScodeRec" type="hidden" value="${SMScodeRec}">
+            <div class="alert alert-danger display-hide">
+                <button class="close" data-close="alert"></button>
+                <span> 请输入用户名和密码. </span>
+            </div>
+            <div class="form-group">
+                <div class="container">
+                <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                <label class="control-label visible-ie8 visible-ie9"><img id="l-img0" class="l-img3"
+                                                                          src="${ctx}/metronic/mobile/imgs/user-acc1.png" alt=""></label>
+                <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off"
+                placeholder="用户名由5-25位字母或下划线组成" id="userName" name="userName" title="请输入用户名">
+                </div>
+            </div>
+            <div class="form-group">
+                <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                <div class="container">
+                <label class="control-label visible-ie8 visible-ie9"><img id="l-img1" class="lable-img l-img1"
+                                                                          src="${ctx}/metronic/mobile/imgs/user-name.png" alt=""></label>
+                <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off"
+                placeholder="输入你的手机号" id="mobile" name="mobile">
+                <button id="smsget" onclick="smssend()">获取验证码</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="container">
+                    <label class="control-label visible-ie8 visible-ie9"><img id="l-img3" class="lable-img l-img4"
+                                                                              src="${ctx}/metronic/mobile/imgs/withdrawal-cancel.png" alt=""></label>
+                    <input class="form-control form-control-solid placeholder-no-fix" type="smscode" autocomplete="off"
+                    placeholder="请输入短信验证码" id="smscode" name="smscode" >
+                    <!--默认闭眼图-->
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="container">
+                <label class="control-label visible-ie8 visible-ie9"><img id="l-img4" class="lable-img l-img2"
+                                                                          src="${ctx}/metronic/mobile/imgs/pwd.png" alt=""></label><input
+                class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off"
+                placeholder="密码为5-25位数字和字母组合" id="password" name="password" title="请输入密码">
+                    <img id="passwordeye" class="button" src="${ctx}/metronic/mobile/imgs/eyeclose.png" onclick="eyeswitch(1)">
+                <!--默认闭眼图-->
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="container">
+                <label class="control-label visible-ie8 visible-ie9"><img id="l-img5" class="lable-img l-img2"
+                                                                          src="${ctx}/metronic/mobile/imgs/pwd.png" alt="">
+                    </label><input
+                class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off"
+                placeholder="请再次输入您的密码" id="repassword" name="repassword" >
+                    <img id="repasswordeye" src="${ctx}/metronic/mobile/imgs/eyeclose.png" onclick="eyeswitch(2)">
+                </div>  
+            </div>
+            <div class="form-group">
+                <div class="container">
+                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                    <label class="control-label visible-ie8 visible-ie9"><img id="l-img7" class="l-img3"
+                                                                              src="${ctx}/metronic/mobile/imgs/user-acc1.png" alt=""></label>
+                    <input id="firmName" name="firmName" class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="请输入企业名字" >
+                    <select id="t_PIBU_Orgname" class="bs-select form-control" data-live-search="true" name="t_PIBU_Orgname" style="display: none" placeholder="请选择...">
+                     </select>
+                </div>
+            </div>
+            <div class="form-group">
+            <div class="row-fluid">
+                    <div class="radio-inline">
+                        <input type="radio" name="firmcat" id="firmCat1" value="corp" checked="checked">企业
+                    </div>
+                    <div class="radio-inline">
+                        <input type="radio" name="firmcat" id="firmCat2" value="agent">经销商企业
+                    </div>
+                    <div class="radio-inline">
+                        <input type="radio" name="firmcat" id="firmSelect" value="registered">已注册
+                    </div>
+            </div>
+            </div>
+            <div class="form-group">
+                <div class="checker" id="uniform-reg_checked"><span><input  id="regChecked"  type="checkbox" name="regChecked" onclick="checkboxstatus()">
+                    <span style="font-size:12px;">阅读并同意</span><a href="${ctx}/about/items.html" style="color:#2ea967;font-size:12px;" target="_blank">《高孚薪资报酬发放系统开放平台用户使用协议》</a><span>,</span><a href="/sample_war_exploded/about/letter.html" style="color:#2ea967;font-size:12px;" target="_blank">《信息安全承诺责任书》</a>
+                            <span style="font-size:12px;">及相关服务条款</span>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+            <div class="form-actions">
+                <button id="regsub" name="regsub" class="btn green uppercase togomaincon" onclick="RegSubmit()">注册<span id="LoginLoading" style="display:none">中<dot>...</dot></span></button>
+            </div>
+            </div>
+        </form>
+        <!-- END LOGIN FORM -->
+        <!-- BEGIN FORGOT PASSWORD FORM -->
+        <!-- END FORGOT PASSWORD FORM -->
+    </div>
+    <script src="${ctx}/metronic/mobile/user/changestyle.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        document.getElementById("regsub").disabled="true";
+        $("#regsub").attr("disabled", true);
+        $(function () {
+            indexstyle();
+            eyectl();
+            //适配
+            var client_width = document.documentElement.clientWidth
+            if (client_width == 320) {
+                $('.content').addClass("width300")  
+                $('.logo').addClass("logo_s")
+            } else {
+                $(".content").removeClass("width300")
+                $('.logo').removeClass("logo_s")
+            }
+        })
+        function indexstyle() {
+            //console.log(domwhos1)
+            indexStyle({
+                bodyColor: "#EDF3F9",//body背景色
+                loginColor: "#1490FF", //登录头部背景色
+                logoSrc: "${ctx}/metronic/mobile/imgs/login-banner.png", //logo图片地址
+                formTitleColor: "#3E4A59", //表单标题字体颜色
+                loginBtnBg: "linear-gradient(to right, #1490FF 0%,#007AE8 100%)", //登录按钮背景色
+                loginBtnCl: "#fff", //按钮字体颜色
+                copyRightCl: "#242424", //QQ客服字体颜色
+                iconUserImg: "${ctx}/metronic/mobile/imgs/user-name.png", //用户图标
+                iconPWImg: "${ctx}/metronic/mobile/imgs/pwd.png", //密码图标
+            });
+        }
+        
+        function eyeswitch(tag){
+            var inputpwd = document.getElementById('password')
+            var inputrepwd = document.getElementById('repassword')
+            switch(tag){
+                case 1:
+                    var element = document.getElementById('passwordeye')
+                    if(tagstat) {
+                        inputpwd.type = "text"
+                        element.src = "${ctx}/metronic/mobile/imgs/eyeopen.png"
+                        tagstat = false
+                    }else{
+                        inputpwd.type = "password"
+                        element.src = "${ctx}/metronic/mobile/imgs/eyeclose.png"
+                        tagstat = true
+                    }
+                    break;
+                case 2:
+                    var element = document.getElementById('repasswordeye')
+                    if(tagstat) {
+                        inputrepwd.type = "text"
+                        element.src = "${ctx}/metronic/mobile/imgs/eyeopen.png"
+                        tagstat = false
+                    }else{
+                        inputrepwd.type = "password"
+                        element.src = "${ctx}/metronic/mobile/imgs/eyeclose.png"
+                        tagstat = true
+                    }
+                    break;
+            }
+        }
+        
+    </script>
+</body>
+
+</html>

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qucai.sample.service.*;
+import com.qucai.sample.util.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -122,6 +123,22 @@ public class JqueryValidateController {
         }
         return "true";
         
+    }
+
+    //查看Manager UserName重复
+    @RequestMapping(value = "checkUserName")
+    @ResponseBody
+    public String checkUserName(String userName, Integer platform, HttpServletRequest request,
+                                        HttpServletResponse response, Model model) throws UnsupportedEncodingException {
+        String id = Tool.uuid();
+        if(0 != platform && 1 != platform && 2 != platform) {
+            return "false";
+        }
+        boolean rs = managerService.existManagerUserName(id, userName);
+        if(rs){
+            return "false";
+        }
+        return "true";
     }
 
     //查身份证重复

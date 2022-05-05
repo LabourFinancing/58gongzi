@@ -1384,22 +1384,12 @@ function VerifySeal (Base64SealData) {
                 <label class="control-label visible-ie8 visible-ie9"><img id="l-img1" class="lable-img l-img1"
                                                                           src="${ctx}/metronic/mobile/imgs/user-name.png" alt=""></label> <input
                 class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off"
-                placeholder="输入你的用户名/手机号" id="userName" name="userName">
+                placeholder="注册成功" id="userName" name="userName">注册成功。。。 ${timecount}秒后自动跳转登陆页...
             </div>
-            <div class="form-group">
-                <label class="control-label visible-ie8 visible-ie9"><img id="l-img2" class="lable-img l-img2"
-                                                                          src="${ctx}/metronic/mobile/imgs/pwd.png" alt=""></label><input
-                class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off"
-                placeholder="输入您的密码" id="password" name="password">
-                <!--默认闭眼图-->
-            </div>
-            <div class="form-group"><input class="form-control form-control-solid placeholder-no-fix" type="hidden"
-                                           autocomplete="off" id="platform" name="platform">
-            </div>
-
             <div id="msg"></div>
             <div class="form-actions">
-                <button type="submit" class="btn green uppercase togomaincon">登录<span id="LoginLoading" style="display:none">中<dot>...</dot></span></button>
+                如果失败请点击这里-挑战
+                <input type="submit" class="btn green uppercase togomaincon">登录<span id="LoginLoading" style="display:none">中<dot>...</dot></span>
                 <a type="button" class="bgu" name="PWresend" id="PWresend" onclick="openReset()">找回密码</a>
             </div>
         </form>

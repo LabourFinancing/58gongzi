@@ -2,6 +2,10 @@ package com.qucai.sample;
 
 public class OperationTypeConstant {
 
+    /**
+     * 注册
+     */
+    public static final String REGIST = "regist";
 	/**
 	 * 新增
 	 */

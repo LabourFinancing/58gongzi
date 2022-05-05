@@ -104,7 +104,7 @@ function Download(histxnlist) {
         sel.execCommand("Copy");  
         xlsheet.Paste();  
         oXL.Visible = true; 
-        try {  
+        try {       
             var fname = oXL.Application.GetSaveAsFilename("hisTxn.xls", "Excel Spreadsheets (*.xls), *.xls");  
         } catch (e) {  
             print("Nested catch caught " + e);  
@@ -139,7 +139,7 @@ var tableToExcel = (function() {
         var blob = new Blob([format(template, ctx)], {type: "application/vnd.ms-excel"});
         window.location.href = URL.createObjectURL(blob);
     }  
-})()
+})
 
 // select all
 

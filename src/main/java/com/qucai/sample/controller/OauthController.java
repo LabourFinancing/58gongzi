@@ -32,6 +32,7 @@ import com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo.OrderPayDemo;
 import com.qucai.sample.sandpaybackstagefast.main.java.cn.com.sand.pay.sandpay.scm.demo.BindCardServlet;
 import com.qucai.sample.service.*;
 import com.qucai.sample.util.*;
+import com.qucai.sample.vo.StaffPrepayApplicationNew;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -72,7 +73,7 @@ public class OauthController {
 
     @RequestMapping("/login")
     @ResponseBody
-    public Object login(HttpServletRequest request, HttpServletResponse response,String facialret,String txnAmount,
+    public Object login(HttpServletRequest request, HttpServletResponse response,String facialret,String txnAmount,String firmRegMobile,
                         String personalMID,String walletTxn_PayerPID,String walletTxn_ReceiverID,String txnDetail,String TopupAmount,
                         String paymentChannel,String shoppingAmount, String topupAmount,String CashoutAmount,String realName,String retPaymentMsg,
                         String userName, String pid, String password, String page,String action,String cardAcc,String signPaymentMsg,String applierMobile,
@@ -1246,6 +1247,7 @@ public class OauthController {
             }
             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
         }
+        
 
         if (type.equals("resendPWD")) {
             token.setRememberMe(true);

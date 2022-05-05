@@ -242,6 +242,17 @@
 		order by a.create_time
 	</select>
 
+    <select id="findAllNameOnly" resultMap="BaseResultMap"
+            parameterType="java.util.Map">
+        select
+        t_O_OrgName
+        from t_organization_info a
+        where
+        t_O_OrgStatus = "on"
+        and a.t_O_OrgName != "ALL"
+        order by a.create_time
+    </select>
+
 <!-- 
 	<select id="findEntResourceGrantAllList" resultMap="ResourceGrantMap"
 		parameterType="java.lang.String">
@@ -359,7 +370,7 @@
 		select
 		count(1)
 		from t_organization_info a
-		where a.t_O_ID = #{t_O_ID}
+		where 1=1
 		<if test="t_O_ID != null">
 			and a.t_O_ID != #{t_O_ID}
 		</if>

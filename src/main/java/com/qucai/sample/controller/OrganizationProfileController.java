@@ -65,7 +65,7 @@ public class OrganizationProfileController {
         OrganizationProfile organizationProfileDetail = organizationProfileService.selectAgencyName(ShiroSessionUtil.getLoginSession().getCompany_name());
         model.addAttribute("organizationProfileDetail", organizationProfileDetail);
 
-        return "organizationProfile/usetInformation";
+        return "organizationProfile/userInformation";
     }
 
     @RequestMapping(value = {"Editinfo"})

@@ -63,13 +63,13 @@ public class OrganizationProfile implements Serializable {
     private String t_Profile_text1;
     /**
      */
-    private String t_Profile_text2;
+    private String t_Profile_APIAcc;
     /**
      */
-    private String t_Profile_text3;
+    private String t_Profile_APIPWD;
     /**
      */
-    private String t_Profile_text4;
+    private String t_Profile_APIret;
    /**
     */
    private String platform;
@@ -202,28 +202,28 @@ public class OrganizationProfile implements Serializable {
         this.t_Profile_text1 = t_Profile_text1;
     }
 
-    public String getT_Profile_text2() {
-        return t_Profile_text2;
+    public String getT_Profile_APIAcc() {
+        return t_Profile_APIAcc;
     }
 
-    public void setT_Profile_text2(String t_Profile_text2) {
-        this.t_Profile_text2 = t_Profile_text2;
+    public void setT_Profile_APIAcc(String t_Profile_APIAcc) {
+        this.t_Profile_APIAcc = t_Profile_APIAcc;
     }
 
-    public String getT_Profile_text3() {
-        return t_Profile_text3;
+    public String getT_Profile_APIPWD() {
+        return t_Profile_APIPWD;
     }
 
-    public void setT_Profile_text3(String t_Profile_text3) {
-        this.t_Profile_text3 = t_Profile_text3;
+    public void setT_Profile_APIPWD(String t_Profile_APIPWD) {
+        this.t_Profile_APIPWD = t_Profile_APIPWD;
     }
 
-    public String getT_Profile_text4() {
-        return t_Profile_text4;
+    public String getT_Profile_APIret() {
+        return t_Profile_APIret;
     }
 
-    public void setT_Profile_text4(String t_Profile_text4) {
-        this.t_Profile_text4 = t_Profile_text4;
+    public void setT_Profile_APIret(String t_Profile_APIret) {
+        this.t_Profile_APIret = t_Profile_APIret;
     }
 
     public String getPlatform() {

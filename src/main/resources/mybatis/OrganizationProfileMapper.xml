@@ -17,9 +17,9 @@
 		<result column="t_Profile_StatusRptRetAddress" property="t_Profile_StatusRptRetAddress" jdbcType="VARCHAR" />
         <result column="t_Profile_CurrentAddress" property="t_Profile_CurrentAddress" jdbcType="VARCHAR" />
         <result column="t_Profile_text1" property="t_Profile_text1" jdbcType="VARCHAR" />
-        <result column="t_Profile_text2" property="t_Profile_text2" jdbcType="VARCHAR" />
-        <result column="t_Profile_text3" property="t_Profile_text3" jdbcType="VARCHAR" />
-        <result column="t_Profile_text4" property="t_Profile_text4" jdbcType="VARCHAR" />
+        <result column="t_Profile_APIAcc" property="t_Profile_APIAcc" jdbcType="VARCHAR" />
+        <result column="t_Profile_APIPWD" property="t_Profile_APIPWD" jdbcType="VARCHAR" />
+        <result column="t_Profile_APIret" property="t_Profile_APIret" jdbcType="VARCHAR" />
 		<result column="platform" property="platform" jdbcType="VARCHAR" />
 		<result column="remark" property="remark" jdbcType="VARCHAR" />
 		<result column="creator" property="creator" jdbcType="VARCHAR" />
@@ -43,9 +43,9 @@
 		a.t_Profile_StatusRptRetAddress,
 		a.t_Profile_CurrentAddress,
 		a.t_Profile_text1,
-		a.t_Profile_text2,
-		a.t_Profile_text3,
-		a.t_Profile_text4,
+		a.t_Profile_APIAcc,
+		a.t_Profile_APIPWD,
+		a.t_Profile_APIret,
 		a.platform,
 		a.remark,
 		a.creator,
@@ -148,14 +148,14 @@
             <if test="t_Profile_text1 != null">
                 t_Profile_text1,
             </if>
-            <if test="t_Profile_text2 != null">
-                t_Profile_text2,
+            <if test="t_Profile_APIAcc != null">
+                t_Profile_APIAcc,
             </if>
-            <if test="t_Profile_text3 != null">
-                t_Profile_text3,
+            <if test="t_Profile_APIPWD != null">
+                t_Profile_APIPWD,
             </if>
-            <if test="t_Profile_text4 != null">
-                t_Profile_text4,
+            <if test="t_Profile_APIret != null">
+                t_Profile_APIret,
             </if>
 			<if test="platform != null">
 				platform,
@@ -219,14 +219,14 @@
             <if test="t_Profile_text1 != null">
                 #{t_Profile_text1,jdbcType=VARCHAR},
             </if>
-            <if test="t_Profile_text2 != null">
-                #{t_Profile_text2,jdbcType=VARCHAR},
+            <if test="t_Profile_APIAcc != null">
+                #{t_Profile_APIAcc,jdbcType=VARCHAR},
             </if>
-            <if test="t_Profile_text3 != null">
-                #{t_Profile_text3,jdbcType=VARCHAR},
+            <if test="t_Profile_APIPWD != null">
+                #{t_Profile_APIPWD,jdbcType=VARCHAR},
             </if>
-            <if test="t_Profile_text4 != null">
-                #{t_Profile_text4,jdbcType=VARCHAR},
+            <if test="t_Profile_APIret != null">
+                #{t_Profile_APIret,jdbcType=VARCHAR},
             </if>
 			<if test="platform != null">
 				#{modifier,jdbcType=VARCHAR},
@@ -336,14 +336,14 @@
             <if test="t_Profile_text1 != null">
                 t_Profile_text1 = #{t_Profile_text1,jdbcType=VARCHAR},
             </if>
-            <if test="t_Profile_text2 != null">
-                t_Profile_text2 = #{t_Profile_text2,jdbcType=VARCHAR},
+            <if test="t_Profile_APIAcc != null">
+                t_Profile_APIAcc = #{t_Profile_APIAcc,jdbcType=VARCHAR},
             </if>
-            <if test="t_Profile_text3 != null">
-                t_Profile_text3 = #{t_Profile_text3,jdbcType=VARCHAR},
+            <if test="t_Profile_APIPWD != null">
+                t_Profile_APIPWD = #{t_Profile_APIPWD,jdbcType=VARCHAR},
             </if>
-            <if test="t_Profile_text4 != null">
-                t_Profile_text4 = #{t_Profile_text4,jdbcType=VARCHAR},
+            <if test="t_Profile_APIret != null">
+                t_Profile_APIret = #{t_Profile_APIret,jdbcType=VARCHAR},
             </if>
 			<if test="platform != null">
 				platform = #{platform,jdbcType=VARCHAR},
@@ -403,6 +403,7 @@
 		where a.t_Profile_ID = #{t_Profile_ID}
     <if test="t_Profile_OrgName != null">
 		and a.t_Profile_OrgName = #{t_Profile_OrgName}
+		and a.t_Profile_OrgName != "ALL"
     </if>
 	</select>
 	

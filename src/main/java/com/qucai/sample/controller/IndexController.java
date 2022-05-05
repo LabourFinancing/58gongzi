@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.qucai.sample.entity.StaffPrepayApplicationPayment;
 import com.qucai.sample.smss.src.example.json.HttpJsonExample;
 import com.qucai.sample.util.ShiroSessionUtil;
+import com.qucai.sample.util.Tool;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
@@ -97,7 +98,7 @@ public class IndexController {
                     }
                     if (userName == null) {
                         return "login";
-                    } else if (userName.contains("Admin") || userName.contains("ADMIN") || userName.contains("admin")) {
+                    } else if (!Tool.isChinaPhoneLegal(userName)) {
                         return "mainFrame";
                     } else { //Turn to login page when userid not existing
                         String type = "login";
@@ -129,12 +130,12 @@ public class IndexController {
             Manager manager = managerService.selectByPrimaryKey(id);
             String userName = manager.getUserName();
 
-            if (userName == null || host == null || userName == null) {
+            if (userName == null || host == null) {
                 return "login";
-            } else if (userName.toLowerCase().contains("admin")) {
-                return "redirect:/OrganizationDashboardController/ewalletdashboard";
-            } else if (host.equals("P")) {
+            } else if (!Tool.isChinaPhoneLegal(userName)) {
                 return "redirect:/OrganizationDashboardController/dashboard";
+            } else if (host.equals("M")) {
+                return "redirect:/OrganizationDashboardController/ewalletdashboard";
             } else {
                 return "redirect:/StaffPrepayApplicationController/staffPrepayApplicationNew";
             }

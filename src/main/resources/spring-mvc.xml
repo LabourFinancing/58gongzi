@@ -80,7 +80,7 @@
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
 		<!-- 开发阶段不建议开启 -->
-		<property name="cache" value="false" />
+		<property name="cache" value="true" />
 		<property name="suffix" value=".html" />
 		<property name="viewClass"
 			value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
@@ -98,6 +98,10 @@
 
 	<!-- 定义无需Controller的url与view直接映射，view-name不能以'/'开头，否则会被认为是等价于redirect:/someController/method -->
 	<mvc:view-controller path="/login" view-name="login" />
+    <mvc:view-controller path="/mainpage" view-name="mainpage" />
+    <mvc:view-controller path="/register" view-name="register" />
+    <mvc:view-controller path="/about/items" view-name="/about/items" />
+    <mvc:view-controller path="/about/letter" view-name="/about/letter" />
 	<mvc:view-controller path="/browserNotMatch" view-name="browserNotMatch" />
 	<mvc:view-controller path="/" view-name="mainFrame" />
 	<mvc:view-controller path="/mainFrame" view-name="mainFrame" />
@@ -107,11 +111,12 @@
 
 	<!-- 定义无需Spring MVC处理的文件 -->
 	<mvc:resources location="/a/" mapping="/a/**" />
+    <mvc:resources location="/about/" mapping="/about/**" />
 	<mvc:resources location="/images/" mapping="/images/**" />
 	<mvc:resources location="/metronic/" mapping="/metronic/**" />
 	<mvc:resources location="/plugins/" mapping="/plugins/**" />
 	<mvc:resources location="/static/" mapping="/static/**" />
-	<mvc:resources location="/file/" mapping="/static/**" />
+	<mvc:resources location="/files/" mapping="/static/**" />
 
 	<!-- 对Controller抛出的异常进行处理 -->
 	<bean

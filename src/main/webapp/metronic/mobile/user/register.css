@@ -22,6 +22,61 @@
     margin-left: -166px;
 }
 
+.container{
+    position: relative;
+    width: 100%;
+    background-color: transparent;
+}
+.container input{
+    width: 100%;
+}
+.container button{
+    position: absolute;
+    top: 18px;
+    right: 0px;
+    background-color: transparent;
+    font-size: 13px;
+    border: none;   // 去掉边框
+    outline: none;  // 去掉点击按钮后的边框
+}
+
+.container img{
+    position: absolute;
+    top: 18px;
+    right: 10px;
+    height: 18px;
+    width: 18px;
+    background-repeat: no-repeat;
+    background-color: transparent;
+}
+.container btneyeopen{
+    position: absolute;
+    top: 18px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    background-img: url("${ctx}/metronic/mobile/imgs/eyeclose.png");
+    background-repeat: no-repeat;
+    border: none;
+/ / 去掉边框 outline: none;
+/ / 去掉点击按钮后的边框
+}
+
+
+
+.container btneyeclose { 
+    position: absolute;
+    top: 18px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    background-img: url("${ctx}/metronic/mobile/imgs/eyeclose.png");
+    background-repeat: no-repeat;
+    border: none;
+/ / 去掉边框 outline: none;
+/ / 去掉点击按钮后的边框
+}
+
 .login .content {
     background-color: #fff;
     -webkit-border-radius: 7px;
@@ -34,7 +89,7 @@
     padding: 10px 30px 30px;
     position: absolute;
     border-radius: 4px!important;
-    height: 255px;
+    height: 300%;
     top: 72%;
     left: 50%;
     margin-left: -200px;
@@ -65,32 +120,65 @@
 .login .content .form-control {
     background-color: #fff;
     height: 43px;
-    color: #3E4A59;
+    color: #3e4a59;
     border: none!important;
     border-bottom: 1px solid #D3DFEF!important;
-    padding: 6px 12px 6px 34px;
+    padding: 6px 12px 0px 34px;
     font-size: 12px;
 }
 .login .content .lable-img{
     height: 18px;
     width: 11px;
-    margin-top: 5px;
+    margin-top: -15px;
     margin-left: 8px;
+    left: 50%
 }
-
 .login .content .l-img1{
 
 }
 .login .content .l-img2{
-    height: 20px;
-    width: 14px;
+    height: 18px;
+    width: 11px;
+}
+.login .content .l-img3{
+    height: 28px;
+    width: 18px;
+    margin-top: -18px;
+    margin-left: 6px;
+    left: 50%
 }
 
-    #eyes {
-      width: 18px;
-      margin-top: -5px;
-      margin-left: 215px;
-    }
+.login .content .l-img4{
+    height: 18px;
+    width: 18px;
+    margin-top: -18px;
+    margin-left: 5px;
+}
+
+.login .content .l-img5{
+    height: 18px;
+    width: 18px;
+    margin-top: -2px;
+    margin-left: 5px;
+}
+
+
+.eyeclose{
+    height: 25px;
+    width: 25px;
+    background-image: url('/imgs/eyeclose.png');
+    background-repeat: no-repeat;
+    background-color: transparent;
+}
+
+.eyeopen{
+    height: 25px;
+    width: 25px;
+    background-image: url('/imgs/eyeopen.png');
+    background-repeat: no-repeat;
+    background-color: transparent;
+}
+
 .login .content .form-control:active,.login .content .form-control:focus {
     border: 1px solid #c3ccda
 }
@@ -110,7 +198,8 @@
 
 .login .content select.form-control {
     padding-left: 9px;
-    padding-right: 9px
+    padding-right: 9px;
+    text-align: center;
 }
 
 .login .content .forget-form,.login .content .register-form {
@@ -119,7 +208,7 @@
 
 .login .content .form-title {
     font-weight: 300;
-    margin-bottom: 25px
+    margin-bottom: 25px;
 }
 
 .login .content .form-actions {
