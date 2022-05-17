@@ -584,7 +584,7 @@
 		where t_P_id = #{t_P_id,jdbcType=VARCHAR}
 	</update>
 
-   <select id="existPersonalInfoName" resultType="Integer"
+   <select id="existPersonalInfoName" resultType="java.lang.Integer"
 		parameterType="map">
 		select
 		count(1)
@@ -595,7 +595,7 @@
 		</if>
 	</select>
 	
-   <select id="checkPersonalInfoMobil" resultType="Integer"
+   <select id="checkPersonalInfoMobil" resultType="java.lang.Integer"
 		parameterType="map">
 		select
 		count(1)

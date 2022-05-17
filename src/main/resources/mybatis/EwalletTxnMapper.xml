@@ -9,6 +9,7 @@
 		<result column="t_WalletTxn_Vendor" property="t_WalletTxn_Vendor" jdbcType="VARCHAR" />
 		<result column="t_WalletTxn_ClearNum" property="t_WalletTxn_ClearNum" jdbcType="VARCHAR" />
 		<result column="t_WalletTxn_ClearOrg" property="t_WalletTxn_ClearOrg" jdbcType="VARCHAR" />
+        <result column="t_WalletTxn_ApplierPID" property="t_WalletTxn_ApplierPID" jdbcType="VARCHAR" />
 		<result column="t_WalletTxn_PayerName" property="t_WalletTxn_PayerName" jdbcType="VARCHAR" />
 		<result column="t_WalletTxn_PayerID" property="t_WalletTxn_PayerID" jdbcType="VARCHAR" />
 		<result column="t_WalletTxn_PayerPID" property="t_WalletTxn_PayerPID" jdbcType="VARCHAR" />
@@ -76,6 +77,7 @@
         a.t_WalletTxn_Vendor,
         a.t_WalletTxn_ClearNum,
         a.t_WalletTxn_ClearOrg,
+        a.t_WalletTxn_ApplierPID,
         a.t_WalletTxn_PayerName,
         a.t_WalletTxn_PayerID,
         a.t_WalletTxn_PayerPID,
@@ -160,9 +162,12 @@
 		select
 		<include refid="Base_Column_List" />
 		from t_ewallettxn_info a
-		where 
-		<if test="t_WalletTxn_PayerName != null">
-		a.t_P_Name like CONCAT('%',#{t_P_Name},'%')
+		where 1=1
+        <if test="t_WalletTxn_ApplierPID != null">
+            and a.t_WalletTxn_ApplierPID like CONCAT('%',#{t_P_ApplierPID},'%')
+        </if>
+        <if test="t_WalletTxn_PayerName != null">
+		and a.t_P_Name like CONCAT('%',#{t_P_Name},'%')
 		</if>	
 		<if test="t_WalletTxn_PayerPID != null" >
 		and a.t_WalletTxn_PayerPID like CONCAT('%',#{t_WalletTxn_PayerPID},'%')
@@ -208,6 +213,9 @@
 			<if test="t_WalletTxn_ClearOrg != null">
                 t_WalletTxn_ClearOrg,
 			</if>
+            <if test="t_WalletTxn_ApplierPID != null">
+                t_WalletTxn_ApplierPID,
+            </if>
 			<if test="t_WalletTxn_PayerName != null">
                 t_WalletTxn_PayerName,
 			</if>
@@ -405,6 +413,9 @@
 			<if test="t_WalletTxn_ClearOrg != null">
 				#{t_WalletTxn_ClearOrg,jdbcType=VARCHAR},
 			</if>
+            <if test="t_WalletTxn_ApplierPID != null">
+                #{t_WalletTxn_ApplierPID,jdbcType=VARCHAR},
+            </if>
 			<if test="t_WalletTxn_PayerName != null">
 				#{t_WalletTxn_PayerName,jdbcType=VARCHAR},
 			</if>
@@ -641,6 +652,9 @@
 			<if test="t_WalletTxn_ClearOrg != null">
                 t_WalletTxn_ClearOrg = #{t_WalletTxn_ClearOrg,jdbcType=VARCHAR},
 			</if>
+            <if test="t_WalletTxn_ApplierPID != null">
+                t_WalletTxn_ApplierPID = #{t_WalletTxn_ApplierPID,jdbcType=VARCHAR},
+            </if>
 			<if test="t_WalletTxn_PayerName != null">
                 t_WalletTxn_PayerName = #{t_WalletTxn_PayerName,jdbcType=VARCHAR},
 			</if>
@@ -822,7 +836,7 @@
 		where t_P_id = #{t_P_id,jdbcType=VARCHAR}
 	</update>
 
-   <select id="existPersonalInfoName" resultType="Integer"
+   <select id="existPersonalInfoName" resultType="java.lang.Integer"
 		parameterType="map">
 		select
 		count(1)

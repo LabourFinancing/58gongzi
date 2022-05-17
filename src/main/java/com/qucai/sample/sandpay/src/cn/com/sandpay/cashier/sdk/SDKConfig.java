@@ -135,7 +135,7 @@ public class SDKConfig {
         InputStream in = null;
         try {
             logger.info("从classpath: " +SDKConfig.class.getClassLoader().getResource("").getPath()+" 获取属性文件"+merchantId+"-"+FILE_NAME);
-            in = SDKConfig.class.getClassLoader().getResourceAsStream(merchantId+"-"+FILE_NAME);
+            in = SDKConfig.class.getClassLoader().getResourceAsStream(merchantId+"-"+FILE_NAME); // property 文件名为 账户名-filename
             if (null != in) {
                 properties = new Properties();
                 try {

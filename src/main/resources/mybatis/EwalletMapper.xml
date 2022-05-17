@@ -923,7 +923,7 @@
 		where t_personalewallet_ID = #{t_personalewallet_ID,jdbcType=VARCHAR}
 	</update>
 
-   <select id="existEwalletName" resultType="Integer"
+   <select id="existEwalletName" resultType="java.lang.Integer"
 		parameterType="map">
 		select
 		count(1)

@@ -1327,7 +1327,7 @@ public class OauthController {
     public void logout(HttpServletRequest request, HttpServletResponse response) {
         // 先重定向
         try {
-            response.sendRedirect(request.getContextPath() + "/login.html");
+            response.sendRedirect(request.getContextPath() + "/login.html");  // login before
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

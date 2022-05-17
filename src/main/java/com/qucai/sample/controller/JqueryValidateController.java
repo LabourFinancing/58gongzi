@@ -112,9 +112,9 @@ public class JqueryValidateController {
     }
     @RequestMapping(value = "checkOrganizationInfoName")
     @ResponseBody
-    public String checkOrganizationInfotName(String t_O_ID, String t_O_OrgName, Integer platform, HttpServletRequest request,
+    public String checkOrganizationInfotName(String t_O_ID, String t_O_OrgName, String platform, HttpServletRequest request,
             HttpServletResponse response, Model model) throws UnsupportedEncodingException {
-		if(0 != platform && 1 != platform && 2 != platform) {
+		if("0" != platform && "1" != platform && "2" != platform) {
     		return "false";
     	}
 		boolean rs = organizationInfoService.existOrganizationInfoName(t_O_ID, t_O_OrgName, platform);

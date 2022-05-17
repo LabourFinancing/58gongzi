@@ -101,6 +101,7 @@ public class StaffPrepayApplicationController {
     		String t_P_EmploymentCategory,BigDecimal t_P_SocialSecurityBaseAmount,HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
     	
 		//Verify Company Creditline
+        // <-- get personal info in company --> 
     	TreasuryDBInfo entityOverall = null;
     	entityOverall = new TreasuryDBInfo();
 		String t_TreasuryDB_OrgName =  ShiroSessionUtil.getLoginSession().getCompany_name();
@@ -112,9 +113,9 @@ public class StaffPrepayApplicationController {
     	String merchantId = null;String PaymentSwitch = null;
     	BigDecimal InitialBalance = null;
 		Map<String, Object> rs = new HashMap<String, Object>();
+// <-- get personal info from manager -->
 
-//checking Payment Account Balance
-        
+// <-- Start checking Payment Account Balance -->
     	if(PaymentTunnel.equalsIgnoreCase("电银支付")) {
     		if (!AgencyOrgnization.getT_O_OrgChinaebiAcc().equals(null)){
     			merchantId = AgencyOrgnization.getT_O_OrgChinaebiAcc();
@@ -133,10 +134,10 @@ public class StaffPrepayApplicationController {
     		if (!AgencyOrgnization.getT_O_OrgChinaebiAcc().equals(null)){
         	    merchantId = AgencyOrgnization.getT_O_OrgSandeAcc();
         	    PaymentSwitch = "shsd";
-//        	    JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId);
-//  		    	String BalanceData = (String) JSONretdata.get("balance");
-//  		    	BigDecimal Sandebalance = (new BigDecimal(BalanceData)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
-                BigDecimal Sandebalance = new BigDecimal("131.18").setScale(2,BigDecimal.ROUND_DOWN);
+        	    JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId);
+              String BalanceData = (String) JSONretdata.get("balance");
+              BigDecimal Sandebalance = (new BigDecimal(BalanceData)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
+//                BigDecimal Sandebalance = new BigDecimal("131.18").setScale(2, BigDecimal.ROUND_DOWN);  // debug using
 				InitialBalance = Sandebalance;
   				System.out.println("Query Sande balance:");
   				System.out.println(Sandebalance);
@@ -175,8 +176,10 @@ public class StaffPrepayApplicationController {
     			return JsonBizTool.genJson(ExRetEnum.PAY_ACC_FAIL,rs);
     		}
     	}
-    	
-//        InitialBalance = new BigDecimal("6100.00"); // debug using
+// <-- End get balance amount  -->
+        
+// <-- Start Compare Company pymt acc balance to Withdraw amount -->  	
+//        InitialBalance = new BigDecimal("6100.00"); // debug using   
         if(InitialBalance.intValue() <= treasuryDBInfoGetStatistic.getT_TreasuryDB_Balance().intValue()){
             String RetCode = HttpJsonExample.TreasuryOutBal(InitialBalance.intValue(), treasuryDBInfoGetStatistic.getT_TreasuryDB_Balance().intValue(), treasuryDBInfoGetStatistic.getT_TreasuryDB_OrgName());
             StringBuffer OutOfBalance = new StringBuffer();
@@ -194,7 +197,7 @@ public class StaffPrepayApplicationController {
             .append(" - TreasuryProofFund:").append(treasuryDBInfoGetStatistic.getT_TreasuryDB_Prooffund().intValue()).append(" - OrgStatus:").append(AgencyOrgnization.getT_O_OrgStatus())));
    		   return  "staffPrepayApplication/OverCreditLine";
     	}
- //checking Payment Account Balance end	
+ // <-- End checking Payment Account Balance 	
     	
     	Map<String,Object> paramMap = new HashMap<String, Object>();
     	model.addAttribute("t_FProd_Name", t_FProd_Name);																																																																																																																																																																																																				
@@ -225,6 +228,8 @@ public class StaffPrepayApplicationController {
         paramMap.put("t_P_Probation", staffPrepayApplicationNew.getT_P_Probation());//添加元素
         List<StaffPrepayApplicationNew> StaffPrepayApplicationFPROD = staffPrepayApplicationService.findAuthFinanceProd(paramMap);
         
+        
+        //* get personal prod info
         for(int i=0;i<StaffPrepayApplicationFPROD.size();i++){
            	if(StaffPrepayApplicationFPROD.get(i).getT_FProd_category().equalsIgnoreCase(t_P_EmploymentCategory)){  
             	continue;
@@ -232,20 +237,20 @@ public class StaffPrepayApplicationController {
             	 i--;
         	  }
            }   
-//* get finance product info
+        
+        //* get finance product info
         staffPrepayApplicationNew.getT_FProd_Interest();
         t_FProd_ServiceFee = staffPrepayApplicationNew.getT_FProd_ServiceFee();
         t_FProd_Poundage = staffPrepayApplicationNew.getT_FProd_Poundage();
         t_FProd_TierPoundage = staffPrepayApplicationNew.getT_FProd_TierPoundage();
         
-//* get User current credit info
-        
+        //* get User current credit info
         Calendar calendar = Calendar.getInstance();
 		calendar.setTime(new Date()); // 放入你的日期
 		int date = calendar.get(Calendar.DATE);
 		int MaxDate = calendar.getMaximum(Calendar.DATE);
 		
-		
+// <-- Start calculate txn credit balance changes and charge fees -->
 		if (staffPrepayApplicationCredit == null) {
 			staffPrepayApplicationCredit = new StaffPrepayApplicationList();	
 			}else{
@@ -325,7 +330,8 @@ public class StaffPrepayApplicationController {
       	    t_Txn_CreditPrepayCurrentNum = new BigDecimal("0.00");
 			staffPrepayApplicationCredit.setT_Txn_CreditPrepayCurrentNum(new BigDecimal("0.00"));	
         }
-		
+// <-- End calculate txn credit balance changes and charge fees -->
+        //  End calculation txn credit balance and return result
 		if (treasuryDBInfoGetStatistic.getT_TreasuryDB_Balance().intValue() <= t_Txn_CreditPrepayBalanceNum.intValue() ||
 		    treasuryDBInfoGetStatistic.getT_TreasuryDB_Balance().intValue() < t_Txn_CreditPrepayCurrentNum.intValue() ||
 		    InitialBalance.intValue() <= t_Txn_CreditPrepayBalanceNum.intValue())  // check balance
@@ -366,6 +372,7 @@ public class StaffPrepayApplicationController {
 			BigDecimal tTxnInterest, HttpServletResponse response,String paymentStatus,
 			HttpServletRequest request, Model model) throws Exception {
 		
+	    // get input txn details including calculated figures
 		model.addAttribute("t_Txn_ApplyPrepayAmount", t_Txn_ApplyPrepayAmount);
 		model.addAttribute("t_Txn_CreditPrepayCurrentNum",
 				t_Txn_CreditPrepayCurrentNum);
@@ -388,6 +395,7 @@ public class StaffPrepayApplicationController {
 		
 		
 		//common function
+        // <--  Start get real-time prod info and personal status info to calc -->
 		Map<String, Object> rs = new HashMap<String, Object>();
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
         
@@ -405,7 +413,6 @@ public class StaffPrepayApplicationController {
 	          }
 			}
 		}
-
 		
 		long PrepayNowDate  = new Date().getTime();
 		if (ShiroSessionUtil.getLoginSession().getModifyTime() != null) {
@@ -456,7 +463,8 @@ public class StaffPrepayApplicationController {
 		}else{
 			t_Txn_TotalPrepayNum = t_Txn_ApplyPrepayAmount.setScale(2,BigDecimal.ROUND_UP);
 		}
-		
+// <-- end calculate real time txn info -->
+// <-- Start to temp save calc data into object and trigger payment -->
 		staffPrepayApplication.setCreator(ShiroSessionUtil.getLoginSession().getId());
 		staffPrepayApplication.setCreate_time(new Date());
 		staffPrepayApplication.setT_Txn_PrepayApplierName(staffPrepayApplicationPNow.getT_P_Name());
@@ -538,7 +546,7 @@ public class StaffPrepayApplicationController {
 			        	String remark = null;
 		        		String merchantId = null;
 		        		String PaymentSwitch = null;
-// get payment vendor	
+                        // get payment vendor acc info	
 			        	if(PaymentTunnel.equalsIgnoreCase("电银支付")) {
 			        		if (!AgencyOrgnization.getT_O_OrgChinaebiAcc().equals(null)){
 			        			merchantId = AgencyOrgnization.getT_O_OrgChinaebiAcc();
@@ -571,7 +579,7 @@ public class StaffPrepayApplicationController {
 			        			return JsonBizTool.genJson(ExRetEnum.PAY_ACC_FAIL,rs);
 			        		}
 			        	}
-			        	
+			        	// payment start
 						if (PaymentSwitch.equals("shsd")){
 							staffPrepayApplication.setPlatform(merchantId);
 							staffPrepayApplicationPay.setVersion("sandpay");
@@ -714,7 +722,7 @@ public class StaffPrepayApplicationController {
 									   treasuryDBInfoUpdateOverall.setT_TreasuryDB_Balance(tTreasuryDBBalanceOverall);
 									   RS = treasuryDBInfoService.updateByPrimaryKeySelective(treasuryDBInfoUpdateOverall);
 							         }
-			// wallet function ******************************
+// <-- ewallet function Start -->
 //							  if (RS != 0){
 //							      //call ewallet balance update
 //                                  //call topup 提款到钱包余额
@@ -749,6 +757,7 @@ public class StaffPrepayApplicationController {
 //								  return JsonBizTool.genJson(ExRetEnum.PREPAY_APPFAIL);
 //							  }
 							  // wallet function complete *****************************
+                                
 							rs.put("ret","0");
 							return JsonBizTool.genJson(ExRetEnum.PAY_SUCCESS,rs);
 							}
@@ -771,6 +780,7 @@ public class StaffPrepayApplicationController {
 					   }	
 				     }
 				}
+// <-- End payment -->
 				return  "staffPrepayApplication/staffPrepayApplicationNew";
 			}
 

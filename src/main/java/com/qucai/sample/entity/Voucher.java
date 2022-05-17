@@ -36,7 +36,7 @@ public class Voucher implements Serializable {
 
    private String t_Voucher_Name;
    
-   private String t_Voucher_ProdID;
+   private String t_Voucher_ProdCat;
 
    private String t_Voucher_VendorName;
 
@@ -142,11 +142,11 @@ public class Voucher implements Serializable {
     }
 
     public String getT_Voucher_ProdID() {
-        return t_Voucher_ProdID;
+        return t_Voucher_ProdCat;
     }
 
-    public void setT_Voucher_ProdID(String t_Voucher_ProdID) {
-        this.t_Voucher_ProdID = t_Voucher_ProdID;
+    public void setT_Voucher_ProdID(String t_Voucher_ProdCat) {
+        this.t_Voucher_ProdCat = t_Voucher_ProdCat;
     }
 
     public String getT_Voucher_VendorName() {

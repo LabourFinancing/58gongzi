@@ -365,7 +365,7 @@
 	</select>
  -->	
  		
-   <select id="existTreasuryInfoName" resultType="Integer"
+   <select id="existTreasuryInfoName" resultType="java.lang.Integer"
 		parameterType="map">
 		select
 		count(1)

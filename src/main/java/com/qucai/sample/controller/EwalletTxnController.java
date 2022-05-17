@@ -504,6 +504,7 @@ public class EwalletTxnController {
             ptmt.setString(4, mobileEwalletDashboard.getT_mobilePersonalewallet_PaymentVersion()); // t_WalletTxn_Vendor  支付公司名称
             ptmt.setString(5, paymentID); // t_WalletTxn_ClearNum 支付流水号
             ptmt.setString(6, mobileEwalletDashboard.getT_mobilePersonalEwallet_ApplierPID()); // t_WalletTxn_ClearOrg 交易企业对账号
+            ptmt.setString(6, mobileEwalletDashboard.getT_mobilePersonalEwallet_ApplierPID()); // t_WalletTxn_ClearOrg 交易发起人身份ID
             ptmt.setString(7, mobileEwalletDashboard.getT_mobilePersonalEwallet_PayerName()); // t_WalletTxn_PayerName 付款人姓名
             ptmt.setString(8, mobileEwalletDashboard.getT_mobilePersonalEwallet_PayerEwalletID()); // t_WalletTxn_PayerID 付款人主ID
             ptmt.setString(9, walletTxn_PayerPID); // t_WalletTxn_PayerPID 付款人身份证

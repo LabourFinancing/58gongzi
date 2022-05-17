@@ -521,7 +521,7 @@
         </if>
 	</update>
 
-   <select id="existPersonalMainName" resultType="Integer"
+   <select id="existPersonalMainName" resultType="java.lang.Integer"
 		parameterType="map">
 		select
 		count(1)
@@ -532,7 +532,7 @@
 		</if>
 	</select>
 	
-   <select id="checkPersonalMainMobil" resultType="Integer"
+   <select id="checkPersonalMainMobil" resultType="java.lang.Integer"
 		parameterType="map">
 		select
 		count(1)

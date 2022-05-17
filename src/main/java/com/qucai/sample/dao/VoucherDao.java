@@ -43,9 +43,9 @@ public interface VoucherDao {
     
 //    List<FinanceProduct> findAuthFinanceProductListByManagerId(String managerId);
     
-    int existVoucherName(@Param("t_Voucher_ID") String t_P_id, @Param("t_Voucher_ProdID") String t_P_PID);
+    int existVoucherName(@Param("t_Voucher_ID") String t_P_id, @Param("t_Voucher_ProdCat") String t_P_PID);
     
-    int checkVoucherMobil(@Param("t_Voucher_ID") String t_P_id, @Param("t_Voucher_ProdID") String t_Voucher_ProdID);
+    int checkVoucherMobil(@Param("t_Voucher_ID") String t_P_id, @Param("t_Voucher_ProdCat") String t_Voucher_ProdCat);
 
 
 

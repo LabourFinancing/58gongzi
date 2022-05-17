@@ -11,6 +11,7 @@ import com.qucai.sample.entity.OrganizationInfo;
 public interface OrganizationInfoService {
     
     int deleteByPrimaryKey(String t_O_ID);
+    int deleteByOrgName(String orgName);
 
     int insertSelective(OrganizationInfo record); 
     
@@ -48,9 +49,7 @@ public interface OrganizationInfoService {
     
 //    List<FinanceProduct> findAuthResourceListByManagerId(String managerId);
     
-    boolean existOrganizationInfoName(String t_O_ID, String t_O_OrgName, Integer platform);
+    boolean existOrganizationInfoName(String t_O_ID, String t_O_OrgName, String platform);
 
 	List<OrganizationInfo> findOrgNameAgency(Map<String, Object> paramSearchMap);
-
-    
 }

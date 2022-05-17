@@ -259,7 +259,7 @@
 		order by a.type, IFNULL(a.parent_id, ''), a.idx
 	</select>
 	
-	<select id="existResourceName" resultType="Integer"
+	<select id="existResourceName" resultType="java.lang.Integer"
 		parameterType="map">
 		select
 		count(1)

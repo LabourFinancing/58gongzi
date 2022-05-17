@@ -76,7 +76,7 @@ public class IndexController {
             try {
                 String Token = HttpJsonPersonalTest.main(); //Call FuJian wechat API
                 if (Token.equals("1")){
-                    return "login";
+                    return "mainpage"; //login before
                 }else{
                     String TokenKey = Token;
                     //generate new url to get user info
@@ -97,7 +97,7 @@ public class IndexController {
                         password = manager.getPassword();
                     }
                     if (userName == null) {
-                        return "login";
+                        return "mainpage"; // login before
                     } else if (!Tool.isChinaPhoneLegal(userName)) {
                         return "mainFrame";
                     } else { //Turn to login page when userid not existing
@@ -131,7 +131,7 @@ public class IndexController {
             String userName = manager.getUserName();
 
             if (userName == null || host == null) {
-                return "login";
+                return "mainpagee"; // login before
             } else if (!Tool.isChinaPhoneLegal(userName)) {
                 return "redirect:/OrganizationDashboardController/dashboard";
             } else if (host.equals("M")) {
@@ -140,6 +140,6 @@ public class IndexController {
                 return "redirect:/StaffPrepayApplicationController/staffPrepayApplicationNew";
             }
         }
-        return "login";
+        return "login";  
     }
 }

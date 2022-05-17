@@ -77,11 +77,11 @@ public class VoucherController {
     
     @RequestMapping(value = {"voucherList",""})
     public String voucherList(Voucher voucher, OrganizationInfo organizationInfo,@RequestParam( defaultValue = "0" )  Integer platform,String t_P_Company,
-    		String t_Voucher_Name,String t_Voucher_ProdID,String t_Voucher_VendorName,String SessionCompanyName,String t_P_VendorEmployeeName,String remark,String t_TreasuryDB_OrgName,
+    		String t_Voucher_Name,String t_Voucher_ProdCat,String t_Voucher_VendorName,String SessionCompanyName,String t_P_VendorEmployeeName,String remark,String t_TreasuryDB_OrgName,
     		HttpServletRequest request, HttpServletResponse response, Model model) {
     	
     	model.addAttribute("t_Voucher_Name", t_Voucher_Name); //key从数据库查询并返回,并索引对应JSP
-    	model.addAttribute("t_Voucher_ProdID", t_Voucher_ProdID); //key从数据库查询并返回,并索引对应JSP
+    	model.addAttribute("t_Voucher_ProdCat", t_Voucher_ProdCat); //key从数据库查询并返回,并索引对应JSP
     	model.addAttribute("t_Voucher_VendorName", t_Voucher_VendorName); //key从数据库查询并返回,并索引对应JSP
     	model.addAttribute("t_P_Company", t_P_Company); //key从数据库查询并返回,并索引对应JSP
     	model.addAttribute("t_P_VendorEmployeeName", t_P_VendorEmployeeName); //key从数据库查询并返回,并索引对应JSP
@@ -89,10 +89,10 @@ public class VoucherController {
     	String t_O_OrgName = ShiroSessionUtil.getLoginSession().getCompany_name();
     	OrganizationInfo AgencyOrgnization = organizationInfoService.selectAgencyName(t_O_OrgName);
     	
-        if (t_Voucher_Name != null | t_Voucher_ProdID != null | t_Voucher_VendorName != null | t_P_Company != null | t_P_VendorEmployeeName != null | remark != null) {
+        if (t_Voucher_Name != null | t_Voucher_ProdCat != null | t_Voucher_VendorName != null | t_P_Company != null | t_P_VendorEmployeeName != null | remark != null) {
         	Map<String, Object> paramSearchMap = new HashMap<String, Object>();//新建map对象
         	paramSearchMap.put("t_Voucher_Name", t_Voucher_Name);//添加元素
-        	paramSearchMap.put("t_Voucher_ProdID", t_Voucher_ProdID);//添加元素
+        	paramSearchMap.put("t_Voucher_ProdCat", t_Voucher_ProdCat);//添加元素
         	paramSearchMap.put("t_Voucher_VendorName", t_Voucher_VendorName);//添加元素
         	paramSearchMap.put("t_P_VendorEmployeeName", t_P_VendorEmployeeName);//添加元素
         	paramSearchMap.put("remark", remark);//添加元素
@@ -141,17 +141,17 @@ public class VoucherController {
      */
     @RequestMapping(value = "voucherSearchList")
     public String voucherSearchList(Voucher voucher,OrganizationInfo organizationInfo, @RequestParam( defaultValue = "0" )  Integer platform,String t_Voucher_Name,
-    		String t_Voucher_ProdID,String t_Voucher_VendorName,String t_P_Company,String t_P_VendorEmployeeName,String SessionCompanyName,String remark,String t_TreasuryDB_OrgName,
+    		String t_Voucher_ProdCat,String t_Voucher_VendorName,String t_P_Company,String t_P_VendorEmployeeName,String SessionCompanyName,String remark,String t_TreasuryDB_OrgName,
     		HttpServletRequest request, HttpServletResponse response, Model model) {
     	
     	model.addAttribute("platform", platform); //key从数据库查询并返回,并索引对应JSP
     	String t_O_OrgName = ShiroSessionUtil.getLoginSession().getCompany_name();
     	OrganizationInfo AgencyOrgnization = organizationInfoService.selectAgencyName(t_O_OrgName);
     	
-    	if (t_Voucher_Name != null | t_Voucher_ProdID != null | t_Voucher_VendorName != null | t_P_Company != null | t_P_VendorEmployeeName != null | remark != null) {
+    	if (t_Voucher_Name != null | t_Voucher_ProdCat != null | t_Voucher_VendorName != null | t_P_Company != null | t_P_VendorEmployeeName != null | remark != null) {
         	Map<String, Object> paramSearchMap = new HashMap<String, Object>();//新建map对象
         	paramSearchMap.put("t_Voucher_Name", t_Voucher_Name);//添加元素
-        	paramSearchMap.put("t_Voucher_ProdID", t_Voucher_ProdID);//添加元素
+        	paramSearchMap.put("t_Voucher_ProdCat", t_Voucher_ProdCat);//添加元素
         	paramSearchMap.put("t_Voucher_VendorName", t_Voucher_VendorName);//添加元素
         	paramSearchMap.put("t_P_VendorEmployeeName", t_P_VendorEmployeeName);//添加元素
         	paramSearchMap.put("remark", remark);//添加元素

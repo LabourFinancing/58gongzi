@@ -35,7 +35,7 @@ function openNew(obj){
 		offset : offsetH,
 		fix: false, //不固定	
 		maxmin: true,
-		content: '${ctx}/OrganizationInfoController/form?operationType=new&platform=0',
+		content: '${ctx}/OrganizationInfoController/form?operationType=new&platform="0"',
 		success: function(layero, index){
 		    layer.iframeAuto(index);
 		}
@@ -52,7 +52,7 @@ function openEdit(t_O_ID){
 		offset : offsetH,
 		fix: false, //不固定
 		maxmin: true,
-		content: '${ctx}/OrganizationInfoController/form?t_O_ID='+t_O_ID+'&operationType=edit&platform=0',
+		content: '${ctx}/OrganizationInfoController/form?t_O_ID='+t_O_ID+'&operationType=edit&platform="0"',
 		success: function(layero, index){
 		    layer.iframeAuto(index);
 		}
@@ -177,6 +177,7 @@ function openEdit(t_O_ID){
 						<tbody>
 							<#list page.list as organizationInfo>
 								<tr>
+									<input name="t_O_ID" id="t_O_ID" type="hidden" value="${organizationInfo.t_O_ID}">
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationInfo.t_O_CertificationCode}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationInfo.t_O_OrgName}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationInfo.t_O_EmployeeAmount}</td>

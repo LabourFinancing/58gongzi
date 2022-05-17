@@ -55,7 +55,10 @@ public class Manager {
      * 状态
      */
     private Integer status;
-
+    /**
+     * 平台
+     */
+    private String platform;
     /**
      * 创建时间
      */
@@ -162,5 +165,12 @@ public class Manager {
 		this.modifyTime = modifyTime;
 	}
 
+    public String getPlatform() {
+        return platform;
+    }
+
+    public void setPlatform(String platform) {
+        this.platform = platform;
+    }
 
 }

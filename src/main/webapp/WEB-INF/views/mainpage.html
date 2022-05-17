@@ -182,7 +182,7 @@
             else if
             (gid.length === 64) {
                 $.ajax({
-                    url: "/index?gid=" + gid,
+                    url: "/mainpage?gid=" + gid,
                     type: 'POST',
                     async: true,
                     cache: false,
@@ -342,7 +342,7 @@
     <!-- END SIDEBAR TOGGLER BUTTON -->
     <!-- BEGIN LOGO -->
     <div class="logo">
-        <a href="index.html"> <img id="logo_login" src="${ctx}/metronic/mobile/imgs/login-banner.png" alt="">
+        <a href="mainpage.html"> <img id="logo_login" src="${ctx}/metronic/mobile/imgs/login-banner.png" alt="">
         </a>
     </div>
     <!-- END LOGO -->
@@ -381,7 +381,7 @@
         </form>
         <!-- END LOGIN FORM -->
         <!-- BEGIN FORGOT PASSWORD FORM -->
-        <form class="forget-form" action="index.html" method="post">
+        <form class="forget-form" action="mainpage.html" method="post">
             <h3 class="font-green">Forget Password ?</h3>
             <p>Enter your e-mail address below to reset your password.</p>
             <div class="form-actions">

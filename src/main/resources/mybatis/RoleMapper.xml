@@ -177,7 +177,7 @@
 		WHERE a.platform = 0
 	</select>
 
-	<select id="existRoleName" resultType="Integer"
+	<select id="existRoleName" resultType="java.lang.Integer"
 		parameterType="map">
 		select
 		count(1)

@@ -37,8 +37,8 @@ public interface VoucherService {
     
 //    List<FinanceProduct> findAuthResourceListByManagerId(String managerId);
     
-    boolean existVoucherName(String t_Voucher_ID, String t_Voucher_ProdID);
+    boolean existVoucherName(String t_Voucher_ID, String t_Voucher_ProdCat);
     
-    boolean checkVoucherMobil(String t_Voucher_ID, String t_Voucher_ProdID);
+    boolean checkVoucherMobil(String t_Voucher_ID, String t_Voucher_ProdCat);
 
 }

@@ -44,6 +44,8 @@ public class EwalletTxn implements Serializable {
    private String t_WalletTxn_ClearNum;
 
    private String t_WalletTxn_ClearOrg;
+
+    private String t_WalletTxn_ApplierPID;
 	
    private String t_WalletTxn_PayerName;
 
@@ -669,6 +671,15 @@ public class EwalletTxn implements Serializable {
 
     public void setT_WalletTxn_Txt5(String t_WalletTxn_PaymentToolID) {
         this.t_WalletTxn_PaymentToolID = t_WalletTxn_PaymentToolID;
+    }
+
+
+    public String getT_WalletTxn_ApplierPID() {
+        return t_WalletTxn_ApplierPID;
+    }
+
+    public void setT_WalletTxn_ApplierPID(String t_WalletTxn_ApplierPID) {
+        this.t_WalletTxn_ApplierPID = t_WalletTxn_ApplierPID;
     }
 
 }

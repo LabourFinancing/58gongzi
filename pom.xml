@@ -187,7 +187,6 @@
             <artifactId>jsqlparser</artifactId>
             <version>${version.jsqlparser}</version>
         </dependency>
-
         <!-- c3po -->
         <dependency>
             <groupId>com.mchange</groupId>

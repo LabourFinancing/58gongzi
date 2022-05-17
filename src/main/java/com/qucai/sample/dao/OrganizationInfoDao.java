@@ -12,6 +12,8 @@ import com.qucai.sample.entity.OrganizationInfo;
 public interface OrganizationInfoDao {
 	 
     int deleteByPrimaryKey(String t_O_ID);
+    
+    int deleteByOrgName(String orgName);
 
     int insertSelective(OrganizationInfo record);
 
@@ -45,7 +47,7 @@ public interface OrganizationInfoDao {
     
 //    List<FinanceProduct> findAuthFinanceProductListByManagerId(String managerId);
     
-    int existOrganizationInfoName(@Param("t_O_ID") String ID, @Param("t_O_OrgName") String Name, @Param("platform") Integer platform);
+    int existOrganizationInfoName(@Param("t_O_ID") String ID, @Param("t_O_OrgName") String Name, @Param("platform") String platform);
 
 	List<OrganizationInfo> findOrgNameAgency(Map<String, Object> paramSearchMap);
     

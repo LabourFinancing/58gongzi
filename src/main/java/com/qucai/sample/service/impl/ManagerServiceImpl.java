@@ -108,7 +108,7 @@ public class ManagerServiceImpl implements ManagerService {
         if (StringUtils.isNotBlank(roleIds)) {
             TrManagerRole tmr = new TrManagerRole();
             tmr.setManagerId(managerId);
-            for (String roleId : roleIds.split(",")) {
+            for (String roleId : roleIds.split(",")) { 
                 tmr.setRoleId(roleId);
                 trManagerRoleDao.insertSelective(tmr);
             }
@@ -118,5 +118,16 @@ public class ManagerServiceImpl implements ManagerService {
     @Override
     public boolean existManagerUserName(String id, String userName) {
         return managerDao.existManagerUserName(id, userName) == 1;
+    }
+
+    @Override
+    public int countOrgUser(String orgName){
+        return managerDao.countOrgUser(orgName);
+    }
+
+
+    @Override
+    public int countMCUnique(Map<String, Object> paramMap){
+        return managerDao.countMCUnique(paramMap);
     }
 }

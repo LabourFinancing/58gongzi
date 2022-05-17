@@ -94,6 +94,11 @@
 		delete from t_organization_info
 		where t_O_ID = #{t_O_ID,jdbcType=VARCHAR}
 	</delete>
+
+    <delete id="deleteByOrgName" parameterType="java.lang.String">
+		delete from t_organization_info
+		where t_O_OrgName = #{orgName,jdbcType=VARCHAR}
+	</delete>
 	
 	<insert id="insertSelective" parameterType="com.qucai.sample.entity.OrganizationInfo">
 		insert into t_organization_info
@@ -226,7 +231,7 @@
 		<if test="typeEnd != null">
 			<![CDATA[ and type <= #{typeEnd} ]]>
 		</if>
-		order by a.create_time
+		order by a.create_time DESC
 	</select>
 	
    <select id="findAllName" resultMap="BaseResultMap"
@@ -239,18 +244,18 @@
         <if test="t_P_VendorEmployeeName != 'ALL' and t_P_VendorEmployeeName != null">
            and a.t_O_OrgPending = #{t_P_VendorEmployeeName,jdbcType=VARCHAR}
         </if>
-		order by a.create_time
+		order by a.create_time DESC
 	</select>
 
     <select id="findAllNameOnly" resultMap="BaseResultMap"
             parameterType="java.util.Map">
         select
-        t_O_OrgName
-        from t_organization_info a
+        a.t_O_OrgName 
+        from t_organization_info a 
         where
-        t_O_OrgStatus = "on"
-        and a.t_O_OrgName != "ALL"
-        order by a.create_time
+        a.t_O_OrgStatus = 'on' 
+        and a.t_O_OrgName != 'ALL'  
+        order by a.create_time DESC
     </select>
 
 <!-- 
@@ -365,7 +370,7 @@
 		where t_O_ID = #{t_O_ID,jdbcType=VARCHAR}
 	</update>
 
-   <select id="existOrganizationInfoName" resultType="Integer"
+   <select id="existOrganizationInfoName" resultType="java.lang.Integer"
 		parameterType="map">
 		select
 		count(1)

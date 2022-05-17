@@ -60,7 +60,7 @@ public class OrganizationInfoController {
      */
     
     @RequestMapping(value = {"organizationInfoList",""})
-    public String organizationInfoList(OrganizationInfo organizationInfo, @RequestParam( defaultValue = "0" )  Integer platform,
+    public String organizationInfoList(OrganizationInfo organizationInfo, @RequestParam( defaultValue = "0" )  String platform,
     		HttpServletRequest request, HttpServletResponse response, Model model) {
     	
     	Map<String, Object> paramMap = new HashMap<String, Object>();//新建map对象

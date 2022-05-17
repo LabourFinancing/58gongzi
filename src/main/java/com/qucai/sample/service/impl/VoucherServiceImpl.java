@@ -147,13 +147,13 @@ public class VoucherServiceImpl implements VoucherService {
     }
 */
     @Override  
-     public boolean existVoucherName(String t_Voucher_ID,String t_Voucher_ProdID) {
-     return voucherDao.existVoucherName(t_Voucher_ID,t_Voucher_ProdID) == 1;
+     public boolean existVoucherName(String t_Voucher_ID,String t_Voucher_ProdCat) {
+     return voucherDao.existVoucherName(t_Voucher_ID,t_Voucher_ProdCat) == 1;
     }
     
     @Override
-    public boolean checkVoucherMobil(String t_Voucher_ID,String t_Voucher_ProdID) {
-    return voucherDao.checkVoucherMobil(t_Voucher_ID,t_Voucher_ProdID) == 1;
+    public boolean checkVoucherMobil(String t_Voucher_ID,String t_Voucher_ProdCat) {
+    return voucherDao.checkVoucherMobil(t_Voucher_ID,t_Voucher_ProdCat) == 1;
    }
     
 }

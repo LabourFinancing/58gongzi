@@ -439,7 +439,7 @@
 		order by IFNULL(a.parent_id, ''), a.idx
 	</select>
  -->		
-    <select id="existTreasuryDBInfoName" resultType="Integer"
+    <select id="existTreasuryDBInfoName" resultType="java.lang.Integer"
 		parameterType="map">
 		select
 		count(1)

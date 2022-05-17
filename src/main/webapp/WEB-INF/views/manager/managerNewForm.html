@@ -175,12 +175,13 @@ jQuery.validator.addMethod("IDCard", function(value, element) {
 						<label class="control-label col-sm-3">公司名 <span
 							class="required"> * </span>
 						</label>
-						<div class="col-sm-9">
-							<div class="input-icon right">
-								<i class="fa"></i> <input type="text" class="form-control"
-									name="company_name" />
-							</div>
-						</div>
+                        <div class="col-sm-9">
+                            <select class="bs-select form-control" data-live-search="true" name="t_P_VendorEmployeeName" id="t_P_VendorEmployeeName">
+                                <#list OrganizationInfo as OrganizationInfo>
+                                <option value="${OrganizationInfo.t_O_OrgName}">${OrganizationInfo.t_O_OrgName}</option>
+                            </#list>
+                            </select>
+                        </div>
 					</div>
 					<div class="form-group">
 						<label class="control-label col-sm-3">手机 <span

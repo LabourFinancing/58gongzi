@@ -70,15 +70,16 @@ public class ManagerController {
     
     @RequestMapping(value = "managerSearchList")
     public String personalInfoSearchList(Manager manager, @RequestParam( defaultValue = "0" ) Integer platform,String real_name,String company_name,
-    		String mobile,HttpServletRequest request, HttpServletResponse response, Model model) {
+    		String mobile,String personalid,HttpServletRequest request, HttpServletResponse response, Model model) {
     	
     	model.addAttribute("platform", platform); //key从数据库查询并返回,并索引对应JSP
     	
-    	if (real_name != "" | mobile != "" || company_name != "") {
+    	if (real_name != "" | mobile != "" || company_name != "" || personalid != "") {
         	Map<String, Object> paramSearchMap = new HashMap<String, Object>();//新建map对象
         	paramSearchMap.put("real_name", real_name);//添加元素
         	paramSearchMap.put("company_name", company_name);//添加元素
         	paramSearchMap.put("mobile", mobile);//添加元素
+            paramSearchMap.put("personalid",personalid);
 
             PageParam pp = Tool.genPageParam(request);  
             PageInfo<Manager> page = managerService.findSearchList(pp, paramSearchMap);
@@ -185,11 +186,14 @@ public class ManagerController {
     }
     
 
-
     @RequestMapping(value = "deleteManager")
-    public String deleteManager(String id, HttpServletRequest request,
+    public String deleteManager(String id, String orgName,HttpServletRequest request,
             HttpServletResponse response, Model model) {
-        managerService.deleteByPrimaryKey(id);
+        int countOrgUser = managerService.countOrgUser(orgName.trim());
+        if(countOrgUser == 1){
+            organizationInfoService.deleteByOrgName(orgName);
+        }
+        managerService.deleteByPrimaryKey(id.trim());
         return "redirect:/managerController/managerList";
     }
     

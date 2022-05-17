@@ -70,8 +70,20 @@ public class OrganizationProfile implements Serializable {
     /**
      */
     private String t_Profile_APIret;
-   /**
+    /**
     */
+   private String t_Profile_AgentCmpyName;
+    /**
+     */
+    private String t_Profile_txt1;
+    /**
+     */
+    private String t_Profile_txt2;
+    /**
+     */
+    private String t_Profile_txt3;
+    /**
+     */
    private String platform;
    /**
     */
@@ -274,4 +286,35 @@ public class OrganizationProfile implements Serializable {
         this.modify_time = modify_time;
     }
 
+    public String getT_Profile_AgentCmpyName() {
+        return t_Profile_AgentCmpyName;
+    }
+
+    public void setT_Profile_AgentCmpyName(String t_Profile_AgentCmpyName) {
+        this.t_Profile_AgentCmpyName = t_Profile_AgentCmpyName;
+    }
+
+    public String getT_Profile_txt1() {
+        return t_Profile_txt1;
+    }
+
+    public void setT_Profile_txt1(String t_Profile_txt1) {
+        this.t_Profile_txt1 = t_Profile_txt1;
+    }
+
+    public String getT_Profile_txt2() {
+        return t_Profile_txt2;
+    }
+
+    public void setT_Profile_txt2(String t_Profile_txt2) {
+        this.t_Profile_txt2 = t_Profile_txt2;
+    }
+
+    public String getT_Profile_txt3() {
+        return t_Profile_txt3;
+    }
+
+    public void setT_Profile_txt3(String t_Profile_txt3) {
+        this.t_Profile_txt3 = t_Profile_txt3;
+    }
 }

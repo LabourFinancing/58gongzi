@@ -37,5 +37,8 @@ public interface ManagerDao {
     Manager selectByNameAndPassword(@Param("userName") String userName, @Param("password") String password);
     
     int existManagerUserName(@Param("id") String id, @Param("userName") String userName);
-    
+
+    int countOrgUser(String orgName);
+
+    int countMCUnique(Map<String, Object> paramMap);
 }

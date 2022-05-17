@@ -565,7 +565,7 @@ delete from t_transaction_info where t_transaction_info.t_Txn_PrepayApplierPID i
 		where t_P_id = #{t_P_id,jdbcType=VARCHAR}
 	</update>
 
-   <select id="existPersonalInfoBatchUploadName" resultType="Integer"
+   <select id="existPersonalInfoBatchUploadName" resultType="java.lang.Integer"
 		parameterType="map">
 		select
 		count(1)

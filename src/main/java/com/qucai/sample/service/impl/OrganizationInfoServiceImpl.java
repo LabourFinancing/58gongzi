@@ -30,11 +30,17 @@ public class OrganizationInfoServiceImpl implements OrganizationInfoService {
    public int deleteByPrimaryKey(String t_O_ID) {
        return organizationInfoDao.deleteByPrimaryKey(t_O_ID);
    }
+
+    @Override
+    public int deleteByOrgName(String orgName) {
+        return organizationInfoDao.deleteByPrimaryKey(orgName);
+    }
        
     @Override
     public int insertSelective(OrganizationInfo record) {
         return organizationInfoDao.insertSelective(record);
     }
+    
 
     @Override
     public OrganizationInfo selectByPrimaryKey(String t_O_ID) {
@@ -100,7 +106,11 @@ public class OrganizationInfoServiceImpl implements OrganizationInfoService {
         List<OrganizationInfo> list = organizationInfoDao.findSearchList(paramSearchMap);
         return new PageInfo<OrganizationInfo>(list);
     }
-
+    
+    @Override
+    public boolean existOrganizationInfoName(String t_O_ID, String t_O_OrgName, String platform) {
+        return organizationInfoDao.existOrganizationInfoName(t_O_ID, t_O_OrgName, platform) == 1;
+    }
     /*
     public List<FinanceProduct> findTreetableList(Map<String, Object> paramMap) {
         List<FinanceProduct> rList = financeProductDao.findAllList(paramMap);
@@ -180,9 +190,6 @@ public class OrganizationInfoServiceImpl implements OrganizationInfoService {
         return rs;
     }
 */
-    @Override  
-     public boolean existOrganizationInfoName(String t_O_ID, String t_O_OrgName, Integer platform) {
-     return organizationInfoDao.existOrganizationInfoName(t_O_ID, t_O_OrgName, platform) == 1;
-    }
+
     
 }

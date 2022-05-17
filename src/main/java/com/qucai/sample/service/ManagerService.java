@@ -41,5 +41,7 @@ public interface ManagerService {
     
     boolean existManagerUserName(String id, String userName);
 
+    int countOrgUser(String orgName);
 
+    int countMCUnique(Map<String, Object> paramMap);
 }

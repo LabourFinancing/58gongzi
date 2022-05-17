@@ -772,7 +772,7 @@
 	</select>
  -->			
 
-   <select id="existStaffPrepayApplicationName" resultType="Integer"
+   <select id="existStaffPrepayApplicationName" resultType="java.lang.Integer"
 		parameterType="map">
 		select
 		count(1)

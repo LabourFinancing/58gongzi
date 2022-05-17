@@ -62,7 +62,7 @@ public class OrganizationDashboardController {
     }
 
     @RequestMapping(value = {"dashboard"})
-    public String showOrganizationInfo(OrganizationInfo organizationInfo, @RequestParam(defaultValue = "0") Integer platform,
+    public String showOrganizationInfo(OrganizationInfo organizationInfo, @RequestParam(defaultValue = "0") String platform,
                                        HttpServletRequest request, HttpServletResponse response, Model model) throws ParseException {
         Map<String, Object> paramMap = new HashMap<String, Object>();//新建map对象
         Map<String, Object> rs = new HashMap<String, Object>();

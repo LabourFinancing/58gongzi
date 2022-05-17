@@ -566,7 +566,7 @@
 		where t_FProd_ID = #{t_FProd_ID,jdbcType=VARCHAR}
 	</update>
 
-   <select id="existFinanceProductName" resultType="Integer"
+   <select id="existFinanceProductName" resultType="java.lang.Integer"
 		parameterType="map">
 		select
 		count(1)

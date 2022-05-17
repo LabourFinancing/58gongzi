@@ -483,7 +483,7 @@ insert into t_personal_info (select REPLACE(UUID(),"-",""),batch_Name,"","0",bat
 		where t_batch_perslUploadId = #{t_batch_perslUploadId,jdbcType=VARCHAR}
 	</update>
  <!-- 	
-   <select id="existPersonalInfoBatchUploadName" resultType="Integer"
+   <select id="existPersonalInfoBatchUploadName" resultType="java.lang.Integer"
 		parameterType="map">
 		select
 		count(1)
@@ -494,7 +494,7 @@ insert into t_personal_info (select REPLACE(UUID(),"-",""),batch_Name,"","0",bat
 		</if>
 	</select>
 	
-   <select id="checkPersonalInfoBatchUploadMobil" resultType="Integer"
+   <select id="checkPersonalInfoBatchUploadMobil" resultType="java.lang.Integer"
 		parameterType="map">
 		select
 		count(1)

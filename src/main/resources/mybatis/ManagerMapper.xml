@@ -13,6 +13,7 @@
 		<result column="email" property="email" jdbcType="VARCHAR" />
 		<result column="remark" property="remark" jdbcType="VARCHAR" />
 		<result column="status" property="status" jdbcType="INTEGER" />
+        <result column="platform" property="platform" jdbcType="VARCHAR" />
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
 		<result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
 	</resultMap>
@@ -28,6 +29,7 @@
 		email,
 		remark,
 		status,
+		platform,
 		create_time,
 		modify_time
 	</sql>
@@ -61,9 +63,9 @@
 		select
 		<include refid="Base_Column_List" />
 		from t_manager a
-		where 
+		where 1=1
 		<if test="company_name != null">
-		 a.company_name like CONCAT('%',#{company_name},'%')
+		 and a.company_name like CONCAT('%',#{company_name},'%')
 		</if>	
 		<if test="real_name != null">
 		 and a.real_name like CONCAT('%',#{real_name},'%')
@@ -71,6 +73,9 @@
 		<if test="mobile != null">
 		 and a.mobile like CONCAT('%',#{mobile},'%')
 		</if>
+        <if test="personalid != null">
+         and a.telephone like CONCAT('%',#{personalid},'%')
+        </if>
         order by a.create_time
 	</select>
 	
@@ -112,6 +117,9 @@
 			<if test="status != null">
 				status,
 			</if>
+            <if test="platform != null">
+                platform,
+            </if>
 			<if test="createTime != null">
 				create_time,
 			</if>
@@ -150,6 +158,9 @@
 			<if test="status != null">
 				#{status,jdbcType=INTEGER},
 			</if>
+            <if test="platform != null">
+                #{platform,jdbcType=VARCHAR},
+            </if>
 			<if test="createTime != null">
 				#{createTime,jdbcType=TIMESTAMP},
 			</if>
@@ -189,6 +200,9 @@
 			<if test="status != null">
 				status = #{status,jdbcType=INTEGER},
 			</if>
+            <if test="platform != null">
+                platform = #{platform,jdbcType=VARCHAR},
+            </if>
 			<if test="createTime != null">
 				create_time = #{createTime,jdbcType=TIMESTAMP},
 			</if>
@@ -241,7 +255,7 @@
 		select
 		<include refid="Base_Column_List" />
 		from t_manager
-		where 1=1
+		where 1=1 ORDER BY create_time DESC
 	</select>
 
 	<select id="selectByNameAndPassword" resultMap="BaseResultMap"
@@ -254,7 +268,7 @@
 		and status = 1
 	</select>
 	
-	<select id="existManagerUserName" resultType="Integer"
+	<select id="existManagerUserName" resultType="java.lang.Integer"
 		parameterType="map">
 		select
 		count(1)
@@ -264,5 +278,21 @@
 			and a.telephone != #{id}
 		</if>
 	</select>
+
+    <select id="countOrgUser" resultType="java.lang.Integer"
+            parameterType="java.lang.String">
+        select
+        count(*)
+        from t_manager a
+        where a.company_name = #{orgName}
+    </select>
+
+	<select id="countMCUnique" resultType="java.lang.Integer"
+			parameterType="java.util.Map">
+        select
+        count(*)
+        from t_manager a
+        where a.company_name = #{FirmNameFMT} and a.mobile = #{mobile}
+    </select>
 
 </mapper>
