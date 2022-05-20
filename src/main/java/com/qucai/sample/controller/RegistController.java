@@ -49,7 +49,6 @@ public class RegistController {
     public String form(String type,String mobile,String username,String password,String firmcat,String firmName, String firmSelName,
             HttpServletRequest request, HttpServletResponse response,
             Model model) {
-
     	Map<String, Object> paramMap = new HashMap<String, Object>();
         Map<String, Object> ret = new HashMap<String, Object>();
         String FirmNameFMT = firmName.replace(" ","").trim();
@@ -65,7 +64,7 @@ public class RegistController {
         String FirmNamePingyin = PinYinUtil.cn2py(firmName.replace(" ","").trim().toString());
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
         StringBuffer ss = new StringBuffer();
-        String FirmNamePY = String.valueOf(ss.append(FirmNameFMT).append(df.format(new Date()).toString()));
+        String FirmNamePY = String.valueOf(ss.append(FirmNamePingyin).append(df.format(new Date()).toString()));
         Manager manager = new Manager();
         String managerid = Tool.uuid();
         Date NewTime =  new Date();
@@ -82,7 +81,7 @@ public class RegistController {
                     manager.setStatus(1);
                     manager.setPlatform("0"); // 0 - PC , 1 - mobile, 2 - wechat, 3 -  alipay
                     manager.setRemark("企业用户，初始设置");
-                    manager.setCompany_name(FirmNamePY);
+                    manager.setCompany_name(FirmNameFMT);
                     manager.setCreateTime(NewTime);
                     manager.setModifyTime(NewTime);
                     //regist manager
@@ -92,8 +91,8 @@ public class RegistController {
                         //regist corp
                         String Orgid = Tool.uuid();InsertStat = null;
                         organizationInfo.setT_O_ID(Orgid);
-                        organizationInfo.setT_O_CertificationCode(FirmNamePingyin);
-                        organizationInfo.setT_O_OrgName(FirmNamePY);
+                        organizationInfo.setT_O_CertificationCode(FirmNamePY);
+                        organizationInfo.setT_O_OrgName(FirmNameFMT);
                         organizationInfo.setT_O_EmployeeAmount("0");
                         organizationInfo.setT_O_Category("AAA");
                         organizationInfo.setT_O_listOrg("off");
@@ -103,7 +102,7 @@ public class RegistController {
                         organizationInfo.setT_O_OrgSandeAcc(PaymentInfo.AllCompanySandeAcc); // switch to self-own sande if acc setup done
                         organizationInfo.setT_O_OrgStatus("off"); // pending on health and approval to setup and open
                         organizationInfo.setT_O_SysUpdateDate(new Date());
-                        organizationInfo.setT_O_OrgPending(FirmNamePY);
+                        organizationInfo.setT_O_OrgPending(FirmNameFMT);
                         organizationInfo.setRemark("新注册企业用户");
                         organizationInfo.setPlatform("0"); // 0 - PC , 1 - mobile, 2 - wechat, 3 -  alipay
                         organizationInfo.setCreator(username.trim());
@@ -135,7 +134,7 @@ public class RegistController {
                     manager.setStatus(1);
                     manager.setPlatform("0"); // 0 - PC , 1 - mobile, 2 - wechat, 3 -  alipay
                     manager.setRemark("经销商企业用户，初始设置");
-                    manager.setCompany_name(FirmNamePY);
+                    manager.setCompany_name(FirmNameFMT);
                     manager.setCreateTime(NewTime);
                     manager.setModifyTime(NewTime);
                     //regist manager
@@ -145,8 +144,8 @@ public class RegistController {
                         //regist corp
                         String Orgid = Tool.uuid();InsertStat = null;
                         organizationInfo.setT_O_ID(Orgid);
-                        organizationInfo.setT_O_CertificationCode(FirmNamePingyin);
-                        organizationInfo.setT_O_OrgName(FirmNamePY);
+                        organizationInfo.setT_O_CertificationCode(FirmNamePY);
+                        organizationInfo.setT_O_OrgName(FirmNameFMT);
                         organizationInfo.setT_O_EmployeeAmount("0");
                         organizationInfo.setT_O_Category("AAA");
                         organizationInfo.setT_O_listOrg("off");
@@ -155,7 +154,7 @@ public class RegistController {
                         organizationInfo.setT_O_OrgChinaebiAcc(PaymentInfo.AllCompanyChinaebiAcc); // switch to selfown chinaebi if acc setup done
                         organizationInfo.setT_O_OrgSandeAcc(PaymentInfo.AllCompanySandeAcc); // switch to self-own sande if acc setup done
                         organizationInfo.setT_O_OrgStatus("off"); // pending on health and approval to setup and open
-                        organizationInfo.setT_O_OrgPending(FirmNamePY);
+                        organizationInfo.setT_O_OrgPending(FirmNameFMT);
                         organizationInfo.setT_O_SysUpdateDate(new Date());
                         organizationInfo.setRemark("新注册经销商用户");
                         organizationInfo.setPlatform("0"); // 0 - PC , 1 - mobile, 2 - wechat, 3 -  alipay
@@ -198,7 +197,7 @@ public class RegistController {
                     manager.setPassword(password.trim());
                     manager.setTelephone(mobile.trim());
                     manager.setEmail("test@test.com");
-                    manager.setStatus(0);
+                    manager.setStatus(1);
                     manager.setPlatform("0"); // 0 - PC , 1 - mobile, 2 - wechat, 3 -  alipay
                     manager.setCompany_name(firmSelName.toString());
                     manager.setCreateTime(NewTime);

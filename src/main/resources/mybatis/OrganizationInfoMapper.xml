@@ -379,7 +379,9 @@
 		<if test="t_O_ID != null">
 			and a.t_O_ID != #{t_O_ID}
 		</if>
-		and a.t_O_OrgName = #{t_O_OrgName}
+		<if test="t_O_OrgName != ALL">
+			and a.t_O_OrgName = #{t_O_OrgName}
+		</if>
 	</select>
 	
 	<select id="findOrgName" resultMap="BaseResultMap"

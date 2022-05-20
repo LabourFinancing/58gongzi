@@ -1,5 +1,6 @@
 package com.qucai.sample.controller;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.qucai.sample.entity.Manager;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -53,18 +55,19 @@ public class FinanceProductController {
     }
 
     /**
-     *  改动：根据所属平台来确定是哪个平台的资源 , 2017/11/14 回家改一下代码 新建产品详细页.
+     *  改动：根据所属平台来确定是哪个平台的资源
      */
     
     @RequestMapping(value = {"financeProductList",""})
     public String financeProductList(FinanceProduct financeProduct, @RequestParam( defaultValue = "0" )  Integer platform,
     		HttpServletRequest request, HttpServletResponse response, Model model) {
-    	
+        String t_O_OrgName = ShiroSessionUtil.getLoginSession().getCompany_name();
         PageParam pp = Tool.genPageParam(request);      
-        
-        PageInfo<FinanceProduct> page = financeProductService.findAllList(new HashMap<String, Object>(), pp);
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("t_O_OrgName",t_O_OrgName);
+        PageInfo<FinanceProduct> page = financeProductService.findAllList(params, pp);
+//        PageInfo<FinanceProduct> page = financeProductService.findAllList(new HashMap<String, Object>(), pp);
         model.addAttribute("page", page);
-        
 
     	return "financeProduct/financeProductList";
     }
@@ -75,7 +78,7 @@ public class FinanceProductController {
     @RequestMapping(value = "financeProductSearchList")
     public String financeProductSearchList(FinanceProduct financeProduct, @RequestParam( defaultValue = "0" )  Integer platform,String t_FProd_MainCat,String t_FProd_Name,Date create_time,
     		String remark,HttpServletRequest request, HttpServletResponse response, Model model) {
-    	
+        String t_O_OrgName = ShiroSessionUtil.getLoginSession().getCompany_name();
     	model.addAttribute("platform", platform); //key从数据库查询并返回,并索引对应JSP
         if(t_FProd_MainCat.equals("ALLPYMT") || t_FProd_MainCat.equals(null)){
             t_FProd_MainCat = null;
@@ -83,6 +86,7 @@ public class FinanceProductController {
     	
     	if (t_FProd_Name != "" | create_time != null | remark != "") {
         	Map<String, Object> paramSearchMap = new HashMap<String, Object>();//新建map对象
+            paramSearchMap.put("t_O_OrgName", t_O_OrgName);
             paramSearchMap.put("t_FProd_MainCat", t_FProd_MainCat);
         	paramSearchMap.put("t_FProd_Name", t_FProd_Name);//添加元素
         	paramSearchMap.put("create_time", create_time);//添加元素
@@ -91,8 +95,10 @@ public class FinanceProductController {
             PageInfo<FinanceProduct> page = financeProductService.findSearchList(pp, paramSearchMap);
             model.addAttribute("page", page);//从数据库查询出来的结果用model的方式返回
     	} else {
-            PageParam pp = Tool.genPageParam(request);           
-            PageInfo<FinanceProduct> page = financeProductService.findAllList(new HashMap<String, Object>(), pp);
+            PageParam pp = Tool.genPageParam(request);
+            HashMap<String, Object> params = new HashMap<String, Object>();
+            params.put("t_O_OrgName",t_O_OrgName);
+            PageInfo<FinanceProduct> page = financeProductService.findAllList(params, pp);
             model.addAttribute("page", page);
         }
 		if(0 == platform) {
@@ -113,6 +119,7 @@ public class FinanceProductController {
             HttpServletRequest request, HttpServletResponse response,
             Model model) {
        	  model.addAttribute("platform", platform);
+        String t_O_OrgName = ShiroSessionUtil.getLoginSession().getCompany_name();
 //    	
           Map<String, Object> paramMap = new HashMap<String, Object>();// 申明一个新对象
           paramMap.put("typeEnd", 1);      //给typeEnd对象赋值
@@ -138,6 +145,11 @@ public class FinanceProductController {
     public String addFinanceProduct(FinanceProduct financeProduct, HttpServletRequest request,Integer platform,
             HttpServletResponse response, Model model) {
     	model.addAttribute("platform", platform);
+    	if(financeProduct.getT_FProd_Poundage().equals(null)){
+    	    financeProduct.setT_FProd_Poundage(new BigDecimal("1.00"));
+        }
+    	String OrgName = ShiroSessionUtil.getLoginSession().getCompany_name();
+        financeProduct.setT_FProd_OrgInfo(OrgName);
     	financeProduct.setCreator(ShiroSessionUtil.getLoginSession().getId());
    	    financeProduct.setCreate_time(new Date());
    	    financeProduct.setT_FProd_ID(Tool.uuid());
@@ -161,6 +173,8 @@ public class FinanceProductController {
             HttpServletResponse response, Model model) {
     	financeProduct.setModifier(ShiroSessionUtil.getLoginSession().getId());
     	financeProduct.setModify_time(new Date());
+        String OrgName = ShiroSessionUtil.getLoginSession().getCompany_name();
+        financeProduct.setT_FProd_OrgInfo(OrgName);
     	financeProductService.updateByPrimaryKeySelective(financeProduct);
         return JsonBizTool.genJson(ExRetEnum.SUCCESS);
     }   

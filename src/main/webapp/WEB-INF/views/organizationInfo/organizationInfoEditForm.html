@@ -31,10 +31,10 @@ document.getElementById("updated_date").value=getDate();
 <script type="text/javascript">
 	$(document).ready(function() {
 		
-        var t_O_listOrg_value = "${personalInfo.t_O_listOrg}";
+        var t_O_listOrg_value = "${organizationInfo.t_O_listOrg}";
         $("#t_O_listOrg option[value='"+t_O_listOrg_value+"']").attr("selected","selected");	
         
-        var t_O_OrgStatus_value = "${personalInfo.t_O_OrgStatus}";
+        var t_O_OrgStatus_value = "${organizationInfo.t_O_OrgStatus}";
         $("#t_O_OrgStatus option[value='"+t_O_OrgStatus_value+"']").attr("selected","selected");	
 		
 		var form = $('#inputForm');

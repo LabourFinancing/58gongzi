@@ -12,8 +12,7 @@
 <meta content="" name="author" />
 <#include "/common/cssResource.html"> <#include
 "/common/jsResource.html">
-
-<script>
+<script type="text/javascript">
 window.onload = function(){
 function getDate(){
 var today = new Date(); 
@@ -26,9 +25,98 @@ document.getElementById("updated_date").value=getDate();
 }, 1000);
 }
 </script>
-
-
 <script type="text/javascript">
+	jQuery.validator.addMethod("minNumber",function(value, element){
+		var returnVal = true;
+		inputZ=value;
+		if(inputZ > 0.5){
+			returnVal = false;
+			return returnVal;
+		}
+		var ArrMen= inputZ.split(".");    //截取字符串
+			if(ArrMen[1].length>4){    //判断小数点后面的字符串长度
+				returnVal = false;
+				return returnVal;
+			}
+		return returnVal;
+	},"请输入大于0.000001小于0.5的数");         //验证错误信息
+
+	jQuery.validator.addMethod("tierServiceFee",function(value, element){
+		var returnVal = true;
+		inputZ=value;
+		var format = /^(([1-9]\d*\,[1-9]\d*\,(0.[0-9][1-9]\;))|([1-9]\d*\,[1-9]\d*\,[0-9]\d*\;)){1,}$/;
+		if(!format.test(inputZ)){
+			returnVal = false;
+			return returnVal;
+		}
+		var FeeAarry = inputZ.split(";");    //截取字符串
+		var FeeAarryCount = null
+		FeeAarryCount = FeeAarry.length-1
+		for(var i=0;i<FeeAarryCount;i++) {
+			console.log(FeeAarry[i])
+			console.log(FeeAarry[i].split(","))
+			var RangeArrary = FeeAarry[i].split(",");
+			console.log(RangeArrary[i])
+				for (var j=0;j<3;j++){
+					switch (j) {
+					 case 0 :
+					 	var beginNum = RangeArrary[j];
+						 if(i>0){
+							 if(parseInt(endNum) > parseInt(beginNum)){
+							 	var t = i-1
+								 var alertmsg = null
+								 alertmsg = "第"+i+"组的起始金额必须大于"+"第"+t+"组的上限金额"
+								 alert(alertmsg)
+								 returnVal = false
+								 return returnVal;
+							 }else if((parseInt(beginNum) - parseInt(endNum)) !== 1){
+									 var t = i-1
+									 var alertmsg = null
+									 alertmsg = "第"+i+"组的起始金额必须比"+"第"+t+"组的上限金额大1"
+									 alert(alertmsg)
+									 returnVal = false
+									 return returnVal;
+								 }
+							 }
+					 break;
+					 case 1 :
+					 	var endNum = RangeArrary[j];
+					 if(parseInt(endNum) < parseInt(beginNum)){
+					 	var t = i + 1
+						 var alertmsg = null
+						 alertmsg = "第"+t+"组"+","+"区间上限金额必须大于区间起始金额"
+						 alert(alertmsg)
+						 returnVal = false
+						 return returnVal;
+					 }
+					 break;
+					 case 2 :
+					 	var chargeFee = RangeArrary[j];
+					 	if(chargeFee.indexOf(".") != -1 ){
+					 		if(parseFloat(chargeFee) > 1){
+								var t = i+1
+								var alertmsg = "第"+t+"组"+","+"当收费为收费百分比时，必须为小于1的两位小数"
+								alert(alertmsg)
+								returnVal = false;
+								return returnVal;
+						  }
+						}
+						 if(parseInt(chargeFee) > parseInt(endNum)){
+							 var t = i+1
+							 var alertmsg = "第"+t+"组"+","+"单笔收费大于支取金额上限额"
+							 alert(alertmsg)
+							 returnVal = false;
+							 return returnVal;
+						 }
+					 break;
+					 defaule:
+					 break
+					}
+				}
+		}
+		return returnVal;
+	}, "输入格式错误，请重新输入" );         //验证错误信息
+
 	$(document).ready(function() {
 		
 		var form = $('#inputForm');
@@ -37,32 +125,50 @@ document.getElementById("updated_date").value=getDate();
 			errorClass : 'help-block help-block-error', // default input error message class
 			focusInvalid : false, // do not focus the last invalid input
 			rules : {
-				name : {
-					maxlength : 50,
+				t_FProd_Name : {
+					maxlength : 30,
 					required : true,
 					remote : {
 				        url: "${ctx}/jqueryValidateController/checkFinanceProductName?platform=${platform}",
 				        type: "post"
 					}
 				},
+				t_FProd_Interest : {
+					required: true,
+					number: true,
+					min:0.0000,
+					minNumber: true
+				},
+				t_FProd_ServiceFee: {
+					required: true,
+					number: true,
+					min: 0.0000,
+					minNumber: true
+				},
+				t_FProd_OverdueInt : {
+					required: true,
+					number: true,
+					min:0.0000,
+					minNumber: true
+				},
+				t_FProd_ETxnAmtLimit : {
+					required: true,
+					number: true,
+					range: [100,50000]
+				},
+				t_FProd_TierPoundage : {
+					required: true,
+					tierServiceFee: true
+				},
 				type : {
 					required : true
-				},
-				link : {
-					required : true,
-					maxlength : 100
-				},
-				idx : {
-					maxlength : 10,
-					digits : true,
-					required : true
-				},
-				shiroPermission : {
-					maxlength : 50
 				}
 			},
 			messages: {
-				name: {remote : "产品名称已存在"}
+				t_FProd_Name: {remote : "产品名称已存在"}
+			},
+			messages: {
+				tierServiceFee: {remote : "比例区间收费','分隔两个数额区间和收费数额。';'分割各收费区间递增关系 例：1(起始金额,正整数),1000(上限金额，正整数),0.05(收费比例);1000(起始金额),2000(上限金额),30(单笔收费金额);"}
 			},
 	
 			invalidHandler : function(event, validator) { //display error alert on form submit              
@@ -108,13 +214,19 @@ document.getElementById("updated_date").value=getDate();
 				    	alert(result.msg);
 					}  
 	            });
+			},
+		});
+
+		$(window).keydown( function(e) {
+			var key = window.event?e.keyCode:e.which;
+			if(key.toString() == "13"){
+				return false;
 			}
 		});
 		
 		$("#dirParent").hide();
 		$("#menuParent").hide();
 		$("#linkDiv").hide();
-		
 	});
 	
 	function typeSelector(selector){
@@ -144,7 +256,6 @@ document.getElementById("updated_date").value=getDate();
 	}
 	
 	function CheckPrepayInput(){
-	    debugger;
 	    console.log(document.getElementById("t_FProd_MainCat").value);
 	    console.log(document.getElementById("PrepayCat").style.display);
 	    if (document.getElementById("t_FProd_MainCat").value == "TERMPYMT"){
@@ -171,8 +282,8 @@ document.getElementById("updated_date").value=getDate();
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
-								<i class="fa"></i> <input type="text" class="form-control"
-									 placeholder="产品名称(企业名)" name="t_FProd_Name" />
+								<i class="fa"></i> <input type="text" class="form-control" title="30个字内的中英文"
+									 placeholder="高孚工资-2021年8月" name="t_FProd_Name" />
 							</div>
 						</div>
 					</div>
@@ -182,30 +293,30 @@ document.getElementById("updated_date").value=getDate();
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
-								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_FProd_Interest" />
+								<i class="fa"></i> <input type="text" class="form-control" title="填入小于1大于0.0001的小数 例：0.0005*天费率"
+									placeholder="0.0001" name="t_FProd_Interest" />
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-3">预支超期费率<span
+						<label class="control-label col-sm-3">逾期费率<span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
-								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_FProd_OverdueInt" />
+								<i class="fa"></i> <input type="text" class="form-control" title="超期违约金0.0001*天费率"
+									name="t_FProd_OverdueInt" value="0.0001" placeholder="0.0001"/>
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-3">服务费(融资成本)<span
+						<label class="control-label col-sm-3">交易费(融资成本)<span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
-								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_FProd_ServiceFee" />
+								<i class="fa"></i> <input type="text" class="form-control" title="单笔固定比例收费 0.001*金额"
+									name="t_FProd_ServiceFee" placeholder="0.001"/>
 							</div>
 						</div>
 					</div>
@@ -215,8 +326,8 @@ document.getElementById("updated_date").value=getDate();
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
-								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_FProd_Poundage" />
+								<i class="fa"></i> <input type="text" class="form-control" title="平台收取费用 例：1.00 表示每次每笔收费1元"
+														  name="t_FProd_Poundage" id="t_FProd_Poundage" placeholder="1.00" value=${t_organization_profile.t_organizationprofile_tierChargeFee} disabled="disabled"/>1.00</input><!-- new-function 收费费率 取profile值 -->
 							</div>
 						</div>
 					</div>
@@ -226,19 +337,19 @@ document.getElementById("updated_date").value=getDate();
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
-								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_FProd_ETxnAmtLimit" />
+								<i class="fa"></i> <input type="text" class="form-control" title="单笔最高限额，例： 1000 则表示一次支取最高金额为1000,最低为10,最高为50000"
+									name="t_FProd_ETxnAmtLimit" placeholder="1000"/>
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-					<label class="control-label col-sm-3">区间平台使用费(笔)<span
+					<label class="control-label col-sm-3" title="比例区间收费','分隔两个数额区间和收费数额。';'分割各收费区间递增关系 例：1(起始金额,正整数),1000(上限金额，正整数),0.05(收费比例);1000(起始金额),2000(上限金额),30(单笔收费金额);">区间平台使用费(笔)<span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_FProd_TierPoundage" value="${financeProduct.t_FProd_TierPoundage}"/>
+									name="t_FProd_TierPoundage"  placeholder="0,1000,0.05;1000,2000,30;" value="${financeProduct.t_FProd_TierPoundage}"/>
 							</div>
 						</div>
 					</div>
@@ -261,9 +372,9 @@ document.getElementById("updated_date").value=getDate();
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
-								<i class="fa"></i> <select name="t_FProd_category" id="t_FProd_category">
+								<i class="fa"></i> <select title="按额度预支即授全额预支，工时预支为天工资每天自动累积授额的方式，默认额度预支" name="t_FProd_category" id="t_FProd_category">
 								 <option value="VENDOR">额度预支</option>
-								 <option value="PARTTIME">工时预支</option>
+								 <!-- <option value="PARTTIME">工时预支</option> -->
 								</select>
 							</div>
 						</div>
@@ -281,28 +392,36 @@ document.getElementById("updated_date").value=getDate();
 							</div>
 						</div>
 					</div>
+					<!-- new-function -->
+					<@shiro.hasPermission name="TREASURYINFO_AGENTFPRODVIEW">
 					<div class="form-group">
-						<label class="control-label col-sm-3">产品适用企业<span
+						<label class="control-label col-sm-3">产品适用企业<span>
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
-								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_FProd_CorpPool" />
+								<i class="fa"></i>
+								<select class="bs-select form-control" data-live-search="true" id="t_FProd_CorpPool" name="t_FProd_CorpPool" />
+								<#list t_FProd_CorpPool as t_FProd_CorpPoolList>
+								<option value="${t_FProd_CorpPoolList.t_FProd_CorpPool}">${t_FProd_CorpPoolList.t_FProd_CorpPoolName}}</option>
+								</#list>
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-3">产品适用人群<span
+						<label class="control-label col-sm-3">产品适用人群<span>
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
-								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_FProd_PersPool" />
+								<i class="fa"></i> <select  class="bs-select form-control" data-live-search="true" id="t_FProd_PersPool" name="t_FProd_PersPool"/>
+								<#list t_FProd_PersPool as t_FProd_PersPoolList>
+								<option value="${t_FProd_PersPoolList.t_FProd_CorpPool}">${t_FProd_PersPoolList.t_FProd_PersPoolName}}</option>
+							</#list>
 							</div>
 						</div>
 					</div>
+				</@shiro.hasPermission>
 					<div class="form-group">
 						<label class="control-label col-sm-3">备注<span
 							class="required"> * </span>
@@ -328,7 +447,7 @@ document.getElementById("updated_date").value=getDate();
 						<div class="col-sm-3">
 						</div>
 						<div class="col-sm-9">
-							<button type="submit" class="btn green">提交</button>
+							<button name="FPRODsubmit" id="FPRODsubmit" type="submit" class="btn green">提交</button>
 							<button type="button" class="btn default" onclick="parent.layer.closeAll();">取消</button>
 						</div>
 					</div>
@@ -337,5 +456,6 @@ document.getElementById("updated_date").value=getDate();
 		</div>
 		<!-- END FORM-->
 	</div>
+
 </body>
 </html>

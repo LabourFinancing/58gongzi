@@ -103,7 +103,7 @@ var ValueCnvrt = "";
 				</div>
 				<div class="portlet-body">
 					<form id="searchForm" method="post" action="${ctx}/FinanceProductController/financeProductSearchList" class="form-horizontal">
-						<input id="pageNum" name="pageNum" type="hidden" value="${page.pageNum}" /> 
+						<input id="pageNum" name="pageNum" type="hidden" value="${page.pageNum}" />
 						<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}" />
 						<div class="form-body">
 							<div class="row">
@@ -117,15 +117,15 @@ var ValueCnvrt = "";
                                         </select>
                                     </div>
                                 </div>
-								<div class="col-sm-4">
+								<div class="col-sm-4" style="padding-left:0;margin-left:-180px;">
 									<div class="form-group">
 										<label class="control-label col-sm-3" style="padding-right: 0">工资产品名：</label>
-										<div class="col-sm-6" style="padding-left: 0;">
+										<div class="col-sm-9" style="padding-left: 0;">
 											<input type="text" class="form-control" name="t_FProd_Name" value="${financeProduct.t_FProd_Name}" />
 										</div>
 									</div>
 								</div>
-								<div class="col-sm-4">
+								<div class="col-sm-4" style="padding-left:0;margin-left:0px;">
 								   <div class="form-group">
 								   	<label class="control-label col-sm-3" style="padding-right: 0">创建日期：</label>
 							        <div class="input-icon right" style="padding-left: 0">
@@ -136,10 +136,10 @@ var ValueCnvrt = "";
 								</div>
 							</div>
                             <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-4" style="padding-left:0;margin-left:10px;">
                                 <div class="form-group">
                                     <label class="control-label col-sm-3" style="padding-right: 0">备注：</label>
-                                    <div class="col-sm-8" style="padding-left: 0;">
+                                    <div class="col-sm-9" style="padding-left: 0;">
                                         <input type="text" class="form-control" name="remark" value="${financeProduct.remark}" />
                                     </div>
                                 </div>
@@ -149,7 +149,7 @@ var ValueCnvrt = "";
 						<div class="form-actions">
 							<div class="row">
 								<div class="col-xs-push-12">
-									<div class="btn-group pull-right">
+									<div class="btn-group pull-right" style="padding-right: 15px">
 										<button type="submit" class="btn green layui-anim-scale">查询</button>
 									</div>
 								</div>
@@ -161,7 +161,7 @@ var ValueCnvrt = "";
 					<div class="table-toolbar">
 						<div class="row">
 							<div class="col-xs-push-12">
-								<div class="btn-group pull-right">
+								<div class="btn-group pull-right" style="padding-right: 15px">
                                     <@shiro.hasPermission name="FINANCEPRODUCT_ADD">
 									<button id="sample_editable_1_new" class="btn blue layui-anim-scale" onclick="openNew('0')">新增</button>
                                     </@shiro.hasPermission>
@@ -185,8 +185,10 @@ var ValueCnvrt = "";
                                 <th>产品品类</th>
 								<th>产品适用员工类型</th>
 								<th>产品状态</th>
+								<@shiro.hasPermission name="TREASURYINFO_AGENTFPRODVIEW">
 								<th>产品适用企业</th>
 								<th>产品适用人群</th>
+								</@shiro.hasPermission>
 								<th>备注</th>
 								<th>创建日期</th>
 								<th>最后更新日期</th>
@@ -206,8 +208,10 @@ var ValueCnvrt = "";
                                     <td id="FProdMainCat" name="FProdMainCat" class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;" >${financeProduct.t_FProd_MainCat}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_category}</td>
 								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_Status}</td>
+									<@shiro.hasPermission name="TREASURYINFO_AGENTFPRODVIEW">
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_CorpPool}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_PersPool}</td>	
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_PersPool}</td>
+									</@shiro.hasPermission>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.remark}</td>																		
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.create_time?string("yyyy-MM-dd HH:mm:ss")}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_SysupdateDate?string("yyyy-MM-dd HH:mm:ss")}</td>

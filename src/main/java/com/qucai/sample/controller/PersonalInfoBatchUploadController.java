@@ -109,7 +109,7 @@ public class PersonalInfoBatchUploadController {
         Map<String, Object> paramSearchMap = new HashMap<String, Object>();
 
         batch_PB_company = ShiroSessionUtil.getLoginSession().getCompany_name();
-        String t_O_OrgName = batch_PB_company,t_P_Company = batch_PB_company;
+        String t_O_OrgName = batch_PB_company,t_P_Company = batch_PB_company; // pending on agent or not agent check
         if (batch_PB_company.equalsIgnoreCase("all")){
             List<OrganizationInfo> OrganizationInfo = organizationInfoService.findAllName(paramMap);
             List<PersonalInfoBatchUpload> personalInfoBatchUpload = personalInfoBatchUploadService.SelectAllBatch(paramMap);
@@ -129,11 +129,12 @@ public class PersonalInfoBatchUploadController {
                 model.addAttribute("personalInfoBatchUpload", personalInfoBatchUpload);
                 model.addAttribute("OrganizationInfo", OrganizationInfo);
             }else {
-                List<OrganizationInfo> OrganizationInfo = new ArrayList<OrganizationInfo>(); {
-                    {this.add(batch_PB_company);
-                    }
-                };
+                final OrganizationInfo organizationInfoList = new OrganizationInfo();
+                organizationInfoList.setT_O_OrgName(batch_PB_company);
+                List<OrganizationInfo> OrganizationInfo = new ArrayList<OrganizationInfo>();
+                OrganizationInfo.add(organizationInfoList);
                 paramSearchMap.put("t_FProd_CorpPool", organizationInfo.getT_O_Category());//添加元素
+                paramSearchMap.put("t_O_OrgName", t_O_OrgName);
                 List<FinanceProduct> FinanceProduct = financeProductService.findSearchList(paramSearchMap);
                 model.addAttribute("OrganizationInfo", OrganizationInfo);
                 model.addAttribute("FinanceProduct", FinanceProduct);
@@ -148,7 +149,7 @@ public class PersonalInfoBatchUploadController {
         return "personalInfoBatchUpload/personalInfoBatchUploadNew";
     }
 
-    private void add(String batch_PB_company) {
+    private void add(com.qucai.sample.entity.OrganizationInfo batch_PB_company) {
         // TODO Auto-generated method stub
 
     }

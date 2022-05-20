@@ -34,6 +34,11 @@ public class FinanceProduct implements Serializable {
     */
    private String t_FProd_Name;
 
+    /**
+     *  产品企业相关
+     */
+    private String t_FProd_OrgInfo;
+
 /**
     * 产品利率
     */
@@ -171,8 +176,6 @@ public class FinanceProduct implements Serializable {
     public String Page_count() {
     	return Page_count;
     }
-    
-    
 
     public void setT_FProd_Status(String t_FProd_Status) {
     	this.t_FProd_Status = t_FProd_Status;
@@ -256,13 +259,24 @@ public class FinanceProduct implements Serializable {
 		this.t_FProd_PersPool = t_FProd_PersPool;
 	}
 
-
     public String getT_FProd_MainCat() {
         return t_FProd_MainCat;
     }
 
     public void setT_FProd_MainCat(String t_FProd_MainCat) {
         this.t_FProd_MainCat = t_FProd_MainCat;
+    }
+
+    public String getT_FProd_OrgInfo() {
+        return this.t_FProd_OrgInfo;
+    }
+
+    public void setT_FProd_OrgInfo(final String t_FProd_OrgInfo) {
+        this.t_FProd_OrgInfo = t_FProd_OrgInfo;
+    }
+
+    public String getPage_count() {
+        return this.Page_count;
     }
 
 }
