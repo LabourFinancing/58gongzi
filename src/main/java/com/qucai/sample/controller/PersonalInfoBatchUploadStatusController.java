@@ -114,7 +114,7 @@ public class PersonalInfoBatchUploadStatusController {
     	model.addAttribute("t_batch_perslUploadEffectStatus", t_batch_perslUploadEffectStatus); //key从数据库查询并返回,并索引对应JSP
     	model.addAttribute("t_batch_persProdName", t_batch_persProdName); //key从数据库查询并返回,并索引对应JSP
     	model.addAttribute("t_batch_company", t_batch_company); //key从数据库查询并返回,并索引对应JSP
-    	model.addAttribute("t_batch_vendorCompany", t_batch_vendorCompany); //key从数据库查询并返回,并索引对应JSP
+    	model.addAttribute("t_batch_vendorCompany", t_batch_vendorCompany); //key从数据库查询并返,并索引对应JSP
     	model.addAttribute("remark", remark); //key从数据库查询并返回,并索引对应JSP
     	String t_O_OrgName = ShiroSessionUtil.getLoginSession().getCompany_name();
     	OrganizationInfo AgencyOrgnization = organizationInfoService.selectAgencyName(t_O_OrgName);

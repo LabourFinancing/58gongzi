@@ -234,17 +234,11 @@ public class PersonalInfoBatchUploadController {
 
     @RequestMapping(value="personalInfoBatchUploadPullin")
     @ResponseBody
-    public String upload(HttpServletRequest request,MultipartFile file,PersonalInfoBatchUpload personalInfoBatchUpload,String t_PIBU_Orgname,String t_FPROD_Name,
+    public String upload(HttpServletRequest request,MultipartFile file,PersonalInfoBatchUpload personalInfoBatchUpload,String PersonalInfoInputArea,String t_PIBU_Orgname,String t_FPROD_Name,
                          String payrollDate,String jobcat,Date EffectStartDate,Date EffectEndDate,Date TriggerTime,HttpServletResponse response, Model model) throws UnsupportedEncodingException {
         String CurrentCompany = ShiroSessionUtil.getLoginSession().getCompany_name();
 
         request.setCharacterEncoding("UTF-8");
-
-        String PersonalInfoInputArea = request.getParameter("PersonalInfoInputArea");
-        if (PersonalInfoInputArea != null) {
-            StringBuffer PersonalInfoInputAreaText = new StringBuffer(request.getParameter("PersonalInfoInputArea"));
-            PersonalInfoInputArea = PersonalInfoInputAreaText.toString();
-        }
         
         model.addAttribute("TriggerTime", TriggerTime);
         System.out.println(t_FPROD_Name);
