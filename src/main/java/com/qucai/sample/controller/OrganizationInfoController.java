@@ -140,6 +140,8 @@ public class OrganizationInfoController {
     @ResponseBody
     public String addOrganizationInfo(OrganizationInfo organizationInfo, HttpServletRequest request,Integer platform,Date Modify_time,
             HttpServletResponse response, Model model) {
+
+        organizationInfo.setT_O_OrgPending(ShiroSessionUtil.getLoginSession().getCompany_name());
     	model.addAttribute("platform", platform);
     	organizationInfo.setCreator(ShiroSessionUtil.getLoginSession().getId());
     	organizationInfo.setCreate_time(new Date());
@@ -153,9 +155,9 @@ public class OrganizationInfoController {
     }
 
     @RequestMapping(value = "deleteOrganizationInfo")
-    public String deleteOrganizationInfo(String t_O_ID, Integer platform, HttpServletRequest request,
+    public String deleteOrganizationInfo(String t_O_ID,String t_O_OrgName, Integer platform, HttpServletRequest request,
             HttpServletResponse response, Model model) {
-    	organizationInfoService.deleteByPrimaryKey(t_O_ID);
+    	organizationInfoService.deleteByPrimaryKey(t_O_ID,t_O_OrgName);
     	model.addAttribute("platform", platform);
         return "redirect:/OrganizationInfoController/organizationInfoList?platform="+platform;
     }

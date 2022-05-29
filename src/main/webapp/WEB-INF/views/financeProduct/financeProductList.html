@@ -216,6 +216,7 @@ var ValueCnvrt = "";
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.create_time?string("yyyy-MM-dd HH:mm:ss")}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_SysupdateDate?string("yyyy-MM-dd HH:mm:ss")}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">
+										<!-- new-function add prodmain binding list button -->
 										<@shiro.hasPermission name="FINANCEPRODUCT_EDIT">
 										<a href="#" onclick="openEdit('${financeProduct.t_FProd_ID}')">编辑</a>
 										</@shiro.hasPermission>

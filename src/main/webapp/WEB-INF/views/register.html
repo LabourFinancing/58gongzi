@@ -9,13 +9,11 @@
 <head xmlns:javascript="http://www.w3.org/1999/xhtml">
     <meta charset="utf-8">
     <title>我发工资 | 企业注册</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta content="width=device-width, initial-scale=1" name="viewport">
-    <meta content="" name="description">
-    <meta content="" name="author">
     <meta http-equiv="Cache-Control" content="no-store">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <#include "/common/commonContext.html">
     <link rel="icon" href="${ctx}/metronic/global/img/58gongzi-3.png" type="image/x-icon" />
@@ -457,10 +455,10 @@
                         alert(result.msg);
                     } else if (result.ret == "0") {
                         alert("注册成功,请返回首页登陆！");
-                        window.location.href = "${ctx}/login.html";
+                        window.location.href = "${ctx}/oauthController/logout";
                     } else if(result.ret == "1"){
                         alert("注册成功,请通知贵公司管理员通过,再返回登陆页登陆！");
-                        window.location.href = "${ctx}/login.html";
+                        window.location.href = "${ctx}/oauthController/logout";
                     }else if(result.ret == "2"){
                         alert(result.msg);
                     }
@@ -508,7 +506,7 @@
                 processData: false,
                 success: function(SMScodeRec) {
                     if(SMScodeRec.length === 6) {
-                        $("#SMScodeRec").val(SMScodeRec);
+                        document.getElementById("SMScodeRec").value = SMScodeRec;
                         var countdown = 60;
                         settime();
                         function settime() {
@@ -680,7 +678,7 @@
             </div>
             </div>
             <div class="form-group">
-                <div class="checker" id="uniform-reg_checked"><span><input  id="regChecked"  type="checkbox" name="regChecked" onclick="checkboxstatus()">
+                <div class="checker" id="uniform-reg_checked"><span><input  id="regChecked"  type="checkbox" name="regChecked">
                     <span style="font-size:12px;">阅读并同意</span><a href="${ctx}/about/items.html" style="color:#2ea967;font-size:12px;" target="_blank">《高孚薪资报酬发放系统开放平台用户使用协议》</a><span>,</span><a href="/sample_war_exploded/about/letter.html" style="color:#2ea967;font-size:12px;" target="_blank">《信息安全承诺责任书》</a>
                             <span style="font-size:12px;">及相关服务条款</span>
                     </span>

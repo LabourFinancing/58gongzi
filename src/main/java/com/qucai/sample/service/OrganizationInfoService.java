@@ -6,15 +6,17 @@ import java.util.Map;
 import com.github.pagehelper.PageInfo;
 import com.qucai.sample.common.PageParam;
 import com.qucai.sample.entity.OrganizationInfo;
+import com.qucai.sample.entity.TrAgentSubOrg;
+import com.qucai.sample.entity.TrAgentSubOrg;
 //import com.qucai.sample.entity.resource;
 
 public interface OrganizationInfoService {
     
-    int deleteByPrimaryKey(String t_O_ID);
+    int deleteByPrimaryKey(String t_O_ID,String t_O_OrgName);
     int deleteByOrgName(String orgName);
 
-    int insertSelective(OrganizationInfo record); 
-    
+    int insertSelective(OrganizationInfo record);
+
     OrganizationInfo selectByPrimaryKey(String t_O_ID);
     
     OrganizationInfo selectAgencyName(String t_O_OrgName);

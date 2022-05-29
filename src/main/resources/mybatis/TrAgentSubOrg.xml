@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qucai.sample.dao.TrAgentSubOrgDao">
+
+	<resultMap id="BaseResultMap" type="com.qucai.sample.entity.TrAgentSubOrg">
+		<id column="tr_agentid" property="tr_agentid" jdbcType="VARCHAR" />
+		<id column="tr_suborgid" property="tr_suborgid" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<delete id="deleteByPrimaryKey" parameterType="map">
+		delete from tr_AgentSubOrg
+		where 1 = 1
+		<if test="tr_agentid != null">
+			and tr_agentid = #{t_O_OrgName,jdbcType=VARCHAR}
+		</if>
+		<if test="tr_suborgid != null">
+			and tr_suborgid = #{t_O_OrgName,jdbcType=VARCHAR}
+		</if>
+	</delete>
+	
+	<insert id="insertSelective" parameterType="com.qucai.sample.entity.TrAgentSubOrg">
+		insert into tr_AgentSubOrg
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="tr_agentid != null">
+				tr_agentid,
+			</if>
+			<if test="tr_suborgid != null">
+				tr_suborgid,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="tr_agentid != null">
+				#{tr_agentid,jdbcType=VARCHAR},
+			</if>
+			<if test="tr_suborgid != null">
+				#{tr_suborgid,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<delete id="deleteByResourceIdStr" parameterType="java.lang.String">
+		delete from tr_AgentSubOrg
+		where find_in_set(tr_agentid, #{tragentidStr})
+	</delete>
+	
+</mapper>

@@ -6,6 +6,7 @@
 		<result column="t_FProd_ID" property="t_FProd_ID" jdbcType="VARCHAR" />
 		<result column="t_FProd_Name" property="t_FProd_Name" jdbcType="VARCHAR" />
 		<result column="t_FProd_OrgInfo" property="t_FProd_OrgInfo" jdbcType="VARCHAR" />
+		<result column="t_FProd_VendorOrgName" property="t_FProd_VendorOrgName" jdbcType="VARCHAR" />
 		<result column="t_FProd_Interest" property="t_FProd_Interest" jdbcType="DECIMAL" />
 		<result column="t_FProd_OverdueInt" property="t_FProd_OverdueInt" jdbcType="DECIMAL" />
 		<result column="t_FProd_ServiceFee" property="t_FProd_ServiceFee" jdbcType="DECIMAL" />
@@ -30,6 +31,7 @@
 		a.t_FProd_ID, 
 		a.t_FProd_Name,
 		a.t_FProd_OrgInfo,
+		a.t_FProd_VendorOrgName,
 		a.t_FProd_Interest, 
 		a.t_FProd_OverdueInt, 
 		a.t_FProd_ServiceFee, 
@@ -65,11 +67,11 @@
 		<include refid="Base_Column_List" />
 		from t_fproduct_info a
 		where 1=1
-		<if test="batch_PB_company != 'ALL'">
-		and a.t_FProd_OrgInfo = #{t_O_OrgName,jdbcType=VARCHAR}
+		<if test="t_O_VendorOrgName != null">
+			and a.t_FProd_VendorOrgName = #{t_O_VendorOrgName,jdbcType=VARCHAR}
 		</if>
-		<if test="t_O_OrgName != 'ALL'">
-		and a.t_FProd_OrgInfo = #{t_O_OrgName,jdbcType=VARCHAR}
+		<if test="t_O_OrgName != null">
+			and a.t_FProd_OrgInfo = #{t_O_OrgName,jdbcType=VARCHAR}
 		</if>
         <if test="t_FProd_MainCat != null">
         and a.t_FProd_MainCat = #{t_FProd_MainCat,jdbcType=VARCHAR}
@@ -105,6 +107,9 @@
 			</if>
 			<if test="t_FProd_OrgInfo != null">
 				t_FProd_OrgInfo,
+			</if>
+			<if test="t_FProd_VendorOrgName != null">
+				t_FProd_VendorOrgName,
 			</if>
 			<if test="t_FProd_Interest != null">
 				t_FProd_Interest,
@@ -171,6 +176,9 @@
 			<if test="t_FProd_OrgInfo != null">
 				#{t_FProd_OrgInfo,jdbcType=VARCHAR},
 			</if>
+			<if test="t_FProd_VendorOrgName != null">
+				#{t_FProd_VendorOrgName,jdbcType=VARCHAR},
+			</if>
 			<if test="t_FProd_Interest != null">
 				#{t_FProd_Interest,jdbcType=DECIMAL},
 			</if>
@@ -234,7 +242,10 @@
 		<include refid="Base_Column_List" />
 		from t_fproduct_info a
 		where 1=1
-		<if test="t_O_OrgName != 'ALL'">
+		<if test="t_O_VendorOrgName != null">
+			and a.t_FProd_VendorOrgName = #{t_O_VendorOrgName,jdbcType=VARCHAR}
+		</if>
+		<if test="t_O_OrgName != null">
 			and a.t_FProd_OrgInfo = #{t_O_OrgName,jdbcType=VARCHAR}
 		</if>
 		<if test="typeEnd != null">
@@ -274,6 +285,9 @@
 			</if>
 			<if test="t_FProd_OrgInfo != null">
 				t_FProd_OrgInfo = #{t_FProd_OrgInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="t_FProd_VendorOrgName != null">
+				t_FProd_VendorOrgName = #{t_FProd_VendorOrgName,jdbcType=VARCHAR},
 			</if>
 			<if test="t_FProd_Interest != null">
 				t_FProd_Interest = #{t_FProd_Interest,jdbcType=DECIMAL},

@@ -402,8 +402,10 @@
 		select
 		t_O_OrgName
 		from t_organization_info a
-		where
-		a.t_O_listOrg = #{t_O_listOrg,jdbcType=VARCHAR}
+		where 1=1
+		<if test="t_O_listOrg != null">
+			and a.t_O_listOrg = #{t_O_listOrg,jdbcType=VARCHAR}
+		</if>
 	</select>
 </mapper>
  

@@ -481,6 +481,7 @@ jQuery.validator.addMethod("isTel", function(value,element) {
 								</select>
 							</div>
 					</div>
+				<@shiroPermission name="TREASURYINFO_SUPERADMINVIEW">
 					<div class="form-group">
 						<label class="control-label col-sm-3">代理商企业名<span
 							class="required"> * </span>
@@ -493,6 +494,7 @@ jQuery.validator.addMethod("isTel", function(value,element) {
 						   </select>
 						</div>
 					</div>
+				</@shiro.hasPermission>
 					<div class="form-group">
 						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">工资卡银行名<span
 							class="required"> * </span>

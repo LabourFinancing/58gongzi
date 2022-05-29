@@ -35,10 +35,14 @@ public class FinanceProduct implements Serializable {
    private String t_FProd_Name;
 
     /**
-     *  产品企业相关
+     *  产品所属企业
      */
     private String t_FProd_OrgInfo;
 
+    /**
+     *  产品经销商企业
+     */
+    private String t_FProd_VendorOrgName;
 /**
     * 产品利率
     */
@@ -279,4 +283,11 @@ public class FinanceProduct implements Serializable {
         return this.Page_count;
     }
 
+    public String getT_FProd_VendorOrgName() {
+        return this.t_FProd_VendorOrgName;
+    }
+
+    public void setT_FProd_VendorOrgName(final String t_FProd_VendorOrgName) {
+        this.t_FProd_VendorOrgName = t_FProd_VendorOrgName;
+    }
 }

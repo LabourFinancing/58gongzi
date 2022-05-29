@@ -326,8 +326,9 @@ document.getElementById("updated_date").value=getDate();
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
+								<!-- new-function 收费费率 取profile值 ${t_organization_profile.t_organizationprofile_tierChargeFee}-->
 								<i class="fa"></i> <input type="text" class="form-control" title="平台收取费用 例：1.00 表示每次每笔收费1元"
-														  name="t_FProd_Poundage" id="t_FProd_Poundage" placeholder="1.00" value=${t_organization_profile.t_organizationprofile_tierChargeFee} disabled="disabled"/>1.00</input><!-- new-function 收费费率 取profile值 -->
+														  name="t_FProd_Poundage" id="t_FProd_Poundage" placeholder="1.00" value="1.0" disabled="disabled"/>
 							</div>
 						</div>
 					</div>
@@ -395,8 +396,7 @@ document.getElementById("updated_date").value=getDate();
 					<!-- new-function -->
 					<@shiro.hasPermission name="TREASURYINFO_AGENTFPRODVIEW">
 					<div class="form-group">
-						<label class="control-label col-sm-3">产品适用企业<span>
-							class="required"> * </span>
+						<label class="control-label col-sm-3">产品适用企业<span class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">

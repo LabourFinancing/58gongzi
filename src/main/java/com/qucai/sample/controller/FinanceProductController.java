@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qucai.sample.entity.Manager;
+import com.qucai.sample.entity.OrganizationInfo;
+import com.qucai.sample.service.OrganizationInfoService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,6 +44,9 @@ public class FinanceProductController {
     @Autowired
     private FinanceProductService financeProductService; //申明一个对象
 
+    @Autowired
+    private OrganizationInfoService organizationInfoService; //申明一个对象
+
     @ModelAttribute
     public FinanceProduct get(@RequestParam(required = false) String t_FProd_ID) {
     	FinanceProduct entity = null;
@@ -62,11 +67,34 @@ public class FinanceProductController {
     public String financeProductList(FinanceProduct financeProduct, @RequestParam( defaultValue = "0" )  Integer platform,
     		HttpServletRequest request, HttpServletResponse response, Model model) {
         String t_O_OrgName = ShiroSessionUtil.getLoginSession().getCompany_name();
+        String t_O_listOrg = null;
+        OrganizationInfo AgencyOrgnization = organizationInfoService.selectAgencyName(t_O_OrgName);
+        if(AgencyOrgnization.getT_O_listOrg().equals("on")) {
+            t_O_listOrg = "on";
+        }else{
+            t_O_listOrg = "off";
+        }
+        ShiroSessionUtil.getLoginSession().setEmail(t_O_listOrg);
         PageParam pp = Tool.genPageParam(request);      
         HashMap<String, Object> params = new HashMap<String, Object>();
-        params.put("t_O_OrgName",t_O_OrgName);
+        // check vendor or not
+        if(t_O_listOrg.equals("off")){
+            params.put("t_O_VendorOrgName",null);
+            if(t_O_OrgName.equals("ALL")){
+                params.put("t_O_OrgName",null);
+            }else {
+                params.put("t_O_OrgName", t_O_OrgName);
+            }
+        }else{
+            if(t_O_OrgName.equals("ALL")){
+                params.put("t_O_VendorOrgName",null);
+                params.put("t_O_OrgName",null);
+            }else{
+                params.put("t_O_VendorOrgName",t_O_OrgName);
+                params.put("t_O_OrgName",null);
+            }
+        }
         PageInfo<FinanceProduct> page = financeProductService.findAllList(params, pp);
-//        PageInfo<FinanceProduct> page = financeProductService.findAllList(new HashMap<String, Object>(), pp);
         model.addAttribute("page", page);
 
     	return "financeProduct/financeProductList";
@@ -79,6 +107,9 @@ public class FinanceProductController {
     public String financeProductSearchList(FinanceProduct financeProduct, @RequestParam( defaultValue = "0" )  Integer platform,String t_FProd_MainCat,String t_FProd_Name,Date create_time,
     		String remark,HttpServletRequest request, HttpServletResponse response, Model model) {
         String t_O_OrgName = ShiroSessionUtil.getLoginSession().getCompany_name();
+        String t_O_listOrg = ShiroSessionUtil.getLoginSession().getEmail();
+        // check vendor or not
+
     	model.addAttribute("platform", platform); //key从数据库查询并返回,并索引对应JSP
         if(t_FProd_MainCat.equals("ALLPYMT") || t_FProd_MainCat.equals(null)){
             t_FProd_MainCat = null;
@@ -86,6 +117,22 @@ public class FinanceProductController {
     	
     	if (t_FProd_Name != "" | create_time != null | remark != "") {
         	Map<String, Object> paramSearchMap = new HashMap<String, Object>();//新建map对象
+            if(t_O_listOrg.equals("off")){
+                paramSearchMap.put("t_O_VendorOrgName",null);
+                if(t_O_OrgName.equals("ALL")){
+                    paramSearchMap.put("t_O_OrgName",null);
+                }else {
+                    paramSearchMap.put("t_O_OrgName", t_O_OrgName);
+                }
+            }else{
+                if(t_O_OrgName.equals("ALL")){
+                    paramSearchMap.put("t_O_VendorOrgName",null);
+                    paramSearchMap.put("t_O_OrgName",null);
+                }else{
+                    paramSearchMap.put("t_O_VendorOrgName",t_O_OrgName);
+                    paramSearchMap.put("t_O_OrgName",null);
+                }
+            }
             paramSearchMap.put("t_O_OrgName", t_O_OrgName);
             paramSearchMap.put("t_FProd_MainCat", t_FProd_MainCat);
         	paramSearchMap.put("t_FProd_Name", t_FProd_Name);//添加元素
@@ -97,6 +144,22 @@ public class FinanceProductController {
     	} else {
             PageParam pp = Tool.genPageParam(request);
             HashMap<String, Object> params = new HashMap<String, Object>();
+            if(t_O_listOrg.equals("off")){
+                params.put("t_O_VendorOrgName",null);
+                if(t_O_OrgName.equals("ALL")){
+                    params.put("t_O_OrgName",null);
+                }else {
+                    params.put("t_O_OrgName", t_O_OrgName);
+                }
+            }else{
+                if(t_O_OrgName.equals("ALL")){
+                    params.put("t_O_VendorOrgName",null);
+                    params.put("t_O_OrgName",null);
+                }else{
+                    params.put("t_O_VendorOrgName",t_O_OrgName);
+                    params.put("t_O_OrgName",null);
+                }
+            }
             params.put("t_O_OrgName",t_O_OrgName);
             PageInfo<FinanceProduct> page = financeProductService.findAllList(params, pp);
             model.addAttribute("page", page);

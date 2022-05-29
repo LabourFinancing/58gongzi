@@ -3,6 +3,7 @@ package com.qucai.sample.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import com.qucai.sample.entity.TrAgentSubOrg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +12,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.qucai.sample.common.PageParam;
 import com.qucai.sample.dao.OrganizationInfoDao;
+import com.qucai.sample.dao.TrAgentSubOrgDao;
 import com.qucai.sample.entity.OrganizationInfo;
 import com.qucai.sample.service.OrganizationInfoService;
 
@@ -21,26 +23,31 @@ public class OrganizationInfoServiceImpl implements OrganizationInfoService {
     @Autowired
     private OrganizationInfoDao organizationInfoDao;
 
+    @Autowired
+    private TrAgentSubOrgDao trAgentSubOrgDao;
+
 /*
     @Autowired
     private TrRoleResourceDao trRoleResourceDao;
 */
 
    @Override
-   public int deleteByPrimaryKey(String t_O_ID) {
+   public int deleteByPrimaryKey(String t_O_ID,String t_O_OrgName) {
+       trAgentSubOrgDao.deleteByPrimaryKey(t_O_OrgName);
        return organizationInfoDao.deleteByPrimaryKey(t_O_ID);
    }
 
     @Override
     public int deleteByOrgName(String orgName) {
-        return organizationInfoDao.deleteByPrimaryKey(orgName);
+        trAgentSubOrgDao.deleteByPrimaryKey(orgName);
+       return organizationInfoDao.deleteByPrimaryKey(orgName);
     }
        
     @Override
     public int insertSelective(OrganizationInfo record) {
-        return organizationInfoDao.insertSelective(record);
+       trAgentSubOrgDao.insertAgentSubOrg(record.getT_O_OrgPending(),record.getT_O_OrgName());
+       return organizationInfoDao.insertSelective(record);
     }
-    
 
     @Override
     public OrganizationInfo selectByPrimaryKey(String t_O_ID) {

@@ -17,7 +17,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.jasper.tagplugins.jstl.Util;
+import org.apache.logging.log4j.core.util.JsonUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -143,8 +145,6 @@ public class PersonalInfoBatchUploadController {
         model.addAttribute("t_FProd", batch_PB_company);
         model.addAttribute("batch_PB_company", batch_PB_company);
 
-
-
         String flag = "failure";
         return "personalInfoBatchUpload/personalInfoBatchUploadNew";
     }
@@ -202,6 +202,7 @@ public class PersonalInfoBatchUploadController {
     public String CompanyChange(String t_PIBU_Orgname, HttpServletRequest request,
                                 HttpServletResponse response, Model model) {
         model.addAttribute("t_Org_name", t_PIBU_Orgname);
+        String batch_PB_company = ShiroSessionUtil.getLoginSession().getCompany_name();
         Map<String, Object> rs = new HashMap<String, Object>();
         Map<String, Object> paramSearchMap = new HashMap<String, Object>();
         String t_O_OrgName = null;
@@ -213,13 +214,14 @@ public class PersonalInfoBatchUploadController {
         }
 
         OrganizationInfo organizationInfo = organizationInfoService.selectAgencyName(t_O_OrgName);
+        paramSearchMap.put("batch_PB_company", batch_PB_company);
+        paramSearchMap.put("t_FProd_OrgInfo", t_O_OrgName);
         paramSearchMap.put("t_FProd_CorpPool", organizationInfo.getT_O_Category());//添加元素
         List<FinanceProduct> FinanceProduct = financeProductService.findSearchList(paramSearchMap);
         model.addAttribute("FinanceProduct",FinanceProduct);
         rs.put("FinanceProduct", FinanceProduct);
         rs.put("ret", 0);
         return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
-//        return "personalInfoBatchUpload/personalInfoBatchUploadNew";
     }
 
     // download Excel template  	
@@ -234,12 +236,15 @@ public class PersonalInfoBatchUploadController {
 
     @RequestMapping(value="personalInfoBatchUploadPullin")
     @ResponseBody
-    public String upload(HttpServletRequest request,MultipartFile file,PersonalInfoBatchUpload personalInfoBatchUpload,String PersonalInfoInputArea,String t_PIBU_Orgname,String t_FPROD_Name,
+    public String upload(HttpServletRequest request,MultipartFile file,PersonalInfoBatchUpload personalInfoBatchUpload,String personalInfoInputArea,String t_PIBU_Orgname,String t_FPROD_Name,
                          String payrollDate,String jobcat,Date EffectStartDate,Date EffectEndDate,Date TriggerTime,HttpServletResponse response, Model model) throws UnsupportedEncodingException {
         String CurrentCompany = ShiroSessionUtil.getLoginSession().getCompany_name();
 
+        // Sring result = ps.readExcelFile(file);
         request.setCharacterEncoding("UTF-8");
-        
+        System.out.println("进入员工个人信息文件上传");
+        System.out.println(file.getOriginalFilename());
+        System.out.print(personalInfoInputArea);
         model.addAttribute("TriggerTime", TriggerTime);
         System.out.println(t_FPROD_Name);
         OrganizationInfo organizationInfo = organizationInfoService.selectAgencyName(t_PIBU_Orgname);
@@ -262,20 +267,30 @@ public class PersonalInfoBatchUploadController {
             e.printStackTrace();
         }
 
-        if (TriggerTime == null || EffectStartDate == null) {
+        if (TriggerTime == null) {
             StringBuffer ss = new StringBuffer();
-            batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append(file.getOriginalFilename()).append("_").append(FProd_name).append("_").append("RT"));
+            if(personalInfoInputArea == null) {
+                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append(file.getOriginalFilename()).append("_").append(FProd_name).append("_").append("RT"));
+            }else{
+                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append("temp").append("_").append(FProd_name).append("_").append("RT"));
+            }
         } else {
             StringBuffer ss = new StringBuffer();
-            batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append(file.getOriginalFilename()).append("_").append(FProd_name).append("_").append("TT"));
+            if(personalInfoInputArea == null) {
+                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append(file.getOriginalFilename()).append("_").append(FProd_name).append("_").append("RT"));
+            }else{
+                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append("temp").append("_").append(FProd_name).append("_").append("RT"));
+            }
         }
         ArrayList<ArrayList<String>> row = new ArrayList<>();
-        // Sring result = ps.readExcelFile(file);
-        System.out.println("进入员工个人信息文件上传");
-        System.out.println(file.getOriginalFilename());
-        System.out.print(PersonalInfoInputArea);
-        
-        if (PersonalInfoInputArea == null) {
+
+        // err checking preparation
+        List<String> personalErrInfo = new ArrayList<String>();
+        StringBuffer errRowData =  new StringBuffer();
+        Boolean dataChkOk = true;
+        Map<String, Object> rs = new HashMap<String, Object>(); // err Msg
+
+        if (personalInfoInputArea == null) {
             String filename = file.getOriginalFilename();
             Workbook workbook = null;
             try {
@@ -295,11 +310,10 @@ public class PersonalInfoBatchUploadController {
             //从第二行开始获取 getLastRowNum
             System.out.println("表总共多少行: " + sheet.getLastRowNum());
             System.out.println("实际共多少行: " + sheet.getPhysicalNumberOfRows());
-            List<Map<String, Object>> cell = new ArrayList();
+            List<Map<String, Object>> cell = new ArrayList(); // get cell
             Readxlscells:
             for (int i = 0; i < sheet.getPhysicalNumberOfRows(); i++) {
                 Map<String, Object> paramSQLmap = new HashMap<String, Object>();
-                Map<String, Object> rs = new HashMap<String, Object>();
                 paramSQLmap.put("batch_PB_ID", Tool.uuid());
                 paramSQLmap.put("batch_PB_batchID", batch_PB_batchID);
                 paramSQLmap.put("batch_PB_company", t_PIBU_Orgname);
@@ -326,10 +340,12 @@ public class PersonalInfoBatchUploadController {
                             sheetRow.getCell(j).setCellType(Cell.CELL_TYPE_STRING);
                             System.out.println(sheetRow.getCell(j).getStringCellValue());
                             if (sheetRow.getCell(j).getStringCellValue() == null || sheetRow.getCell(j).getStringCellValue().equals("")) {
+                                dataChkOk = false;
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
-                                rs.put("retData", "-1");
-                                rs.put("retMsg", "姓名错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow.getCell(j).getStringCellValue() + "'");
+                                errRowData.append(String.valueOf("姓名错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow.getCell(j).getStringCellValue()).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserNameErr);
+                                rs.put("retMsg", errRowData);
+                                personalErrInfo.add(errRowData.toString());
                                 break Readxlscells;
                             } else {
                                 paramSQLmap.put("batch_PB_Name", sheetRow.getCell(j).getStringCellValue().replaceAll(" ", ""));
@@ -342,11 +358,14 @@ public class PersonalInfoBatchUploadController {
                             boolean IsPIDcard = IdCardUtil.validate18Idcard(sheetRow.getCell(j).getStringCellValue());
                             boolean IDerr = sheetRow.getCell(j).getStringCellValue().contains("E");
                             if (sheetRow.getCell(j).getStringCellValue() == null || !IsPIDcard || IDerr) {
+                                dataChkOk = false;
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
-                                rs.put("retData", "-1");
+                                errRowData = null;
+//                                errRowData.append(String.valueOf("身份证错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow.getCell(j).getStringCellValue()).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserIdErr);
                                 rs.put("retMsg", "身份证错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow.getCell(j).getStringCellValue().toUpperCase() + "'");
-                                return JsonBizTool.genJson(ExRetEnum.Pullin_UserIdErr, rs);
+                                personalErrInfo.add(errRowData.toString());
+//                                return JsonBizTool.genJson(ExRetEnum.Pullin_UserIdErr, rs);
                             } else {
                                 paramSQLmap.put("batch_PB_PID", sheetRow.getCell(j).getStringCellValue().replaceAll(" ", ""));
                             }
@@ -358,11 +377,13 @@ public class PersonalInfoBatchUploadController {
                             boolean IsBankCard = Tool.checkBankCard(sheetRow.getCell(j).getStringCellValue());
                             boolean BankCarderr = sheetRow.getCell(j).getStringCellValue().contains("E");
                             if (sheetRow.getCell(j).getStringCellValue() == null || !IsBankCard || BankCarderr) {
+                                dataChkOk = false;
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
-                                rs.put("retData", "-1");
-                                rs.put("retMsg", "银行卡错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow.getCell(j).getStringCellValue() + "'");
-                                return JsonBizTool.genJson(ExRetEnum.Pullin_UserDebitCardErr, rs);
+                                errRowData.append(String.valueOf("银行卡错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow.getCell(j).getStringCellValue()).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserDebitCardErr);
+//                                rs.put("retMsg", "银行卡错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow.getCell(j).getStringCellValue() + "'");
+                                personalErrInfo.add(errRowData.toString());
+                              return JsonBizTool.genJson(ExRetEnum.Pullin_UserDebitCardErr, rs);
                             } else {
                                 paramSQLmap.put("batch_PB_creditCard", sheetRow.getCell(j).getStringCellValue().replaceAll(" ", "").toUpperCase());
                             }
@@ -375,9 +396,10 @@ public class PersonalInfoBatchUploadController {
                             if (sheetRow.getCell(j).getStringCellValue() == null || !ISChineseMobile) {
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
-                                rs.put("retData", "-1");
-                                rs.put("retMsg", "手机号错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow.getCell(j).getStringCellValue() + "'");
-                                return JsonBizTool.genJson(ExRetEnum.Pullin_UserMobileErr, rs);
+                                errRowData.append(String.valueOf("手机号错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow.getCell(j).getStringCellValue()).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserMobileErr);
+//                                rs.put("retMsg", "手机号错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow.getCell(j).getStringCellValue() + "'");
+                                personalErrInfo.add(errRowData.toString());
+//                                return JsonBizTool.genJson(ExRetEnum.Pullin_UserMobileErr, rs);
                             } else {
                                 paramSQLmap.put("batch_PB_mobile", sheetRow.getCell(j).getStringCellValue().replaceAll(" ", ""));
                             }
@@ -387,11 +409,13 @@ public class PersonalInfoBatchUploadController {
                             sheetRow.getCell(j).setCellType(Cell.CELL_TYPE_STRING);
                             System.out.println(sheetRow.getCell(j).getStringCellValue());
                             if (sheetRow.getCell(j).getStringCellValue() == null) {
+                                dataChkOk = false;
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
-                                rs.put("retData", "-1");
-                                rs.put("retMsg", "授额错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow.getCell(j).getStringCellValue() + "'");
-                                return JsonBizTool.genJson(ExRetEnum.Pullin_UserCreditLineErr, rs);
+                                errRowData.append(String.valueOf("授额错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow.getCell(j).getStringCellValue()).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserCreditLineErr);
+//                                rs.put("retMsg", "授额错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow.getCell(j).getStringCellValue() + "'");
+                                personalErrInfo.add(errRowData.toString());
+//                                return JsonBizTool.genJson(ExRetEnum.Pullin_UserCreditLineErr, rs);
                             } else {
                                 paramSQLmap.put("batch_PB_credit", new BigDecimal(sheetRow.getCell(j).getStringCellValue()));
                                 paramSQLmap.put("batch_PB_balance", new BigDecimal(sheetRow.getCell(j).getStringCellValue()));
@@ -404,19 +428,29 @@ public class PersonalInfoBatchUploadController {
                     cell.add(paramSQLmap);
                 }
             }
-
-            insertNum = personalInfoBatchUploadService.insertCustomerMachineByBatch(cell);
-
+            if(dataChkOk) {
+                insertNum = personalInfoBatchUploadService.insertCustomerMachineByBatch(cell);
+            }else{
+                rs.put("personalErrInfo",personalErrInfo);
+                return JsonBizTool.genJson(ExRetEnum.Pullin_Fail, rs);
+            }
         }else{
+            //get data from personalInfoInputArea
+            String personalInfoArray = null;
+            try {
+                personalInfoArray = URLDecoder.decode(personalInfoInputArea, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             //获取第一张工作表
             //从第二行开始获取 getLastRowNum
             List<Map<String, Object>> cell = new ArrayList();
-            String[] personal_col_info = PersonalInfoInputArea.split(";");
+            String[] personal_col_info = personalInfoArray.split(";");
             System.out.print(personal_col_info.length);
 
             for (int i = 0; i < personal_col_info.length; i++) {
                 Map<String, Object> paramSQLmap = new HashMap<String, Object>();
-                Map<String, Object> rs = new HashMap<String, Object>();
                 paramSQLmap.put("batch_PB_ID", Tool.uuid());
                 paramSQLmap.put("batch_PB_batchID", batch_PB_batchID);
                 paramSQLmap.put("batch_PB_company", t_PIBU_Orgname);
@@ -433,9 +467,11 @@ public class PersonalInfoBatchUploadController {
                 //循环获取每一列
                 //		ArrayList<String> cell = new ArrayList<>();
                 if (sheetRow.length != 5) {
-                    rs.put("retData", "-1");
-                    rs.put("retMsg", "该行数据错误: " + "第" + i+1 + "行-" + sheetRow[i].trim().replace(" ","") + "'");
-                    return JsonBizTool.genJson(ExRetEnum.PullinMutiText_Err, rs);
+                    dataChkOk = false;
+                    errRowData.append(String.valueOf("姓名错误信息:")).append("第").append(i+1).append("行-").append(sheetRow[i].trim().replace(" ","")).append("'").append("-错误原因：").append(ExRetEnum.PullinMutiText_Err);
+//                    rs.put("retMsg", "该行数据错误: " + "第" + i+1 + "行-" + sheetRow[i].trim().replace(" ","") + "'");
+                    personalErrInfo.add(errRowData.toString());
+//                    return JsonBizTool.genJson(ExRetEnum.PullinMutiText_Err, rs);
                 }
                 for (int j = 0; j < sheetRow.length; j++) {
                     if (j == 0 && sheetRow[j].contains(String.valueOf("员工"))) {
@@ -448,8 +484,10 @@ public class PersonalInfoBatchUploadController {
                             if (sheetRow[j].trim().replace(" ","") == null || sheetRow[j].trim().replace(" ","") .equals("")) {
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
-                                rs.put("retData", "-1");
-                                rs.put("retMsg", "姓名错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow[j].trim().replace(" ","") + "'");
+                                dataChkOk = false;
+                                errRowData.append(String.valueOf("姓名错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow[j].trim().replace(" ","")).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserNameErr);
+//                                rs.put("retMsg", "姓名错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow[j].trim().replace(" ","") + "'");
+                                personalErrInfo.add(errRowData.toString());
                                 break;
                             } else {
                                 paramSQLmap.put("batch_PB_Name", sheetRow[j].trim().replace(" ",""));
@@ -462,9 +500,11 @@ public class PersonalInfoBatchUploadController {
                             if (sheetRow[j].trim().replace(" ","") == null || !IsPIDcard || IDerr) {
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
-                                rs.put("retData", "-1");
-                                rs.put("retMsg", "身份证错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow[j].trim().replace(" ","").toUpperCase() + "'");
-                                return JsonBizTool.genJson(ExRetEnum.Pullin_UserIdErr, rs);
+                                dataChkOk = false;
+                                errRowData.append(String.valueOf("身份证错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow[j].trim().replace(" ","").toUpperCase() ).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserIdErr);
+//                                rs.put("retMsg", "身份证错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow[j].trim().replace(" ","").toUpperCase() + "'");
+                                personalErrInfo.add(errRowData.toString());
+//                                return JsonBizTool.genJson(ExRetEnum.Pullin_UserIdErr, rs);
                             } else {
                                 paramSQLmap.put("batch_PB_PID", sheetRow[j].trim().replace(" ",""));
                             }
@@ -476,9 +516,11 @@ public class PersonalInfoBatchUploadController {
                             if (sheetRow[j].trim().replace(" ","") == null || !IsBankCard || BankCarderr) {
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
-                                rs.put("retData", "-1");
-                                rs.put("retMsg", "银行卡错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow[j].trim().replace(" ","")+ "'");
-                                return JsonBizTool.genJson(ExRetEnum.Pullin_UserDebitCardErr, rs);
+                                dataChkOk = false;
+                                errRowData.append(String.valueOf("银行卡错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow[j].trim().replace(" ","")).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserDebitCardErr);
+//                                rs.put("retMsg", "银行卡错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow[j].trim().replace(" ","")+ "'");
+                                personalErrInfo.add(errRowData.toString());
+//                                return JsonBizTool.genJson(ExRetEnum.Pullin_UserDebitCardErr, rs);
                             } else {
                                 paramSQLmap.put("batch_PB_creditCard", sheetRow[j].trim().replace(" ","").toUpperCase());
                             }
@@ -489,9 +531,11 @@ public class PersonalInfoBatchUploadController {
                             if (sheetRow[j].trim().replace(" ","") == null || !ISChineseMobile) {
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
-                                rs.put("retData", "-1");
-                                rs.put("retMsg", "手机号错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow[j].trim().replace(" ","") + "'");
-                                return JsonBizTool.genJson(ExRetEnum.Pullin_UserMobileErr, rs);
+                                dataChkOk = false;
+                                errRowData.append(String.valueOf("手机号错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow[j].trim().replace(" ","")).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserMobileErr);
+//                                rs.put("retMsg", "手机号错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow[j].trim().replace(" ","") + "'");
+                                personalErrInfo.add(errRowData.toString());
+//                                return JsonBizTool.genJson(ExRetEnum.Pullin_UserMobileErr, rs);
                             } else {
                                 paramSQLmap.put("batch_PB_mobile", sheetRow[j].trim().replace(" ",""));
                             }
@@ -501,9 +545,11 @@ public class PersonalInfoBatchUploadController {
                             if (sheetRow[j].trim().replace(" ","") == null) {
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
-                                rs.put("retData", "-1");
-                                rs.put("retMsg", "授额错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow[j].trim().replace(" ","") + "'");
-                                return JsonBizTool.genJson(ExRetEnum.Pullin_UserCreditLineErr, rs);
+                                dataChkOk = false;
+                                errRowData.append(String.valueOf("授额错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow[j].trim().replace(" ","")).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserCreditLineErr);
+//                                rs.put("retMsg", "授额错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow[j].trim().replace(" ","") + "'");
+                                personalErrInfo.add(errRowData.toString());
+//                                return JsonBizTool.genJson(ExRetEnum.Pullin_UserCreditLineErr, rs);
                             } else {
                                 paramSQLmap.put("batch_PB_credit", new BigDecimal(sheetRow[j].trim().replace(" ","")));
                                 paramSQLmap.put("batch_PB_balance", new BigDecimal(sheetRow[j].trim().replace(" ","")));
@@ -516,13 +562,19 @@ public class PersonalInfoBatchUploadController {
                     cell.add(paramSQLmap);
                 }
             }
-
-            insertNum = personalInfoBatchUploadService.insertCustomerMachineByBatch(cell);
+            if(dataChkOk) {
+                insertNum = personalInfoBatchUploadService.insertCustomerMachineByBatch(cell);
+            }else{
+                rs.put("retMsg","插入失败，请检查相关记录并更正后再上传!");
+                rs.put("personalErrInfo",personalErrInfo);
+                return JsonBizTool.genJson(ExRetEnum.Pullin_Fail, rs);
+            }
         }
         
 
 
         if(insertNum != 0){
+            dataChkOk = true;
             //check dup debit card in upload batch
             List<PersonalInfoBatchUpload> retcode = personalInfoBatchUploadService.duplicateDebitCardChk(batch_PB_batchID);
             String errRcsDupDebitCard = null;
@@ -539,15 +591,16 @@ public class PersonalInfoBatchUploadController {
             }
 
             if (errRcsDupDebitCard != null) {
-                Map<String, Object> rs = new HashMap<String, Object>();
                 int deleteUpload = personalInfoBatchUploadService.deleteByPrimaryKey(batch_PB_batchID);
-                rs.put("retData","-1");
-                rs.put("retMsg","重复银行卡记录信息: " + errRcsDupDebitCard);
-                return JsonBizTool.genJson(ExRetEnum.Pullin_FailDupDebitCardErr, rs);
+                dataChkOk = false;
+                errRowData.append(String.valueOf("重复银行卡记录信息:")).append(errRcsDupDebitCard).append("-错误原因：").append(ExRetEnum.Pullin_FailDupDebitCardErr);
+//                rs.put("retMsg","重复银行卡记录信息: " + errRcsDupDebitCard);
+                personalErrInfo.add(errRowData.toString());
+//                return JsonBizTool.genJson(ExRetEnum.Pullin_FailDupDebitCardErr, rs);
             }
 
 
-            // check dup mobile with Manger Table
+            // check dup mobile with Manager Table
             List<PersonalInfoBatchUpload> retcode1 = personalInfoBatchUploadService.duplicateMobileChkTmanager(batch_PB_batchID);
             String errRcsDupMobileMgr = null;
             if (retcode1.size() != 0 || !retcode1.isEmpty()){
@@ -563,11 +616,12 @@ public class PersonalInfoBatchUploadController {
             }
 
             if (errRcsDupMobileMgr != null) {
-                Map<String, Object> rs = new HashMap<String, Object>();
                 int deleteUpload = personalInfoBatchUploadService.deleteByPrimaryKey(batch_PB_batchID);
-                rs.put("retData","-1");
-                rs.put("retMsg","与系统主人员信息表重复手机号或一个身份证多个手机号记录信息: " + errRcsDupMobileMgr);
-                return JsonBizTool.genJson(ExRetEnum.Pullin_FailDupMgrMobileErr, rs);
+                dataChkOk = false;
+                errRowData.append(String.valueOf("与系统主人员信息表重复手机号或一个身份证多个手机号记录信息:")).append(errRcsDupMobileMgr).append("-错误原因：").append(ExRetEnum.Pullin_FailDupMgrMobileErr);
+//                rs.put("retMsg","与系统主人员信息表重复手机号或一个身份证多个手机号记录信息: " + errRcsDupMobileMgr);
+                personalErrInfo.add(errRowData.toString());
+//                return JsonBizTool.genJson(ExRetEnum.Pullin_FailDupMgrMobileErr, rs);
             }
 
             // check dup Mobile with t_personal table
@@ -586,11 +640,12 @@ public class PersonalInfoBatchUploadController {
             }
 
             if (errRcsDupMobilePer != null) {
-                Map<String, Object> rs = new HashMap<String, Object>();
                 int deleteUpload = personalInfoBatchUploadService.deleteByPrimaryKey(batch_PB_batchID);
-                rs.put("retData","-1");
-                rs.put("retMsg","与系统个人信息表重复手机号或一个身份证多个手机号记录信息: " + errRcsDupMobilePer);
-                return JsonBizTool.genJson(ExRetEnum.Pullin_FailDupPerMobileErr, rs);
+                dataChkOk = false;
+                errRowData.append(String.valueOf("与系统个人信息表重复手机号或一个身份证多个手机号记录信息:")).append(errRcsDupMobilePer).append("-错误原因：").append(ExRetEnum.Pullin_FailDupPerMobileErr);
+//                rs.put("retMsg","与系统个人信息表重复手机号或一个身份证多个手机号记录信息: " + errRcsDupMobilePer);
+                personalErrInfo.add(errRowData.toString());
+//                return JsonBizTool.genJson(ExRetEnum.Pullin_FailDupPerMobileErr, rs);
             }
 
             // check dup personal id with Manager table
@@ -609,11 +664,12 @@ public class PersonalInfoBatchUploadController {
             }
 
             if (errRcsDupPID != null) {
-                Map<String, Object> rs = new HashMap<String, Object>();
                 int deleteUpload = personalInfoBatchUploadService.deleteByPrimaryKey(batch_PB_batchID);
-                rs.put("retData","-1");
-                rs.put("retMsg","与系统个人信息表重复身份证或一个手机号多个身份证记录信息: " + errRcsDupPID);
-                return JsonBizTool.genJson(ExRetEnum.Pullin_FailDupPIDErr, rs);
+                dataChkOk = false;
+                errRowData.append(String.valueOf("与系统个人信息表重复身份证或一个手机号多个身份证记录信息:")).append(errRcsDupPID).append("-错误原因：").append(ExRetEnum.Pullin_FailDupPIDErr);
+//                rs.put("retMsg","与系统个人信息表重复身份证或一个手机号多个身份证记录信息: " + errRcsDupPID);
+                personalErrInfo.add(errRowData.toString());
+//                return JsonBizTool.genJson(ExRetEnum.Pullin_FailDupPIDErr, rs);
             }
 
             //check dup mobile in the batch uploaded
@@ -632,11 +688,12 @@ public class PersonalInfoBatchUploadController {
             }
 
             if (errBatchDupMobile != null) {
-                Map<String, Object> rs = new HashMap<String, Object>();
                 int deleteUpload = personalInfoBatchUploadService.deleteByPrimaryKey(batch_PB_batchID);
-                rs.put("retData","-1");
-                rs.put("retMsg","上传表中有重复手机号记录信息: " + errBatchDupMobile);
-                return JsonBizTool.genJson(ExRetEnum.Pullin_FailDupBatchMobileErr, rs);
+                dataChkOk = false;
+                errRowData.append(String.valueOf("上传表中有重复手机号记录信息:")).append(errBatchDupMobile).append("-错误原因：").append(ExRetEnum.Pullin_FailDupBatchMobileErr);
+//                rs.put("retMsg","上传表中有重复手机号记录信息: " + errBatchDupMobile);
+                personalErrInfo.add(errRowData.toString());
+//                return JsonBizTool.genJson(ExRetEnum.Pullin_FailDupBatchMobileErr, rs);
             }
 
             //check dup personal id in the batch uploaded
@@ -655,11 +712,12 @@ public class PersonalInfoBatchUploadController {
             }
 
             if (errBatchDupPID != null) {
-                Map<String, Object> rs = new HashMap<String, Object>();
                 int deleteUpload = personalInfoBatchUploadService.deleteByPrimaryKey(batch_PB_batchID);
-                rs.put("retData","-1");
-                rs.put("retMsg","上传表中有重复身份证记录信息: " + errBatchDupPID);
-                return JsonBizTool.genJson(ExRetEnum.Pullin_FailDupBatchPIDErr, rs);
+                dataChkOk = false;
+                errRowData.append(String.valueOf("上传表中有重复身份证记录信息:")).append(errBatchDupPID).append("-错误原因：").append(ExRetEnum.Pullin_FailDupBatchPIDErr);
+//                rs.put("retMsg","上传表中有重复身份证记录信息: " + errBatchDupPID);
+                personalErrInfo.add(errRowData.toString());
+//                return JsonBizTool.genJson(ExRetEnum.Pullin_FailDupBatchPIDErr, rs);
             }
 
             //check dup debit card in the batch uploaded
@@ -678,32 +736,35 @@ public class PersonalInfoBatchUploadController {
             }
 
             if (errBatchDupDebitCard != null) {
-                Map<String, Object> rs = new HashMap<String, Object>();
                 int deleteUpload = personalInfoBatchUploadService.deleteByPrimaryKey(batch_PB_batchID);
-                rs.put("retData","-1");
-                rs.put("retMsg","上传表中有重复银行卡记录信息: " + errBatchDupDebitCard);
-                return JsonBizTool.genJson(ExRetEnum.Pullin_FailDupBatchPIDErr, rs);
+                dataChkOk = false;
+                errRowData.append(String.valueOf("上传表中有重复银行卡记录信息:")).append(errBatchDupDebitCard).append("-错误原因：").append(ExRetEnum.Pullin_FailDupDebitCardErr);
+//                rs.put("retMsg","上传表中有重复银行卡记录信息: " + errBatchDupDebitCard);
+                personalErrInfo.add(errRowData.toString());
+//                return JsonBizTool.genJson(ExRetEnum.Pullin_FailDupDebitCardErr, rs);
             }
         }
 
 
         StringBuffer ss = new StringBuffer();
         String succNum = null;
-
-        if (insertNum != 0) {
+        if (dataChkOk) {
             succNum = String.valueOf(ss.append("总共成功上传条数: ").append(Integer.toString(insertNum)));
+            rs.put("retMsg",succNum);
+            return JsonBizTool.genJson(ExRetEnum.UPLOADSUCCESS, rs);
         }else{
-            succNum = String.valueOf(ss.append("插入失败，请检查更正数据后再上传"));
+            String uploadfaile = String.valueOf(ss.append("插入失败，请检查更正数据后再上传"));
+            rs.put("retMsg",uploadfaile);
+            return JsonBizTool.genJson(ExRetEnum.Pullin_Fail, rs);
         }
 
-        return succNum;
     }
 
 
 
     @RequestMapping(value = "personalInfoBatchUpdateSub")
     @ResponseBody
-    public String PersonalInfoBatchUpdateSub(HttpServletRequest request,PersonalInfoBatchUpload personalInfoBatchUpload,String PersonalInfoInputArea,
+    public String PersonalInfoBatchUpdateSub(HttpServletRequest request,PersonalInfoBatchUpload personalInfoBatchUpload,String personalInfoInputArea,
                                              String batch_PB_batchID,String t_PIBU_Orgname,String t_FPROD_Name,String payrollDate,String jobcat,Date EffectStartDate,Date EffectEndDate,
                                              Date TriggerTime,HttpServletResponse response, Model model) throws UnsupportedEncodingException{
         String CurrentCompany = ShiroSessionUtil.getLoginSession().getCompany_name();

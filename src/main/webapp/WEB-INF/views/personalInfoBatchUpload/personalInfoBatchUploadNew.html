@@ -1,695 +1,1510 @@
 <!DOCTYPE html>
 <!-- saved from url=(0035)http://users.ucpaas.com/%20/l%20/#/ -->
-<html>
-
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta content="webkit" name="renderer">
-<title>企业员工批量管理</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-<#include "/common/commonContext.html">
-<script src="${ctx}/metronic/global/plugins/jquery.min.js" type="text/javascript"></script>
-<script src="${ctx}/metronic/global/plugins/ajaxfileupload-variable-transfer.js" type="text/javascript"></script>
-<link href="${ctx}/metronic/new_modules/app_info.css" rel="stylesheet" type="text/css" >
-<!-- /复制功能插件/ -->
-<script type="text/javascript" src="${ctx}/metronic/new_modules/clipboard.min.js"></script>
-<!-- 图表 -->
-<script type="text/javascript" src="${ctx}/metronic/new_modules/echarts.common.min.js"></script>
-<script type="text/javascript" src="${ctx}/metronic/mobile/js/bootstrap.min.js"></script>
-<script src="${ctx}/metronic/mobile/js/moment-with-locales.js" type="text/javascript"></script>
-<!-- // 日期插件 -->
-<script src="${ctx}/metronic/new_modules/bootstrap-datetimepicker.min.js"></script>
-<script src="${ctx}/metronic/new_modules/namepidverify.js"></script>
-
-<link href="${ctx}/metronic/mobile/css/bootstrap.min.css" rel="stylesheet" type="text/css" >
-<link href="${ctx}/metronic/new_modules/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" >
-
-
-<script type="text/javascript">
-/*
-var userId = '<c:out value="${sessionScope.USER.userId}" />';
-var orgId = '<c:out value="${sessionScope.ORG.orgId}" />';
-var authLevel = '<c:out value="${sessionScope.USER.authLevel}" />';
-var userType = '<c:out value="${sessionScope.USER.type}" />';
-var orgAmount= '<c:out value="${sessionScope.AGENT.orgAmount}" />';
-var loginUser = {userId: userId, orgId: orgId, authLevel: authLevel, type: userType ,orgAmount:orgAmount};
-*/
-/**
- * 上传文件
+<html><head><script>/* Chrome SafeEngine plugin
+ *
+ * This software is released under either the GNU Library General Public
+ * License (see LICENSE.LGPL).
+ *
+ * Note that the only valid version of the LGPL license as far as this
+ * project is concerned is the original GNU Library General Public License
+ * Version 2.1, February 1999
  */
-var uploaded = false;
-var selected = false;
-var textareadata = true;
-var spanHTag = false;
-var inputZinital = null
-var project;
 
-function removeSpan(innerVal){
-    var spanTagBegin = '<span'+' '+'style='+'"'+'color:#ff0000;'+'"'+'>'
-    var spanTagEnd = "</span>"
-    var enterTag = "<br>"
-    var clearBegin = document.getElementById("PersonalInfoInputArea").innerHTML.replace(new RegExp(spanTagBegin,'g'),"")
-    var contentClear = clearBegin.replace(new RegExp(enterTag,'g'),"")
-    var clearend = contentClear.replace(new RegExp(spanTagEnd,'g'),"")
-    if(inputZinital !== null) {
-        if (!innerVal.indexOf("<")) {
-            textareadata = false
-            if(inputZinital === clearend) {
-                spanHTag = true
-                retdataI = inputZinital
-                return retdataI
-            }else{
-                spanHTag = false
-                retdataI = clearend
-                return retdataI
-            }
-        }else{
-            if(inputZinital === clearend) {
-                spanHTag = false
-                retdataI = clearend
-                return retdataI
-            }else{
-                spanHTag = false
-                retdataI = clearend
-                return retdataI
-            }
+var promises = {};
+
+/*Checking if extension is already installed*/
+const SHECASafeEngineExtensionIsInstalled = {display:true, company:"SHECA"};
+
+//Obtain the value of nonce from Cookie.
+function getCookie()
+{
+    var c_name = "nonceKey";
+    if (document.cookie.length>0)
+    {
+        c_start=document.cookie.indexOf(c_name + "=");
+        if (c_start!=-1)
+        {
+            c_start=c_start + c_name.length+1;
+            c_end=document.cookie.indexOf(";",c_start);
+            if (c_end==-1)
+                c_end=document.cookie.length;
+            return unescape(document.cookie.substring(c_start,c_end));
         }
-    }else{
-        spanHTag = false
-        retdataI = innerVal
-        return retdataI
     }
+    return "";
 }
 
-function textareadataChk(innerVal){
-    var retdata = removeSpan(innerVal); //  check two data changes, if no changes, keep original data otherwise rewrite innerHTML with highlight letters
-    if(spanHTag){
-        document.getElementById("PersonalInfoInputArea").innerHTML = innerVal;
-        spanHTag = false;
-    }else{
-        document.getElementById("PersonalInfoInputArea").innerHTML = retdata;
+//handle response from content
+window.addEventListener("message", function(event) {
+    if (event.source !== window)
+        return;
+    if (event.data.source && (event.data.source === "FROM_WORKER")) {
+        console.log("Page received: ");
+        console.log(event.data);
+
+        var nonceId = event.data.nonce;
+        //Obtain the value of nonce from Cookie when event.data.nonce is undefined.
+        if (event.data.nonce === undefined) {
+            nonceId = getCookie();
+            console.log("nonceId from cookie:"+nonceId);
+        }
+
+        var p = promises[nonceId];
+
+        //LastError:0--get function's return data sucessfully
+        //         !0--get error data from the lower level interface or NativeAPP(EXE)
+        if (event.data.LastError === 0) {
+            console.log("success");
+            if(event.data.type === "GetDevList"){
+                p.resolve(event.data);
+            } else if (event.data.type === "UCCGETPLUGGEDEKRY") {
+                p.resolve(event.data);
+            } else if (event.data.type === "UCCHASREADER") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "UCCGETKEYVER") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "UCCGETKEYSN") {
+                p.resolve(event.data.returnData);
+            } else if(event.data.type === "GETRSAABILITY") {
+                p.resolve(event.data.returnData)
+            } else if(event.data.type === "GETUPDATESTATUS") {
+                p.resolve(event.data);
+            } else if (event.data.type === "GETCERTPEM") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "CREATPKCS10EXFORUP") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "UCCSAVECERT") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "CREATPKCS10EX") {
+                p.resolve(event.data.returnData);
+            } else if(event.data.type === "CREATSIGNATURE") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "UNLOCKDEV") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "HASSEALABILITY") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "CHECKENVIRONMENT") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ISYZTCERT") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ECC_GETPEMCERTFROMKEY") {
+                p.resolve(event.data);
+            } else if (event.data.type === "ECC_GETCERTINFOS") {
+                p.resolve(event.data);
+            } else if (event.data.type === "UCCGetVersion") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ValidatePassword") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "VerifySignature") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "CreatePKCS7SignedData") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "VerifyPKCS7SignedData") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "UCCSavePKCS12") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "UCCCertPEM") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "UCCSaveEKey") {
+                p.resolve(event.data.returnData);
+            } else if(event.data.type === "UCCSaveOffLine") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "UCCSaveOffLineFile") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "GetCertificateDetail") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "RestoreEncKey") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "InitDevCertArea") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "InitDevSealArea") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ECC_CreatePKCS10") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ECC_UCCSaveCert") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ECC_GetUpdateStatus") {
+                p.resolve(event.data);
+            } else if (event.data.type === "ECC_UnlockDevice") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ECC_CreateSignedData") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ECC_UCCRestoreEncKey") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ECC_IsInitialized") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ECC_ChangePassword") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SEH_SignData") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SEH_Digest") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SEH_VerifySignData") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SEH_GetSelfCertificate") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SEH_Envelope") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SEH_EnvelopeEx") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SEH_VerifyCertificate") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SEH_VerifyCertificateOnline") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SEH_ChangePassword") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SEH_GetCertDetail") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SEH_GetCertUniqueID") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SEH_GetCertClass") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SEH_GetCertInfoByOID") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SEH_GetCertValidDate") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SEH_GetCertUsage") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SEH_GenRandomBytes") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SEH_AsynEncryptDataByPubkey") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SEH_AsynDecryptDataByPrikey") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SEH_AsynEncryptDataByPubkeyEx") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SEH_AsynDecryptDataByPrikeyEx") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SEH_EncryptData") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SEH_DecryptData") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SEH_EncryptDataEx") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SEH_DecryptDataEx") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SEH_ShowVersion") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SEH_SignHash") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SEH_GetSealInfo") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SEH_IsOneCertType") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SEH_Logout") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SEH_Login") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "LoginInit") {
+                p.resolve(event.data);
+            } else if (event.data.type === "SSO_Login") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "LoginVerify") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SSO_Logout") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "LoginGetClientCertFromCredential") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ESE_ShowVersion") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ESE_SignHash") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ESE_Logout") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ESE_Login") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ECCLoginInit") {
+                p.resolve(event.data);
+            } else if (event.data.type === "ECCLoginVerify") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ECCLoginGetClientCertFromCredential") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ESE_SignData") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ESE_Digest") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ESE_VerifySignData") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ESE_SignData_P7") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ESE_VerifySignData_P7") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ESE_GetSelfCertificate") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ESE_Envelope_P7") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ESE_DecodeEnvelope_P7") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ESE_VerifyCertificate") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ESE_VerifyCertificateOnline") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ESE_GetCertDetail") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ESE_GetCertUniqueID") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ESE_GetCertClass") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ESE_GetCertInfoByOID") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ESE_GetCertValidDate") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ESE_GetCertUsage") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ESE_GenRandomBytes") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "GetSESealVersion") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "ReadSeal") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "SaveSeal") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "GetSealData") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "GetSealItem") {
+                p.resolve(event.data.returnData);
+            } else if (event.data.type === "VerifySeal") {
+                p.resolve(event.data.returnData);
+            } else {
+                console.error("No have this Method:" + event.data.type);
+            }
+        } else {
+            p.reject(event.data);
+        }
+        delete promises[event.data.nonce];
     }
-    var inputZ = null;
-    inputZ = retdata;
-    if(!inputZ){
-        document.getElementById("uploadEventFile").disabled = false;
-        textareadata = true;
-        textareadatafmt =true;
-    }
-    if(inputZ !="" && !spanHTag) {
-        document.getElementById("uploadEventFile").disabled = true;
-        // var format = /^((([\u4e00-\u9fa5]{2,13})\,(\d{15})\,(([1-9]{1})(\d{15}))\,(1[3-9]\d{9})\,((([1-9]{1})\d*)\;))|(([\u4e00-\u9fa5]{1,10})\,(\d{15})\,(d{16})\,(1[3-9]\d{9})\,((([1-9]{1})\d*)\;))|(([\u4e00-\u9fa5]{1,10})\,(\d{15})\,(d{18})\,(1[3-9]\d{9})\,((([1-9]{1})\d*)\;))|(([\u4e00-\u9fa5]{1,10})\,(\d{18})\,(d{18})\,(1[3-9]\d{9})\,((([1-9]{1})\d*)\;))|(([\u4e00-\u9fa5]{1,10})\,(\d{18})\,(d{18})\,(1[3-9]\d{9})\,((([1-9]{1})\d*)\;))|(([\u4e00-\u9fa5]{1,10})\,(\d{18})\,(([1-9]{1})(\d{15}))\,(1[3-9]\d{9})\,((([1-9]{1})\d*)\;))|(([\u4e00-\u9fa5]{1,10})\,(\d{17}(\d|X|x))\,(([1-9]{1})(\d{15}))\,(1[3-9]\d{9})\,((([1-9]{1})\d*)\;))|(([\u4e00-\u9fa5]{1,10})\,(\d{17}(\d|X|x))\,(d{16})\,(1[3-9]\d{9})\,((([1-9]{1})\d*)\;))|(([\u4e00-\u9fa5]{1,10})\,(\d{17}(\d|X|x))\,(d{18})\,(1[3-9]\d{9})\,((([1-9]{1})\d*)\;))){1,}$/
-        var format = /^(([\u4e00-\u9fa5A-z0-9]+)\,([\u4e00-\u9fa5A-z0-9]+)\,([\u4e00-\u9fa5A-z0-9]+)\,([\u4e00-\u9fa5A-z0-9]+)\,(([\u4e00-\u9fa5A-z0-9]+)\;)){1,}$/
-        if (!format.test(inputZ) ) {
-            var fmtErr = "<span title='输入格式错误' style='color:#ff0000;'>" + "*输入格式错误错误，请检查输入的每一项格式和分隔符是否正确" + "</span>"
-            textareadatafmt = false;
-            textareadata = false;
-        } else{
-            inputZinital = inputZ;
-            textareadata = true;
-            textareadatafmt = true;
-            var fmtErr = "";
-            var FeeAarry = inputZ.split(";");    //截取字符串
-            var FeeAarryCount = null
-            FeeAarryCount = FeeAarry.length - 1
-            for (var i = 0; i < FeeAarryCount; i++) {
-                var RangeArrary = FeeAarry[i].split(",");
-                for (var j = 0; j < 5; j++) {
-                    switch (j) {
-                        case 0 :
-                            var name = RangeArrary[j].replace(" ", "");
-                            var regName = /^[\u4e00-\u9fa5]{2,13}/;
-                            if (!regName.test(name)) {
-                                var nameErr = null
-                                nameErr = "<span style='color:#ff0000;'>" + name + "</span>"
-                                inputZ = inputZ.replace(new RegExp(name,'g'), nameErr)
-                                document.getElementById("PersonalInfoInputArea").innerHTML = inputZ
-                                spanHTag = true
-                                textareadata = false
+}, false);
+
+/*The only ID of every method*/
+function nonce() {
+    var val = "";
+    var hex = "abcdefghijklmnopqrstuvwxyz0123456789";
+    for(var i = 0; i < 16; i++) val += hex.charAt(Math.floor(Math.random() * hex.length));
+    return val;
+}
+
+//
+function setCookie(value)
+{
+    var exdate=new Date();
+    exdate.setTime(exdate.getTime()+5000);
+    document.cookie = "nonceKey=" + escape(value) + ";expires=" + exdate.toGMTString() + ";path=/";
+}
+
+/*Every method will be create a promise and request format JSON */
+function messagePromise(msg) {
+    return new Promise(function(resolve, reject) {
+        var nonceId = nonce();
+        setCookie(nonceId);
+
+        // amend with necessary metadata
+        msg["nonce"] = nonceId;
+        msg["source"] = "FROM_PAGE";
+        msg["lang"] = 'eng';
+        // and store promise callbacks
+        promises[msg.nonce] = {
+            resolve: resolve,
+            reject: reject
+        };
+
+        // send message
+        var event = document.createEvent("CustomEvent");
+        event.initCustomEvent('com.sheca.safeengine.extension', true, false, msg);
+        // fire the event
+        document.dispatchEvent(event);
+    });
+}
+
+
+//There are all of methods of SafeEngine and UCClientCtrl.
+function UCCGetVersion() {
+    var msg = {type: "UCCGetVersion"};
+    console.log("UCCGetVersion");
+    return messagePromise(msg);
+}
+function UCCGetDevList() {
+    var msg = {type: "UCCGetDevList"};
+    console.log("UCCGetDevList");
+    return messagePromise(msg);
+}
+function UCCGetPluggedeKey() {
+    var msg = {type: "UCCGETPLUGGEDEKRY"};
+    console.log("UCCGETPLUGGEDEKRY");
+    return messagePromise(msg);
+}
+function UCCHasReader(lDevType) {
+    var msg = {type: "UCCHASREADER", lDevType: lDevType};
+    console.log("UCCHASREADER");
+    return messagePromise(msg);
+}
+function UCCGetKeySupportVer(lDevType) {
+    var msg = {type: "UCCGETKEYVER", lDevType: lDevType};
+    console.log("UCCGETKEYVER");
+    return messagePromise(msg);
+}
+function UCCGetKeySerialNumber(lDevType,strDevParam) {
+    var msg = {type: "UCCGETKEYSN", lDevType: lDevType, strDevParam: strDevParam};
+    console.log("UCCGETKEYSN");
+    return messagePromise(msg);
+}
+function UCCGetCardRSAAbility(lDevType) {
+    var msg = {type: "GETRSAABILITY", lDevType: lDevType};
+    console.log("UCCGetCardRSAAbility");
+    return messagePromise(msg);
+}
+function GetUpdateStatus (lDevType, strDevParam, strDevPass) {
+    var msg = {type: "GETUPDATESTATUS", lDevType: lDevType, strDevParam: strDevParam, strDevPass: strDevPass};
+    console.log("GETUPDATESTATUS");
+    return messagePromise(msg);
+}
+function GetCertificatePem (lDevType, strDevParam) {
+    var msg = {type: "GETCERTPEM", lDevType: lDevType, strDevParam: strDevParam};
+    console.log("GETCERTPEM");
+    return messagePromise(msg);
+}
+function CreatePKCS10ExForUpdate (lDevType, strDevParam, strDevPass, strEnvSN, strDN, nModulusLen) {
+    var msg = {type: "CREATPKCS10EXFORUP", lDevType: lDevType, strDevParam: strDevParam, strDevPass: strDevPass, strEnvSN: strEnvSN, strDN: strDN, nModulusLen: nModulusLen};
+    console.log("CREATPKCS10EXFORUP");
+    return messagePromise(msg);
+}
+function UCCSaveCertEx (lDevType, strDevParam, strEnvSN, strEnvSNpwd, strCertChain, strCert, strECert, strEKey,sKMDecryptAlg,sSaveType,sPaddingType) {
+    var msg = {type: "UCCSAVECERT", lDevType:lDevType, strDevParam:strDevParam, strEnvSN:strEnvSN, strEnvSNpwd:strEnvSNpwd, strCertChain:strCertChain, strCert:strCert, strECert:strECert, strEKey:strEKey, sKMDecryptAlg:sKMDecryptAlg, sSaveType:sSaveType, sPaddingType:sPaddingType};
+    console.log("UCCSAVECERT");
+    return messagePromise(msg);
+}
+function CreatePKCS10Ex (lDevType, strDevParam, strDevPass, strEnvSN, strDN, nModulusLen) {
+    var msg = {type: "CREATPKCS10EX", lDevType: lDevType, strDevParam: strDevParam, strDevPass: strDevPass, strEnvSN: strEnvSN, strDN: strDN, nModulusLen: nModulusLen};
+    console.log("CREATPKCS10EX");
+    return messagePromise(msg);
+}
+function CreateSignature(lDevType, strDevParam, strDevPass, strPlain, hashAlg) {
+    var msg = {type: "CREATSIGNATURE", lDevType: lDevType, strDevParam: strDevParam, strDevPass: strDevPass,strPlain: strPlain, hashAlg: hashAlg};
+    console.log("CREATSIGNATURE");
+    return messagePromise(msg);
+}
+function UnlockDevice (lDevType, strDevParam, strAdminPin, strUserPin) {
+    var msg = {type: "UNLOCKDEV", lDevType:lDevType, strDevParam:strDevParam, strAdminPin:strAdminPin, strUserPin:strUserPin};
+    console.log("UNLOCKDEV");
+    return messagePromise(msg);
+}
+function HasSealAbility (lDevType, strDevParam) {
+    var msg = {type: "HASSEALABILITY", lDevType: lDevType, strDevParam: strDevParam};
+    console.log("HASSEALABILITY");
+    return messagePromise(msg);
+}
+function CheckEnvironment () {
+    var msg = {type: "CHECKENVIRONMENT"};
+    console.log("CHECKENVIRONMENT");
+    return messagePromise(msg);
+}
+function IsYZTCert (strCert) {
+    var msg = {type: "ISYZTCERT", strCert: strCert};
+    console.log("ISYZTCERT");
+    return messagePromise(msg);
+}
+function ECC_UCCGetPEMCertFromKey (lDevType, strDevParam, devAlg, certType) {
+    var msg = {type: "ECC_GETPEMCERTFROMKEY", lDevType:lDevType, strDevParam:strDevParam, devAlg:devAlg, certType:certType};
+    console.log("ECC_GETPEMCERTFROMKEY");
+    return messagePromise(msg);
+}
+function ECC_UCCGetCertInfos (pemCert) {
+    var msg = {type: "ECC_GETCERTINFOS", pemCert: pemCert};
+    console.log("ECC_GETCERTINFOS");
+    return messagePromise(msg);
+}
+function ValidatePassword (lDevType, strDevParam, strDevPass) {
+    var msg = {type: "ValidatePassword", lDevType: lDevType, strDevParam: strDevParam, strDevPass: strDevPass};
+    console.log("ValidatePassword");
+    return messagePromise(msg);
+}
+function VerifySignature (strPlain, strSignature, hashAlg,strCert) {
+    var msg = {type: "VerifySignature", strPlain: strPlain, strSignature: strSignature, hashAlg: hashAlg,strCert:strCert};
+    console.log("VerifySignature");
+    return messagePromise(msg);
+}
+function CreatePKCS7SignedData (lDevType, strDevParam, strDevPass,strPlain,hashAlg) {
+    var msg = {type: "CreatePKCS7SignedData", lDevType: lDevType, strDevParam: strDevParam, strDevPass: strDevPass, strPlain: strPlain,hashAlg: hashAlg};
+    console.log("CreatePKCS7SignedData");
+    return messagePromise(msg);
+}
+function VerifyPKCS7SignedData (strPKCS7) {
+    var msg = {type: "VerifyPKCS7SignedData", strPKCS7: strPKCS7};
+    console.log("VerifyPKCS7SignedData");
+    return messagePromise(msg);
+}
+function UCCSavePKCS12 (strSrcPath,strDestFile,strPrvPass,strP12Pass) {
+    var msg = {type: "UCCSavePKCS12", strSrcPath: strSrcPath,strDestFile:strDestFile,strPrvPass:strPrvPass,strP12Pass:strP12Pass};
+    console.log("UCCSavePKCS12");
+    return messagePromise(msg);
+}
+function UCCCertPEM (strCertDer, strCertPem) {
+    var msg = {type: "UCCCertPEM", strCertDer: strCertDer, strCertPem: strCertPem};
+    console.log("UCCCertPEM");
+    return messagePromise(msg);
+}
+function UCCSaveEKey (strSrcPath,lDevType, strDevParam, strDevPass) {
+    var msg = {type: "UCCSaveEKey", strSrcPath:strSrcPath,lDevType:lDevType, strDevParam:strDevParam,strDevPass:strDevPass};
+    console.log("UCCSaveEKey");
+    return messagePromise(msg);
+}
+function UCCSaveOffLine (strCert,strCertChain,lDevType, strDevParam, strDevPass) {
+    var msg = {type: "UCCSaveOffLine",strCert:strCert, strCertChain:strCertChain,lDevType:lDevType, strDevParam:strDevParam, strDevPass:strDevPass};
+    console.log("UCCSaveOffLine");
+    return messagePromise(msg);
+}
+function UCCSaveOffLineFile (strCert,strCertChain, strDestPath) {
+    var msg = {type: "UCCSaveOffLineFile", strCert:strCert, strCertChain:strCertChain,strDestPath: strDestPath};
+    console.log("UCCSaveOffLineFile");
+    return messagePromise(msg);
+}
+function GetCertificateDetail(lDevType, strDevParam, strDevPass,strDetailName) {
+    var msg = {type: "GetCertificateDetail", lDevType: lDevType, strDevParam: strDevParam, strDevPass: strDevPass,strDetailName: strDetailName};
+    console.log("GetCertificateDetail");
+    return messagePromise(msg);
+}
+function RestoreEncKey (lDevType, strDevParam, strDevPass,certChain, encCert, encPvt, envelopeAlg) {
+    var msg = {type: "RestoreEncKey", lDevType: lDevType, strDevParam: strDevParam, strDevPass: strDevPass,certChain:certChain, encCert:encCert, encPvt:encPvt, envelopeAlg:envelopeAlg};
+    console.log("RestoreEncKey");
+    return messagePromise(msg);
+}
+function InitDevCertArea (lDevType, strDevParam,strDevPass, strAdminPin,iAdminPinLockCount, strUserPin, iUserPinLockCount,devAlg) {
+    var msg = {type: "InitDevCertArea", lDevType: lDevType, strDevParam: strDevParam, strDevPass:strDevPass,strAdminPin:strAdminPin,iAdminPinLockCount:iAdminPinLockCount, strUserPin:strUserPin,iUserPinLockCount:iUserPinLockCount,devAlg:devAlg};
+    console.log("InitDevCertArea");
+    return messagePromise(msg);
+}
+function InitDevSealArea (lDevType, strDevParam,strDevPass, strAdminPin,iAdminPinLockCount, iSealPinLockCount ) {
+    var msg = {type: "InitDevSealArea", lDevType: lDevType, strDevParam: strDevParam, strDevPass:strDevPass,strAdminPin:strAdminPin,iAdminPinLockCount:iAdminPinLockCount, iSealPinLockCount:iSealPinLockCount};
+    console.log("InitDevSealArea");
+    return messagePromise(msg);
+}
+function ECC_CreatePKCS10 (lDevType, strDevParam, strDevPass,strEnvSN,strDN,strEccObj) {
+    var msg = {type: "ECC_CreatePKCS10", lDevType: lDevType, strDevParam: strDevParam, strDevPass: strDevPass,strEnvSN:strEnvSN,strDN:strDN,strEccObj:strEccObj};
+    console.log("ECC_CreatePKCS10");
+    return messagePromise(msg);
+}
+function ECC_UCCSaveCert (lDevType, strDevParam, strEnvSN, strEnvSNpwd, strCertChain, strCert, strECert,strEPubKeyX,strEPubKeyY, strSessionKey,strEKey,strEccObj,sSaveType) {
+    var msg = {type: "ECC_UCCSaveCert", lDevType:lDevType, strDevParam:strDevParam, strEnvSN:strEnvSN, strEnvSNpwd:strEnvSNpwd, strCertChain:strCertChain, strCert:strCert, strECert:strECert, strEPubKeyX:strEPubKeyX,strEPubKeyY:strEPubKeyY,strSessionKey:strSessionKey,strEKey:strEKey, strEccObj:strEccObj, sSaveType:sSaveType};
+    console.log("ECC_UCCSaveCert");
+    return messagePromise(msg);
+}
+function ECC_GetUpdateStatus (lDevType, strDevParam,strDevPass) {
+    var msg = {type: "ECC_GetUpdateStatus", lDevType: lDevType, strDevParam: strDevParam, strDevPass:strDevPass};
+    console.log("ECC_GetUpdateStatus");
+    return messagePromise(msg);
+}
+function ECC_UCCRestoreEncKey (lDevType, strDevParam, strEnvSN, strEnvSNpwd, strCertChain, strCert, strECert,strEPubKeyX,strEPubKeyY, strSessionKey,strEKey,strEccObj,sSaveType) {
+    var msg = {type: "ECC_UCCRestoreEncKey", lDevType:lDevType, strDevParam:strDevParam, strEnvSN:strEnvSN, strEnvSNpwd:strEnvSNpwd, strCertChain:strCertChain, strCert:strCert, strECert:strECert, strEPubKeyX:strEPubKeyX,strEPubKeyY:strEPubKeyY,strSessionKey:strSessionKey,strEKey:strEKey, strEccObj:strEccObj, sSaveType:sSaveType};
+    console.log("ECC_UCCRestoreEncKey");
+    return messagePromise(msg);
+}
+function ECC_UnlockDevice (lDevType, strDevParam, strAdminPin, strUserPin) {
+    var msg = {type: "ECC_UnlockDevice", lDevType:lDevType, strDevParam:strDevParam, strAdminPin:strAdminPin, strUserPin:strUserPin};
+    console.log("ECC_UnlockDevice");
+    return messagePromise(msg);
+}
+function ECC_CreateSignedData (lDevType, strDevParam,strDevPass,strPlain,strHashAlg,signMethod) {
+    var msg = {type: "ECC_CreateSignedData", lDevType: lDevType, strDevParam: strDevParam, strDevPass:strDevPass,strPlain:strPlain,strHashAlg:strHashAlg,signMethod:signMethod};
+    console.log("ECC_CreateSignedData");
+    return messagePromise(msg);
+}
+function ECC_IsInitialized (lDevType, strDevParam,strDevPass) {
+    var msg = {type: "ECC_IsInitialized", lDevType:lDevType, strDevParam:strDevParam,strDevPass:strDevPass};
+    console.log("ECC_IsInitialized");
+    return messagePromise(msg);
+}
+function ECC_ChangePassword (lDevType, strDevParam, strOldPass, strNewPass,passType) {
+    var msg = {type: "ECC_ChangePassword", lDevType:lDevType, strDevParam:strDevParam, strOldPass:strOldPass, strNewPass:strNewPass,passType:passType};
+    console.log("ECC_ChangePassword");
+    return messagePromise(msg);
+}
+
+//safeEngine
+function SEH_SignData (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strOrgData,SignMethod,iMode) {
+    var msg = {type: "SEH_SignData",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass, strOrgData: strOrgData,SignMethod:SignMethod,iMode:iMode};
+    console.log("SEH_SignData");
+    return messagePromise(msg);
+}
+function SEH_Digest (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strOrgData,Method,iMode) {
+    var msg = {type: "SEH_Digest", lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass, strOrgData: strOrgData,Method:Method,iMode:iMode};
+    console.log("SEH_Digest");
+    return messagePromise(msg);
+}
+function SEH_VerifySignData (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strOrgData,SignMethod,strSignedData,strCert,iMode) {
+    var msg = {type: "SEH_VerifySignData", lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass, strOrgData: strOrgData,SignMethod:SignMethod,strSignedData:strSignedData,strCert:strCert,iMode:iMode};
+    console.log("SEH_VerifySignData");
+    return messagePromise(msg);
+}
+function SEH_GetSelfCertificate (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,iMode) {
+    var msg = {type: "SEH_GetSelfCertificate", lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,iMode:iMode};
+    console.log("SEH_GetSelfCertificate");
+    return messagePromise(msg);
+}
+function SEH_Envelope (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,EnvType,strOrgData,strCert,iMode) {
+    var msg = {type: "SEH_Envelope",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,EnvType:EnvType,strOrgData:strOrgData,strCert:strCert,iMode:iMode};
+    console.log("SEH_Envelope");
+    return messagePromise(msg);
+}
+function SEH_EnvelopeEx (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,EnvType,strOrgData,strCert,AlgID,iMode) {
+    var msg = {type: "SEH_EnvelopeEx",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,EnvType:EnvType,strOrgData:strOrgData,strCert:strCert,AlgID:AlgID,iMode:iMode};
+    console.log("SEH_EnvelopeEx");
+    return messagePromise(msg);
+}
+function SEH_VerifyCertificate (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert,VerifyMode,iMode) {
+    var msg = {type: "SEH_VerifyCertificate",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert,VerifyMode:VerifyMode,iMode:iMode};
+    console.log("SEH_VerifyCertificate");
+    return messagePromise(msg);
+}
+function SEH_VerifyCertificateOnline (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert,iMode) {
+    var msg = {type: "SEH_VerifyCertificateOnline",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert,iMode:iMode};
+    console.log("SEH_VerifyCertificateOnline");
+    return messagePromise(msg);
+}
+function SEH_ChangePassword (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strNewPass,iMode) {
+    var msg = {type: "SEH_ChangePassword",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strNewPass:strNewPass,iMode:iMode};
+    console.log("SEH_ChangePassword");
+    return messagePromise(msg);
+}
+function SEH_GetCertDetail (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert,ItemNo,iMode) {
+    var msg = {type: "SEH_GetCertDetail",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert,ItemNo:ItemNo,iMode:iMode};
+    console.log("SEH_GetCertDetail");
+    return messagePromise(msg);
+}
+function SEH_GetCertUniqueID (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert,iMode) {
+    var msg = {type: "SEH_GetCertUniqueID",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert,iMode:iMode};
+    console.log("SEH_GetCertUniqueID");
+    return messagePromise(msg);
+}
+function SEH_GetCertClass (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert,iMode) {
+    var msg = {type: "SEH_GetCertClass",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert,iMode:iMode};
+    console.log("SEH_GetCertClass");
+    return messagePromise(msg);
+}
+function SEH_GetCertInfoByOID (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert,strOID,iMode) {
+    var msg = {type: "SEH_GetCertInfoByOID",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert,strOID:strOID,iMode:iMode};
+    console.log("SEH_GetCertInfoByOID");
+    return messagePromise(msg);
+}
+function SEH_GetCertValidDate (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert,iMode) {
+    var msg = {type: "SEH_GetCertValidDate", lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert,iMode:iMode};
+    console.log("SEH_GetCertValidDate");
+    return messagePromise(msg);
+}
+function SEH_GetCertUsage (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert,iMode) {
+    var msg = {type: "SEH_GetCertUsage",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert,iMode:iMode};
+    console.log("SEH_GetCertUsage");
+    return messagePromise(msg);
+}
+function SEH_GenRandomBytes (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,iMode) {
+    var msg = {type: "SEH_GenRandomBytes",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,iMode:iMode};
+    console.log("SEH_GenRandomBytes");
+    return messagePromise(msg);
+}
+function SEH_AsynEncryptDataByPubkey (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strInData,strPubkey,iMode) {
+    var msg = {type: "SEH_AsynEncryptDataByPubkey",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strInData: strInData,strPubkey:strPubkey,iMode:iMode};
+    console.log("SEH_AsynEncryptDataByPubkey");
+    return messagePromise(msg);
+}
+function SEH_AsynDecryptDataByPrikey (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strInData,iMode) {
+    var msg = {type: "SEH_AsynDecryptDataByPrikey",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strInData: strInData,iMode:iMode};
+    console.log("SEH_AsynDecryptDataByPrikey");
+    return messagePromise(msg);
+}
+function SEH_AsynEncryptDataByPubkeyEx (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strInData,strPubkey,iMode) {
+    var msg = {type: "SEH_AsynEncryptDataByPubkeyEx",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strInData: strInData,strPubkey:strPubkey,iMode:iMode};
+    console.log("SEH_AsynEncryptDataByPubkeyEx");
+    return messagePromise(msg);
+}
+function SEH_AsynDecryptDataByPrikeyEx (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strInData,iMode) {
+    var msg = {type: "SEH_AsynDecryptDataByPrikeyEx",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strInData: strInData,iMode:iMode};
+    console.log("SEH_AsynDecryptDataByPrikeyEx");
+    return messagePromise(msg);
+}
+function SEH_EncryptData (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strInData,strRandom,iMode) {
+    var msg = {type: "SEH_EncryptData",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strInData: strInData,strRandom:strRandom,iMode:iMode};
+    console.log("SEH_EncryptData");
+    return messagePromise(msg);
+}
+function SEH_DecryptData (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strInData,strRandom,iMode) {
+    var msg = {type: "SEH_DecryptData",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strInData: strInData,strRandom:strRandom,iMode:iMode};
+    console.log("SEH_DecryptData");
+    return messagePromise(msg);
+}
+function SEH_EncryptDataEx (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strInData,strRandom,AlgID,iMode) {
+    var msg = {type: "SEH_EncryptDataEx",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strInData: strInData,strRandom:strRandom,AlgID:AlgID,iMode:iMode};
+    console.log("SEH_EncryptDataEx");
+    return messagePromise(msg);
+}
+function SEH_DecryptDataEx (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strInData,strRandom,AlgID,iMode) {
+    var msg = {type: "SEH_DecryptDataEx",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strInData: strInData,strRandom:strRandom,AlgID:AlgID,iMode:iMode};
+    console.log("SEH_DecryptDataEx");
+    return messagePromise(msg);
+}
+function SEH_ShowVersion () {
+    var msg = {type: "SEH_ShowVersion"};
+    console.log("SEH_ShowVersion");
+    return messagePromise(msg);
+}
+function SEH_SignHash (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strOrgData,SignMethod,iMode) {
+    var msg = {type: "SEH_SignHash",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strOrgData:strOrgData,SignMethod: SignMethod,iMode:iMode};
+    console.log("SEH_SignHash");
+    return messagePromise(msg);
+}
+function SEH_GetSealInfo (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,iType,iMode) {
+    var msg = {type: "SEH_GetSealInfo",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,iType: iType,iMode:iMode};
+    console.log("SEH_GetSealInfo");
+    return messagePromise(msg);
+}
+function SEH_IsOneCertType (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert,iMode) {
+    var msg = {type: "SEH_IsOneCertType",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert,iMode:iMode};
+    console.log("SEH_IsOneCertType");
+    return messagePromise(msg);
+}
+function SEH_Logout () {
+    var msg = {type: "SEH_Logout"};
+    console.log("SEH_Logout");
+    return messagePromise(msg);
+}
+function SEH_Login (lPriDev,strPriParam,strPriPass,lCertDev,strCertParam,strCertPass,lChainDev,strChainParam,strChainPass,strServerCert,strRandom,iCertVerifyMode) {
+    var msg = {type: "SEH_Login", lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,lCertDev:lCertDev,strCertParam:strCertParam,strCertPass:strCertPass,lChainDev:lChainDev,strChainParam:strChainParam,strChainPass:strChainPass,strServerCert:strServerCert,strRandom:strRandom,iCertVerifyMode:iCertVerifyMode};
+    console.log("SEH_Login");
+    return messagePromise(msg);
+}
+function LoginInit (lServerCertDevType,strServerCertDevParam,strServerCertPassword) {
+    var msg = {type: "LoginInit", lServerCertDevType: lServerCertDevType,strServerCertDevParam:strServerCertDevParam,strServerCertPassword:strServerCertPassword}
+    console.log("LoginInit");
+    return messagePromise(msg);
+}
+function SSO_Login (strServerCert,strRandom,iCertVerifyMode,lStatus) {
+    var msg = {type: "SSO_Login", strServerCert: strServerCert,strRandom:strRandom,iCertVerifyMode:iCertVerifyMode,lStatus: lStatus};
+    console.log("SSO_Login");
+    return messagePromise(msg);
+}
+function LoginVerify (lPriDev,strPriParam,strPriPass,lChainDev,strChainParam,strChainPass,iCertVerifyMode,strRandom,strCredential) {
+    var msg = {type: "LoginVerify", lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,lChainDev:lChainDev,strChainParam:strChainParam,strChainPass:strChainPass,iCertVerifyMode:iCertVerifyMode,strRandom:strRandom,strCredential:strCredential};
+    console.log("LoginVerify");
+    return messagePromise(msg);
+}
+function SSO_Logout () {
+    var msg = {type: "SSO_Logout"};
+    console.log("SSO_Logout");
+    return messagePromise(msg);
+}
+function LoginGetClientCertFromCredential (strCredential) {
+    var msg = {type: "LoginGetClientCertFromCredential", strCredential: strCredential};
+    console.log("LoginGetClientCertFromCredential");
+    return messagePromise(msg);
+}
+
+//ecc_safeEngine
+function ESE_SignData (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strOrgData,SignMethod) {
+    var msg = {type: "ESE_SignData",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass, strOrgData: strOrgData,SignMethod:SignMethod};
+    console.log("ESE_SignData");
+    return messagePromise(msg);
+}
+function ESE_Digest (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strOrgData,Method) {
+    var msg = {type: "ESE_Digest", lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass, strOrgData: strOrgData,Method:Method};
+    console.log("ESE_Digest");
+    return messagePromise(msg);
+}
+function ESE_VerifySignData (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strOrgData,SignMethod,strSignedData,strCert) {
+    var msg = {type: "ESE_VerifySignData", lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass, strOrgData: strOrgData,SignMethod:SignMethod,strSignedData:strSignedData,strCert:strCert};
+    console.log("ESE_VerifySignData");
+    return messagePromise(msg);
+}
+function ESE_SignData_P7 (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strOrgData,SignMethod,strCert) {
+    var msg = {type: "ESE_SignData_P7",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass, strOrgData: strOrgData,SignMethod:SignMethod,strCert:strCert};
+    console.log("ESE_SignData_P7");
+    return messagePromise(msg);
+}
+function ESE_VerifySignData_P7 (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strSignedP7Data) {
+    var msg = {type: "ESE_VerifySignData_P7", lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass, strSignedP7Data: strSignedP7Data};
+    console.log("ESE_VerifySignData_P7");
+    return messagePromise(msg);
+}
+function ESE_GetSelfCertificate (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass) {
+    var msg = {type: "ESE_GetSelfCertificate", lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass};
+    console.log("ESE_GetSelfCertificate");
+    return messagePromise(msg);
+}
+function ESE_Envelope_P7 (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strOrgData,symalg,asymalg,strCert) {
+    var msg = {type: "ESE_Envelope_P7",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strOrgData:strOrgData,symalg:symalg,asymalg:asymalg,strCert:strCert};
+    console.log("ESE_Envelope_P7");
+    return messagePromise(msg);
+}
+function ESE_DecodeEnvelope_P7 (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strEnvelopeP7Data) {
+    var msg = {type: "ESE_DecodeEnvelope_P7",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strEnvelopeP7Data:strEnvelopeP7Data};
+    console.log("ESE_DecodeEnvelope_P7");
+    return messagePromise(msg);
+}
+function ESE_VerifyCertificate (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert,VerifyMode) {
+    var msg = {type: "ESE_VerifyCertificate",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert,VerifyMode:VerifyMode};
+    console.log("ESE_VerifyCertificate");
+    return messagePromise(msg);
+}
+function ESE_VerifyCertificateOnline (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert) {
+    var msg = {type: "ESE_VerifyCertificateOnline",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert};
+    console.log("ESE_VerifyCertificateOnline");
+    return messagePromise(msg);
+}
+function ESE_GetCertDetail (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert,ItemNo) {
+    var msg = {type: "ESE_GetCertDetail",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert,ItemNo:ItemNo};
+    console.log("ESE_GetCertDetail");
+    return messagePromise(msg);
+}
+function ESE_GetCertUniqueID (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert) {
+    var msg = {type: "ESE_GetCertUniqueID",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert};
+    console.log("ESE_GetCertUniqueID");
+    return messagePromise(msg);
+}
+function ESE_GetCertClass (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert) {
+    var msg = {type: "ESE_GetCertClass",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert};
+    console.log("ESE_GetCertClass");
+    return messagePromise(msg);
+}
+function ESE_GetCertInfoByOID (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert,strOID) {
+    var msg = {type: "ESE_GetCertInfoByOID",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert,strOID:strOID};
+    console.log("ESE_GetCertInfoByOID");
+    return messagePromise(msg);
+}
+function ESE_GetCertValidDate (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert) {
+    var msg = {type: "ESE_GetCertValidDate", lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert};
+    console.log("ESE_GetCertValidDate");
+    return messagePromise(msg);
+}
+function ESE_GetCertUsage (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert) {
+    var msg = {type: "ESE_GetCertUsage",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert};
+    console.log("ESE_GetCertUsage");
+    return messagePromise(msg);
+}
+function ESE_GenRandomBytes (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass) {
+    var msg = {type: "ESE_GenRandomBytes",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass};
+    console.log("ESE_GenRandomBytes");
+    return messagePromise(msg);
+}
+function ESE_ShowVersion () {
+    var msg = {type: "ESE_ShowVersion"};
+    console.log("ESE_ShowVersion");
+    return messagePromise(msg);
+}
+function ESE_SignHash (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strOrgData,SignMethod) {
+    var msg = {type: "ESE_SignHash",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strOrgData:strOrgData,SignMethod: SignMethod};
+    console.log("ESE_SignHash");
+    return messagePromise(msg);
+}
+function ESE_Logout () {
+    var msg = {type: "ESE_Logout"};
+    console.log("ESE_Logout");
+    return messagePromise(msg);
+}
+function ESE_Login (lPriDev,strPriParam,strPriPass,lCertDev,strCertParam,strCertPass,lChainDev,strChainParam,strChainPass,strServerCert,strRandom,iCertVerifyMode) {
+    var msg = {type: "ESE_Login", lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,lCertDev:lCertDev,strCertParam:strCertParam,strCertPass:strCertPass,lChainDev:lChainDev,strChainParam:strChainParam,strChainPass:strChainPass,strServerCert:strServerCert,strRandom:strRandom,iCertVerifyMode:iCertVerifyMode};
+    console.log("ESE_Login");
+    return messagePromise(msg);
+}
+function ECCLoginInit (lServerCertDevType,strServerCertDevParam,strServerCertPassword) {
+    var msg = {type: "ECCLoginInit", lServerCertDevType: lServerCertDevType,strServerCertDevParam:strServerCertDevParam,strServerCertPassword:strServerCertPassword}
+    console.log("ECCLoginInit");
+    return messagePromise(msg);
+}
+function ECCLoginVerify (lPriDev,strPriParam,strPriPass,lChainDev,strChainParam,strChainPass,iCertVerifyMode,strRandom,strCredential) {
+    var msg = {type: "LoginVerify", lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,lChainDev:lChainDev,strChainParam:strChainParam,strChainPass:strChainPass,iCertVerifyMode:iCertVerifyMode,strRandom:strRandom,strCredential:strCredential};
+    console.log("LoginVerify");
+    return messagePromise(msg);
+}
+function ECCLoginGetClientCertFromCredential (strCredential) {
+    var msg = {type: "ECCLoginGetClientCertFromCredential", strCredential: strCredential};
+    console.log("ECCLoginGetClientCertFromCredential");
+    return messagePromise(msg);
+}
+function SaveSeal (lDevType, strDevParam, strDevPass, stampData, pictureData, issuerCert) {
+    var msg = {type: "SaveSeal", lDevType:lDevType, strDevParam:strDevParam, strDevPass:strDevPass, stampData:stampData, pictureData:pictureData, issuerCert:issuerCert};
+    console.log("SaveSeal");
+    return messagePromise(msg);
+}
+function GetSESealVersion () {
+    var msg = {type: "GetSESealVersion"};
+    console.log("GetSESealVersion");
+    return messagePromise(msg);
+}
+function ReadSeal(lDevType, strDevParam, strDevPass) {
+    var msg = {type: "ReadSeal", lDevType: lDevType, strDevParam: strDevParam, strDevPass: strDevPass};
+    console.log("ReadSeal");
+    return messagePromise(msg);
+}
+function GetSealData (lDevType, strDevParam, strDevPass) {
+    var msg = {type: "GetSealData", lDevType:lDevType, strDevParam:strDevParam, strDevPass:strDevPass};
+    console.log("GetSealData");
+    return messagePromise(msg);
+}
+function GetSealItem (Base64SealData,lItemType) {
+    var msg = {type: "GetSealItem", Base64SealData: Base64SealData, lItemType: lItemType};
+    console.log("GetSealItem");
+    return messagePromise(msg);
+}
+function VerifySeal (Base64SealData) {
+    var msg = {type: "VerifySeal", Base64SealData: Base64SealData};
+    console.log("VerifySeal");
+    return messagePromise(msg);
+}
+</script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="webkit" name="renderer">
+    <title>企业员工批量管理</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <script src="/sample_war_exploded/metronic/global/plugins/jquery.min.js" type="text/javascript"></script>
+    <script src="/sample_war_exploded/metronic/global/plugins/ajaxfileupload-variable-transfer.js" type="text/javascript"></script>
+    <link href="/sample_war_exploded/metronic/new_modules/app_info.css" rel="stylesheet" type="text/css">
+    <!-- /复制功能插件/ -->
+    <script type="text/javascript" src="/sample_war_exploded/metronic/new_modules/clipboard.min.js"></script>
+    <!-- 图表 -->
+    <script type="text/javascript" src="/sample_war_exploded/metronic/new_modules/echarts.common.min.js"></script>
+    <script type="text/javascript" src="/sample_war_exploded/metronic/mobile/js/bootstrap.min.js"></script>
+    <script src="/sample_war_exploded/metronic/mobile/js/moment-with-locales.js" type="text/javascript"></script>
+    <!-- // 日期插件 -->
+    <script src="/sample_war_exploded/metronic/new_modules/bootstrap-datetimepicker.min.js"></script>
+    <script src="/sample_war_exploded/metronic/new_modules/namepidverify.js"></script>
+
+    <link href="/sample_war_exploded/metronic/mobile/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/sample_war_exploded/metronic/new_modules/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css">
+
+
+    <script type="text/javascript">
+        /*
+        var userId = '<c:out value="" />';
+        var orgId = '<c:out value="" />';
+        var authLevel = '<c:out value="" />';
+        var userType = '<c:out value="" />';
+        var orgAmount= '<c:out value="" />';
+        var loginUser = {userId: userId, orgId: orgId, authLevel: authLevel, type: userType ,orgAmount:orgAmount};
+        */
+        /**
+         * 上传文件
+         */
+        var uploaded = false;
+        var selected = false;
+        var textareadata = true;
+        var spanHTag = false;
+        var inputZinital = null
+
+        var project;
+        $(function(){
+            project = new Project();
+            project.init();
+        });
+
+        var Project = function(){
+
+            this.init = function(){
+
+                //模拟上传excel
+                $("#uploadEventBtn").unbind("click").bind("click",function(){
+                    $("#uploadEventFile").click();
+                });
+                $("#uploadEventFile").bind("change",function(){
+                    $("#uploadEventPath").attr("value",$("#uploadEventFile").val());
+                });
+            };
+            //点击上传按钮
+            this.uploadBtn = function(){
+                var uploadEventFile = $("#uploadEventFile").val();
+                if(uploadEventFile == '' && document.getElementById("PersonalInfoInputArea").value == '') {
+                    alert("请选择excel或者输入用户信息,再上传");
+                    retun;
+                }else {
+                    if(document.getElementById("PersonalInfoInputArea").value!=''){
+                        document.getElementById("uploadEventFile").value="";
+                        document.getElementById("uploadEventFile").disabled = true;
+                    }
+                    if (uploadEventFile == '') {
+                        if (document.getElementById("PersonalInfoInputArea").value == "") {
+                            alert("请输入员工信息后,再上传");
+                            return;
+                        }
+                    } else {
+                        if (uploadEventFile.lastIndexOf(".xls") < 0) {//可判断以.xls和.xlsx结尾的excel
+                            alert("只能上传Excel文件");
+                            return;
+                        }
+                    }
+                    var url = '/sample_war_exploded/PersonalInfoBatchUploadController/personalInfoBatchUploadPullin';
+                    var formData = new FormData($('form')[0]);
+                    project.sendAjaxRequest(url, formData);
+                }
+            };
+            this.sendAjaxRequest = function(url,data){
+                console.log(document.getElementById("t_FPROD_Name").value);
+                if (document.getElementById("t_FPROD_Name").value == ""){
+                    alert("请选择企业及产品");
+                    return;
+                }else{
+                    $.ajax({
+                        url : "/sample_war_exploded/PersonalInfoBatchUploadController/personalInfoBatchUploadPullin?operationType=fileupload&t_FPROD_Name=" + encodeURI(encodeURI($("#t_FPROD_Name").val())) +
+                            "&personalInfoInputArea=" + encodeURI(encodeURI(document.getElementById("PersonalInfoInputArea").innerText)),
+                        type: "post",
+                        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                        async: true,
+                        data: data,
+                        cache: false,
+                        processData: false,
+                        success : function(data) {
+                            var result = eval("("+data+")");
+                            if(result.ret === -1){
+                                alert(result.retMsg);
+                                download_txt('err.txt',result.personalErrInfo,'txt')
+                            } else if(result.ret === 0){
+                                alert(result.retMsg);
+                                batchIDrefresh();
                             }
-                            break;
-                        case 1 :
-                            var pid = RangeArrary[j].toString().replace(" ", "");
-                            // if (IdentityCodeValid(pid) === false) {
-                            //     textareadata = false
-                            // }
-                            var regIdNo = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
-                            if (!regIdNo.test(pid)) {
-                                var pidErr = null
-                                pidErr = "<span style='color:#ff0000;'>" + pid + "</span>"
-                                inputZ = inputZ.replace(new RegExp(pid,'g'), pidErr)
-                                document.getElementById("PersonalInfoInputArea").innerHTML = inputZ
-                                spanHTag = true
-                                textareadata = false
-                            }
-                            break;
-                        case 2 :
-                            var bankcard = RangeArrary[j].toString().replace(" ", "");
-                            var pattern = /^([1-9]{1})(\d{15}|\d{16}|\d{18})$/;
-                            if (!pattern.test(bankcard)) {
-                                var bacnkcardErr = null
-                                bacnkcardErr = "<span style='color:#ff0000;'>" + bankcard + "</span>"
-                                inputZ = inputZ.replace(new RegExp(bankcard,'g'), bacnkcardErr)
-                                document.getElementById("PersonalInfoInputArea").innerHTML = inputZ
-                                spanHTag = true
-                                textareadata = false
-                            }
-                            break;
-                        case 3:
-                            var persnlMobile = RangeArrary[j].toString().replace(" ", "");
-                            var pattern = /^(13[0-9]|14[5-9]|15[012356789]|166|17[0-8]|18[0-9]|19[8-9])[0-9]{8}$/;
-                            if (!pattern.test(persnlMobile)) {
-                                var mobileErr = null
-                                mobileErr = "<span style='color:#ff0000;'>" + persnlMobile + "</span>"
-                                inputZ = inputZ.replace(new RegExp(persnlMobile,'g'), mobileErr)
-                                document.getElementById("PersonalInfoInputArea").innerHTML = inputZ
-                                spanHTag = true
-                                textareadata = false
-                            }
-                            break;
-                        case 4:
-                            var persnlAmt = parseFloat(RangeArrary[j].replace(" ", ""));
-                            var pattern = /^[1-9]{1}\d{1,6}$/;
-                            if (!pattern.test(persnlAmt)) {
-                                var persnlAmtErr = null
-                                persnlAmtErr = "<span style='color:#ff0000;'>" + persnlAmt + "</span>"
-                                inputZ = inputZ.replace(new RegExp(persnlAmt,'g'), persnlAmtErr)
-                                document.getElementById("PersonalInfoInputArea").innerHTML = inputZ
-                                spanHTag = true
-                                textareadata = false
-                            }
-                            break;
-                            defaule:
-                                break
+                        },
+                        error : function(rs) {
+                            var result = eval("(" + rs + ")");
+                            alert(result.retMsg);
+                            alert("excel上传失败");
+                        },
+                        cache : false,
+                        contentType : false,
+                        processData : false
+                    });
+                };
+            }
+        }
+
+
+        function removeSpan(innerVal){
+
+            var enterTag = "<br>"
+            var enterspace = "\n"
+            var clearBegin = document.getElementById("PersonalInfoInputArea").innerHTML.replace(/<.*?>/img,"");
+            var contentClear = clearBegin.replace(new RegExp(enterTag,'g'),"")
+            var clearend = contentClear.replace(new RegExp(enterspace,'g'),"")
+            if(inputZinital !== null) {
+                if (!innerVal.indexOf("<")) {
+                    textareadata = false
+                    if(inputZinital === clearend) {
+                        spanHTag = true
+                        retdataI = inputZinital
+                        return retdataI
+                    }else{
+                        spanHTag = false
+                        retdataI = clearend
+                        return retdataI
+                    }
+                }else{
+                    if(inputZinital === clearend) {
+                        spanHTag = false
+                        retdataI = clearend
+                        return retdataI
+                    }else{
+                        spanHTag = false
+                        retdataI = clearend
+                        return retdataI
                     }
                 }
+            }else{
+                spanHTag = false
+                // retdataI = innerVal
+                retdataI = clearend
+                return retdataI
             }
-            if (inputZ != "" && !textareadata) {
-                document.getElementById("uploadbtn").disabled = true;
-            } else {
-                document.getElementById("uploadbtn").disabled = false;
+        }
+
+        function textareadataChk(innerVal){
+            var retdata = removeSpan(innerVal); //  check two data changes, if no changes, keep original data otherwise rewrite innerHTML with highlight letters
+            if(spanHTag){
+                document.getElementById("PersonalInfoInputArea").innerHTML = innerVal;
+                spanHTag = false;
+            }else{
+                document.getElementById("PersonalInfoInputArea").innerHTML = retdata;
+            }
+            var inputZ = null;
+            inputZ = retdata;
+            if(!inputZ){
+                document.getElementById("uploadEventFile").disabled = false;
+                textareadata = true;
+                textareadatafmt =true;
+            }
+            if(inputZ !="" && !spanHTag) {
+                document.getElementById("uploadEventFile").disabled = true;
+                // var format = /^((([\u4e00-\u9fa5]{2,13})\,(\d{15})\,(([1-9]{1})(\d{15}))\,(1[3-9]\d{9})\,((([1-9]{1})\d*)\;))|(([\u4e00-\u9fa5]{1,10})\,(\d{15})\,(d{16})\,(1[3-9]\d{9})\,((([1-9]{1})\d*)\;))|(([\u4e00-\u9fa5]{1,10})\,(\d{15})\,(d{18})\,(1[3-9]\d{9})\,((([1-9]{1})\d*)\;))|(([\u4e00-\u9fa5]{1,10})\,(\d{18})\,(d{18})\,(1[3-9]\d{9})\,((([1-9]{1})\d*)\;))|(([\u4e00-\u9fa5]{1,10})\,(\d{18})\,(d{18})\,(1[3-9]\d{9})\,((([1-9]{1})\d*)\;))|(([\u4e00-\u9fa5]{1,10})\,(\d{18})\,(([1-9]{1})(\d{15}))\,(1[3-9]\d{9})\,((([1-9]{1})\d*)\;))|(([\u4e00-\u9fa5]{1,10})\,(\d{17}(\d|X|x))\,(([1-9]{1})(\d{15}))\,(1[3-9]\d{9})\,((([1-9]{1})\d*)\;))|(([\u4e00-\u9fa5]{1,10})\,(\d{17}(\d|X|x))\,(d{16})\,(1[3-9]\d{9})\,((([1-9]{1})\d*)\;))|(([\u4e00-\u9fa5]{1,10})\,(\d{17}(\d|X|x))\,(d{18})\,(1[3-9]\d{9})\,((([1-9]{1})\d*)\;))){1,}$/
+                var format = /^(([\u4e00-\u9fa5A-z0-9]+)\,([\u4e00-\u9fa5A-z0-9]+)\,([\u4e00-\u9fa5A-z0-9]+)\,([\u4e00-\u9fa5A-z0-9]+)\,(([\u4e00-\u9fa5A-z0-9]+)\;)){1,}$/
+                if (!format.test(inputZ) ) {
+                    var fmtErr = "<span title='输入格式错误' style='color:#ff0000;'>" + "*输入格式错误错误，请检查输入的每一项格式和分隔符是否正确" + "</span>"
+                    textareadatafmt = false;
+                    textareadata = false;
+                } else{
+                    inputZinital = inputZ;
+                    textareadata = true;
+                    textareadatafmt = true;
+                    var fmtErr = "";
+                    var FeeAarry = inputZ.split(";");    //截取字符串
+                    var FeeAarryCount = null
+                    FeeAarryCount = FeeAarry.length - 1
+                    for (var i = 0; i < FeeAarryCount; i++) {
+                        var RangeArrary = FeeAarry[i].split(",");
+                        for (var j = 0; j < 5; j++) {
+                            switch (j) {
+                                case 0 :
+                                    var name = RangeArrary[j].replace(" ", "");
+                                    var regName = /^[\u4e00-\u9fa5]{2,13}/;
+                                    if (!regName.test(name)) {
+                                        var nameErr = null
+                                        nameErr = "<span style='color:#ff0000;'>" + name + "</span>"
+                                        inputZ = inputZ.replace(new RegExp(name,'g'), nameErr)
+                                        document.getElementById("PersonalInfoInputArea").innerHTML = inputZ
+                                        spanHTag = true
+                                        textareadata = false
+                                    }
+                                    break;
+                                case 1 :
+                                    var pid = RangeArrary[j].toString().replace(" ", "");
+                                    // if (IdentityCodeValid(pid) === false) {
+                                    //     textareadata = false
+                                    // }
+                                    var regIdNo = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+                                    if (!regIdNo.test(pid)) {
+                                        var pidErr = null
+                                        pidErr = "<span style='color:#ff0000;'>" + pid + "</span>"
+                                        inputZ = inputZ.replace(new RegExp(pid,'g'), pidErr)
+                                        document.getElementById("PersonalInfoInputArea").innerHTML = inputZ
+                                        spanHTag = true
+                                        textareadata = false
+                                    }
+                                    break;
+                                case 2 :
+                                    var bankcard = RangeArrary[j].toString().replace(" ", "");
+                                    var pattern = /^([1-9]{1})(\d{15}|\d{16}|\d{18})$/;
+                                    if (!pattern.test(bankcard)) {
+                                        var bacnkcardErr = null
+                                        bacnkcardErr = "<span style='color:#ff0000;'>" + bankcard + "</span>"
+                                        inputZ = inputZ.replace(new RegExp(bankcard,'g'), bacnkcardErr)
+                                        document.getElementById("PersonalInfoInputArea").innerHTML = inputZ
+                                        spanHTag = true
+                                        textareadata = false
+                                    }
+                                    break;
+                                case 3:
+                                    var persnlMobile = RangeArrary[j].toString().replace(" ", "");
+                                    var pattern = /^(13[0-9]|14[5-9]|15[012356789]|166|17[0-8]|18[0-9]|19[8-9])[0-9]{8}$/;
+                                    if (!pattern.test(persnlMobile)) {
+                                        var mobileErr = null
+                                        mobileErr = "<span style='color:#ff0000;'>" + persnlMobile + "</span>"
+                                        inputZ = inputZ.replace(new RegExp(persnlMobile,'g'), mobileErr)
+                                        document.getElementById("PersonalInfoInputArea").innerHTML = inputZ
+                                        spanHTag = true
+                                        textareadata = false
+                                    }
+                                    break;
+                                case 4:
+                                    var persnlAmt = parseFloat(RangeArrary[j].replace(" ", ""));
+                                    var pattern = /^[1-9]{1}\d{1,6}$/;
+                                    if (!pattern.test(persnlAmt)) {
+                                        var persnlAmtErr = null
+                                        persnlAmtErr = "<span style='color:#ff0000;'>" + persnlAmt + "</span>"
+                                        inputZ = inputZ.replace(new RegExp(persnlAmt,'g'), persnlAmtErr)
+                                        document.getElementById("PersonalInfoInputArea").innerHTML = inputZ
+                                        spanHTag = true
+                                        textareadata = false
+                                    }
+                                    break;
+                                    defaule:
+                                        break
+                            }
+                        }
+                    }
+                    if (inputZ != "" && !textareadata) {
+                        document.getElementById("uploadbtn").disabled = true;
+                    } else {
+                        document.getElementById("uploadbtn").disabled = false;
+                    }
+                }
+                if(!textareadata && textareadatafmt){
+                    document.getElementById("PersonalInfoInputArea").innerHTML = inputZ
+                    document.getElementById("persnlErr").innerHTML = "*标红处错误，不符合该项内容格式，请修正后才能提交"
+                }else if(textareadata){
+                    var correctContent = "<span style='color: #0000FF;' >" + "校验通过" + "</span>"
+                    document.getElementById("persnlErr").innerHTML = correctContent
+                }else if(!textareadatafmt){
+                    document.getElementById("persnlErr").innerHTML = fmtErr
+                }else if(textareadatafmt){
+                    document.getElementById("persnlErr").innerHTML = fmtErr
+                }
+            }else{
+                document.getElementById("persnlErr").innerHTML = ""
+            }
+        }       //验证错误信息
+        function debounce(func,delay) {
+            let timeout;
+            return function (arguments) {
+                if (timeout) {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => {
+                        func.call(this, arguments);
+                    }, delay);
+                }
             }
         }
-        if(!textareadata && textareadatafmt){
-            document.getElementById("PersonalInfoInputArea").innerHTML = inputZ
-            document.getElementById("persnlErr").innerHTML = "*标红处错误，不符合该项内容格式，请修正后才能提交"
-        }else if(textareadata){
-            var correctContent = "<span style='color: #0000FF;' >" + "校验通过" + "</span>"
-            document.getElementById("persnlErr").innerHTML = correctContent
-        }else if(!textareadatafmt){
-            document.getElementById("persnlErr").innerHTML = fmtErr
-        }else if(textareadatafmt){
-            document.getElementById("persnlErr").innerHTML = fmtErr
+
+        function inputcheck(innerVal) {
+            const inp = document.getElementById("PersonalInfoInputArea")
+            let debounceInpChk = debounce(textareadataChk(innerVal), 5000)
+            inp.addEventListener("onmouseout", e => {
+                debounceInpChk(e.target.value);
+            })
         }
-    }else{
-        document.getElementById("persnlErr").innerHTML = ""
-    }
-}       //验证错误信息
-function debounce(func,delay) {
-    let timeout;
-    return function (arguments) {
-        if (timeout) {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => {
-                func.call(this, arguments);
-            }, delay);
+
+        //download Err data in txt
+        function download_txt(filename,content,contentType) {
+            if (!contentType) contentType = 'application/octet-stream';
+            var a = document.createElement('a');
+            var blob = new Blob([content], { 'type': contentType });
+            a.href = window.URL.createObjectURL(blob);
+            a.download = filename;
+            a.click();
         }
-    }
-}
 
-function inputcheck(innerVal) {
-    const inp = document.getElementById("PersonalInfoInputArea")
-    let debounceInpChk = debounce(textareadataChk(innerVal), 5000)
-    inp.addEventListener("onmouseout", e => {
-        debounceInpChk(e.target.value);
-    })
-}
+        function batchIDrefresh(){
+            $.ajax({
+                url: "/sample_war_exploded/PersonalInfoBatchUploadController/personalInfoBatchUploadBatchChange?t_PIBU_Orgname=" + encodeURI(encodeURI($("#t_PIBU_Orgname").val())),
+                type: 'POST',
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                async: true,
+                cache: false,
+                processData: false,
+                success: function(dataFProdC) {
+                    kickoutcheck(dataFProdC);
+                    var result = eval("(" + dataFProdC + ")");
+                    console.log(result.FinanceProduct);
+                    if(result.ret == "0") {
+                        console.log(dataFProdC);
+                        var batchPBbatchIDSelect = document.getElementById("batch_PB_batchID");
+                        batchPBbatchIDSelect.options.length=0;/**清空下拉框的值*/
+                        if((result.personalInfoBatchUpload!=null)&&(result.personalInfoBatchUpload.length!=0)) {
+                            for(var i=0; i<=result.personalInfoBatchUpload.length; i++){
+                                var opBatch = new Option();
+                                opBatch.text = result.personalInfoBatchUpload[i].batch_PB_batchID;
+                                opBatch.value = result.personalInfoBatchUpload[i].batch_PB_batchID;
+                                batchPBbatchIDSelect.options.add(opBatch);
+                            }}
 
-  $(function(){
-      project = new Project();
-      project.init();
-  });
+                    } else {
+                        $.toptip('批量选择出错出错，请联系技术支持', 'error');
+                    }
+                },
+                error: function(dataFProdC) {
+                    console.log(dataFProdC);
+                }
+            });
+        }
 
-  var Project = function(){
-
-      this.init = function(){
-
-          //模拟上传excel
-          $("#uploadEventBtn").unbind("click").bind("click",function(){
-              $("#uploadEventFile").click();
-          });
-          $("#uploadEventFile").bind("change",function(){
-              $("#uploadEventPath").attr("value",$("#uploadEventFile").val());
-          });
-      };
-      //点击上传按钮
-      this.uploadBtn = function(){
-          var uploadEventFile = $("#uploadEventFile").val();
-          if(uploadEventFile == '' && document.getElementById("PersonalInfoInputArea").value == '') {
-              alert("请选择excel或者输入用户信息,再上传");
-              retun;
-          }else {
-              if(document.getElementById("PersonalInfoInputArea").value!=''){
-                  document.getElementById("uploadEventFile").value="";
-                  document.getElementById("uploadEventFile").disabled = true;
-              }
-              if (uploadEventFile == '') {
-                  if (document.getElementById("PersonalInfoInputArea").value == "") {
-                      alert("请输入员工信息后,再上传");
-                      return;
-                  }
-              } else {
-                  if (uploadEventFile.lastIndexOf(".xls") < 0) {//可判断以.xls和.xlsx结尾的excel
-                      alert("只能上传Excel文件");
-                      return;
-                  }
-              }
-              var url = '${ctx}/PersonalInfoBatchUploadController/personalInfoBatchUploadPullin';
-              var formData = new FormData($('form')[0]);
-              project.sendAjaxRequest(url, formData);
-          }
-      };
-      this.sendAjaxRequest = function(url,data){
-    	  console.log(document.getElementById("t_FPROD_Name").value);
-          if (document.getElementById("t_FPROD_Name").value == ""){
-        	  alert("请选择企业及产品");
-        	  return;
-          }else{
-          $.ajax({
-              url : "${ctx}/PersonalInfoBatchUploadController/personalInfoBatchUploadPullin?operationType=fileupload&t_FPROD_Name=" + encodeURI(encodeURI($("#t_FPROD_Name").val())) +
-                    "PersonalInfoInputArea" + document.getElementById("PersonalInfoInputArea").innerHTML,
-              type: "post",
-      		  contentType: "application/x-www-form-urlencoded; charset=utf-8",
-      		  async: true,
-              data: data,
-    		  cache: false,
-    		  processData: false,
-              success : function(result) {
-                  alert(result);
-                  batchIDrefresh();
-              },
-              error : function(rs) {
-      			  var result = eval("(" + rs + ")");
-      			  alert(result.retMsg);
-                  alert("excel上传失败");
-              },
-              cache : false,
-              contentType : false,
-              processData : false
-          });
-        };
-      }
-  }
-
-function batchIDrefresh(){
-	$.ajax({
-		url: "${ctx}/PersonalInfoBatchUploadController/personalInfoBatchUploadBatchChange?t_PIBU_Orgname=" + encodeURI(encodeURI($("#t_PIBU_Orgname").val())),
-		type: 'POST',
-		contentType: "application/x-www-form-urlencoded; charset=utf-8",
-		async: true,
-		cache: false,
-		processData: false,
-		success: function(dataFProdC) {
-			kickoutcheck(dataFProdC);
-			var result = eval("(" + dataFProdC + ")");
-			console.log(result.FinanceProduct);
-			if(result.ret == "0") {
-				console.log(dataFProdC);
-				var batchPBbatchIDSelect = document.getElementById("batch_PB_batchID");
-				batchPBbatchIDSelect.options.length=0;/**清空下拉框的值*/
-				if((result.personalInfoBatchUpload!=null)&&(result.personalInfoBatchUpload.length!=0)) {
-				      for(var i=0; i<=result.personalInfoBatchUpload.length; i++){
-				      　　var opBatch = new Option();
-				     　　 opBatch.text = result.personalInfoBatchUpload[i].batch_PB_batchID;
-				     　　 opBatch.value = result.personalInfoBatchUpload[i].batch_PB_batchID;
-				      batchPBbatchIDSelect.options.add(opBatch);
-				      }}
-
-			} else {
-				$.toptip('批量选择出错出错，请联系技术支持', 'error');
-			}
-		},
-		error: function(dataFProdC) {
-			$.toast(result.msg, "cancel");
-		}
-	});
-}
-
-function downLoadTemplate(obj){  //下载模板按钮的监听器
-   //var url = webContext + '/filetemplate\\组织用户信息模板.xlsx';
-     var id = '${SESSION_MANAGER.id}';
-   window.location.href="${ctx}/PersonalInfoBatchUploadController/personalInfoBatchUploadAdd?id=" + id;
-}
+        function downLoadTemplate(obj){  //下载模板按钮的监听器
+                                         //var url = webContext + '/filetemplate\\组织用户信息模板.xlsx';
+            var id = '5d96a465c9bd400aaad8184a57661e49';
+            window.location.href="/sample_war_exploded/PersonalInfoBatchUploadController/personalInfoBatchUploadAdd?id=" + id;
+        }
 
 
-function FProdFilter() {
-	$.ajax({
-		url: "${ctx}/PersonalInfoBatchUploadController/personalInfoBatchUploadCompanyChange?t_PIBU_Orgname=" + encodeURI(encodeURI($("#t_PIBU_Orgname").val())),
-		type: 'POST',
-		contentType: "application/x-www-form-urlencoded; charset=utf-8",
-		async: true,
-		cache: false,
-		processData: false,
-		success: function(dataFProdC) {
-            selected = true;
-			kickoutcheck(dataFProdC);
-			var result = eval("(" + dataFProdC + ")");
-			console.log(result.FinanceProduct);
-			if(result.ret == "0") {
-				console.log(dataFProdC);
-				var FProdNameSelect = document.getElementById("t_FPROD_Name");
-				FProdNameSelect.options.length=0;/**清空下拉框的值*/
-				if((result.FinanceProduct!=null)&&(result.FinanceProduct.length!=0)) {
-				      for(var i=0; i<=result.FinanceProduct.length; i++){
-				      　　var op = new Option();
-				     　　 op.text = result.FinanceProduct[i].t_FProd_Name + " - " + result.FinanceProduct[i].remark;
-				     　　 op.value = result.FinanceProduct[i].t_FProd_PersPool;
-				      FProdNameSelect.options.add(op);
-				      }}
+        function FProdFilter() {
+            $.ajax({
+                url: "/sample_war_exploded/PersonalInfoBatchUploadController/personalInfoBatchUploadCompanyChange?t_PIBU_Orgname=" + encodeURI(encodeURI($("#t_PIBU_Orgname").val())),
+                type: 'POST',
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                async: true,
+                cache: false,
+                processData: false,
+                success: function(dataFProdC) {
+                    selected = true;
+                    kickoutcheck(dataFProdC);
+                    var result = eval("(" + dataFProdC + ")");
+                    console.log(result.FinanceProduct);
+                    if(result.ret == "0") {
+                        console.log(dataFProdC);
+                        var FProdNameSelect = document.getElementById("t_FPROD_Name");
+                        FProdNameSelect.options.length=0;/**清空下拉框的值*/
+                        if((result.FinanceProduct!=null)&&(result.FinanceProduct.length!=0)) {
+                            for(var i=0; i<=result.FinanceProduct.length; i++){
+                                var op = new Option();
+                                op.text = result.FinanceProduct[i].t_FProd_Name + " - " + result.FinanceProduct[i].remark;
+                                op.value = result.FinanceProduct[i].t_FProd_PersPool;
+                                FProdNameSelect.options.add(op);
+                            }}
 
-			} else {f
-				$.toptip('产品出错，请联系技术支持', 'error');
-			}
-		},
-		error: function(dataFProdC) {
-			$.toast(result.msg, "cancel");
-		}
-	});
-}
+                    } else {f
+                        $.toptip('产品出错，请联系技术支持', 'error');
+                    }
+                },
+                error: function(dataFProdC) {
+                    $.toast(result.msg, "cancel");
+                }
+            });
+        }
 
 
-function submitapplication() {
-	var obj=new Date();
-	if(document.getElementById("EffectStartDate").value == null || document.getElementById("EffectStartDate").value >= obj ){
-		alert("请选择起始有效日期，并且起始日期必须大于等于今天");
-		return;
-	}
-	if(document.getElementById("EffectEndDate").value == null || document.getElementById("EffectEndDate").value <= document.getElementById("EffectStartDate").value ){
-		alert("请选择结束有效日期，并且结束时间必须大于起始日期");
-		return;
-	}
-	if(!uploaded && !selected){
-	 alert("请选择企业及相关产品,点先上传员工信息文件，再提交更新")
-	 return;
-	}
-	if(!selected){
-		 alert("请选择企业及相关产品,再提交更新")
-		 return;
-	}
-	else{
-    $.ajax({
-        url : "${ctx}/PersonalInfoBatchUploadController/personalInfoBatchUpdateSub?operationType=filerefresh&t_FPROD_Name=" + encodeURI(encodeURI($("#t_FPROD_Name").val())) +
-        	  "&t_PIBU_Orgname=" + encodeURI(encodeURI($("#t_PIBU_Orgname").val())) +
-              "&batch_PB_batchID=" + encodeURI(encodeURI($("#batch_PB_batchID").val())) +
-              "&EffectStartDate=" + document.getElementById("EffectStartDate").value +
-              "&EffectEndDate=" + document.getElementById("EffectEndDate").value +
-              "&payrollDate=" + document.getElementById("payrollDate").value,
-        type: "post",
-		contentType: "application/x-www-form-urlencoded; charset=utf-8",
-		async: true,
-		cache: false,
-		processData: false,
-		success: function(dataUpload) {
-			kickoutcheck(dataUpload);
-			var result = eval("(" + dataUpload + ")");
-			if(result.ret == "0") {
-				console.log(dataUpload);
-    			alert(result.retMsg);
+        function submitapplication() {
+            var obj=new Date();
+            if(document.getElementById("EffectStartDate").value == null || document.getElementById("EffectStartDate").value >= obj ){
+                alert("请选择起始有效日期，并且起始日期必须大于等于今天");
                 return;
-			} else {
-				$.toptip('产品出错，请联系技术支持', 'error');
-			}
-		},
-		error: function(dataUpload) {
-			var result = eval("(" + dataUpload + ")");
-			alert(result.msg, "cancel");
-			return;
-		}
-	});
-  }
-}
-
-
-function kickoutcheck(dataC){
-	if (dataC.match("index")){
-		window.location.href = "${ctx}/login";
-		$.toptip('您已被踢出，请重新登录', 'error');
-		return;
-	}
-}
-
-$(function () {
-    var dom = document.getElementsByClassName('input-datepicker-d')[0]
-    $(".input-datepicker").datetimepicker({
-        format: 'YYYY-MM-DD',
-        locale: moment.locale('zh-cn')
-    }).on('change', function (e) {
-        console.log(e)
-    });
-    $(".input-datepicker-d").datetimepicker({
-        format: 'hh:mm:ss',
-        locale: moment.locale('zh-cn')
-    }).on('change', function (e) {
-    });
-    $(".radio_original").on('click', function (e) {
-        if (e.target.value == 1) {
-            dom.style.visibility = "visible";//隐藏
-        } else {
-            dom.style.visibility = "hidden";//隐藏
-
+            }
+            if(document.getElementById("EffectEndDate").value == null || document.getElementById("EffectEndDate").value <= document.getElementById("EffectStartDate").value ){
+                alert("请选择结束有效日期，并且结束时间必须大于起始日期");
+                return;
+            }
+            if(!uploaded && !selected){
+                alert("请选择企业及相关产品,点先上传员工信息文件，再提交更新")
+                return;
+            }
+            if(!selected){
+                alert("请选择企业及相关产品,再提交更新")
+                return;
+            }
+            else{
+                $.ajax({
+                    url : "/sample_war_exploded/PersonalInfoBatchUploadController/personalInfoBatchUpdateSub?operationType=filerefresh&t_FPROD_Name=" + encodeURI(encodeURI($("#t_FPROD_Name").val())) +
+                        "&t_PIBU_Orgname=" + encodeURI(encodeURI($("#t_PIBU_Orgname").val())) +
+                        "&batch_PB_batchID=" + encodeURI(encodeURI($("#batch_PB_batchID").val())) +
+                        "&EffectStartDate=" + document.getElementById("EffectStartDate").value +
+                        "&EffectEndDate=" + document.getElementById("EffectEndDate").value +
+                        "&payrollDate=" + document.getElementById("payrollDate").value,
+                    type: "post",
+                    contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                    async: true,
+                    cache: false,
+                    processData: false,
+                    success: function(dataUpload) {
+                        kickoutcheck(dataUpload);
+                        var result = eval("(" + dataUpload + ")");
+                        if(result.ret == "0") {
+                            console.log(dataUpload);
+                            alert(result.retMsg);
+                            return;
+                        } else {
+                            $.toptip('产品出错，请联系技术支持', 'error');
+                        }
+                    },
+                    error: function(dataUpload) {
+                        var result = eval("(" + dataUpload + ")");
+                        alert(result.msg, "cancel");
+                        return;
+                    }
+                });
+            }
         }
-        // document.getElementById("demo").style.visibility = "visible";//显示
-        console.log(e, "?????")
-    })
-})
 
-function openDetails(){
-    console.log(document.getElementById("batch_PB_batchID").value);
-    var t_batch_perslUploadStatus_batchid_value = document.getElementById("batch_PB_batchID").value;
-    var openWindowWidth = $(document).width() * 0.8 + "px";
-    console.log(openWindowWidth);
-    console.log(offsetH);
-    var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
-    layer.open({
-        type: 2,
-        area: openWindowWidth,
-        offset : offsetH,
-        fix: false, //不固定
-        maxmin: true,
-        content: '${ctx}/PersonalInfoBatchUploadStatusController/form?t_batch_perslUploadStatus_batchid='+encodeURI(encodeURI(t_batch_perslUploadStatus_batchid_value))+'&operationType=list&platform=0',
-        success: function(layero, index){
-            layer.iframeAuto(index);
+
+        function kickoutcheck(dataC){
+            if (dataC.match("index")){
+                window.location.href = "/sample_war_exploded/login";
+                $.toptip('您已被踢出，请重新登录', 'error');
+                return;
+            }
         }
-    });
-}
 
-</script>
-</head>
-<style>
-.ml20 {
-    border: 1px solid rgb(204, 204, 204); border-radius: 4px; width: 369px; height: 133px; margin-left: 0px; margin-top: -20px; resize: both; display: inline-block; box-sizing: border-box; font-size: 12px; overflow: auto;
-}
-</style>
-<body>
+        $(function () {
+            var dom = document.getElementsByClassName('input-datepicker-d')[0]
+            $(".input-datepicker").datetimepicker({
+                format: 'YYYY-MM-DD',
+                locale: moment.locale('zh-cn')
+            }).on('change', function (e) {
+                console.log(e)
+            });
+            $(".input-datepicker-d").datetimepicker({
+                format: 'hh:mm:ss',
+                locale: moment.locale('zh-cn')
+            }).on('change', function (e) {
+            });
+            $(".radio_original").on('click', function (e) {
+                if (e.target.value == 1) {
+                    dom.style.visibility = "visible";//隐藏
+                } else {
+                    dom.style.visibility = "hidden";//隐藏
 
-    <div id="notIE9">
-        <div id="layout" class="layout-wrap relative" style="min-height: 552px;">
+                }
+                // document.getElementById("demo").style.visibility = "visible";//显示
+                console.log(e, "?????")
+            })
+        })
 
-            <div class="page-send-record">
-                <div class="p-20 mt10">
-                    <div class="clearfix grid-list-head" style="border-bottom: 0px;"></div>
+        function openDetails(){
+            console.log(document.getElementById("batch_PB_batchID").value);
+            var t_batch_perslUploadStatus_batchid_value = document.getElementById("batch_PB_batchID").value;
+            var openWindowWidth = $(document).width() * 0.8 + "px";
+            console.log(openWindowWidth);
+            console.log(offsetH);
+            var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
+            layer.open({
+                type: 2,
+                area: openWindowWidth,
+                offset : offsetH,
+                fix: false, //不固定
+                maxmin: true,
+                content: '/sample_war_exploded/PersonalInfoBatchUploadStatusController/form?t_batch_perslUploadStatus_batchid='+encodeURI(encodeURI(t_batch_perslUploadStatus_batchid_value))+
+                    '&operationType=" + "list" + ' +
+                    '"&platform=" + "0"',
+                success: function(layero, index){
+                    layer.iframeAuto(index);
+                }
+            });
+        }
+
+    </script>
+    <style>
+        .ml20 {
+            border: 1px solid rgb(204, 204, 204); border-radius: 4px; width: 369px; height: 133px; margin-left: 0px; margin-top: -20px; resize: both; display: inline-block; box-sizing: border-box; font-size: 12px; overflow: auto;
+        }
+        .personalContent{
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            height: 100px;
+            margin-left: 0px;
+            margin-top: -20px;
+            resize:both;
+            display: inline-block;
+            box-sizing: border-box;
+            outline-cloe:#000;
+            font-size:12px;
+            overflow:auto;
+        }
+        .personalContent:empty::before{
+            content: attr(placeholder);
+        }
+    </style></head>
+
+<body data-new-gr-c-s-check-loaded="14.1062.0" data-gr-ext-installed="" data-gr-ext-disabled="forever">
+
+<div id="notIE9">
+    <div id="layout" class="layout-wrap relative" style="min-height: 552px;">
+
+        <div class="page-send-record">
+            <div class="p-20 mt10">
+                <div class="clearfix grid-list-head" style="border-bottom: 0px;"></div>
+            </div>
+            <div class="page-customerFinance p10">
+                <div class="grid-list-head">
+                    <div class="grid-tab active">员工信息批量上传</div>
                 </div>
-                <div class="page-customerFinance p10">
-                    <div class="grid-list-head">
-                        <div class="grid-tab active">员工信息批量上传</div>
-                    </div>
-                    <div class="deliver">
-                        <div class="variableSms">
-                            <form enctype="multipart/form-data" id="excelUpload" action="project/uploadProject"
-                                method="post" class="form-horizontal">
-                                <div class="vSms-item">
-                                    <div class="iconLine">
-                                        <div class="numberIcon">1</div>
-                                        <div class="lineY"></div>
+                <div class="deliver">
+                    <div class="variableSms">
+                        <form enctype="multipart/form-data" id="excelUpload" action="project/uploadProject" method="post" class="form-horizontal">
+                            <div class="vSms-item">
+                                <div class="iconLine">
+                                    <div class="numberIcon">1</div>
+                                    <div class="lineY"></div>
+                                </div>
+                                <div class="processArea">
+                                    <div class="processTitle" title="张三,54001519900304241X,5182999938839499,13817934918,100;">手工填入上传人员信息(姓名，身份证号，银行卡号，手机号，授额;)(每条记录之间以分号;隔开,并且半角输入,授额必须为整数)</div>
+                                    <div>
+                                        <div contenteditable="true" id="PersonalInfoInputArea" name="PersonalInfoInputArea" style="" class="personalContent" placeholder="张三,54001519900304241X,5182999938839499,18618618661,100;李四,53001519700304241X,3182999932239499,13830001114,10000;" onmouseout="inputcheck(this.innerHTML)"></div>
+                                        <div id="persnlErr" name="persnalErr" style="font-size: 14px;color:#ff0000; padding: 10px 0px;"></div>
                                     </div>
-                                    <div class="processArea">
-                                        <div class="processTitle" title="张三,54001519900304241X,5182999938839499,13817934918,100;">手工填入上传人员信息(姓名，身份证号，银行卡号，手机号，授额;)(每条记录之间以分号;隔开,并且半角输入,授额必须为整数)</div>
-                                        <div>
-                                            <div contenteditable="true" id="PersonalInfoInputArea" name="PersonalInfoInputArea" style="border: 1px solid #ccc;border-radius: 4px;width: 100%;height: 100px;margin-left: 0px;margin-top: -20px;resize:both;display: inline-block;box-sizing: border-box;outline-cloe:#000;font-size:12px;overflow:auto;"
-                                                 class="persnalinfo-textarea personalContent"
-                                            onmouseout="inputcheck(this.innerHTML)"></div>
-                                            <div id="persnlErr" name="persnalErr" style="font-size: 14px;color:#ff0000; padding: 10px 0px;"></div>
-                                        </div>
-                                        <div class="processTitle">
-                                            <label>企业名称<span class="required">*</span>
-                                            </label>
-                                            <div style="padding-left: 0px;">
-                                            <select id="t_PIBU_Orgname" class="bs-select form-control" data-live-search="true" name="t_PIBU_Orgname" id="t_PIBU_Orgname" onchange="FProdFilter()">
-                                                <#list OrganizationInfo as OrganizationInfoList>
-                                                    <option value="${OrganizationInfoList.t_O_OrgName}">
-                                                        ${OrganizationInfoList.t_O_OrgName}</option>
-                                                </#list>
-                                            </select>
-                                        </div>
-                                        </div>
-                                        <div class="processTitle">
-                                            <label>工资产品名<span class="required">*</span>
-                                            </label>
-                                            <div style="padding-left: 0px;">
+                                    <div class="processTitle">
+                                        <label>工资产品名<span class="required">*</span>
+                                        </label>
+                                        <div style="padding-left: 0px;">
                                             <select class="bs-select form-control" data-live-search="true" name="t_FPROD_Name" id="t_FPROD_Name">
-                                                <#list FinanceProduct as FinanceProductList>
-                                                    <option value="${FinanceProductList.t_FProd_PersPool}">${FinanceProductList.t_FProd_Name} - ${FinanceProductList.remark}</option>
-                                                </#list>
+                                                <option value="initall-PersPool">中国上海开放产品测试1 - 测试2</option>
                                             </select>
                                         </div>
-                                        </div>
-                                        <div class="processTitle">
-                                            <label>发薪日<span class="required">*</span>
-                                            </label>
-                                             <div style="padding-left: 0px;">
-											<select class="bs-select form-control" name="payrollDate" id="payrollDate">
-												<option value="0">即期劳务费/工资</option>
-												<option value="1">1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-												<option value="4">4</option>
-												<option value="5">5</option>
-												<option value="6">6</option>
-												<option value="7">7</option>
-												<option value="8">8</option>
-												<option value="9">9</option>
-												<option value="10">10</option>
-												<option value="11">11</option>
-												<option value="12">12</option>
-												<option value="13">13</option>
-												<option value="14">14</option>
-												<option value="15">15</option>
-												<option value="16">16</option>
-												<option value="17">17</option>
-												<option value="18">18</option>
-												<option value="19">19</option>
-												<option value="20">20</option>
-												<option value="21">21</option>
-												<option value="22">22</option>
-												<option value="23">23</option>
-												<option value="24">24</option>
-												<option value="25">25</option>
-												<option value="26">26</option>
-												<option value="27">27</option>
-												<option value="28">28</option>
-											</select>
-										</div>
+                                    </div>
+                                    <div class="processTitle">
+                                        <label>发薪日<span class="required">*</span>
+                                        </label>
+                                        <div style="padding-left: 0px;">
+                                            <select class="bs-select form-control" name="payrollDate" id="payrollDate">
+                                                <option value="0">即期劳务费/工资</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                                <option value="13">13</option>
+                                                <option value="14">14</option>
+                                                <option value="15">15</option>
+                                                <option value="16">16</option>
+                                                <option value="17">17</option>
+                                                <option value="18">18</option>
+                                                <option value="19">19</option>
+                                                <option value="20">20</option>
+                                                <option value="21">21</option>
+                                                <option value="22">22</option>
+                                                <option value="23">23</option>
+                                                <option value="24">24</option>
+                                                <option value="25">25</option>
+                                                <option value="26">26</option>
+                                                <option value="27">27</option>
+                                                <option value="28">28</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                             <div class="vSms-item">
                                 <div class="iconLine">
                                     <div class="numberIcon">2</div>
                                     <div class="lineY"></div>
                                 </div>
                                 <div class="processArea">
-                                    <div class="processTitle"><input type="file" class="processTitle" title="请选择文件" name="file" id="uploadEventFile">选择上传文件</a></div>
+                                    <div class="processTitle"><input type="file" class="processTitle" title="请选择文件" name="file" id="uploadEventFile">选择上传文件</div>
                                     <div>
                                         <div id="uploader-demo" class="templateArea">
                                             <div id="fileList" class="uploader-list"></div>
-                                            <button id="uploadbtn" type="button" class="btn btn-green btn-warning"
-                                                onclick="project.uploadBtn()">上传文件</button>
+                                            <button id="uploadbtn" type="button" class="btn btn-green btn-warning" onclick="project.uploadBtn()">上传文件</button>
                                         </div><br>
-                                        <div id="downLoadxls" class="downloadTempDiv"><a href="#"
-                                                class="btn btn-success btn-sm"
-                                                onclick="javascript:;downLoadTemplate('${SESSION_MANAGER.id}')">下载模板</a>
+                                        <div id="downLoadxls" class="downloadTempDiv"><a href="#" class="btn btn-success btn-sm" onclick="javascript:;downLoadTemplate('5d96a465c9bd400aaad8184a57661e49')">下载模板</a>
                                         </div>
                                     </div>
                                     <div class="xlsxNeed"><br><br>
                                         注意:以下信息需在Excel表格中已文本格式保存。<br><br>1、第一列填写人名。<br>2、第二列填写身份证号。<br>3、第三位填写银行卡号。<br>
                                         4、第四位填写手机号。<br>5、第五位填写授额，可有小数点（且小数点后最多两位数字)。<br> 6、一次最多上传1万条数据。<br>7、一次只能导入一个文件。<br><br>
                                         辅助工具: <br><a href="https://qq.ip138.com/idsearch/index.asp" target="_blank">https://qq.ip138.com/idsearch/index.asp</a> (身份证校验，如有错误可以查询该系统做更正，如果校验位不合法且无法更正的请删除该条上传记录后重新上传文档，删除的记录请手动更新)<br>
-                  <a href="http://cha.yinhangkadata.com/#" target="_blank">http://cha.yinhangkadata.com/#</a> (银行卡校验，如有错误可以查询该系统做更正，如果校验位不合法且无法更正的请删除该条上传记录后重新上传文档，删除的记录请手动更新)                    
+                                        <a href="http://cha.yinhangkadata.com/#" target="_blank">http://cha.yinhangkadata.com/#</a> (银行卡校验，如有错误可以查询该系统做更正，如果校验位不合法且无法更正的请删除该条上传记录后重新上传文档，删除的记录请手动更新)
                                     </div>
-                              </div>
-                          </div>
-                         <div class="vSms-item">
-                             <div class="iconLine">
+                                </div>
+                            </div>
+                            <div class="vSms-item">
+                                <div class="iconLine">
                                     <div class="numberIcon">3</div>
                                     <div class="lineY"></div>
                                 </div>
                                 <div class="processArea">
-                                	<div class="processTitle">
-                                           <label>绑定批次<span class="required"> * </span>
-                                            </label>
-                                        <div class="row">
-                                                <select colspan="2" class="bs-select form-control" data-live-search="true" name="batch_PB_batchID"
-                                                    id="batch_PB_batchID" onchange="FProdFilter()">
-                                                    <#list personalInfoBatchUpload as personalInfoBatchUpload>
-                                                        <option value="${personalInfoBatchUpload.batch_PB_batchID}">
-                                                            ${personalInfoBatchUpload.batch_PB_batchID} </option>
-                                                    </#list>
+                                    <div class="processTitle">
+                                        <label>绑定批次<span class="required"> * </span>
+                                        </label>
+                                        <div style="margin-left:0px;width:5000%">
+                                            <div style="width:150%;display:inline">
+                                                <select colspan="1" class="bs-select form-control" style="width: 15%;float:left;margin-right:5px" data-live-search="true" name="batch_PB_batchID" id="batch_PB_batchID" onchange="FProdFilter()">
+                                                    <option value="">
+                                                    </option>
                                                 </select>
-                                            <div colspan="2">
-                                            <a id="detaillist" href="#" onclick="javascript:;openDetails()">查看详情</a>
+                                                <div style="margin-left:0px;">
+                                                    <a id="detaillist" style="width:20%;margin-right: 0px;" href="#" onclick="javascript:;openDetails()">查看详情</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="processTitle">
-                                            <label>授额开启时间段:<span class="required">*</span>
-                                            </label>
-                                    <div style="padding-left: 0px;">
-                                    <div id="dropdown" class="dropdown fl" style="margin-right: 5px;">
-                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">作用时间段
-                                            <span class="caret"></span>
-                                        </button>
-							           <!--
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1"
-                                            name="t_PbatchClear_Cat" ID="t_PbatchClear_Cat">
-                                            <li value="autoclear" onclick="clickLi('qb')">自动结算</li>
-                                            <li value="manualclear" onclick="clickLi('sd')">手动结算</li>
-                                        </ul>
-                                         -->
-                                    </div>
-                                    <input id="EffectStartDate" autocomplete="off" placeholder="请选择开始日期" type="text"
-                                        rows="2" class="date-editor input-datepicker fl border input date-editor--date">
-                                    <span data-v-51a81e9b="" class="fl p-5" style="line-height: 36px;">至</span>
-                                    <input id="EffectEndDate" autocomplete="off" placeholder="请选择结束日期" type="text"
-                                        rows="2" class="date-editor input-datepicker fl border input date-editor--date">
-                                    </div>
                                 </div>
+                                <br>
+                                <br>
+                                <br>
+                            </div>
+                            <div class="vSms-item">
+                            <div class="processArea">
+                                <div style="margin-left: 200px;"><button id="btn_upSubmit" onclick="submitapplication()" style="padding:0%;" class="btn btn-lg btn-green search-btn ml80 send-btn">员工信息上传任务提交 </button>
                                 </div>
                             </div>
-                            </form>
-                            <br>
-                            <br>
-                            <br>
-                            <div style="margin-left: 200px;"><button id="btn_upSubmit" onclick="submitapplication()"
-                                    style="padding:0%;" class="btn btn-lg btn-green search-btn ml80 send-btn"
-                                    onclick="javascript:;">员工信息上传任务提交 </button></div>
-                        </div>
-                       </form>
-                        <div element-loading-text="正在校验中" class="mask" style="display: none;"></div>
-                        <div class="dialog__wrapper" element-loading-text="号码筛选中" width="30%" style="display: none;">
-                            <div class="dialog dialog--small" style="top: 15%;">
-                                <div class="dialog__header"><span class="dialog__title">人员个别添加</span><button
-                                        type="button" aria-label="Close" class="dialog__headerbtn"><i
-                                            class="dialog__close icon icon-close"></i></button></div>
-
-                                <div class="dialog__footer"><span class="dialog-footer"><button type="button"
-                                            class="button button--default">
-
-                                            <span>取消</span></button><button type="button"
-                                            class="button button--success">
-
-                                            <span>确定</span></button></span></div>
-                            </div>
-                        </div>
+                        </div></form>
                     </div>
                 </div>
-
-
             </div>
         </div>
-    </div>
     </div>
 
     <script>
@@ -736,7 +1551,7 @@ function openDetails(){
             o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w)));
             return o;
         }
-        
+
 
     </script>
     <style>
@@ -762,6 +1577,6 @@ function openDetails(){
         }
     </style>
 
-</body>
 
-</html>
+
+</div></body></html>

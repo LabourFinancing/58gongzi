@@ -197,6 +197,7 @@ document.getElementById("updated_date").value=getDate();
 							</div>
 						</div>
 					</div>
+					<@shiro.hasPermission name="TREASURYINFO_AGENTFPRODVIEW">
 					<div class="form-group">
 						<label class="control-label col-sm-3">是否是代理商<span
 							class="required"> * </span>
@@ -221,6 +222,7 @@ document.getElementById("updated_date").value=getDate();
 							</div>
 						</div>
 					</div>
+				</@shiro.hasPermission>
 					<div class="form-group">
 						<label class="control-label col-sm-3">企业法人<span
 							class="required"> * </span>

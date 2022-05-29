@@ -16,6 +16,7 @@ public enum ExRetEnum implements RetEnumIntf {
 	SUCCESS("0", "成功"), FAIL("-1", "失败"),
 
 	SMSSUCCESS("0", "验证码短信已发送,请查看您的手机,15分钟有效!"),
+	UPLOADSUCCESS("0", "上传成功!"),
     TREASURYSUCCESS("0", "由于提款人过多，资金账户拥堵，请稍后再试！"),
     STATISICSUCCESS("0", "该企业本月交易统计信息"),
     Pullin_SuccNewPer("0", "成功上传并新增人员"),
@@ -42,6 +43,7 @@ public enum ExRetEnum implements RetEnumIntf {
 	Pullin_FailDupBatchMobileErr("-1", "上传表中手机号存在重复"),
 	Pullin_FailDupBatchPIDErr("-1", "上传表中身份证号存在重复"),
 	Pullin_FailDupPIDErr("-1", "身份证号码重复"),
+	Pullin_Fail("-1", "错误数据，请更正错误记录条后重新上传"),
 	PREPAY_APPFAIL("-1", "系统繁忙,请稍后再试"),
 	PASSWORD_FAIL("-1", "两次输入的密码不一致"),
 	PASSWORD_RESENT("0", "密码已发送，请注意查看"),

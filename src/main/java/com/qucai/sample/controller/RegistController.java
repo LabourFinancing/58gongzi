@@ -148,7 +148,7 @@ public class RegistController {
                         organizationInfo.setT_O_OrgName(FirmNameFMT);
                         organizationInfo.setT_O_EmployeeAmount("0");
                         organizationInfo.setT_O_Category("AAA");
-                        organizationInfo.setT_O_listOrg("off");
+                        organizationInfo.setT_O_listOrg("on");
                         organizationInfo.setT_O_OrgRepresentative(username.trim());
                         organizationInfo.setT_O_OrgPayrollBankaccount(PaymentInfo.AllCompanyName);// switch to  杉德支付/电音支付
                         organizationInfo.setT_O_OrgChinaebiAcc(PaymentInfo.AllCompanyChinaebiAcc); // switch to selfown chinaebi if acc setup done
