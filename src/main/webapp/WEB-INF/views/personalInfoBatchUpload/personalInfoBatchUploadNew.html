@@ -437,7 +437,11 @@
                 return;
             }
             if(!uploaded && !selected){
+<<<<<<< HEAD
                 alert("请先添加产品或选择企业及相关产品,并点先上传员工信息文件后，再提交更新");
+=======
+                alert("请选择企业及相关产品,点先上传员工信息文件，再提交更新");
+>>>>>>> 7aecaf3... agent org relations setup without testing doner
                 return;
             }
             if(!selected){
@@ -689,6 +693,7 @@
                                     <div class="processTitle">
                                         <label>绑定批次<span class="required"> * </span>
                                         </label>
+<<<<<<< HEAD
                                         <div style="margin-left:0px;width:150%">
                                             <div style="width:80%;display:inline">
                                                 <select class="bs-select form-control" data-live-search="true" name="batch_PB_batchID"
@@ -697,6 +702,13 @@
                                                     <option value="${personalInfoBatchUpload.batch_PB_batchID}">
                                                         ${personalInfoBatchUpload.batch_PB_batchID} </option>
                                                 </#list>
+=======
+                                        <div style="margin-left:0px;width:1000%">
+                                            <div style="width:150%;display:inline">
+                                                <select colspan="1" class="bs-select form-control" style="width: 15%;float:left;margin-right:5px" data-live-search="true" name="batch_PB_batchID" id="batch_PB_batchID" onchange="FProdFilter()">
+                                                    <option value="">
+                                                    </option>
+>>>>>>> 7aecaf3... agent org relations setup without testing doner
                                                 </select>
                                                 <div style="margin-left:0px;">
                                                     <a id="detaillist" style="width:20%;margin-right: 0px;" href="#" onclick="javascript:;openDetails()">查看详情</a>
