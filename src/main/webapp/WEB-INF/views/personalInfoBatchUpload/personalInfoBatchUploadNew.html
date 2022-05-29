@@ -1,875 +1,44 @@
 <!DOCTYPE html>
 <!-- saved from url=(0035)http://users.ucpaas.com/%20/l%20/#/ -->
-<html><head><script>/* Chrome SafeEngine plugin
- *
- * This software is released under either the GNU Library General Public
- * License (see LICENSE.LGPL).
- *
- * Note that the only valid version of the LGPL license as far as this
- * project is concerned is the original GNU Library General Public License
- * Version 2.1, February 1999
- */
+<html>
 
-var promises = {};
-
-/*Checking if extension is already installed*/
-const SHECASafeEngineExtensionIsInstalled = {display:true, company:"SHECA"};
-
-//Obtain the value of nonce from Cookie.
-function getCookie()
-{
-    var c_name = "nonceKey";
-    if (document.cookie.length>0)
-    {
-        c_start=document.cookie.indexOf(c_name + "=");
-        if (c_start!=-1)
-        {
-            c_start=c_start + c_name.length+1;
-            c_end=document.cookie.indexOf(";",c_start);
-            if (c_end==-1)
-                c_end=document.cookie.length;
-            return unescape(document.cookie.substring(c_start,c_end));
-        }
-    }
-    return "";
-}
-
-//handle response from content
-window.addEventListener("message", function(event) {
-    if (event.source !== window)
-        return;
-    if (event.data.source && (event.data.source === "FROM_WORKER")) {
-        console.log("Page received: ");
-        console.log(event.data);
-
-        var nonceId = event.data.nonce;
-        //Obtain the value of nonce from Cookie when event.data.nonce is undefined.
-        if (event.data.nonce === undefined) {
-            nonceId = getCookie();
-            console.log("nonceId from cookie:"+nonceId);
-        }
-
-        var p = promises[nonceId];
-
-        //LastError:0--get function's return data sucessfully
-        //         !0--get error data from the lower level interface or NativeAPP(EXE)
-        if (event.data.LastError === 0) {
-            console.log("success");
-            if(event.data.type === "GetDevList"){
-                p.resolve(event.data);
-            } else if (event.data.type === "UCCGETPLUGGEDEKRY") {
-                p.resolve(event.data);
-            } else if (event.data.type === "UCCHASREADER") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "UCCGETKEYVER") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "UCCGETKEYSN") {
-                p.resolve(event.data.returnData);
-            } else if(event.data.type === "GETRSAABILITY") {
-                p.resolve(event.data.returnData)
-            } else if(event.data.type === "GETUPDATESTATUS") {
-                p.resolve(event.data);
-            } else if (event.data.type === "GETCERTPEM") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "CREATPKCS10EXFORUP") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "UCCSAVECERT") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "CREATPKCS10EX") {
-                p.resolve(event.data.returnData);
-            } else if(event.data.type === "CREATSIGNATURE") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "UNLOCKDEV") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "HASSEALABILITY") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "CHECKENVIRONMENT") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ISYZTCERT") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ECC_GETPEMCERTFROMKEY") {
-                p.resolve(event.data);
-            } else if (event.data.type === "ECC_GETCERTINFOS") {
-                p.resolve(event.data);
-            } else if (event.data.type === "UCCGetVersion") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ValidatePassword") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "VerifySignature") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "CreatePKCS7SignedData") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "VerifyPKCS7SignedData") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "UCCSavePKCS12") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "UCCCertPEM") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "UCCSaveEKey") {
-                p.resolve(event.data.returnData);
-            } else if(event.data.type === "UCCSaveOffLine") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "UCCSaveOffLineFile") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "GetCertificateDetail") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "RestoreEncKey") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "InitDevCertArea") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "InitDevSealArea") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ECC_CreatePKCS10") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ECC_UCCSaveCert") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ECC_GetUpdateStatus") {
-                p.resolve(event.data);
-            } else if (event.data.type === "ECC_UnlockDevice") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ECC_CreateSignedData") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ECC_UCCRestoreEncKey") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ECC_IsInitialized") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ECC_ChangePassword") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SEH_SignData") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SEH_Digest") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SEH_VerifySignData") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SEH_GetSelfCertificate") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SEH_Envelope") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SEH_EnvelopeEx") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SEH_VerifyCertificate") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SEH_VerifyCertificateOnline") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SEH_ChangePassword") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SEH_GetCertDetail") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SEH_GetCertUniqueID") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SEH_GetCertClass") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SEH_GetCertInfoByOID") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SEH_GetCertValidDate") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SEH_GetCertUsage") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SEH_GenRandomBytes") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SEH_AsynEncryptDataByPubkey") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SEH_AsynDecryptDataByPrikey") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SEH_AsynEncryptDataByPubkeyEx") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SEH_AsynDecryptDataByPrikeyEx") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SEH_EncryptData") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SEH_DecryptData") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SEH_EncryptDataEx") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SEH_DecryptDataEx") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SEH_ShowVersion") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SEH_SignHash") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SEH_GetSealInfo") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SEH_IsOneCertType") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SEH_Logout") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SEH_Login") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "LoginInit") {
-                p.resolve(event.data);
-            } else if (event.data.type === "SSO_Login") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "LoginVerify") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SSO_Logout") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "LoginGetClientCertFromCredential") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ESE_ShowVersion") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ESE_SignHash") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ESE_Logout") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ESE_Login") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ECCLoginInit") {
-                p.resolve(event.data);
-            } else if (event.data.type === "ECCLoginVerify") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ECCLoginGetClientCertFromCredential") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ESE_SignData") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ESE_Digest") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ESE_VerifySignData") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ESE_SignData_P7") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ESE_VerifySignData_P7") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ESE_GetSelfCertificate") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ESE_Envelope_P7") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ESE_DecodeEnvelope_P7") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ESE_VerifyCertificate") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ESE_VerifyCertificateOnline") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ESE_GetCertDetail") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ESE_GetCertUniqueID") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ESE_GetCertClass") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ESE_GetCertInfoByOID") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ESE_GetCertValidDate") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ESE_GetCertUsage") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ESE_GenRandomBytes") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "GetSESealVersion") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "ReadSeal") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "SaveSeal") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "GetSealData") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "GetSealItem") {
-                p.resolve(event.data.returnData);
-            } else if (event.data.type === "VerifySeal") {
-                p.resolve(event.data.returnData);
-            } else {
-                console.error("No have this Method:" + event.data.type);
-            }
-        } else {
-            p.reject(event.data);
-        }
-        delete promises[event.data.nonce];
-    }
-}, false);
-
-/*The only ID of every method*/
-function nonce() {
-    var val = "";
-    var hex = "abcdefghijklmnopqrstuvwxyz0123456789";
-    for(var i = 0; i < 16; i++) val += hex.charAt(Math.floor(Math.random() * hex.length));
-    return val;
-}
-
-//
-function setCookie(value)
-{
-    var exdate=new Date();
-    exdate.setTime(exdate.getTime()+5000);
-    document.cookie = "nonceKey=" + escape(value) + ";expires=" + exdate.toGMTString() + ";path=/";
-}
-
-/*Every method will be create a promise and request format JSON */
-function messagePromise(msg) {
-    return new Promise(function(resolve, reject) {
-        var nonceId = nonce();
-        setCookie(nonceId);
-
-        // amend with necessary metadata
-        msg["nonce"] = nonceId;
-        msg["source"] = "FROM_PAGE";
-        msg["lang"] = 'eng';
-        // and store promise callbacks
-        promises[msg.nonce] = {
-            resolve: resolve,
-            reject: reject
-        };
-
-        // send message
-        var event = document.createEvent("CustomEvent");
-        event.initCustomEvent('com.sheca.safeengine.extension', true, false, msg);
-        // fire the event
-        document.dispatchEvent(event);
-    });
-}
-
-
-//There are all of methods of SafeEngine and UCClientCtrl.
-function UCCGetVersion() {
-    var msg = {type: "UCCGetVersion"};
-    console.log("UCCGetVersion");
-    return messagePromise(msg);
-}
-function UCCGetDevList() {
-    var msg = {type: "UCCGetDevList"};
-    console.log("UCCGetDevList");
-    return messagePromise(msg);
-}
-function UCCGetPluggedeKey() {
-    var msg = {type: "UCCGETPLUGGEDEKRY"};
-    console.log("UCCGETPLUGGEDEKRY");
-    return messagePromise(msg);
-}
-function UCCHasReader(lDevType) {
-    var msg = {type: "UCCHASREADER", lDevType: lDevType};
-    console.log("UCCHASREADER");
-    return messagePromise(msg);
-}
-function UCCGetKeySupportVer(lDevType) {
-    var msg = {type: "UCCGETKEYVER", lDevType: lDevType};
-    console.log("UCCGETKEYVER");
-    return messagePromise(msg);
-}
-function UCCGetKeySerialNumber(lDevType,strDevParam) {
-    var msg = {type: "UCCGETKEYSN", lDevType: lDevType, strDevParam: strDevParam};
-    console.log("UCCGETKEYSN");
-    return messagePromise(msg);
-}
-function UCCGetCardRSAAbility(lDevType) {
-    var msg = {type: "GETRSAABILITY", lDevType: lDevType};
-    console.log("UCCGetCardRSAAbility");
-    return messagePromise(msg);
-}
-function GetUpdateStatus (lDevType, strDevParam, strDevPass) {
-    var msg = {type: "GETUPDATESTATUS", lDevType: lDevType, strDevParam: strDevParam, strDevPass: strDevPass};
-    console.log("GETUPDATESTATUS");
-    return messagePromise(msg);
-}
-function GetCertificatePem (lDevType, strDevParam) {
-    var msg = {type: "GETCERTPEM", lDevType: lDevType, strDevParam: strDevParam};
-    console.log("GETCERTPEM");
-    return messagePromise(msg);
-}
-function CreatePKCS10ExForUpdate (lDevType, strDevParam, strDevPass, strEnvSN, strDN, nModulusLen) {
-    var msg = {type: "CREATPKCS10EXFORUP", lDevType: lDevType, strDevParam: strDevParam, strDevPass: strDevPass, strEnvSN: strEnvSN, strDN: strDN, nModulusLen: nModulusLen};
-    console.log("CREATPKCS10EXFORUP");
-    return messagePromise(msg);
-}
-function UCCSaveCertEx (lDevType, strDevParam, strEnvSN, strEnvSNpwd, strCertChain, strCert, strECert, strEKey,sKMDecryptAlg,sSaveType,sPaddingType) {
-    var msg = {type: "UCCSAVECERT", lDevType:lDevType, strDevParam:strDevParam, strEnvSN:strEnvSN, strEnvSNpwd:strEnvSNpwd, strCertChain:strCertChain, strCert:strCert, strECert:strECert, strEKey:strEKey, sKMDecryptAlg:sKMDecryptAlg, sSaveType:sSaveType, sPaddingType:sPaddingType};
-    console.log("UCCSAVECERT");
-    return messagePromise(msg);
-}
-function CreatePKCS10Ex (lDevType, strDevParam, strDevPass, strEnvSN, strDN, nModulusLen) {
-    var msg = {type: "CREATPKCS10EX", lDevType: lDevType, strDevParam: strDevParam, strDevPass: strDevPass, strEnvSN: strEnvSN, strDN: strDN, nModulusLen: nModulusLen};
-    console.log("CREATPKCS10EX");
-    return messagePromise(msg);
-}
-function CreateSignature(lDevType, strDevParam, strDevPass, strPlain, hashAlg) {
-    var msg = {type: "CREATSIGNATURE", lDevType: lDevType, strDevParam: strDevParam, strDevPass: strDevPass,strPlain: strPlain, hashAlg: hashAlg};
-    console.log("CREATSIGNATURE");
-    return messagePromise(msg);
-}
-function UnlockDevice (lDevType, strDevParam, strAdminPin, strUserPin) {
-    var msg = {type: "UNLOCKDEV", lDevType:lDevType, strDevParam:strDevParam, strAdminPin:strAdminPin, strUserPin:strUserPin};
-    console.log("UNLOCKDEV");
-    return messagePromise(msg);
-}
-function HasSealAbility (lDevType, strDevParam) {
-    var msg = {type: "HASSEALABILITY", lDevType: lDevType, strDevParam: strDevParam};
-    console.log("HASSEALABILITY");
-    return messagePromise(msg);
-}
-function CheckEnvironment () {
-    var msg = {type: "CHECKENVIRONMENT"};
-    console.log("CHECKENVIRONMENT");
-    return messagePromise(msg);
-}
-function IsYZTCert (strCert) {
-    var msg = {type: "ISYZTCERT", strCert: strCert};
-    console.log("ISYZTCERT");
-    return messagePromise(msg);
-}
-function ECC_UCCGetPEMCertFromKey (lDevType, strDevParam, devAlg, certType) {
-    var msg = {type: "ECC_GETPEMCERTFROMKEY", lDevType:lDevType, strDevParam:strDevParam, devAlg:devAlg, certType:certType};
-    console.log("ECC_GETPEMCERTFROMKEY");
-    return messagePromise(msg);
-}
-function ECC_UCCGetCertInfos (pemCert) {
-    var msg = {type: "ECC_GETCERTINFOS", pemCert: pemCert};
-    console.log("ECC_GETCERTINFOS");
-    return messagePromise(msg);
-}
-function ValidatePassword (lDevType, strDevParam, strDevPass) {
-    var msg = {type: "ValidatePassword", lDevType: lDevType, strDevParam: strDevParam, strDevPass: strDevPass};
-    console.log("ValidatePassword");
-    return messagePromise(msg);
-}
-function VerifySignature (strPlain, strSignature, hashAlg,strCert) {
-    var msg = {type: "VerifySignature", strPlain: strPlain, strSignature: strSignature, hashAlg: hashAlg,strCert:strCert};
-    console.log("VerifySignature");
-    return messagePromise(msg);
-}
-function CreatePKCS7SignedData (lDevType, strDevParam, strDevPass,strPlain,hashAlg) {
-    var msg = {type: "CreatePKCS7SignedData", lDevType: lDevType, strDevParam: strDevParam, strDevPass: strDevPass, strPlain: strPlain,hashAlg: hashAlg};
-    console.log("CreatePKCS7SignedData");
-    return messagePromise(msg);
-}
-function VerifyPKCS7SignedData (strPKCS7) {
-    var msg = {type: "VerifyPKCS7SignedData", strPKCS7: strPKCS7};
-    console.log("VerifyPKCS7SignedData");
-    return messagePromise(msg);
-}
-function UCCSavePKCS12 (strSrcPath,strDestFile,strPrvPass,strP12Pass) {
-    var msg = {type: "UCCSavePKCS12", strSrcPath: strSrcPath,strDestFile:strDestFile,strPrvPass:strPrvPass,strP12Pass:strP12Pass};
-    console.log("UCCSavePKCS12");
-    return messagePromise(msg);
-}
-function UCCCertPEM (strCertDer, strCertPem) {
-    var msg = {type: "UCCCertPEM", strCertDer: strCertDer, strCertPem: strCertPem};
-    console.log("UCCCertPEM");
-    return messagePromise(msg);
-}
-function UCCSaveEKey (strSrcPath,lDevType, strDevParam, strDevPass) {
-    var msg = {type: "UCCSaveEKey", strSrcPath:strSrcPath,lDevType:lDevType, strDevParam:strDevParam,strDevPass:strDevPass};
-    console.log("UCCSaveEKey");
-    return messagePromise(msg);
-}
-function UCCSaveOffLine (strCert,strCertChain,lDevType, strDevParam, strDevPass) {
-    var msg = {type: "UCCSaveOffLine",strCert:strCert, strCertChain:strCertChain,lDevType:lDevType, strDevParam:strDevParam, strDevPass:strDevPass};
-    console.log("UCCSaveOffLine");
-    return messagePromise(msg);
-}
-function UCCSaveOffLineFile (strCert,strCertChain, strDestPath) {
-    var msg = {type: "UCCSaveOffLineFile", strCert:strCert, strCertChain:strCertChain,strDestPath: strDestPath};
-    console.log("UCCSaveOffLineFile");
-    return messagePromise(msg);
-}
-function GetCertificateDetail(lDevType, strDevParam, strDevPass,strDetailName) {
-    var msg = {type: "GetCertificateDetail", lDevType: lDevType, strDevParam: strDevParam, strDevPass: strDevPass,strDetailName: strDetailName};
-    console.log("GetCertificateDetail");
-    return messagePromise(msg);
-}
-function RestoreEncKey (lDevType, strDevParam, strDevPass,certChain, encCert, encPvt, envelopeAlg) {
-    var msg = {type: "RestoreEncKey", lDevType: lDevType, strDevParam: strDevParam, strDevPass: strDevPass,certChain:certChain, encCert:encCert, encPvt:encPvt, envelopeAlg:envelopeAlg};
-    console.log("RestoreEncKey");
-    return messagePromise(msg);
-}
-function InitDevCertArea (lDevType, strDevParam,strDevPass, strAdminPin,iAdminPinLockCount, strUserPin, iUserPinLockCount,devAlg) {
-    var msg = {type: "InitDevCertArea", lDevType: lDevType, strDevParam: strDevParam, strDevPass:strDevPass,strAdminPin:strAdminPin,iAdminPinLockCount:iAdminPinLockCount, strUserPin:strUserPin,iUserPinLockCount:iUserPinLockCount,devAlg:devAlg};
-    console.log("InitDevCertArea");
-    return messagePromise(msg);
-}
-function InitDevSealArea (lDevType, strDevParam,strDevPass, strAdminPin,iAdminPinLockCount, iSealPinLockCount ) {
-    var msg = {type: "InitDevSealArea", lDevType: lDevType, strDevParam: strDevParam, strDevPass:strDevPass,strAdminPin:strAdminPin,iAdminPinLockCount:iAdminPinLockCount, iSealPinLockCount:iSealPinLockCount};
-    console.log("InitDevSealArea");
-    return messagePromise(msg);
-}
-function ECC_CreatePKCS10 (lDevType, strDevParam, strDevPass,strEnvSN,strDN,strEccObj) {
-    var msg = {type: "ECC_CreatePKCS10", lDevType: lDevType, strDevParam: strDevParam, strDevPass: strDevPass,strEnvSN:strEnvSN,strDN:strDN,strEccObj:strEccObj};
-    console.log("ECC_CreatePKCS10");
-    return messagePromise(msg);
-}
-function ECC_UCCSaveCert (lDevType, strDevParam, strEnvSN, strEnvSNpwd, strCertChain, strCert, strECert,strEPubKeyX,strEPubKeyY, strSessionKey,strEKey,strEccObj,sSaveType) {
-    var msg = {type: "ECC_UCCSaveCert", lDevType:lDevType, strDevParam:strDevParam, strEnvSN:strEnvSN, strEnvSNpwd:strEnvSNpwd, strCertChain:strCertChain, strCert:strCert, strECert:strECert, strEPubKeyX:strEPubKeyX,strEPubKeyY:strEPubKeyY,strSessionKey:strSessionKey,strEKey:strEKey, strEccObj:strEccObj, sSaveType:sSaveType};
-    console.log("ECC_UCCSaveCert");
-    return messagePromise(msg);
-}
-function ECC_GetUpdateStatus (lDevType, strDevParam,strDevPass) {
-    var msg = {type: "ECC_GetUpdateStatus", lDevType: lDevType, strDevParam: strDevParam, strDevPass:strDevPass};
-    console.log("ECC_GetUpdateStatus");
-    return messagePromise(msg);
-}
-function ECC_UCCRestoreEncKey (lDevType, strDevParam, strEnvSN, strEnvSNpwd, strCertChain, strCert, strECert,strEPubKeyX,strEPubKeyY, strSessionKey,strEKey,strEccObj,sSaveType) {
-    var msg = {type: "ECC_UCCRestoreEncKey", lDevType:lDevType, strDevParam:strDevParam, strEnvSN:strEnvSN, strEnvSNpwd:strEnvSNpwd, strCertChain:strCertChain, strCert:strCert, strECert:strECert, strEPubKeyX:strEPubKeyX,strEPubKeyY:strEPubKeyY,strSessionKey:strSessionKey,strEKey:strEKey, strEccObj:strEccObj, sSaveType:sSaveType};
-    console.log("ECC_UCCRestoreEncKey");
-    return messagePromise(msg);
-}
-function ECC_UnlockDevice (lDevType, strDevParam, strAdminPin, strUserPin) {
-    var msg = {type: "ECC_UnlockDevice", lDevType:lDevType, strDevParam:strDevParam, strAdminPin:strAdminPin, strUserPin:strUserPin};
-    console.log("ECC_UnlockDevice");
-    return messagePromise(msg);
-}
-function ECC_CreateSignedData (lDevType, strDevParam,strDevPass,strPlain,strHashAlg,signMethod) {
-    var msg = {type: "ECC_CreateSignedData", lDevType: lDevType, strDevParam: strDevParam, strDevPass:strDevPass,strPlain:strPlain,strHashAlg:strHashAlg,signMethod:signMethod};
-    console.log("ECC_CreateSignedData");
-    return messagePromise(msg);
-}
-function ECC_IsInitialized (lDevType, strDevParam,strDevPass) {
-    var msg = {type: "ECC_IsInitialized", lDevType:lDevType, strDevParam:strDevParam,strDevPass:strDevPass};
-    console.log("ECC_IsInitialized");
-    return messagePromise(msg);
-}
-function ECC_ChangePassword (lDevType, strDevParam, strOldPass, strNewPass,passType) {
-    var msg = {type: "ECC_ChangePassword", lDevType:lDevType, strDevParam:strDevParam, strOldPass:strOldPass, strNewPass:strNewPass,passType:passType};
-    console.log("ECC_ChangePassword");
-    return messagePromise(msg);
-}
-
-//safeEngine
-function SEH_SignData (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strOrgData,SignMethod,iMode) {
-    var msg = {type: "SEH_SignData",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass, strOrgData: strOrgData,SignMethod:SignMethod,iMode:iMode};
-    console.log("SEH_SignData");
-    return messagePromise(msg);
-}
-function SEH_Digest (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strOrgData,Method,iMode) {
-    var msg = {type: "SEH_Digest", lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass, strOrgData: strOrgData,Method:Method,iMode:iMode};
-    console.log("SEH_Digest");
-    return messagePromise(msg);
-}
-function SEH_VerifySignData (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strOrgData,SignMethod,strSignedData,strCert,iMode) {
-    var msg = {type: "SEH_VerifySignData", lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass, strOrgData: strOrgData,SignMethod:SignMethod,strSignedData:strSignedData,strCert:strCert,iMode:iMode};
-    console.log("SEH_VerifySignData");
-    return messagePromise(msg);
-}
-function SEH_GetSelfCertificate (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,iMode) {
-    var msg = {type: "SEH_GetSelfCertificate", lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,iMode:iMode};
-    console.log("SEH_GetSelfCertificate");
-    return messagePromise(msg);
-}
-function SEH_Envelope (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,EnvType,strOrgData,strCert,iMode) {
-    var msg = {type: "SEH_Envelope",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,EnvType:EnvType,strOrgData:strOrgData,strCert:strCert,iMode:iMode};
-    console.log("SEH_Envelope");
-    return messagePromise(msg);
-}
-function SEH_EnvelopeEx (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,EnvType,strOrgData,strCert,AlgID,iMode) {
-    var msg = {type: "SEH_EnvelopeEx",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,EnvType:EnvType,strOrgData:strOrgData,strCert:strCert,AlgID:AlgID,iMode:iMode};
-    console.log("SEH_EnvelopeEx");
-    return messagePromise(msg);
-}
-function SEH_VerifyCertificate (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert,VerifyMode,iMode) {
-    var msg = {type: "SEH_VerifyCertificate",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert,VerifyMode:VerifyMode,iMode:iMode};
-    console.log("SEH_VerifyCertificate");
-    return messagePromise(msg);
-}
-function SEH_VerifyCertificateOnline (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert,iMode) {
-    var msg = {type: "SEH_VerifyCertificateOnline",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert,iMode:iMode};
-    console.log("SEH_VerifyCertificateOnline");
-    return messagePromise(msg);
-}
-function SEH_ChangePassword (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strNewPass,iMode) {
-    var msg = {type: "SEH_ChangePassword",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strNewPass:strNewPass,iMode:iMode};
-    console.log("SEH_ChangePassword");
-    return messagePromise(msg);
-}
-function SEH_GetCertDetail (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert,ItemNo,iMode) {
-    var msg = {type: "SEH_GetCertDetail",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert,ItemNo:ItemNo,iMode:iMode};
-    console.log("SEH_GetCertDetail");
-    return messagePromise(msg);
-}
-function SEH_GetCertUniqueID (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert,iMode) {
-    var msg = {type: "SEH_GetCertUniqueID",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert,iMode:iMode};
-    console.log("SEH_GetCertUniqueID");
-    return messagePromise(msg);
-}
-function SEH_GetCertClass (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert,iMode) {
-    var msg = {type: "SEH_GetCertClass",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert,iMode:iMode};
-    console.log("SEH_GetCertClass");
-    return messagePromise(msg);
-}
-function SEH_GetCertInfoByOID (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert,strOID,iMode) {
-    var msg = {type: "SEH_GetCertInfoByOID",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert,strOID:strOID,iMode:iMode};
-    console.log("SEH_GetCertInfoByOID");
-    return messagePromise(msg);
-}
-function SEH_GetCertValidDate (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert,iMode) {
-    var msg = {type: "SEH_GetCertValidDate", lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert,iMode:iMode};
-    console.log("SEH_GetCertValidDate");
-    return messagePromise(msg);
-}
-function SEH_GetCertUsage (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert,iMode) {
-    var msg = {type: "SEH_GetCertUsage",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert,iMode:iMode};
-    console.log("SEH_GetCertUsage");
-    return messagePromise(msg);
-}
-function SEH_GenRandomBytes (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,iMode) {
-    var msg = {type: "SEH_GenRandomBytes",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,iMode:iMode};
-    console.log("SEH_GenRandomBytes");
-    return messagePromise(msg);
-}
-function SEH_AsynEncryptDataByPubkey (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strInData,strPubkey,iMode) {
-    var msg = {type: "SEH_AsynEncryptDataByPubkey",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strInData: strInData,strPubkey:strPubkey,iMode:iMode};
-    console.log("SEH_AsynEncryptDataByPubkey");
-    return messagePromise(msg);
-}
-function SEH_AsynDecryptDataByPrikey (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strInData,iMode) {
-    var msg = {type: "SEH_AsynDecryptDataByPrikey",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strInData: strInData,iMode:iMode};
-    console.log("SEH_AsynDecryptDataByPrikey");
-    return messagePromise(msg);
-}
-function SEH_AsynEncryptDataByPubkeyEx (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strInData,strPubkey,iMode) {
-    var msg = {type: "SEH_AsynEncryptDataByPubkeyEx",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strInData: strInData,strPubkey:strPubkey,iMode:iMode};
-    console.log("SEH_AsynEncryptDataByPubkeyEx");
-    return messagePromise(msg);
-}
-function SEH_AsynDecryptDataByPrikeyEx (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strInData,iMode) {
-    var msg = {type: "SEH_AsynDecryptDataByPrikeyEx",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strInData: strInData,iMode:iMode};
-    console.log("SEH_AsynDecryptDataByPrikeyEx");
-    return messagePromise(msg);
-}
-function SEH_EncryptData (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strInData,strRandom,iMode) {
-    var msg = {type: "SEH_EncryptData",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strInData: strInData,strRandom:strRandom,iMode:iMode};
-    console.log("SEH_EncryptData");
-    return messagePromise(msg);
-}
-function SEH_DecryptData (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strInData,strRandom,iMode) {
-    var msg = {type: "SEH_DecryptData",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strInData: strInData,strRandom:strRandom,iMode:iMode};
-    console.log("SEH_DecryptData");
-    return messagePromise(msg);
-}
-function SEH_EncryptDataEx (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strInData,strRandom,AlgID,iMode) {
-    var msg = {type: "SEH_EncryptDataEx",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strInData: strInData,strRandom:strRandom,AlgID:AlgID,iMode:iMode};
-    console.log("SEH_EncryptDataEx");
-    return messagePromise(msg);
-}
-function SEH_DecryptDataEx (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strInData,strRandom,AlgID,iMode) {
-    var msg = {type: "SEH_DecryptDataEx",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strInData: strInData,strRandom:strRandom,AlgID:AlgID,iMode:iMode};
-    console.log("SEH_DecryptDataEx");
-    return messagePromise(msg);
-}
-function SEH_ShowVersion () {
-    var msg = {type: "SEH_ShowVersion"};
-    console.log("SEH_ShowVersion");
-    return messagePromise(msg);
-}
-function SEH_SignHash (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strOrgData,SignMethod,iMode) {
-    var msg = {type: "SEH_SignHash",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strOrgData:strOrgData,SignMethod: SignMethod,iMode:iMode};
-    console.log("SEH_SignHash");
-    return messagePromise(msg);
-}
-function SEH_GetSealInfo (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,iType,iMode) {
-    var msg = {type: "SEH_GetSealInfo",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,iType: iType,iMode:iMode};
-    console.log("SEH_GetSealInfo");
-    return messagePromise(msg);
-}
-function SEH_IsOneCertType (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert,iMode) {
-    var msg = {type: "SEH_IsOneCertType",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert,iMode:iMode};
-    console.log("SEH_IsOneCertType");
-    return messagePromise(msg);
-}
-function SEH_Logout () {
-    var msg = {type: "SEH_Logout"};
-    console.log("SEH_Logout");
-    return messagePromise(msg);
-}
-function SEH_Login (lPriDev,strPriParam,strPriPass,lCertDev,strCertParam,strCertPass,lChainDev,strChainParam,strChainPass,strServerCert,strRandom,iCertVerifyMode) {
-    var msg = {type: "SEH_Login", lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,lCertDev:lCertDev,strCertParam:strCertParam,strCertPass:strCertPass,lChainDev:lChainDev,strChainParam:strChainParam,strChainPass:strChainPass,strServerCert:strServerCert,strRandom:strRandom,iCertVerifyMode:iCertVerifyMode};
-    console.log("SEH_Login");
-    return messagePromise(msg);
-}
-function LoginInit (lServerCertDevType,strServerCertDevParam,strServerCertPassword) {
-    var msg = {type: "LoginInit", lServerCertDevType: lServerCertDevType,strServerCertDevParam:strServerCertDevParam,strServerCertPassword:strServerCertPassword}
-    console.log("LoginInit");
-    return messagePromise(msg);
-}
-function SSO_Login (strServerCert,strRandom,iCertVerifyMode,lStatus) {
-    var msg = {type: "SSO_Login", strServerCert: strServerCert,strRandom:strRandom,iCertVerifyMode:iCertVerifyMode,lStatus: lStatus};
-    console.log("SSO_Login");
-    return messagePromise(msg);
-}
-function LoginVerify (lPriDev,strPriParam,strPriPass,lChainDev,strChainParam,strChainPass,iCertVerifyMode,strRandom,strCredential) {
-    var msg = {type: "LoginVerify", lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,lChainDev:lChainDev,strChainParam:strChainParam,strChainPass:strChainPass,iCertVerifyMode:iCertVerifyMode,strRandom:strRandom,strCredential:strCredential};
-    console.log("LoginVerify");
-    return messagePromise(msg);
-}
-function SSO_Logout () {
-    var msg = {type: "SSO_Logout"};
-    console.log("SSO_Logout");
-    return messagePromise(msg);
-}
-function LoginGetClientCertFromCredential (strCredential) {
-    var msg = {type: "LoginGetClientCertFromCredential", strCredential: strCredential};
-    console.log("LoginGetClientCertFromCredential");
-    return messagePromise(msg);
-}
-
-//ecc_safeEngine
-function ESE_SignData (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strOrgData,SignMethod) {
-    var msg = {type: "ESE_SignData",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass, strOrgData: strOrgData,SignMethod:SignMethod};
-    console.log("ESE_SignData");
-    return messagePromise(msg);
-}
-function ESE_Digest (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strOrgData,Method) {
-    var msg = {type: "ESE_Digest", lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass, strOrgData: strOrgData,Method:Method};
-    console.log("ESE_Digest");
-    return messagePromise(msg);
-}
-function ESE_VerifySignData (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strOrgData,SignMethod,strSignedData,strCert) {
-    var msg = {type: "ESE_VerifySignData", lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass, strOrgData: strOrgData,SignMethod:SignMethod,strSignedData:strSignedData,strCert:strCert};
-    console.log("ESE_VerifySignData");
-    return messagePromise(msg);
-}
-function ESE_SignData_P7 (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strOrgData,SignMethod,strCert) {
-    var msg = {type: "ESE_SignData_P7",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass, strOrgData: strOrgData,SignMethod:SignMethod,strCert:strCert};
-    console.log("ESE_SignData_P7");
-    return messagePromise(msg);
-}
-function ESE_VerifySignData_P7 (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strSignedP7Data) {
-    var msg = {type: "ESE_VerifySignData_P7", lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass, strSignedP7Data: strSignedP7Data};
-    console.log("ESE_VerifySignData_P7");
-    return messagePromise(msg);
-}
-function ESE_GetSelfCertificate (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass) {
-    var msg = {type: "ESE_GetSelfCertificate", lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass};
-    console.log("ESE_GetSelfCertificate");
-    return messagePromise(msg);
-}
-function ESE_Envelope_P7 (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strOrgData,symalg,asymalg,strCert) {
-    var msg = {type: "ESE_Envelope_P7",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strOrgData:strOrgData,symalg:symalg,asymalg:asymalg,strCert:strCert};
-    console.log("ESE_Envelope_P7");
-    return messagePromise(msg);
-}
-function ESE_DecodeEnvelope_P7 (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strEnvelopeP7Data) {
-    var msg = {type: "ESE_DecodeEnvelope_P7",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strEnvelopeP7Data:strEnvelopeP7Data};
-    console.log("ESE_DecodeEnvelope_P7");
-    return messagePromise(msg);
-}
-function ESE_VerifyCertificate (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert,VerifyMode) {
-    var msg = {type: "ESE_VerifyCertificate",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert,VerifyMode:VerifyMode};
-    console.log("ESE_VerifyCertificate");
-    return messagePromise(msg);
-}
-function ESE_VerifyCertificateOnline (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert) {
-    var msg = {type: "ESE_VerifyCertificateOnline",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert};
-    console.log("ESE_VerifyCertificateOnline");
-    return messagePromise(msg);
-}
-function ESE_GetCertDetail (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert,ItemNo) {
-    var msg = {type: "ESE_GetCertDetail",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert,ItemNo:ItemNo};
-    console.log("ESE_GetCertDetail");
-    return messagePromise(msg);
-}
-function ESE_GetCertUniqueID (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert) {
-    var msg = {type: "ESE_GetCertUniqueID",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert};
-    console.log("ESE_GetCertUniqueID");
-    return messagePromise(msg);
-}
-function ESE_GetCertClass (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert) {
-    var msg = {type: "ESE_GetCertClass",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert};
-    console.log("ESE_GetCertClass");
-    return messagePromise(msg);
-}
-function ESE_GetCertInfoByOID (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert,strOID) {
-    var msg = {type: "ESE_GetCertInfoByOID",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert,strOID:strOID};
-    console.log("ESE_GetCertInfoByOID");
-    return messagePromise(msg);
-}
-function ESE_GetCertValidDate (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert) {
-    var msg = {type: "ESE_GetCertValidDate", lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert};
-    console.log("ESE_GetCertValidDate");
-    return messagePromise(msg);
-}
-function ESE_GetCertUsage (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strCert) {
-    var msg = {type: "ESE_GetCertUsage",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strCert: strCert};
-    console.log("ESE_GetCertUsage");
-    return messagePromise(msg);
-}
-function ESE_GenRandomBytes (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass) {
-    var msg = {type: "ESE_GenRandomBytes",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass};
-    console.log("ESE_GenRandomBytes");
-    return messagePromise(msg);
-}
-function ESE_ShowVersion () {
-    var msg = {type: "ESE_ShowVersion"};
-    console.log("ESE_ShowVersion");
-    return messagePromise(msg);
-}
-function ESE_SignHash (lPriDev,strPriParam,strPriPass,strPriTimeOut,CChainDevType,CChainDevParam,CChainDevPass,strOrgData,SignMethod) {
-    var msg = {type: "ESE_SignHash",lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,strPriTimeOut:strPriTimeOut,CChainDevType:CChainDevType,CChainDevParam:CChainDevParam,CChainDevPass:CChainDevPass,strOrgData:strOrgData,SignMethod: SignMethod};
-    console.log("ESE_SignHash");
-    return messagePromise(msg);
-}
-function ESE_Logout () {
-    var msg = {type: "ESE_Logout"};
-    console.log("ESE_Logout");
-    return messagePromise(msg);
-}
-function ESE_Login (lPriDev,strPriParam,strPriPass,lCertDev,strCertParam,strCertPass,lChainDev,strChainParam,strChainPass,strServerCert,strRandom,iCertVerifyMode) {
-    var msg = {type: "ESE_Login", lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,lCertDev:lCertDev,strCertParam:strCertParam,strCertPass:strCertPass,lChainDev:lChainDev,strChainParam:strChainParam,strChainPass:strChainPass,strServerCert:strServerCert,strRandom:strRandom,iCertVerifyMode:iCertVerifyMode};
-    console.log("ESE_Login");
-    return messagePromise(msg);
-}
-function ECCLoginInit (lServerCertDevType,strServerCertDevParam,strServerCertPassword) {
-    var msg = {type: "ECCLoginInit", lServerCertDevType: lServerCertDevType,strServerCertDevParam:strServerCertDevParam,strServerCertPassword:strServerCertPassword}
-    console.log("ECCLoginInit");
-    return messagePromise(msg);
-}
-function ECCLoginVerify (lPriDev,strPriParam,strPriPass,lChainDev,strChainParam,strChainPass,iCertVerifyMode,strRandom,strCredential) {
-    var msg = {type: "LoginVerify", lPriDev: lPriDev,strPriParam:strPriParam,strPriPass:strPriPass,lChainDev:lChainDev,strChainParam:strChainParam,strChainPass:strChainPass,iCertVerifyMode:iCertVerifyMode,strRandom:strRandom,strCredential:strCredential};
-    console.log("LoginVerify");
-    return messagePromise(msg);
-}
-function ECCLoginGetClientCertFromCredential (strCredential) {
-    var msg = {type: "ECCLoginGetClientCertFromCredential", strCredential: strCredential};
-    console.log("ECCLoginGetClientCertFromCredential");
-    return messagePromise(msg);
-}
-function SaveSeal (lDevType, strDevParam, strDevPass, stampData, pictureData, issuerCert) {
-    var msg = {type: "SaveSeal", lDevType:lDevType, strDevParam:strDevParam, strDevPass:strDevPass, stampData:stampData, pictureData:pictureData, issuerCert:issuerCert};
-    console.log("SaveSeal");
-    return messagePromise(msg);
-}
-function GetSESealVersion () {
-    var msg = {type: "GetSESealVersion"};
-    console.log("GetSESealVersion");
-    return messagePromise(msg);
-}
-function ReadSeal(lDevType, strDevParam, strDevPass) {
-    var msg = {type: "ReadSeal", lDevType: lDevType, strDevParam: strDevParam, strDevPass: strDevPass};
-    console.log("ReadSeal");
-    return messagePromise(msg);
-}
-function GetSealData (lDevType, strDevParam, strDevPass) {
-    var msg = {type: "GetSealData", lDevType:lDevType, strDevParam:strDevParam, strDevPass:strDevPass};
-    console.log("GetSealData");
-    return messagePromise(msg);
-}
-function GetSealItem (Base64SealData,lItemType) {
-    var msg = {type: "GetSealItem", Base64SealData: Base64SealData, lItemType: lItemType};
-    console.log("GetSealItem");
-    return messagePromise(msg);
-}
-function VerifySeal (Base64SealData) {
-    var msg = {type: "VerifySeal", Base64SealData: Base64SealData};
-    console.log("VerifySeal");
-    return messagePromise(msg);
-}
-</script>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta content="webkit" name="renderer">
+<head>
     <title>企业员工批量管理</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-Control" content="no-store">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta charset="utf-8">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <script src="/sample_war_exploded/metronic/global/plugins/jquery.min.js" type="text/javascript"></script>
-    <script src="/sample_war_exploded/metronic/global/plugins/ajaxfileupload-variable-transfer.js" type="text/javascript"></script>
-    <link href="/sample_war_exploded/metronic/new_modules/app_info.css" rel="stylesheet" type="text/css">
+    <!-- <#include "/common/commonContext.html"> -->
+    <script src="${ctx}/metronic/global/plugins/jquery.min.js" type="text/javascript"></script>
+    <script src="${ctx}/metronic/global/plugins/ajaxfileupload-variable-transfer.js" type="text/javascript"></script>
+    <link href="${ctx}/metronic/new_modules/app_info.css" rel="stylesheet" type="text/css" >
     <!-- /复制功能插件/ -->
-    <script type="text/javascript" src="/sample_war_exploded/metronic/new_modules/clipboard.min.js"></script>
+    <script type="text/javascript" src="${ctx}/metronic/new_modules/clipboard.min.js"></script>
     <!-- 图表 -->
-    <script type="text/javascript" src="/sample_war_exploded/metronic/new_modules/echarts.common.min.js"></script>
-    <script type="text/javascript" src="/sample_war_exploded/metronic/mobile/js/bootstrap.min.js"></script>
-    <script src="/sample_war_exploded/metronic/mobile/js/moment-with-locales.js" type="text/javascript"></script>
+    <script type="text/javascript" src="${ctx}/metronic/new_modules/echarts.common.min.js"></script>
+    <script src="${ctx}/metronic/mobile/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="${ctx}/metronic/mobile/js/moment-with-locales.js" type="text/javascript"></script>
     <!-- // 日期插件 -->
-    <script src="/sample_war_exploded/metronic/new_modules/bootstrap-datetimepicker.min.js"></script>
-    <script src="/sample_war_exploded/metronic/new_modules/namepidverify.js"></script>
+    <script src="${ctx}/metronic/new_modules/bootstrap-datetimepicker.min.js"></script>
 
-    <link href="/sample_war_exploded/metronic/mobile/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="/sample_war_exploded/metronic/new_modules/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css">
+    <link href="${ctx}/metronic/mobile/css/bootstrap.min.css" rel="stylesheet" type="text/css" >
+    <link href="${ctx}/metronic/new_modules/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" >
 
 
     <script type="text/javascript">
+        /*
+        var userId = '<c:out value="${sessionScope.USER.userId}" />';
+        var orgId = '<c:out value="${sessionScope.ORG.orgId}" />';
+        var authLevel = '<c:out value="${sessionScope.USER.authLevel}" />';
+        var userType = '<c:out value="${sessionScope.USER.type}" />';
+        var orgAmount= '<c:out value="${sessionScope.AGENT.orgAmount}" />';
+        var loginUser = {userId: userId, orgId: orgId, authLevel: authLevel, type: userType ,orgAmount:orgAmount};
+        */
+        /**
+         * 上传文件
+         */
         /*
         var userId = '<c:out value="" />';
         var orgId = '<c:out value="" />';
@@ -904,20 +73,25 @@ function VerifySeal (Base64SealData) {
                 $("#uploadEventFile").bind("change",function(){
                     $("#uploadEventPath").attr("value",$("#uploadEventFile").val());
                 });
+                if($("#uploadEventFile").val() == ""){
+                    document.getElementById("uploadbtn").disabled = true;
+                }else{
+                    document.getElementById("uploadbtn").disabled = false;
+                }
             };
             //点击上传按钮
             this.uploadBtn = function(){
                 var uploadEventFile = $("#uploadEventFile").val();
-                if(uploadEventFile == '' && document.getElementById("PersonalInfoInputArea").value == '') {
+                if(uploadEventFile == '' && document.getElementById("PersonalInfoInputArea").innerText == '') {
                     alert("请选择excel或者输入用户信息,再上传");
-                    retun;
+                    return;
                 }else {
-                    if(document.getElementById("PersonalInfoInputArea").value!=''){
+                    if(document.getElementById("PersonalInfoInputArea").innerText !=''){
                         document.getElementById("uploadEventFile").value="";
                         document.getElementById("uploadEventFile").disabled = true;
                     }
                     if (uploadEventFile == '') {
-                        if (document.getElementById("PersonalInfoInputArea").value == "") {
+                        if (document.getElementById("PersonalInfoInputArea").innerText == "") {
                             alert("请输入员工信息后,再上传");
                             return;
                         }
@@ -1242,6 +416,9 @@ function VerifySeal (Base64SealData) {
 
         function submitapplication() {
             var obj=new Date();
+            if(document.getElementById("t_FPROD_Name").value != ""){
+                selected = true
+            }
             if(document.getElementById("EffectStartDate").value == null || document.getElementById("EffectStartDate").value >= obj ){
                 alert("请选择起始有效日期，并且起始日期必须大于等于今天");
                 return;
@@ -1251,11 +428,11 @@ function VerifySeal (Base64SealData) {
                 return;
             }
             if(!uploaded && !selected){
-                alert("请选择企业及相关产品,点先上传员工信息文件，再提交更新")
+                alert("请选择企业及相关产品,点先上传员工信息文件，再提交更新");
                 return;
             }
             if(!selected){
-                alert("请选择企业及相关产品,再提交更新")
+                alert("请选择企业及相关产品,再提交更新");
                 return;
             }
             else{
@@ -1386,14 +563,14 @@ function VerifySeal (Base64SealData) {
                 </div>
                 <div class="deliver">
                     <div class="variableSms">
-                        <form enctype="multipart/form-data" id="excelUpload" action="project/uploadProject" method="post" class="form-horizontal">
+                        <form enctype="multipart/form-data" id="excelUpload" class="form-horizontal">
                             <div class="vSms-item">
                                 <div class="iconLine">
                                     <div class="numberIcon">1</div>
                                     <div class="lineY"></div>
                                 </div>
                                 <div class="processArea">
-                                    <div class="processTitle" title="张三,54001519900304241X,5182999938839499,13817934918,100;">手工填入上传人员信息(姓名，身份证号，银行卡号，手机号，授额;)(每条记录之间以分号;隔开,并且半角输入,授额必须为整数)</div>
+                                    <div class="processTitle">手工填入上传人员信息(姓名，身份证号，银行卡号，手机号，授额;)(每条记录之间以分号;隔开,并且半角输入,授额必须为整数)</div>
                                     <div>
                                         <div contenteditable="true" id="PersonalInfoInputArea" name="PersonalInfoInputArea" style="" class="personalContent" placeholder="张三,54001519900304241X,5182999938839499,18618618661,100;李四,53001519700304241X,3182999932239499,13830001114,10000;" onmouseout="inputcheck(this.innerHTML)"></div>
                                         <div id="persnlErr" name="persnalErr" style="font-size: 14px;color:#ff0000; padding: 10px 0px;"></div>
@@ -1456,7 +633,7 @@ function VerifySeal (Base64SealData) {
                                     <div>
                                         <div id="uploader-demo" class="templateArea">
                                             <div id="fileList" class="uploader-list"></div>
-                                            <button id="uploadbtn" type="button" class="btn btn-green btn-warning" onclick="project.uploadBtn()">上传文件</button>
+                                            <button id="uploadbtn" type="button" class="btn btn-green btn-warning" onclick="project.uploadBtn()" disabled="disabled">上传文件</button>
                                         </div><br>
                                         <div id="downLoadxls" class="downloadTempDiv"><a href="#" class="btn btn-success btn-sm" onclick="javascript:;downLoadTemplate('5d96a465c9bd400aaad8184a57661e49')">下载模板</a>
                                         </div>
@@ -1478,7 +655,7 @@ function VerifySeal (Base64SealData) {
                                     <div class="processTitle">
                                         <label>绑定批次<span class="required"> * </span>
                                         </label>
-                                        <div style="margin-left:0px;width:5000%">
+                                        <div style="margin-left:0px;width:1000%">
                                             <div style="width:150%;display:inline">
                                                 <select colspan="1" class="bs-select form-control" style="width: 15%;float:left;margin-right:5px" data-live-search="true" name="batch_PB_batchID" id="batch_PB_batchID" onchange="FProdFilter()">
                                                     <option value="">
@@ -1490,10 +667,32 @@ function VerifySeal (Base64SealData) {
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="processTitle">
+                                        <label>授额开启时间段:<span class="required">*</span>
+                                        </label>
+                                        <div style="padding-left: 0px;">
+                                            <div id="dropdown" class="dropdown fl" style="margin-right: 5px;">
+                                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">作用时间段
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <!--
+                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1"
+                                                     name="t_PbatchClear_Cat" ID="t_PbatchClear_Cat">
+                                                     <li value="autoclear" onclick="clickLi('qb')">自动结算</li>
+                                                     <li value="manualclear" onclick="clickLi('sd')">手动结算</li>
+                                                 </ul>
+                                                  -->
+                                            </div>
+                                            <input id="EffectStartDate" autocomplete="off" placeholder="请选择开始日期" type="text"
+                                                   rows="2" class="date-editor input-datepicker fl border input date-editor--date">
+                                            <span data-v-51a81e9b="" class="fl p-5" style="line-height: 36px;">至</span>
+                                            <input id="EffectEndDate" autocomplete="off" placeholder="请选择结束日期" type="text"
+                                                   rows="2" class="date-editor input-datepicker fl border input date-editor--date">
+                                        </div>
+                                    </div>
                                 </div>
-                                <br>
-                                <br>
-                                <br>
+                                <br><br><br><br><br><br>
                             </div>
                             <div class="vSms-item">
                             <div class="processArea">
@@ -1508,6 +707,7 @@ function VerifySeal (Base64SealData) {
     </div>
 
     <script>
+        console.log(document.getElementById("PersonalInfoInputArea").innerText);
 
         //弹窗开关
         var setMas = function () {
