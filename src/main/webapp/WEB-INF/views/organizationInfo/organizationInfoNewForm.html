@@ -37,13 +37,19 @@ document.getElementById("updated_date").value=getDate();
 			errorClass : 'help-block help-block-error', // default input error message class
 			focusInvalid : false, // do not focus the last invalid input
 			rules : {
-				name : {
-					maxlength : 50,
+				t_O_OrgName : {
+					maxlength : 30,
 					required : true,
 					remote : {
 				        url: "${ctx}/jqueryValidateController/checkOrganizationInfoName?platform=${platform}",
 				        type: "post"
 					}
+				},
+				t_O_EmployeeAmount : {
+					required : true,
+					digits : true,
+					isMobile : true,
+					remote : "${ctx}/jqueryValidateController/checkPersonalInfoModil?platform=${platform}" + "&t_P_id=" + $("#t_O_EmployeeAmount").val()
 				},
 				type : {
 					required : true
@@ -62,7 +68,7 @@ document.getElementById("updated_date").value=getDate();
 				}
 			},
 			messages: {
-				name: {remote : "公司名称已存在"}
+				t_O_OrgName: {remote : "公司名称已存在"}
 			},
 	
 			invalidHandler : function(event, validator) { //display error alert on form submit              
@@ -159,7 +165,7 @@ document.getElementById("updated_date").value=getDate();
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
-							<div class="input-icon right">								<i class="fa"></i> <input type="text" class="form-control"
+							<div class="input-icon right"><i class="fa"></i> <input type="text" class="form-control"
 									name="t_O_CertificationCode" />
 							</div>
 						</div>
@@ -176,7 +182,7 @@ document.getElementById("updated_date").value=getDate();
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-3">企业用工规模<span
+						<label class="control-label col-sm-3">企业负责人手机号<span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
@@ -186,6 +192,7 @@ document.getElementById("updated_date").value=getDate();
 							</div>
 						</div>
 					</div>
+					<@shiro.hasPermission name="TREASURYINFO_SUPERADMINVIEW">
 					<div class="form-group">
 						<label class="control-label col-sm-3">企业评级<span
 							class="required"> * </span>
@@ -197,7 +204,6 @@ document.getElementById("updated_date").value=getDate();
 							</div>
 						</div>
 					</div>
-					<@shiro.hasPermission name="TREASURYINFO_AGENTFPRODVIEW">
 					<div class="form-group">
 						<label class="control-label col-sm-3">是否是代理商<span
 							class="required"> * </span>
@@ -240,7 +246,7 @@ document.getElementById("updated_date").value=getDate();
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
-								<i class="fa"></i> <input type="text" class="form-control"
+								<i class="fa"></i> <input type="text" class="form-control" placeholder="请先开通支付备付金账户"
 									name="t_O_OrgPayrollBankaccount" />
 							</div>
 						</div>
@@ -251,7 +257,7 @@ document.getElementById("updated_date").value=getDate();
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
-								<i class="fa"></i> <input type="text" class="form-control"
+								<i class="fa"></i> <input type="text" class="form-control"  placeholder="请先开通电银备付金账户"
 									name="t_O_OrgChinaebiAcc" />
 							</div>
 						</div>
@@ -262,7 +268,7 @@ document.getElementById("updated_date").value=getDate();
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
-								<i class="fa"></i> <input type="text" class="form-control"
+								<i class="fa"></i> <input type="text" class="form-control"  placeholder="请先开通杉德备付金账户"
 									name="t_O_OrgSandeAcc" />
 							</div>
 						</div>

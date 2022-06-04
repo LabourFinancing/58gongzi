@@ -1,8 +1,6 @@
 package com.qucai.sample.controller;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -62,10 +60,12 @@ public class OrganizationInfoController {
     @RequestMapping(value = {"organizationInfoList",""})
     public String organizationInfoList(OrganizationInfo organizationInfo, @RequestParam( defaultValue = "0" )  String platform,
     		HttpServletRequest request, HttpServletResponse response, Model model) {
+        String t_M_Company = ShiroSessionUtil.getLoginSession().getCompany_name();
     	
     	Map<String, Object> paramMap = new HashMap<String, Object>();//新建map对象
         PageParam pp = Tool.genPageParam(request);      
-        
+
+        paramMap.put("t_M_Company",t_M_Company);
         PageInfo<OrganizationInfo> page = organizationInfoService.findAllList(paramMap, pp);
         model.addAttribute("page", page);
 
@@ -78,7 +78,7 @@ public class OrganizationInfoController {
     @RequestMapping(value = "organizationInfoSearchList")
     public String organizationInfoSearchList(OrganizationInfo organizationInfo, @RequestParam( defaultValue = "0" )  Integer platform,String t_O_CertificationCode,String t_O_OrgName,
     		String t_O_Category,String t_O_OrgStatus,String remark,Date create_time,HttpServletRequest request, HttpServletResponse response, Model model) {
-    	
+        String t_M_Company = ShiroSessionUtil.getLoginSession().getCompany_name();
     	model.addAttribute("platform", platform); //key从数据库查询并返回,并索引对应JSP
     	
     	if (t_O_OrgName != "" | t_O_CertificationCode !=  "" | t_O_Category != "" | t_O_OrgStatus != "" | remark != "" | create_time != null ) {
@@ -92,8 +92,10 @@ public class OrganizationInfoController {
             PageInfo<OrganizationInfo> page = organizationInfoService.findSearchList(pp, paramSearchMap);
             model.addAttribute("page", page);//从数据库查询出来的结果用model的方式返回
     	} else {
-            PageParam pp = Tool.genPageParam(request);           
-            PageInfo<OrganizationInfo> page = organizationInfoService.findAllList(new HashMap<String, Object>(), pp);
+            PageParam pp = Tool.genPageParam(request);
+            Map<String, Object> paramMap  = new HashMap<String, Object>();
+            paramMap.put("t_M_Company",t_M_Company);
+            PageInfo<OrganizationInfo> page = organizationInfoService.findAllList(paramMap, pp);
             model.addAttribute("page", page);
         }
 		if(0 == platform) {
@@ -123,7 +125,7 @@ public class OrganizationInfoController {
         
          if (OperationTypeConstant.NEW.equals(operationType)) { //用OperationTypeConstant函数封装的赋值函数方法判断值是否相等,并调用相应的页面
         	return "organizationInfo/organizationInfoNewForm";
-            } else if (OperationTypeConstant.EDIT.equals(operationType)) 
+         } else if (OperationTypeConstant.EDIT.equals(operationType))
             {
             OrganizationInfo organizationInfo = organizationInfoService.selectByPrimaryKey(t_O_ID);
             return "organizationInfo/organizationInfoEditForm";
@@ -141,7 +143,8 @@ public class OrganizationInfoController {
     public String addOrganizationInfo(OrganizationInfo organizationInfo, HttpServletRequest request,Integer platform,Date Modify_time,
             HttpServletResponse response, Model model) {
 
-        organizationInfo.setT_O_OrgPending(ShiroSessionUtil.getLoginSession().getCompany_name());
+        String t_O_OrgName =  ShiroSessionUtil.getLoginSession().getCompany_name();
+        organizationInfo.setT_O_OrgPending(t_O_OrgName);
     	model.addAttribute("platform", platform);
     	organizationInfo.setCreator(ShiroSessionUtil.getLoginSession().getId());
     	organizationInfo.setCreate_time(new Date());
@@ -179,5 +182,24 @@ public class OrganizationInfoController {
 
     	organizationInfoService.updateByPrimaryKeySelective(organizationInfo);
         return JsonBizTool.genJson(ExRetEnum.SUCCESS);
-    }   
+    }
+
+
+    @RequestMapping(value = "agentfilter")
+    @ResponseBody
+    public String agentfilter(HttpServletRequest request,HttpServletResponse response, Model model,String t_O_VendorOrgName) {
+        model.addAttribute("t_P_VendorEmployeeName",t_O_VendorOrgName);
+        Map<String, Object> paramMap =  new HashMap<String, Object>();
+        Map<String, Object> rs = new HashMap<String, Object>();
+        paramMap.put("t_O_VendorOrgName",t_O_VendorOrgName);
+        List<OrganizationInfo> OrganizationInfoList = organizationInfoService.findOrgName(paramMap);
+        OrganizationInfo organizationInfo = new OrganizationInfo();
+        if (OrganizationInfoList.size() == 0 ) {
+            organizationInfo.setT_O_OrgName(t_O_VendorOrgName);
+            OrganizationInfoList.add(organizationInfo);
+        }
+        rs.put("OrganizationInfoList", OrganizationInfoList);
+        rs.put("ret", 0);
+        return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
+    }
 }

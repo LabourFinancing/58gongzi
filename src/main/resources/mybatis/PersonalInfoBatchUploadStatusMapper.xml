@@ -66,11 +66,12 @@
 		select
 		<include refid="Base_Column_List" />
 		from t_batch_personupload_status a
-        <if test="t_batch_vendorCompany != 'ALL' and t_batch_vendorCompany != null" >
-            where  a.t_batch_company = #{t_batch_company,jdbcType=VARCHAR}
+		where 1=1
+        <if test="t_batch_company != null and t_batch_company != 'ALL'" >
+            and  a.t_batch_company = #{t_batch_company,jdbcType=VARCHAR}
         </if>
-		<if test="t_batch_company != 'ALL' and t_batch_company != null">
-		   	and a.t_batch_vendorCompany like CONCAT('%',#{t_batch_vendorCompany},'%')
+		<if test="t_batch_vendorCompany != null and t_batch_vendorCompany != 'ALL'">
+		   	and a.t_batch_vendorCompany = #{t_batch_vendorCompany,jdbcType=VARCHAR}
 		</if>
 		order by a.create_time
 	</select>
@@ -87,11 +88,18 @@
 		<if test="t_batch_perslUploadEffectStatus != null" >
 		and a.t_batch_perslUploadEffectStatus like CONCAT('%',#{t_batch_perslUploadEffectStatus},'%')
 		</if>
-		<if test="t_batch_vendorCompany != null">
-		and a.t_batch_vendorCompany like CONCAT('%',#{t_batch_vendorCompany},'%')
+		<if test="t_batch_vendorCompany = 'ALL'">
+			and a.t_batch_vendorCompany like CONCAT('%',#{t_batch_vendorCompany},'%')
+			and a.t_batch_company like CONCAT('%',#{t_batch_company},'%')
 		</if>
-		<if test="t_batch_company != 'ALL' ">
+		<if test="t_batch_vendorCompany != null">
+		and a.t_batch_vendorCompany = CONCAT('%',#{t_batch_vendorCompany},'%')
+		</if>
+		<if test="t_batch_company != null and t_batch_vendorCompany != null">
 		and a.t_batch_company like CONCAT('%',#{t_batch_company},'%')
+		</if>
+		<if test="t_batch_company != null and t_batch_vendorCompany = null">
+		and a.t_batch_company = CONCAT('%',#{t_batch_company},'%')
 		</if>
 		<if test="t_batch_persProdName != null" >
 		and a.t_batch_persProdName like CONCAT('%',#{t_batch_persProdName},'%')
@@ -136,392 +144,77 @@
 		WHERE a.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR} GROUP BY a.batch_PB_batchID)
 </insert>
 
-
-<!-- 
-	<insert id="insertSelective" parameterType="com.qucai.sample.entity.PersonalInfoBatchUploadStatus">
-		insert into t_batch_personupload_status
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="t_batch_perslUploadId != null">
-				t_batch_perslUploadId,
-			</if>
-			<if test="t_batch_perslUploadStatus_id != null">
-				t_batch_perslUploadStatus_id,
-			</if>
-			<if test="t_batch_perslUploadStatus_batchid != null">
-				t_batch_perslUploadStatus_batchid,
-			</if>
-			<if test="t_batch_perslUploadPer_num != null">
-				t_batch_perslUploadPer_num,
-			</if>
-			<if test="t_batch_perslUploadEffectStatus != null">
-				t_batch_perslUploadEffectStatus,
-			</if>
-			<if test="t_batch_perslUploadClearStatus != null">
-				t_batch_perslUploadClearStatus,
-			</if>
-			<if test="t_batch_company != null">
-				t_batch_company,
-			</if>
-			<if test="t_batch_vendorCompany != null">
-				t_batch_vendorCompany,
-			</if>
-			<if test="t_batch_persProdName != null">
-				t_batch_persProdName,
-			</if>
-			<if test="t_batch_payroll_tot != null">
-				t_batch_payroll_tot,
-			</if>
-			<if test="t_batch_payrollCredit_tot != null">
-				t_batch_payrollCredit_tot,
-			</if>
-			<if test="t_batch_remark != null">
-				t_batch_remark,
-			</if>
-			<if test="t_batch_clearInfo != null">
-				t_batch_clearInfo,
-			</if>
-			<if test="t_batch_category != null">
-				t_batch_category,
-			</if>
-			<if test="t_batch_comment != null">
-				t_batch_comment,
-			</if>
-			<if test="t_batch_progress != null">
-				t_batch_progress,
-			</if>
-			<if test="t_batch_EffectStartDate != null">
-				t_batch_EffectStartDate,
-			</if>
-			<if test="t_batch_EffectEndDate != null">
-				t_batch_EffectEndDate,
-			</if>
-			<if test="modify_time != null">
-				modify_time,
-			</if>
-			<if test="modifier != null">
-				modifier,
-			</if>
-			<if test="modify_time != null">
-				modify_time
-			</if>
-			<if test="create_time != null">
-				create_time,
-			</if>
-			<if test="creator != null">
-				creator
-			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="t_batch_perslUploadId != null">
-				#{t_batch_perslUploadId,jdbcType=VARCHAR},
-			</if>
-			<if test="t_batch_perslUploadStatus_id != null">
-				#{t_batch_perslUploadStatus_id,jdbcType=VARCHAR},
-			</if>
-			<if test="t_batch_perslUploadStatus_batchid != null">
-				#{t_batch_perslUploadStatus_batchid,jdbcType=VARCHAR},
-			</if>
-			<if test="t_batch_perslUploadPer_num != null">
-				#{t_batch_perslUploadPer_num,jdbcType=INTEGER},
-			</if>
-			<if test="t_batch_perslUploadEffectStatus != null">
-				#{t_batch_perslUploadEffectStatus,jdbcType=VARCHAR},
-			</if>
-			<if test="t_batch_perslUploadClearStatus != null">
-				#{t_batch_perslUploadClearStatus,jdbcType=VARCHAR},
-			</if>
-			<if test="t_batch_company != null">
-				#{t_batch_company,jdbcType=VARCHAR},
-			</if>
-			<if test="t_batch_vendorCompany != null">
-				#{t_batch_vendorCompany,jdbcType=VARCHAR},
-			</if>
-			<if test="t_batch_persProdName != null">
-				#{t_batch_persProdName,jdbcType=VARCHAR},
-			</if>
-			<if test="t_batch_payroll_tot != null">
-				#{t_batch_payroll_tot,jdbcType=DECIMAL},
-			</if>
-			<if test="t_batch_payrollCredit_tot != null">
-				#{t_batch_payrollCredit_tot,jdbcType=DECIMAL},
-			</if>
-			<if test="t_batch_remark != null">
-				#{t_batch_remark,jdbcType=VARCHAR},
-			</if>
-			<if test="t_batch_clearInfo != null">
-				#{t_batch_clearInfo,jdbcType=TIMESTAMP},
-			</if>
-			<if test="t_batch_category != null">
-				#{t_batch_category,jdbcType=VARCHAR},
-			</if>
-			<if test="t_batch_comment != null">
-				#{t_batch_comment,jdbcType=VARCHAR},
-			</if>
-			<if test="t_batch_progress != null">
-				#{t_batch_progress,jdbcType=VARCHAR},
-			</if>
-			<if test="t_batch_EffectStartDate != null">
-				#{t_batch_EffectStartDate,jdbcType=TIMESTAMP},
-			</if>
-			<if test="t_batch_EffectEndDate != null">
-				#{t_batch_EffectEndDate,jdbcType=TIMESTAMP},
-			</if>
-			<if test="modify_time != null">
-				#{modify_time,jdbcType=TIMESTAMP},
-			</if>
-			<if test="modifier != null">
-				#{modifier,jdbcType=VARCHAR},
-			</if>
-			<if test="modify_time != null">
-				#{modify_time,jdbcType=TIMESTAMP}
-			</if>
-			<if test="create_time != null">
-				#{create_time,jdbcType=TIMESTAMP}
-			</if>
-			<if test="creator != null">
-				#{creator,jdbcType=VARCHAR}
-			</if>
-		</trim>
-	</insert>
--->
-	
-<!-- 
-	<select id="selectTotalCredit" resultType="String"
-		parameterType="java.lang.String">
-		select
-		sum(t_P_CreditPrepayAmount)
-		from t_batch_personupload a
-		where a.t_P_Company = #{t_P_Company,jdbcType=VARCHAR}
-	</select>
-
--->
-
-<!-- 
-insert new personal info into manager table
-insert into t_manager ( select REPLACE(UUID(),"-",""),batch_mobile,substring(MD5(RAND()),1,6),batch_Name,"美团买菜",batch_mobile,batch_PID,"test@test.com","","1",NOW(),NOW() from credit_upload where batch_PID NOT IN (select t_P_PID from t_personal_info a JOIN credit_upload b on a.t_P_PID = b.batch_PID where b.batch_batchID = "2020120902") and batch_batchID = "2020120902");
-
-	<insert id="insertManagerInfo"  parameterType="java.util.List">
-        insert into t_manager 
-        (select REPLACE(UUID(),"-",""),
-        batch_PB_mobile,
-        substring(MD5(RAND()),1,6),
-        batch_PB_Name,
-        batch_PB_company,
-        batch_PB_mobile,
-        batch_PB_PID,
-        "test@test.com",
-        "",
-        "1",
-        NOW(),
-        NOW() from t_batch_personupload
-        <if test="batch_PB_batchID != null">
-        where batch_PB_PID NOT IN (select t_P_PID from t_personal_info a JOIN t_batch_personupload b on a.t_P_PID = b.batch_PB_PID where b.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR} ) and batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR} );
-   		</if>
-    </insert>
- -->
- <!-- 
- insert new personal info into personal table
-insert into t_personal_info (select REPLACE(UUID(),"-",""),batch_Name,"","0",batch_PID,"","",batch_mobile,batch_mobile,"",batch_mobile,"",batch_mobile,"",batch_mobile,"美团买菜","1",batch_credit,batch_credit,"onjob","vendor","1","gzmtmc-p-a","是","美团买菜","",batch_creditcard,batch_credit,batch_credit,"15",batch_credit,"15","15",NOW(),"0","","system",NOW(),"system",NOW() from credit_upload where batch_PID NOT IN (select t_P_PID from t_personal_info a JOIN credit_upload b on a.t_P_PID = b.batch_PID where b.batch_batchID = "2020120902") and batch_batchID = "2020120902");
-
-	<insert id="insertPersonalInfo"  parameterType="java.util.List">
-		insert into t_personal_info
-		(select REPLACE(UUID(),"-",""),
-		batch_PB_Name,
-		"",
-		"0",
-		batch_PB_Name,
-		"",
-		"",
-		batch_PB_mobile,
-		batch_PB_mobile,
-		"",
-		batch_PB_mobile,
-		"",
-		batch_PB_mobile,
-		"",
-		batch_PB_mobile,
-		batch_PB_company,
-		"1",
-		batch_PB_credit,
-		batch_PB_credit,
-		"onjob",
-		"vendor",
-		"1",
-		#{FProd_name,jdbcType=VARCHAR},
-		"是",
-		#{CurrentCompany,jdbcType=VARCHAR} ,
-		"",
-		batch_PB_creditCard,
-		batch_PB_credit,
-		batch_PB_credit,
-		"15",
-		batch_PB_credit,
-		#{payrollDate,jdbcType=VARCHAR} ,
-		#{payrollDate,jdbcType=VARCHAR} ,
-		NOW(),
-		"0",
-		"",
-		"system",
-		NOW(),
-		"system",
-		NOW() from t_batch_personupload 
-		<if test="batch_PB_batchID != null">
-		where batch_PB_PID NOT IN (select t_P_PID from t_personal_info a JOIN t_batch_personupload b on a.t_P_PID = b.batch_PB_PID where b.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}) and batch_batchID =  #{batch_PB_batchID,jdbcType=VARCHAR} );
-		<if>
-    </insert>
-  -->
-	<!-- 
-	<select id="findAllList" resultMap="BaseResultMap"
-		parameterType="java.util.Map">
-		select
-		<include refid="Base_Column_List" />
-		from t_batch_personupload a
-		where 1=1
-		<if test="typeEnd != null">
-			<![CDATA[ and type <= #{typeEnd} ]]>
+<update id="updateByPrimaryKeySelective" parameterType="com.qucai.sample.entity.PersonalInfoBatchUploadStatus">
+	update t_batch_personupload_status
+	<set>
+		<if test="t_batch_perslUploadId != null">
+			t_batch_perslUploadId = #{t_batch_perslUploadId,jdbcType=VARCHAR},
 		</if>
-		<if test="t_P_Company != 'ALL' and t_P_Company != null">
-		   and a.t_P_Company = #{t_P_Company,jdbcType=VARCHAR}
+		<if test="t_batch_perslUploadStatus_id != null">
+			t_batch_perslUploadStatus_id = #{t_batch_perslUploadStatus_id,jdbcType=VARCHAR},
 		</if>
-		<if test="t_P_VendorEmployeeName != null" >
-		   and a.t_P_VendorEmployeeName like CONCAT('%',#{t_P_VendorEmployeeName},'%')
+		<if test="t_batch_perslUploadStatus_batchid != null">
+			t_batch_perslUploadStatus_batchid = #{t_batch_perslUploadStatus_batchid,jdbcType=VARCHAR},
 		</if>
-		order by a.create_time
-	</select>
-
-
-	<select id="findEntResourceGrantAllList" resultMap="ResourceGrantMap"
-		parameterType="java.lang.String">
-		SELECT
-			<include refid="Base_Column_List" />, 
-			(
-				SELECT
-					count(1)
-				FROM
-					tr_role_resource
-				WHERE
-					resource_id = a.id
-				AND role_id = #{roleId}
-			) AS selected
-		FROM
-			t_resource a
-		WHERE a.platform = 1
-		order by IFNULL(a.parent_id, ''), a.idx
-	</select>
- -->	
-
-	<update id="updateByPrimaryKeySelective" parameterType="com.qucai.sample.entity.PersonalInfoBatchUploadStatus">
-		update t_batch_personupload_status
-		<set>
-			<if test="t_batch_perslUploadId != null">
-				t_batch_perslUploadId = #{t_batch_perslUploadId,jdbcType=VARCHAR},
-			</if>
-			<if test="t_batch_perslUploadStatus_id != null">
-				t_batch_perslUploadStatus_id = #{t_batch_perslUploadStatus_id,jdbcType=VARCHAR},
-			</if>
-			<if test="t_batch_perslUploadStatus_batchid != null">
-				t_batch_perslUploadStatus_batchid = #{t_batch_perslUploadStatus_batchid,jdbcType=VARCHAR},
-			</if>
-			<if test="t_batch_perslUploadPer_num != null">
-				t_batch_perslUploadPer_num = #{t_batch_perslUploadPer_num,jdbcType=INTEGER},
-			</if>
-			<if test="t_batch_perslUploadEffectStatus != null">
-				t_batch_perslUploadEffectStatus = #{t_batch_perslUploadEffectStatus,jdbcType=VARCHAR},
-			</if>
-			<if test="t_batch_perslUploadClearStatus != null">
-				t_batch_perslUploadClearStatus = #{t_batch_perslUploadClearStatus,jdbcType=VARCHAR},
-			</if>
-			<if test="t_batch_company != null">
-				t_batch_company = #{t_batch_company,jdbcType=VARCHAR},
-			</if>
-			<if test="t_batch_vendorCompany != null">
-				t_batch_vendorCompany = #{t_batch_vendorCompany,jdbcType=VARCHAR},
-			</if>
-			<if test="t_batch_persProdName != null">
-				t_batch_persProdName = #{t_batch_persProdName,jdbcType=VARCHAR},
-			</if>
-			<if test="t_batch_payroll_tot != null">
-				t_batch_payroll_tot = #{t_batch_payroll_tot,jdbcType=DECIMAL},
-			</if>
-			<if test="t_batch_payrollCredit_tot != null">
-				t_batch_payrollCredit_tot = #{t_batch_payrollCredit_tot,jdbcType=DECIMAL},
-			</if>
-			<if test="t_batch_remark != null">
-				t_batch_remark = #{t_batch_remark,jdbcType=VARCHAR},
-			</if>
-			<if test="t_batch_clearInfo != null">
-				t_batch_clearInfo = #{t_batch_clearInfo,jdbcType=VARCHAR},
-			</if>
-			<if test="t_batch_category != null">
-				t_batch_category = #{t_batch_category,jdbcType=VARCHAR},
-			</if>
-			<if test="t_batch_comment != null">
-				t_batch_comment = #{t_batch_comment,jdbcType=VARCHAR},
-			</if>
-			<if test="t_batch_progress != null">
-				t_batch_progress = #{t_batch_progress,jdbcType=VARCHAR},
-			</if>
-			<if test="t_batch_EffectStartDate != null">
-				t_batch_EffectStartDate = #{t_batch_EffectStartDate,jdbcType=TIMESTAMP},
-			</if>
-			<if test="t_batch_EffectEndDate != null">
-				t_batch_EffectEndDate = #{t_batch_EffectEndDate,jdbcType=TIMESTAMP},
-			</if>
-			<if test="modify_time != null">
-				modify_time = #{modify_time,jdbcType=TIMESTAMP},
-			</if>
-			<if test="modifier != null">
-				modifier = #{modifier,jdbcType=VARCHAR},
-			</if>
-			<if test="create_time != null">
-				create_time = #{create_time,jdbcType=TIMESTAMP},
-			</if>
-			<if test="creator != null">
-				creator = #{creator,jdbcType=VARCHAR},
-			</if>
-		</set>
-		where t_batch_perslUploadId = #{t_batch_perslUploadId,jdbcType=VARCHAR}
-	</update>
- <!-- 	
-   <select id="existPersonalInfoBatchUploadName" resultType="java.lang.Integer"
-		parameterType="map">
-		select
-		count(1)
-		from t_batch_personupload a
-		where a.t_P_PID = #{t_P_PID}
-		<if test="t_P_id != null">
-			and a.t_P_id != #{t_P_id}
+		<if test="t_batch_perslUploadPer_num != null">
+			t_batch_perslUploadPer_num = #{t_batch_perslUploadPer_num,jdbcType=INTEGER},
 		</if>
-	</select>
-	
-   <select id="checkPersonalInfoBatchUploadMobil" resultType="java.lang.Integer"
-		parameterType="map">
-		select
-		count(1)
-		from t_batch_personupload a
-		where a.t_P_Mobil = #{t_P_Mobil}
-		<if test="t_P_id != null">
-			and a.t_P_id != #{t_P_id}
+		<if test="t_batch_perslUploadEffectStatus != null">
+			t_batch_perslUploadEffectStatus = #{t_batch_perslUploadEffectStatus,jdbcType=VARCHAR},
 		</if>
-	</select>
-	
-	<update id="updateCompanyStaffsCreditOn" parameterType="com.qucai.sample.entity.PersonalInfoBatchUpload">
-		update t_batch_personupload
-		<set>
-		t_P_Employmentstatus = "onjob"
-		</set>
-		where t_batch_personupload.t_P_Company = #{t_TreasuryDB_OrgName_get,jdbcType=VARCHAR} 
-		and t_batch_personupload.t_P_Mobil not in ( select mobile from t_manager where t_manager.`status` = 0 ) 
-		and t_batch_personupload.t_P_Employmentstatus = "PENDING"
-	</update>
-	
-	<update id="updateCompanyStaffsCreditOff" parameterType="com.qucai.sample.entity.PersonalInfoBatchUpload">
-		update t_batch_personupload
-		<set>
-		t_P_Employmentstatus = "PENDING"
-		</set>
-		where t_P_Company = #{t_TreasuryDB_OrgName_get,jdbcType=VARCHAR} and t_P_Employmentstatus = "onjob" 
-	</update>
-	 -->	
+		<if test="t_batch_perslUploadClearStatus != null">
+			t_batch_perslUploadClearStatus = #{t_batch_perslUploadClearStatus,jdbcType=VARCHAR},
+		</if>
+		<if test="t_batch_company != null">
+			t_batch_company = #{t_batch_company,jdbcType=VARCHAR},
+		</if>
+		<if test="t_batch_vendorCompany != null">
+			t_batch_vendorCompany = #{t_batch_vendorCompany,jdbcType=VARCHAR},
+		</if>
+		<if test="t_batch_persProdName != null">
+			t_batch_persProdName = #{t_batch_persProdName,jdbcType=VARCHAR},
+		</if>
+		<if test="t_batch_payroll_tot != null">
+			t_batch_payroll_tot = #{t_batch_payroll_tot,jdbcType=DECIMAL},
+		</if>
+		<if test="t_batch_payrollCredit_tot != null">
+			t_batch_payrollCredit_tot = #{t_batch_payrollCredit_tot,jdbcType=DECIMAL},
+		</if>
+		<if test="t_batch_remark != null">
+			t_batch_remark = #{t_batch_remark,jdbcType=VARCHAR},
+		</if>
+		<if test="t_batch_clearInfo != null">
+			t_batch_clearInfo = #{t_batch_clearInfo,jdbcType=VARCHAR},
+		</if>
+		<if test="t_batch_category != null">
+			t_batch_category = #{t_batch_category,jdbcType=VARCHAR},
+		</if>
+		<if test="t_batch_comment != null">
+			t_batch_comment = #{t_batch_comment,jdbcType=VARCHAR},
+		</if>
+		<if test="t_batch_progress != null">
+			t_batch_progress = #{t_batch_progress,jdbcType=VARCHAR},
+		</if>
+		<if test="t_batch_EffectStartDate != null">
+			t_batch_EffectStartDate = #{t_batch_EffectStartDate,jdbcType=TIMESTAMP},
+		</if>
+		<if test="t_batch_EffectEndDate != null">
+			t_batch_EffectEndDate = #{t_batch_EffectEndDate,jdbcType=TIMESTAMP},
+		</if>
+		<if test="modify_time != null">
+			modify_time = #{modify_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="modifier != null">
+			modifier = #{modifier,jdbcType=VARCHAR},
+		</if>
+		<if test="create_time != null">
+			create_time = #{create_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="creator != null">
+			creator = #{creator,jdbcType=VARCHAR},
+		</if>
+	</set>
+	where t_batch_perslUploadId = #{t_batch_perslUploadId,jdbcType=VARCHAR}
+</update>
 </mapper>
  

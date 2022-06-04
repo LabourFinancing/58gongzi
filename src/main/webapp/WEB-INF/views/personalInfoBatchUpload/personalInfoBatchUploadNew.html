@@ -359,7 +359,12 @@
                                 opBatch.text = result.personalInfoBatchUpload[i].batch_PB_batchID;
                                 opBatch.value = result.personalInfoBatchUpload[i].batch_PB_batchID;
                                 batchPBbatchIDSelect.options.add(opBatch);
-                            }}
+                            }}else if(result.FinanceProduct.length==0){
+                            var op = new Option();
+                            op.text = "<--- 请先上传人员 --->";
+                            op.value =  null;
+                            FProdNameSelect.options.add(op);
+                        }
 
                     } else {
                         $.toptip('批量选择出错出错，请联系技术支持', 'error');
@@ -401,8 +406,12 @@
                                 op.text = result.FinanceProduct[i].t_FProd_Name + " - " + result.FinanceProduct[i].remark;
                                 op.value = result.FinanceProduct[i].t_FProd_PersPool;
                                 FProdNameSelect.options.add(op);
-                            }}
-
+                            }}else if(result.FinanceProduct.length==0){
+                            var op = new Option();
+                            op.text = "<--- 请先添加产品 --->";
+                            op.value =  null;
+                            FProdNameSelect.options.add(op);
+                        }
                     } else {f
                         $.toptip('产品出错，请联系技术支持', 'error');
                     }
@@ -428,7 +437,7 @@
                 return;
             }
             if(!uploaded && !selected){
-                alert("请选择企业及相关产品,点先上传员工信息文件，再提交更新");
+                alert("请先添加产品或选择企业及相关产品,并点先上传员工信息文件后，再提交更新");
                 return;
             }
             if(!selected){
@@ -524,6 +533,15 @@
             });
         }
 
+        function chkuploadfile(val){
+            console.log(val)
+            if(val === null){
+                document.getElementById("uploadbtn").disabled = true;
+            }else{
+                document.getElementById("uploadbtn").disabled = false;
+            }
+        }
+
     </script>
     <style>
         .ml20 {
@@ -544,6 +562,8 @@
             overflow:auto;
         }
         .personalContent:empty::before{
+            font-color:#bfbfbf;
+            color:#bfbfbf;
             content: attr(placeholder);
         }
     </style></head>
@@ -576,14 +596,28 @@
                                         <div id="persnlErr" name="persnalErr" style="font-size: 14px;color:#ff0000; padding: 10px 0px;"></div>
                                     </div>
                                     <div class="processTitle">
-                                        <label>工资产品名<span class="required">*</span>
+                                        <label>企业名称<span class="required">*</span>
                                         </label>
                                         <div style="padding-left: 0px;">
-                                            <select class="bs-select form-control" data-live-search="true" name="t_FPROD_Name" id="t_FPROD_Name">
-                                                <option value="initall-PersPool">中国上海开放产品测试1 - 测试2</option>
+                                            <select id="t_PIBU_Orgname" class="bs-select form-control" data-live-search="true" name="t_PIBU_Orgname" id="t_PIBU_Orgname" onchange="FProdFilter()">
+                                                <#list OrganizationInfo as OrganizationInfoList>
+                                                <option value="${OrganizationInfoList.t_O_OrgName}">
+                                                    ${OrganizationInfoList.t_O_OrgName}</option>
+                                            </#list>
                                             </select>
                                         </div>
                                     </div>
+                                        <div class="processTitle">
+                                            <label>工资产品名<span class="required">*</span>
+                                            </label>
+                                            <div style="padding-left: 0px;">
+                                                <select class="bs-select form-control" data-live-search="true" name="t_FPROD_Name" id="t_FPROD_Name">
+                                                    <#list FinanceProduct as FinanceProductList>
+                                                    <option value="${FinanceProductList.t_FProd_PersPool}">${FinanceProductList.t_FProd_Name} - ${FinanceProductList.remark}</option>
+                                                </#list>
+                                                </select>
+                                            </div>
+                                        </div>
                                     <div class="processTitle">
                                         <label>发薪日<span class="required">*</span>
                                         </label>
@@ -629,7 +663,7 @@
                                     <div class="lineY"></div>
                                 </div>
                                 <div class="processArea">
-                                    <div class="processTitle"><input type="file" class="processTitle" title="请选择文件" name="file" id="uploadEventFile">选择上传文件</div>
+                                    <div class="processTitle"><input type="file" class="processTitle" title="请选择文件" name="file" id="uploadEventFile" onchange="javascript:chkuploadfile(this.innerText)">选择上传文件</div>
                                     <div>
                                         <div id="uploader-demo" class="templateArea">
                                             <div id="fileList" class="uploader-list"></div>
@@ -655,11 +689,14 @@
                                     <div class="processTitle">
                                         <label>绑定批次<span class="required"> * </span>
                                         </label>
-                                        <div style="margin-left:0px;width:1000%">
-                                            <div style="width:150%;display:inline">
-                                                <select colspan="1" class="bs-select form-control" style="width: 15%;float:left;margin-right:5px" data-live-search="true" name="batch_PB_batchID" id="batch_PB_batchID" onchange="FProdFilter()">
-                                                    <option value="">
-                                                    </option>
+                                        <div style="margin-left:0px;width:150%">
+                                            <div style="width:80%;display:inline">
+                                                <select class="bs-select form-control" data-live-search="true" name="batch_PB_batchID"
+                                                        id="batch_PB_batchID">
+                                                    <#list personalInfoBatchUpload as personalInfoBatchUpload>
+                                                    <option value="${personalInfoBatchUpload.batch_PB_batchID}">
+                                                        ${personalInfoBatchUpload.batch_PB_batchID} </option>
+                                                </#list>
                                                 </select>
                                                 <div style="margin-left:0px;">
                                                     <a id="detaillist" style="width:20%;margin-right: 0px;" href="#" onclick="javascript:;openDetails()">查看详情</a>

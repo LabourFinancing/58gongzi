@@ -233,13 +233,13 @@
                         }
                     },
 
-                    invalidHandler: function (event, validator) { //display error alert on form submit              
+                    invalidHandler: function (event, validator) { //display error alert on form submit
                         App.scrollTo(form, 0);
                     },
 
                     highlight: function (element) { // hightlight error inputs
                         $(element).closest('.form-group').removeClass(
-                            "has-success").addClass('has-error'); // set error class to the control group   
+                            "has-success").addClass('has-error'); // set error class to the control group
                     },
 
                     unhighlight: function (element) { // revert the change done by hightlight
@@ -342,7 +342,7 @@
     <!-- END SIDEBAR TOGGLER BUTTON -->
     <!-- BEGIN LOGO -->
     <div class="logo">
-        <a href="mainpage.html"> <img id="logo_login" src="${ctx}/metronic/mobile/imgs/login-banner.png" alt="">
+        <a href="${ctx}/login"> <img id="logo_login" src="${ctx}/metronic/mobile/imgs/login-banner.png" alt="">
         </a>
     </div>
     <!-- END LOGO -->
@@ -359,14 +359,14 @@
                 <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
                 <label class="control-label visible-ie8 visible-ie9"><img id="l-img1" class="lable-img l-img1"
                                                                           src="${ctx}/metronic/mobile/imgs/user-name.png" alt=""></label> <input
-                class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off"
-                placeholder="输入你的用户名/手机号" id="userName" name="userName">
+                    class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off"
+                    placeholder="输入你的用户名/手机号" id="userName" name="userName">
             </div>
             <div class="form-group">
                 <label class="control-label visible-ie8 visible-ie9"><img id="l-img2" class="lable-img l-img2"
                                                                           src="${ctx}/metronic/mobile/imgs/pwd.png" alt=""></label><input
-                class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off"
-                placeholder="输入您的密码" id="password" name="password">
+                    class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off"
+                    placeholder="输入您的密码" id="password" name="password">
                 <!--默认闭眼图-->
             </div>
             <div class="form-group"><input class="form-control form-control-solid placeholder-no-fix" type="hidden"
@@ -381,7 +381,7 @@
         </form>
         <!-- END LOGIN FORM -->
         <!-- BEGIN FORGOT PASSWORD FORM -->
-        <form class="forget-form" action="mainpage.html" method="post">
+        <form class="forget-form" method="post">
             <h3 class="font-green">Forget Password ?</h3>
             <p>Enter your e-mail address below to reset your password.</p>
             <div class="form-actions">

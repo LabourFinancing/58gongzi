@@ -30,12 +30,12 @@ jQuery.validator.addMethod("IDCard", function(value, element) {
 			errorClass : 'help-block help-block-error', // default input error message class
 			focusInvalid : false, // do not focus the last invalid input
 			rules : {
-				userName : {
-					minlength : 4,
-					maxlength : 50,
-					required : true,
-					remote : "${ctx}/jqueryValidateController/checkManagerUserName?id=${manager.id}"
-				},
+				// userName : {
+				// 	minlength : 4,
+				// 	maxlength : 50,
+				// 	required : true,
+				// 	remote : "${ctx}/jqueryValidateController/checkManagerUserName?id=${manager.id}"
+				// },
 				realName : {
 					maxlength : 50,
 					required : true
@@ -55,9 +55,9 @@ jQuery.validator.addMethod("IDCard", function(value, element) {
 					isEmail : true
 				}
 			},
-			messages: {
-				userName: {remote : "用户名已存在"}
-			},
+			// messages: {
+			// 	userName: {remote : "用户名已存在"}
+			// },
 
 			invalidHandler : function(event, validator) { //display error alert on form submit              
 				App.scrollTo(form, 0);
@@ -123,7 +123,7 @@ jQuery.validator.addMethod("IDCard", function(value, element) {
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="userName" value="${manager.userName}" />
+									name="userName" value="${manager.userName}" disabled="disabled"/>
 							</div>
 						</div>
 					</div>
@@ -191,6 +191,18 @@ jQuery.validator.addMethod("IDCard", function(value, element) {
 							</div>
 						</div>
 					</div>
+				<@shiro.hasPermission name="TREASURYINFO_SUPERADMINVIEW">
+				<div class="form-group">
+					<label class="control-label col-sm-3">平台 <span
+							class="required"> * </span></label>
+					<div class="col-sm-9">
+						<div class="input-icon right">
+							<i class="fa"></i> <input type="text" class="form-control"
+													  name="platform" value="${manager.platform}" />
+						</div>
+					</div>
+				</div>
+				</@shiro.hasPermission>
 					<div class="form-group">
 						<label class="control-label col-sm-3">状态 <span
 							class="required"> * </span></label>

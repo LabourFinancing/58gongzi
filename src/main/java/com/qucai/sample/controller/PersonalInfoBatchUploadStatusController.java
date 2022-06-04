@@ -119,7 +119,7 @@ public class PersonalInfoBatchUploadStatusController {
     	String t_O_OrgName = ShiroSessionUtil.getLoginSession().getCompany_name();
     	OrganizationInfo AgencyOrgnization = organizationInfoService.selectAgencyName(t_O_OrgName);
     	
-        if (t_batch_perslUploadStatus_batchid != null | t_batch_perslUploadEffectStatus != null | t_batch_company != null | t_batch_vendorCompany != null | t_batch_persProdName != null | remark != null) {
+        if (t_batch_perslUploadStatus_batchid != null || t_batch_perslUploadEffectStatus != null || t_batch_company != null || t_batch_vendorCompany != null || t_batch_persProdName != null || remark != null) {
         	Map<String, Object> paramSearchMap = new HashMap<String, Object>();//新建map对象
         	paramSearchMap.put("t_batch_perslUploadId", t_batch_perslUploadStatus_batchid);//添加元素
         	paramSearchMap.put("t_batch_perslUploadEffectStatus", t_batch_perslUploadEffectStatus);//添加元素
@@ -127,16 +127,16 @@ public class PersonalInfoBatchUploadStatusController {
         	paramSearchMap.put("t_batch_vendorCompany", t_batch_vendorCompany);//添加元素
         	paramSearchMap.put("remark", remark);//添加元素
         	if (t_O_OrgName.equals("ALL")){
-            	paramSearchMap.put("t_batch_company", t_batch_company);//添加元素
-        	}
-            else {
+            	paramSearchMap.put("t_batch_company", "ALL");//添加元素
+				paramSearchMap.put("t_batch_vendorCompany", "ALL");
+        	}else {
             	//Flag on Agency or not
-            	 if (AgencyOrgnization.getT_O_listOrg().equals("off")){
-                     paramSearchMap.put("t_batch_company", ShiroSessionUtil.getLoginSession().getCompany_name());
-            		 paramSearchMap.put("t_batch_vendorCompany", t_batch_vendorCompany);
+            	 if (AgencyOrgnization.getT_O_listOrg().equals("on")){
+                     paramSearchMap.put("t_batch_company", null);
+            		 paramSearchMap.put("t_batch_vendorCompany", ShiroSessionUtil.getLoginSession().getCompany_name());
             	 }else{
                      paramSearchMap.put("t_batch_company", ShiroSessionUtil.getLoginSession().getCompany_name());
-            		 paramSearchMap.put("t_batch_vendorCompany", t_O_OrgName);
+            		 paramSearchMap.put("t_batch_vendorCompany", null);
             	 }
             	//Agency filter
         	}
@@ -146,17 +146,16 @@ public class PersonalInfoBatchUploadStatusController {
     	} else {
     		Map<String, Object> paramMap = new HashMap<String, Object>();//新建map对象
     		if (t_O_OrgName.equals("ALL")) {
-    			t_batch_company = null;
-                paramMap.put("t_batch_company", t_O_OrgName);
-                paramMap.put("t_batch_vendorCompany", t_O_OrgName);
+                paramMap.put("t_batch_company", "ALL");
+                paramMap.put("t_batch_vendorCompany", "ALL");
     		}else {
                 //Flag on Agency or not
-             	 if (AgencyOrgnization.getT_O_listOrg().equals("off")){
-             		paramMap.put("t_batch_company", ShiroSessionUtil.getLoginSession().getCompany_name());
-             		paramMap.put("t_batch_vendorCompany", t_batch_vendorCompany);
+             	 if (AgencyOrgnization.getT_O_listOrg().equals("on")){
+             		paramMap.put("t_batch_company", null);
+             		paramMap.put("t_batch_vendorCompany", ShiroSessionUtil.getLoginSession().getCompany_name());
              	 }else{
-             		paramMap.put("t_batch_company", t_batch_company);
-             		paramMap.put("t_batch_vendorCompany", t_O_OrgName);
+             		paramMap.put("t_batch_company", ShiroSessionUtil.getLoginSession().getCompany_name());
+             		paramMap.put("t_batch_vendorCompany", null);
              	 }
              	//Agency filter
     		}
@@ -178,7 +177,7 @@ public class PersonalInfoBatchUploadStatusController {
     	model.addAttribute("platform", platform); //key从数据库查询并返回,并索引对应JSP
     	String t_O_OrgName = ShiroSessionUtil.getLoginSession().getCompany_name();
     	OrganizationInfo AgencyOrgnization = organizationInfoService.selectAgencyName(t_O_OrgName);
-    	
+
         if (t_batch_perslUploadId != null || t_batch_perslUploadEffectStatus != null || t_batch_company != null || t_batch_vendorCompany != null || t_batch_persProdName != null || remark != null) {
         	Map<String, Object> paramSearchMap = new HashMap<String, Object>();//新建map对象
         	paramSearchMap.put("t_batch_perslUploadId", t_batch_perslUploadId);//添加元素
@@ -186,35 +185,42 @@ public class PersonalInfoBatchUploadStatusController {
         	paramSearchMap.put("t_batch_persProdName", t_batch_persProdName);//添加元素
         	paramSearchMap.put("t_batch_vendorCompany", t_batch_vendorCompany);//添加元素
         	paramSearchMap.put("t_batch_remark", remark);//添加元素
-        	if (t_O_OrgName.equals("ALL")){
-            	paramSearchMap.put("t_batch_company", t_batch_company);//添加元素
-        	}
-            else {
-            //Flag on Agency or not
-           	 if (AgencyOrgnization.getT_O_listOrg().equals("off")){
-                 paramSearchMap.put("t_batch_company", ShiroSessionUtil.getLoginSession().getCompany_name());
-        		 paramSearchMap.put("t_batch_vendorCompany", t_batch_vendorCompany);
-        	 }else{
-                 paramSearchMap.put("t_batch_company", ShiroSessionUtil.getLoginSession().getCompany_name());
-        		 paramSearchMap.put("t_batch_vendorCompany", t_O_OrgName);
-        	 }
-           	//Agency filter
-        	}
-            PageParam pp = Tool.genPageParam(request);  
+			if (t_O_OrgName.equals("ALL")){
+				paramSearchMap.put("t_batch_company", "ALL");//添加元素
+				paramSearchMap.put("t_batch_vendorCompany", "ALL");
+			}else {
+				//Flag on Agency or not
+				if (AgencyOrgnization.getT_O_listOrg().equals("on")){
+					paramSearchMap.put("t_batch_company", null);
+					paramSearchMap.put("t_batch_vendorCompany", ShiroSessionUtil.getLoginSession().getCompany_name());
+				}else{
+					paramSearchMap.put("t_batch_company", ShiroSessionUtil.getLoginSession().getCompany_name());
+					paramSearchMap.put("t_batch_vendorCompany", null);
+				}
+				//Agency filter
+			}
+            PageParam pp = Tool.genPageParam(request);
             PageInfo<PersonalInfoBatchUploadStatus> page = personalInfoBatchUploadStatusService.findSearchList(pp, paramSearchMap);
             model.addAttribute("page", page);//从数据库查询出来的结果用model的方式返回
     	} else {
     		Map<String, Object> paramMap = new HashMap<String, Object>();//新建map对象
             //Flag on Agency or not
-         	 if (AgencyOrgnization.getT_O_listOrg().equals("off")){
-         		paramMap.put("t_P_Company", ShiroSessionUtil.getLoginSession().getCompany_name());
-         		paramMap.put("t_batch_vendorCompany", t_batch_vendorCompany);
-         	 }else{
-         		paramMap.put("t_batch_company", t_batch_company);
-         		paramMap.put("t_batch_vendorCompany", t_O_OrgName);
-         	 }
+			if (t_O_OrgName.equals("ALL")) {
+				paramMap.put("t_batch_company", "ALL");
+				paramMap.put("t_batch_vendorCompany", "ALL");
+			}else {
+				//Flag on Agency or not
+				if (AgencyOrgnization.getT_O_listOrg().equals("on")){
+					paramMap.put("t_batch_company", null);
+					paramMap.put("t_batch_vendorCompany", ShiroSessionUtil.getLoginSession().getCompany_name());
+				}else{
+					paramMap.put("t_batch_company", ShiroSessionUtil.getLoginSession().getCompany_name());
+					paramMap.put("t_batch_vendorCompany", null);
+				}
+				//Agency filter
+			}
           	//Agency filter
-             PageParam pp = Tool.genPageParam(request);    
+             PageParam pp = Tool.genPageParam(request);
              PageInfo<PersonalInfoBatchUploadStatus> page = personalInfoBatchUploadStatusService.findAllList(paramMap, pp);
              model.addAttribute("page", page);
         }
@@ -242,7 +248,7 @@ public class PersonalInfoBatchUploadStatusController {
           	 List<OrganizationInfo> OrganizationInfo = organizationInfoService.findAllName(paramMap);
           	 model.addAttribute("OrganizationInfo", OrganizationInfo);
            }else {
-        	 paramMap.put("t_P_Company", t_P_Company);//添加元素
+        	 paramMap.put("t_O_VendorOrgName", t_P_Company);//添加元素
           	 List<OrganizationInfo> OrganizationInfo = organizationInfoService.findOrgName(paramMap);
           	 model.addAttribute("OrganizationInfo", OrganizationInfo);
            }

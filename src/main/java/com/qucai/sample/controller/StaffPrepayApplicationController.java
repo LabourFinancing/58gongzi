@@ -99,7 +99,10 @@ public class StaffPrepayApplicationController {
     		BigDecimal t_P_CreditPrepaySalaryAmount,Integer t_P_PayrollDate,BigDecimal t_FProd_ServiceFee,BigDecimal t_FProd_Poundage,String t_FProd_TierPoundage,String t_Txn_PrepayClear,String t_P_Employmentstatus,
     		String t_FProd_Name,BigDecimal t_FProd_ServiceFee_Percent,BigDecimal t_FProd_Poundage_Percent,BigDecimal t_Txn_CreditPrepayBalanceNum,Integer t_Txn_PrepayCounts,Date t_Txn_PrepayDate,
     		String t_P_EmploymentCategory,BigDecimal t_P_SocialSecurityBaseAmount,HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
-    	
+
+		if(ShiroSessionUtil.getLoginSession().getPlatform().equals("covid19")){
+			return "staffPrepayApplication/covid19passport";
+		}
 		//Verify Company Creditline
         // <-- get personal info in company --> 
     	TreasuryDBInfo entityOverall = null;

@@ -83,7 +83,6 @@ public class PersonalInfoBatchUploadController {
     @Autowired
     private PersonalInfoBatchUploadStatusService personalInfoBatchUploadStatusService;
 
-    private Object OrganizationInfo;
 
     private static boolean judegExcelEdition(String fileName){
         if (fileName.matches("^.+\\.(?i)(xls)$")){
@@ -113,32 +112,75 @@ public class PersonalInfoBatchUploadController {
         batch_PB_company = ShiroSessionUtil.getLoginSession().getCompany_name();
         String t_O_OrgName = batch_PB_company,t_P_Company = batch_PB_company; // pending on agent or not agent check
         if (batch_PB_company.equalsIgnoreCase("all")){
+            paramMap.put("t_P_VendorEmployeeName","ALL");
+            paramSearchMap.put("batch_PB_company","ALL");
+            paramSearchMap.put("batch_PB_vendorcompany","ALL");
             List<OrganizationInfo> OrganizationInfo = organizationInfoService.findAllName(paramMap);
-            List<PersonalInfoBatchUpload> personalInfoBatchUpload = personalInfoBatchUploadService.SelectAllBatch(paramMap);
+            List<PersonalInfoBatchUpload> personalInfoBatchUpload = personalInfoBatchUploadService.SelectCompanyBatch(paramSearchMap);
+            if(OrganizationInfo.size() == 0){
+                OrganizationInfo organizationInfoEmpty = new OrganizationInfo();
+                organizationInfoEmpty.setT_O_OrgName(batch_PB_company);
+                OrganizationInfo.add(organizationInfoEmpty);
+            }
+            if(personalInfoBatchUpload.size() == 0){
+                PersonalInfoBatchUpload personalInfoBatchUploadEmpty = new PersonalInfoBatchUpload();
+                personalInfoBatchUploadEmpty.setBatch_PB_batchID("<---- 请先上传人员 ---->");
+                personalInfoBatchUpload.add(personalInfoBatchUploadEmpty);
+            }
             model.addAttribute("personalInfoBatchUpload", personalInfoBatchUpload);
             model.addAttribute("OrganizationInfo", OrganizationInfo);
         }else{
             OrganizationInfo organizationInfo = organizationInfoService.selectAgencyName(t_O_OrgName);
             if (organizationInfo.getT_O_listOrg().equalsIgnoreCase("on")){
-                paramSearchMap.put(batch_PB_company, batch_PB_company);
+                paramSearchMap.put("t_FProd_OrgInfo", null);
+                paramSearchMap.put("t_FProd_VendorOrgName",batch_PB_company);
+                paramSearchMap.put("batch_PB_company", null);
                 paramSearchMap.put("batch_PB_vendorcompany", organizationInfo.getT_O_OrgPending());
                 paramSearchMap.put("t_P_VendorEmployeeName", organizationInfo.getT_O_OrgPending());
-                paramMap.put("t_P_VendorEmployeeName",organizationInfo.getT_O_OrgPending());
-                List<OrganizationInfo> OrganizationInfo = organizationInfoService.findAllName(paramMap);
-                List<PersonalInfoBatchUpload> personalInfoBatchUpload = personalInfoBatchUploadService.SelectCompanyBatch(paramSearchMap);
-                model.addAttribute("personalInfoBatchUpload", personalInfoBatchUpload);
-                List<PersonalInfo> PersonalInfo = personalInfoService.findSearchCompanyDist(paramSearchMap);
-                model.addAttribute("personalInfoBatchUpload", personalInfoBatchUpload);
-                model.addAttribute("OrganizationInfo", OrganizationInfo);
-            }else {
-                final OrganizationInfo organizationInfoList = new OrganizationInfo();
-                organizationInfoList.setT_O_OrgName(batch_PB_company);
-                List<OrganizationInfo> OrganizationInfo = new ArrayList<OrganizationInfo>();
-                OrganizationInfo.add(organizationInfoList);
-                paramSearchMap.put("t_FProd_CorpPool", organizationInfo.getT_O_Category());//添加元素
-                paramSearchMap.put("t_O_OrgName", t_O_OrgName);
+                paramMap.put("t_O_VendorOrgName",organizationInfo.getT_O_OrgPending());
+                List<OrganizationInfo> OrganizationInfo = organizationInfoService.findOrgName(paramMap);
                 List<FinanceProduct> FinanceProduct = financeProductService.findSearchList(paramSearchMap);
+                List<PersonalInfoBatchUpload> personalInfoBatchUpload = personalInfoBatchUploadService.SelectCompanyBatch(paramSearchMap);
+                if(OrganizationInfo.size() == 0){
+                    OrganizationInfo organizationInfoEmpty = new OrganizationInfo();
+                    organizationInfoEmpty.setT_O_OrgName(batch_PB_company);
+                    OrganizationInfo.add(organizationInfoEmpty);
+                }
+                if(FinanceProduct.size() == 0){
+                    FinanceProduct financeProductEmpty = new FinanceProduct();
+                    financeProductEmpty.setT_FProd_Name("<---- 请先添加产品 ---->");
+                    FinanceProduct.add(financeProductEmpty);
+                }
+                if(personalInfoBatchUpload.size() == 0){
+                    PersonalInfoBatchUpload personalInfoBatchUploadEmpty = new PersonalInfoBatchUpload();
+                    personalInfoBatchUploadEmpty.setBatch_PB_batchID("<---- 请先上传人员 ---->");
+                    personalInfoBatchUpload.add(personalInfoBatchUploadEmpty);
+                }
+                model.addAttribute("personalInfoBatchUpload", personalInfoBatchUpload);
                 model.addAttribute("OrganizationInfo", OrganizationInfo);
+                model.addAttribute("FinanceProduct", FinanceProduct);
+            }else {
+                paramSearchMap.put("t_FProd_OrgInfo", batch_PB_company);//get all prod list
+                paramSearchMap.put("batch_PB_vendorcompany", null); // put vendororg name null
+                paramSearchMap.put("batch_PB_company", batch_PB_company);// put org name real name
+                List<FinanceProduct> FinanceProduct = financeProductService.findSearchList(paramSearchMap);
+                List<PersonalInfoBatchUpload> personalInfoBatchUpload = personalInfoBatchUploadService.SelectCompanyBatch(paramSearchMap);
+                if(FinanceProduct.size() == 0){
+                    FinanceProduct financeProductEmpty = new FinanceProduct();
+                    financeProductEmpty.setT_FProd_Name("<---- 请先添加产品 ---->");
+                    FinanceProduct.add(financeProductEmpty);
+                }
+                if(personalInfoBatchUpload.size() == 0){
+                    PersonalInfoBatchUpload personalInfoBatchUploadEmpty = new PersonalInfoBatchUpload();
+                    personalInfoBatchUploadEmpty.setBatch_PB_batchID("<---- 请先上传人员 ---->");
+                    personalInfoBatchUpload.add(personalInfoBatchUploadEmpty);
+                }
+                List<OrganizationInfo> organizationInfoSelf = new ArrayList<OrganizationInfo>();
+                OrganizationInfo organizationInfoEmpty = new OrganizationInfo();
+                organizationInfoEmpty.setT_O_OrgName(batch_PB_company);
+                organizationInfoSelf.add(organizationInfoEmpty);
+                model.addAttribute("personalInfoBatchUpload", personalInfoBatchUpload);
+                model.addAttribute("OrganizationInfo", organizationInfoSelf);
                 model.addAttribute("FinanceProduct", FinanceProduct);
             }
         }
@@ -148,6 +190,7 @@ public class PersonalInfoBatchUploadController {
         String flag = "failure";
         return "personalInfoBatchUpload/personalInfoBatchUploadNew";
     }
+
 
     private void add(com.qucai.sample.entity.OrganizationInfo batch_PB_company) {
         // TODO Auto-generated method stub
@@ -162,31 +205,55 @@ public class PersonalInfoBatchUploadController {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         Map<String, Object> paramSearchMap = new HashMap<String, Object>();
         model.addAttribute("t_Org_name", t_PIBU_Orgname);
-        String t_O_OrgName = null;
+        String t_O_OrgName = ShiroSessionUtil.getLoginSession().getCompany_name();
+        String batch_PB_company = null;
         try {
-            t_O_OrgName = URLDecoder.decode(t_PIBU_Orgname,"UTF-8");
+            if(t_PIBU_Orgname == null){
+                t_PIBU_Orgname =  ShiroSessionUtil.getLoginSession().getCompany_name();
+                batch_PB_company = t_PIBU_Orgname;
+            }else {
+                batch_PB_company = URLDecoder.decode(t_PIBU_Orgname, "UTF-8");
+            }
         } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
-        String batch_PB_company = t_O_OrgName;
-        if (batch_PB_company.equalsIgnoreCase("all")){
-            List<PersonalInfoBatchUpload> personalInfoBatchUpload = personalInfoBatchUploadService.SelectAllBatch(paramMap);
+        if (t_O_OrgName.equalsIgnoreCase("all")){
+            OrganizationInfo organizationInfo = organizationInfoService.selectAgencyName(batch_PB_company);
+            if(organizationInfo.getT_O_listOrg() == "on"){
+                paramSearchMap.put("batch_PB_vendorcompany", batch_PB_company);
+                paramSearchMap.put("batch_PB_company", null);
+            }else{
+                paramSearchMap.put("batch_PB_vendorcompany", null);
+                paramSearchMap.put("batch_PB_company", batch_PB_company);
+            }
+            List<PersonalInfoBatchUpload> personalInfoBatchUpload = personalInfoBatchUploadService.SelectCompanyBatch(paramSearchMap);
             model.addAttribute("personalInfoBatchUpload", personalInfoBatchUpload);
             rs.put("personalInfoBatchUpload", personalInfoBatchUpload);
         }else{
             OrganizationInfo organizationInfo = organizationInfoService.selectAgencyName(t_O_OrgName);
             if (organizationInfo.getT_O_listOrg().equalsIgnoreCase("on")){
                 paramSearchMap.put("batch_PB_company", batch_PB_company);
-                paramSearchMap.put("batch_PB_vendorcompany", organizationInfo.getT_O_OrgPending());
+                paramSearchMap.put("batch_PB_vendorcompany", t_O_OrgName);
                 List<PersonalInfoBatchUpload> personalInfoBatchUpload = personalInfoBatchUploadService.SelectCompanyBatch(paramSearchMap);
+                if(personalInfoBatchUpload.size() == 0){
+                    PersonalInfoBatchUpload personalInfoBatchUploadEmpty = new PersonalInfoBatchUpload();
+                    personalInfoBatchUploadEmpty.setBatch_PB_batchID("<---- 请先上传人员 ---->");
+                    personalInfoBatchUpload.add(personalInfoBatchUploadEmpty);
+                }
                 model.addAttribute("personalInfoBatchUpload", personalInfoBatchUpload);
                 rs.put("personalInfoBatchUpload", personalInfoBatchUpload);
                 //input Personal into Org
             }else{
-                paramSearchMap.put("batch_PB_company", batch_PB_company);
+                paramSearchMap.put("batch_PB_vendorcompany", null);
+                paramSearchMap.put("batch_PB_company", t_O_OrgName);
                 List<PersonalInfoBatchUpload> personalInfoBatchUpload = personalInfoBatchUploadService.SelectCompanyBatch(paramSearchMap);
+                if(personalInfoBatchUpload.size() == 0){
+                    PersonalInfoBatchUpload personalInfoBatchUploadEmpty = new PersonalInfoBatchUpload();
+                    personalInfoBatchUploadEmpty.setBatch_PB_batchID("<---- 请先上传人员 ---->");
+                    personalInfoBatchUpload.add(personalInfoBatchUploadEmpty);
+                }
                 model.addAttribute("personalInfoBatchUpload", personalInfoBatchUpload);
                 rs.put("personalInfoBatchUpload", personalInfoBatchUpload);
             }
@@ -194,7 +261,6 @@ public class PersonalInfoBatchUploadController {
 
         rs.put("ret", 0);
         return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
-//        return "personalInfoBatchUpload/personalInfoBatchUploadNew";
     }
 
     @RequestMapping(value = "personalInfoBatchUploadCompanyChange")
@@ -486,7 +552,6 @@ public class PersonalInfoBatchUploadController {
                                 int colNum = j + 1;
                                 dataChkOk = false;
                                 errRowData.append(String.valueOf("姓名错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow[j].trim().replace(" ","")).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserNameErr);
-//                                rs.put("retMsg", "姓名错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow[j].trim().replace(" ","") + "'");
                                 personalErrInfo.add(errRowData.toString());
                                 break;
                             } else {
@@ -518,9 +583,7 @@ public class PersonalInfoBatchUploadController {
                                 int colNum = j + 1;
                                 dataChkOk = false;
                                 errRowData.append(String.valueOf("银行卡错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow[j].trim().replace(" ","")).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserDebitCardErr);
-//                                rs.put("retMsg", "银行卡错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow[j].trim().replace(" ","")+ "'");
                                 personalErrInfo.add(errRowData.toString());
-//                                return JsonBizTool.genJson(ExRetEnum.Pullin_UserDebitCardErr, rs);
                             } else {
                                 paramSQLmap.put("batch_PB_creditCard", sheetRow[j].trim().replace(" ","").toUpperCase());
                             }
@@ -533,9 +596,7 @@ public class PersonalInfoBatchUploadController {
                                 int colNum = j + 1;
                                 dataChkOk = false;
                                 errRowData.append(String.valueOf("手机号错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow[j].trim().replace(" ","")).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserMobileErr);
-//                                rs.put("retMsg", "手机号错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow[j].trim().replace(" ","") + "'");
                                 personalErrInfo.add(errRowData.toString());
-//                                return JsonBizTool.genJson(ExRetEnum.Pullin_UserMobileErr, rs);
                             } else {
                                 paramSQLmap.put("batch_PB_mobile", sheetRow[j].trim().replace(" ",""));
                             }
@@ -547,9 +608,7 @@ public class PersonalInfoBatchUploadController {
                                 int colNum = j + 1;
                                 dataChkOk = false;
                                 errRowData.append(String.valueOf("授额错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow[j].trim().replace(" ","")).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserCreditLineErr);
-//                                rs.put("retMsg", "授额错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow[j].trim().replace(" ","") + "'");
                                 personalErrInfo.add(errRowData.toString());
-//                                return JsonBizTool.genJson(ExRetEnum.Pullin_UserCreditLineErr, rs);
                             } else {
                                 paramSQLmap.put("batch_PB_credit", new BigDecimal(sheetRow[j].trim().replace(" ","")));
                                 paramSQLmap.put("batch_PB_balance", new BigDecimal(sheetRow[j].trim().replace(" ","")));
@@ -594,9 +653,7 @@ public class PersonalInfoBatchUploadController {
                 int deleteUpload = personalInfoBatchUploadService.deleteByPrimaryKey(batch_PB_batchID);
                 dataChkOk = false;
                 errRowData.append(String.valueOf("重复银行卡记录信息:")).append(errRcsDupDebitCard).append("-错误原因：").append(ExRetEnum.Pullin_FailDupDebitCardErr);
-//                rs.put("retMsg","重复银行卡记录信息: " + errRcsDupDebitCard);
                 personalErrInfo.add(errRowData.toString());
-//                return JsonBizTool.genJson(ExRetEnum.Pullin_FailDupDebitCardErr, rs);
             }
 
 
@@ -619,9 +676,7 @@ public class PersonalInfoBatchUploadController {
                 int deleteUpload = personalInfoBatchUploadService.deleteByPrimaryKey(batch_PB_batchID);
                 dataChkOk = false;
                 errRowData.append(String.valueOf("与系统主人员信息表重复手机号或一个身份证多个手机号记录信息:")).append(errRcsDupMobileMgr).append("-错误原因：").append(ExRetEnum.Pullin_FailDupMgrMobileErr);
-//                rs.put("retMsg","与系统主人员信息表重复手机号或一个身份证多个手机号记录信息: " + errRcsDupMobileMgr);
                 personalErrInfo.add(errRowData.toString());
-//                return JsonBizTool.genJson(ExRetEnum.Pullin_FailDupMgrMobileErr, rs);
             }
 
             // check dup Mobile with t_personal table
@@ -643,9 +698,7 @@ public class PersonalInfoBatchUploadController {
                 int deleteUpload = personalInfoBatchUploadService.deleteByPrimaryKey(batch_PB_batchID);
                 dataChkOk = false;
                 errRowData.append(String.valueOf("与系统个人信息表重复手机号或一个身份证多个手机号记录信息:")).append(errRcsDupMobilePer).append("-错误原因：").append(ExRetEnum.Pullin_FailDupPerMobileErr);
-//                rs.put("retMsg","与系统个人信息表重复手机号或一个身份证多个手机号记录信息: " + errRcsDupMobilePer);
                 personalErrInfo.add(errRowData.toString());
-//                return JsonBizTool.genJson(ExRetEnum.Pullin_FailDupPerMobileErr, rs);
             }
 
             // check dup personal id with Manager table
@@ -667,9 +720,7 @@ public class PersonalInfoBatchUploadController {
                 int deleteUpload = personalInfoBatchUploadService.deleteByPrimaryKey(batch_PB_batchID);
                 dataChkOk = false;
                 errRowData.append(String.valueOf("与系统个人信息表重复身份证或一个手机号多个身份证记录信息:")).append(errRcsDupPID).append("-错误原因：").append(ExRetEnum.Pullin_FailDupPIDErr);
-//                rs.put("retMsg","与系统个人信息表重复身份证或一个手机号多个身份证记录信息: " + errRcsDupPID);
                 personalErrInfo.add(errRowData.toString());
-//                return JsonBizTool.genJson(ExRetEnum.Pullin_FailDupPIDErr, rs);
             }
 
             //check dup mobile in the batch uploaded
@@ -691,9 +742,7 @@ public class PersonalInfoBatchUploadController {
                 int deleteUpload = personalInfoBatchUploadService.deleteByPrimaryKey(batch_PB_batchID);
                 dataChkOk = false;
                 errRowData.append(String.valueOf("上传表中有重复手机号记录信息:")).append(errBatchDupMobile).append("-错误原因：").append(ExRetEnum.Pullin_FailDupBatchMobileErr);
-//                rs.put("retMsg","上传表中有重复手机号记录信息: " + errBatchDupMobile);
                 personalErrInfo.add(errRowData.toString());
-//                return JsonBizTool.genJson(ExRetEnum.Pullin_FailDupBatchMobileErr, rs);
             }
 
             //check dup personal id in the batch uploaded
@@ -715,9 +764,7 @@ public class PersonalInfoBatchUploadController {
                 int deleteUpload = personalInfoBatchUploadService.deleteByPrimaryKey(batch_PB_batchID);
                 dataChkOk = false;
                 errRowData.append(String.valueOf("上传表中有重复身份证记录信息:")).append(errBatchDupPID).append("-错误原因：").append(ExRetEnum.Pullin_FailDupBatchPIDErr);
-//                rs.put("retMsg","上传表中有重复身份证记录信息: " + errBatchDupPID);
                 personalErrInfo.add(errRowData.toString());
-//                return JsonBizTool.genJson(ExRetEnum.Pullin_FailDupBatchPIDErr, rs);
             }
 
             //check dup debit card in the batch uploaded
@@ -739,9 +786,7 @@ public class PersonalInfoBatchUploadController {
                 int deleteUpload = personalInfoBatchUploadService.deleteByPrimaryKey(batch_PB_batchID);
                 dataChkOk = false;
                 errRowData.append(String.valueOf("上传表中有重复银行卡记录信息:")).append(errBatchDupDebitCard).append("-错误原因：").append(ExRetEnum.Pullin_FailDupDebitCardErr);
-//                rs.put("retMsg","上传表中有重复银行卡记录信息: " + errBatchDupDebitCard);
                 personalErrInfo.add(errRowData.toString());
-//                return JsonBizTool.genJson(ExRetEnum.Pullin_FailDupDebitCardErr, rs);
             }
         }
 

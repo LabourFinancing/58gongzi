@@ -239,7 +239,6 @@ public class PersonalMainController {
             FinanceProduct financeProduct;
             if (t_P_Company.equals("ALL")){
                 paramSearchMap.put("t_FProd_Name", ""); //input org name into prod name mass search
-                paramSearchMap.put("t_FProd_Name", ""); //input org name into prod name mass search
                 paramSearchMap.put("t_O_listOrg", "on");
                 List<OrganizationInfo> OrganizationInfo = organizationInfoService.findAllName(paramMap);
                 List<FinanceProduct> FinanceProduct= financeProductService.findSearchList(paramSearchMap);

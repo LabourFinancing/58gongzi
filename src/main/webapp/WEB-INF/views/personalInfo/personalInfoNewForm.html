@@ -63,7 +63,7 @@ jQuery.validator.addMethod("isTel", function(value,element) {
 					required : true,
 					digits : true,
 					isMobile : true,
-					remote : "${ctx}/jqueryValidateController/checkPersonalInfoModil?platform=${platform}" + "&t_P_id=" + $("#t_P_id").val()
+					remote : "${ctx}/jqueryValidateController/checkPersonalInfoModil?platform=${platform}" + "&t_P_Mobil=" + $("#t_P_Mobil").val()
 				},
 				type : {
 					required : true
@@ -199,6 +199,41 @@ jQuery.validator.addMethod("isTel", function(value,element) {
 		}
 	}
 
+	function Agentfilter(sl){
+		var sled = sl.find("option:selected").text();
+		$.ajax({
+			url: "${ctx}/OrganizationInfoController/agentfilter?t_O_VendorOrgName="+sled,
+			type: 'POST',
+			async: true,
+			cache: false,
+			contentType: false,
+			processData: false,
+			success: function (data) {
+				kickoutcheck(data);
+				var result = eval("(" + data + ")");
+				console.log(result.OrganizationInfoList);
+				if(result.ret == "0") {
+					console.log(data);
+					var OrgNameSelect = document.getElementById("t_P_Company");
+					OrgNameSelect.options.length = 0;/**清空下拉框的值*/
+					if ((result.OrganizationInfoList != null) && (result.OrganizationInfoList.length != 0)) {
+						for (var i = 0; i <= result.OrganizationInfoList.length; i++) {
+							var op = new Option();
+							op.text = result.OrganizationInfoList[i].t_FProd_Name + " - " + result.OrganizationInfoList[i].remark;
+							op.value = result.OrganizationInfoList[i].t_FProd_PersPool;
+							OrgNameSelect.options.add(op);
+						}
+					}
+				}
+			},
+			error: function (data) {
+				var result = eval("("+data+")");
+				alert(result.msg);
+			}
+		});
+	}
+
+
 	
 </script>
 </head>
@@ -318,7 +353,7 @@ jQuery.validator.addMethod("isTel", function(value,element) {
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
-								<i class="fa"></i> <input type="text" if="checklen" class="form-control"
+								<i class="fa"></i> <input type="text" id="sponsemobile" class="form-control"
 									name="t_P_Spouse_Phone" id="t_P_Spouse_Phone"/>
 							</div>
 						</div>
@@ -340,7 +375,7 @@ jQuery.validator.addMethod("isTel", function(value,element) {
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
-								<i class="fa"></i> <input type="text" id="checklen" class="form-control"
+								<i class="fa"></i> <input type="text" id="firstcontact" class="form-control"
 									name="t_P_Contact1Mobile" id="t_P_Contact1Mobile"/>
 							</div>
 						</div>
@@ -362,7 +397,7 @@ jQuery.validator.addMethod("isTel", function(value,element) {
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
-								<i class="fa"></i> <input type="text" id="checklen" class="form-control"
+								<i class="fa"></i> <input type="text" id="mgtcontact" class="form-control"
 									name="t_P_Contact2Mobile" id="t_P_Contact2Mobile"/>
 							</div>
 						</div>
@@ -452,9 +487,9 @@ jQuery.validator.addMethod("isTel", function(value,element) {
 							<div class="input-icon right">
 								<i class="fa"></i> 								
 								<select class="bs-select form-control" name="t_P_EmploymentCategory" value="${personalInfo.t_P_EmploymentCategory}">
-									<option value="DIRECTHIRE">直聘</option>
 									<option value="VENDOR">外包</option>
-									<option value="PARTTIME">日结工</option>
+<!--									<option value="DIRECTHIRE">直聘</option>-->
+<!--									<option value="PARTTIME">日结工</option>-->
 								</select>
 							</div>
 						</div>	
@@ -481,13 +516,13 @@ jQuery.validator.addMethod("isTel", function(value,element) {
 								</select>
 							</div>
 					</div>
-				<@shiroPermission name="TREASURYINFO_SUPERADMINVIEW">
+				<@shiro.hasPermission name="TREASURYINFO_SUPERADMINVIEW">
 					<div class="form-group">
 						<label class="control-label col-sm-3">代理商企业名<span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
-							<select class="bs-select form-control" data-live-search="true" name="t_P_VendorEmployeeName" id="t_P_VendorEmployeeName">
+							<select class="bs-select form-control" data-live-search="true" name="t_P_VendorEmployeeName" id="t_P_VendorEmployeeName" onchange="Agentfilter(this)">
 								<#list OrganizationInfoAgency as OrganizationInfoList>
 									<option value="${OrganizationInfoList.t_O_OrgName}">${OrganizationInfoList.t_O_OrgName}</option>					
 								</#list>

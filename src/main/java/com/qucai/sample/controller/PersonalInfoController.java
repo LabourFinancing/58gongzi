@@ -234,25 +234,28 @@ public class PersonalInfoController {
            	String t_O_OrgName = t_P_Company;
            	paramMap.put("t_P_Company", t_P_Company);//添加元素
 			paramSearchMap.put("t_FProd_Name", t_P_Company); //input org name into prod name mass search
-			 paramSearchMap.put("t_O_listOrg", "on");
            	OrganizationInfo orgcategory = organizationInfoService.selectAgencyName(t_O_OrgName);
+           	List<OrganizationInfo> OrganizationInfoList = new ArrayList<OrganizationInfo>();
            	if(orgcategory.getT_O_listOrg().equals("on")){
 				String t_O_VendorOrgName = t_P_Company;
 				paramSearchMap.put("t_O_VendorOrgName",t_P_Company);
 				paramSearchMap.put("t_O_OrgName",null);
-				paramMap.put("t_P_Company", t_P_Company);
-				List<OrganizationInfo> OrganizationInfo = organizationInfoService.findOrgName(paramMap);
+				paramMap.put("t_O_VendorOrgName", t_O_VendorOrgName);
+				OrganizationInfoList = organizationInfoService.findOrgName(paramMap);
+				if(OrganizationInfoList.size() == 0){
+					OrganizationInfoList.add(orgcategory);
+				}
 			}else{
 				paramSearchMap.put("t_O_VendorOrgName",null);
 				paramSearchMap.put("t_O_OrgName",t_P_Company);
-				final OrganizationInfo organizationInfoList = new OrganizationInfo();
-				organizationInfoList.setT_O_OrgName(t_P_Company);
-				List<OrganizationInfo> OrganizationInfo = new ArrayList<OrganizationInfo>();
-				OrganizationInfo.add(organizationInfoList);
+				OrganizationInfoList = new ArrayList<OrganizationInfo>();
+				OrganizationInfo organizationInfoSelf = new OrganizationInfo();
+				organizationInfoSelf.setT_O_OrgName(t_P_Company);
+				OrganizationInfoList.add(organizationInfoSelf);
 			}
           	 List<FinanceProduct> FinanceProduct= financeProductService.findSearchList(paramSearchMap);
           	 model.addAttribute("FinanceProduct", FinanceProduct);
-          	 model.addAttribute("OrganizationInfo", OrganizationInfo);
+          	 model.addAttribute("OrganizationInfo", OrganizationInfoList);
            }
         	return "personalInfo/personalInfoNewForm";
           } else if (OperationTypeConstant.EDIT.equals(operationType)) {
@@ -275,23 +278,26 @@ public class PersonalInfoController {
 				 paramSearchMap.put("t_FProd_Name", t_P_Company); //input org name into prod name mass search
 				 paramSearchMap.put("t_O_listOrg", "on");
 				 OrganizationInfo orgcategory = organizationInfoService.selectAgencyName(t_O_OrgName);
+				 List<OrganizationInfo> OrganizationInfoList = new ArrayList<OrganizationInfo>();
 				 if(orgcategory.getT_O_listOrg().equals("on")){
 					 String t_O_VendorOrgName = t_P_Company;
 					 paramSearchMap.put("t_O_VendorOrgName",t_P_Company);
 					 paramSearchMap.put("t_O_OrgName",null);
-					 paramMap.put("t_P_Company", t_P_Company);
-					 List<OrganizationInfo> OrganizationInfo = organizationInfoService.findOrgName(paramMap);
+					 paramMap.put("t_O_VendorOrgName", t_O_VendorOrgName);
+					 OrganizationInfoList = organizationInfoService.findOrgName(paramMap);
+					 if(OrganizationInfoList.size() == 0){
+						 OrganizationInfoList.add(orgcategory);
+					 }
 				 }else{
 					 paramSearchMap.put("t_O_VendorOrgName",null);
 					 paramSearchMap.put("t_O_OrgName",t_P_Company);
-					 final OrganizationInfo organizationInfoList = new OrganizationInfo();
-					 organizationInfoList.setT_O_OrgName(t_P_Company);
-					 List<OrganizationInfo> OrganizationInfo = new ArrayList<OrganizationInfo>();
-					 OrganizationInfo.add(organizationInfoList);
+					 OrganizationInfo organizationInfoSelf = new OrganizationInfo();
+					 organizationInfoSelf.setT_O_OrgName(t_P_Company);
+					 OrganizationInfoList.add(organizationInfoSelf);
 				 }
 				 List<FinanceProduct> FinanceProduct= financeProductService.findSearchList(paramSearchMap);
 				 model.addAttribute("FinanceProduct", FinanceProduct);
-				 model.addAttribute("OrganizationInfo", OrganizationInfo);
+				 model.addAttribute("OrganizationInfo", OrganizationInfoList);
 			 }
             personalInfo = personalInfoService.selectByPrimaryKey(t_P_id);
             return "personalInfo/personalInfoEditForm";

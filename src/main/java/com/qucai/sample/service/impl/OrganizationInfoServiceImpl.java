@@ -45,6 +45,9 @@ public class OrganizationInfoServiceImpl implements OrganizationInfoService {
        
     @Override
     public int insertSelective(OrganizationInfo record) {
+       if(record.getT_O_OrgPending() == null || record.getT_O_OrgPending().isEmpty()){
+           record.setT_O_OrgPending(record.getT_O_OrgName());
+        }
        trAgentSubOrgDao.insertAgentSubOrg(record.getT_O_OrgPending(),record.getT_O_OrgName());
        return organizationInfoDao.insertSelective(record);
     }

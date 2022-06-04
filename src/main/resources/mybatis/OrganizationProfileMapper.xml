@@ -275,7 +275,7 @@
 		<include refid="Base_Column_List" />
 		from t_organization_profile a
 		where
-       t_Profile_QualificationStatus = "on"
+       	t_Profile_QualificationStatus = "on"
 		order by a.create_time
 	</select>
 

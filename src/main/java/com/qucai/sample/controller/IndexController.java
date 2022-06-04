@@ -1,22 +1,15 @@
 package com.qucai.sample.controller;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.alibaba.fastjson.JSONObject;
-import com.qucai.sample.entity.StaffPrepayApplicationPayment;
-import com.qucai.sample.smss.src.example.json.HttpJsonExample;
-import com.qucai.sample.util.ShiroSessionUtil;
 import com.qucai.sample.util.Tool;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +19,6 @@ import com.qucai.sample.converter.HttpJsonPersonalTest;
 import com.qucai.sample.entity.Manager;
 import com.qucai.sample.exception.ExRetEnum;
 import com.qucai.sample.security.CaptchaUsernamePasswordToken;
-import com.qucai.sample.sandpay.src.cn.com.sandpay.qr.demo.*;
 import com.qucai.sample.service.ManagerService;
 import com.qucai.sample.util.JsonBizTool;
 
@@ -76,7 +68,7 @@ public class IndexController {
             try {
                 String Token = HttpJsonPersonalTest.main(); //Call FuJian wechat API
                 if (Token.equals("1")){
-                    return "mainpage"; //login before
+                    return "login"; //login before
                 }else{
                     String TokenKey = Token;
                     //generate new url to get user info
@@ -97,7 +89,7 @@ public class IndexController {
                         password = manager.getPassword();
                     }
                     if (userName == null) {
-                        return "mainpage"; // login before
+                        return "login"; // login before
                     } else if (!Tool.isChinaPhoneLegal(userName)) {
                         return "mainFrame";
                     } else { //Turn to login page when userid not existing

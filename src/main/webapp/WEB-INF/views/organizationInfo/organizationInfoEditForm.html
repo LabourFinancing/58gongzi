@@ -43,13 +43,11 @@ document.getElementById("updated_date").value=getDate();
 			errorClass : 'help-block help-block-error', // default input error message class
 			focusInvalid : false, // do not focus the last invalid input
 			rules : {
-				name : {
-					maxlength : 50,
+                t_O_EmployeeAmount : {
 					required : true,
-					remote : {
-				        url: "${ctx}/jqueryValidateController/checkOrganizationInfoName?platform=${platform}",
-				        type: "post"
-					}
+					digits : true,
+					isMobile : true,
+					remote : "${ctx}/jqueryValidateController/checkPersonalInfoModil?platform=${platform}" + "&t_P_id=" + $("#t_P_id").val()
 				},
 				type : {
 					required : true
@@ -67,10 +65,15 @@ document.getElementById("updated_date").value=getDate();
 					maxlength : 50
 				}
 			},
+
 			messages: {
-				name: {remote : "公司名称已存在"}
+
+				t_O_EmployeeAmount:{
+					remote : "手机号码已存在",
+					required: "请输入手机号码",
+					isModile: "请输入一个有效的手机号码"
+				},
 			},
-	
 			invalidHandler : function(event, validator) { //display error alert on form submit              
 				App.scrollTo(form, 0);
 			},
@@ -176,12 +179,12 @@ document.getElementById("updated_date").value=getDate();
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_O_OrgName" value="${organizationInfo.t_O_OrgName}" />
+									name="t_O_OrgName" value="${organizationInfo.t_O_OrgName}" disabled="disabled" />
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-3">企业用工规模<span
+						<label class="control-label col-sm-3">企业负责人手机号<span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
@@ -191,6 +194,7 @@ document.getElementById("updated_date").value=getDate();
 							</div>
 						</div>
 					</div>
+				<@shiro.hasPermission name="TREASURYINFO_SUPERADMINVIEW">
 					 <div class="form-group">
 						<label class="control-label col-sm-3">企业评级<span
 							class="required"> * </span>
@@ -216,7 +220,7 @@ document.getElementById("updated_date").value=getDate();
 						</div>
 					</div>
                     <div class="form-group">
-						<label class="control-label col-sm-3">企业法人 <span
+						<label class="control-label col-sm-3">经销商企业名<span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
@@ -226,6 +230,7 @@ document.getElementById("updated_date").value=getDate();
 							</div>
 						</div>
 					</div>
+            </@shiro.hasPermission>
                     <div class="form-group">
 						<label class="control-label col-sm-3">企业法人 <span
 							class="required"> * </span>
@@ -244,7 +249,7 @@ document.getElementById("updated_date").value=getDate();
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_O_OrgPayrollBankaccount" value="${organizationInfo.t_O_OrgPayrollBankaccount}"/>
+									name="t_O_OrgPayrollBankaccount" value="${organizationInfo.t_O_OrgPayrollBankaccount}"  placeholder="请先开通支付备付金账户"/>
 							</div>
 						</div>
 					</div>
@@ -255,7 +260,7 @@ document.getElementById("updated_date").value=getDate();
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_O_OrgChinaebiAcc" value="${organizationInfo.t_O_OrgChinaebiAcc}"/>
+									name="t_O_OrgChinaebiAcc" value="${organizationInfo.t_O_OrgChinaebiAcc}" placeholder="请先开通电银备付金账户"/>
 							</div>
 						</div>
 					</div>
@@ -266,7 +271,7 @@ document.getElementById("updated_date").value=getDate();
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_O_OrgSandeAcc" value="${organizationInfo.t_O_OrgSandeAcc}"/>
+									name="t_O_OrgSandeAcc" value="${organizationInfo.t_O_OrgSandeAcc}" placeholder="请先开通杉德备付金账户"/>
 							</div>
 						</div>
 					</div>
