@@ -10,13 +10,14 @@
     <meta name="google-site-verification" content="6hC_46bMT6_bGxmL_Ec5V_7xnPSnQBhQBl8y3MtfoFc">
     <meta name="Baiduspider" content="noarchive">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
-    <link rel="stylesheet" type="text/css" href="/plugins/front/v-1.0/css/base.css?version=1646192973358">
-    <script type="text/javascript" src="/plugins/front/v-1.0/js/jquery-1.12.3.min.js?version=1646192973358"></script>
-    <script type="text/javascript" src="/plugins/js/md5.js?version=1646192973358"></script>
-    <script type="text/javascript" src="/plugins/front/v-1.0/js/base.js?version=1646192973358"></script>
-    <script type="text/javascript" src="/plugins/front/v-1.0/js/template.js?version=1646192973358"></script>
-    <script type="text/javascript" src="/plugins/front/v-1.0/js/flexslider/js/jquery.flexslider-min.js?version=1646192973358"></script>
-    <script type="text/javascript" src="/plugins/front/v-1.0/js/form.js?version=1646192973358"></script>
+    <link rel="stylesheet" type="text/css" href="${ctx}/metronic/global/plugins/front/v-1.0/css/base.css?version=1646192973358">
+    <script type="text/javascript" src="${ctx}/metronic/global/plugins/front/v-1.0/js/jquery-1.12.3.min.js?version=1646192973358"></script>
+    <script type="text/javascript" src="${ctx}/metronic/global/plugins/js/md5.js?version=1646192973358"></script>
+    <script type="text/javascript" src="${ctx}/metronic/global/plugins/front/v-1.0/js/base.js?version=1646192973358"></script>
+    <script type="text/javascript" src="${ctx}/metronic/global/plugins/front/v-1.0/js/template.js?version=1646192973358"></script>
+    <script type="text/javascript" src="${ctx}/metronic/global/plugins/front/v-1.0/js/flexslider/js/jquery.flexslider-min.js?version=1646192973358"></script>
+    <script type="text/javascript" src="${ctx}/metronic/global/plugins/front/v-1.0/js/form.js?version=1646192973358"></script>
+    <script ype="text/javascript" src="${ctx}/metronic/global/plugins/jsbridge-mini.js" t></script>
     <script src="${ctx}/metronic/global/plugins/jsbridge-mini.js" type="text/javascript"></script>
     <script src="${ctx}/metronic/mobile/js/jquery-2.1.3.js" type="text/javascript"></script>
     <script src="${ctx}/metronic/mobile/js/jsbridge-mini.js" type="text/javascript"></script>
@@ -169,13 +170,13 @@
                         }
                     },
 
-                    invalidHandler: function (event, validator) { //display error alert on form submit
+                    invalidHandler: function (event, validator) { //display error alert on form submit              
                         App.scrollTo(form, 0);
                     },
 
                     highlight: function (element) { // hightlight error inputs
                         $(element).closest('.form-group').removeClass(
-                            "has-success").addClass('has-error'); // set error class to the control group
+                            "has-success").addClass('has-error'); // set error class to the control group   
                     },
 
                     unhighlight: function (element) { // revert the change done by hightlight
@@ -272,12 +273,12 @@
     <!-- login section end -->
 
     <script src="http://cbe.convertlab.com/cbe/collect?tid=948871748&amp;at=0&amp;h=web"></script>
-    <!--    <script type="text/javascript">-->
-    <!--        g_context_path = "";//当前上下文-->
-    <!--        $(function() {-->
-    <!--            $("#appHeader").removeClass('transparent');-->
-    <!--        })-->
-    <!--    </script>-->
+<!--    <script type="text/javascript">-->
+<!--        g_context_path = "";//当前上下文-->
+<!--        $(function() {-->
+<!--            $("#appHeader").removeClass('transparent');-->
+<!--        })-->
+<!--    </script>-->
     <script charset="utf-8" src="https://cbe.convertlab.com/cbe/clab_chunk.js"></script></head>
 
 <body class="login" data-new-gr-c-s-check-loaded="14.1057.0" data-gr-ext-installed="">
@@ -306,12 +307,12 @@
             </div>
             <div class="ft_nav">
                 <ul class="clearfix">
-                    <li t_nav="home" id="pubHome"><a href="">最新活动</a></li>
-                    <li t_nav="product"><a href="javascript:void(0)" id="pubAppAndService">产品</a></li>
-                    <li t_nav="userlogin"><a href="${ctx}/mainpage" target="blank">登陆</a></li>
+                    <li t_nav="home" id="pubHome"><a href="" data-cl-id="1828940142">最新活动</a></li>
+                    <li t_nav="product"><a href="javascript:void(0)" id="pubAppAndService" data-cl-id="621709701">产品</a></li>
+                    <li t_nav="login"><a href="${ctx}/mainpage" target="blank" id="login">登陆</a></li>
                     <!--      <li t_nav="price"><a href="/price" id="pubPrice">价格</a></li>  -->
-                    <li t_nav="support"><a href="javascript:void(0)" id="pubDoc">技术支持</a></li>
-                    <li t_nav="headerAdv"><a href="https://www.ucpaas.com/about/index.html" id="pubZone" >关于我们</a></li>
+                    <li t_nav="support"><a href="javascript:void(0)" id="pubDoc" data-cl-id="969665348">技术支持</a></li>
+                    <li t_nav="headerAdv"><a href="https://www.ucpaas.com/about/index.html" id="pubZone" data-cl-id="927117945">关于我们</a></li>
                 </ul>
 
             </div>
@@ -458,43 +459,43 @@
     </div>
     <!--悬浮导航菜单 ft_menu_fixed eof-->
 
-    <!--    <script type="text/templ" id="scrollMenusTempl">-->
-    <!--		<div class="menu_fixed_wp">-->
-    <!--            <div class="menu_fold">-->
-    <!--                <a href="#" class="current">{{nav_name}}</a>-->
-    <!--                <ul>-->
-    <!--                	{{each scrollMenus as menu}}-->
-    <!--                    <li>-->
-    <!--						{{if menu &&  !menu.subMenus}}-->
-    <!--							<a href="{{menu.url}}">{{menu.name}}</a>-->
-    <!--						{{/if}}-->
-    <!--						{{if menu && menu.subMenus}}-->
-    <!--                       {{menu.name}}<i></i>-->
-    <!--                      		  <div class="fold_list">-->
-    <!--                          		  <em class="icon"></em>-->
-    <!--                          		  {{each menu.subMenus as subMenu}}-->
-    <!--                            		{{if subMenu}}-->
-    <!--										<a href="{{subMenu.url}}">{{subMenu.name}}</a>-->
-    <!--									{{/if}}-->
-    <!--                         		  {{/each}}-->
-    <!--                       		 </div>-->
-    <!--						{{/if}}-->
-    <!--                    </li>-->
-    <!--                    {{/each}}-->
-    <!--                </ul>-->
-    <!--            </div>-->
-    <!--            <div class="menu_title">{{properties}}-->
-    <!--                {{each properties as propertie}}-->
-    <!--	    			{{if propertie}}-->
-    <!--						<a href="#item_box{{$index+1}}" data-menu-id="{{propertie.id}}">{{propertie.name}}</a>-->
-    <!--					{{/if}}-->
-    <!--	    		{{/each}}-->
-    <!--	    		{{if needTryBtn}}-->
-    <!--	    		 <span class="link"><a href="/experience{{tryType}}">立即体验</a></span>-->
-    <!--	    		{{/if}}-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--	</script>-->
+<!--    <script type="text/templ" id="scrollMenusTempl">-->
+<!--		<div class="menu_fixed_wp">-->
+<!--            <div class="menu_fold">-->
+<!--                <a href="#" class="current">{{nav_name}}</a>-->
+<!--                <ul>-->
+<!--                	{{each scrollMenus as menu}}-->
+<!--                    <li>-->
+<!--						{{if menu &&  !menu.subMenus}}-->
+<!--							<a href="{{menu.url}}">{{menu.name}}</a>-->
+<!--						{{/if}}-->
+<!--						{{if menu && menu.subMenus}}-->
+<!--                       {{menu.name}}<i></i>-->
+<!--                      		  <div class="fold_list">-->
+<!--                          		  <em class="icon"></em>-->
+<!--                          		  {{each menu.subMenus as subMenu}}-->
+<!--                            		{{if subMenu}}-->
+<!--										<a href="{{subMenu.url}}">{{subMenu.name}}</a>-->
+<!--									{{/if}}-->
+<!--                         		  {{/each}}-->
+<!--                       		 </div>-->
+<!--						{{/if}}-->
+<!--                    </li>-->
+<!--                    {{/each}}-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--            <div class="menu_title">{{properties}}-->
+<!--                {{each properties as propertie}}-->
+<!--	    			{{if propertie}}-->
+<!--						<a href="#item_box{{$index+1}}" data-menu-id="{{propertie.id}}">{{propertie.name}}</a>-->
+<!--					{{/if}}-->
+<!--	    		{{/each}}-->
+<!--	    		{{if needTryBtn}}-->
+<!--	    		 <span class="link"><a href="/experience{{tryType}}">立即体验</a></span>-->
+<!--	    		{{/if}}-->
+<!--            </div>-->
+<!--        </div>-->
+<!--	</script>-->
     <!--公共头部 ft_header eof-->
     <!--popupBox-->
     <!--弹层（提交后）bof-->
@@ -543,14 +544,14 @@
                 <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
                 <label class="control-label visible-ie8 visible-ie9"><img id="l-img1" class="lable-img l-img1"
                                                                           src="${ctx}/metronic/mobile/imgs/user-name.png" alt=""></label> <input
-                    class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off"
-                    placeholder="输入你的用户名/手机号" id="userName" name="userName">
+                class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off"
+                placeholder="输入你的用户名/手机号" id="userName" name="userName">
             </div>
             <div class="form-group">
                 <label class="control-label visible-ie8 visible-ie9"><img id="l-img2" class="lable-img l-img2"
                                                                           src="${ctx}/metronic/mobile/imgs/pwd.png" alt=""></label><input
-                    class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off"
-                    placeholder="输入您的密码" id="password" name="password">
+                class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off"
+                placeholder="输入您的密码" id="password" name="password">
                 <!--默认闭眼图-->
             </div>
             <div class="form-group"><input class="form-control form-control-solid placeholder-no-fix" type="hidden"
@@ -689,30 +690,30 @@
         </script>
     </div>
 
-    <!--    <script type="text/javascript">-->
-    <!--        var init_ = function(pub){-->
-    <!--            //加载头部跟底部-->
-    <!--            pub.loadFooterHtml();-->
-    <!--            pub.loadHeaderHtml();-->
-    <!--        }(Public);-->
+<!--    <script type="text/javascript">-->
+<!--        var init_ = function(pub){-->
+<!--            //加载头部跟底部-->
+<!--            pub.loadFooterHtml();-->
+<!--            pub.loadHeaderHtml();-->
+<!--        }(Public);-->
 
-    <!--        $(function(){-->
-    <!--            $("input[type='checkbox']").click(function(){-->
-    <!--                if($(this).attr("checked")){-->
-    <!--                    $(this).attr("checked",true);-->
-    <!--                    $(this).parent("span").addClass("checked");-->
-    <!--                    $("#remusername").val("1");-->
-    <!--                }-->
-    <!--                else{-->
-    <!--                    $(this).attr("checked",false);-->
-    <!--                    $(this).parent("span").removeClass("checked");-->
-    <!--                    $("#remusername").val("0");-->
-    <!--                }-->
-    <!--            });-->
+<!--        $(function(){-->
+<!--            $("input[type='checkbox']").click(function(){-->
+<!--                if($(this).attr("checked")){-->
+<!--                    $(this).attr("checked",true);-->
+<!--                    $(this).parent("span").addClass("checked");-->
+<!--                    $("#remusername").val("1");-->
+<!--                }-->
+<!--                else{-->
+<!--                    $(this).attr("checked",false);-->
+<!--                    $(this).parent("span").removeClass("checked");-->
+<!--                    $("#remusername").val("0");-->
+<!--                }-->
+<!--            });-->
 
 
-    <!--        })-->
-    <!--    </script>-->
+<!--        })-->
+<!--    </script>-->
 
 
 </body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
