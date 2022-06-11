@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!-- <#include "/common/commonContext.html"> -->
+<!--     <#include "/common/commonContext.html">-->
     <script src="${ctx}/metronic/global/plugins/jquery.min.js" type="text/javascript"></script>
     <script src="${ctx}/metronic/global/plugins/ajaxfileupload-variable-transfer.js" type="text/javascript"></script>
     <link href="${ctx}/metronic/new_modules/app_info.css" rel="stylesheet" type="text/css" >
@@ -19,11 +19,15 @@
     <!-- 图表 -->
     <script type="text/javascript" src="${ctx}/metronic/new_modules/echarts.common.min.js"></script>
     <script src="${ctx}/metronic/mobile/js/bootstrap.min.js" type="text/javascript"></script>
+    <link href="${ctx}/metronic/mobile/css/bootstrap.min.css" rel="stylesheet" type="text/css" >
+    <#include "/common/cssResource.html">
+    <link href="${ctx}/metronic/global/plugins/jquery-treetable/css/jquery.treetable.css" rel="stylesheet" type="text/css" />
+    <link href="${ctx}/metronic/global/plugins/jquery-treetable/css/jquery.treetable.theme.default.css" rel="stylesheet" type="text/css" />
+    <#include "/common/jsResource.html">
+    <script src="${ctx}/metronic/global/plugins/jquery-treetable/jquery.treetable.js" type="text/javascript"></script>
     <script src="${ctx}/metronic/mobile/js/moment-with-locales.js" type="text/javascript"></script>
     <!-- // 日期插件 -->
     <script src="${ctx}/metronic/new_modules/bootstrap-datetimepicker.min.js"></script>
-
-    <link href="${ctx}/metronic/mobile/css/bootstrap.min.css" rel="stylesheet" type="text/css" >
     <link href="${ctx}/metronic/new_modules/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" >
 
 
@@ -34,17 +38,6 @@
         var authLevel = '<c:out value="${sessionScope.USER.authLevel}" />';
         var userType = '<c:out value="${sessionScope.USER.type}" />';
         var orgAmount= '<c:out value="${sessionScope.AGENT.orgAmount}" />';
-        var loginUser = {userId: userId, orgId: orgId, authLevel: authLevel, type: userType ,orgAmount:orgAmount};
-        */
-        /**
-         * 上传文件
-         */
-        /*
-        var userId = '<c:out value="" />';
-        var orgId = '<c:out value="" />';
-        var authLevel = '<c:out value="" />';
-        var userType = '<c:out value="" />';
-        var orgAmount= '<c:out value="" />';
         var loginUser = {userId: userId, orgId: orgId, authLevel: authLevel, type: userType ,orgAmount:orgAmount};
         */
         /**
@@ -348,9 +341,9 @@
                 success: function(dataFProdC) {
                     kickoutcheck(dataFProdC);
                     var result = eval("(" + dataFProdC + ")");
-                    console.log(result.FinanceProduct);
+                    // console.log(result.FinanceProduct);
                     if(result.ret == "0") {
-                        console.log(dataFProdC);
+                        // console.log(dataFProdC);
                         var batchPBbatchIDSelect = document.getElementById("batch_PB_batchID");
                         batchPBbatchIDSelect.options.length=0;/**清空下拉框的值*/
                         if((result.personalInfoBatchUpload!=null)&&(result.personalInfoBatchUpload.length!=0)) {
@@ -395,7 +388,7 @@
                     selected = true;
                     kickoutcheck(dataFProdC);
                     var result = eval("(" + dataFProdC + ")");
-                    console.log(result.FinanceProduct);
+                    // console.log(result.FinanceProduct);
                     if(result.ret == "0") {
                         console.log(dataFProdC);
                         var FProdNameSelect = document.getElementById("t_FPROD_Name");
@@ -513,11 +506,8 @@
         })
 
         function openDetails(){
-            console.log(document.getElementById("batch_PB_batchID").value);
             var t_batch_perslUploadStatus_batchid_value = document.getElementById("batch_PB_batchID").value;
             var openWindowWidth = $(document).width() * 0.8 + "px";
-            console.log(openWindowWidth);
-            console.log(offsetH);
             var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
             layer.open({
                 type: 2,
@@ -525,9 +515,7 @@
                 offset : offsetH,
                 fix: false, //不固定
                 maxmin: true,
-                content: '/sample_war_exploded/PersonalInfoBatchUploadStatusController/form?t_batch_perslUploadStatus_batchid='+encodeURI(encodeURI(t_batch_perslUploadStatus_batchid_value))+
-                    '&operationType=" + "list" + ' +
-                    '"&platform=" + "0"',
+                content: '${ctx}/PersonalInfoBatchUploadStatusController/form?t_batch_perslUploadStatus_batchid='+encodeURI(encodeURI(t_batch_perslUploadStatus_batchid_value))+'&operationType=list&platform=0',
                 success: function(layero, index){
                     layer.iframeAuto(index);
                 }
@@ -688,27 +676,32 @@
                                 </div>
                                 <div class="processArea">
                                     <div class="processTitle">
+                                        <div>
                                         <label>绑定批次<span class="required"> * </span>
                                         </label>
-                                        <div style="margin-left:0px;width:150%">
-                                            <div style="width:80%;display:inline">
+                                        </div>
+                                    <div style="display:inline-block">
+                                        <div style="margin-left:0px;width:150%;display:inline-block;">
+                                            <div style="width:80%;display:inline-block;">
                                                 <select class="bs-select form-control" data-live-search="true" name="batch_PB_batchID"
                                                         id="batch_PB_batchID">
                                                     <#list personalInfoBatchUpload as personalInfoBatchUpload>
                                                     <option value="${personalInfoBatchUpload.batch_PB_batchID}">
                                                         ${personalInfoBatchUpload.batch_PB_batchID} </option>
                                                 </#list>
-                                        <div style="margin-left:0px;width:1000%">
-                                            <div style="width:150%;display:inline">
-                                                <select colspan="1" class="bs-select form-control" style="width: 15%;float:left;margin-right:5px" data-live-search="true" name="batch_PB_batchID" id="batch_PB_batchID" onchange="FProdFilter()">
-                                                    <option value="">
-                                                    </option>
-                                                </select>
-                                                <div style="margin-left:0px;">
-                                                    <a id="detaillist" style="width:20%;margin-right: 0px;" href="#" onclick="javascript:;openDetails()">查看详情</a>
-                                                </div>
                                             </div>
                                         </div>
+                                        <div style="margin-left:0px;width:1000%;">
+                                            <div style="width:150%;">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="display:inline-block">
+                                        <div style="margin-left:0px;display:inline-block">
+                                            <a id="detaillist" style="width:20%;margin-right: 0px;" href="#" onclick="javascript:;openDetails()">查看详情</a>
+                                        </div>
+                                    </div>
                                     </div>
                                     <div class="processTitle">
                                         <label>授额开启时间段:<span class="required">*</span>
