@@ -13,17 +13,17 @@
 		<result column="t_Profile_Email" property="t_Profile_Email" jdbcType="VARCHAR" />
 		<result column="t_Profile_Address" property="t_Profile_Address" jdbcType="VARCHAR" />
 		<result column="t_Profile_PostRet" property="t_Profile_PostRet" jdbcType="VARCHAR" />
-		<result column="t_Profile_IPaddress" property="t_Profile_IPaddress" jdbcType="VARCHAR" />
+		<result column="t_Profile_OrgType" property="t_Profile_OrgType" jdbcType="VARCHAR" />
 		<result column="t_Profile_StatusRptRetAddress" property="t_Profile_StatusRptRetAddress" jdbcType="VARCHAR" />
         <result column="t_Profile_CurrentAddress" property="t_Profile_CurrentAddress" jdbcType="VARCHAR" />
-        <result column="t_Profile_text1" property="t_Profile_text1" jdbcType="VARCHAR" />
+        <result column="t_Profile_IPaddr" property="t_Profile_IPaddr" jdbcType="VARCHAR" />
         <result column="t_Profile_APIAcc" property="t_Profile_APIAcc" jdbcType="VARCHAR" />
         <result column="t_Profile_APIPWD" property="t_Profile_APIPWD" jdbcType="VARCHAR" />
         <result column="t_Profile_APIret" property="t_Profile_APIret" jdbcType="VARCHAR" />
         <result column="t_Profile_AgentCmpyName" property="t_Profile_AgentCmpyName" jdbcType="VARCHAR"/>
-        <result column="t_Profile_txt1" property="t_Profile_txt1" jdbcType="VARCHAR"/>
-        <result column="t_Profile_txt2" property="t_Profile_txt2" jdbcType="VARCHAR"/>
-        <result column="t_Profile_txt3" property="t_Profile_txt3" jdbcType="VARCHAR"/>
+        <result column="t_Profile_AppStatus" property="t_Profile_AppStatus" jdbcType="VARCHAR"/>
+        <result column="t_Profile_RetHTTPget" property="t_Profile_RetHTTPget" jdbcType="VARCHAR"/>
+        <result column="t_Profile_RegulatorReq" property="t_Profile_RegulatorReq" jdbcType="VARCHAR"/>
 		<result column="platform" property="platform" jdbcType="VARCHAR" />
 		<result column="remark" property="remark" jdbcType="VARCHAR" />
 		<result column="creator" property="creator" jdbcType="VARCHAR" />
@@ -43,17 +43,17 @@
 		a.t_Profile_Email,
 		a.t_Profile_Address,
 		a.t_Profile_PostRet,
-		a.t_Profile_IPaddress,
+		a.t_Profile_OrgType,
 		a.t_Profile_StatusRptRetAddress,
 		a.t_Profile_CurrentAddress,
-		a.t_Profile_text1,
+		a.t_Profile_IPaddr,
 		a.t_Profile_APIAcc,
 		a.t_Profile_APIPWD,
 		a.t_Profile_APIret,
 		a.t_Profile_AgentCmpyName,
-		a.t_Profile_txt1,
-		a.t_Profile_txt2,
-		a.t_Profile_txt3,
+		a.t_Profile_AppStatus,
+		a.t_Profile_RetHTTPget,
+		a.t_Profile_RegulatorReq,
 		a.platform,
 		a.remark,
 		a.creator,
@@ -100,8 +100,8 @@
 		<if test="remark != null">
 		and a.remark like CONCAT('%',#{remark},'%')
 		</if>
-		<if test="t_Profile_IPaddress != null">
-		and a.t_Profile_IPaddress like CONCAT('%',DATE(#{t_Profile_IPaddress}),'%')
+		<if test="t_Profile_OrgType != null">
+		and a.t_Profile_OrgType like CONCAT('%',DATE(#{t_Profile_OrgType}),'%')
 		</if>
 		order by create_time
 	</select>
@@ -144,8 +144,8 @@
 			<if test="t_Profile_PostRet != null">
                 t_Profile_PostRet,
 			</if>
-			<if test="t_Profile_IPaddress != null">
-                t_Profile_IPaddress,
+			<if test="t_Profile_OrgType != null">
+				t_Profile_OrgType,
 			</if>
 			<if test="t_Profile_StatusRptRetAddress != null">
                 t_Profile_StatusRptRetAddress,
@@ -153,8 +153,8 @@
 			<if test="t_Profile_CurrentAddress != null">
                 t_Profile_CurrentAddress,
 			</if>
-            <if test="t_Profile_text1 != null">
-                t_Profile_text1,
+            <if test="t_Profile_IPaddr != null">
+				t_Profile_IPaddr,
             </if>
             <if test="t_Profile_APIAcc != null">
                 t_Profile_APIAcc,
@@ -165,6 +165,18 @@
             <if test="t_Profile_APIret != null">
                 t_Profile_APIret,
             </if>
+			<if test="t_Profile_AgentCmpyName != null">
+				t_Profile_AgentCmpyName,
+			</if>
+			<if test="t_Profile_AppStatus != null">
+				t_Profile_AppStatus,
+			</if>
+			<if test="t_Profile_RetHTTPget != null">
+				t_Profile_RetHTTPget,
+			</if>
+			<if test="t_Profile_RegulatorReq != null">
+				t_Profile_RegulatorReq,
+			</if>
 			<if test="platform != null">
 				platform,
 			</if>
@@ -215,8 +227,8 @@
 			<if test="t_Profile_PostRet != null">
 				#{t_Profile_PostRet,jdbcType=VARCHAR},
 			</if>
-			<if test="t_Profile_IPaddress != null">
-				#{t_Profile_IPaddress,jdbcType=VARCHAR},
+			<if test="t_Profile_OrgType != null">
+				#{t_Profile_OrgType,jdbcType=VARCHAR},
 			</if>
 			<if test="t_Profile_StatusRptRetAddress != null">
 				#{t_Profile_StatusRptRetAddress,jdbcType=VARCHAR},
@@ -224,8 +236,8 @@
 			<if test="t_Profile_CurrentAddress != null">
 				#{t_Profile_CurrentAddress,jdbcType=VARCHAR},
 			</if>
-            <if test="t_Profile_text1 != null">
-                #{t_Profile_text1,jdbcType=VARCHAR},
+            <if test="t_Profile_IPaddr != null">
+                #{t_Profile_IPaddr,jdbcType=VARCHAR},
             </if>
             <if test="t_Profile_APIAcc != null">
                 #{t_Profile_APIAcc,jdbcType=VARCHAR},
@@ -236,6 +248,18 @@
             <if test="t_Profile_APIret != null">
                 #{t_Profile_APIret,jdbcType=VARCHAR},
             </if>
+			<if test="t_Profile_AgentCmpyName != null">
+				#{t_Profile_AgentCmpyName,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_AppStatus != null">
+				#{t_Profile_AppStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_RetHTTPget != null">
+				#{t_Profile_RetHTTPget,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_RegulatorReq != null">
+				#{t_Profile_RegulatorReq,jdbcType=VARCHAR},
+			</if>
 			<if test="platform != null">
 				#{modifier,jdbcType=VARCHAR},
 			</if>
@@ -326,14 +350,14 @@
 			<if test="t_Profile_Email != null">
                 t_Profile_Email = #{t_Profile_Email,jdbcType=VARCHAR},
 			</if>
-			<if test="t_Profile_Address != null">
-                t_Profile_Address = #{t_Profile_Address,jdbcType=VARCHAR},
+			<if test="t_Profile_OrgType != null">
+				t_Profile_OrgType = #{t_Profile_Address,jdbcType=VARCHAR},
 			</if>
 			<if test="t_Profile_PostRet != null">
                 t_Profile_PostRet = #{t_Profile_PostRet,jdbcType=VARCHAR},
 			</if>
-			<if test="t_Profile_IPaddress != null">
-                t_Profile_IPaddress = #{t_Profile_IPaddress,jdbcType=VARCHAR},
+			<if test="t_Profile_OrgType != null">
+				t_Profile_OrgType = #{t_Profile_OrgType,jdbcType=VARCHAR},
 			</if>
 			<if test="t_Profile_StatusRptRetAddress != null">
                 t_Profile_StatusRptRetAddress = #{t_Profile_StatusRptRetAddress,jdbcType=VARCHAR},
@@ -341,8 +365,8 @@
 			<if test="t_Profile_CurrentAddress != null">
                 t_Profile_CurrentAddress = #{t_Profile_CurrentAddress,jdbcType=VARCHAR},
 			</if>
-            <if test="t_Profile_text1 != null">
-                t_Profile_text1 = #{t_Profile_text1,jdbcType=VARCHAR},
+            <if test="t_Profile_IPaddr != null">
+				t_Profile_IPaddr = #{t_Profile_IPaddr,jdbcType=VARCHAR},
             </if>
             <if test="t_Profile_APIAcc != null">
                 t_Profile_APIAcc = #{t_Profile_APIAcc,jdbcType=VARCHAR},
@@ -353,6 +377,18 @@
             <if test="t_Profile_APIret != null">
                 t_Profile_APIret = #{t_Profile_APIret,jdbcType=VARCHAR},
             </if>
+			<if test="t_Profile_AgentCmpyName != null">
+				t_Profile_AgentCmpyName = #{t_Profile_AgentCmpyName,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_AppStatus != null">
+				t_Profile_AppStatus = #{t_Profile_AppStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_RetHTTPget != null">
+				t_Profile_RetHTTPget = #{t_Profile_RetHTTPget,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_RegulatorReq != null">
+				t_Profile_RegulatorReq = #{t_Profile_RegulatorReq,jdbcType=VARCHAR},
+			</if>
 			<if test="platform != null">
 				platform = #{platform,jdbcType=VARCHAR},
 			</if>
@@ -414,27 +450,6 @@
 		and a.t_Profile_OrgName != "ALL"
     </if>
 	</select>
-	
-	<select id="findOrgName" resultMap="BaseResultMap"
-		parameterType="java.util.Map">
-		select
-        t_Profile_OrgName
-		from t_organization_profile a
-		where
-        a.t_Profile_OrgName = #{t_P_Company,jdbcType=VARCHAR}
-        <if test="t_Profile_IPaddress != null">
-			and a.t_Profile_IPaddress = #{t_Profile_IPaddress,jdbcType=VARCHAR}
-		</if>
-		UNION select DISTINCT t_P_Company from t_personal_info where t_P_VendorEmployeeName = #{t_P_Company,jdbcType=VARCHAR}
-	</select>
-	
-	<select id="findOrgNameAgency" resultMap="BaseResultMap"
-		parameterType="java.util.Map">
-		select
-		t_Profile_OrgName
-		from t_organization_profile a
-		where
-		a.t_O_listOrg = #{t_O_listOrg,jdbcType=VARCHAR}
-	</select>
+
 </mapper>
  

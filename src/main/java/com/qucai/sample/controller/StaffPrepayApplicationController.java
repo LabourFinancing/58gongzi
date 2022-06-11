@@ -101,6 +101,7 @@ public class StaffPrepayApplicationController {
     		String t_P_EmploymentCategory,BigDecimal t_P_SocialSecurityBaseAmount,HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 
 		if(ShiroSessionUtil.getLoginSession().getPlatform().equals("covid19")){
+			model.addAttribute("userName", ShiroSessionUtil.getLoginSession().getUserName());
 			return "staffPrepayApplication/covid19passport";
 		}
 		//Verify Company Creditline

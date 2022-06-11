@@ -79,7 +79,7 @@ public class RegistController {
                     manager.setTelephone(mobile.trim());
                     manager.setEmail("test@test.com");
                     manager.setStatus(1);
-                    manager.setPlatform("0"); // 0 - PC , 1 - mobile, 2 - wechat, 3 -  alipay
+                    manager.setPlatform("5"); // 0 - PC , 1 - mobile, 2 - wechat, 3 -  alipay 4-agent 5-corp
                     manager.setRemark("企业用户，初始设置");
                     manager.setCompany_name(FirmNameFMT);
                     manager.setCreateTime(NewTime);
@@ -104,7 +104,7 @@ public class RegistController {
                         organizationInfo.setT_O_SysUpdateDate(new Date());
                         organizationInfo.setT_O_OrgPending(FirmNameFMT);
                         organizationInfo.setRemark("新注册企业用户");
-                        organizationInfo.setPlatform("0"); // 0 - PC , 1 - mobile, 2 - wechat, 3 -  alipay
+                        organizationInfo.setPlatform("5"); // 1 - mobile, 2 - wechat, 3 -  alipay 4-agent 5-corp
                         organizationInfo.setCreator(username.trim());
                         organizationInfo.setCreate_time(NewTime);
                         organizationInfo.setModifier(username.trim());
@@ -132,7 +132,7 @@ public class RegistController {
                     manager.setTelephone(mobile.trim());
                     manager.setEmail("test@test.com");
                     manager.setStatus(1);
-                    manager.setPlatform("0"); // 0 - PC , 1 - mobile, 2 - wechat, 3 -  alipay
+                    manager.setPlatform("4"); // 0 - PC , 1 - mobile, 2 - wechat, 3 -  alipay
                     manager.setRemark("经销商企业用户，初始设置");
                     manager.setCompany_name(FirmNameFMT);
                     manager.setCreateTime(NewTime);
@@ -157,7 +157,7 @@ public class RegistController {
                         organizationInfo.setT_O_OrgPending(FirmNameFMT);
                         organizationInfo.setT_O_SysUpdateDate(new Date());
                         organizationInfo.setRemark("新注册经销商用户");
-                        organizationInfo.setPlatform("0"); // 0 - PC , 1 - mobile, 2 - wechat, 3 -  alipay
+                        organizationInfo.setPlatform("4"); // 0 - PC , 1 - mobile, 2 - wechat, 3 -  alipay
                         organizationInfo.setCreator(username.trim());
                         organizationInfo.setCreate_time(NewTime);
                         organizationInfo.setModifier(username.trim());
@@ -198,7 +198,7 @@ public class RegistController {
                     manager.setTelephone(mobile.trim());
                     manager.setEmail("test@test.com");
                     manager.setStatus(1);
-                    manager.setPlatform("0"); // 0 - PC , 1 - mobile, 2 - wechat, 3 -  alipay
+                    manager.setPlatform(organizationInfo.getPlatform()); // 0 - PC , 1 - mobile, 2 - wechat, 3 -  alipay
                     manager.setCompany_name(firmSelName.toString());
                     manager.setCreateTime(NewTime);
                     manager.setModifyTime(NewTime);

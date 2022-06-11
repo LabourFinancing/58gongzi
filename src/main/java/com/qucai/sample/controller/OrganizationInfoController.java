@@ -61,11 +61,18 @@ public class OrganizationInfoController {
     public String organizationInfoList(OrganizationInfo organizationInfo, @RequestParam( defaultValue = "0" )  String platform,
     		HttpServletRequest request, HttpServletResponse response, Model model) {
         String t_M_Company = ShiroSessionUtil.getLoginSession().getCompany_name();
-    	
-    	Map<String, Object> paramMap = new HashMap<String, Object>();//新建map对象
-        PageParam pp = Tool.genPageParam(request);      
 
-        paramMap.put("t_M_Company",t_M_Company);
+    	Map<String, Object> paramMap = new HashMap<String, Object>();//新建map对象
+        PageParam pp = Tool.genPageParam(request);
+
+        if(ShiroSessionUtil.getLoginSession().getPlatform().equals("4")){
+            paramMap.put("t_M_Company",null);
+            paramMap.put("t_O_VendorOrgName",t_M_Company);
+        }
+        else if(ShiroSessionUtil.getLoginSession().getPlatform().equals("5")){
+            paramMap.put("t_M_Company",t_M_Company);
+            paramMap.put("t_O_VendorOrgName",null);
+        }
         PageInfo<OrganizationInfo> page = organizationInfoService.findAllList(paramMap, pp);
         model.addAttribute("page", page);
 
@@ -88,13 +95,24 @@ public class OrganizationInfoController {
         	paramSearchMap.put("t_O_OrgStatus", t_O_OrgStatus);//添加元素
         	paramSearchMap.put("remark", remark);//添加元素
         	paramSearchMap.put("create_time", create_time);//添加元素
-            PageParam pp = Tool.genPageParam(request);  
-            PageInfo<OrganizationInfo> page = organizationInfoService.findSearchList(pp, paramSearchMap);
+            PageParam pp = Tool.genPageParam(request);
+            if(ShiroSessionUtil.getLoginSession().getPlatform().equals("4")){
+                paramSearchMap.put("t_O_VendorOrgName",t_M_Company);
+            }
+            PageInfo<OrganizationInfo> page = organizationInfoService.findSearchList(pp, paramSearchMap); //  << new-function
             model.addAttribute("page", page);//从数据库查询出来的结果用model的方式返回
     	} else {
             PageParam pp = Tool.genPageParam(request);
             Map<String, Object> paramMap  = new HashMap<String, Object>();
             paramMap.put("t_M_Company",t_M_Company);
+            if(ShiroSessionUtil.getLoginSession().getPlatform().equals("4")){
+                paramMap.put("t_M_Company",null);
+                paramMap.put("t_O_VendorOrgName",t_M_Company);
+            }
+            else if(ShiroSessionUtil.getLoginSession().getPlatform().equals("5")){
+                paramMap.put("t_M_Company",t_M_Company);
+                paramMap.put("t_O_VendorOrgName",null);
+            }
             PageInfo<OrganizationInfo> page = organizationInfoService.findAllList(paramMap, pp);
             model.addAttribute("page", page);
         }

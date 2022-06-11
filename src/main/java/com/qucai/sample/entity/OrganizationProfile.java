@@ -50,7 +50,7 @@ public class OrganizationProfile implements Serializable {
 
    /**
     */
-   private String t_Profile_IPaddress;
+   private String t_Profile_OrgType;
    /**
     */
    private String t_Profile_StatusRptRetAddress;
@@ -60,7 +60,7 @@ public class OrganizationProfile implements Serializable {
    private String t_Profile_CurrentAddress;
     /**
      */
-    private String t_Profile_text1;
+    private String t_Profile_IPaddr;
     /**
      */
     private String t_Profile_APIAcc;
@@ -75,13 +75,13 @@ public class OrganizationProfile implements Serializable {
    private String t_Profile_AgentCmpyName;
     /**
      */
-    private String t_Profile_txt1;
+    private String t_Profile_AppStatus;
     /**
      */
-    private String t_Profile_txt2;
+    private String t_Profile_RetHTTPget;
     /**
      */
-    private String t_Profile_txt3;
+    private String t_Profile_RegulatorReq;
     /**
      */
    private String platform;
@@ -97,224 +97,229 @@ public class OrganizationProfile implements Serializable {
    /**
     */
    private String modifier;
-   /**
-    */
-   private Date modify_time;
 
-
-    public String getT_Profile_ID() {
-        return t_Profile_ID;
+    public static long getSerialVersionUID() {
+        return OrganizationProfile.serialVersionUID;
     }
 
-    public void setT_Profile_ID(String t_Profile_ID) {
+    public String getT_Profile_ID() {
+        return this.t_Profile_ID;
+    }
+
+    public void setT_Profile_ID(final String t_Profile_ID) {
         this.t_Profile_ID = t_Profile_ID;
     }
 
     public String getT_Profile_CertificationCode() {
-        return t_Profile_CertificationCode;
+        return this.t_Profile_CertificationCode;
     }
 
-    public void setT_Profile_CertificationCode(String t_Profile_CertificationCode) {
+    public void setT_Profile_CertificationCode(final String t_Profile_CertificationCode) {
         this.t_Profile_CertificationCode = t_Profile_CertificationCode;
     }
 
     public String getT_Profile_OrgName() {
-        return t_Profile_OrgName;
+        return this.t_Profile_OrgName;
     }
 
-    public void setT_Profile_OrgName(String t_Profile_OrgName) {
+    public void setT_Profile_OrgName(final String t_Profile_OrgName) {
         this.t_Profile_OrgName = t_Profile_OrgName;
     }
 
     public String getT_Profile_Qualification() {
-        return t_Profile_Qualification;
+        return this.t_Profile_Qualification;
     }
 
-    public void setT_Profile_Qualification(String t_Profile_Qualification) {
+    public void setT_Profile_Qualification(final String t_Profile_Qualification) {
         this.t_Profile_Qualification = t_Profile_Qualification;
     }
 
     public String getT_Profile_QualificationStatus() {
-        return t_Profile_QualificationStatus;
+        return this.t_Profile_QualificationStatus;
     }
 
-    public void setT_Profile_QualificationStatus(String t_Profile_QualificationStatus) {
+    public void setT_Profile_QualificationStatus(final String t_Profile_QualificationStatus) {
         this.t_Profile_QualificationStatus = t_Profile_QualificationStatus;
     }
 
     public String getT_Profile_Mobile() {
-        return t_Profile_Mobile;
+        return this.t_Profile_Mobile;
     }
 
-    public void setT_Profile_Mobile(String t_Profile_Mobile) {
+    public void setT_Profile_Mobile(final String t_Profile_Mobile) {
         this.t_Profile_Mobile = t_Profile_Mobile;
     }
 
     public String getT_Profile_Contact() {
-        return t_Profile_Contact;
+        return this.t_Profile_Contact;
     }
 
-    public void setT_Profile_Contact(String t_Profile_Contact) {
+    public void setT_Profile_Contact(final String t_Profile_Contact) {
         this.t_Profile_Contact = t_Profile_Contact;
     }
 
     public String getT_Profile_Email() {
-        return t_Profile_Email;
+        return this.t_Profile_Email;
     }
 
-    public void setT_Profile_Email(String t_Profile_Email) {
+    public void setT_Profile_Email(final String t_Profile_Email) {
         this.t_Profile_Email = t_Profile_Email;
     }
 
     public String getT_Profile_Address() {
-        return t_Profile_Address;
+        return this.t_Profile_Address;
     }
 
-    public void setT_Profile_Address(String t_Profile_Address) {
+    public void setT_Profile_Address(final String t_Profile_Address) {
         this.t_Profile_Address = t_Profile_Address;
     }
 
     public String getT_Profile_PostRet() {
-        return t_Profile_PostRet;
+        return this.t_Profile_PostRet;
     }
 
-    public void setT_Profile_PostRet(String t_Profile_PostRet) {
+    public void setT_Profile_PostRet(final String t_Profile_PostRet) {
         this.t_Profile_PostRet = t_Profile_PostRet;
     }
 
-    public String getT_Profile_IPaddress() {
-        return t_Profile_IPaddress;
+    public String getT_Profile_OrgType() {
+        return this.t_Profile_OrgType;
     }
 
-    public void setT_Profile_IPaddress(String t_Profile_IPaddress) {
-        this.t_Profile_IPaddress = t_Profile_IPaddress;
+    public void setT_Profile_OrgType(final String t_Profile_OrgType) {
+        this.t_Profile_OrgType = t_Profile_OrgType;
     }
 
     public String getT_Profile_StatusRptRetAddress() {
-        return t_Profile_StatusRptRetAddress;
+        return this.t_Profile_StatusRptRetAddress;
     }
 
-    public void setT_Profile_StatusRptRetAddress(String t_Profile_StatusRptRetAddress) {
+    public void setT_Profile_StatusRptRetAddress(final String t_Profile_StatusRptRetAddress) {
         this.t_Profile_StatusRptRetAddress = t_Profile_StatusRptRetAddress;
     }
 
     public String getT_Profile_CurrentAddress() {
-        return t_Profile_CurrentAddress;
+        return this.t_Profile_CurrentAddress;
     }
 
-    public void setT_Profile_CurrentAddress(String t_Profile_CurrentAddress) {
+    public void setT_Profile_CurrentAddress(final String t_Profile_CurrentAddress) {
         this.t_Profile_CurrentAddress = t_Profile_CurrentAddress;
     }
 
-    public String getT_Profile_text1() {
-        return t_Profile_text1;
+    public String getT_Profile_IPaddr() {
+        return this.t_Profile_IPaddr;
     }
 
-    public void setT_Profile_text1(String t_Profile_text1) {
-        this.t_Profile_text1 = t_Profile_text1;
+    public void setT_Profile_IPaddr(final String t_Profile_IPaddr) {
+        this.t_Profile_IPaddr = t_Profile_IPaddr;
     }
 
     public String getT_Profile_APIAcc() {
-        return t_Profile_APIAcc;
+        return this.t_Profile_APIAcc;
     }
 
-    public void setT_Profile_APIAcc(String t_Profile_APIAcc) {
+    public void setT_Profile_APIAcc(final String t_Profile_APIAcc) {
         this.t_Profile_APIAcc = t_Profile_APIAcc;
     }
 
     public String getT_Profile_APIPWD() {
-        return t_Profile_APIPWD;
+        return this.t_Profile_APIPWD;
     }
 
-    public void setT_Profile_APIPWD(String t_Profile_APIPWD) {
+    public void setT_Profile_APIPWD(final String t_Profile_APIPWD) {
         this.t_Profile_APIPWD = t_Profile_APIPWD;
     }
 
     public String getT_Profile_APIret() {
-        return t_Profile_APIret;
+        return this.t_Profile_APIret;
     }
 
-    public void setT_Profile_APIret(String t_Profile_APIret) {
+    public void setT_Profile_APIret(final String t_Profile_APIret) {
         this.t_Profile_APIret = t_Profile_APIret;
     }
 
-    public String getPlatform() {
-        return platform;
+    public String getT_Profile_AgentCmpyName() {
+        return this.t_Profile_AgentCmpyName;
     }
 
-    public void setPlatform(String platform) {
+    public void setT_Profile_AgentCmpyName(final String t_Profile_AgentCmpyName) {
+        this.t_Profile_AgentCmpyName = t_Profile_AgentCmpyName;
+    }
+
+    public String getT_Profile_AppStatus() {
+        return this.t_Profile_AppStatus;
+    }
+
+    public void setT_Profile_AppStatus(final String t_Profile_AppStatus) {
+        this.t_Profile_AppStatus = t_Profile_AppStatus;
+    }
+
+    public String getT_Profile_RetHTTPget() {
+        return this.t_Profile_RetHTTPget;
+    }
+
+    public void setT_Profile_RetHTTPget(final String t_Profile_RetHTTPget) {
+        this.t_Profile_RetHTTPget = t_Profile_RetHTTPget;
+    }
+
+    public String getT_Profile_RegulatorReq() {
+        return this.t_Profile_RegulatorReq;
+    }
+
+    public void setT_Profile_RegulatorReq(final String t_Profile_RegulatorReq) {
+        this.t_Profile_RegulatorReq = t_Profile_RegulatorReq;
+    }
+
+    public String getPlatform() {
+        return this.platform;
+    }
+
+    public void setPlatform(final String platform) {
         this.platform = platform;
     }
 
     public String getRemark() {
-        return remark;
+        return this.remark;
     }
 
-    public void setRemark(String remark) {
+    public void setRemark(final String remark) {
         this.remark = remark;
     }
 
     public String getCreator() {
-        return creator;
+        return this.creator;
     }
 
-    public void setCreator(String creator) {
+    public void setCreator(final String creator) {
         this.creator = creator;
     }
 
     public Date getCreate_time() {
-        return create_time;
+        return this.create_time;
     }
 
-    public void setCreate_time(Date create_time) {
+    public void setCreate_time(final Date create_time) {
         this.create_time = create_time;
     }
 
     public String getModifier() {
-        return modifier;
+        return this.modifier;
     }
 
-    public void setModifier(String modifier) {
+    public void setModifier(final String modifier) {
         this.modifier = modifier;
     }
 
     public Date getModify_time() {
-        return modify_time;
+        return this.modify_time;
     }
 
-    public void setModify_time(Date modify_time) {
+    public void setModify_time(final Date modify_time) {
         this.modify_time = modify_time;
     }
 
-    public String getT_Profile_AgentCmpyName() {
-        return t_Profile_AgentCmpyName;
-    }
+    /**
+    */
+   private Date modify_time;
 
-    public void setT_Profile_AgentCmpyName(String t_Profile_AgentCmpyName) {
-        this.t_Profile_AgentCmpyName = t_Profile_AgentCmpyName;
-    }
-
-    public String getT_Profile_txt1() {
-        return t_Profile_txt1;
-    }
-
-    public void setT_Profile_txt1(String t_Profile_txt1) {
-        this.t_Profile_txt1 = t_Profile_txt1;
-    }
-
-    public String getT_Profile_txt2() {
-        return t_Profile_txt2;
-    }
-
-    public void setT_Profile_txt2(String t_Profile_txt2) {
-        this.t_Profile_txt2 = t_Profile_txt2;
-    }
-
-    public String getT_Profile_txt3() {
-        return t_Profile_txt3;
-    }
-
-    public void setT_Profile_txt3(String t_Profile_txt3) {
-        this.t_Profile_txt3 = t_Profile_txt3;
-    }
 }

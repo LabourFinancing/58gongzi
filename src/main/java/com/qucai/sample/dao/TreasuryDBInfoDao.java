@@ -22,6 +22,8 @@ public interface TreasuryDBInfoDao {
     TreasuryDBInfo selectByPrimaryKey(String t_TreasuryDB_ID);
     
     TreasuryDBInfo findOrgTreasuryCurrBalance(String t_TreasuryDB_OrgName);
+
+    TreasuryDBInfo findOrgTreasuryOrgName(String t_TreasuryDB_OrgName);
     
 	TreasuryDBInfo StatisticOverall(String t_TreasuryDB_OrgName);
     

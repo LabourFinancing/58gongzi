@@ -4,11 +4,9 @@ import com.qucai.sample.common.PageParam;
 import com.qucai.sample.entity.OrganizationInfo;
 import com.qucai.sample.entity.OrganizationProfile;
 import com.qucai.sample.entity.Paymentvendormgt;
+import com.qucai.sample.entity.TreasuryDBInfo;
 import com.qucai.sample.exception.ExRetEnum;
-import com.qucai.sample.service.HistoricalTxnQueryService;
-import com.qucai.sample.service.ManagerService;
-import com.qucai.sample.service.OrganizationInfoService;
-import com.qucai.sample.service.OrganizationProfileService;
+import com.qucai.sample.service.*;
 import com.qucai.sample.util.JsonBizTool;
 import com.qucai.sample.util.ShiroSessionUtil;
 import com.qucai.sample.vo.CompanyTxnStatic;
@@ -48,6 +46,9 @@ public class OrganizationDashboardController {
 
     @Autowired
     private OrganizationProfileService organizationProfileService; //申明一个对象
+
+    @Autowired
+    private TreasuryDBInfoService treasuryDBInfoService; //申明一个对象
 
     @ModelAttribute
     public OrganizationInfo get(@RequestParam(required = false) String t_O_ID) {
@@ -113,6 +114,7 @@ public class OrganizationDashboardController {
         model.addAttribute("organizationProfileDetail",organizationProfileDetail);
         model.addAttribute("StaticInfo",StaticInfo);
         model.addAttribute("StaticInfoDaily",StaticInfoDaily);
+
         return "organizationDashboard/userCenter";
     }
 

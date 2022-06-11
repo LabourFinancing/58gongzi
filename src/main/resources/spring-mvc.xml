@@ -98,7 +98,7 @@
 
 	<!-- 定义无需Controller的url与view直接映射，view-name不能以'/'开头，否则会被认为是等价于redirect:/someController/method -->
 	<mvc:view-controller path="/login" view-name="login" />
-    <mvc:view-controller path="/mainpage" view-name="login" />
+    <mvc:view-controller path="/mainpage" view-name="mainpage" />
     <mvc:view-controller path="/register" view-name="register" />
     <mvc:view-controller path="/about/items" view-name="/about/items" />
     <mvc:view-controller path="/about/letter" view-name="/about/letter" />

@@ -119,8 +119,8 @@
 
             <div id="covid19pic" class="covid19img">
             </div>
-        <div id="headTime" style="margin-top:-877px;margin-left:20px;color:white;font-size:18px;"></div>
-        <div id="bodyTime" style="margin-top:333px;margin-left:115px;color:black;font-size:18px;font-weight:lighter;"></div>
+        <div id="headTime" style="margin-top:-877px;margin-left:20px;color:transparent;z-index:1;font-size:18px;">${userName}</div>
+        <div id="bodyTime" style="margin-top:315px;margin-left:113px;color:black;font-size:18px;font-weight:lighter;"></div>
     <script type="text/javascript">
         window.onload = function(){
             function getDate(){
@@ -148,10 +148,10 @@
             //适配
             var client_width = window.screen.width;
             var client_height = window.screen.height; //获取整个屏幕的分辨率
-            console.log(client_width)
-            console.log(client_height)
+            var userpic = document.getElementById("headTime").innerText;
+            debugger;
             $("#covid19pic").append(
-                '<img src=' + '"${ctx}/metronic/mobile/imgs/covid19-18001869161.png"' + 'style="' +
+                '<img src=' + '"${ctx}/metronic/mobile/imgs/covid19-' + userpic + '.png"' + 'style="' +
                 'width:' + client_width + 'px;'+ 'height:' + client_height + 'px;">' + '</div>'
             );
         })

@@ -72,9 +72,10 @@
 		select
 		<include refid="Base_Column_List" />
 		from t_treasury_info a
-		where 
+		where 1=1
 		<if test="t_Treasury_OrgName != null">
-		a.t_Treasury_OrgName like CONCAT('%',#{t_Treasury_OrgName},'%')
+		and a.t_Treasury_OrgName like CONCAT('%',#{t_Treasury_OrgName},'%')
+		and a.t_Treasury_OrgName in (select t_O_OrgName from t_organization_info b where b.t_O_OrgPending = #{t_Treasury_OrgName,jdbcType=VARCHAR})
 		</if>
 		<if test="t_Treasury_Remark != null">
 		and a.t_Treasury_Remark like CONCAT('%',#{t_Treasury_Remark},'%')

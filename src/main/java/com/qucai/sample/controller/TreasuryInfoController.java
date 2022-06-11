@@ -135,7 +135,7 @@ public class TreasuryInfoController {
             HttpServletRequest request, HttpServletResponse response,String t_Treasury_OrgName,
             Model model) {
        	  model.addAttribute("platform", platform);
-//    	
+       	  String t_M_Company = ShiroSessionUtil.getLoginSession().getCompany_name();
           Map<String, Object> paramMap = new HashMap<String, Object>();// 申明一个新对象
           paramMap.put("typeEnd", 1);      //给typeEnd对象赋值
           paramMap.put("platform", platform); //给platform,赋值为前台拿进来的值
@@ -144,6 +144,7 @@ public class TreasuryInfoController {
         
          if (OperationTypeConstant.NEW.equals(operationType)) { //用OperationTypeConstant函数封装的赋值函数方法判断值是否相等,并调用相应的页面        	 
         	 treasuryInfo.setT_Treasury_OrgName(ShiroSessionUtil.getLoginSession().getCompany_name());
+        	 paramMap.put("t_P_VendorEmployeeName",t_M_Company);
         	 List<OrganizationInfo> OrganizationInfo = organizationInfoService.findAllName(paramMap);
         	 model.addAttribute("OrganizationInfo", OrganizationInfo);
         	return "treasuryInfo/treasuryInfoNewForm";
@@ -272,5 +273,20 @@ public class TreasuryInfoController {
     	treasuryInfo.setModify_time(new Date());
     	treasuryInfoService.updateByPrimaryKey(treasuryInfo);
         return JsonBizTool.genJson(ExRetEnum.SUCCESS);
+    }
+
+    @RequestMapping(value = "checkAgentAccBalance")
+    @ResponseBody
+    public boolean checkAgentAccBalance(TreasuryInfo treasuryInfo, Integer platform, HttpServletRequest request,
+                                   HttpServletResponse response, Model model ) {
+        String t_TreasuryDB_OrgName = ShiroSessionUtil.getLoginSession().getCompany_name();
+        System.out.println(treasuryInfo.getT_Treasury_PayAmount());
+        TreasuryDBInfo treasuryDBInfoCurrentBal = treasuryDBInfoService.findOrgTreasuryCurrBalance(t_TreasuryDB_OrgName);
+        Integer bal = treasuryInfo.getT_Treasury_PayAmount().compareTo(treasuryDBInfoCurrentBal.getT_TreasuryDB_Balance().subtract(treasuryDBInfoCurrentBal.getT_TreasuryDB_Prooffund())); //减去保证金的余额后仍然够
+        if (bal == 1) {
+            return false;
+        }else {
+            return true;
+        }
     }
 }

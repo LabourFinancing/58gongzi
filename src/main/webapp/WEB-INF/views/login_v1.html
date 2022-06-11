@@ -22,7 +22,8 @@
     <link rel="shortcut icon" href="${ctx}/metronic/global/img/58gongzi-3.png" type="image/x-icon" />
     <script src="${ctx}/metronic/global/plugins/loading.js" type="text/javascript"></script>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="${ctx}/metronic/mobile/css/googleapis.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all" rel="stylesheet"
+          type="text/css">
     <link href="${ctx}/metronic/mobile/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="${ctx}/metronic/mobile/css/simple-line-icons.min.css">
     <link rel="stylesheet" href="${ctx}/metronic/mobile/css/bootstrap.min.css">
@@ -139,30 +140,7 @@
             color: #c2c2c2;
             -webkit-transition: color.5s;
         }
-
-        dot {
-            display: inline-block;
-            height: 1em;
-            line-height: 1;
-            text-align: left;
-            vertical-align: -.25em;
-            overflow: hidden;
-        }
-        dot::before {
-            display: block;
-            content: '...\A..\A.';
-            white-space: pre-wrap;   /* 也可以是white-space: pre */
-            animation: dot 1s infinite step-start both;
-        }
-        @keyframes dot {
-            33% { transform: translateY(-2em); }
-            66% { transform: translateY(-1em); }
-        }
     </style>
-    <script type="text/javascript">
-        jsBridge.clearCache();
-        jsBridge.clearCookie();
-    </script>
     <script type="text/javascript">
         var user_name = $("#userName").val();
 
@@ -182,7 +160,7 @@
             else if
             (gid.length === 64) {
                 $.ajax({
-                    url: "/mainpage?gid=" + gid,
+                    url: "/index?gid=" + gid,
                     type: 'POST',
                     async: true,
                     cache: false,
@@ -233,13 +211,13 @@
                         }
                     },
 
-                    invalidHandler: function (event, validator) { //display error alert on form submit              
+                    invalidHandler: function (event, validator) { //display error alert on form submit
                         App.scrollTo(form, 0);
                     },
 
                     highlight: function (element) { // hightlight error inputs
                         $(element).closest('.form-group').removeClass(
-                            "has-success").addClass('has-error'); // set error class to the control group   
+                            "has-success").addClass('has-error'); // set error class to the control group
                     },
 
                     unhighlight: function (element) { // revert the change done by hightlight
@@ -256,7 +234,6 @@
 
                     submitHandler: function (form) {
                         var formData = new FormData($('#loginForm')[0]);
-                        document.getElementById("LoginLoading").style.display = "";
                         $.ajax({
                             url: "${ctx}/oauthController/login?type=login",
                             type: 'POST',
@@ -266,11 +243,10 @@
                             contentType: false,
                             processData: false,
                             success: function (data) {
+                                console.log('-----------success---------', data)
                                 var result = eval("(" + data + ")");
                                 if (result.ret == "-1") {
-                                    $("#msg").html("<font color='#f50000' style='font-weight:bold;'>" + result.msg + "</font>");
-                                    console.log('-----------fail---------', data);
-                                    document.getElementById("LoginLoading").style.display = "none";
+                                    $("#msg").html("<font color='#f50000' style='font-weight:bold;'>" + result.msg + "</font>")
                                 } else if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent) && result.host == "M") {
                                     console.info("***************mobile****************",data);
                                     window.location.href = "${ctx}/StaffPrepayApplicationController/staffPrepayApplicationNew";
@@ -281,7 +257,6 @@
                             error: function (data, b,c) {
                                 console.log('---------error-----------', data,b,c)
                                 var result = eval("(" + data + ")");
-                                document.getElementById("LoginLoading").style.display = "none";
                                 alert(result.msg);
                             },
                         });
@@ -342,7 +317,7 @@
     <!-- END SIDEBAR TOGGLER BUTTON -->
     <!-- BEGIN LOGO -->
     <div class="logo">
-        <a href="login.html"> <img id="logo_login" src="${ctx}/metronic/mobile/imgs/login-banner.png" alt="">
+        <a href="index.html"> <img id="logo_login" src="${ctx}/metronic/mobile/imgs/login-banner.png" alt="">
         </a>
     </div>
     <!-- END LOGO -->
@@ -359,14 +334,14 @@
                 <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
                 <label class="control-label visible-ie8 visible-ie9"><img id="l-img1" class="lable-img l-img1"
                                                                           src="${ctx}/metronic/mobile/imgs/user-name.png" alt=""></label> <input
-                class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off"
-                placeholder="输入你的用户名/手机号" id="userName" name="userName">
+                    class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off"
+                    placeholder="输入你的用户名/手机号" id="userName" name="userName">
             </div>
             <div class="form-group">
                 <label class="control-label visible-ie8 visible-ie9"><img id="l-img2" class="lable-img l-img2"
                                                                           src="${ctx}/metronic/mobile/imgs/pwd.png" alt=""></label><input
-                class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off"
-                placeholder="输入您的密码" id="password" name="password">
+                    class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off"
+                    placeholder="输入您的密码" id="password" name="password">
                 <!--默认闭眼图-->
             </div>
             <div class="form-group"><input class="form-control form-control-solid placeholder-no-fix" type="hidden"
@@ -375,13 +350,13 @@
 
             <div id="msg"></div>
             <div class="form-actions">
-                <button type="submit" class="btn green uppercase togomaincon">登录<span id="LoginLoading" style="display:none">中<dot>...</dot></span></button>
+                <button type="submit" class="btn green uppercase togomaincon">登录</button>
                 <a type="button" class="bgu" name="PWresend" id="PWresend" onclick="openReset()">找回密码</a>
             </div>
         </form>
         <!-- END LOGIN FORM -->
         <!-- BEGIN FORGOT PASSWORD FORM -->
-        <form class="forget-form" action="login.html" method="post">
+        <form class="forget-form" action="index.html" method="post">
             <h3 class="font-green">Forget Password ?</h3>
             <p>Enter your e-mail address below to reset your password.</p>
             <div class="form-actions">
@@ -466,7 +441,6 @@
                 }
             }
         }
-
     </script>
 </body>
 

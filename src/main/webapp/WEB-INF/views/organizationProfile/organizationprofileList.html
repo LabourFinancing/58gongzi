@@ -1,0 +1,233 @@
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+<head>
+<meta charset="utf-8" />
+<title>企业信息管理</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+<meta content="" name="description" />
+<meta content="" name="author" />
+<#include "/common/cssResource.html">
+<link href="${ctx}/metronic/global/plugins/jquery-treetable/css/jquery.treetable.css" rel="stylesheet" type="text/css" />
+<link href="${ctx}/metronic/global/plugins/jquery-treetable/css/jquery.treetable.theme.default.css" rel="stylesheet" type="text/css" />
+<#include "/common/jsResource.html">
+<script src="${ctx}/metronic/global/plugins/jquery-treetable/jquery.treetable.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+
+function page(n,s){
+	$("#pageNum").val(n);
+	$("#pageSize").val(s);
+	$("#searchForm").submit();
+	return false;
+}
+
+function openNew(obj){
+	var openWindowWidth = $(document).width() * 0.8 + "px";
+	var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
+	layer.open({
+		type: 2,
+		area: openWindowWidth,
+		offset : offsetH,
+		fix: false, //不固定	
+		maxmin: true,
+		content: '${ctx}/OrganizationProfileController/form?operationType=new&platform="0"',
+		success: function(layero, index){
+		    layer.iframeAuto(index);
+		}
+	});
+}
+
+
+function openEdit(t_O_ID){
+	var openWindowWidth = $(document).width() * 0.8 + "px";
+	var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
+	layer.open({
+		type: 2,
+		area: openWindowWidth,
+		offset : offsetH,
+		fix: false, //不固定
+		maxmin: true,
+		content: '${ctx}/OrganizationProfileController/form?t_O_ID='+t_O_ID+'&operationType=edit&platform="0"',
+		success: function(layero, index){
+		    layer.iframeAuto(index);
+		}
+	});
+}
+
+</script>
+
+</head>
+<body>
+	<!-- BEGIN PAGE BASE CONTENT -->
+	<div class="row">
+		<div class="col-xs-push-12">
+			<!-- BEGIN EXAMPLE TABLE PORTLET-->
+			<div class="portlet light portlet-fit bordered">
+				<div class="portlet-title">
+					<ul class="page-breadcrumb breadcrumb">
+						<li><a>企业服务台</a> <i class="fa fa-circle"></i></li>
+						<li><a>企业管理</a> <i class="fa fa-circle"></i></li>
+						<li><span class="active">企业信息管理</span></li>
+					</ul>
+				</div>
+				<div class="portlet-body">
+					<form id="searchForm" method="post" action="${ctx}/OrganizationProfileController/organizationProfileSearchList" class="form-horizontal">
+						<input id="pageNum" name="pageNum" type="hidden" value="${page.pageNum}" /> 
+						<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}" />
+						<div class="form-body">
+							<table class="table table-bordered">
+	                           <tr>
+	                             <td>
+								  <div class="form-group">
+										<label class="control-label col-sm-3" style="padding-right: 0">企业名:</label>
+										<div class="col-sm-9" style="padding-left: 1px;">
+											<input type="text" class="form-control" name="t_O_OrgName" value="${organizationProfile.t_O_OrgName}" />
+										</div>
+								  </div>
+								  </td>
+									<td>
+									<div class="form-group">
+										<label class="control-label col-sm-2" style="padding-right: 0">企业评级:</label>
+										<div class="col-sm-6" style="padding-left: 1px;">
+											<input type="text" class="form-control" name="t_O_Category" value="${organizationProfile.t_O_Category}" />
+										</div>
+						            </div>
+						            </td>
+						            <td>
+									<div class="form-group">
+										<label class="control-label col-sm-3" style="padding-right: 0">是否正常经营:</label>
+										<div class="col-sm-6" style="padding-left: 1px;">
+											<input type="text" class="form-control" name="t_O_OrgStatus" value="${organizationProfile.t_O_OrgStatus}" />
+										</div>
+						            </div>
+						            </td>
+								</tr>
+								<tr>	
+								   <td>
+									<div class="form-group">
+										<label class="control-label col-sm-3" style="padding-right: 0">备注:</label>
+										<div class="col-sm-9" style="padding-left:1px;">
+											<input type="text" class="form-control" name="remark" value="${organizationProfile.remark}"/>
+										</div>
+						            </div>
+						            </td>
+						            <td>
+								   <div class="form-group">
+								   	<label class="control-label col-sm-2" style="padding-left: 0">创建日期:</label>
+										<div class="col-sm-3" style="padding-left: 0;">
+								        <input name="create_time" class="form-control form-control-inline date-picker" type="text" style="width: 300px" placeholder="例：2017-01-01" data-date-format="yyyy-mm-dd"/>
+							            </div>
+								   </div>
+								   </td>
+						         </tr>
+						       </table>
+						  </div>
+						<div class="form-actions">
+							<div class="row">
+								<div class="col-xs-push-12">
+									<div class="btn-group pull-right">
+										<button type="s ubmit" class="btn green" style="margin-right:20px">查询</button>
+									</div>
+								</div>
+							</div>
+						</div> 
+					<div class="table-toolbar">
+					</form>
+					</div>
+					<div class="table-toolbar">
+						<div class="row">
+							<div class="col-xs-push-12">
+								<div class="btn-group pull-right">
+									<button id="sample_editable_1_new" class="btn green" style="margin-right:20px" onclick="openNew('0')">新增</button>
+								</div>
+							</div>
+						</div>
+					</div>
+			  <div class="table table-bordered">
+                <div class="ls-seaarch-result">
+                    <div class="table-responsive">
+					  <table class="table table-bordered" id="organizationProfileTable" style="overflow:visible;text-overflow:ellipsis;white-space:nowrap;">
+						<thead>
+							<tr>
+								<th>企业子账户ID</th>
+								<th>机构组织代码证</th>
+								<th>公司名</th>
+								<th>用户等级</th>
+								<th>是否需要状态报告</th>
+								<th>企业电话</th>
+								<th>企业法人/联系人</th>
+								<th>电邮</th>
+								<th>地址</th>
+								<th>接口账号</th>
+								<th>企业类型</th>
+								<th>状态报告回调地址</th>
+								<th>节点数</th>
+								<th>API接口</th>
+								<th>API接口账号</th>
+								<th>API接口密码</th>
+								<th>营业执照</th>
+								<th>认证状态</th>
+								<th>是否需要上行</th>
+								<th>是否需要审核</th>
+								<th>平台属性</th>
+								<th>备注</th>
+								<th>审核人</th>
+								<th>审核时间</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<#list page.list as organizationProfile>
+								<tr>
+									<input name="t_O_ID" id="t_O_ID" type="hidden" value="${organizationProfile.t_Profile_ID}">
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.t_Profile_CertificationCode}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.t_Profile_OrgName}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.t_Profile_Qualification}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.t_Profile_QualificationStatus}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.t_Profile_Mobile}</td>
+								 	<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.t_Profile_Contact}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.t_Profile_Email}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.t_Profile_Address}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.t_Profile_PostRet}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.t_Profile_OrgType}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.t_Profile_StatusRptRetAddress}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.t_Profile_CurrentAddress}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.t_Profile_IPaddr}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.t_Profile_APIAcc}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.t_Profile_APIPWD}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.t_Profile_APIret}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.t_Profile_AgentCmpyName}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.t_Profile_AppStatus}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.t_Profile_RetHTTPget}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.t_Profile_RegulatorReq}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.platform}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.remark}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.modifier}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.modify_time?string("yyyy-MM-dd HH:mm:ss")}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">
+										<a href="#" onclick="openEdit('${organizationProfile.t_Profile_ID}')">审核</a>
+										<a href="${ctx}/OrganizationProfileController/deleteOrganizationProfile?t_O_ID=${organizationProfile.t_O_ID}&platform=0" onclick="return confirm('确认要执行 删除 操作吗？', this.href)">删除</a>
+									</td>
+								</tr>
+							</#list>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!-- END EXAMPLE TABLE PORTLET-->
+		</div>
+	<!-- END PAGE BASE CONTENT -->
+	<@sc.pagination page=page />
+	<!--  
+	<form id="searchForm" action="${ctx}/managerController/managerList" method="post">
+		<input id="pageNum" name="pageNum" type="hidden" value="${page.pageNum}" />
+		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}" />
+	</form>
+	-->
+</body>
+</html>

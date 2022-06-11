@@ -19,7 +19,7 @@
         function EditSubmitted() {
             $.ajax({
                 url: "${ctx}/OrganizationProfileController/Editinfo?t_Profile_StatusRptRetAddress=" + $("#t_Profile_StatusRptRetAddress").val() +
-                    "&t_Profile_IPaddress=" + $("#t_Profile_IPaddress").val() +
+                    "&t_Profile_OrgType=" + $("#t_Profile_OrgType").val() +
                     "&t_Profile_Mobile=" + $("#t_Profile_Mobile").val() +
                     "&t_Profile_Email=" + $("#t_Profile_Email").val() +
                     "&t_Profile_Address=" + $("#t_Profile_Address").val() +
@@ -159,7 +159,7 @@
                                         </div>
                                         <div class="clearfix item char4">
                                             <div class="title"><span>认证时间</span>:</div>
-                                            <div class="desc">${organizationProfileDetail.create_time?string("yyyy-MM-dd HH:mm:ss")}</div>
+                                            <div class="desc"> ${(organizationProfileDetail.create_time?string("yyyy-MM-dd HH:mm:ss"))!} </div>
                                         </div>
                                         <div class="clearfix item char4 form-group" style="margin-left:0px;margin-right:0px;">
                                             <div class="title"><span>手机号码</span>:</div>
@@ -303,7 +303,7 @@
                                         </div>
                                         <div class="clearfix item">
                                             <div class="title char4"><span>创建时间</span>:</div>
-                                            <div class="desc">${organizationProfileDetail.create_time?string("yyyy-MM-dd HH:mm:ss")}</div>
+                                            <div class="desc">${(organizationProfileDetail.create_time?string('MM/dd/yyyy HH:mm:ss'))!}</div>
                                         </div>
                                         <div class="clearfix item">
                                             <div class="title char4"><span>验证IP</span>:</div>
@@ -317,7 +317,7 @@
                                         </div>
                                         <div class="clearfix item">
                                             <div class="title char4"><span>上行回调地址</span>:</div>
-                                            <div class="desc none_div"></div><input id="t_Profile_IPaddress" name="t_Profile_IPaddress" type="text"
+                                            <div class="desc none_div"></div><input id="t_Profile_OrgType" name="t_Profile_OrgType" type="text"
                                                 class="input none_input input-md fl yzm mr30 code"
                                                 style="display: none;">
                                         </div>
@@ -368,10 +368,10 @@
                                 style="display: none;">取消</a>
                         </div>
                         </form>
-                        <div data-v-zz="" class="page-base-info" style="display: none;"><img data-v-zz=""
-                                src="http://users.ucpaas.com/static/img/icon-already.af9cfe6.png"
+                        <div data-v-zz="" class="page-base-info" style="display: none;"><img id="authstamp" name="authstamp" data-v-zz=""
+                                src="${ctx}/images/company_cert/authorized.png" style="display: none;"
                                 class="absolute icon-auth">
-                            
+
                             <div data-v-zz="" class="clearfix item">
                                 <div data-v-zz="" class="title char4"><span data-v-zz="">认证类型</span>:
                                 </div>
@@ -391,23 +391,23 @@
                             <div data-v-zz="" class="clearfix item">
                                 <div data-v-zz="" class="title char4"><span data-v-zz="">创建时间</span>:
                                 </div>
-                                <div data-v-zz="" class="desc">${organizationProfileDetail.create_time?string("yyyy-MM-dd HH:mm:ss")}</div>
+                                <div data-v-zz="" class="desc">${(organizationProfileDetail.create_time?string('MM/dd/yyyy HH:mm:ss'))!}</div>
                             </div>
                             <div data-v-zz="" class="clearfix item">
                                 <div data-v-zz="" class="title char4"><span data-v-zz="">更新时间</span>:
                                 </div>
-                                <div data-v-zz="" class="desc">${organizationProfileDetail.modify_time?string("yyyy-MM-dd HH:mm:ss")}</div>
+                                <div data-v-zz="" class="desc">${(organizationProfileDetail.modify_time?string('MM/dd/yyyy HH:mm:ss'))!}</div>
                             </div>
                             <div data-v-zz="" class="clearfix item">
                                 <div data-v-zz="" class="title char4"><span data-v-zz="">审核状态</span>:
                                 </div>
-                                <div data-v-zz="" class="desc"><span data-v-zz="">${organizationProfileDetail.t_Profile_IPaddress}</span></div>
+                                <div data-v-zz="" class="desc"><span id="authstat" data-v-zz="" ><#if organizationProfileDetail.t_Profile_OrgType = 'on'> 审核通过 <#else> 未审核 </#if></span></div>
                             </div>
                             <div data-v-zz="" class="clearfix item">
-                                <div data-v-zz="" class="title char4"><span data-v-zz="">认证照片</span>:
+                                <div data-v-zz="" class="title char4"><span data-v-zz="">认证资质</span>:
                                 </div>
-                                <div data-v-zz="" class="desc"><img data-v-zz="" class="cer-img"
-                                        src="${ctx}/images/company_cert/shgf.png">
+                                <div data-v-zz="" class="desc"><img id="certpic" data-v-zz="" class="cert-img" style="width:300px;height:200px;display:none;"
+                                        src="${ctx}${organizationProfileDetail.t_Profile_AgentCmpyName}">
                                 </div>
                             </div>
                         </div>
@@ -424,6 +424,8 @@
       <!-- // 日期插件 -->
       <script src="${ctx}/metronic/new_modules/bootstrap-datetimepicker.min.js"></script>
     <script>
+        var authstat = `${organizationProfileDetail.t_Profile_OrgType}`;
+        var certpic = `${organizationProfileDetail.t_Profile_AgentCmpyName}`;
         //tab切换
         const topTap = function (index) {
             const a1 = document.getElementsByClassName('page-customer-info')[0]
@@ -441,6 +443,12 @@
                 a1.style.display = 'none'
                 f2.className = 'fl router-link-exact-active router-link-active'
                 f1.className = 'fl'
+                if (authstat === "on") {
+                    document.getElementById("authstamp").style.display = "";
+                }
+                if(certpic != ""){
+                    document.getElementById("certpic").style.display = "";
+                }
             }
         }
         const setlength = function (status) {

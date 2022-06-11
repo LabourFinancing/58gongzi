@@ -72,26 +72,24 @@
 		<include refid="Base_Column_List" />
 		from t_organization_info a
 		where
-		<if test="t_O_OrgName != null">
+		<if test="t_O_OrgName != null and t_O_OrgName!= 'ALL'">
 			a.t_O_OrgName like CONCAT('%',#{t_O_OrgName},'%')
+			and a.t_O_OrgName != #{t_O_OrgName,jdbcType=VARCHAR}
 		</if>
-		<if test="t_O_OrgName != null">
-			a.t_O_OrgName like CONCAT('%',#{t_O_OrgName},'%')
-		</if>
-		<if test="t_O_OrgName != null">
-		a.t_O_OrgName like CONCAT('%',#{t_O_OrgName},'%')
-		</if>	
 		<if test="t_O_Category != null">
-		and a.t_O_Category like CONCAT('%',#{t_O_Category},'%')
+			and a.t_O_Category like CONCAT('%',#{t_O_Category},'%')
 		</if>	
 		<if test="t_O_OrgStatus != null">
-		and a.t_O_OrgStatus like CONCAT('%',#{t_O_OrgStatus},'%')
+			and a.t_O_OrgStatus like CONCAT('%',#{t_O_OrgStatus},'%')
+		</if>
+		<if test="t_O_VendorOrgName != null and t_O_VendorOrgName != 'ALL'">
+			and a.t_O_OrgPending = #{t_O_VendorOrgName,jdbcType=VARCHAR}
 		</if>
 		<if test="remark != null">
-		and a.remark like CONCAT('%',#{remark},'%')
+			and a.remark like CONCAT('%',#{remark},'%')
 		</if>
 		<if test="create_time != null">
-		and a.create_time like CONCAT('%',DATE(#{create_time}),'%')
+			and a.create_time like CONCAT('%',DATE(#{create_time}),'%')
 		</if>
 		order by create_time
 	</select>
@@ -237,8 +235,9 @@
 		<if test="t_M_Company != null and t_M_Company != 'ALL'">
 			and a.t_O_OrgName = #{t_M_Company,jdbcType=VARCHAR}
 		</if>
-        <if test="t_M_Company != null and t_M_Company != 'ALL'">
-			or a.t_O_OrgPending = #{t_M_Company,jdbcType=VARCHAR}
+        <if test="t_O_VendorOrgName != null and t_O_VendorOrgName != 'ALL'">
+			and a.t_O_OrgPending = #{t_O_VendorOrgName,jdbcType=VARCHAR}
+			and a.t_O_OrgName != #{t_O_VendorOrgName,jdbcType=VARCHAR}
 		</if>
 		<if test="typeEnd != null">
 			<![CDATA[ and type <= #{typeEnd} ]]>
@@ -255,6 +254,7 @@
 		t_O_OrgStatus = "on"
         <if test="t_P_VendorEmployeeName != 'ALL' and t_P_VendorEmployeeName != null">
            and a.t_O_OrgPending = #{t_P_VendorEmployeeName,jdbcType=VARCHAR}
+           and a.t_O_OrgName != #{t_P_VendorEmployeeName,jdbcType=VARCHAR}
         </if>
 		order by a.create_time DESC
 	</select>

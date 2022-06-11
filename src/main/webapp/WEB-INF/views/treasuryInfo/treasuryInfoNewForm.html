@@ -22,16 +22,13 @@
 			errorClass : 'help-block help-block-error', // default input error message class
 			focusInvalid : false, // do not focus the last invalid input
 			rules : {
-				name : {
-					maxlength : 50,
+				t_Treasury_PayAmount : {
 					required : true,
+					decimal : true,
 					remote : {
-				        url: "${ctx}/jqueryValidateController/checkFinanceProductName?platform=${platform}",
-				        type: "post"
+						url: "${ctx}/OrganizationProfileController/checkAgentAccBalance?platform=${platform}",
+						type: "post"
 					}
-				},
-				t_Treasury_OrgPayAmnt : {
-					required : true
 				},
 				t_Treasury_PayDate : {
 					required : true
@@ -56,7 +53,7 @@
 				}
 			},
 			messages: {
-				name: {remote : "产品名称已存在"}
+				t_Treasury_PayAmount: {remote : "您的余额不足，请重新输入金额！"}
 			},
 	
 			invalidHandler : function(event, validator) { //display error alert on form submit              
@@ -145,6 +142,41 @@
 		}
 	}
 
+	function balcheck(){
+		$.ajax({
+			url:"${ctx}/OrganizationProfileController/checkAgentAccBalance?platform=" + $("#platform").val
+			+ 't_Treasury_PayAmount=' + $("#t_Treasury_PayAmount").val,
+			type: 'POST',
+			data: formData,
+			async: true,
+			cache: false,
+			contentType: false,
+			processData: false,
+			success: function (data) {
+				var result = eval("("+data+")");
+				alert(result.msg);
+				parent.window.location.reload();
+				var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+				parent.layer.close(index);
+			},
+			error: function (data) {
+				var result = eval("("+data+")");
+				alert(result.msg);
+			},
+			// complete:function(XMLHttpRequest,textStatus){
+			// 	if(textStatus=='timeout'){
+			// 		var xmlhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+			// 		xmlhttp.abort();
+			// 		$(".box").html("网络超时,请稍后再试!");
+			// 	}
+			// 	console.log(XMLHttpRequest);
+			// 	console.log(textStatus);
+			// 	layer.close(index);
+			// 	window.location.reload();
+			// }
+		});
+	}
+
 	function setParentId(selector) {
 		$("#parentId").val($(selector).find("option:selected").val());
 	}
@@ -182,7 +214,7 @@
 			<!-- BEGIN FORM-->
 			<form id="inputForm" class="form-horizontal form-row-seperated">
 <!--				<input type="hidden" id="parentId" name="parentId"> -->
-				<input type="hidden" name="platform" value="${platform}">
+				<input type="hidden" id="platform" name="platform" value="${platform}">
 				<div class="form-body">
 					<div class="form-group">
 					<!-- Company Name List pickup from Company table , dropdownlist -->
@@ -197,7 +229,8 @@
 										</#list>
 									</select>
 							</div>
-					</div>					
+					</div>
+					<@shiro.hasPermission name="TREASURYINFO_SUPERADMINVIEW">
 					<div class="form-group">
 						<label class="control-label col-sm-3">性客户公司机构组织代码证 <span
 							class="required"> * </span>
@@ -220,7 +253,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">银行到款日期 <span
+						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">到款日期 <span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
@@ -230,17 +263,19 @@
 							 </div>
 						</div>
 					</div>
+			</@shiro.hasPermission>
 					<div class="form-group">
-						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">资金数额(充值总数) <span
+						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">资金数额(充值金额) <span
 							class="required"> * </span>
 						</label>
                         <div class="col-sm-9">
                             <div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_Treasury_PayAmount" />
+									name="t_Treasury_PayAmount" id="t_Treasury_PayAmount" onchange="javascript:balcheck()"/>
 							</div>
 						</div>
 					</div>
+			<@shiro.hasPermission name="TREASURYINFO_SUPERADMINVIEW">
 					<div class="form-group">
 						<label class="control-label col-sm-3">客户公司出资额<span
 							class="required"> * </span>
@@ -313,7 +348,7 @@
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
-								<i class="fa"></i> <input type="text" id="checklen" class="form-control"
+								<i class="fa"></i> <input type="text" id="finInstitution" class="form-control"
 									name="t_Treasury_FinanceOrgName" id="t_Treasury_FinanceOrgName"/>
 							</div>
 						</div>
@@ -375,6 +410,7 @@
 							</div>
 						</div>
 					</div>
+		</@shiro.hasPermission>
 					<div class="form-group">
 						<label class="control-label col-sm-3">注释<span
 							class="required"> * </span>
@@ -391,7 +427,7 @@
 						<div class="col-sm-3">
 						</div>
 						<div class="col-sm-9">
-							<button type="submit" class="btn green">提交</button>
+							<button type="submit" class="btn green">充值</button>
 							<button type="button" class="btn default" onclick="parent.layer.closeAll();">取消</button>
 						</div>
 					</div>

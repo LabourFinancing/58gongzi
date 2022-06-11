@@ -67,8 +67,17 @@
 		where a.t_TreasuryDB_OrgName = #{t_TreasuryDB_OrgName,jdbcType=VARCHAR} 
 		for update
 	</select>
-	
-	
+
+	<select id="findOrgTreasuryOrgName" resultMap="BaseResultMap"
+			parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_treasurydb_info a
+		where a.t_TreasuryDB_OrgName = #{t_TreasuryDB_OrgName,jdbcType=VARCHAR}
+	</select>
+
+
+
 	<select id="findSearchList" resultMap="BaseResultMap"
 		parameterType="java.util.Map">
 		select

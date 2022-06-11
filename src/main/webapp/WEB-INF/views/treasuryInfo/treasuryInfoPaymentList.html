@@ -160,9 +160,12 @@ function openView(t_Treasury_ID){
 						 <thead>
 							<tr>
 								<th>公司名</th>
+								<@shiro.hasPermission name="TREASURYINFO_SUPERADMINVIEW">
 								<th>客户公司银行账号</th>
 								<th>银行到款日期</th>
+								</@shiro.hasPermission>
 								<th>资金数额(充值总数)</th>
+								<@shiro.hasPermission name="TREASURYINFO_SUPERADMINVIEW">
 								<th>客户公司出资额</th>
 								<th>本公司出资额</th>
 								<th>本公司出款日期</th>
@@ -171,7 +174,9 @@ function openView(t_Treasury_ID){
 								<th>融资数额(充值总数内含)</th>
 								<th>融资银行/企业名</th>
 								<th>利差总(产品/总成本)</th>
+						 		</@shiro.hasPermission>
 								<th>充值备注</th>
+						        <th>充值时间</th>
 								<th>操作</th>
 							</tr>
 						</thead>
@@ -179,9 +184,12 @@ function openView(t_Treasury_ID){
 							<#list page.list as treasuryInfo>
 								<tr>
 								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryInfo.t_Treasury_OrgName}</td>
+									<@shiro.hasPermission name="TREASURYINFO_SUPERADMINVIEW">
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryInfo.t_Treasury_OrgBankNum}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryInfo.t_Treasury_PayDate?string("yyyy-MM-dd HH:mm:ss")}</td>
+									</@shiro.hasPermission>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryInfo.t_Treasury_PayAmount}</td>
+									<@shiro.hasPermission name="TREASURYINFO_SUPERADMINVIEW">
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryInfo.t_Treasury_OrgPayAmnt}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryInfo.t_Treasury_AccPayAmt}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryInfo.t_Treasury_AccPayDate?string("yyyy-MM-dd HH:mm:ss")}</td>
@@ -190,12 +198,14 @@ function openView(t_Treasury_ID){
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryInfo.t_Treasury_FinanceAmt}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryInfo.t_Treasury_FinanceOrgName}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryInfo.t_Treasury_TotIntMargin}</td>
+									</@shiro.hasPermission>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryInfo.t_Treasury_Remark}</td>
+						   			<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${treasuryInfo.create_time?string("yyyy-MM-dd HH:mm:ss")}</td>
 									<td class="col-xs-push-2" style="word-wrap:break-word;word-break:break-all;">
 										<@shiro.hasPermission name="TREASURYINFO_VIEW">
 										<a href="#" onclick="openView('${treasuryInfo.t_Treasury_ID}')">查看</a>
 										</@shiro.hasPermission>
-										<@shiro.hasPermission name="TREASURYINFO_EDIT">
+						   				<@shiro.hasPermission name="TREASURYINFO_SUPERADMINVIEW">
 										<a href="#" onclick="openEdit('${treasuryInfo.t_Treasury_ID}')">编辑</a>
 										</@shiro.hasPermission>
 										<@shiro.hasPermission name="TREASURYINFO_DELETE">

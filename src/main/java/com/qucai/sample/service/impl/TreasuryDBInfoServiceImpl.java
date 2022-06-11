@@ -37,6 +37,11 @@ public class TreasuryDBInfoServiceImpl implements TreasuryDBInfoService {
     public TreasuryDBInfo findOrgTreasuryCurrBalance(String t_TreasuryDB_OrgName) {
         return TreasuryDBInfoDao.findOrgTreasuryCurrBalance(t_TreasuryDB_OrgName);
     }
+
+    @Override
+    public TreasuryDBInfo findOrgTreasuryOrgName(String t_TreasuryDB_OrgName) {
+        return TreasuryDBInfoDao.findOrgTreasuryOrgName(t_TreasuryDB_OrgName);
+    }
     
     @Override
     public TreasuryDBInfo StatisticOverall(String t_TreasuryDB_OrgName) {

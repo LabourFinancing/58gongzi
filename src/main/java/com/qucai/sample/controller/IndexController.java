@@ -6,7 +6,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.qucai.sample.entity.TreasuryInfo;
+import com.qucai.sample.service.TreasuryDBInfoService;
 import com.qucai.sample.util.Tool;
+import org.apache.ibatis.javassist.bytecode.FieldInfo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
@@ -28,6 +31,7 @@ public class IndexController {
 
     @Autowired
     private ManagerService managerService;
+
 
     @RequestMapping("index")
     public String index(@RequestParam(required = false) String gid,String from, String form,String method, String phone,String host,String SMSsendcode,
@@ -123,7 +127,7 @@ public class IndexController {
             String userName = manager.getUserName();
 
             if (userName == null || host == null) {
-                return "mainpagee"; // login before
+                return "mainpage"; // login before
             } else if (!Tool.isChinaPhoneLegal(userName)) {
                 return "redirect:/OrganizationDashboardController/dashboard";
             } else if (host.equals("M")) {
