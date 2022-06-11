@@ -65,7 +65,6 @@ public class OrganizationProfileController {
     }
 
     @RequestMapping(value = {"organizationProfileList",""})
-    @ResponseBody
     public String organizationProfileList(OrganizationProfile organizationProfile, @RequestParam( defaultValue = "0" )  String platform,
                                        HttpServletRequest request, HttpServletResponse response, Model model) {
         String t_M_Company = ShiroSessionUtil.getLoginSession().getCompany_name();
@@ -79,7 +78,6 @@ public class OrganizationProfileController {
     }
 
     @RequestMapping(value = {"form",""})
-    @ResponseBody
     public String form(String t_O_ID, String operationType, Integer platform,
                        HttpServletRequest request, HttpServletResponse response,
                        Model model) {
@@ -98,12 +96,11 @@ public class OrganizationProfileController {
             OrganizationProfile organizationprofile = organizationProfileService.selectByPrimaryKey(t_O_ID);
             return "organizationProfile/organizationProfileEditForm";
         } else {
-            return "redirect:/organizationProfileController/organizationProfileist";
+            return "organizationProfile/organizationProfileList";
         }
     }
 
     @RequestMapping(value = {"info"})
-    @ResponseBody
     public String showOrganizationProfile(OrganizationProfile organizationProfile, @RequestParam( defaultValue = "0" )  Integer platform,
                                        HttpServletRequest request, HttpServletResponse response, Model model) {
 
