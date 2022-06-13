@@ -1,11 +1,12 @@
 package com.qucai.sample.dao;
 
-import com.qucai.sample.entity.OrganizationProfile;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Map;
+import com.qucai.sample.entity.OrganizationProfile;
 
 @Repository
 public interface OrganizationProfileDao {
@@ -31,21 +32,10 @@ public interface OrganizationProfileDao {
     List<OrganizationProfile> findOrgName(Map<String, Object> paramMap);
     
     List<OrganizationProfile> findSearchList(Map<String, Object> paramSearchMap);
-    
-//    PageInfo<FinanceProduct> findAllList(Map<String, Object> paramMap, PageParam pp);
-    
-//  List<FinanceProductGrant> findManagerFinanceProductGrantAllList(@Param("roleId") String roleId, @Param("platform") Integer platform);
-    
-//  String findResourceChildId(String id);
-    
-//    int deleteByPrimaryKeyStr(String t_FProd_ID);
-    
-//    List<FinanceProduct> findAuthFinanceProductListByManagerId(String managerId);
 
 	List<OrganizationProfile> findOrgNameAgency(Map<String, Object> paramSearchMap);
 
     int existOrganizationProfileName(@Param("t_Profile_ID") String t_Profile_ID, @Param("t_Profile_OrgName") String t_Profile_OrgName, @Param("platform") Integer platform);
 
-    //企业端的资源
-//  List<FinanceProductGrant> findEntFinanceProductGrantAllList(String roleId);
+
 }

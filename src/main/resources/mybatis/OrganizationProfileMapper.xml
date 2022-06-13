@@ -87,23 +87,26 @@
 		select
 		<include refid="Base_Column_List" />
 		from t_organization_profile a
-		where
+		where 1=1
 		<if test="t_Profile_OrgName != null">
-		a.t_Profile_OrgName like CONCAT('%',#{t_Profile_OrgName},'%')
+		and a.t_Profile_OrgName like CONCAT('%',#{t_Profile_OrgName},'%')
 		</if>	
 		<if test="t_Profile_Qualification != null">
 		and a.t_Profile_Qualification like CONCAT('%',#{t_Profile_Qualification},'%')
-		</if>	
-		<if test="t_Profile_QualificationStatus != null">
-		and a.t_Profile_QualificationStatus like CONCAT('%',#{t_Profile_QualificationStatus},'%')
+		</if>
+		<if test="t_Profile_OrgType != null">
+		and a.t_Profile_OrgType like CONCAT('%',#{t_Profile_OrgType},'%')
 		</if>
 		<if test="remark != null">
 		and a.remark like CONCAT('%',#{remark},'%')
 		</if>
-		<if test="t_Profile_OrgType != null">
-		and a.t_Profile_OrgType like CONCAT('%',DATE(#{t_Profile_OrgType}),'%')
+		<if test="create_time != null">
+		and a.create_time like CONCAT('%',DATE(#{create_time}),'%')
 		</if>
-		order by create_time
+		<if test="t_Profile_AppStatus != ''">
+		and a.t_Profile_AppStatus = #{t_Profile_AppStatus,jdbcType=VARCHAR}
+		</if>
+		order by a.create_time
 	</select>
 	
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">

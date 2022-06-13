@@ -18,13 +18,18 @@
 
 
 <script type="text/javascript">
+	debugger;
+	console.log(${t_Profile_AppStatus})
+	var t_Profile_AppStatus_value = "${t_Profile_AppStatus}";
+	$("#t_Profile_AppStatus option[value='"+t_Profile_AppStatus_value+"']").attr("selected","selected");
 
-function page(n,s){
-	$("#pageNum").val(n);
-	$("#pageSize").val(s);
-	$("#searchForm").submit();
-	return false;
-}
+	function page(n,s){
+		$("#pageNum").val(n);
+		$("#pageSize").val(s);
+		$("#searchForm").submit();
+		return false;
+	}
+
 
 function openNew(obj){
 	var openWindowWidth = $(document).width() * 0.8 + "px";
@@ -52,7 +57,7 @@ function openEdit(t_O_ID){
 		offset : offsetH,
 		fix: false, //不固定
 		maxmin: true,
-		content: '${ctx}/OrganizationProfileController/form?t_O_ID='+t_O_ID+'&operationType=edit&platform="0"',
+		content: '${ctx}/OrganizationProfileController/form?t_Profile_ID='+t_Profile_ID+'&operationType=edit&platform="0"',
 		success: function(layero, index){
 		    layer.iframeAuto(index);
 		}
@@ -71,8 +76,8 @@ function openEdit(t_O_ID){
 				<div class="portlet-title">
 					<ul class="page-breadcrumb breadcrumb">
 						<li><a>企业服务台</a> <i class="fa fa-circle"></i></li>
-						<li><a>企业管理</a> <i class="fa fa-circle"></i></li>
-						<li><span class="active">企业信息管理</span></li>
+						<li><a>企业中心</a> <i class="fa fa-circle"></i></li>
+						<li><span class="active">企业基本信息管理</span></li>
 					</ul>
 				</div>
 				<div class="portlet-body">
@@ -85,24 +90,28 @@ function openEdit(t_O_ID){
 	                             <td>
 								  <div class="form-group">
 										<label class="control-label col-sm-3" style="padding-right: 0">企业名:</label>
-										<div class="col-sm-9" style="padding-left: 1px;">
-											<input type="text" class="form-control" name="t_O_OrgName" value="${organizationProfile.t_O_OrgName}" />
+										<div class="col-sm-9" style="padding-left: 2px;">
+											<input type="text" class="form-control" name="t_Profile_OrgName" id="t_Profile_OrgName" value="${t_Profile_OrgName}"/>
 										</div>
 								  </div>
 								  </td>
 									<td>
 									<div class="form-group">
-										<label class="control-label col-sm-2" style="padding-right: 0">企业评级:</label>
-										<div class="col-sm-6" style="padding-left: 1px;">
-											<input type="text" class="form-control" name="t_O_Category" value="${organizationProfile.t_O_Category}" />
+										<label class="control-label col-sm-3" style="padding-right: 0">企业评级:</label>
+										<div class="col-sm-6" style="padding-left: 2px;">
+											<input type="text" class="form-control" name="t_Profile_Qualification" id="t_Profile_Qualification" value="${t_Profile_Qualification}"/>
 										</div>
 						            </div>
 						            </td>
 						            <td>
 									<div class="form-group">
-										<label class="control-label col-sm-3" style="padding-right: 0">是否正常经营:</label>
-										<div class="col-sm-6" style="padding-left: 1px;">
-											<input type="text" class="form-control" name="t_O_OrgStatus" value="${organizationProfile.t_O_OrgStatus}" />
+										<label class="control-label col-sm-2" style="padding-right: 0">审核状态:</label>
+										<div class="col-sm-6" style="padding-left: 2px;">
+											<select  class="form-control" id="t_Profile_AppStatus" name="t_Profile_AppStatus"/>
+												<option value="">所有</option>
+												<option value="pending">待审核</option>
+												<option value="approved">已审核</option>
+											</select>
 										</div>
 						            </div>
 						            </td>
@@ -111,16 +120,24 @@ function openEdit(t_O_ID){
 								   <td>
 									<div class="form-group">
 										<label class="control-label col-sm-3" style="padding-right: 0">备注:</label>
-										<div class="col-sm-9" style="padding-left:1px;">
-											<input type="text" class="form-control" name="remark" value="${organizationProfile.remark}"/>
+										<div class="col-sm-9" style="padding-left:2px;">
+											<input type="text" class="form-control" name="remark" id="remark" value="${remark}"/>
 										</div>
 						            </div>
 						            </td>
+									<td>
+										<div class="form-group">
+											<label class="control-label col-sm-3" style="padding-right: 0">企业类型:</label>
+											<div class="col-sm-9" style="padding-left:2px;">
+												<input type="text" class="form-control" name="t_Profile_OrgType" id="t_Profile_OrgType"/>
+											</div>
+										</div>
+									</td>
 						            <td>
 								   <div class="form-group">
-								   	<label class="control-label col-sm-2" style="padding-left: 0">创建日期:</label>
-										<div class="col-sm-3" style="padding-left: 0;">
-								        <input name="create_time" class="form-control form-control-inline date-picker" type="text" style="width: 300px" placeholder="例：2017-01-01" data-date-format="yyyy-mm-dd"/>
+								   	<label class="control-label col-sm-2" style="padding-right: 0">创建日期:</label>
+										<div class="col-sm-3" style="padding-left: 2px;">
+								        <input name="create_time" value="${create_time}" class="form-control form-control-inline date-picker" type="text" style="width: 300px" placeholder="例：2017-01-01" data-date-format="yyyy-mm-dd"/>
 							            </div>
 								   </div>
 								   </td>
@@ -131,7 +148,7 @@ function openEdit(t_O_ID){
 							<div class="row">
 								<div class="col-xs-push-12">
 									<div class="btn-group pull-right">
-										<button type="s ubmit" class="btn green" style="margin-right:20px">查询</button>
+										<button type="submit" class="btn green" style="margin-right:20px">查询</button>
 									</div>
 								</div>
 							</div>
@@ -154,7 +171,6 @@ function openEdit(t_O_ID){
 					  <table class="table table-bordered" id="organizationProfileTable" style="overflow:visible;text-overflow:ellipsis;white-space:nowrap;">
 						<thead>
 							<tr>
-								<th>企业子账户ID</th>
 								<th>机构组织代码证</th>
 								<th>公司名</th>
 								<th>用户等级</th>
@@ -170,10 +186,11 @@ function openEdit(t_O_ID){
 								<th>API接口</th>
 								<th>API接口账号</th>
 								<th>API接口密码</th>
+								<th>API接口状态</th>
 								<th>营业执照</th>
 								<th>认证状态</th>
 								<th>是否需要上行</th>
-								<th>是否需要审核</th>
+								<th>是否需要交易审核</th>
 								<th>平台属性</th>
 								<th>备注</th>
 								<th>审核人</th>
@@ -184,7 +201,7 @@ function openEdit(t_O_ID){
 						<tbody>
 							<#list page.list as organizationProfile>
 								<tr>
-									<input name="t_O_ID" id="t_O_ID" type="hidden" value="${organizationProfile.t_Profile_ID}">
+									<input name="t_Profile_ID" id="t_Profile_ID" type="hidden" value="${organizationProfile.t_Profile_ID}">
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.t_Profile_CertificationCode}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.t_Profile_OrgName}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.t_Profile_Qualification}</td>
@@ -202,7 +219,7 @@ function openEdit(t_O_ID){
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.t_Profile_APIPWD}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.t_Profile_APIret}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.t_Profile_AgentCmpyName}</td>
-									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.t_Profile_AppStatus}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;"><#if organizationProfile.t_Profile_AppStatus = "approved"> 审核通过 <#else> 待审核</#if></td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.t_Profile_RetHTTPget}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.t_Profile_RegulatorReq}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.platform}</td>
@@ -221,6 +238,7 @@ function openEdit(t_O_ID){
 			</div>
 			<!-- END EXAMPLE TABLE PORTLET-->
 		</div>
+	</div>
 	<!-- END PAGE BASE CONTENT -->
 	<@sc.pagination page=page />
 	<!--  

@@ -21,7 +21,6 @@ public interface OrganizationProfileService {
 /*
  * Search FinanceProductName , Search Other info , - Personal and so on.
  */
-    
 //    FinanceProduct selectBySearch(String t_FProd_Name, Date create_time);
 
     int updateByPrimaryKeySelective(OrganizationProfile record);
@@ -34,7 +33,7 @@ public interface OrganizationProfileService {
     
     List<OrganizationProfile> findOrgName(Map<String, Object> paramMap);
     
-    List<OrganizationProfile> findSearchList(Map<String, Object> paramMap);
+    List<OrganizationProfile> findSearchList(Map<String, Object> paramSearchMap);
     
     PageInfo<OrganizationProfile> findAllList(Map<String, Object> paramMap, PageParam pp);
     

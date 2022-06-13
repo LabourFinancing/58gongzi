@@ -98,6 +98,8 @@ public class OrganizationProfile implements Serializable {
     */
    private String modifier;
 
+    private Date modify_time;
+
     public static long getSerialVersionUID() {
         return OrganizationProfile.serialVersionUID;
     }
@@ -320,6 +322,5 @@ public class OrganizationProfile implements Serializable {
 
     /**
     */
-   private Date modify_time;
 
 }

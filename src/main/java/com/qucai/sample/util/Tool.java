@@ -40,6 +40,18 @@ public class Tool {
         return pp;
     }
 
+    //随机数
+    private static final String ALLCHAR = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    // length：随机位数
+    public static String generateString(int length) {
+        StringBuffer sb = new StringBuffer();
+        Random random = new Random();
+        for (int i = 0; i < length; i++) {
+            sb.append(ALLCHAR.charAt(random.nextInt(ALLCHAR.length())));
+        }
+        return sb.toString();
+    }
+
     public static String uuid() {
         return UUID.randomUUID().toString().replaceAll("-", "");
     }

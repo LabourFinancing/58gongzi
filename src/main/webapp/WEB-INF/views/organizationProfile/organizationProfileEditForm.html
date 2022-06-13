@@ -30,13 +30,13 @@ document.getElementById("updated_date").value=getDate();
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		
-        var t_O_listOrg_value = "${organizationInfo.t_O_listOrg}";
-        $("#t_O_listOrg option[value='"+t_O_listOrg_value+"']").attr("selected","selected");	
-        
-        var t_O_OrgStatus_value = "${organizationInfo.t_O_OrgStatus}";
-        $("#t_O_OrgStatus option[value='"+t_O_OrgStatus_value+"']").attr("selected","selected");	
-		
+
+        var t_Profile_AppStatus_value = "${organizationProfile.t_Profile_AppStatus}";
+        $("#t_Profile_AppStatus option[value='"+t_Profile_AppStatus_value+"']").attr("selected","selected");
+
+        var t_Profile_RegulatorReq_value = "${organizationProfile.t_Profile_RegulatorReq}";
+        $("#t_Profile_RegulatorReq option[value='"+t_Profile_RegulatorReq_value+"']").attr("selected","selected");
+
 		var form = $('#inputForm');
 		form.validate({
 			errorElement : 'span', //default input error message container
@@ -74,19 +74,19 @@ document.getElementById("updated_date").value=getDate();
 					isModile: "请输入一个有效的手机号码"
 				},
 			},
-			invalidHandler : function(event, validator) { //display error alert on form submit              
+			invalidHandler : function(event, validator) { //display error alert on form submit
 				App.scrollTo(form, 0);
 			},
-	
+
 			highlight : function(element) { // hightlight error inputs
 				$(element).closest('.form-group').removeClass(
-						"has-success").addClass('has-error'); // set error class to the control group   
+						"has-success").addClass('has-error'); // set error class to the control group
 			},
-	
+
 			unhighlight : function(element) { // revert the change done by hightlight
-	
+
 			},
-	
+
 			success : function(label, element) {
 				var icon = $(element).parent('.input-icon').children(
 						'i');
@@ -94,35 +94,35 @@ document.getElementById("updated_date").value=getDate();
 						'has-error').addClass('has-success'); // set success class to the control group
 				icon.removeClass("fa-warning").addClass("fa-check");
 			},
-			
+
 			submitHandler : function(form) {
-				var formData = new FormData($('#inputForm')[0]); 
+				var formData = new FormData($('#inputForm')[0]);
 				$.ajax({
-					url: "${ctx}/OrganizationInfoController/editOrganizationInfo",
-					type: 'POST',  
-					data: formData,  
-					async: true,  
-					cache: false,  
-					contentType: false,  
-					processData: false,  
-					success: function (data) { 
+					url: "${ctx}/OrganizationProfileController/editOrganizationProfile",
+					type: 'POST',
+					data: formData,
+					async: true,
+					cache: false,
+					contentType: false,
+					processData: false,
+					success: function (data) {
 						var result = eval("("+data+")");
 						parent.window.location.reload();
 					   	var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
 					   	parent.layer.close(index);
-					},  
-					error: function (data) {  
+					},
+					error: function (data) {
 						var result = eval("("+data+")");
 				    	alert(result.msg);
-					}  
+					}
 	            });
 			}
 		});
-		
+
 		$("#dirParent").hide();
 		$("#menuParent").hide();
 		$("#linkDiv").hide();
-		
+
 	});
 	
 	function typeSelector(selector){
@@ -152,153 +152,274 @@ document.getElementById("updated_date").value=getDate();
 	}
 	
 </script>
-
+	  <style>
+		  .container{
+			  position: relative;
+			  width:100%;
+		  }
+		  .container button{
+			  position: absolute;
+			  /* 具体位置视情况而定 */
+			  height: 80%;
+			  vertical-align: middle;
+			  margin-right: 5px;
+		  }
+	  </style>
 </head>
 <body>
 	<div class="portlet light bordered">
 		<div class="portlet-body form">
 			<!-- BEGIN FORM-->
 			<form id="inputForm" class="form-horizontal form-row-seperated">
-				<input type="hidden" name="t_O_ID" value="${organizationInfo.t_O_ID}" />	
+				<input type="hidden" name="t_O_ID" value="${organizationProfile.t_O_ID}" />
 				<input type="hidden" name="platform" value="${platform}">
  					<div class="form-group">
-						<label class="control-label col-sm-3">机构组织代码证<span
+						<label class="control-label col-sm-3">企业子账户ID<span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_O_CertificationCode" value="${organizationInfo.t_O_CertificationCode}" />
+									name="t_Profile_ID" value="${organizationProfile.t_Profile_ID}" />
 							</div>
 						</div>
 					</div>
                     <div class="form-group">
-						<label class="control-label col-sm-3">公司名 <span
+						<label class="control-label col-sm-3">机构组织代码证 <span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_O_OrgName" value="${organizationInfo.t_O_OrgName}" disabled="disabled" />
+									name="t_Profile_CertificationCode" value="${organizationProfile.t_Profile_CertificationCode}" disabled="disabled" />
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-3">企业负责人手机号<span
+						<label class="control-label col-sm-3">公司名<span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_O_EmployeeAmount" value="${organizationInfo.t_O_EmployeeAmount}"/>
+									name="t_Profile_OrgName" value="${organizationProfile.t_Profile_OrgName}"/>
 							</div>
 						</div>
 					</div>
 				<@shiro.hasPermission name="TREASURYINFO_SUPERADMINVIEW">
 					 <div class="form-group">
-						<label class="control-label col-sm-3">企业评级<span
+						<label class="control-label col-sm-3">企业等级<span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_O_Category" value="${organizationInfo.t_O_Category}" />
+									name="t_Profile_Qualification" value="${organizationProfile.t_Profile_Qualification}" />
 							</div>
 						</div>
 					</div>
-					<div class="form-group">
-						<label class="control-label col-sm-3">是否是代理商<span
+				<div class="form-group">
+					<label class="control-label col-sm-3">是否需要状态报告<span
 							class="required"> * </span>
-						</label>
-						<div class="col-sm-9">
-							<div class="input-icon right">
-								<select class="bs-select form-control"  name="t_O_listOrg" id="t_O_listOrg" value="${organizationInfo.t_O_listOrg}">
-									<option value="on">是</option>
-									<option value="off">否</option>
-								</select>
-							</div>
+					</label>
+					<div class="col-sm-9">
+						<div class="input-icon right">
+							<select class="bs-select form-control"  name="t_Profile_AppStatus" id="t_Profile_QualificationStatus" value="${organizationProfile.t_Profile_QualificationStatus}">
+								<option value="on">是</option>
+								<option value="off">否</option>
+							</select>
 						</div>
 					</div>
+				</div>
                     <div class="form-group">
-						<label class="control-label col-sm-3">经销商企业名<span
+						<label class="control-label col-sm-3">企业电话<span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_O_OrgPending" value="${organizationInfo.t_O_OrgPending}" />
+									name="t_Profile_Mobile" value="${organizationProfile.t_Profile_Mobile}" />
 							</div>
 						</div>
 					</div>
-            </@shiro.hasPermission>
+            	</@shiro.hasPermission>
                     <div class="form-group">
-						<label class="control-label col-sm-3">企业法人 <span
+						<label class="control-label col-sm-3">企业法人/联系人<span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_O_OrgRepresentative" value="${organizationInfo.t_O_OrgRepresentative}" />
+									name="t_Profile_Contact" value="${organizationProfile.t_Profile_Contact}" />
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-3">支付备付金账户<span
+						<label class="control-label col-sm-3">电邮<span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_O_OrgPayrollBankaccount" value="${organizationInfo.t_O_OrgPayrollBankaccount}"  placeholder="请先开通支付备付金账户"/>
+									name="t_Profile_Email" value="${organizationProfile.t_Profile_Email}"  placeholder="请先填写正确电邮地址"/>
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-3">电银备付金账户<span
+						<label class="control-label col-sm-3">地址<span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_O_OrgChinaebiAcc" value="${organizationInfo.t_O_OrgChinaebiAcc}" placeholder="请先开通电银备付金账户"/>
+									name="t_Profile_Address" value="${organizationProfile.t_Profile_Address}" placeholder="请先正确填写公司地址"/>
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-3">杉德备付金账户<span
+						<label class="control-label col-sm-3">接口账号<span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_O_OrgSandeAcc" value="${organizationInfo.t_O_OrgSandeAcc}" placeholder="请先开通杉德备付金账户"/>
+									name="t_Profile_PostRet" value="${organizationProfile.t_Profile_PostRet}" placeholder="请先开通杉德备付金账户"/>
 							</div>
 						</div>
 					</div>
+			<div class="form-group">
+				<label class="control-label col-sm-3">企业类型<span
+						class="required"> * </span>
+				</label>
+				<div class="col-sm-9">
+					<div class="input-icon right">
+						<i class="fa"></i> <input type="text" class="form-control"
+												  name="t_Profile_OrgType" value="${organizationProfile.t_Profile_OrgType}" placeholder="人力资源企业，普通企业，经销商/代理商"/>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-3">状态报告回调地址<span
+						class="required"> * </span>
+				</label>
+				<div class="col-sm-9">
+					<div class="input-icon right">
+						<i class="fa"></i> <input type="text" class="form-control"
+												  name="t_Profile_StatusRptRetAddress" value="${organizationProfile.t_Profile_StatusRptRetAddress}" placeholder="api.58gongzi.com.cn/api/orgname"/>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-3">节点数<span
+						class="required"> * </span>
+				</label>
+				<div class="col-sm-9">
+					<div class="input-icon right">
+						<i class="fa"></i> <input type="text" class="form-control"
+												  name="t_Profile_CurrentAddress" value="${organizationProfile.t_Profile_CurrentAddress}" placeholder="1,2,3"/>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-3">API接口<span
+						class="required"> * </span>
+				</label>
+				<div class="col-sm-9">
+					<div class="input-icon right">
+						<i class="fa"></i> <input type="text" class="form-control"
+												  name="t_Profile_IPaddr" value="${organizationProfile.t_Profile_IPaddr}" placeholder="api.58gongzi.com.cn/api/orgname"/>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-3">API接口账号<span
+						class="required"> * </span>
+				</label>
+				<div class="col-sm-9">
+					<div class="input-icon right">
+						<i class="fa"></i> <input type="text" class="form-control"
+												  name="t_Profile_APIAcc" value="${organizationProfile.t_Profile_APIAcc}" placeholder="请先开接口功能"/>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-3">API接口密码 <span
+						class="required"> * </span>
+				</label>
+				<div class="col-sm-9">
+					<div class="input-icon right">
+						<i class="fa"></i> <input type="text" class="form-control"
+												  name="t_Profile_APIPWD" value="${organizationProfile.t_Profile_APIPWD}"/>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-3">接口速度 接口协议 连接节点<span
+						class="required"> * </span>
+				</label>
+				<div class="col-sm-9">
+					<div class="input-icon right">
+						<i class="fa"></i> <input type="text" class="form-control"
+												  name="t_Profile_APIret" value="${organizationProfile.t_Profile_APIret}"/>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-3">营业执照图片<span
+						class="required"> * </span>
+				</label>
+				<div class="col-sm-9">
+					<div class="container">
+						<i class="fa"></i><input type="file" class="form-control" style="width:100%" title="请选择文件" id="t_Profile_AgentCmpyName" name="t_Profile_AgentCmpyName" onchange="javascript:chkuploadfile(this.innerText)">
+					</div> <!-- https://blog.csdn.net/u010047432/article/details/89391568 -->
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-3">审核状态<span
+						class="required"> * </span>
+				</label>
+				<div class="col-sm-9">
+					<div class="input-icon right">
+						<select class="bs-select form-control"  name="t_Profile_AppStatus" id="t_Profile_AppStatus" value="${organizationProfile.t_Profile_AppStatus}">
+							<option value="approved">审核通过</option>
+							<option value="pending">未审核</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-3">是否需要上行<span
+						class="required"> * </span>
+				</label>
+				<div class="col-sm-9">
+					<div class="input-icon right">
+						<i class="fa"></i> <input type="text" class="form-control"
+												  name="t_Profile_RetHTTPget" value="${organizationProfile.t_Profile_RetHTTPget}"/>
+					</div>
+				</div>
+			</div>
 					<div class="form-group">
-						<label class="control-label col-sm-3">是否正常经营<span
+						<label class="control-label col-sm-3">是否需要审核 <span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
-								<select class="bs-select form-control" name="t_O_OrgStatus" id="t_O_OrgStatus" value="${organizationInfo.t_O_OrgStatus}">
-									<option value="on">是</option>
-									<option value="off">否</option>
-								</select>
+								<i class="fa"></i> <input type="text" class="form-control"
+														  name="t_Profile_RegulatorReq" value="${organizationProfile.t_Profile_RegulatorReq}"/>
 							</div>
 						</div>
 					</div>
-					<div class="form-group">
-						<label class="control-label col-sm-3">备注 <span
-							class="required"> * </span>
-						</label>
-						<div class="col-sm-9">
-							<div class="input-icon right">
-								<i class="fa"></i><textarea style="width:1000px;height:88px;" class="form-control"
-									name="remark">${organizationInfo.remark}</textarea>
-							</div>
-						</div>
+			<div class="form-group">
+				<label class="control-label col-sm-3">备注 <span
+						class="required"> * </span>
+				</label>
+				<div class="col-sm-9">
+					<div class="input-icon right">
+						<i class="fa"></i><textarea style="width:1000px;height:88px;" class="form-control"
+													name="remark" vallue="${organizationProfile.remark}" placeholder="备注"></textarea>
 					</div>
+				</div>
+			</div>
 					<div class="form-group">
 						<label class="control-label col-sm-3">更新时间</label>
 						<div class="col-sm-9">

@@ -77,8 +77,61 @@ public class OrganizationProfileController {
         return "organizationProfile/organizationProfileList";
     }
 
+    @RequestMapping(value = "organizationProfileSearchList")
+    public String organizationInfoSearchList(OrganizationProfile organizationProfile, @RequestParam( defaultValue = "0" )  Integer platform,String t_Profile_Qualification,String t_Profile_OrgName,
+                                             String t_Profile_AppStatus,String t_Profile_OrgType, String remark,Date create_time,HttpServletRequest request, HttpServletResponse response, Model model) {
+        String t_M_Company = ShiroSessionUtil.getLoginSession().getCompany_name();
+        model.addAttribute("platform", platform); //key从数据库查询并返回,并索引对应JSP
+        model.addAttribute("t_Profile_AppStatus", t_Profile_AppStatus);
+        model.addAttribute("t_Profile_Qualification",t_Profile_Qualification);
+        model.addAttribute("t_Profile_OrgType",t_Profile_OrgType);
+        model.addAttribute("t_Profile_OrgName",t_Profile_OrgName);
+        model.addAttribute("remark",remark);
+        model.addAttribute("create_time",create_time);
+
+        if (t_Profile_Qualification != "" | t_Profile_OrgName !=  "" | t_Profile_OrgType != "" | t_Profile_AppStatus != "" | remark != "" | create_time != null ) {
+            Map<String, Object> paramSearchMap = new HashMap<String, Object>();//新建map对象
+            paramSearchMap.put("t_Profile_OrgName", t_Profile_OrgName);//添加元素
+            paramSearchMap.put("t_Profile_Qualification", t_Profile_Qualification);//添加元素
+            paramSearchMap.put("t_Profile_AppStatus", t_Profile_AppStatus);//添加元素
+            paramSearchMap.put("t_Profile_OrgType", t_Profile_OrgType);//添加元素
+            paramSearchMap.put("remark", remark);//添加元素
+            paramSearchMap.put("create_time", create_time);//添加元素
+            PageParam pp = Tool.genPageParam(request);
+            if(ShiroSessionUtil.getLoginSession().getPlatform().equals("4")){
+                paramSearchMap.put("t_O_VendorOrgName",t_M_Company);
+            }
+            PageInfo<OrganizationProfile> page = organizationProfileService.findSearchList(pp, paramSearchMap); //  << new-function
+            model.addAttribute("page", page);//从数据库查询出来的结果用model的方式返回
+        } else {
+            PageParam pp = Tool.genPageParam(request);
+            Map<String, Object> paramMap  = new HashMap<String, Object>();
+            paramMap.put("t_M_Company",t_M_Company);
+            if(ShiroSessionUtil.getLoginSession().getPlatform().equals("4")){
+                paramMap.put("t_M_Company",null);
+                paramMap.put("t_O_VendorOrgName",t_M_Company);
+            }
+            else if(ShiroSessionUtil.getLoginSession().getPlatform().equals("5")){
+                paramMap.put("t_M_Company",t_M_Company);
+                paramMap.put("t_O_VendorOrgName",null);
+            }
+            PageInfo<OrganizationProfile> page = organizationProfileService.findAllList(paramMap, pp);
+            model.addAttribute("page", page);
+        }
+        if(0 == platform) {
+            return "organizationProfile/organizationProfileList";
+//    	} else if(1 == platform) {
+//    		return "financeProduct/financeProductEntList";
+//    	} else if(2 == platform) {
+//    		//个人端，暂时不考虑
+//    		return "financeProduct/financeProductList";
+        }else {
+            return "organizationProfile/organizationProfileList";
+        }
+    }
+
     @RequestMapping(value = {"form",""})
-    public String form(String t_O_ID, String operationType, Integer platform,
+    public String form(String t_Profile_ID, String operationType, Integer platform,
                        HttpServletRequest request, HttpServletResponse response,
                        Model model) {
         model.addAttribute("platform", platform);
@@ -93,7 +146,7 @@ public class OrganizationProfileController {
             return "organizationProfile/organizationProfileNewForm";
         } else if (OperationTypeConstant.EDIT.equals(operationType))
         {
-            OrganizationProfile organizationprofile = organizationProfileService.selectByPrimaryKey(t_O_ID);
+            OrganizationProfile organizationprofile = organizationProfileService.selectByPrimaryKey(t_Profile_ID);
             return "organizationProfile/organizationProfileEditForm";
         } else {
             return "organizationProfile/organizationProfileList";
