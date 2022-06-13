@@ -5,12 +5,10 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
+import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.qucai.sample.entity.OrganizationInfo;
-import com.qucai.sample.entity.PasswordReset;
 import com.qucai.sample.entity.TreasuryDBInfo;
 import com.qucai.sample.service.TreasuryDBInfoService;
 import org.apache.commons.lang3.StringUtils;
@@ -202,18 +200,22 @@ public class OrganizationProfileController {
 
     @RequestMapping("OrgCertImgUpload")
     @ResponseBody
-    public String uploadfiles(HttpServletRequest request, MultipartFile upload,String t_O_CertificationCode) {
-        System.out.println("springmvc 方式 :" + upload);
+    public String uploadfiles(@RequestParam("t_Profile_AgentCmpyName") MultipartFile t_Profile_AgentCmpyName, HttpServletRequest request,HttpServletResponse response,  String t_O_CertificationCode) throws IOException {
+        Map<String,Object> ret = new HashMap<String,Object>();
+        System.out.println("springmvc 方式 :" + t_Profile_AgentCmpyName);
         System.out.println("certcode :"+t_O_CertificationCode);
         // 指定文件上传的位置
-        String path = request.getSession().getServletContext().getRealPath("/files/certpic");
+        String path = request.getSession().getServletContext().getRealPath("/files/certpics");
         //判断该路径是否存在
         File file = new File(path);
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdir();
+        }
         if (!file.exists()) {
             // 不存在就创建路径
             file.mkdirs();
         }
-        String originalfileName = upload.getOriginalFilename();
+        String originalfileName = t_Profile_AgentCmpyName.getOriginalFilename();
         String tailer = null;
         if(originalfileName.contains(".png")) {
              tailer = ".png";
@@ -225,13 +227,15 @@ public class OrganizationProfileController {
             tailer = ".jpeg";
         }
 
-        String fileName = t_O_CertificationCode + "_" + tailer;
+        String fileName = t_O_CertificationCode + "_certimg" + tailer;
         try {
-            upload.transferTo(new File(path,fileName));
+            t_Profile_AgentCmpyName.transferTo(new File(path,fileName));
+            ret.put("retcode","succ");
         } catch (IOException e) {
             e.printStackTrace();
+            ret.put("retcode","fail");
         }
-        return "success";
+        return JsonBizTool.genJson(ExRetEnum.OrgBalGetSucc,ret);
     }
 
     //Check Complete org head info - treasury , msg , news
