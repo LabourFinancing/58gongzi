@@ -2,6 +2,7 @@ package com.qucai.sample.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -204,23 +205,13 @@ public class OrganizationProfileController{
 
     @RequestMapping(value = "editOrganizationProfile")
     @ResponseBody
-    public String editOrganizationProfile(Map<String, Object> forminput,HttpServletRequest request, String t_Profile_AppStatus,
+    public String editOrganizationProfile(@RequestBody JSONObject forminput,HttpServletRequest request, String t_Profile_AppStatus,
                                           HttpServletResponse response, Model model) {
-        JSONObject jsondata = new JSONObject(forminput);//JSONObject解析JSON数据，
-        Map<String,Object> ret = new HashMap<String, Object>();
-        System.out.println(jsondata);
-        System.out.println(jsondata.getJSONObject("organizationProfile"));
-//        Map<String, Object> obj = new HashMap<String, Object>(jsondata.getJSONObject("organizationProfile"));
-        JSONObject obj =  new JSONObject(jsondata.getJSONObject("organizationProfile"));
+        Map<String, Object> ret = new HashMap<String, Object>();
         String fileName = null;
-        System.out.println(obj.get("organizationProfile"));
-        System.out.println(obj);
-        System.out.println(forminput);
-//        String.valueOf(obj.get("contractInfoId"));
         OrganizationProfile organizationProfile = new OrganizationProfile();
-        if(String.valueOf(obj.getString("t_Profile_AgentCmpyName")) != "") {
-            organizationProfile.setT_Profile_AgentCmpyName(String.valueOf(obj.getString("t_Profile_AgentCmpyName")));
-            String originalfileName = String.valueOf(obj.getString("t_Profile_AgentCmpyName"));
+        if(String.valueOf(forminput.getString("t_Profile_AgentCmpyName")) != "") {
+            String originalfileName = String.valueOf(forminput.getString("t_Profile_AgentCmpyName"));
             String tailer = null;
             if (originalfileName.contains(".png")) {
                 tailer = ".png";
@@ -231,34 +222,33 @@ public class OrganizationProfileController{
             if (originalfileName.contains(".jpeg")) {
                 tailer = ".jpeg";
             }
-
-             fileName = String.valueOf(obj.getString("t_Profile_CertificationCode"))+ "_certimg" + tailer;
+             fileName = "/files/certpics/" + (String.valueOf(forminput.getString("t_Profile_CertificationCode"))) + "_certimg." + tailer;
+             organizationProfile.setT_Profile_AgentCmpyName(fileName);
         }else {
-             fileName = "";
+             fileName = null;
         }
-        organizationProfile.setT_Profile_AgentCmpyName(fileName);
         organizationProfile.setModifier(ShiroSessionUtil.getLoginSession().getId());
         organizationProfile.setModify_time(new Date());
-        organizationProfile.setT_Profile_ID(String.valueOf(obj.getString("t_Profile_ID")));
-        organizationProfile.setT_Profile_Qualification(String.valueOf(obj.getString("t_Profile_Qualification")));
-        organizationProfile.setT_Profile_QualificationStatus(String.valueOf(obj.getString("t_Profile_QualificationStatus")));
-        organizationProfile.setT_Profile_Mobile(String.valueOf(obj.getString("t_Profile_Mobile")));
-        organizationProfile.setT_Profile_Contact(String.valueOf(obj.getString("t_Profile_Contact")));
-        organizationProfile.setT_Profile_Email(String.valueOf(obj.getString("t_Profile_Email")));
-        organizationProfile.setT_Profile_Address(String.valueOf(obj.getString("t_Profile_Address")));
-        organizationProfile.setT_Profile_PostRet(String.valueOf(obj.getString("t_Profile_PostRet")));
-        organizationProfile.setT_Profile_OrgType(String.valueOf(obj.getString("t_Profile_OrgType")));
-        organizationProfile.setT_Profile_StatusRptRetAddress(String.valueOf(obj.getString("t_Profile_StatusRptRetAddress")));
-        organizationProfile.setT_Profile_CurrentAddress(String.valueOf(obj.getString("t_Profile_CurrentAddress")));
-        organizationProfile.setT_Profile_IPaddr(String.valueOf(obj.getString("t_Profile_IPaddr")));
-        organizationProfile.setT_Profile_APIAcc(String.valueOf(obj.getString("t_Profile_APIAcc")));
-        organizationProfile.setT_Profile_APIPWD(String.valueOf(obj.getString("t_Profile_APIPWD")));
-        organizationProfile.setT_Profile_APIret(String.valueOf(obj.getString("t_Profile_APIret")));
-        organizationProfile.setT_Profile_AppStatus(String.valueOf(obj.getString("t_Profile_AppStatus")));
-        organizationProfile.setT_Profile_RetHTTPget(String.valueOf(obj.getString("t_Profile_RetHTTPget")));
-        organizationProfile.setT_Profile_RegulatorReq(String.valueOf(obj.getString("t_Profile_RegulatorReq")));
-        organizationProfile.setRemark(String.valueOf(obj.getString("remark")));
-        t_Profile_AppStatus = String.valueOf(obj.getString("t_Profile_AppStatus"));
+        organizationProfile.setT_Profile_ID(String.valueOf(forminput.getString("t_Profile_ID")));
+        organizationProfile.setT_Profile_Qualification(String.valueOf(forminput.getString("t_Profile_Qualification")));
+        organizationProfile.setT_Profile_QualificationStatus(String.valueOf(forminput.getString("t_Profile_QualificationStatus")));
+        organizationProfile.setT_Profile_Mobile(String.valueOf(forminput.getString("t_Profile_Mobile")));
+        organizationProfile.setT_Profile_Contact(String.valueOf(forminput.getString("t_Profile_Contact")));
+        organizationProfile.setT_Profile_Email(String.valueOf(forminput.getString("t_Profile_Email")));
+        organizationProfile.setT_Profile_Address(String.valueOf(forminput.getString("t_Profile_Address")));
+        organizationProfile.setT_Profile_PostRet(String.valueOf(forminput.getString("t_Profile_PostRet")));
+        organizationProfile.setT_Profile_OrgType(String.valueOf(forminput.getString("t_Profile_OrgType")));
+        organizationProfile.setT_Profile_StatusRptRetAddress(String.valueOf(forminput.getString("t_Profile_StatusRptRetAddress")));
+        organizationProfile.setT_Profile_CurrentAddress(String.valueOf(forminput.getString("t_Profile_CurrentAddress")));
+        organizationProfile.setT_Profile_IPaddr(String.valueOf(forminput.getString("t_Profile_IPaddr")));
+        organizationProfile.setT_Profile_APIAcc(String.valueOf(forminput.getString("t_Profile_APIAcc")));
+        organizationProfile.setT_Profile_APIPWD(String.valueOf(forminput.getString("t_Profile_APIPWD")));
+        organizationProfile.setT_Profile_APIret(String.valueOf(forminput.getString("t_Profile_APIret")));
+        organizationProfile.setT_Profile_AppStatus(String.valueOf(forminput.getString("t_Profile_AppStatus")));
+        organizationProfile.setT_Profile_RetHTTPget(String.valueOf(forminput.getString("t_Profile_RetHTTPget")));
+        organizationProfile.setT_Profile_RegulatorReq(String.valueOf(forminput.getString("t_Profile_RegulatorReq")));
+        organizationProfile.setRemark(String.valueOf(forminput.getString("remark")));
+        t_Profile_AppStatus = String.valueOf(forminput.getString("t_Profile_AppStatus"));
         if (t_Profile_AppStatus.equals("pending") ) {
 //            managerService.updateAllCompanyStaffsOff(t_O_OrgName);  // check failed procedure
         }else if(t_Profile_AppStatus.equals("approved")) {

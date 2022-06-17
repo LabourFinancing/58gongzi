@@ -113,8 +113,8 @@ document.getElementById("modify_time").value=getDate();
 		"t_Profile_CertificationCode":document.getElementById("t_Profile_CertificationCode").value,
 		"t_Profile_OrgName":document.getElementById("t_Profile_OrgName").value,
 		"t_Profile_Qualification":document.getElementById("t_Profile_Qualification").value,
-		"t_Profile_QualificationStatus":document.getElementById("t_Profile_QualificationStatus").value,
-		"t_Profile_Mobile":document.getElementById("t_Profile_Mobile").value,
+		"t_Profile_QualificationStatus": document.getElementById("t_Profile_QualificationStatus").value,
+		"t_Profile_Mobile:":document.getElementById("t_Profile_Mobile").value,
 		"t_Profile_Contact":document.getElementById("t_Profile_Contact").value,
 		"t_Profile_Email":document.getElementById("t_Profile_Email").value,
 		"t_Profile_Address":document.getElementById("t_Profile_Address").value,
@@ -130,7 +130,7 @@ document.getElementById("modify_time").value=getDate();
 		"t_Profile_AppStatus":document.getElementById("t_Profile_AppStatus").value,
 		"t_Profile_RetHTTPget":document.getElementById("t_Profile_RetHTTPget").value,
 		"t_Profile_RegulatorReq":document.getElementById("t_Profile_RegulatorReq").value,
-		"remark":document.getElementById("remark").value,
+		"remark":document.getElementById("remark").value
 	};
 	$.ajax({
 		url: "${ctx}/OrganizationProfileController/editOrganizationProfile",
@@ -140,7 +140,7 @@ document.getElementById("modify_time").value=getDate();
 		contentType: "application/json",//关键是要加上这行
 		traditional : true,//这使json格式的字符不会被转码
 		data : JSON.stringify(forminput),
-		processData: false,
+		processData: true,
 		success: function (data) {
 			alert("成功")
 			parent.window.location.reload();
@@ -179,7 +179,7 @@ document.getElementById("modify_time").value=getDate();
 				async: true,
 				cache: false,
 				contentType: false,
-				processData: false,
+				processData: true,
 				success: function (data) {
 					var result = eval("("+data+")");
 					if(result.retmsg === "succ"){
