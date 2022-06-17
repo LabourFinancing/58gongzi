@@ -5,7 +5,7 @@
 <!--<![endif]-->
 <head>
 <meta charset="utf-8" />
-<title>编辑产品</title>
+<title>编辑企业基信</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1" name="viewport" />
 <meta content="" name="description" />
@@ -15,9 +15,9 @@
 <script src="${ctx}/metronic/global/plugins/jquery.min.js" type="text/javascript"></script>
 <script src="${ctx}/metronic/global/plugins/ajaxfileupload.js" type="text/javascript"></script>
 <script src="${ctx}/metronic/global/plugins/ajaxfileupload-variable-transfer.js" type="text/javascript"></script>
-	<script src="${ctx}/metronic/mobile/js/jquery.min.js" type="text/javascript"></script>
-	<script src="${ctx}/metronic/mobile/js/jquery-2.1.3.js" type="text/javascript"></script>
-	<script src="${ctx}/metronic/mobile/js/jquery.validate.min.js" type="text/javascript"></script>
+<script src="${ctx}/metronic/mobile/js/jquery.min.js" type="text/javascript"></script>
+<script src="${ctx}/metronic/mobile/js/jquery-2.1.3.js" type="text/javascript"></script>
+<script src="${ctx}/metronic/mobile/js/jquery.validate.min.js" type="text/javascript"></script>
 
 <script>
 window.onload = function(){
@@ -28,7 +28,7 @@ date = (today.getFullYear()) +"-" + (today.getMonth() + 1 ) + "-" + today.getDat
 return date;
 }
 window.setInterval(function(){
-document.getElementById("updated_date").value=getDate();
+document.getElementById("modify_time").value=getDate();
 }, 1000);
 }
 </script>
@@ -43,17 +43,15 @@ document.getElementById("updated_date").value=getDate();
         var t_Profile_RegulatorReq_value = "${organizationProfile.t_Profile_RegulatorReq}";
         $("#t_Profile_RegulatorReq option[value='"+t_Profile_RegulatorReq_value+"']").attr("selected","selected");
 
+
 		var form = $('#inputForm');
 		form.validate({
 			errorElement : 'span', //default input error message container
 			errorClass : 'help-block help-block-error', // default input error message class
 			focusInvalid : false, // do not focus the last invalid input
 			rules : {
-                t_O_EmployeeAmount : {
-					required : true,
-					digits : true,
-					isMobile : true,
-					remote : "${ctx}/jqueryValidateController/checkPersonalInfoModil?platform=${platform}" + "&t_P_id=" + $("#t_P_id").val()
+				t_Profile_Email:{
+					email : true
 				},
 				type : {
 					required : true
@@ -101,28 +99,6 @@ document.getElementById("updated_date").value=getDate();
 				icon.removeClass("fa-warning").addClass("fa-check");
 			},
 
-			submitHandler : function(form) {
-				var formData = new FormData($('#inputForm')[0]);
-				$.ajax({
-					url: "${ctx}/OrganizationProfileController/editOrganizationProfile",
-					type: 'POST',
-					data: formData,
-					async: true,
-					cache: false,
-					contentType: false,
-					processData: false,
-					success: function (data) {
-						var result = eval("("+data+")");
-						parent.window.location.reload();
-					   	var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
-					   	parent.layer.close(index);
-					},
-					error: function (data) {
-						var result = eval("("+data+")");
-				    	alert(result.msg);
-					}
-	            });
-			}
 		});
 
 		$("#dirParent").hide();
@@ -130,6 +106,54 @@ document.getElementById("updated_date").value=getDate();
 		$("#linkDiv").hide();
 
 	});
+
+	function submitForm(){
+	var forminput = {
+		"t_Profile_ID":document.getElementById("t_Profile_ID").value,
+		"t_Profile_CertificationCode":document.getElementById("t_Profile_CertificationCode").value,
+		"t_Profile_OrgName":document.getElementById("t_Profile_OrgName").value,
+		"t_Profile_Qualification":document.getElementById("t_Profile_Qualification").value,
+		"t_Profile_QualificationStatus":document.getElementById("t_Profile_QualificationStatus").value,
+		"t_Profile_Mobile":document.getElementById("t_Profile_Mobile").value,
+		"t_Profile_Contact":document.getElementById("t_Profile_Contact").value,
+		"t_Profile_Email":document.getElementById("t_Profile_Email").value,
+		"t_Profile_Address":document.getElementById("t_Profile_Address").value,
+		"t_Profile_PostRet":document.getElementById("t_Profile_PostRet").value,
+		"t_Profile_OrgType":document.getElementById("t_Profile_OrgType").value,
+		"t_Profile_StatusRptRetAddress":document.getElementById("t_Profile_StatusRptRetAddress").value,
+		"t_Profile_CurrentAddress":document.getElementById("t_Profile_CurrentAddress").value,
+		"t_Profile_IPaddr":document.getElementById("t_Profile_IPaddr").value,
+		"t_Profile_APIAcc":document.getElementById("t_Profile_APIAcc").value,
+		"t_Profile_APIPWD":document.getElementById("t_Profile_APIPWD").value,
+		"t_Profile_APIret":document.getElementById("t_Profile_APIret").value,
+		"t_Profile_AgentCmpyName":document.getElementById("t_Profile_AgentCmpyName").value,
+		"t_Profile_AppStatus":document.getElementById("t_Profile_AppStatus").value,
+		"t_Profile_RetHTTPget":document.getElementById("t_Profile_RetHTTPget").value,
+		"t_Profile_RegulatorReq":document.getElementById("t_Profile_RegulatorReq").value,
+		"remark":document.getElementById("remark").value,
+	};
+	$.ajax({
+		url: "${ctx}/OrganizationProfileController/editOrganizationProfile",
+		type: 'POST',
+		dataType : "json",
+		async: false,
+		contentType: "application/json",//关键是要加上这行
+		traditional : true,//这使json格式的字符不会被转码
+		data : JSON.stringify(forminput),
+		processData: false,
+		success: function (data) {
+			alert("成功")
+			parent.window.location.reload();
+			var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+			console.log(index)
+			parent.layer.close(index);
+		},
+		error: function (data) {
+			console.log(data)
+			alert("失败");
+		}
+	});
+	}
 
 	function chkuploadfile(val){
 		console.log(val)
@@ -158,10 +182,20 @@ document.getElementById("updated_date").value=getDate();
 				processData: false,
 				success: function (data) {
 					var result = eval("("+data+")");
+					if(result.retmsg === "succ"){
+						document.getElementById("certimgmsg").innerText = ""
+						document.getElementById("certimgmsg").innerText = "上传成功"
+						document.getElementById("certimgmsg").display = ""
+					}
 					console.log(result);
 				},
 				error: function (data) {
 					var result = eval("("+data+")");
+					if(result.retmsg === "fail"){
+						document.getElementById("certimgmsg").innerText = ""
+						document.getElementById("certimgmsg").innerText = "上传失败"
+						document.getElementById("certimgmsg").display = ""
+					}
 					alert(result.msg);
 				}
 			});
@@ -193,28 +227,14 @@ document.getElementById("updated_date").value=getDate();
 	function setParentId(selector) {
 		$("#parentId").val($(selector).find("option:selected").val());
 	}
-	
+
 </script>
-	  <style>
-		  .container{
-			  position: relative;
-			  width:100%;
-		  }
-		  .container button{
-			  position: absolute;
-			  /* 具体位置视情况而定 */
-			  height: 80%;
-			  vertical-align: middle;
-			  margin-right: 5px;
-		  }
-	  </style>
 </head>
 <body>
 	<div class="portlet light bordered">
 		<div class="portlet-body form">
 			<!-- BEGIN FORM-->
 			<form id="inputForm" class="form-horizontal form-row-seperated" enctype="multipart/form-data">
-				<input type="hidden" name="t_O_ID" value="${organizationProfile.t_O_ID}" />
 				<input type="hidden" name="platform" value="${platform}">
  					<div class="form-group">
 						<label class="control-label col-sm-3">企业子账户ID<span
@@ -222,8 +242,8 @@ document.getElementById("updated_date").value=getDate();
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
-								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_Profile_ID" value="${organizationProfile.t_Profile_ID}" />
+								<i class="fa"></i> <input type="text" class="form-control" disabled="disabled"
+														  name="t_Profile_ID" id="t_Profile_ID" value="${organizationProfile.t_Profile_ID}" />
 							</div>
 						</div>
 					</div>
@@ -245,11 +265,10 @@ document.getElementById("updated_date").value=getDate();
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_Profile_OrgName" value="${organizationProfile.t_Profile_OrgName}"/>
+									name="t_Profile_OrgName" id="t_Profile_OrgName" value="${organizationProfile.t_Profile_OrgName}"/>
 							</div>
 						</div>
 					</div>
-				<@shiro.hasPermission name="TREASURYINFO_SUPERADMINVIEW">
 					 <div class="form-group">
 						<label class="control-label col-sm-3">企业等级<span
 							class="required"> * </span>
@@ -257,7 +276,7 @@ document.getElementById("updated_date").value=getDate();
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_Profile_Qualification" value="${organizationProfile.t_Profile_Qualification}" />
+									name="t_Profile_Qualification" id="t_Profile_Qualification" value="${organizationProfile.t_Profile_Qualification}" />
 							</div>
 						</div>
 					</div>
@@ -281,11 +300,10 @@ document.getElementById("updated_date").value=getDate();
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_Profile_Mobile" value="${organizationProfile.t_Profile_Mobile}" />
+									name="t_Profile_Mobile" id="t_Profile_Mobile" value="${organizationProfile.t_Profile_Mobile}" />
 							</div>
 						</div>
 					</div>
-            	</@shiro.hasPermission>
                     <div class="form-group">
 						<label class="control-label col-sm-3">企业法人/联系人<span
 							class="required"> * </span>
@@ -293,7 +311,7 @@ document.getElementById("updated_date").value=getDate();
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_Profile_Contact" value="${organizationProfile.t_Profile_Contact}" />
+									name="t_Profile_Contact" id="t_Profile_Contact" value="${organizationProfile.t_Profile_Contact}" />
 							</div>
 						</div>
 					</div>
@@ -304,7 +322,7 @@ document.getElementById("updated_date").value=getDate();
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_Profile_Email" value="${organizationProfile.t_Profile_Email}"  placeholder="请先填写正确电邮地址"/>
+									name="t_Profile_Email" id="t_Profile_Email" value="${organizationProfile.t_Profile_Email}"  placeholder="请先填写正确电邮地址"/>
 							</div>
 						</div>
 					</div>
@@ -315,7 +333,7 @@ document.getElementById("updated_date").value=getDate();
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_Profile_Address" value="${organizationProfile.t_Profile_Address}" placeholder="请先正确填写公司地址"/>
+									name="t_Profile_Address" id="t_Profile_Address" value="${organizationProfile.t_Profile_Address}" placeholder="请先正确填写公司地址"/>
 							</div>
 						</div>
 					</div>
@@ -326,7 +344,7 @@ document.getElementById("updated_date").value=getDate();
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_Profile_PostRet" value="${organizationProfile.t_Profile_PostRet}" placeholder="请先开通杉德备付金账户"/>
+									name="t_Profile_PostRet" id="t_Profile_PostRet" value="${organizationProfile.t_Profile_PostRet}" placeholder="请先开通杉德备付金账户"/>
 							</div>
 						</div>
 					</div>
@@ -337,7 +355,7 @@ document.getElementById("updated_date").value=getDate();
 				<div class="col-sm-9">
 					<div class="input-icon right">
 						<i class="fa"></i> <input type="text" class="form-control"
-												  name="t_Profile_OrgType" value="${organizationProfile.t_Profile_OrgType}" placeholder="人力资源企业，普通企业，经销商/代理商"/>
+												  name="t_Profile_OrgType" id="t_Profile_OrgType" value="${organizationProfile.t_Profile_OrgType}" placeholder="人力资源企业，普通企业，经销商/代理商"/>
 					</div>
 				</div>
 			</div>
@@ -348,7 +366,7 @@ document.getElementById("updated_date").value=getDate();
 				<div class="col-sm-9">
 					<div class="input-icon right">
 						<i class="fa"></i> <input type="text" class="form-control"
-												  name="t_Profile_StatusRptRetAddress" value="${organizationProfile.t_Profile_StatusRptRetAddress}" placeholder="api.58gongzi.com.cn/api/orgname"/>
+												  name="t_Profile_StatusRptRetAddress" id="t_Profile_StatusRptRetAddress" value="${organizationProfile.t_Profile_StatusRptRetAddress}" placeholder="api.58gongzi.com.cn/api/orgname"/>
 					</div>
 				</div>
 			</div>
@@ -359,7 +377,7 @@ document.getElementById("updated_date").value=getDate();
 				<div class="col-sm-9">
 					<div class="input-icon right">
 						<i class="fa"></i> <input type="text" class="form-control"
-												  name="t_Profile_CurrentAddress" value="${organizationProfile.t_Profile_CurrentAddress}" placeholder="1,2,3"/>
+												  name="t_Profile_CurrentAddress" id="t_Profile_CurrentAddress" value="${organizationProfile.t_Profile_CurrentAddress}" placeholder="1,2,3"/>
 					</div>
 				</div>
 			</div>
@@ -370,7 +388,7 @@ document.getElementById("updated_date").value=getDate();
 				<div class="col-sm-9">
 					<div class="input-icon right">
 						<i class="fa"></i> <input type="text" class="form-control"
-												  name="t_Profile_IPaddr" value="${organizationProfile.t_Profile_IPaddr}" placeholder="api.58gongzi.com.cn/api/orgname"/>
+												  name="t_Profile_IPaddr" id="t_Profile_IPaddr" value="${organizationProfile.t_Profile_IPaddr}" placeholder="api.58gongzi.com.cn/api/orgname"/>
 					</div>
 				</div>
 			</div>
@@ -381,7 +399,7 @@ document.getElementById("updated_date").value=getDate();
 				<div class="col-sm-9">
 					<div class="input-icon right">
 						<i class="fa"></i> <input type="text" class="form-control"
-												  name="t_Profile_APIAcc" value="${organizationProfile.t_Profile_APIAcc}" placeholder="请先开接口功能"/>
+												  name="t_Profile_APIAcc" id="t_Profile_APIAcc" value="${organizationProfile.t_Profile_APIAcc}" placeholder="请先开接口功能"/>
 					</div>
 				</div>
 			</div>
@@ -392,7 +410,7 @@ document.getElementById("updated_date").value=getDate();
 				<div class="col-sm-9">
 					<div class="input-icon right">
 						<i class="fa"></i> <input type="text" class="form-control"
-												  name="t_Profile_APIPWD" value="${organizationProfile.t_Profile_APIPWD}"/>
+												  name="t_Profile_APIPWD" id="t_Profile_APIPWD" value="${organizationProfile.t_Profile_APIPWD}"/>
 					</div>
 				</div>
 			</div>
@@ -403,7 +421,7 @@ document.getElementById("updated_date").value=getDate();
 				<div class="col-sm-9">
 					<div class="input-icon right">
 						<i class="fa"></i> <input type="text" class="form-control"
-												  name="t_Profile_APIret" value="${organizationProfile.t_Profile_APIret}"/>
+												  name="t_Profile_APIret" id="t_Profile_APIret" value="${organizationProfile.t_Profile_APIret}"/>
 					</div>
 				</div>
 			</div>
@@ -412,8 +430,8 @@ document.getElementById("updated_date").value=getDate();
 						class="required"> * </span>
 				</label>
 				<div class="col-sm-9">
-						<i class="fa"></i><input type="file" class="form-control" style="width:100%" title="请选择文件"
-												 id="t_Profile_AgentCmpyName" name="t_Profile_AgentCmpyName" onclick="javascript:chkuploadfile(this.value)">  <!-- https://blog.csdn.net/u010047432/article/details/89391568 -->
+						<i id="certimgmsg" class="fa" style="color:blue;"></i><input type="file" class="form-control" style="width:100%" title="请选择文件"
+						 id="t_Profile_AgentCmpyName" name="t_Profile_AgentCmpyName" value="${organizationProfile.t_Profile_AgentCmpyName}" onchange="javascript:chkuploadfile(this.value)">  <!-- https://blog.csdn.net/u010047432/article/details/89391568 -->
 				</div>
 			</div>
 			<div class="form-group">
@@ -436,7 +454,7 @@ document.getElementById("updated_date").value=getDate();
 				<div class="col-sm-9">
 					<div class="input-icon right">
 						<i class="fa"></i> <input type="text" class="form-control"
-												  name="t_Profile_RetHTTPget" value="${organizationProfile.t_Profile_RetHTTPget}"/>
+												  name="t_Profile_RetHTTPget" id="t_Profile_RetHTTPget" value="${organizationProfile.t_Profile_RetHTTPget}"/>
 					</div>
 				</div>
 			</div>
@@ -447,7 +465,7 @@ document.getElementById("updated_date").value=getDate();
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-														  name="t_Profile_RegulatorReq" value="${organizationProfile.t_Profile_RegulatorReq}"/>
+														  name="t_Profile_RegulatorReq" id="t_Profile_RegulatorReq" value="${organizationProfile.t_Profile_RegulatorReq}"/>
 							</div>
 						</div>
 					</div>
@@ -458,7 +476,7 @@ document.getElementById("updated_date").value=getDate();
 				<div class="col-sm-9">
 					<div class="input-icon right">
 						<i class="fa"></i><textarea style="width:1000px;height:88px;" class="form-control"
-													name="remark" vallue="${organizationProfile.remark}" placeholder="备注"></textarea>
+													name="remark" id="remark" value="${organizationProfile.remark}"></textarea>
 					</div>
 				</div>
 			</div>
@@ -466,17 +484,16 @@ document.getElementById("updated_date").value=getDate();
 						<label class="control-label col-sm-3">更新时间</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
-							  <input type="text" class="form-control" name="t_O_SysUpdateDate" id="updated_date"/>
+							  <input type="text" class="form-control" name="modify_time" id="modify_time"/>
 							</div>
 						</div>
 					</div>
-				</div>
 				<div class="form-actions">
 					<div class="row">
 						<div class="col-sm-3">
 						</div>
 						<div class="col-sm-9">
-							<button type="submit" class="btn green">提交</button>
+							<button type="submit" class="btn green" onclick="submitForm()">提交</button>
 							<button type="button" class="btn default" onclick="parent.layer.closeAll();">取消</button>
 						</div>
 					</div>

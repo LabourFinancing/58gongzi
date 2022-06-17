@@ -22,6 +22,8 @@ public interface OrganizationProfileDao {
 //    FinanceProduct selectBySearch(String t_FProd_Name, Date create_time);
 
     int updateByPrimaryKeySelective(OrganizationProfile record);
+
+    int updateByProfileOrgNameSelective(OrganizationProfile record);
     
     int updateByPymtswitch(OrganizationProfile record);
     

@@ -146,6 +146,7 @@ public class OrganizationInfoController {
          } else if (OperationTypeConstant.EDIT.equals(operationType))
             {
             OrganizationInfo organizationInfo = organizationInfoService.selectByPrimaryKey(t_O_ID);
+            model.addAttribute("organizationprofile", organizationInfo);
             return "organizationInfo/organizationInfoEditForm";
           } else if (OperationTypeConstant.VIEW.equals(operationType)) {
             return "organizationInfo/organizationInfoViewForm";

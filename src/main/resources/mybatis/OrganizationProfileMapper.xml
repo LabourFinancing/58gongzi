@@ -88,20 +88,20 @@
 		<include refid="Base_Column_List" />
 		from t_organization_profile a
 		where 1=1
-		<if test="t_Profile_OrgName != null">
+		<if test="t_Profile_OrgName != ''">
 		and a.t_Profile_OrgName like CONCAT('%',#{t_Profile_OrgName},'%')
 		</if>	
-		<if test="t_Profile_Qualification != null">
+		<if test="t_Profile_Qualification != ''">
 		and a.t_Profile_Qualification like CONCAT('%',#{t_Profile_Qualification},'%')
 		</if>
-		<if test="t_Profile_OrgType != null">
+		<if test="t_Profile_OrgType != ''">
 		and a.t_Profile_OrgType like CONCAT('%',#{t_Profile_OrgType},'%')
 		</if>
-		<if test="remark != null">
+		<if test="remark != ''">
 		and a.remark like CONCAT('%',#{remark},'%')
 		</if>
-		<if test="create_time != null">
-		and a.create_time like CONCAT('%',DATE(#{create_time}),'%')
+		<if test="t_Profile_Mobile != ''">
+		and a.t_Profile_Mobile like CONCAT('%',#{t_Profile_Mobile},'%')
 		</if>
 		<if test="t_Profile_AppStatus != ''">
 		and a.t_Profile_AppStatus = #{t_Profile_AppStatus,jdbcType=VARCHAR}
@@ -412,6 +412,91 @@
 			</if>
 		</set>
 		where t_Profile_OrgName = #{t_Profile_OrgName,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updateByProfileOrgNameSelective" parameterType="com.qucai.sample.entity.OrganizationProfile">
+		update t_organization_profile
+		<set>
+			<if test="t_Profile_CertificationCode != null">
+				t_Profile_CertificationCode = #{t_Profile_CertificationCode,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_OrgName != null">
+				t_Profile_OrgName = #{t_Profile_OrgName,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_Qualification != null">
+				t_Profile_Qualification = #{t_Profile_Qualification,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_QualificationStatus != null">
+				t_Profile_QualificationStatus = #{t_Profile_QualificationStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_Mobile != null">
+				t_Profile_Mobile = #{t_Profile_Mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_Contact != null">
+				t_Profile_Contact = #{t_Profile_Contact,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_Email != null">
+				t_Profile_Email = #{t_Profile_Email,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_OrgType != null">
+				t_Profile_OrgType = #{t_Profile_Address,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_PostRet != null">
+				t_Profile_PostRet = #{t_Profile_PostRet,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_OrgType != null">
+				t_Profile_OrgType = #{t_Profile_OrgType,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_StatusRptRetAddress != null">
+				t_Profile_StatusRptRetAddress = #{t_Profile_StatusRptRetAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_CurrentAddress != null">
+				t_Profile_CurrentAddress = #{t_Profile_CurrentAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_IPaddr != null">
+				t_Profile_IPaddr = #{t_Profile_IPaddr,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_APIAcc != null">
+				t_Profile_APIAcc = #{t_Profile_APIAcc,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_APIPWD != null">
+				t_Profile_APIPWD = #{t_Profile_APIPWD,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_APIret != null">
+				t_Profile_APIret = #{t_Profile_APIret,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_AgentCmpyName != null">
+				t_Profile_AgentCmpyName = #{t_Profile_AgentCmpyName,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_AppStatus != null">
+				t_Profile_AppStatus = #{t_Profile_AppStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_RetHTTPget != null">
+				t_Profile_RetHTTPget = #{t_Profile_RetHTTPget,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Profile_RegulatorReq != null">
+				t_Profile_RegulatorReq = #{t_Profile_RegulatorReq,jdbcType=VARCHAR},
+			</if>
+			<if test="platform != null">
+				platform = #{platform,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				creator = #{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="create_time != null">
+				create_time = #{create_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifier != null">
+				modifier = #{modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="modify_time != null">
+				modify_time = #{modify_time,jdbcType=TIMESTAMP}
+			</if>
+		</set>
+		where t_Profile_ID = #{t_Profile_ID,jdbcType=VARCHAR}
 	</update>
 	
 	<update id="updateByPymtswitch" parameterType="com.qucai.sample.entity.OrganizationProfile">

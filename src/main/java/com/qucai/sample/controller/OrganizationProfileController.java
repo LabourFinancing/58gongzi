@@ -5,6 +5,12 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.qucai.sample.entity.OrganizationInfo;
+import org.apache.shiro.crypto.hash.Hash;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,10 +21,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.qucai.sample.OperationTypeConstant;
@@ -35,7 +37,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping(value = "/OrganizationProfileController")
-public class OrganizationProfileController {
+public class OrganizationProfileController{
 
 
 	// 必须把new financeProduct的列进行全面修改, 新建financeProductService
@@ -77,32 +79,31 @@ public class OrganizationProfileController {
 
     @RequestMapping(value = "organizationProfileSearchList")
     public String organizationInfoSearchList(OrganizationProfile organizationProfile, @RequestParam( defaultValue = "0" )  Integer platform,String t_Profile_Qualification,String t_Profile_OrgName,
-                                             String t_Profile_AppStatus,String t_Profile_OrgType, String remark,Date create_time,HttpServletRequest request, HttpServletResponse response, Model model) {
+                                             String t_Profile_AppStatus_s,String t_Profile_OrgType, String remark,String t_Profile_Mobile,HttpServletRequest request, HttpServletResponse response, Model model) {
         String t_M_Company = ShiroSessionUtil.getLoginSession().getCompany_name();
         model.addAttribute("platform", platform); //key从数据库查询并返回,并索引对应JSP
-        model.addAttribute("t_Profile_AppStatus", t_Profile_AppStatus);
+        model.addAttribute("t_Profile_AppStatus_s", t_Profile_AppStatus_s);
         model.addAttribute("t_Profile_Qualification",t_Profile_Qualification);
         model.addAttribute("t_Profile_OrgType",t_Profile_OrgType);
         model.addAttribute("t_Profile_OrgName",t_Profile_OrgName);
         model.addAttribute("remark",remark);
-        model.addAttribute("create_time",create_time);
+        model.addAttribute("t_Profile_Mobile",t_Profile_Mobile);
 
-        if (t_Profile_Qualification != "" | t_Profile_OrgName !=  "" | t_Profile_OrgType != "" | t_Profile_AppStatus != "" | remark != "" | create_time != null ) {
+        if (t_Profile_Qualification != "" | t_Profile_OrgName !=  "" | t_Profile_OrgType != "" | t_Profile_AppStatus_s != "" | remark != "" | t_Profile_Mobile != "" ) {
             Map<String, Object> paramSearchMap = new HashMap<String, Object>();//新建map对象
             paramSearchMap.put("t_Profile_OrgName", t_Profile_OrgName);//添加元素
             paramSearchMap.put("t_Profile_Qualification", t_Profile_Qualification);//添加元素
-            paramSearchMap.put("t_Profile_AppStatus", t_Profile_AppStatus);//添加元素
+            paramSearchMap.put("t_Profile_AppStatus", t_Profile_AppStatus_s);//添加元素
             paramSearchMap.put("t_Profile_OrgType", t_Profile_OrgType);//添加元素
             paramSearchMap.put("remark", remark);//添加元素
-            paramSearchMap.put("create_time", create_time);//添加元素
-            PageParam pp = Tool.genPageParam(request);
+            paramSearchMap.put("t_Profile_Mobile", t_Profile_Mobile);//添加元素
             if(ShiroSessionUtil.getLoginSession().getPlatform().equals("4")){
                 paramSearchMap.put("t_O_VendorOrgName",t_M_Company);
             }
-            PageInfo<OrganizationProfile> page = organizationProfileService.findSearchList(pp, paramSearchMap); //  << new-function
+            PageParam pp = Tool.genPageParam(request);
+            PageInfo<OrganizationProfile> page = organizationProfileService.findSearchList(paramSearchMap,pp); //  << new-function
             model.addAttribute("page", page);//从数据库查询出来的结果用model的方式返回
         } else {
-            PageParam pp = Tool.genPageParam(request);
             Map<String, Object> paramMap  = new HashMap<String, Object>();
             paramMap.put("t_M_Company",t_M_Company);
             if(ShiroSessionUtil.getLoginSession().getPlatform().equals("4")){
@@ -113,6 +114,7 @@ public class OrganizationProfileController {
                 paramMap.put("t_M_Company",t_M_Company);
                 paramMap.put("t_O_VendorOrgName",null);
             }
+            PageParam pp = Tool.genPageParam(request);
             PageInfo<OrganizationProfile> page = organizationProfileService.findAllList(paramMap, pp);
             model.addAttribute("page", page);
         }
@@ -133,6 +135,7 @@ public class OrganizationProfileController {
                        HttpServletRequest request, HttpServletResponse response,
                        Model model) {
         model.addAttribute("platform", platform);
+        model.addAttribute("t_Profile_ID", t_Profile_ID);
 //
         Map<String, Object> paramMap = new HashMap<String, Object>();// 申明一个新对象
         paramMap.put("typeEnd", 1);      //给typeEnd对象赋值
@@ -145,8 +148,10 @@ public class OrganizationProfileController {
         } else if (OperationTypeConstant.EDIT.equals(operationType))
         {
             OrganizationProfile organizationprofile = organizationProfileService.selectByPrimaryKey(t_Profile_ID);
+            model.addAttribute("organizationProfile", organizationprofile);
             return "organizationProfile/organizationProfileEditForm";
-        } else {
+        }
+        else {
             return "organizationProfile/organizationProfileList";
         }
     }
@@ -166,7 +171,7 @@ public class OrganizationProfileController {
 
     @RequestMapping(value = {"Editinfo"})
     @ResponseBody
-    public String EditOrganizationProfile(OrganizationProfile organizationProfile, @RequestParam( defaultValue = "0" )  Integer platform,
+    public String Editinfo(OrganizationProfile organizationProfile, @RequestParam( defaultValue = "0" )  Integer platform,
                                        String t_Profile_StatusRptRetAddress,String t_Profile_OrgType,String t_Profile_Mobile,String t_Profile_Email,String t_Profile_Address,String t_Profile_Contact,
                                        String t_Profile_PostRet,String t_Profile_CurrentAddress,
                                           HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -188,7 +193,7 @@ public class OrganizationProfileController {
         model.addAttribute("t_Profile_Contact",t_Profile_Contact);
         model.addAttribute("t_Profile_PostRet",t_Profile_PostRet);
         model.addAttribute("t_Profile_CurrentAddress",t_Profile_CurrentAddress);
-        int organizationProfileDetail = organizationProfileService.updateByPrimaryKeySelective(organizationProfile);
+        int organizationProfileDetail = organizationProfileService.updateByProfileOrgNameSelective(organizationProfile);
         model.addAttribute("organizationProfileDetail", organizationProfileDetail);
         if (organizationProfileDetail == 1) {
             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
@@ -197,6 +202,77 @@ public class OrganizationProfileController {
         }
     }
 
+    @RequestMapping(value = "editOrganizationProfile")
+    @ResponseBody
+    public String editOrganizationProfile(Map<String, Object> forminput,HttpServletRequest request, String t_Profile_AppStatus,
+                                          HttpServletResponse response, Model model) {
+        JSONObject jsondata = new JSONObject(forminput);//JSONObject解析JSON数据，
+        Map<String,Object> ret = new HashMap<String, Object>();
+        System.out.println(jsondata);
+        System.out.println(jsondata.getJSONObject("organizationProfile"));
+//        Map<String, Object> obj = new HashMap<String, Object>(jsondata.getJSONObject("organizationProfile"));
+        JSONObject obj =  new JSONObject(jsondata.getJSONObject("organizationProfile"));
+        String fileName = null;
+        System.out.println(obj.get("organizationProfile"));
+        System.out.println(obj);
+        System.out.println(forminput);
+//        String.valueOf(obj.get("contractInfoId"));
+        OrganizationProfile organizationProfile = new OrganizationProfile();
+        if(String.valueOf(obj.getString("t_Profile_AgentCmpyName")) != "") {
+            organizationProfile.setT_Profile_AgentCmpyName(String.valueOf(obj.getString("t_Profile_AgentCmpyName")));
+            String originalfileName = String.valueOf(obj.getString("t_Profile_AgentCmpyName"));
+            String tailer = null;
+            if (originalfileName.contains(".png")) {
+                tailer = ".png";
+            }
+            if (originalfileName.contains(".jpg")) {
+                tailer = ".jpg";
+            }
+            if (originalfileName.contains(".jpeg")) {
+                tailer = ".jpeg";
+            }
+
+             fileName = String.valueOf(obj.getString("t_Profile_CertificationCode"))+ "_certimg" + tailer;
+        }else {
+             fileName = "";
+        }
+        organizationProfile.setT_Profile_AgentCmpyName(fileName);
+        organizationProfile.setModifier(ShiroSessionUtil.getLoginSession().getId());
+        organizationProfile.setModify_time(new Date());
+        organizationProfile.setT_Profile_ID(String.valueOf(obj.getString("t_Profile_ID")));
+        organizationProfile.setT_Profile_Qualification(String.valueOf(obj.getString("t_Profile_Qualification")));
+        organizationProfile.setT_Profile_QualificationStatus(String.valueOf(obj.getString("t_Profile_QualificationStatus")));
+        organizationProfile.setT_Profile_Mobile(String.valueOf(obj.getString("t_Profile_Mobile")));
+        organizationProfile.setT_Profile_Contact(String.valueOf(obj.getString("t_Profile_Contact")));
+        organizationProfile.setT_Profile_Email(String.valueOf(obj.getString("t_Profile_Email")));
+        organizationProfile.setT_Profile_Address(String.valueOf(obj.getString("t_Profile_Address")));
+        organizationProfile.setT_Profile_PostRet(String.valueOf(obj.getString("t_Profile_PostRet")));
+        organizationProfile.setT_Profile_OrgType(String.valueOf(obj.getString("t_Profile_OrgType")));
+        organizationProfile.setT_Profile_StatusRptRetAddress(String.valueOf(obj.getString("t_Profile_StatusRptRetAddress")));
+        organizationProfile.setT_Profile_CurrentAddress(String.valueOf(obj.getString("t_Profile_CurrentAddress")));
+        organizationProfile.setT_Profile_IPaddr(String.valueOf(obj.getString("t_Profile_IPaddr")));
+        organizationProfile.setT_Profile_APIAcc(String.valueOf(obj.getString("t_Profile_APIAcc")));
+        organizationProfile.setT_Profile_APIPWD(String.valueOf(obj.getString("t_Profile_APIPWD")));
+        organizationProfile.setT_Profile_APIret(String.valueOf(obj.getString("t_Profile_APIret")));
+        organizationProfile.setT_Profile_AppStatus(String.valueOf(obj.getString("t_Profile_AppStatus")));
+        organizationProfile.setT_Profile_RetHTTPget(String.valueOf(obj.getString("t_Profile_RetHTTPget")));
+        organizationProfile.setT_Profile_RegulatorReq(String.valueOf(obj.getString("t_Profile_RegulatorReq")));
+        organizationProfile.setRemark(String.valueOf(obj.getString("remark")));
+        t_Profile_AppStatus = String.valueOf(obj.getString("t_Profile_AppStatus"));
+        if (t_Profile_AppStatus.equals("pending") ) {
+//            managerService.updateAllCompanyStaffsOff(t_O_OrgName);  // check failed procedure
+        }else if(t_Profile_AppStatus.equals("approved")) {
+//            managerService.updateAllCompanyStaffsOn(t_O_OrgName);   // check and passed
+        }
+
+        int msg =  organizationProfileService.updateByProfileOrgNameSelective(organizationProfile);
+        ret.put("msg",msg);
+        if(msg == 1) {
+            return JsonBizTool.genJson(ExRetEnum.SUCCESS,ret);
+        }else{
+            return JsonBizTool.genJson(ExRetEnum.FAIL,ret);
+        }
+    }
 
     @RequestMapping("OrgCertImgUpload")
     @ResponseBody
@@ -205,7 +281,7 @@ public class OrganizationProfileController {
         System.out.println("springmvc 方式 :" + t_Profile_AgentCmpyName);
         System.out.println("certcode :"+t_O_CertificationCode);
         // 指定文件上传的位置
-        String path = request.getSession().getServletContext().getRealPath("/files/certpics");
+            String path = request.getSession().getServletContext().getRealPath("/files/certpics");
         //判断该路径是否存在
         File file = new File(path);
         if (!file.getParentFile().exists()) {
@@ -230,10 +306,11 @@ public class OrganizationProfileController {
         String fileName = t_O_CertificationCode + "_certimg" + tailer;
         try {
             t_Profile_AgentCmpyName.transferTo(new File(path,fileName));
-            ret.put("retcode","succ");
+            ret.put("retmsg","succ");
+            ret.put("filename",fileName);
         } catch (IOException e) {
             e.printStackTrace();
-            ret.put("retcode","fail");
+            ret.put("retmsg","fail");
         }
         return JsonBizTool.genJson(ExRetEnum.OrgBalGetSucc,ret);
     }

@@ -49,6 +49,11 @@ public class OrganizationProfileServiceImpl implements OrganizationProfileServic
     public int updateByPrimaryKeySelective(OrganizationProfile record) {
         return organizationProfileDao.updateByPrimaryKeySelective(record);
     }
+
+    @Override
+    public int updateByProfileOrgNameSelective(OrganizationProfile record) {
+        return organizationProfileDao.updateByProfileOrgNameSelective(record);
+    }
     
     @Override
     public int updateByPymtswitch(OrganizationProfile record) {
@@ -89,7 +94,7 @@ public class OrganizationProfileServiceImpl implements OrganizationProfileServic
     }
     
     @Override
-    public PageInfo<OrganizationProfile> findSearchList(PageParam pp, Map<String, Object>paramSearchMap) {
+    public PageInfo<OrganizationProfile> findSearchList(Map<String, Object>paramSearchMap,PageParam pp) {
         PageHelper.startPage(pp.getPageNum(), pp.getPageSize(), true, true);
         List<OrganizationProfile> list = organizationProfileDao.findSearchList(paramSearchMap);
         return new PageInfo<OrganizationProfile>(list);

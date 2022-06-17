@@ -24,6 +24,8 @@ public interface OrganizationProfileService {
 //    FinanceProduct selectBySearch(String t_FProd_Name, Date create_time);
 
     int updateByPrimaryKeySelective(OrganizationProfile record);
+
+    int updateByProfileOrgNameSelective(OrganizationProfile record);
     
     int updateByPymtswitch(OrganizationProfile record);
     
@@ -37,7 +39,7 @@ public interface OrganizationProfileService {
     
     PageInfo<OrganizationProfile> findAllList(Map<String, Object> paramMap, PageParam pp);
     
-    PageInfo<OrganizationProfile> findSearchList(PageParam pp, Map<String, Object> paramSearchMap);
+    PageInfo<OrganizationProfile> findSearchList(Map<String, Object> paramSearchMap, PageParam pp);
     
 //   List<FinanceProduct> findTreetableList(Map<String, Object> paramMap);
     

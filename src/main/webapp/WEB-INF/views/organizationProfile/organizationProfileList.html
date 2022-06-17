@@ -18,16 +18,15 @@
 
 
 <script type="text/javascript">
-	var t_Profile_AppStatus_value = "${t_Profile_AppStatus}";
-	$("#t_Profile_AppStatus option[value='"+t_Profile_AppStatus_value+"']").attr("selected","selected");
+function page(n,s){
+	$("#pageNum").val(n);
+	$("#pageSize").val(s);
+	$("#searchForm").submit();
+	return false;
+}
 
-	function page(n,s){
-		$("#pageNum").val(n);
-		$("#pageSize").val(s);
-		$("#searchForm").submit();
-		return false;
-	}
-
+var t_Profile_AppStatus_value = "${t_Profile_AppStatus_s}";
+$("#t_Profile_AppStatus_s option[value='"+t_Profile_AppStatus_value+"']").attr("selected","selected");
 
 function openNew(obj){
 	var openWindowWidth = $(document).width() * 0.8 + "px";
@@ -46,7 +45,7 @@ function openNew(obj){
 }
 
 
-function openEdit(t_O_ID){
+function openEdit(t_Profile_ID){
 	var openWindowWidth = $(document).width() * 0.8 + "px";
 	var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
 	layer.open({
@@ -80,7 +79,7 @@ function openEdit(t_O_ID){
 				</div>
 				<div class="portlet-body">
 					<form id="searchForm" method="post" action="${ctx}/OrganizationProfileController/organizationProfileSearchList" class="form-horizontal">
-						<input id="pageNum" name="pageNum" type="hidden" value="${page.pageNum}" /> 
+						<input id="pageNum" name="pageNum" type="hidden" value="${page.pageNum}" />
 						<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}" />
 						<div class="form-body">
 							<table class="table table-bordered">
@@ -105,7 +104,7 @@ function openEdit(t_O_ID){
 									<div class="form-group">
 										<label class="control-label col-sm-2" style="padding-right: 0">审核状态:</label>
 										<div class="col-sm-6" style="padding-left: 2px;">
-											<select  class="form-control" id="t_Profile_AppStatus" name="t_Profile_AppStatus"/>
+											<select  class="form-control" id="t_Profile_AppStatus_s" name="t_Profile_AppStatus_s"/>
 												<option value="">所有</option>
 												<option value="pending">待审核</option>
 												<option value="approved">已审核</option>
@@ -133,9 +132,9 @@ function openEdit(t_O_ID){
 									</td>
 						            <td>
 								   <div class="form-group">
-								   	<label class="control-label col-sm-2" style="padding-right: 0">创建日期:</label>
+								   	<label class="control-label col-sm-2" style="padding-right: 0">企业电话:</label>
 										<div class="col-sm-3" style="padding-left: 2px;">
-								        <input name="create_time" value="${create_time}" class="form-control form-control-inline date-picker" type="text" style="width: 300px" placeholder="例：2017-01-01" data-date-format="yyyy-mm-dd"/>
+								        <input name="t_Profile_Mobile" value="${t_Profile_Mobile}" class="form-control" type="text" style="width: 300px"/>
 							            </div>
 								   </div>
 								   </td>
@@ -150,19 +149,20 @@ function openEdit(t_O_ID){
 									</div>
 								</div>
 							</div>
-						</div> 
+						</div>
 					<div class="table-toolbar">
 					</form>
 					</div>
-					<div class="table-toolbar">
-						<div class="row">
-							<div class="col-xs-push-12">
-								<div class="btn-group pull-right">
-									<button id="sample_editable_1_new" class="btn green" style="margin-right:20px" onclick="openNew('0')">新增</button>
-								</div>
-							</div>
-						</div>
-					</div>
+<!--					<div class="table-toolbar">-->
+<!--						<div class="row">-->
+<!--							<div class="col-xs-push-12">-->
+<!--								<div class="btn-group pull-right">-->
+<!--									<button id="t_organizationProfile_new" class="btn green" style="margin-right:20px" onclick="openNew('0')">新增</button>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--					</div>-->
+			</div>
 			  <div class="table table-bordered">
                 <div class="ls-seaarch-result">
                     <div class="table-responsive">
@@ -226,7 +226,7 @@ function openEdit(t_O_ID){
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${organizationProfile.modify_time?string("yyyy-MM-dd HH:mm:ss")}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">
 										<a href="#" onclick="openEdit('${organizationProfile.t_Profile_ID}')">审核</a>
-										<a href="${ctx}/OrganizationProfileController/deleteOrganizationProfile?t_O_ID=${organizationProfile.t_O_ID}&platform=0" onclick="return confirm('确认要执行 删除 操作吗？', this.href)">删除</a>
+										<a href="${ctx}/OrganizationProfileController/deleteOrganizationProfile?t_O_ID=${organizationProfile.t_Profile_ID}&platform=0" onclick="return confirm('确认要执行 删除 操作吗？', this.href)">删除</a>
 									</td>
 								</tr>
 							</#list>
@@ -235,7 +235,6 @@ function openEdit(t_O_ID){
 				</div>
 			</div>
 			<!-- END EXAMPLE TABLE PORTLET-->
-		</div>
 	</div>
 	<!-- END PAGE BASE CONTENT -->
 	<@sc.pagination page=page />
