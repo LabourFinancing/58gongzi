@@ -43,19 +43,8 @@ document.getElementById("updated_date").value=getDate();
 			errorClass : 'help-block help-block-error', // default input error message class
 			focusInvalid : false, // do not focus the last invalid input
 			rules : {
-				t_O_OrgName : {
-					maxlength : 30,
-					required : true,
-					remote : {
-				        url: "${ctx}/jqueryValidateController/checkOrganizationInfoName?platform=${platform}",
-				        type: "post"
-					}
-				},
-				t_O_EmployeeAmount : {
-					required : true,
-					digits : true,
-					isMobile : true,
-					remote : "${ctx}/jqueryValidateController/checkPersonalInfoModil?platform=${platform}" + "&t_P_id=" + $("#t_O_EmployeeAmount").val()
+				t_Profile_Email:{
+					email : true
 				},
 				type : {
 					required : true
@@ -97,30 +86,7 @@ document.getElementById("updated_date").value=getDate();
 						'has-error').addClass('has-success'); // set success class to the control group
 				icon.removeClass("fa-warning").addClass("fa-check");
 			},
-			
-			
-			submitHandler : function(form) {
-				var formData = new FormData($('#inputForm')[0]); 
-				$.ajax({
-					url: "${ctx}/OrganizationProfileController/addOrganizationProfile",
-					type: 'POST',  
-					data: formData,  
-					async: true,  
-					cache: false,  
-					contentType: false,  
-					processData: false,  
-					success: function (data) { 
-						var result = eval("("+data+")");
-						parent.window.location.reload();
-					   	var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
-					   	parent.layer.close(index);
-					},  
-					error: function (data) {  
-						var result = eval("("+data+")");
-				    	alert(result.msg);
-					}  
-	            });
-			}
+
 		});
 		
 		$("#dirParent").hide();
@@ -129,10 +95,59 @@ document.getElementById("updated_date").value=getDate();
 		
 	});
 
+	function submitForm(){
+		var forminput = {
+			"t_Profile_ID":document.getElementById("t_Profile_ID").value,
+			"t_Profile_CertificationCode":document.getElementById("t_Profile_CertificationCode").value,
+			"t_Profile_OrgName":document.getElementById("t_Profile_OrgName").value,
+			"t_Profile_Qualification":document.getElementById("t_Profile_Qualification").value,
+			"t_Profile_QualificationStatus": document.getElementById("t_Profile_QualificationStatus").value,
+			"t_Profile_Mobile:":document.getElementById("t_Profile_Mobile").value,
+			"t_Profile_Contact":document.getElementById("t_Profile_Contact").value,
+			"t_Profile_Email":document.getElementById("t_Profile_Email").value,
+			"t_Profile_Address":document.getElementById("t_Profile_Address").value,
+			"t_Profile_PostRet":document.getElementById("t_Profile_PostRet").value,
+			"t_Profile_OrgType":document.getElementById("t_Profile_OrgType").value,
+			"t_Profile_StatusRptRetAddress":document.getElementById("t_Profile_StatusRptRetAddress").value,
+			"t_Profile_CurrentAddress":document.getElementById("t_Profile_CurrentAddress").value,
+			"t_Profile_IPaddr":document.getElementById("t_Profile_IPaddr").value,
+			"t_Profile_APIAcc":document.getElementById("t_Profile_APIAcc").value,
+			"t_Profile_APIPWD":document.getElementById("t_Profile_APIPWD").value,
+			"t_Profile_APIret":document.getElementById("t_Profile_APIret").value,
+			"t_Profile_AgentCmpyName":document.getElementById("t_Profile_AgentCmpyName").value,
+			"t_Profile_AppStatus":document.getElementById("t_Profile_AppStatus").value,
+			"t_Profile_RetHTTPget":document.getElementById("t_Profile_RetHTTPget").value,
+			"t_Profile_RegulatorReq":document.getElementById("t_Profile_RegulatorReq").value,
+			"remark":document.getElementById("remark").value
+		};
+		$.ajax({
+			url: "${ctx}/OrganizationProfileController/editOrganizationProfile",
+			type: 'POST',
+			dataType : "json",
+			async: false,
+			contentType: "application/json",//关键是要加上这行
+			traditional : true,//这使json格式的字符不会被转码
+			data : JSON.stringify(forminput),
+			processData: true,
+			success: function (data) {
+				alert("成功")
+				parent.window.location.reload();
+				var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+				console.log(index)
+				parent.layer.close(index);
+			},
+			error: function (data) {
+				console.log(data)
+				alert("失败");
+			}
+		});
+	}
+
 
 	function chkuploadfile(val){
 		console.log(val)
-		var uploadEventFile = $('#t_Profile_AgentCmpyName').val
+		var uploadEventFile = document.getElementById("t_Profile_AgentCmpyName").value
+		console.log(uploadEventFile)
 		// var name;
 		// name=prompt("请输入");
 		// if (name.lastIndexOf("1") < 0 && uploadEventFile.lastIndexOf("2") < 0 && uploadEventFile.lastIndexOf("3") < 0) {//可判断以.xls和.xlsx结尾的excel
@@ -144,22 +159,32 @@ document.getElementById("updated_date").value=getDate();
 			return;
 		}else{
 			var t_O_CertificationCode = $("#t_O_CertificationCode").val;
-			console.log(t_O_CertificationCode)
+			console.log($("#t_Profile_CertificationCode").val())
 			var formData = new FormData($('#inputForm')[0]);
 			$.ajax({
-				url: "${ctx}/OrganizationProfileController/OrgCertImgUpload?t_O_CertificationCode="+ + $("#t_Profile_CertificationCode").val(),
+				url: "${ctx}/OrganizationProfileController/OrgCertImgUpload?t_O_CertificationCode=" + $("#t_Profile_CertificationCode").val(),
 				type: 'POST',
 				data: formData,
 				async: true,
 				cache: false,
 				contentType: false,
-				processData: false,
+				processData: true,
 				success: function (data) {
 					var result = eval("("+data+")");
-					console.log(result)
+					if(result.retmsg === "succ"){
+						document.getElementById("certimgmsg").innerText = ""
+						document.getElementById("certimgmsg").innerText = "上传成功"
+						document.getElementById("certimgmsg").display = ""
+					}
+					console.log(result);
 				},
 				error: function (data) {
 					var result = eval("("+data+")");
+					if(result.retmsg === "fail"){
+						document.getElementById("certimgmsg").innerText = ""
+						document.getElementById("certimgmsg").innerText = "上传失败"
+						document.getElementById("certimgmsg").display = ""
+					}
 					alert(result.msg);
 				}
 			});
@@ -352,7 +377,7 @@ document.getElementById("updated_date").value=getDate();
 						<label class="control-label col-sm-3">更新时间</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
-							 <input type="text" class="form-control" name="t_O_SysUpdateDate" id="updated_date"/>
+							 <input type="text" class="form-control" name="updated_date" id="updated_date"/>
 							</div>
 						</div>
 					</div>
@@ -362,7 +387,7 @@ document.getElementById("updated_date").value=getDate();
 						<div class="col-sm-3">
 						</div>
 						<div class="col-sm-9">
-							<button type="submit" class="btn green">提交</button>
+							<button type="submit" class="btn green" onclick="submitForm()">提交</button>
 							<button type="button" class="btn default" onclick="parent.layer.closeAll();">取消</button>
 						</div>
 					</div>

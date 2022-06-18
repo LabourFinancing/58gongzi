@@ -91,6 +91,7 @@ function openEdit(t_Profile_ID){
 											<input type="text" class="form-control" name="t_Profile_OrgName" id="t_Profile_OrgName" value="${t_Profile_OrgName}"/>
 										</div>
 								  </div>
+								 </div>
 								  </td>
 									<td>
 									<div class="form-group">
@@ -153,21 +154,19 @@ function openEdit(t_Profile_ID){
 					<div class="table-toolbar">
 					</form>
 					</div>
-<!--					<div class="table-toolbar">-->
-<!--						<div class="row">-->
-<!--							<div class="col-xs-push-12">-->
-<!--								<div class="btn-group pull-right">-->
-<!--									<button id="t_organizationProfile_new" class="btn green" style="margin-right:20px" onclick="openNew('0')">新增</button>-->
-<!--								</div>-->
-<!--							</div>-->
-<!--						</div>-->
-<!--					</div>-->
+					<div class="table-toolbar">
+						<div class="row">
+							<div class="col-xs-push-12">
+								<div class="btn-group pull-right">
+									<button id="t_organizationProfile_new" class="btn green" style="margin-right:20px" onclick="openNew('0')">新增</button>
+								</div>
+							</div>
+					</div>
 			</div>
 			  <div class="table table-bordered">
                 <div class="ls-seaarch-result">
                     <div class="table-responsive">
 					  <table class="table table-bordered" id="organizationProfileTable" style="overflow:visible;text-overflow:ellipsis;white-space:nowrap;">
-						<thead>
 							<tr>
 								<th>机构组织代码证</th>
 								<th>公司名</th>
@@ -195,7 +194,6 @@ function openEdit(t_Profile_ID){
 								<th>审核时间</th>
 								<th>操作</th>
 							</tr>
-						</thead>
 						<tbody>
 							<#list page.list as organizationProfile>
 								<tr>
