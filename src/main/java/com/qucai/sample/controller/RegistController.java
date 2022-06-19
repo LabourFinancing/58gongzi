@@ -3,10 +3,12 @@ package com.qucai.sample.controller;
 import com.qucai.sample.OperationTypeConstant;
 import com.qucai.sample.entity.Manager;
 import com.qucai.sample.entity.OrganizationInfo;
+import com.qucai.sample.entity.OrganizationProfile;
 import com.qucai.sample.exception.ExRetEnum;
 import com.qucai.sample.req.PaymentInfo;
 import com.qucai.sample.service.ManagerService;
 import com.qucai.sample.service.OrganizationInfoService;
+import com.qucai.sample.service.OrganizationProfileService;
 import com.qucai.sample.service.RoleService;
 import com.qucai.sample.smss.src.example.json.HttpJsonExample;
 import com.qucai.sample.util.JsonBizTool;
@@ -42,6 +44,9 @@ public class RegistController {
 
     @Autowired
     private OrganizationInfoService organizationInfoService; //申明一个对象
+
+    @Autowired
+    private OrganizationProfileService organizationProfileService; //申明一个对象
 
 
     @RequestMapping(value = "form")
@@ -113,9 +118,16 @@ public class RegistController {
                         if (InsertStat.equals(1)){
                             //<< new-function grant inital firm role for pending superadmin approval get role granted
                             String roleIds = "c24a966222e24a549be853aa36b7af65"; // grant Corp role within 58gongzi_v2.0 标准企业用户角色 only roleids 多个以'，'连接的字符串
+                            //insert OrgProfile
+                            OrganizationProfile organizationProfile = new OrganizationProfile();
+                            organizationProfile.setT_Profile_ID(Orgid);
+                            organizationProfile.setT_Profile_OrgName(FirmNameFMT);
+                            organizationProfile.setT_Profile_CertificationCode(FirmNamePY);
+                            organizationProfile.setT_Profile_AppStatus("pending");
+                            organizationProfileService.insertSelective(organizationProfile);
+                            //
                             managerService.grantRole(managerid, roleIds);
                             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
-//                            return "/login.html?regstat='succ'";
                         }else{
                             managerService.deleteByPrimaryKey(managerid);
                             return JsonBizTool.genJson(ExRetEnum.ORG_Regfail);
@@ -150,7 +162,7 @@ public class RegistController {
                         organizationInfo.setT_O_Category("AAA");
                         organizationInfo.setT_O_listOrg("on");
                         organizationInfo.setT_O_OrgRepresentative(username.trim());
-                        organizationInfo.setT_O_OrgPayrollBankaccount(PaymentInfo.AllCompanyName);// switch to  杉德支付/电音支付
+                        organizationInfo.setT_O_OrgPayrollBankaccount(PaymentInfo.AllCompanyName);// switch to  杉德支付/电银支付
                         organizationInfo.setT_O_OrgChinaebiAcc(PaymentInfo.AllCompanyChinaebiAcc); // switch to selfown chinaebi if acc setup done
                         organizationInfo.setT_O_OrgSandeAcc(PaymentInfo.AllCompanySandeAcc); // switch to self-own sande if acc setup done
                         organizationInfo.setT_O_OrgStatus("off"); // pending on health and approval to setup and open
@@ -166,6 +178,14 @@ public class RegistController {
                         if (InsertStat.equals(1)){
                             //<< new-function grant inital firm role for pending superadmin approval get role granted
                             String roleIds = "3db115f404e44eb5a56648eb2fa690ba"; // grant Corp role within 58gongzi_v2.0 标准经销商用户角色 only roleids 多个以'，'连接的字符串
+                            //insert OrgProfile
+                            OrganizationProfile organizationProfile = new OrganizationProfile();
+                            organizationProfile.setT_Profile_ID(Orgid);
+                            organizationProfile.setT_Profile_OrgName(FirmNameFMT);
+                            organizationProfile.setT_Profile_CertificationCode(FirmNamePY);
+                            organizationProfile.setT_Profile_AppStatus("pending");
+                            organizationProfileService.insertSelective(organizationProfile);
+                            //
                             managerService.grantRole(managerid, roleIds);
                             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
                         }else{

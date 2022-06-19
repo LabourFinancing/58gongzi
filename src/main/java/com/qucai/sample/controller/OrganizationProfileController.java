@@ -264,6 +264,69 @@ public class OrganizationProfileController{
         }
     }
 
+
+    @RequestMapping(value = "newOrganizationProfile")
+    @ResponseBody
+    public String newOrganizationProfile(@RequestBody JSONObject forminput,HttpServletRequest request, String t_Profile_AppStatus,
+                                          HttpServletResponse response, Model model) {
+        Map<String, Object> ret = new HashMap<String, Object>();
+        String fileName = null;
+        OrganizationProfile organizationProfile = new OrganizationProfile();
+        if(String.valueOf(forminput.getString("t_Profile_AgentCmpyName")) != "") {
+            String originalfileName = String.valueOf(forminput.getString("t_Profile_AgentCmpyName"));
+            String tailer = null;
+            if (originalfileName.contains(".png")) {
+                tailer = ".png";
+            }
+            if (originalfileName.contains(".jpg")) {
+                tailer = ".jpg";
+            }
+            if (originalfileName.contains(".jpeg")) {
+                tailer = ".jpeg";
+            }
+            fileName = "/files/certpics/" + (String.valueOf(forminput.getString("t_Profile_CertificationCode"))) + "_certimg." + tailer;
+            organizationProfile.setT_Profile_AgentCmpyName(fileName);
+        }else {
+            fileName = null;
+        }
+        organizationProfile.setModifier(ShiroSessionUtil.getLoginSession().getId());
+        organizationProfile.setModify_time(new Date());
+        organizationProfile.setT_Profile_ID(String.valueOf(forminput.getString("t_Profile_ID")));
+        organizationProfile.setT_Profile_Qualification(String.valueOf(forminput.getString("t_Profile_Qualification")));
+        organizationProfile.setT_Profile_QualificationStatus(String.valueOf(forminput.getString("t_Profile_QualificationStatus")));
+        organizationProfile.setT_Profile_Mobile(String.valueOf(forminput.getString("t_Profile_Mobile")));
+        organizationProfile.setT_Profile_Contact(String.valueOf(forminput.getString("t_Profile_Contact")));
+        organizationProfile.setT_Profile_Email(String.valueOf(forminput.getString("t_Profile_Email")));
+        organizationProfile.setT_Profile_Address(String.valueOf(forminput.getString("t_Profile_Address")));
+        organizationProfile.setT_Profile_PostRet(String.valueOf(forminput.getString("t_Profile_PostRet")));
+        organizationProfile.setT_Profile_OrgType(String.valueOf(forminput.getString("t_Profile_OrgType")));
+        organizationProfile.setT_Profile_StatusRptRetAddress(String.valueOf(forminput.getString("t_Profile_StatusRptRetAddress")));
+        organizationProfile.setT_Profile_CurrentAddress(String.valueOf(forminput.getString("t_Profile_CurrentAddress")));
+        organizationProfile.setT_Profile_IPaddr(String.valueOf(forminput.getString("t_Profile_IPaddr")));
+        organizationProfile.setT_Profile_APIAcc(String.valueOf(forminput.getString("t_Profile_APIAcc")));
+        organizationProfile.setT_Profile_APIPWD(String.valueOf(forminput.getString("t_Profile_APIPWD")));
+        organizationProfile.setT_Profile_APIret(String.valueOf(forminput.getString("t_Profile_APIret")));
+        organizationProfile.setT_Profile_AppStatus(String.valueOf(forminput.getString("t_Profile_AppStatus")));
+        organizationProfile.setT_Profile_RetHTTPget(String.valueOf(forminput.getString("t_Profile_RetHTTPget")));
+        organizationProfile.setT_Profile_RegulatorReq(String.valueOf(forminput.getString("t_Profile_RegulatorReq")));
+        organizationProfile.setRemark(String.valueOf(forminput.getString("remark")));
+        t_Profile_AppStatus = String.valueOf(forminput.getString("t_Profile_AppStatus"));
+        if (t_Profile_AppStatus.equals("pending") ) {
+//            managerService.updateAllCompanyStaffsOff(t_O_OrgName);  // check failed procedure
+        }else if(t_Profile_AppStatus.equals("approved")) {
+//            managerService.updateAllCompanyStaffsOn(t_O_OrgName);   // check and passed
+        }
+
+        int msg =  organizationProfileService.insertSelective(organizationProfile);
+        ret.put("msg",msg);
+        if(msg == 1) {
+            return JsonBizTool.genJson(ExRetEnum.SUCCESS,ret);
+        }else{
+            return JsonBizTool.genJson(ExRetEnum.FAIL,ret);
+        }
+    }
+
+
     @RequestMapping("OrgCertImgUpload")
     @ResponseBody
     public String uploadfiles(@RequestParam("t_Profile_AgentCmpyName") MultipartFile t_Profile_AgentCmpyName, HttpServletRequest request,HttpServletResponse response,  String t_O_CertificationCode) throws IOException {

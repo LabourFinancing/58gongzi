@@ -121,7 +121,7 @@ document.getElementById("updated_date").value=getDate();
 			"remark":document.getElementById("remark").value
 		};
 		$.ajax({
-			url: "${ctx}/OrganizationProfileController/editOrganizationProfile",
+			url: "${ctx}/OrganizationProfileController/newOrganizationProfile",
 			type: 'POST',
 			dataType : "json",
 			async: false,
