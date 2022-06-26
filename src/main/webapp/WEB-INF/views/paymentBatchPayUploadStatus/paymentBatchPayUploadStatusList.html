@@ -209,7 +209,19 @@ function batchcreditDelete(t_batch_paymenetUploadStatus_batchid){
 border-radius: 10px;
 }
 .font-opstyle:hover{color:red}
-
+.processcontainer{
+ width:118px;
+ border:1px solid #6C9C2C;
+ height:15px;
+ text-align:center;
+}
+#processbar{
+	background:#95CA0D;
+	float:left;
+	height:100%;
+	text-align:center;
+	line-height:80%;
+}
 </style>
 </head>
 <body>
@@ -226,7 +238,7 @@ border-radius: 10px;
 					</ul>
 				</div>	
 				<div class="portlet-body">
-					<form id="searchForm" method="post" action="${ctx}/PersonalInfoBatchUploadStatusController/paymentBatchPayUploadStatusSearchList" class="form-horizontal">
+					<form id="searchForm" method="post" action="${ctx}/PaymentBatchPayUploadStatusController/paymentBatchPayUploadStatusSearchList" class="form-horizontal">
 						<input id="pageNum" name="pageNum" type="hidden" value="${page.pageNum}" /> 
 						<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}" />
 						<div class="form-body">
@@ -326,9 +338,9 @@ border-radius: 10px;
                                             <th>经销商公司名</th>
                                             <th>绑定产品名</th>
                                             <th>支付总额</th>
+											<th>支付成功总额</th>
                                             <th>支付失败总额</th>
-                                            <th>支付成功总额</th>
-                                            <th>批次类别</th>
+                                            <th>支付完成进度</th>
                                             <th>批次注释</th>
                                             <th>备注</th>
                                             <th>完成状态</th>
@@ -347,10 +359,14 @@ border-radius: 10px;
                                             <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentvendorCompany}</td>
                                             <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentProdName}</td>
                                             <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentpayroll_tot}</td>
-                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentpayrollCredit_tot}</td>
-                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentremark}</td>
-                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentclearInfo}</td>
-                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentcategory}</td>
+											<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentclearInfo}</td> <!-- 支付成功总额 -->
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentpayrollCredit_tot}</td>  <!-- 支付失败总额 -->
+                                            <td id="paymentprogress" class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">
+											<div class="processcontainer">
+												<div id="processbar" style="width:0%;"></div>
+											</div>
+											</td>
+											<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentremark}</td>
                                             <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentcomment}</td>
                                             <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentprogress}</td>
                                             <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.modify_time?string("yyyy-MM-dd HH:mm:ss")}</td>
@@ -358,22 +374,22 @@ border-radius: 10px;
                                                 <@shiro.hasPermission name="PERSONALINFO_EDIT">
                                                 <a href="#" class="btn btn-link btn-xs font-opstyle" onclick="openDetails('${paymentBatchPayUploadStatus.t_batch_paymenetUploadStatus_batchid}')">批次详情</a>
                                             </@shiro.hasPermission>
-                                            <@shiro.hasPermission name="PERSONALINFO_EDIT">
-                                            <a href="#" class="btn btn-link btn-xs font-opstyle" onclick="openEdit('${paymentBatchPayUploadStatus.t_batch_paymenetUploadStatus_batchid}')">编辑</a>
-                                        </@shiro.hasPermission>
-                                        <@shiro.hasPermission name="PERSONALINFO_DELETE">
-                                        <a type="button" href="#" onclick="batchcreditDelete('${paymentBatchPayUploadStatus.t_batch_paymenetUploadStatus_batchid}')" class="btn btn-link btn-xs font-opstyle">删除</a>
-                                        </@shiro.hasPermission>
-                                        <@shiro.hasPermission name="PERSONALINFO_DELETE">
-                                        <input type="button" href="#" onclick="batchcreditClear('${paymentBatchPayUploadStatus.t_batch_paymenetUploadStatus_batchid}')" class="btn btn-link btn-xs font-opstyle" value="结算">
-                                    </@shiro.hasPermission>
-                                    </br>
+											<@shiro.hasPermission name="PERSONALINFO_DELETE">
+											<input type="button" href="#" onclick="batchpaymentfailure('${paymentBatchPayUploadStatus.t_batch_paymenetUploadStatus_batchid}')" class="btn btn-link btn-xs font-opstyle" value="支付失败详情">
+										</@shiro.hasPermission>
+										</br>
                                         <@shiro.hasPermission name="PERSONALINFO_DELETE">
                                     <input type="button" href="#" onclick="batchpaymentstart('${paymentBatchPayUploadStatus.t_batch_paymenetUploadStatus_batchid}')" class="btn btn-link btn-xs font-opstyle" value="开始支付">
                                 </@shiro.hasPermission>
-                                <@shiro.hasPermission name="PERSONALINFO_DELETE">
-                                <input type="button" href="#" onclick="batchpaymentfailure('${paymentBatchPayUploadStatus.t_batch_paymenetUploadStatus_batchid}')" class="btn btn-link btn-xs font-opstyle" value="支付失败详情">
-                            </@shiro.hasPermission>
+										<@shiro.hasPermission name="PERSONALINFO_EDIT">
+										<a href="#" class="btn btn-link btn-xs font-opstyle" onclick="openEdit('${paymentBatchPayUploadStatus.t_batch_paymenetUploadStatus_batchid}')">编辑</a>
+									</@shiro.hasPermission>
+									<@shiro.hasPermission name="PERSONALINFO_DELETE">
+									<a type="button" href="#" onclick="batchcreditDelete('${paymentBatchPayUploadStatus.t_batch_paymenetUploadStatus_batchid}')" class="btn btn-link btn-xs font-opstyle">删除</a>
+								</@shiro.hasPermission>
+<!--								<@shiro.hasPermission name="PERSONALINFO_DELETE">-->
+<!--								<input type="button" href="#" onclick="batchcreditClear('${paymentBatchPayUploadStatus.t_batch_paymenetUploadStatus_batchid}')" class="btn btn-link btn-xs font-opstyle" value="结算">-->
+<!--							</@shiro.hasPermission>-->
                         </td>
                         </tr>
                     </#list>
@@ -390,10 +406,24 @@ border-radius: 10px;
 	<!-- END PAGE BASE CONTENT -->
 	    <@sc.pagination page=page />
 <!--
-	<form id="searchForm" action="${ctx}/PersonalInfoController/paymentBatchPayUploadStatusList" method="post">
+	<form id="searchForm" action="${ctx}/PaymentBatchPayUploadStatusController/paymentBatchPayUploadStatusList" method="post">
 		<input id="pageNum" name="pageNum" type="hidden" value="${page.pageNum}" />
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}" />
 	</form>
   -->
+<script>
+function setProcess(){
+	var processbar = document.getElementById("processbar");
+	processbar.style.width = parseInt(processbar.style.width) + 1 + "%";
+	processbar.innerHTML = processbar.style.width;
+	if(processbar.style.width == "100%"){
+		window.clearInterval(bartimer);
+	}
+}
+var bartimer = window.setInterval(function(){setProcess();},100);
+window.onload = function(){
+	bartimer;
+}
+</script>
 </body>
 </html>
