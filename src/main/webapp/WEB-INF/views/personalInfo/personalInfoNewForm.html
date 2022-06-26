@@ -516,20 +516,6 @@ jQuery.validator.addMethod("isTel", function(value,element) {
 								</select>
 							</div>
 					</div>
-				<@shiro.hasPermission name="TREASURYINFO_SUPERADMINVIEW">
-					<div class="form-group">
-						<label class="control-label col-sm-3">代理商企业名<span
-							class="required"> * </span>
-						</label>
-						<div class="col-sm-9">
-							<select class="bs-select form-control" data-live-search="true" name="t_P_VendorEmployeeName" id="t_P_VendorEmployeeName" onchange="Agentfilter(this)">
-								<#list OrganizationInfoAgency as OrganizationInfoList>
-									<option value="${OrganizationInfoList.t_O_OrgName}">${OrganizationInfoList.t_O_OrgName}</option>					
-								</#list>
-						   </select>
-						</div>
-					</div>
-				</@shiro.hasPermission>
 					<div class="form-group">
 						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">工资卡银行名<span
 							class="required"> * </span>

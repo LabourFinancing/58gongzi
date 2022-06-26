@@ -189,9 +189,12 @@ public class ManagerController {
     @RequestMapping(value = "deleteManager")
     public String deleteManager(String id, String orgName,HttpServletRequest request,
             HttpServletResponse response, Model model) {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("t_O_VendorOrgName",orgName.trim());
         int countOrgUser = managerService.countOrgUser(orgName.trim());
-        if(countOrgUser == 1){
-            organizationInfoService.deleteByOrgName(orgName);
+        List<OrganizationInfo> OrganizationInfoList = organizationInfoService.findOrgName(paramMap);
+        if(countOrgUser == 1 && OrganizationInfoList.size() > 0) {
+            organizationInfoService.deleteByOrgName(orgName.trim());
         }
         managerService.deleteByPrimaryKey(id.trim());
         return "redirect:/managerController/managerList";

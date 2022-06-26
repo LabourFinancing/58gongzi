@@ -56,7 +56,7 @@ public class ProductMain implements Serializable {
     /**
      * 产品利率
      */
-    private BigDecimal t_Product_PID;
+    private String t_Product_PID;
 
     /**
      * 产品超期利率
@@ -95,7 +95,7 @@ public class ProductMain implements Serializable {
 
     private String t_Product_CryptoProdCat;
 
-    private BigDecimal t_Product_ServiceFss;
+    private BigDecimal t_Product_ServiceFees;
 
     private String t_Product_TierPoundage;
 
@@ -103,7 +103,7 @@ public class ProductMain implements Serializable {
 
     private String t_Product_Cleardays;
 
-    private String t_Product_PaymentCategory;
+    private String t_Product_EwalletProdCategory;
 
     private String t_Product_CorpPool;
 
@@ -182,11 +182,11 @@ public class ProductMain implements Serializable {
         this.t_Product_SeriesID = t_Product_SeriesID;
     }
 
-    public BigDecimal getT_Product_PID() {
+    public String getT_Product_PID() {
         return t_Product_PID;
     }
 
-    public void setT_Product_PID(BigDecimal t_Product_PID) {
+    public void setT_Product_PID(String t_Product_PID) {
         this.t_Product_PID = t_Product_PID;
     }
 
@@ -255,11 +255,11 @@ public class ProductMain implements Serializable {
     }
 
     public BigDecimal getT_Product_ServiceFss() {
-        return t_Product_ServiceFss;
+        return t_Product_ServiceFees;
     }
 
-    public void setT_Product_ServiceFss(BigDecimal t_Product_ServiceFss) {
-        this.t_Product_ServiceFss = t_Product_ServiceFss;
+    public void setT_Product_ServiceFss(BigDecimal t_Product_ServiceFees) {
+        this.t_Product_ServiceFees = t_Product_ServiceFees;
     }
 
     public String getT_Product_TierPoundage() {
@@ -287,11 +287,11 @@ public class ProductMain implements Serializable {
     }
 
     public String getT_Product_PaymentCategory() {
-        return t_Product_PaymentCategory;
+        return t_Product_EwalletProdCategory;
     }
 
-    public void setT_Product_PaymentCategory(String t_Product_PaymentCategory) {
-        this.t_Product_PaymentCategory = t_Product_PaymentCategory;
+    public void setT_Product_PaymentCategory(String t_Product_EwalletProdCategory) {
+        this.t_Product_EwalletProdCategory = t_Product_EwalletProdCategory;
     }
 
     public String getT_Product_CorpPool() {

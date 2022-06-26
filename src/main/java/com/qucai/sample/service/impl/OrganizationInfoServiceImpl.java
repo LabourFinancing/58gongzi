@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.qucai.sample.entity.TrAgentSubOrg;
+import com.qucai.sample.entity.TrManagerRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,7 +41,7 @@ public class OrganizationInfoServiceImpl implements OrganizationInfoService {
     @Override
     public int deleteByOrgName(String orgName) {
         trAgentSubOrgDao.deleteByPrimaryKey(orgName);
-       return organizationInfoDao.deleteByPrimaryKey(orgName);
+       return organizationInfoDao.deleteByOrgName(orgName);
     }
        
     @Override
@@ -48,7 +49,10 @@ public class OrganizationInfoServiceImpl implements OrganizationInfoService {
        if(record.getT_O_OrgPending() == null || record.getT_O_OrgPending().isEmpty()){
            record.setT_O_OrgPending(record.getT_O_OrgName());
         }
-       trAgentSubOrgDao.insertAgentSubOrg(record.getT_O_OrgPending(),record.getT_O_OrgName());
+        TrAgentSubOrg trsub = new TrAgentSubOrg();
+        trsub.setTr_agentid(record.getT_O_OrgPending());
+        trsub.setTr_suborgid(record.getT_O_OrgName());
+       trAgentSubOrgDao.insertAgentSubOrg(trsub);
        return organizationInfoDao.insertSelective(record);
     }
 

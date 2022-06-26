@@ -1,0 +1,248 @@
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8" />
+<title>编辑员工</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+<meta content="" name="description" />
+<meta content="" name="author" />
+<#include "/common/cssResource.html"> <#include
+"/common/jsResource.html">
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+
+		var form = $('#inputForm');
+		form.validate({
+			submitHandler : function(form) {
+				var formData = new FormData($('#inputForm')[0]); 
+				$.ajax({
+					url: "${ctx}/PersonalInfoBatchUploadStatusController/editPersonalInfoBatchUploadStatus",
+					type: 'POST',  
+					data: formData,  
+					async: true,  
+					cache: false,  
+					contentType: false,  
+					processData: false,  
+					success: function (data) { 
+						var result = eval("("+data+")");
+						alert(result.msg);
+						parent.window.location.reload();
+					   	var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+					   	parent.layer.close(index);
+					},  
+					error: function (data) {  
+						var result = eval("("+data+")");
+						alert(result.msg);
+					}  
+	            });
+			}
+		});
+		
+		$("#dirParent").hide();
+		$("#menuParent").hide();
+		$("#linkDiv").hide();
+		
+	});
+	
+	function typeSelector(selector){
+		var typeSelect = $(selector).find("option:selected").val();
+		if (typeSelect == "" || typeSelect == "0") {
+			$("#dirParent").hide();
+			$("#menuParent").hide();
+			$("#parentId").val("");
+			$("#linkDiv").hide();
+			$("#link").val("");
+		} else if (typeSelect == "1") {
+			$("#dirParent").show();
+			$("#menuParent").hide();
+			setParentId($("#dirParentSelector"));
+			$("#linkDiv").show();
+		} else if (typeSelect == "2") {
+			$("#dirParent").hide();
+			$("#menuParent").show();
+			setParentId($("#menuParentSelector"));
+			$("#linkDiv").hide();
+			$("#link").val("");
+		}
+	}
+
+	function setParentId(selector) {
+		$("#parentId").val($(selector).find("option:selected").val());
+	}
+
+</script>
+</head>
+<body>
+	<div class="portlet light bordered">
+		<div class="portlet-body form">
+			<!-- BEGIN FORM-->
+			<form id="inputForm" class="form-horizontal form-row-seperated">
+				<input type="hidden" name="t_batch_perslUploadId" id="t_batch_perslUploadId" value="${personalInfoBatchUploadStatus.t_batch_perslUploadId}"/>	
+				<input type="hidden" name="platform" id="platform" value="${platform}">
+                    <div class="form-group">
+						<label class="control-label col-sm-3">批量上传人员批次号 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control" readonly=""
+									name="t_batch_perslUploadStatus_id" value="${personalInfoBatchUploadStatus.t_batch_perslUploadStatus_id}"/>
+							</div>
+						</div>
+					</div>					
+					<div class="form-group">
+						<label class="control-label col-sm-3">批量上传任务序列号<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control" readonly=""
+									name="t_batch_perslUploadStatus_batchid" value="${personalInfoBatchUploadStatus.t_batch_perslUploadStatus_batchid}"/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">身份证 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control" readonly=""
+									name="t_batch_perslUploadPer_num" id="t_batch_perslUploadPer_num" value="${personalInfoBatchUploadStatus.t_batch_perslUploadPer_num}"/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">批量上传作用状态<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control" readonly=""
+									name="t_batch_perslUploadEffectStatus" value="${personalInfoBatchUploadStatus.t_batch_perslUploadEffectStatus}"/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">批量上传结算状态<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control" readonly=""
+									name="t_batch_perslUploadClearStatus" id="t_batch_perslUploadClearStatus" value="${personalInfoBatchUploadStatus.t_batch_perslUploadClearStatus}"/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">批量上传企业名<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control" readonly=""
+									name="t_batch_company" value="${personalInfoBatchUploadStatus.t_batch_company}"/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">批量上经销商名<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control" readonly=""
+									name="t_batch_vendorCompany" value="${personalInfoBatchUploadStatus.t_batch_vendorCompany}"/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">批量上传产品名<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control" readonly=""
+									name="t_batch_persProdName" value="${personalInfoBatchUploadStatus.t_batch_persProdName}"/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">批量上传总取款额 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control" readonly=""
+									name="t_batch_payroll_tot" value="${personalInfoBatchUploadStatus.t_batch_payroll_tot}"/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">批量上传总授额<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control" readonly=""
+									name="t_batch_payrollCredit_tot" value="${personalInfoBatchUploadStatus.t_batch_payrollCredit_tot}"/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">批量上传备注<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input textarea style="width:1000px;height:88px;" class="form-control"
+									name="t_batch_remark" value="${personalInfoBatchUploadStatus.t_batch_remark}"/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">批量上传清算机构 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_batch_clearInfo" value="${personalInfoBatchUploadStatus.t_batch_clearInfo}"/>
+							</div>
+						</div>
+					</div>
+<!-- Company Name List pickup from Company table , droplist -->
+					<div class="form-group">
+						<label class="control-label col-sm-3">批量上传类别信息<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+                            <div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_batch_category" value="${personalInfoBatchUploadStatus.t_batch_category}"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-actions">
+					<div class="row">
+						<div class="col-sm-3">
+						</div>
+						<div class="col-sm-9">
+							<button type="submit" class="btn green">提交</button>
+							<button type="button" class="btn default" onclick="parent.layer.closeAll();">取消</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<!-- END FORM-->
+	</div>
+</body>
+</html>

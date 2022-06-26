@@ -6,20 +6,18 @@
 		<id column="tr_agentid" property="tr_agentid" jdbcType="VARCHAR" />
 		<id column="tr_suborgid" property="tr_suborgid" jdbcType="VARCHAR" />
 	</resultMap>
-	
-	<delete id="deleteByPrimaryKey" parameterType="map">
-		delete from tr_AgentSubOrg
-		where 1 = 1
-		<if test="tr_agentid != null">
-			and tr_agentid = #{t_O_OrgName,jdbcType=VARCHAR}
-		</if>
-		<if test="tr_suborgid != null">
-			and tr_suborgid = #{t_O_OrgName,jdbcType=VARCHAR}
-		</if>
+
+	<sql id="Base_Column_List">
+		tr_agentid,
+		tr_suborgid
+	</sql>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from tr_agentsuborg
+		where tr_agentid = #{orgName,jdbcType=VARCHAR} or tr_suborgid = #{orgName,jdbcType=VARCHAR}
 	</delete>
 	
-	<insert id="insertSelective" parameterType="com.qucai.sample.entity.TrAgentSubOrg">
-		insert into tr_AgentSubOrg
+	<insert id="insertAgentSubOrg" parameterType="com.qucai.sample.entity.TrAgentSubOrg">
+		insert into tr_agentsuborg
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="tr_agentid != null">
 				tr_agentid,
@@ -33,13 +31,13 @@
 				#{tr_agentid,jdbcType=VARCHAR},
 			</if>
 			<if test="tr_suborgid != null">
-				#{tr_suborgid,jdbcType=VARCHAR},
+				#{tr_suborgid,jdbcType=VARCHAR}
 			</if>
 		</trim>
 	</insert>
-	
+
 	<delete id="deleteByResourceIdStr" parameterType="java.lang.String">
-		delete from tr_AgentSubOrg
+		delete from tr_agentsuborg
 		where find_in_set(tr_agentid, #{tragentidStr})
 	</delete>
 	

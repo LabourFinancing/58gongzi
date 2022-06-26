@@ -303,7 +303,7 @@ public class VoucherController {
             HttpServletResponse response, Model model) {
     	Voucher voucher = voucherService.selectByPrimaryKey(t_Voucher_ID);
     	String t_Txn_PrepayApplierName = voucher.getT_Voucher_Name();
-    	String t_Txn_PrepayApplierPID = voucher.getT_Voucher_ProdID();
+    	String t_Txn_PrepayApplierPID = voucher.getT_Voucher_ID();
     	String t_Txn_Paystatus = voucher.getT_Voucher_Name();
     	int retdata = staffPrepayApplicationService.deleteTxnPayment(t_Txn_PrepayApplierName, t_Txn_PrepayApplierPID, t_Txn_Paystatus);
     	model.addAttribute("platform", platform);

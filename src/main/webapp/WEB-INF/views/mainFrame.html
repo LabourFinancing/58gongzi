@@ -120,7 +120,12 @@ function openReset(obj){
                             <li class="separator hide"> </li>
                             <!-- BEGIN NOTIFICATION DROPDOWN -->
                             <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-
+                            <li class="dropdown dropdown-extended dropdown-notification dropdown-dark" id="header_acc">
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                    <span class="title" style="margin-left:0px;font-color:blue" herf=""><span id="OrgName"></span></span>
+                                </a>
+                            </li>
+                            <li class="separator hide"> </li>
                             <li class="dropdown dropdown-extended dropdown-notification dropdown-dark" id="header_accbal">
                                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                     <i class="icon-wallet" style="width:85px;font-size:16px;"> 余额：</i>
@@ -339,7 +344,11 @@ function openReset(obj){
                 success: function (data) {
                     var result = eval("(" + data + ")");
                     if(!$.isEmptyObject(result)){
+                        if(result.OrgCurrBal == 0 | result.OrgCurrBal == null){
+                            result.OrgCurrBal = "0.00"
+                        }
                         document.getElementById("OrgCurrBal").innerText = result.OrgCurrBal;
+                        document.getElementById("OrgName").innerText = result.OrgName;
                     }else{
                         console.log(result)
                     }

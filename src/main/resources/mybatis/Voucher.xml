@@ -5,6 +5,8 @@
 	<resultMap id="BaseResultMap" type="com.qucai.sample.entity.Voucher">
 		<result column="t_Voucher_ID" property="t_Voucher_ID" jdbcType="VARCHAR" />
 		<result column="t_Voucher_Name" property="t_Voucher_Name" jdbcType="VARCHAR" />
+		<result column="t_Voucher_OrgInfo" property="t_Voucher_OrgInfo" jdbcType="VARCHAR" />
+		<result column="t_Voucher_VendorOrgName" property="t_Voucher_VendorOrgName" jdbcType="VARCHAR" />
 		<result column="t_Voucher_ProdCat" property="t_Voucher_ProdCat" jdbcType="VARCHAR" />
 		<result column="t_Voucher_VendorName" property="t_Voucher_VendorName" jdbcType="INTEGER" />
 		<result column="t_Voucher_VendorClearNum" property="t_Voucher_VendorClearNum" jdbcType="VARCHAR" />
@@ -22,8 +24,8 @@
         <result column="t_Voucher_category" property="t_Voucher_category" jdbcType="VARCHAR" />
         <result column="t_Voucher_CorpPool" property="t_Voucher_CorpPool" jdbcType="VARCHAR" />
         <result column="t_Voucher_PersPool" property="t_Voucher_PersPool" jdbcType="VARCHAR" />
-        <result column="t_Voucher_bkp" property="t_Voucher_bkp" jdbcType="VARCHAR" />
-        <result column="t_Voucher_bkp1" property="t_Voucher_bkp1" jdbcType="VARCHAR" />
+        <result column="t_Voucher_StartDate" property="t_Voucher_StartDate" jdbcType="TIMESTAMP" />
+        <result column="t_Voucher_EndDate" property="t_Voucher_EndDate" jdbcType="TIMESTAMP" />
         <result column="t_Voucher_bkp2" property="t_Voucher_bkp2" jdbcType="VARCHAR" />
 		<result column="platform" property="platform" jdbcType="VARCHAR" />
 		<result column="remark" property="remark" jdbcType="VARCHAR" />
@@ -36,6 +38,8 @@
 	<sql id="Base_Column_List">
         a.t_Voucher_ID,
         a.t_Voucher_Name,
+        a.t_Voucher_OrgInfo,
+        a.t_Voucher_VendorOrgName,
         a.t_Voucher_ProdCat,
         a.t_Voucher_VendorName,
         a.t_Voucher_VendorClearNum,
@@ -53,8 +57,8 @@
         a.t_Voucher_category,
         a.t_Voucher_CorpPool,
         a.t_Voucher_PersPool,
-        a.t_Voucher_bkp,
-        a.t_Voucher_bkp1,
+        a.t_Voucher_StartDate,
+        a.t_Voucher_EndDate,
         a.t_Voucher_bkp2,  
 		a.platform,
 		a.remark,
@@ -118,8 +122,11 @@
 			<if test="t_Voucher_Name != null">
                 t_Voucher_Name,
 			</if>
-			<if test="t_Voucher_ProdCat != null">
-                t_Voucher_ProdCat,
+			<if test="t_Voucher_OrgInfo != null">
+				t_Voucher_OrgInfo,
+			</if>
+			<if test="t_Voucher_VendorOrgName != null">
+				t_Voucher_VendorOrgName,
 			</if>
 			<if test="t_Voucher_VendorName != null">
                 t_Voucher_VendorName,
@@ -155,10 +162,7 @@
                 t_Voucher_TierPoundage,
 			</if>
 			<if test="t_Voucher_Status != null">
-                t_Voucher_Status,
-			</if>
-			<if test="t_Voucher_Status != null">
-                t_Voucher_Status,
+				t_Voucher_Status,
 			</if>
 			<if test="t_Voucher_SysupdateDate != null">
                 t_Voucher_SysupdateDate,
@@ -172,16 +176,15 @@
 			<if test="t_Voucher_PersPool != null">
                 t_Voucher_PersPool,
 			</if>
-			<if test="t_Voucher_bkp != null">
-                t_Voucher_bkp,
+			<if test="t_Voucher_StartDate != null">
+				t_Voucher_StartDate,
 			</if>
-			<if test="t_Voucher_bkp1 != null">
-                t_Voucher_bkp1,
+			<if test="t_Voucher_EndDate != null">
+				t_Voucher_EndDate,
 			</if>
 			<if test="t_Voucher_bkp2 != null">
                 t_Voucher_bkp2,
 			</if>
-			
 			<if test="platform != null">
 				platform,
 			</if>
@@ -204,6 +207,12 @@
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="t_Voucher_ID != null">
 				#{t_Voucher_ID,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_OrgInfo != null">
+				#{t_Voucher_OrgInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_VendorOrgName != null">
+				#{t_Voucher_VendorOrgName,jdbcType=VARCHAR},
 			</if>
 			<if test="t_Voucher_Name != null">
 				#{t_Voucher_Name,jdbcType=VARCHAR},
@@ -244,6 +253,12 @@
 			<if test="t_Voucher_TierPoundage != null">
 				#{t_Voucher_TierPoundage,jdbcType=VARCHAR},
 			</if>
+			<if test="t_Voucher_StartDate != null">
+				#{t_Voucher_StartDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="t_Voucher_EndDate != null">
+				#{t_Voucher_EndDate,jdbcType=TIMESTAMP},
+			</if>
 			<if test="t_Voucher_Status != null">
 				#{t_Voucher_Status,jdbcType=VARCHAR},
 			</if>
@@ -258,6 +273,9 @@
 			</if>
 			<if test="t_Voucher_PersPool != null">
 				#{t_Voucher_PersPool,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_bkp2 != null">
+				#{t_Voucher_bkp2,jdbcType=VARCHAR},
 			</if>
 			<if test="platform != null">
 				#{platform,jdbcType=VARCHAR},
@@ -324,6 +342,12 @@
 			<if test="t_Voucher_Name != null">
                 t_Voucher_Name = #{t_Voucher_Name,jdbcType=VARCHAR},
 			</if>
+			<if test="t_Voucher_OrgInfo != null">
+				t_Voucher_OrgInfo = #{t_Voucher_OrgInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="t_Voucher_VendorOrgName != null">
+				t_Voucher_VendorOrgName = #{t_Voucher_VendorOrgName,jdbcType=VARCHAR},
+			</if>
 			<if test="t_Voucher_ProdCat != null">
                 t_Voucher_ProdCat = #{t_Voucher_ProdCat,jdbcType=VARCHAR},
 			</if>
@@ -375,11 +399,11 @@
 			<if test="t_Voucher_PersPool != null">
                 t_Voucher_PersPool = #{t_Voucher_PersPool,jdbcType=DECIMAL},
 			</if>
-			<if test="t_Voucher_bkp != null">
-                t_Voucher_bkp = #{t_Voucher_bkp,jdbcType=VARCHAR},
+			<if test="t_Voucher_StartDate != null">
+				t_Voucher_StartDate = #{t_Voucher_StartDate,jdbcType=TIMESTAMP}
 			</if>
-			<if test="t_Voucher_bkp1 != null">
-                t_Voucher_bkp1 = #{t_Voucher_bkp1,jdbcType=VARCHAR},
+			<if test="t_Voucher_EndDate != null">
+				t_Voucher_EndDate = #{t_Voucher_EndDate,jdbcType=TIMESTAMP}
 			</if>
 			<if test="t_Voucher_bkp2 != null">
                 t_Voucher_bkp2 = #{t_Voucher_bkp2,jdbcType=INTEGER},

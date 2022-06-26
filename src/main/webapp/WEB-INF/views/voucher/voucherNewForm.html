@@ -205,382 +205,256 @@ jQuery.validator.addMethod("isTel", function(value,element) {
 <body>
 	<div class="portlet light bordered">
 		<div class="portlet-body form">
-			<!-- BEGIN FORM-->
+			<!-- BEGIN FORM-->vz
 			<form id="inputForm" class="form-horizontal form-row-seperated">
 <!--				<input type="hidden" id="parentId" name="parentId"> -->
 				<input type="hidden" name="platform" value="${platform}">
 				<div class="form-body">
 					<div class="form-group">
-						<label class="control-label col-sm-3">姓名 <span
+						<label class="control-label col-sm-3">优惠券名称 <span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_P_Name" />
-							</div>
-						</div>
-					</div>					
-					<div class="form-group">
-						<label class="control-label col-sm-3">性别 <span
-							class="required"> * </span>
-						</label>
-							<div class="col-sm-3">
-								<select class="bs-select form-control" name="t_P_Sex">
-									<option value="男">男</option>
-									<option value="女">女</option>
-									<option value="其他">其他</option>
-								</select>
+									name="t_Voucher_Name" />
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-3">年龄<span
+						<label class="control-label col-sm-3">优惠券绑定企业<span
+								class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<select class="bs-select form-control" data-live-search="true" name="t_Voucher_OrgInfo" id="t_Voucher_OrgInfo">
+								<#list OrganizationInfo as OrganizationInfoList>
+								<option value="${OrganizationInfoList.t_O_OrgName}">${OrganizationInfoList.t_O_OrgName}</option>
+							</#list>
+							</select>
+						</div>
+					</div>
+					<@shiro.hasPermission name="TREASURYINFO_SUPERADMINVIEW">
+					<div class="form-group">
+						<label class="control-label col-sm-3">代理商企业名<span
+								class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<select class="bs-select form-control" data-live-search="true" name="t_Voucher_VendorOrgName" id="t_Voucher_VendorOrgName" onchange="Agentfilter(this)">
+								<#list OrganizationInfoAgency as OrganizationInfoList>
+								<option value="${OrganizationInfoList.t_O_OrgName}">${OrganizationInfoList.t_O_OrgName}</option>
+							</#list>
+							</select>
+						</div>
+					</div>
+					</@shiro.hasPermission>
+					<div class="form-group">
+						<label class="control-label col-sm-3">优惠券产品类型<span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_P_Age" />
+									name="t_Voucher_ProdCat" />
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">身份证 <span
+						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">优惠券供应商名 <span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_P_PID" id="t_P_PID" />
+									name="t_Voucher_VendorName" id="t_Voucher_VendorName" />
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-3">婚否 <span
+						<label class="control-label col-sm-3">优惠券结算号<span
+								class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+														  name="t_Voucher_VendorClearNum" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">优惠券第三方平台<span
+								class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+														  name="t_Voucher_3rdprty" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">优惠券图片 <span
 							class="required"> * </span>
 						</label>
-                        <div class="col-sm-9">
+						<div class="col-sm-9">
 							<div class="input-icon right">
-								<select class="bs-select form-control" name="t_P_Marriage">
-									<option value="未婚">未婚</option>
-									<option value="已婚">已婚</option>
-								</select>
+								<i class="fa"></i> <input type="text" id="t_Voucher_Pic" class="form-control"
+									name="t_Voucher_Pic" />
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-3">所在部门<span
+						<label class="control-label col-sm-3">优惠券链接<span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_P_HomeAddress" />
+									name="t_Voucher_URL" id="t_Voucher_URL"/>
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">手机 <span
-							class="required"> * </span>
-						</label>
-						<div class="col-sm-9">
-							<div class="input-icon right">
-								<i class="fa"></i> <input type="text" id="t_P_Mobil" class="form-control"
-									name="t_P_Mobil" />
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-sm-3">固定电话<span
+						<label class="control-label col-sm-3">优惠券费率<span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_P_Phone" id="t_P_Phone"/>
+									name="t_Voucher_Interest" />
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-3">配偶姓名<span
-							class="required"> * </span>
-						</label>
-						<div class="col-sm-9">
-							<div class="input-icon right">
-								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_P_Spouse" />
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-sm-3">配偶联系电话<span
+						<label class="control-label col-sm-3">优惠券预期费率<span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" if="checklen" class="form-control"
-									name="t_P_Spouse_Phone" id="t_P_Spouse_Phone"/>
+									name="t_Voucher_OverdueInt" id="t_Voucher_OverdueInt"/>
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-3">第一联系人 <span
+						<label class="control-label col-sm-3">优惠券服务费(百分比) <span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_P_Contact1" />
+									name="t_Voucher_ServiceFee" />
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-3">第一联系人联系电话<span
+						<label class="control-label col-sm-3">手续费<span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_Voucher_Poundage" id="t_Voucher_Poundage"/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">单笔限额 <span
+							class="required"> * </span>
+						</label>
+						<div class="col-sm-9">
+							<div class="input-icon right">
+								<i class="fa"></i> <input type="text" class="form-control"
+									name="t_Voucher_ETxnAmtLimit" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">区间手续费 <span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" id="checklen" class="form-control"
-									name="t_P_Contact1Mobile" id="t_P_Contact1Mobile"/>
+									name="t_Voucher_TierPoundage" id="t_Voucher_TierPoundage"/>
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-3">销售管理人 <span
+						<label class="control-label col-sm-3">优惠券状态 <span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_P_Payroll" />
+									name="t_Voucher_Status" />
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-3">销售管理人联系电话 <span
-							class="required"> * </span>
-						</label>
-						<div class="col-sm-9">
-							<div class="input-icon right">
-								<i class="fa"></i> <input type="text" id="checklen" class="form-control"
-									name="t_P_Contact2Mobile" id="t_P_Contact2Mobile"/>
-							</div>
-						</div>
-					</div>
-<!-- Company Name List pickup from Company table , droplist -->
-					<div class="form-group">
-						<label class="control-label col-sm-3">公司名<span
-							class="required"> * </span>
-						</label>
-						<div class="col-sm-9">
-							<select class="bs-select form-control" data-live-search="true" name="t_P_Company" id="t_P_Company">
-								<#list OrganizationInfo as OrganizationInfoList>
-									<option value="${OrganizationInfoList.t_O_OrgName}">${OrganizationInfoList.t_O_OrgName}</option>					
-								</#list>
-						   </select>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-sm-3">员工信用等级<span
-							class="required"> * </span>
-						</label>
-						<div class="col-sm-9">
-							<div class="input-icon right">
-								<i class="fa"></i>
-								    <select class="bs-select form-control" data-live-search="true" name="t_P_Probation" id="t_P_Probation">
-										<#list FinanceProduct as FinanceProductList>
-											<option value="${FinanceProductList.t_FProd_PersPool}">${FinanceProductList.t_FProd_Name}  ${FinanceProductList.t_FProd_PersPool}</option>					
-										</#list>
-									</select>
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-sm-3">工号 <span
+						<label class="control-label col-sm-3">优惠券更新日期 <span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_P_CompanyNum" />
+									name="t_Voucher_SysupdateDate" id="t_Voucher_SysupdateDate" />
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-3">社保缴纳基数 <span
+						<label class="control-label col-sm-3">优惠券类型<span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_P_SocialSecurityBaseAmount" id="t_P_SocialSecurityBaseAmount" />
+									name="t_Voucher_category" />
 							</div>
 						</div>
 					</div>
+					<@shiro.hasPermission name="TREASURYINFO_SUPERADMINVIEW">
 					<div class="form-group">
-						<label class="control-label col-sm-3">公积金缴纳数<span
+						<label class="control-label col-sm-3">优惠券适用企业<span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_P_ProvidentFund" />
+									name="t_Voucher_CorpPool" />
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">用工状态 <span
-							class="required"> * </span>
-						</label>
-						<div class="col-sm-9">
-							<div class="input-icon right">
-								<i class="fa"></i>
-							   <select class="bs-select form-control" name="t_P_Employmentstatus">
-									<option value="onjob">在职</option>
-									<option value="EXPIRED">离职</option>
-									<option value="PENDING">暂停</option>
-									<option value="resigning">已提离职</option>
-								</select>
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">用工性质 <span
-							class="required"> * </span>
-						</label>
-						<div class="col-sm-9">
-							<div class="input-icon right">
-								<i class="fa"></i> 								
-								<select class="bs-select form-control" name="t_P_EmploymentCategory" value="${personalInfo.t_P_EmploymentCategory}">
-									<option value="DIRECTHIRE">直聘</option>
-									<option value="VENDOR">外包</option>
-									<option value="PARTTIME">日结工</option>
-								</select>
-							</div>
-						</div>	
-					</div>
-					<div class="form-group">
-						<label class="control-label col-sm-3">工作年限<span
+						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">优惠券适用人群<span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_P_WorkYears" />
+									name="t_Voucher_PersPool" />
 							</div>
 						</div>
 					</div>
+					</@shiro.hasPermission>
 					<div class="form-group">
-						<label class="control-label col-sm-3">是否是派遣制 <span
-							class="required"> * </span>
-					    </label>
-						    <div class="col-sm-3">
-								<select class="bs-select form-control" name="t_P_VendorEmployment">
-									<option value="是">派遣制</option>
-									<option value="否">非派遣制</option>
-								</select>
-							</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-sm-3">代理商企业名<span
-							class="required"> * </span>
-						</label>
-						<div class="col-sm-9">
-							<select class="bs-select form-control" data-live-search="true" name="t_P_VendorEmployeeName" id="t_P_VendorEmployeeName">
-								<#list OrganizationInfoAgency as OrganizationInfoList>
-									<option value="${OrganizationInfoList.t_O_OrgName}">${OrganizationInfoList.t_O_OrgName}</option>					
-								</#list>
-						   </select>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">工资卡银行名<span
+						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">优惠券起始日期<span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
-								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_P_PayrollDebitcardBankName" />
+								<i class="fa"></i> <input class="form-control form-control-inline date-picker" type="text" class="form-control" id="t_Voucher_StartDate"
+									name="t_Voucher_StartDate" />
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">工资卡号<span
+						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">优惠券结束日期<span
 							class="required"> * </span>
 						</label>
 						<div class="col-sm-9">
 							<div class="input-icon right">
-								<i class="fa"></i> <input type="text" class="form-control" id="t_P_PayrollDebitcardNum"
-									name="t_P_PayrollDebitcardNum" />
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">月税后基本工资<span
-							class="required"> * </span>
-						</label>
-						<div class="col-sm-9">
-							<div class="input-icon right">
-								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_P_NetBaseSalary" id="t_P_NetBaseSalary"/>
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-sm-3">授额预支工资数 <span
-							class="required"> * </span>
-						</label>
-						<div class="col-sm-9">
-							<div class="input-icon right">
-							<@shiro.hasPermission name="MANAGER_EDIT">
-								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_P_CreditPrepaySalaryAmount" />
-							</@shiro.hasPermission>
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-sm-3" style="color:red;background-color:yellow;">工资发放日 <span
-							class="required"> * </span>
-						</label>
-						<div class="col-sm-9">
-							<div class="input-icon right">
-								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_P_PayrollDate" id="t_P_PayrollDate"/>
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-sm-3">剩余额度<span
-							class="required"> * </span>
-						</label>
-						<div class="col-sm-9">
-							<div class="input-icon right">
-								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_P_NetMonthlyBonusAmount" readonly=""/>
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-sm-3">奖金发放日 <span
-							class="required"> * </span>
-						</label>
-						<div class="col-sm-9">
-							<div class="input-icon right">
-								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_P_NetBonusPayDate" />
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-sm-3">社保缴纳日 <span
-							class="required"> * </span>
-						</label>
-						<div class="col-sm-9">
-							<div class="input-icon right">
-								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_P_SocialSecurityDate" />
+								<i class="fa"></i> <input class="form-control form-control-inline date-picker" type="text"class="form-control"
+									name="t_Voucher_EndDate" id="t_Voucher_EndDate"/>
 							</div>
 						</div>
 					</div>

@@ -185,7 +185,7 @@ var ValueCnvrt = "";
                                 <th>产品品类</th>
 								<th>产品适用员工类型</th>
 								<th>产品状态</th>
-								<@shiro.hasPermission name="TREASURYINFO_AGENTFPRODVIEW">
+								<@shiro.hasPermission name="TREASURYINFO_SUPERADMINVIEW">
 								<th>产品适用企业</th>
 								<th>产品适用人群</th>
 								</@shiro.hasPermission>
@@ -208,7 +208,7 @@ var ValueCnvrt = "";
                                     <td id="FProdMainCat" name="FProdMainCat" class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;" >${financeProduct.t_FProd_MainCat}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_category}</td>
 								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_Status}</td>
-									<@shiro.hasPermission name="TREASURYINFO_AGENTFPRODVIEW">
+									<@shiro.hasPermission name="TREASURYINFO_SUPERADMINVIEW">
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_CorpPool}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_PersPool}</td>
 									</@shiro.hasPermission>

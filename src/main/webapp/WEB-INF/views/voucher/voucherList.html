@@ -115,7 +115,7 @@ a:hover{color:red}
 <body>
 	<!-- BEGIN PAGE BASE CONTENT -->
 	<div class="row">
-		<div class="col-xs-push-15">
+		<div class="col-xs-push-12">
 			<!-- BEGIN EXAMPLE TABLE PORTLET-->
 			<div class="portlet light portlet-fit bordered">
 				<div class="portlet-title">
@@ -159,15 +159,16 @@ a:hover{color:red}
 									</td>
                                     <td>
                                         <div class="form-group">
-                                            <label class="control-label col-sm-4" style="padding-right: 0">优惠券三方名:</label>
+                                            <label class="control-label col-sm-4" style="padding-right: 0">优惠券绑定企业:</label>
                                             <div class="col-sm-8" style="padding-left: 1;">
-                                                <input type="text" class="form-control" name="t_Voucher_3rdprty" value="${voucher.t_Voucher_3rdprty}" />
+                                                <input type="text" class="form-control" name="t_Voucher_OrgInfo" value="${voucher.t_Voucher_OrgInfo}" />
                                             </div>
                                         </div>
                                     </td>
 								</tr>
 								<tr>
-						            <td>
+									<@shiro.hasPermission name="TREASURYINFO_SUPERADMINVIEW">
+									<td>
 									<div class="form-group">
 										<label class="control-label col-sm-4" style="padding-right: 0">优惠券适用企业:</label>
 										<div class="col-sm-8" style="padding-left: 1;">
@@ -183,6 +184,15 @@ a:hover{color:red}
                                             </div>
                                         </div>
                                     </td>
+									<td>
+										<div class="form-group">
+											<label class="control-label col-sm-4" style="padding-right: 0">优惠券绑定经销商:</label>
+											<div class="col-sm-8" style="padding-left: 1;">
+												<input type="text" class="form-control" name="t_Voucher_VendorOrgName" value="${voucher.t_Voucher_VendorOrgName}" />
+											</div>
+										</div>
+									</td>
+									</@shiro.hasPermission>
                                     <td>
 									<div class="form-group">
 										<label class="control-label col-sm-4" style="padding-right: 0">备注:</label>
@@ -210,20 +220,18 @@ a:hover{color:red}
 						<div class="row">
 							<div class="col-sm-12">
 								<div class="btn-group pull-right">
-                                    <@shiro.hasPermission name="voucher_ADD">
+									<@shiro.hasPermission name="PERSONALINFO_ADD">
 									<button id="sample_editable_1_new" class="btn green" onclick="openNew('0')">新增</button>
-                                    </@shiro.hasPermission>
+									</@shiro.hasPermission>
 								</div>
 							</div>
 						</div>
 					</div>
-			    </div>
-			  <div class="row ls-change-tit">
+			  <div class="able table-bordered">
                 <div class="ls-seaarch-result">
                     <div class="table-responsive">
 					  <table class="table table-bordered" id="voucherTable" style="overflow:visible;text-overflow:ellipsis;white-space:nowrap;">
 							<tr>
-							    <th>&nbsp;&nbsp;&nbsp;</th>
 								<th>优惠券名</th>
 								<th>优惠券编号</th>
 								<th>优惠券供应商名</th>
@@ -234,24 +242,26 @@ a:hover{color:red}
 								<th>优惠券费率</th>
 								<th>优惠券预期费率</th>
 								<th>优惠券服务费(百分比)</th>
-								<th>手续费</th>
-								<th>单笔限额</th>
-								<th>区间手续费</th>
+								<th>优惠金额/比例</th>
+								<th>优惠券金额</th>
+								<th>区间优惠费率</th>
+								<th>优惠券起始日期</th>
+								<th>优惠券结束日期</th>
 								<th>优惠券状态</th>
 								<th>优惠券更新日期</th>
-								<th>优惠券类型</th>
+								<th>优惠券绑定类型</th>
+								<@shiro.hasPermission name="TREASURYINFO_SUPERADMINVIEW">
 								<th>优惠券适用企业</th>
 								<th>优惠券适用人群</th>
+								</@shiro.hasPermission>
 								<th>优惠券备用</th>
 								<th>备注</th>
 								<th>最后更新时间</th>
 								<th>操作</th>
-							    <th>&nbsp;&nbsp;&nbsp;</th>
 							</tr>
 						<tbody>
 							<#list page.list as voucher>
 								<tr>
-								    <td>&nbsp;&nbsp;&nbsp;</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${voucher.t_Voucher_Name}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${voucher.t_Voucher_ProdCat}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${voucher.t_Voucher_VendorName}</td>
@@ -265,11 +275,15 @@ a:hover{color:red}
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${voucher.t_Voucher_Poundage}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${voucher.t_Voucher_ETxnAmtLimit}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${voucher.t_Voucher_TierPoundage}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${voucher.t_Voucher_StartDate?string("yyyy-MM-dd HH:mm:ss")}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${voucher.t_Voucher_EndDate?string("yyyy-MM-dd HH:mm:ss")}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${voucher.t_Voucher_Status}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${voucher.t_Voucher_SysupdateDate?string("yyyy-MM-dd HH:mm:ss")}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${voucher.t_Voucher_category}</td>
+									<@shiro.hasPermission name="TREASURYINFO_SUPERADMINVIEW">
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${voucher.t_Voucher_CorpPool}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${voucher.t_Voucher_PersPool}</td>
+									</@shiro.hasPermission>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${voucher.t_P_NetMonthlyBonusAmount}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${voucher.remark}</td>							
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${voucher.modify_time?string("yyyy-MM-dd HH:mm:ss")}</td>
@@ -283,12 +297,6 @@ a:hover{color:red}
 										<@shiro.hasPermission name="PERSONALINFO_DELETE">
 										<a href="${ctx}/VoucherController/deleteVoucher?t_Voucher_ID=${voucher.t_Voucher_ID}&platform=0" onclick="return confirm('确认要执行 删除 操作吗？', this.href)">删除</a><br>
 										</@shiro.hasPermission>
-										<@shiro.hasPermission name="PERSONALINFO_EDIT">
-										<a href="#" onclick="editCreditBalance('${voucher.t_Voucher_ID}')">修改剩余授额</a>
-										</@shiro.hasPermission>
-										<@shiro.hasPermission name="PERSONALINFO_DELETE">
-										<a href="${ctx}/VoucherController/creditRefreshVoucher?t_Voucher_ID=${voucher.t_Voucher_ID}&platform=0" onclick="return confirm('确认要执行 授额刷新 操作吗？', this.href)">刷新授额</a>
-										</@shiro.hasPermission>
 									</td>
 								</tr>
 							</#list>
@@ -296,9 +304,6 @@ a:hover{color:red}
 				    </table>
 		          </div>
 			     </div>
-			   </div>
-			  </div>
-			</div>
 			<!-- END EXAMPLE TABLE PORTLET-->
 		</div>
 	<!-- END PAGE BASE CONTENT -->

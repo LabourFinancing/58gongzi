@@ -41,7 +41,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class OrganizationProfileController{
 
 
-	// 必须把new financeProduct的列进行全面修改, 新建financeProductService
+    // 必须把new financeProduct的列进行全面修改, 新建financeProductService
 
     @Autowired
     private OrganizationProfileService organizationProfileService; //申明一个对象
@@ -54,8 +54,8 @@ public class OrganizationProfileController{
 
     @ModelAttribute
     public OrganizationProfile get(@RequestParam(required = false) String t_Profile_ID) {
-    	OrganizationProfile entity = null;
-    	String t_Profile_OrgName = ShiroSessionUtil.getLoginSession().getCompany_name();
+        OrganizationProfile entity = null;
+        String t_Profile_OrgName = ShiroSessionUtil.getLoginSession().getCompany_name();
         if (StringUtils.isNotBlank(t_Profile_OrgName)) {
             entity = organizationProfileService.selectAgencyName(t_Profile_OrgName);//用FinanceProductService对象属性方法去调用t_FProd_ID并返回
         }
@@ -67,7 +67,7 @@ public class OrganizationProfileController{
 
     @RequestMapping(value = {"organizationProfileList",""})
     public String organizationProfileList(OrganizationProfile organizationProfile, @RequestParam( defaultValue = "0" )  String platform,
-                                       HttpServletRequest request, HttpServletResponse response, Model model) {
+                                          HttpServletRequest request, HttpServletResponse response, Model model) {
         String t_M_Company = ShiroSessionUtil.getLoginSession().getCompany_name();
 
         Map<String, Object> paramMap = new HashMap<String, Object>();//新建map对象s
@@ -159,11 +159,11 @@ public class OrganizationProfileController{
 
     @RequestMapping(value = {"info"})
     public String showOrganizationProfile(OrganizationProfile organizationProfile, @RequestParam( defaultValue = "0" )  Integer platform,
-                                       HttpServletRequest request, HttpServletResponse response, Model model) {
+                                          HttpServletRequest request, HttpServletResponse response, Model model) {
 
         Map<String, Object> paramMap = new HashMap<String, Object>();//新建map对象
         PageParam pp = Tool.genPageParam(request);
-        
+
         OrganizationProfile organizationProfileDetail = organizationProfileService.selectAgencyName(ShiroSessionUtil.getLoginSession().getCompany_name());
         model.addAttribute("organizationProfileDetail", organizationProfileDetail);
 
@@ -173,9 +173,9 @@ public class OrganizationProfileController{
     @RequestMapping(value = {"Editinfo"})
     @ResponseBody
     public String Editinfo(OrganizationProfile organizationProfile, @RequestParam( defaultValue = "0" )  Integer platform,
-                                       String t_Profile_StatusRptRetAddress,String t_Profile_OrgType,String t_Profile_Mobile,String t_Profile_Email,String t_Profile_Address,String t_Profile_Contact,
-                                       String t_Profile_PostRet,String t_Profile_CurrentAddress,
-                                          HttpServletRequest request, HttpServletResponse response, Model model) {
+                           String t_Profile_StatusRptRetAddress,String t_Profile_OrgType,String t_Profile_Mobile,String t_Profile_Email,String t_Profile_Address,String t_Profile_Contact,
+                           String t_Profile_PostRet,String t_Profile_CurrentAddress,
+                           HttpServletRequest request, HttpServletResponse response, Model model) {
         String t_Profile_OrgName = ShiroSessionUtil.getLoginSession().getCompany_name();
         organizationProfile.setT_Profile_StatusRptRetAddress(t_Profile_StatusRptRetAddress);
         organizationProfile.setT_Profile_OrgType(t_Profile_OrgType);
@@ -184,7 +184,7 @@ public class OrganizationProfileController{
         organizationProfile.setT_Profile_Mobile(t_Profile_Mobile);
         organizationProfile.setT_Profile_Email(t_Profile_Email);
         organizationProfile.setT_Profile_PostRet(t_Profile_PostRet);
-        
+
         model.addAttribute("organizationProfile",organizationProfile);
         model.addAttribute("t_Profile_StatusRptRetAddress",t_Profile_StatusRptRetAddress);
         model.addAttribute("t_Profile_OrgType",t_Profile_OrgType);
@@ -222,10 +222,10 @@ public class OrganizationProfileController{
             if (originalfileName.contains(".jpeg")) {
                 tailer = ".jpeg";
             }
-             fileName = "/files/certpics/" + (String.valueOf(forminput.getString("t_Profile_CertificationCode"))) + "_certimg." + tailer;
-             organizationProfile.setT_Profile_AgentCmpyName(fileName);
+            fileName = "/files/certpics/" + (String.valueOf(forminput.getString("t_Profile_CertificationCode"))) + "_certimg." + tailer;
+            organizationProfile.setT_Profile_AgentCmpyName(fileName);
         }else {
-             fileName = null;
+            fileName = null;
         }
         organizationProfile.setModifier(ShiroSessionUtil.getLoginSession().getId());
         organizationProfile.setModify_time(new Date());
@@ -268,7 +268,7 @@ public class OrganizationProfileController{
     @RequestMapping(value = "newOrganizationProfile")
     @ResponseBody
     public String newOrganizationProfile(@RequestBody JSONObject forminput,HttpServletRequest request, String t_Profile_AppStatus,
-                                          HttpServletResponse response, Model model) {
+                                         HttpServletResponse response, Model model) {
         Map<String, Object> ret = new HashMap<String, Object>();
         String fileName = null;
         OrganizationProfile organizationProfile = new OrganizationProfile();
@@ -334,7 +334,7 @@ public class OrganizationProfileController{
         System.out.println("springmvc 方式 :" + t_Profile_AgentCmpyName);
         System.out.println("certcode :"+t_O_CertificationCode);
         // 指定文件上传的位置
-            String path = request.getSession().getServletContext().getRealPath("/files/certpics");
+        String path = request.getSession().getServletContext().getRealPath("/files/certpics");
         //判断该路径是否存在
         File file = new File(path);
         if (!file.getParentFile().exists()) {
@@ -347,7 +347,7 @@ public class OrganizationProfileController{
         String originalfileName = t_Profile_AgentCmpyName.getOriginalFilename();
         String tailer = null;
         if(originalfileName.contains(".png")) {
-             tailer = ".png";
+            tailer = ".png";
         }
         if(originalfileName.contains(".jpg")) {
             tailer = ".jpg";
@@ -375,6 +375,7 @@ public class OrganizationProfileController{
         Map<String, Object> ret = new HashMap<String, Object>();//
         String t_TreasuryDB_OrgName = ShiroSessionUtil.getLoginSession().getCompany_name();
         TreasuryDBInfo treasuryDBOrgInfo = treasuryDBInfoService.findOrgTreasuryOrgName(t_TreasuryDB_OrgName);
+        ret.put("OrgName", ShiroSessionUtil.getLoginSession().getCompany_name());
         if(treasuryDBOrgInfo!=null) {
             ret.put("OrgCurrBal", treasuryDBOrgInfo.getT_TreasuryDB_Balance());
         }else{

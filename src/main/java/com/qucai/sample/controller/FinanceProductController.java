@@ -202,14 +202,23 @@ public class FinanceProductController {
             return "redirect:/financeProductController/dashboard";
         }
     }
-    
     @RequestMapping(value = "addFinanceProduct")   //当判断页面的行为为add时,返回相应的add页面
     @ResponseBody
     public String addFinanceProduct(FinanceProduct financeProduct, HttpServletRequest request,Integer platform,
             HttpServletResponse response, Model model) {
     	model.addAttribute("platform", platform);
-    	if(financeProduct.getT_FProd_Poundage().equals(null)){
-    	    financeProduct.setT_FProd_Poundage(new BigDecimal("1.00"));
+    	System.out.println(financeProduct.getT_FProd_Poundage());
+    	if(financeProduct.getT_FProd_Poundage() == null){
+    	    financeProduct.setT_FProd_Poundage(new BigDecimal(1.00).setScale(2,BigDecimal.ROUND_UP));
+        }
+    	if(financeProduct.getT_FProd_VendorOrgName() == null){
+            financeProduct.setT_FProd_VendorOrgName(ShiroSessionUtil.getLoginSession().getCompany_name());
+        }
+    	if(financeProduct.getT_FProd_CorpPool() == null){
+    	    financeProduct.setT_FProd_CorpPool("AAA-initall");
+        }
+    	if(financeProduct.getT_FProd_PersPool() == null) {
+    	    financeProduct.setT_FProd_PersPool("initall-PersPool");
         }
     	String OrgName = ShiroSessionUtil.getLoginSession().getCompany_name();
         financeProduct.setT_FProd_OrgInfo(OrgName);

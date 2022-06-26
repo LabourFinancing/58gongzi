@@ -14,11 +14,11 @@
 		<result column="t_Product_TermIncProdCat" property="t_Product_TermIncProdCat" jdbcType="VARCHAR" />
 		<result column="t_Product_DigiProdCat" property="t_Product_DigiProdCat" jdbcType="VARCHAR" />
 		<result column="t_Product_CryptoProdCat" property="t_Product_CryptoProdCat" jdbcType="VARCHAR" />
-		<result column="t_Product_ServiceFss" property="t_Product_ServiceFss" jdbcType="DECIMAL" />
+		<result column="t_Product_ServiceFees" property="t_Product_ServiceFees" jdbcType="DECIMAL" />
         <result column="t_Product_TierPoundage" property="t_Product_TierPoundage" jdbcType="VARCHAR" />
         <result column="t_Product_Status" property="t_Product_Status" jdbcType="INTEGER" />
         <result column="t_Product_Cleardays" property="t_Product_Cleardays" jdbcType="VARCHAR" />
-        <result column="t_Product_PaymentCategory" property="t_Product_PaymentCategory" jdbcType="VARCHAR" />
+        <result column="t_Product_EwalletProdCategory" property="t_Product_EwalletProdCategory" jdbcType="VARCHAR" />
         <result column="t_Product_CorpPool" property="t_Product_CorpPool" jdbcType="VARCHAR" />
         <result column="t_Product_PersPool" property="t_Product_PersPool" jdbcType="VARCHAR" />
         <result column="t_Product_Txt" property="t_Product_Txt" jdbcType="VARCHAR" />
@@ -45,11 +45,11 @@
         a.t_Product_TermIncProdCat,
         a.t_Product_DigiProdCat,
         a.t_Product_CryptoProdCat,
-        a.t_Product_ServiceFss,
+        a.t_Product_ServiceFees,
         a.t_Product_TierPoundage,
         a.t_Product_Status,
         a.t_Product_Cleardays,
-        a.t_Product_PaymentCategory,
+        a.t_Product_EwalletProdCategory,
         a.t_Product_CorpPool,
         a.t_Product_PersPool,
         a.t_Product_Txt,
@@ -142,8 +142,8 @@
 			<if test="t_Product_CryptoProdCat != null">
                 t_Product_CryptoProdCat,
 			</if>
-			<if test="t_Product_ServiceFss != null">
-                t_Product_ServiceFss,
+			<if test="t_Product_ServiceFees != null">
+                t_Product_ServiceFees,
 			</if>
 			<if test="t_Product_TierPoundage != null">
                 t_Product_TierPoundage,
@@ -155,8 +155,8 @@
             <if test="t_Product_Cleardays != null">
                 t_Product_Cleardays,
             </if>
-            <if test="t_Product_PaymentCategory != null">
-                t_Product_PaymentCategory,
+            <if test="t_Product_EwalletProdCategory != null">
+                t_Product_EwalletProdCategory,
             </if>
             <if test="t_Product_CorpPool != null">
                 t_Product_CorpPool,
@@ -229,8 +229,8 @@
 			<if test="t_Product_CryptoProdCat != null">
 				#{t_Product_CryptoProdCat,jdbcType=VARCHAR},
 			</if>
-			<if test="t_Product_ServiceFss != null">
-				#{t_Product_ServiceFss,jdbcType=DECIMAL},
+			<if test="t_Product_ServiceFees != null">
+				#{t_Product_ServiceFees,jdbcType=DECIMAL},
 			</if>
 			<if test="t_Product_TierPoundage != null">
 				#{t_Product_TierPoundage,jdbcType=VARCHAR},
@@ -241,8 +241,8 @@
             <if test="t_Product_Cleardays != null">
                 #{t_Product_Cleardays,jdbcType=VARCHAR},
             </if>
-            <if test="t_Product_PaymentCategory != null">
-                #{t_Product_PaymentCategory,jdbcType=VARCHAR},
+            <if test="t_Product_EwalletProdCategory != null">
+                #{t_Product_EwalletProdCategory,jdbcType=VARCHAR},
             </if>
             <if test="t_Product_CorpPool != null">
                 #{t_Product_CorpPool,jdbcType=VARCHAR},
@@ -348,8 +348,8 @@
 			<if test="t_Product_CryptoProdCat != null">
                 t_Product_CryptoProdCat = #{t_Product_CryptoProdCat,jdbcType=VARCHAR},
 			</if>
-		    <if test="t_Product_ServiceFss != null">
-                t_Product_ServiceFss = #{t_Product_ServiceFss,jdbcType=DECIMAL},
+		    <if test="t_Product_ServiceFees != null">
+                t_Product_ServiceFees = #{t_Product_ServiceFees,jdbcType=DECIMAL},
 			</if>
 			<if test="t_Product_TierPoundage != null">
                 t_Product_TierPoundage = #{t_Product_TierPoundage,jdbcType=VARCHAR},
@@ -357,8 +357,8 @@
 			<if test="t_Product_Status != null">
                 t_Product_Status = #{t_Product_Status,jdbcType=INTEGER},
 			</if>
-            <if test="t_Product_PaymentCategory != null">
-                t_Product_PaymentCategory = #{t_Product_PaymentCategory,jdbcType=INTEGER},
+            <if test="t_Product_EwalletProdCategory != null">
+                t_Product_EwalletProdCategory = #{t_Product_EwalletProdCategory,jdbcType=INTEGER},
             </if>
             <if test="t_Product_CorpPool != null">
                 t_Product_CorpPool = #{t_Product_CorpPool,jdbcType=VARCHAR},

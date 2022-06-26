@@ -4,12 +4,10 @@ import com.qucai.sample.OperationTypeConstant;
 import com.qucai.sample.entity.Manager;
 import com.qucai.sample.entity.OrganizationInfo;
 import com.qucai.sample.entity.OrganizationProfile;
+import com.qucai.sample.entity.TreasuryDBInfo;
 import com.qucai.sample.exception.ExRetEnum;
 import com.qucai.sample.req.PaymentInfo;
-import com.qucai.sample.service.ManagerService;
-import com.qucai.sample.service.OrganizationInfoService;
-import com.qucai.sample.service.OrganizationProfileService;
-import com.qucai.sample.service.RoleService;
+import com.qucai.sample.service.*;
 import com.qucai.sample.smss.src.example.json.HttpJsonExample;
 import com.qucai.sample.util.JsonBizTool;
 import com.qucai.sample.util.PinYinUtil;
@@ -23,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -47,6 +46,9 @@ public class RegistController {
 
     @Autowired
     private OrganizationProfileService organizationProfileService; //申明一个对象
+
+    @Autowired
+    private TreasuryDBInfoService treasuryDBInfoService; //申明一个对象
 
 
     @RequestMapping(value = "form")
@@ -124,8 +126,27 @@ public class RegistController {
                             organizationProfile.setT_Profile_OrgName(FirmNameFMT);
                             organizationProfile.setT_Profile_CertificationCode(FirmNamePY);
                             organizationProfile.setT_Profile_AppStatus("pending");
+                            organizationProfile.setCreator(mobile.trim());
+                            organizationProfile.setCreate_time(NewTime);
                             organizationProfileService.insertSelective(organizationProfile);
-                            //
+                            //insert OrgTreasury
+                            TreasuryDBInfo treasuryDBInfo = new TreasuryDBInfo();
+                            treasuryDBInfo.setT_TreasuryDB_ID(Orgid);
+                            treasuryDBInfo.setT_TreasuryDB_OrgName(FirmNameFMT);
+                            treasuryDBInfo.setT_TreasuryDB_Balance(new BigDecimal("0.00"));
+                            treasuryDBInfo.setT_TreasuryDB_BoPRatio(new BigDecimal("0.00"));
+                            treasuryDBInfo.setT_TreasuryDB_RiskMargin(new BigDecimal("0.00"));
+                            treasuryDBInfo.setT_TreasuryDB_Fee(new BigDecimal("0.00"));
+                            treasuryDBInfo.setT_TreasuryDB_TotAmtMth(new BigDecimal("0.00"));
+                            treasuryDBInfo.setT_TreasuryDB_TotAmtDailySucc(new BigDecimal("0.00"));
+                            treasuryDBInfo.setT_TreasuryDB_TotAmtDailyFail(new BigDecimal("0.00"));
+                            treasuryDBInfo.setT_TreasuryDB_Prooffund(new BigDecimal("0.00"));
+                            treasuryDBInfo.setT_TreasuryDB_PoPRatio(new BigDecimal("0.00"));
+                            treasuryDBInfo.setT_TreasuryDB_OverdueInt(new BigDecimal("0.00"));
+                            treasuryDBInfo.setRemark("新用户");
+                            treasuryDBInfo.setCreator(username.trim());
+                            treasuryDBInfo.setCreate_time(NewTime);
+                            treasuryDBInfoService.insertSelective(treasuryDBInfo);
                             managerService.grantRole(managerid, roleIds);
                             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
                         }else{
@@ -185,7 +206,24 @@ public class RegistController {
                             organizationProfile.setT_Profile_CertificationCode(FirmNamePY);
                             organizationProfile.setT_Profile_AppStatus("pending");
                             organizationProfileService.insertSelective(organizationProfile);
-                            //
+                            //insert OrgTreasury
+                            TreasuryDBInfo treasuryDBInfo = new TreasuryDBInfo();
+                            treasuryDBInfo.setT_TreasuryDB_ID(Orgid);
+                            treasuryDBInfo.setT_TreasuryDB_OrgName(FirmNameFMT);
+                            treasuryDBInfo.setT_TreasuryDB_Balance(new BigDecimal("0.00"));
+                            treasuryDBInfo.setT_TreasuryDB_BoPRatio(new BigDecimal("0.00"));
+                            treasuryDBInfo.setT_TreasuryDB_RiskMargin(new BigDecimal("0.00"));
+                            treasuryDBInfo.setT_TreasuryDB_Fee(new BigDecimal("0.00"));
+                            treasuryDBInfo.setT_TreasuryDB_TotAmtMth(new BigDecimal("0.00"));
+                            treasuryDBInfo.setT_TreasuryDB_TotAmtDailySucc(new BigDecimal("0.00"));
+                            treasuryDBInfo.setT_TreasuryDB_TotAmtDailyFail(new BigDecimal("0.00"));
+                            treasuryDBInfo.setT_TreasuryDB_Prooffund(new BigDecimal("0.00"));
+                            treasuryDBInfo.setT_TreasuryDB_PoPRatio(new BigDecimal("0.00"));
+                            treasuryDBInfo.setT_TreasuryDB_OverdueInt(new BigDecimal("0.00"));
+                            treasuryDBInfo.setRemark("新用户");
+                            treasuryDBInfo.setCreator(username.trim());
+                            treasuryDBInfo.setCreate_time(NewTime);
+                            treasuryDBInfoService.insertSelective(treasuryDBInfo);
                             managerService.grantRole(managerid, roleIds);
                             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
                         }else{

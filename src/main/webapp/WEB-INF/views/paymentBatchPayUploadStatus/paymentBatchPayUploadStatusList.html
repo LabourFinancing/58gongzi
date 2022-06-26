@@ -1,0 +1,399 @@
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+<head>
+<meta charset="utf-8" />
+<title>企业员工管理</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+<meta content="" name="description" />
+<meta content="" name="author" />
+<#include "/common/cssResource.html">
+<link href="${ctx}/metronic/global/plugins/jquery-treetable/css/jquery.treetable.css" rel="stylesheet" type="text/css" />
+<link href="${ctx}/metronic/global/plugins/jquery-treetable/css/jquery.treetable.theme.default.css" rel="stylesheet" type="text/css" />
+<#include "/common/jsResource.html">
+<script src="${ctx}/metronic/global/plugins/jquery-treetable/jquery.treetable.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+
+/* $(document).ready(function() {
+	$("#financeProductTable").treetable({clickableNodeNames : true, expandable : true}).treetable("expandAll");
+
+});
+*/
+
+/*
+*参考 http://blog.csdn.net/lzwglory/article/details/17549725
+**/
+function page(n,s){
+	$("#pageNum").val(n);
+	$("#pageSize").val(s);
+	$("#searchForm").submit();
+	return false;
+}
+
+
+function batchpaymentstart(t_batch_paymenetUploadStatus_batchid){
+	$.ajax({
+		url: '${ctx}/PaymentBatchPayUploadStatusController/batchCreditCtrl?t_batch_paymenetUploadStatus_batchid='+encodeURI(encodeURI(t_batch_paymenetUploadStatus_batchid))+'&operationType=on',
+		type: 'POST',
+		async: true,
+		cache: false,
+		contentType: "application/x-www-form-urlencoded; charset=utf-8", 
+		processData: false,
+		success: function(data) {
+			var result = eval("(" + data + ")");
+			if (result.ret == 0){
+			    alert("授额开启");
+			}else{
+			    alert("授额开启失败");
+			}
+			window.location.reload();
+		},
+		error: function(data) {
+			alert("授额开启失败");
+			window.location.reload();
+		}
+	});
+}
+
+function batchpaymentfailure(t_batch_paymenetUploadStatus_batchid){
+	$.ajax({
+		url: '${ctx}/PaymentBatchPayUploadStatusController/batchCreditCtrl?t_batch_paymenetUploadStatus_batchid='+encodeURI(encodeURI(t_batch_paymenetUploadStatus_batchid))+'&operationType=off',
+		type: 'POST',
+		async: true,
+		cache: false,
+		contentType: "application/x-www-form-urlencoded; charset=utf-8", 
+		processData: false,
+		success: function(data) {
+			var result = eval("(" + data + ")");
+			if (result.ret == 0){
+			    alert("授额关闭");
+			}else{
+			    alert("授额关闭失败");
+			}
+			window.location.reload();
+		},
+		error: function(data) {
+			alert("授额关闭失败");
+			window.location.reload();
+		}
+	});
+}
+
+function batchcreditRefresh(t_batch_paymenetUploadStatus_batchid){
+	$.ajax({
+		url: '${ctx}/PaymentBatchPayUploadStatusController/batchCreditCtrl?t_batch_paymenetUploadStatus_batchid='+encodeURI(encodeURI(t_batch_paymenetUploadStatus_batchid))+'&operationType=refresh',
+		type: 'POST',
+		async: true,
+		cache: false,
+		contentType: "application/x-www-form-urlencoded; charset=utf-8", 
+		processData: false,
+		success: function(data) {
+			var result = eval("(" + data + ")");
+			if (result.ret == 0){
+			    alert("授额刷新");
+			}else{
+			    alert("授额刷新失败");
+			}
+			window.location.reload();
+		},
+		error: function(data) {
+			alert("授额刷新失败");
+			window.location.reload();
+		}
+	});
+}
+
+function batchcreditClear(t_batch_paymenetUploadStatus_batchid){
+	$.ajax({
+		url: '${ctx}/PaymentBatchPayUploadStatusController/batchCreditCtrl?t_batch_paymenetUploadStatus_batchid='+encodeURI(encodeURI(t_batch_paymenetUploadStatus_batchid))+'&operationType=clear',
+		type: 'POST',
+		async: true,
+		cache: false,
+		contentType: "application/x-www-form-urlencoded; charset=utf-8", 
+		processData: false,
+		success: function(data) {
+			var result = eval("(" + data + ")");
+			if (result.ret == 0){
+			    alert("结算刷新");
+			}else{
+			    alert("结算刷新失败");
+			}
+			window.location.reload();
+		},
+		error: function(data) {
+			alert("结算刷新失败");
+			window.location.reload();
+		}
+	});
+}
+
+
+function openEdit(t_batch_paymenetUploadStatus_batchid){
+	var openWindowWidth = $(document).width() * 0.8 + "px";
+	var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
+	layer.open({
+		type: 2,
+		area: openWindowWidth,
+		contentType: "application/x-www-form-urlencoded; charset=utf-8",
+		offset : offsetH,
+		fix: false, //不固定
+		maxmin: true,
+		content: '${ctx}/PaymentBatchPayUploadStatusController/form?t_batch_paymenetUploadStatus_batchid='+encodeURI(encodeURI(t_batch_paymenetUploadStatus_batchid))+'&operationType=edit&platform=0',
+		success: function(layero, index){
+		    layer.iframeAuto(index);
+		}
+	});
+}
+
+function openDetails(t_batch_paymenetUploadStatus_batchid){
+	var openWindowWidth = $(document).width() * 0.8 + "px";
+	var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
+	layer.open({
+		type: 2,
+		area: openWindowWidth,
+		offset : offsetH,
+		fix: false, //不固定
+		maxmin: true,
+		content: '${ctx}/PaymentBatchPayUploadStatusController/form?t_batch_paymenetUploadStatus_batchid='+encodeURI(encodeURI(t_batch_paymenetUploadStatus_batchid))+'&operationType=list&platform=0',
+		success: function(layero, index){
+		    layer.iframeAuto(index);
+		}
+	});
+}
+
+function batchcreditDelete(t_batch_paymenetUploadStatus_batchid){
+	if(window.confirm('你确定要删除吗？')){
+	$.ajax({
+		url: '${ctx}/PaymentBatchPayUploadStatusController/deletepaymentBatchPayUploadStatus?t_batch_paymenetUploadStatus_batchid='+encodeURI(encodeURI(t_batch_paymenetUploadStatus_batchid))+'&operationType=off',
+		type: 'POST',
+		async: true,
+		cache: false,
+		contentType: "application/x-www-form-urlencoded; charset=utf-8", 
+		processData: false,
+		success: function(data) {
+			var result = eval("(" + data + ")");
+			if (result.ret == 0){
+			    alert("删除成功");
+			}else{
+			    alert("删除失败");
+			}
+			window.location.reload();
+		},
+		error: function(data) {
+			alert("删除失败");
+			window.location.reload();
+		}
+	});
+    }else{
+        //alert("取消");
+        return;
+    }
+}
+
+</script>
+<style type="text/css">
+		.divcss1 {width:1500px; 
+		          height:1000px; 
+		          float:left; 
+		          border:1px solid #F00
+		          }
+
+.btn-fixed {
+-webkit-border-radius: 20px;
+-moz-border-radius: 20px;
+border-radius: 10px;
+}
+.font-opstyle:hover{color:red}
+
+</style>
+</head>
+<body>
+	<!-- BEGIN PAGE BASE CONTENT -->
+	<div class="row">
+		<div class="col-xs-push-15">
+			<!-- BEGIN EXAMPLE TABLE PORTLET-->
+			<div class="portlet light portlet-fit bordered">
+				<div class="portlet-title">
+					<ul class="page-breadcrumb breadcrumb">
+						<li><a>企业服务台</a> <i class="fa fa-circle"></i></li>
+						<li><a>企业管理</a> <i class="fa fa-circle"></i></li>
+						<li><span class="active">企业员工管理</span></li>
+					</ul>
+				</div>	
+				<div class="portlet-body">
+					<form id="searchForm" method="post" action="${ctx}/PersonalInfoBatchUploadStatusController/paymentBatchPayUploadStatusSearchList" class="form-horizontal">
+						<input id="pageNum" name="pageNum" type="hidden" value="${page.pageNum}" /> 
+						<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}" />
+						<div class="form-body">
+						    <table class="table table-bordered">
+	                           <tr>
+							      <td>
+								  <div class="form-group">
+										<label class="control-label col-sm-3" style="padding-right: 0">批次名:</label>
+										<div class="col-sm-8" style="padding-left: 1;">
+											<input type="text" class="form-control" name="t_batch_paymenetUploadStatus_batchid" value="${paymentBatchPayUploadStatus.t_batch_paymenetUploadStatus_batchid}" />
+										</div>
+									</div>
+								  </div>
+								  </td>
+						<@shiro.hasPermission name="TREASURYINFO_AGENTFPRODVIEW">
+								  <td>
+							      <div class="form-group">
+										<label class="control-label col-sm-3" style="padding-right: 0">公司名:</label>
+										<div class="col-sm-8" style="padding-left: 1;">
+											<input type="text" class="form-control" name="t_batch_company" value="${paymentBatchPayUploadStatus.t_batch_company}" />
+										</div>
+						           </div>
+						           </td>
+						</@shiro.hasPermission>
+					<@shiro.hasPermission name="TREASURYINFO_SUPERADMINVIEW">
+						           <td>
+									<div class="form-group">
+										<label class="control-label col-sm-3" style="padding-right: 0">经销商公司名:</label>
+										<div class="col-sm-8" style="padding-left: 1;">
+											<input type="text" class="form-control" name="t_batch_vendorCompany" value="${paymentBatchPayUploadStatus.t_batch_vendorCompany}" />
+										</div>
+									</div>
+									</td>
+					</@shiro.hasPermission>
+								</tr>
+								<tr>
+									<@shiro.hasPermission name="PERSONALINFO_EDIT">
+									<td>
+									<div class="form-group">
+										<label class="control-label col-sm-3" style="padding-right: 0">批次支付状态:</label>
+										<div class="col-sm-8" style="padding-left: 1;">
+											<input type="text" class="form-control" name="t_batch_paymentUploadEffectStatus" value="${paymentBatchPayUploadStatus.t_batch_paymentUploadEffectStatus}" />
+										</div>
+						            </div>
+						            </td>
+						            </@shiro.hasPermission>
+						            <td>
+									<div class="form-group">
+										<label class="control-label col-sm-3" style="padding-right: 0">批次支付名称:</label>
+										<div class="col-sm-8" style="padding-left: 1;">
+											<input type="text" class="form-control" name="t_batch_paymentProdName" value="${paymentBatchPayUploadStatus.t_batch_paymentProdName}" />
+										</div>
+						            </div>
+						            </td>
+						            <td>
+									<div class="form-group">
+										<label class="control-label col-sm-3" style="padding-right: 0">备注:</label>
+										<div class="col-sm-8" style="padding-left: 1;">
+											<input type="text" class="form-control" name="remark" value="${paymentBatchPayUploadStatus.remark}" />
+										</div>
+						            </div>
+						            </td>
+						         </tr>
+						       </table>
+						  </div>
+<!--					<div class="row">-->
+<!--						  	<div class="form-actions">-->
+<!--								<div class="col-sm-12">-->
+<!--									<div class="btn-group pull-right">-->
+<!--										<button type="submit" class="btn btn-info btn-sm">查询</button>&nbsp;&nbsp;-->
+<!--									</div>-->
+<!--									<div class="btn-group pull-left">-->
+<!--	                                    <@shiro.hasPermission name="PERSONALINFO_ADD">-->
+<!--										<button id="sample_editable_1_new" class="btn red btn-primary btn-sm" onclick="openNew('0')">产品授额开启</button>&nbsp;&nbsp;-->
+<!--	                                    </@shiro.hasPermission>-->
+<!--									</div>-->
+<!--									<div class="btn-group pull-left">-->
+<!--	                                    <@shiro.hasPermission name="PERSONALINFO_ADD">-->
+<!--										<button id="sample_editable_1_new" class="btn green btn-primary btn-sm" onclick="openNew('0')">产品授额关闭</button>&nbsp;&nbsp;-->
+<!--	                                    </@shiro.hasPermission>-->
+<!--									</div>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--					</div>-->
+                    </form>
+                        <div class="table table-bordered">
+                            <div class="ls-seaarch-result">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="paymentBatchPayUploadStatusTable" style="overflow:visible;text-overflow:ellipsis;white-space:nowrap;">
+                                        <tr>
+                                            <th>支付批次名</th>
+                                            <th>上传总记录数</th>
+                                            <th>支付开始时间</th>
+                                            <th>支付结束时间</th>
+                                            <th>支付状态</th>
+                                            <th>公司名</th>
+                                            <th>经销商公司名</th>
+                                            <th>绑定产品名</th>
+                                            <th>支付总额</th>
+                                            <th>支付失败总额</th>
+                                            <th>支付成功总额</th>
+                                            <th>批次类别</th>
+                                            <th>批次注释</th>
+                                            <th>备注</th>
+                                            <th>完成状态</th>
+                                            <th>最后更新时间</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        <tbody>
+                                        <#list page.list as paymentBatchPayUploadStatus>
+                                        <tr>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymenetUploadStatus_batchid}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentUploadPer_num}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentEffectStartDate?string("yyyy-MM-dd HH:mm:ss")}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentEffectEndDate?string("yyyy-MM-dd HH:mm:ss")}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentUploadClearStatus}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentcompany}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentvendorCompany}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentProdName}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentpayroll_tot}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentpayrollCredit_tot}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentremark}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentclearInfo}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentcategory}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentcomment}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentprogress}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.modify_time?string("yyyy-MM-dd HH:mm:ss")}</td>
+                                            <td class="col-xs-push-2" style="word-wrap:break-word;word-break:break-all;">
+                                                <@shiro.hasPermission name="PERSONALINFO_EDIT">
+                                                <a href="#" class="btn btn-link btn-xs font-opstyle" onclick="openDetails('${paymentBatchPayUploadStatus.t_batch_paymenetUploadStatus_batchid}')">批次详情</a>
+                                            </@shiro.hasPermission>
+                                            <@shiro.hasPermission name="PERSONALINFO_EDIT">
+                                            <a href="#" class="btn btn-link btn-xs font-opstyle" onclick="openEdit('${paymentBatchPayUploadStatus.t_batch_paymenetUploadStatus_batchid}')">编辑</a>
+                                        </@shiro.hasPermission>
+                                        <@shiro.hasPermission name="PERSONALINFO_DELETE">
+                                        <a type="button" href="#" onclick="batchcreditDelete('${paymentBatchPayUploadStatus.t_batch_paymenetUploadStatus_batchid}')" class="btn btn-link btn-xs font-opstyle">删除</a>
+                                        </@shiro.hasPermission>
+                                        <@shiro.hasPermission name="PERSONALINFO_DELETE">
+                                        <input type="button" href="#" onclick="batchcreditClear('${paymentBatchPayUploadStatus.t_batch_paymenetUploadStatus_batchid}')" class="btn btn-link btn-xs font-opstyle" value="结算">
+                                    </@shiro.hasPermission>
+                                    </br>
+                                        <@shiro.hasPermission name="PERSONALINFO_DELETE">
+                                    <input type="button" href="#" onclick="batchpaymentstart('${paymentBatchPayUploadStatus.t_batch_paymenetUploadStatus_batchid}')" class="btn btn-link btn-xs font-opstyle" value="开始支付">
+                                </@shiro.hasPermission>
+                                <@shiro.hasPermission name="PERSONALINFO_DELETE">
+                                <input type="button" href="#" onclick="batchpaymentfailure('${paymentBatchPayUploadStatus.t_batch_paymenetUploadStatus_batchid}')" class="btn btn-link btn-xs font-opstyle" value="支付失败详情">
+                            </@shiro.hasPermission>
+                        </td>
+                        </tr>
+                    </#list>
+                    </tbody>
+                    </table>
+                    </div>
+                    </div>
+                    </div>                          
+			    </div>
+			  </div>
+			</div>
+			<!-- END EXAMPLE TABLE PORTLET-->
+		</div>
+	<!-- END PAGE BASE CONTENT -->
+	    <@sc.pagination page=page />
+<!--
+	<form id="searchForm" action="${ctx}/PersonalInfoController/paymentBatchPayUploadStatusList" method="post">
+		<input id="pageNum" name="pageNum" type="hidden" value="${page.pageNum}" />
+		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}" />
+	</form>
+  -->
+</body>
+</html>

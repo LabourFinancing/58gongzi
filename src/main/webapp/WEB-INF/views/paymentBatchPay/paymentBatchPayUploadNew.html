@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>企业员工批量管理</title>
+    <title>企业批量支付管理</title>
     <meta http-equiv="Cache-Control" content="no-store">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -75,17 +75,17 @@
             //点击上传按钮
             this.uploadBtn = function(){
                 var uploadEventFile = $("#uploadEventFile").val();
-                if(uploadEventFile == '' && document.getElementById("PersonalInfoInputArea").innerText == '') {
+                if(uploadEventFile == '' && document.getElementById("PaymentBatchPayInputArea").innerText == '') {
                     alert("请选择excel或者输入用户信息,再上传");
                     return;
                 }else {
-                    if(document.getElementById("PersonalInfoInputArea").innerText !=''){
+                    if(document.getElementById("PaymentBatchPayInputArea").innerText !=''){
                         document.getElementById("uploadEventFile").value="";
                         document.getElementById("uploadEventFile").disabled = true;
                     }
                     if (uploadEventFile == '') {
-                        if (document.getElementById("PersonalInfoInputArea").innerText == "") {
-                            alert("请输入员工信息后,再上传");
+                        if (document.getElementById("PaymentBatchPayInputArea").innerText == "") {
+                            alert("请输入个人信息后,再上传");
                             return;
                         }
                     } else {
@@ -94,7 +94,7 @@
                             return;
                         }
                     }
-                    var url = '/sample_war_exploded/PersonalInfoBatchUploadController/personalInfoBatchUploadPullin';
+                    var url = '/sample_war_exploded/PaymentBatchPayUploadController/paymentBatchPayUploadPullin';
                     var formData = new FormData($('form')[0]);
                     project.sendAjaxRequest(url, formData);
                 }
@@ -106,8 +106,8 @@
                     return;
                 }else{
                     $.ajax({
-                        url : "/sample_war_exploded/PersonalInfoBatchUploadController/personalInfoBatchUploadPullin?operationType=fileupload&t_FPROD_Name=" + encodeURI(encodeURI($("#t_FPROD_Name").val())) +
-                            "&personalInfoInputArea=" + encodeURI(encodeURI(document.getElementById("PersonalInfoInputArea").innerText)),
+                        url : "/sample_war_exploded/PaymentBatchPayUploadController/paymentBatchPayUploadPullin?operationType=fileupload&t_FPROD_Name=" + encodeURI(encodeURI($("#t_FPROD_Name").val())) +
+                            "&paymentBatchPayArea=" + encodeURI(encodeURI(document.getElementById("PaymentBatchPayInputArea").innerText)),
                         type: "post",
                         contentType: "application/x-www-form-urlencoded; charset=utf-8",
                         async: true,
@@ -142,7 +142,7 @@
 
             var enterTag = "<br>"
             var enterspace = "\n"
-            var clearBegin = document.getElementById("PersonalInfoInputArea").innerHTML.replace(/<.*?>/img,"");
+            var clearBegin = document.getElementById("PaymentBatchPayInputArea").innerHTML.replace(/<.*?>/img,"");
             var contentClear = clearBegin.replace(new RegExp(enterTag,'g'),"")
             var clearend = contentClear.replace(new RegExp(enterspace,'g'),"")
             if(inputZinital !== null) {
@@ -179,10 +179,10 @@
         function textareadataChk(innerVal){
             var retdata = removeSpan(innerVal); //  check two data changes, if no changes, keep original data otherwise rewrite innerHTML with highlight letters
             if(spanHTag){
-                document.getElementById("PersonalInfoInputArea").innerHTML = innerVal;
+                document.getElementById("PaymentBatchPayInputArea").innerHTML = innerVal;
                 spanHTag = false;
             }else{
-                document.getElementById("PersonalInfoInputArea").innerHTML = retdata;
+                document.getElementById("PaymentBatchPayInputArea").innerHTML = retdata;
             }
             var inputZ = null;
             inputZ = retdata;
@@ -218,7 +218,7 @@
                                         var nameErr = null
                                         nameErr = "<span style='color:#ff0000;'>" + name + "</span>"
                                         inputZ = inputZ.replace(new RegExp(name,'g'), nameErr)
-                                        document.getElementById("PersonalInfoInputArea").innerHTML = inputZ
+                                        document.getElementById("PaymentBatchPayInputArea").innerHTML = inputZ
                                         spanHTag = true
                                         textareadata = false
                                     }
@@ -233,7 +233,7 @@
                                         var pidErr = null
                                         pidErr = "<span style='color:#ff0000;'>" + pid + "</span>"
                                         inputZ = inputZ.replace(new RegExp(pid,'g'), pidErr)
-                                        document.getElementById("PersonalInfoInputArea").innerHTML = inputZ
+                                        document.getElementById("PaymentBatchPayInputArea").innerHTML = inputZ
                                         spanHTag = true
                                         textareadata = false
                                     }
@@ -245,7 +245,7 @@
                                         var bacnkcardErr = null
                                         bacnkcardErr = "<span style='color:#ff0000;'>" + bankcard + "</span>"
                                         inputZ = inputZ.replace(new RegExp(bankcard,'g'), bacnkcardErr)
-                                        document.getElementById("PersonalInfoInputArea").innerHTML = inputZ
+                                        document.getElementById("PaymentBatchPayInputArea").innerHTML = inputZ
                                         spanHTag = true
                                         textareadata = false
                                     }
@@ -257,7 +257,7 @@
                                         var mobileErr = null
                                         mobileErr = "<span style='color:#ff0000;'>" + persnlMobile + "</span>"
                                         inputZ = inputZ.replace(new RegExp(persnlMobile,'g'), mobileErr)
-                                        document.getElementById("PersonalInfoInputArea").innerHTML = inputZ
+                                        document.getElementById("PaymentBatchPayInputArea").innerHTML = inputZ
                                         spanHTag = true
                                         textareadata = false
                                     }
@@ -269,7 +269,7 @@
                                         var persnlAmtErr = null
                                         persnlAmtErr = "<span style='color:#ff0000;'>" + persnlAmt + "</span>"
                                         inputZ = inputZ.replace(new RegExp(persnlAmt,'g'), persnlAmtErr)
-                                        document.getElementById("PersonalInfoInputArea").innerHTML = inputZ
+                                        document.getElementById("PaymentBatchPayInputArea").innerHTML = inputZ
                                         spanHTag = true
                                         textareadata = false
                                     }
@@ -286,7 +286,7 @@
                     }
                 }
                 if(!textareadata && textareadatafmt){
-                    document.getElementById("PersonalInfoInputArea").innerHTML = inputZ
+                    document.getElementById("PaymentBatchPayInputArea").innerHTML = inputZ
                     document.getElementById("persnlErr").innerHTML = "*标红处错误，不符合该项内容格式，请修正后才能提交"
                 }else if(textareadata){
                     var correctContent = "<span style='color: #0000FF;' >" + "校验通过" + "</span>"
@@ -313,7 +313,7 @@
         }
 
         function inputcheck(innerVal) {
-            const inp = document.getElementById("PersonalInfoInputArea")
+            const inp = document.getElementById("PaymentBatchPayInputArea")
             let debounceInpChk = debounce(textareadataChk(innerVal), 5000)
             inp.addEventListener("onmouseout", e => {
                 debounceInpChk(e.target.value);
@@ -332,7 +332,7 @@
 
         function batchIDrefresh(){
             $.ajax({
-                url: "/sample_war_exploded/PersonalInfoBatchUploadController/personalInfoBatchUploadBatchChange?t_PIBU_Orgname=" + encodeURI(encodeURI($("#t_PIBU_Orgname").val())),
+                url: "/sample_war_exploded/PaymentBatchPayUploadController/paymentBatchPayUploadBatchChange?t_PIBU_Orgname=" + encodeURI(encodeURI($("#t_PIBU_Orgname").val())),
                 type: 'POST',
                 contentType: "application/x-www-form-urlencoded; charset=utf-8",
                 async: true,
@@ -346,11 +346,11 @@
                         // console.log(dataFProdC);
                         var batchPBbatchIDSelect = document.getElementById("batch_PB_batchID");
                         batchPBbatchIDSelect.options.length=0;/**清空下拉框的值*/
-                        if((result.personalInfoBatchUpload!=null)&&(result.personalInfoBatchUpload.length!=0)) {
-                            for(var i=0; i<=result.personalInfoBatchUpload.length; i++){
+                        if((result.paymentBatchPayUpload!=null)&&(result.paymentBatchPayUpload.length!=0)) {
+                            for(var i=0; i<=result.paymentBatchPayUpload.length; i++){
                                 var opBatch = new Option();
-                                opBatch.text = result.personalInfoBatchUpload[i].batch_PB_batchID;
-                                opBatch.value = result.personalInfoBatchUpload[i].batch_PB_batchID;
+                                opBatch.text = result.paymentBatchPayUpload[i].batch_PB_batchID;
+                                opBatch.value = result.paymentBatchPayUpload[i].batch_PB_batchID;
                                 batchPBbatchIDSelect.options.add(opBatch);
                             }}else if(result.FinanceProduct.length==0){
                             var op = new Option();
@@ -372,13 +372,13 @@
         function downLoadTemplate(obj){  //下载模板按钮的监听器
                                          //var url = webContext + '/filetemplate\\组织用户信息模板.xlsx';
             var id = '5d96a465c9bd400aaad8184a57661e49';
-            window.location.href="/sample_war_exploded/PersonalInfoBatchUploadController/personalInfoBatchUploadAdd?id=" + id;
+            window.location.href="/sample_war_exploded/PaymentBatchPayUploadController/paymentBatchPayUploadAdd?id=" + id;
         }
 
 
         function FProdFilter() {
             $.ajax({
-                url: "/sample_war_exploded/PersonalInfoBatchUploadController/personalInfoBatchUploadCompanyChange?t_PIBU_Orgname=" + encodeURI(encodeURI($("#t_PIBU_Orgname").val())),
+                url: "/sample_war_exploded/PaymentBatchPayUploadController/paymentBatchPayUploadCompanyChange?t_PIBU_Orgname=" + encodeURI(encodeURI($("#t_PIBU_Orgname").val())),
                 type: 'POST',
                 contentType: "application/x-www-form-urlencoded; charset=utf-8",
                 async: true,
@@ -430,8 +430,8 @@
                 return;
             }
             if(!uploaded && !selected){
-                alert("请先添加产品或选择企业及相关产品,并点先上传员工信息文件后，再提交更新");
-                alert("请选择企业及相关产品,点先上传员工信息文件，再提交更新");
+                alert("请先添加产品或选择企业及相关产品,并点先上传个人信息文件后，再提交更新");
+                alert("请选择企业及相关产品,点先上传个人信息文件，再提交更新");
                 return;
             }
             if(!selected){
@@ -440,7 +440,7 @@
             }
             else{
                 $.ajax({
-                    url : "/sample_war_exploded/PersonalInfoBatchUploadController/personalInfoBatchUpdateSub?operationType=filerefresh&t_FPROD_Name=" + encodeURI(encodeURI($("#t_FPROD_Name").val())) +
+                    url : "/sample_war_exploded/PaymentBatchPayUploadController/paymentBatchPayUpdateSub?operationType=filerefresh&t_FPROD_Name=" + encodeURI(encodeURI($("#t_FPROD_Name").val())) +
                         "&t_PIBU_Orgname=" + encodeURI(encodeURI($("#t_PIBU_Orgname").val())) +
                         "&batch_PB_batchID=" + encodeURI(encodeURI($("#batch_PB_batchID").val())) +
                         "&EffectStartDate=" + document.getElementById("EffectStartDate").value +
@@ -515,7 +515,7 @@
                 offset : offsetH,
                 fix: false, //不固定
                 maxmin: true,
-                content: '${ctx}/PersonalInfoBatchUploadStatusController/form?t_batch_perslUploadStatus_batchid='+encodeURI(encodeURI(t_batch_perslUploadStatus_batchid_value))+'&operationType=list&platform=0',
+                content: '${ctx}/PaymentBatchPayUploadStatusController/form?t_batch_perslUploadStatus_batchid='+encodeURI(encodeURI(t_batch_perslUploadStatus_batchid_value))+'&operationType=list&platform=0',
                 success: function(layero, index){
                     layer.iframeAuto(index);
                 }
@@ -568,7 +568,7 @@
             </div>
             <div class="page-customerFinance p10">
                 <div class="grid-list-head">
-                    <div class="grid-tab active">员工信息批量上传</div>
+                    <div class="grid-tab active">支付信息批量上传</div>
                 </div>
                 <div class="deliver">
                     <div class="variableSms">
@@ -579,9 +579,9 @@
                                     <div class="lineY"></div>
                                 </div>
                                 <div class="processArea">
-                                    <div class="processTitle">手工填入上传人员信息(姓名，身份证号，银行卡号，手机号，授额;)(每条记录之间以分号;隔开,并且半角输入,授额必须为整数)</div>
+                                    <div class="processTitle">手工填入上传人员信息(姓名，身份证号，银行卡号，手机号，支付名目，支付金额;)(每条记录之间以分号;隔开,并且半角输入,授额必须为整数)</div>
                                     <div>
-                                        <div contenteditable="true" id="PersonalInfoInputArea" name="PersonalInfoInputArea" style="" class="personalContent" placeholder="张三,54001519900304241X,5182999938839499,18618618661,100;李四,53001519700304241X,3182999932239499,13830001114,10000;" onmouseout="inputcheck(this.innerHTML)"></div>
+                                        <div contenteditable="true" id="PaymentBatchPayInputArea" name="PaymentBatchPayInputArea" style="" class="personalContent" placeholder="张三,54001519900304241X,5182999938839499,18618618661,100;李四,53001519700304241X,3182999932239499,13830001114,10000;" onmouseout="inputcheck(this.innerHTML)"></div>
                                         <div id="persnlErr" name="persnalErr" style="font-size: 14px;color:#ff0000; padding: 10px 0px;"></div>
                                     </div>
                                     <div class="processTitle">
@@ -685,9 +685,9 @@
                                             <div style="width:100%;display:inline-block;">
                                                 <select class="bs-select form-control" data-live-search="true" name="batch_PB_batchID"
                                                         id="batch_PB_batchID">
-                                                    <#list personalInfoBatchUpload as personalInfoBatchUpload>
-                                                    <option value="${personalInfoBatchUpload.batch_PB_batchID}">
-                                                        ${personalInfoBatchUpload.batch_PB_batchID} </option>
+                                                    <#list paymentBatchPayUpload as paymentBatchPayUpload>
+                                                    <option value="${paymentBatchPayUpload.batch_PB_batchID}">
+                                                        ${paymentBatchPayUpload.batch_PB_batchID} </option>
                                                 </#list>
                                             </div>
                                         </div>
@@ -720,10 +720,7 @@
                                                  </ul>
                                                   -->
                                             </div>
-                                            <input id="EffectStartDate" autocomplete="off" placeholder="请选择开始日期" type="text"
-                                                   rows="2" class="date-editor input-datepicker fl border input date-editor--date">
-                                            <span data-v-51a81e9b="" class="fl p-5" style="line-height: 36px;">至</span>
-                                            <input id="EffectEndDate" autocomplete="off" placeholder="请选择结束日期" type="text"
+                                            <input id="EffectStartDate" autocomplete="off" placeholder="请选择支付日期" type="text"
                                                    rows="2" class="date-editor input-datepicker fl border input date-editor--date">
                                         </div>
                                     </div>
@@ -732,7 +729,7 @@
                             </div>
                             <div class="vSms-item">
                             <div class="processArea">
-                                <div style="margin-left: 200px;"><button id="btn_upSubmit" onclick="submitapplication()" style="padding:0%;" class="btn btn-lg btn-green search-btn ml80 send-btn">员工信息上传任务提交 </button>
+                                <div style="margin-left: 200px;"><button id="btn_upSubmit" onclick="submitapplication()" style="padding:0%;" class="btn btn-lg btn-green search-btn ml80 send-btn">批量支付信息上传提交 </button>
                                 </div>
                             </div>
                         </div></form>
@@ -743,7 +740,7 @@
     </div>
 
     <script>
-        console.log(document.getElementById("PersonalInfoInputArea").innerText);
+        console.log(document.getElementById("PaymentBatchPayInputArea").innerText);
 
         //弹窗开关
         var setMas = function () {

@@ -10,31 +10,34 @@ public class TrAgentSubOrg {
      *
      *
      */
-    public String getAgentid() {
-        return this.agentid;
-    }
 
-    public void setAgentid(final String agentid) {
-        this.agentid = agentid;
-    }
-
-    public String getSuborgid() {
-        return this.suborgid;
-    }
-
-    public void setSuborgid(final String suborgid) {
-        this.suborgid = suborgid;
-    }
 
     /**
      * 经销商企业id
      */
-    private String agentid;
-
+    private String tr_agentid;
     /**
      * 企业id
      */
-    private String suborgid;
+    private String tr_suborgid;
+
+    public String getTr_agentid() {
+        return this.tr_agentid;
+    }
+
+    public void setTr_agentid(final String tr_agentid) {
+        this.tr_agentid = tr_agentid;
+    }
+
+    public String getTr_suborgid() {
+        return this.tr_suborgid;
+    }
+
+    public void setTr_suborgid(final String tr_suborgid) {
+        this.tr_suborgid = tr_suborgid;
+    }
+
+
 
 
 }

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qucai.sample.dao.PaymentBatchPayUploadStatusDao">
+
+	<resultMap id="BaseResultMap" type="com.qucai.sample.entity.PaymentBatchPayUploadStatus">
+		<result column="t_batch_paymentUploadId" property="t_batch_paymentUploadId" jdbcType="VARCHAR" />
+		<result column="t_batch_paymentUploadStatus_id" property="t_batch_paymentUploadStatus_id" jdbcType="VARCHAR" />
+		<result column="t_batch_paymenetUploadStatus_batchid" property="t_batch_paymenetUploadStatus_batchid" jdbcType="VARCHAR" />
+		<result column="t_batch_paymentUploadPer_num" property="t_batch_paymentUploadPer_num" jdbcType="INTEGER" />
+		<result column="t_batch_paymentUploadEffectStatus" property="t_batch_paymentUploadEffectStatus" jdbcType="VARCHAR" />
+		<result column="t_batch_paymentUploadClearStatus" property="t_batch_paymentUploadClearStatus" jdbcType="VARCHAR" />
+		<result column="t_batch_paymentcompany" property="t_batch_paymentcompany" jdbcType="VARCHAR" />
+		<result column="t_batch_paymentvendorCompany" property="t_batch_paymentvendorCompany" jdbcType="VARCHAR" />
+		<result column="t_batch_paymentProdName" property="t_batch_paymentProdName" jdbcType="VARCHAR" />
+		<result column="t_batch_paymentpayroll_tot" property="t_batch_paymentpayroll_tot" jdbcType="DECIMAL" />
+		<result column="t_batch_paymentpayrollCredit_tot" property="t_batch_paymentpayrollCredit_tot" jdbcType="DECIMAL" />
+		<result column="t_batch_paymentremark" property="t_batch_paymentremark" jdbcType="VARCHAR" />
+		<result column="t_batch_paymentclearInfo" property="t_batch_paymentclearInfo" jdbcType="VARCHAR" />
+		<result column="t_batch_paymentcategory" property="t_batch_paymentcategory" jdbcType="VARCHAR" />
+		<result column="t_batch_paymentcomment" property="t_batch_paymentcomment" jdbcType="VARCHAR" />
+		<result column="t_batch_paymentprogress" property="t_batch_paymentprogress" jdbcType="VARCHAR" />
+		<result column="t_batch_paymentEffectStartDate" property="t_batch_paymentEffectStartDate" jdbcType="TIMESTAMP" />
+		<result column="t_batch_paymentEffectEndDate" property="t_batch_paymentEffectEndDate" jdbcType="TIMESTAMP" />
+		<result column="modifier" property="modifier" jdbcType="VARCHAR" />
+		<result column="modify_time" property="modify_time" jdbcType="TIMESTAMP" />
+		<result column="create_time" property="create_time" jdbcType="TIMESTAMP" />
+		<result column="creator" property="creator" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		a.t_batch_paymentUploadId,
+		a.t_batch_paymentUploadStatus_id,
+		a.t_batch_paymenetUploadStatus_batchid,
+		a.t_batch_paymentUploadPer_num,
+		a.t_batch_paymentUploadEffectStatus,
+		a.t_batch_paymentUploadClearStatus,
+		a.t_batch_paymentcompany,
+		a.t_batch_paymentvendorCompany,
+		a.t_batch_paymentProdName,
+		a.t_batch_paymentpayroll_tot,
+		a.t_batch_paymentpayrollCredit_tot,
+		a.t_batch_paymentremark,
+		a.t_batch_paymentclearInfo,
+		a.t_batch_paymentcategory,
+		a.t_batch_paymentcomment,
+		a.t_batch_paymentprogress,
+		a.t_batch_paymentEffectStartDate,
+		a.t_batch_paymentEffectEndDate,
+		a.modify_time,
+		a.modifier,
+		a.create_time,
+		a.creator
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_batch_paymentupload_status a
+		where a.t_batch_paymentUploadStatus_id = #{t_batch_paymentUploadId,jdbcType=VARCHAR}
+		order by a.create_time
+	</select>
+	
+	<select id="findAllList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_batch_paymentupload_status a
+		where 1=1
+        <if test="t_batch_company != null and t_batch_company != 'ALL'" >
+            and  a.t_batch_paymentcompany = #{t_batch_paymentcompany,jdbcType=VARCHAR}
+        </if>
+		<if test="t_batch_paymentvendorCompany != null and t_batch_paymentvendorCompany != 'ALL'">
+		   	and a.t_batch_paymentvendorCompany = #{t_batch_paymentvendorCompany,jdbcType=VARCHAR}
+		</if>
+		order by a.create_time
+	</select>
+	
+	<select id="findSearchList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_batch_paymentupload_status a
+		where 1=1
+		<if test="t_batch_paymenetUploadStatus_batchid != null">
+		and a.t_batch_paymenetUploadStatus_batchid like CONCAT('%',#{t_batch_paymenetUploadStatus_batchid},'%')
+		</if>	
+		<if test="t_batch_paymentUploadEffectStatus != null" >
+		and a.t_batch_paymentUploadEffectStatus like CONCAT('%',#{t_batch_paymentUploadEffectStatus},'%')
+		</if>
+		<if test="t_batch_paymentvendorCompany = 'ALL'">
+			and a.t_batch_paymentvendorCompany like CONCAT('%',#{t_batch_paymentvendorCompany},'%')
+			and a.t_batch_paymentcompany like CONCAT('%',#{t_batch_paymentcompany},'%')
+		</if>
+		<if test="t_batch_paymentvendorCompany != null">
+		and a.t_batch_paymentvendorCompany = CONCAT('%',#{t_batch_paymentvendorCompany},'%')
+		</if>
+		<if test="t_batch_paymentcompany != null and t_batch_paymentcompany != null">
+		and a.t_batch_paymentcompany like CONCAT('%',#{t_batch_paymentcompany},'%')
+		</if>
+		<if test="t_batch_paymentcompany != null and t_batch_paymentvendorCompany = null">
+		and a.t_batch_paymentcompany = CONCAT('%',#{t_batch_paymentcompany},'%')
+		</if>
+		<if test="t_batch_paymentProdName != null" >
+		and a.t_batch_paymentProdName like CONCAT('%',#{t_batch_paymentProdName},'%')
+		</if>
+		<if test="t_batch_paymentremark != null" >
+		and a.t_batch_paymentremark like CONCAT('%',#{t_batch_paymentremark},'%')
+		</if>
+        order by a.create_time
+	</select>
+	
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		DELETE from t_batch_paymentupload_status
+		WHERE t_batch_paymenetUploadStatus_batchid = #{t_batch_paymenetUploadStatus_batchid,jdbcType=VARCHAR}
+	</delete>
+
+<insert id="insertSelective" parameterType="com.qucai.sample.entity.PaymentBatchPayUploadStatus">
+		INSERT INTO t_batch_paymentupload_status
+		(SELECT 
+		REPLACE(UUID(),"-",""),
+		#{t_batch_paymenetUploadStatus_batchid,jdbcType=VARCHAR},
+		#{t_batch_paymenetUploadStatus_batchid,jdbcType=VARCHAR},
+		count(t_batch_paymentUploadId),
+		"close",
+		"pending",
+		t_batch_paymentcompany,
+		t_batch_paymentvendorCompany,
+		t_batch_paymentProdName,
+		SUM(t_batch_paymentpayroll_tot),
+		SUM(t_batch_paymentpayrollCredit_tot),
+		"",
+		#{payrollDate,jdbcType=VARCHAR},
+		#{jobcat,jdbcType=VARCHAR},
+		"关闭状态",
+		"0.00",
+		#{t_batch_paymentEffectStartDate,jdbcType=TIMESTAMP},
+		#{t_batch_paymentEffectEndDate,jdbcType=TIMESTAMP},
+		NOW(),
+		"system",
+		NOW(),
+		#{creator,jdbcType=VARCHAR}
+		FROM t_batch_paymentupload a
+		WHERE a.batch_payment_batchID = #{batch_payment_batchID,jdbcType=VARCHAR} GROUP BY a.batch_payment_batchID)
+</insert>
+
+<update id="updateByPrimaryKeySelective" parameterType="com.qucai.sample.entity.PaymentBatchPayUploadStatus">
+	update t_batch_paymentupload_status
+	<set>
+		<if test="t_batch_paymentUploadId != null">
+			t_batch_paymentUploadId = #{t_batch_paymentUploadId,jdbcType=VARCHAR},
+		</if>
+		<if test="t_batch_paymentUploadStatus_id != null">
+			t_batch_paymentUploadStatus_id = #{t_batch_paymentUploadStatus_id,jdbcType=VARCHAR},
+		</if>
+		<if test="t_batch_paymenetUploadStatus_batchid != null">
+			t_batch_paymenetUploadStatus_batchid = #{t_batch_paymenetUploadStatus_batchid,jdbcType=VARCHAR},
+		</if>
+		<if test="t_batch_paymentUploadPer_num != null">
+			t_batch_paymentUploadPer_num = #{t_batch_paymentUploadPer_num,jdbcType=INTEGER},
+		</if>
+		<if test="t_batch_paymentUploadEffectStatus != null">
+			t_batch_paymentUploadEffectStatus = #{t_batch_paymentUploadEffectStatus,jdbcType=VARCHAR},
+		</if>
+		<if test="t_batch_paymentUploadClearStatus != null">
+			t_batch_paymentUploadClearStatus = #{t_batch_paymentUploadClearStatus,jdbcType=VARCHAR},
+		</if>
+		<if test="t_batch_paymentcompany != null">
+			t_batch_paymentcompany = #{t_batch_paymentcompany,jdbcType=VARCHAR},
+		</if>
+		<if test="t_batch_paymentvendorCompany != null">
+			t_batch_paymentvendorCompany = #{t_batch_paymentvendorCompany,jdbcType=VARCHAR},
+		</if>
+		<if test="t_batch_paymentProdName != null">
+			t_batch_paymentProdName = #{t_batch_paymentProdName,jdbcType=VARCHAR},
+		</if>
+		<if test="t_batch_paymentpayroll_tot != null">
+			t_batch_paymentpayroll_tot = #{t_batch_paymentpayroll_tot,jdbcType=DECIMAL},
+		</if>
+		<if test="t_batch_paymentpayrollCredit_tot != null">
+			t_batch_paymentpayrollCredit_tot = #{t_batch_paymentpayrollCredit_tot,jdbcType=DECIMAL},
+		</if>
+		<if test="t_batch_paymentremark != null">
+			t_batch_paymentremark = #{t_batch_paymentremark,jdbcType=VARCHAR},
+		</if>
+		<if test="t_batch_paymentclearInfo != null">
+			t_batch_paymentclearInfo = #{t_batch_paymentclearInfo,jdbcType=VARCHAR},
+		</if>
+		<if test="t_batch_paymentcategory != null">
+			t_batch_paymentcategory = #{t_batch_paymentcategory,jdbcType=VARCHAR},
+		</if>
+		<if test="t_batch_paymentcomment != null">
+			t_batch_paymentcomment = #{t_batch_paymentcomment,jdbcType=VARCHAR},
+		</if>
+		<if test="t_batch_paymentprogress != null">
+			t_batch_paymentprogress = #{t_batch_paymentprogress,jdbcType=VARCHAR},
+		</if>
+		<if test="t_batch_paymentEffectStartDate != null">
+			t_batch_paymentEffectStartDate = #{t_batch_paymentEffectStartDate,jdbcType=TIMESTAMP},
+		</if>
+		<if test="t_batch_paymentEffectEndDate != null">
+			t_batch_paymentEffectEndDate = #{t_batch_paymentEffectEndDate,jdbcType=TIMESTAMP},
+		</if>
+		<if test="modify_time != null">
+			modify_time = #{modify_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="modifier != null">
+			modifier = #{modifier,jdbcType=VARCHAR},
+		</if>
+		<if test="create_time != null">
+			create_time = #{create_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="creator != null">
+			creator = #{creator,jdbcType=VARCHAR},
+		</if>
+	</set>
+	where t_batch_paymentUploadId = #{t_batch_paymentUploadId,jdbcType=VARCHAR}
+</update>
+</mapper>
+ 
