@@ -160,7 +160,11 @@ public class FinanceProductController {
                     params.put("t_O_OrgName",null);
                 }
             }
-            params.put("t_O_OrgName",t_O_OrgName);
+            if(!t_O_OrgName.equals("ALL")) {
+                params.put("t_O_OrgName", t_O_OrgName);
+            }else{
+                params.put("t_O_OrgName", null);
+            }
             PageInfo<FinanceProduct> page = financeProductService.findAllList(params, pp);
             model.addAttribute("page", page);
         }

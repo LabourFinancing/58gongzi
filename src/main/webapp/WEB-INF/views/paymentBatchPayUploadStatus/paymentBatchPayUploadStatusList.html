@@ -334,9 +334,14 @@ border-radius: 10px;
                                             <th>支付开始时间</th>
                                             <th>支付结束时间</th>
                                             <th>支付状态</th>
+											<@shiro.hasPermission name="TREASURYINFO_AGENTFPRODVIEW">
                                             <th>公司名</th>
+											</@shiro.hasPermission>
+											<@shiro.hasPermission name="TREASURYINFO_SUPERADMINVIEW">
                                             <th>经销商公司名</th>
-                                            <th>绑定产品名</th>
+											</@shiro.hasPermission>
+                                            <th>产品名</th>
+											<th>到付账户</th>
                                             <th>支付总额</th>
 											<th>支付成功总额</th>
                                             <th>支付失败总额</th>
@@ -355,9 +360,14 @@ border-radius: 10px;
                                             <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentEffectStartDate?string("yyyy-MM-dd HH:mm:ss")}</td>
                                             <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentEffectEndDate?string("yyyy-MM-dd HH:mm:ss")}</td>
                                             <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentUploadClearStatus}</td>
+											<@shiro.hasPermission name="TREASURYINFO_AGENTFPRODVIEW">
                                             <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentcompany}</td>
+											</@shiro.hasPermission>
+											<@shiro.hasPermission name="TREASURYINFO_SUPERADMINVIEW">
                                             <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentvendorCompany}</td>
+											</@shiro.hasPermission>
                                             <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentProdName}</td>
+											<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentProdName}</td>
                                             <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentpayroll_tot}</td>
 											<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentclearInfo}</td> <!-- 支付成功总额 -->
                                             <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${paymentBatchPayUploadStatus.t_batch_paymentpayrollCredit_tot}</td>  <!-- 支付失败总额 -->

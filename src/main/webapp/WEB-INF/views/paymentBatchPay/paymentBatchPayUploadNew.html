@@ -507,6 +507,10 @@
 
         function openDetails(){
             var t_batch_perslUploadStatus_batchid_value = document.getElementById("batch_PB_batchID").value;
+            if(t_batch_perslUploadStatus_batchid_value === ""){
+                alert("批次文件为空，请先导入选择后查看详情")
+                return
+            }
             var openWindowWidth = $(document).width() * 0.8 + "px";
             var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
             layer.open({
@@ -566,7 +570,7 @@
             <div class="p-20 mt10">
                 <div class="clearfix grid-list-head" style="border-bottom: 0px;"></div>
             </div>
-            <div class="page-customerFinance p10">
+            <div class="page-customerFinance p10" style="overflow: scroll;">
                 <div class="grid-list-head">
                     <div class="grid-tab active">支付信息批量上传</div>
                 </div>
@@ -579,7 +583,7 @@
                                     <div class="lineY"></div>
                                 </div>
                                 <div class="processArea">
-                                    <div class="processTitle">手工填入上传人员信息(姓名，身份证号，银行卡号，手机号，支付名目，支付金额;)(每条记录之间以分号;隔开,并且半角输入,授额必须为整数)</div>
+                                    <div class="processTitle">手工填入上传人员信息(姓名，身份证号，银行卡号，手机号，支付名目，支付金额;)(每条记录之间以分号;隔开,并且半角输入,支付如有小数必须为两位内的小数)</div>
                                     <div>
                                         <div contenteditable="true" id="PaymentBatchPayInputArea" name="PaymentBatchPayInputArea" style="" class="personalContent" placeholder="张三,54001519900304241X,5182999938839499,18618618661,100;李四,53001519700304241X,3182999932239499,13830001114,10000;" onmouseout="inputcheck(this.innerHTML)"></div>
                                         <div id="persnlErr" name="persnalErr" style="font-size: 14px;color:#ff0000; padding: 10px 0px;"></div>
@@ -597,7 +601,7 @@
                                         </div>
                                     </div>
                                         <div class="processTitle">
-                                            <label>工资产品名<span class="required">*</span>
+                                            <label>收费产品名<span class="required">*</span>
                                             </label>
                                             <div style="padding-left: 0px;">
                                                 <select class="bs-select form-control" data-live-search="true" name="t_FPROD_Name" id="t_FPROD_Name">
@@ -608,39 +612,12 @@
                                             </div>
                                         </div>
                                     <div class="processTitle">
-                                        <label>发薪日<span class="required">*</span>
+                                        <label>收款账户<span class="required">*</span>
                                         </label>
                                         <div style="padding-left: 0px;">
                                             <select class="bs-select form-control" name="payrollDate" id="payrollDate">
-                                                <option value="0">即期劳务费/工资</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                                <option value="6">6</option>
-                                                <option value="7">7</option>
-                                                <option value="8">8</option>
-                                                <option value="9">9</option>
-                                                <option value="10">10</option>
-                                                <option value="11">11</option>
-                                                <option value="12">12</option>
-                                                <option value="13">13</option>
-                                                <option value="14">14</option>
-                                                <option value="15">15</option>
-                                                <option value="16">16</option>
-                                                <option value="17">17</option>
-                                                <option value="18">18</option>
-                                                <option value="19">19</option>
-                                                <option value="20">20</option>
-                                                <option value="21">21</option>
-                                                <option value="22">22</option>
-                                                <option value="23">23</option>
-                                                <option value="24">24</option>
-                                                <option value="25">25</option>
-                                                <option value="26">26</option>
-                                                <option value="27">27</option>
-                                                <option value="28">28</option>
+                                                <option value="0">个人企业电子钱包</option>
+                                                <option value="1">个人银行卡</option>
                                             </select>
                                         </div>
                                     </div>
@@ -663,7 +640,7 @@
                                     </div>
                                     <div class="xlsxNeed"><br><br>
                                         注意:以下信息需在Excel表格中已文本格式保存。<br><br>1、第一列填写人名。<br>2、第二列填写身份证号。<br>3、第三位填写银行卡号。<br>
-                                        4、第四位填写手机号。<br>5、第五位填写授额，可有小数点（且小数点后最多两位数字)。<br> 6、一次最多上传1万条数据。<br>7、一次只能导入一个文件。<br><br>
+                                        4、第四位填写手机号。<br>5、第五位填写支付，可有小数点（且小数点后最多两位数字)。<br> 6、一次最多上传1万条数据。<br>7、一次只能导入一个文件。<br><br>
                                         辅助工具: <br><a href="https://qq.ip138.com/idsearch/index.asp" target="_blank">https://qq.ip138.com/idsearch/index.asp</a> (身份证校验，如有错误可以查询该系统做更正，如果校验位不合法且无法更正的请删除该条上传记录后重新上传文档，删除的记录请手动更新)<br>
                                         <a href="http://cha.yinhangkadata.com/#" target="_blank">http://cha.yinhangkadata.com/#</a> (银行卡校验，如有错误可以查询该系统做更正，如果校验位不合法且无法更正的请删除该条上传记录后重新上传文档，删除的记录请手动更新)
                                     </div>
@@ -704,22 +681,9 @@
                                     </div>
                                     </div>
                                     <div class="processTitle">
-                                        <label>授额开启时间段:<span class="required">*</span>
+                                        <label>支付日期:<span class="required">*</span>
                                         </label>
                                         <div style="padding-left: 0px;">
-                                            <div id="dropdown" class="dropdown fl" style="margin-right: 5px;">
-                                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
-                                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">作用时间段
-                                                    <span class="caret"></span>
-                                                </button>
-                                                <!--
-                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1"
-                                                     name="t_PbatchClear_Cat" ID="t_PbatchClear_Cat">
-                                                     <li value="autoclear" onclick="clickLi('qb')">自动结算</li>
-                                                     <li value="manualclear" onclick="clickLi('sd')">手动结算</li>
-                                                 </ul>
-                                                  -->
-                                            </div>
                                             <input id="EffectStartDate" autocomplete="off" placeholder="请选择支付日期" type="text"
                                                    rows="2" class="date-editor input-datepicker fl border input date-editor--date">
                                         </div>

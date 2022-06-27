@@ -50,7 +50,7 @@ public class PaymentBatchPayUpload implements Serializable {
 
    private String batch_payment_category;
    
-   private String batch_paymentClear;
+   private String batch_paymentClearID;
 
    private String batch_paymentOrg;
    
@@ -192,12 +192,12 @@ public class PaymentBatchPayUpload implements Serializable {
 		this.batch_payment_category = batch_payment_category;
 	}
 
-	public String getBatch_paymentClear() {
-		return this.batch_paymentClear;
+	public String getBatch_paymentClearID() {
+		return this.batch_paymentClearID;
 	}
 
-	public void setBatch_paymentClear(final String batch_paymentClear) {
-		this.batch_paymentClear = batch_paymentClear;
+	public void setBatch_paymentClearID(final String batch_paymentClearID) {
+		this.batch_paymentClearID = batch_paymentClearID;
 	}
 
 	public String getBatch_paymentOrg() {

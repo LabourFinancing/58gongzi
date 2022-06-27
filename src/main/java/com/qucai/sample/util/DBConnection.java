@@ -16,9 +16,7 @@ public class DBConnection {
 
     public static Connection getConnection() {
         Connection conn = null;//定义一个conn变量，不能定义为static的类型的   否则全局共享
-        
         try {
-
             Class.forName(driver);
             try {
                 conn = DriverManager.getConnection(url, userName, userPassword);
@@ -30,7 +28,6 @@ public class DBConnection {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
         return conn;
     }
 

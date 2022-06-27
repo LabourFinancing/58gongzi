@@ -18,7 +18,7 @@
 		<result column="batch_payment_serviceFee" property="batch_payment_serviceFee" jdbcType="DECIMAL" />
 		<result column="batch_payment_prevbalance" property="batch_payment_prevbalance" jdbcType="DECIMAL" />
 		<result column="batch_payment_category" property="batch_payment_category" jdbcType="VARCHAR" />
-		<result column="batch_paymentClear" property="batch_paymentClear" jdbcType="VARCHAR" />
+		<result column="batch_paymentClearID" property="batch_paymentClearID" jdbcType="VARCHAR" />
 		<result column="batch_paymentOrg" property="batch_paymentOrg" jdbcType="VARCHAR" />
 		<result column="batch_payment_remark" property="batch_payment_remark" jdbcType="VARCHAR" />
 		<result column="batch_payment_comment" property="batch_payment_comment" jdbcType="VARCHAR" />
@@ -48,7 +48,7 @@
 		a.batch_payment_serviceFee,
 		a.batch_payment_prevbalance,
 		a.batch_payment_category,
-		a.batch_paymentClear,
+		a.batch_paymentClearID,
 		a.batch_paymentOrg,
 		a.batch_payment_remark,
 		a.batch_payment_comment,
@@ -80,7 +80,7 @@
 			batch_payment_serviceFee,
 			batch_payment_prevbalance,
 			batch_payment_category,
-			batch_paymentClear,
+			batch_paymentClearID,
 			batch_paymentOrg,
 			batch_payment_remark,
 			batch_payment_comment,
@@ -110,7 +110,7 @@
             #{cell.batch_payment_serviceFee,jdbcType=DECIMAL},
             #{cell.batch_payment_prevbalance,jdbcType=DECIMAL},
             #{cell.batch_payment_category,jdbcType=VARCHAR},
-            #{cell.batch_paymentClear,jdbcType=VARCHAR},
+            #{cell.batch_paymentClearID,jdbcType=VARCHAR},
             #{cell.batch_paymentOrg,jdbcType=VARCHAR},
             #{cell.batch_payment_remark,jdbcType=VARCHAR},
 			#{cell.batch_payment_comment,jdbcType=VARCHAR},

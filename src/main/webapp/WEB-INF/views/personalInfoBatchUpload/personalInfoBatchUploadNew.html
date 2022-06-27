@@ -507,6 +507,10 @@
 
         function openDetails(){
             var t_batch_perslUploadStatus_batchid_value = document.getElementById("batch_PB_batchID").value;
+            if(t_batch_perslUploadStatus_batchid_value === ""){
+                alert("批次文件为空，请先导入选择后查看详情")
+                return
+            }
             var openWindowWidth = $(document).width() * 0.8 + "px";
             var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
             layer.open({
@@ -566,7 +570,7 @@
             <div class="p-20 mt10">
                 <div class="clearfix grid-list-head" style="border-bottom: 0px;"></div>
             </div>
-            <div class="page-customerFinance p10">
+            <div class="page-customerFinance p10" style="overflow: scroll;">
                 <div class="grid-list-head">
                     <div class="grid-tab active">员工信息批量上传</div>
                 </div>
