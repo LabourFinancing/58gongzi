@@ -67,14 +67,14 @@ public class HistoricalTxnQuery implements Serializable {
    private String t_P_Mobil_his;
    private String t_P_Phone_his;
    private String t_P_Spouse_his;
-   private String t_P_Spouse_Phone_his;
+   private String t_P_CurrentDiscBatchAmt_his;
    private String t_P_Contact1_his;
    private String t_P_Contact1Mobile_his;
    private String t_P_Payroll_his;
    private String t_P_Contact2Mobile_his;
    private String t_P_Company_his;
    private String t_P_CompanyNum_his;
-   private BigDecimal t_P_SocialSecurityBaseAmount_his;
+   private BigDecimal t_P_SalaryBalance_his;
    private BigDecimal t_P_ProvidentFund_his;
    private String t_P_Employmentstatus_his;
    private String t_P_EmploymentCategory_his;
@@ -247,8 +247,8 @@ public String getT_P_Phone_his() {
 public String getT_P_Spouse_his() {
 	return t_P_Spouse_his;
 }
-public String getT_P_Spouse_Phone_his() {
-	return t_P_Spouse_Phone_his;
+public String getT_P_CurrentDiscBatchAmt_his() {
+	return t_P_CurrentDiscBatchAmt_his;
 }
 public String getT_P_Contact1_his() {
 	return t_P_Contact1_his;
@@ -268,8 +268,8 @@ public String getT_P_Company_his() {
 public String getT_P_CompanyNum_his() {
 	return t_P_CompanyNum_his;
 }
-public BigDecimal getT_P_SocialSecurityBaseAmount_his() {
-	return t_P_SocialSecurityBaseAmount_his;
+public BigDecimal getT_P_SalaryBalance_his() {
+	return t_P_SalaryBalance_his;
 }
 public BigDecimal getT_P_ProvidentFund_his() {
 	return t_P_ProvidentFund_his;
@@ -493,8 +493,8 @@ public void setT_P_Phone_his(String t_P_Phone_his) {
 public void setT_P_Spouse_his(String t_P_Spouse_his) {
 	this.t_P_Spouse_his = t_P_Spouse_his;
 }
-public void setT_P_Spouse_Phone_his(String t_P_Spouse_Phone_his) {
-	this.t_P_Spouse_Phone_his = t_P_Spouse_Phone_his;
+public void setT_P_CurrentDiscBatchAmt_his(String t_P_CurrentDiscBatchAmt_his) {
+	this.t_P_CurrentDiscBatchAmt_his = t_P_CurrentDiscBatchAmt_his;
 }
 public void setT_P_Contact1_his(String t_P_Contact1_his) {
 	this.t_P_Contact1_his = t_P_Contact1_his;
@@ -514,9 +514,9 @@ public void setT_P_Company_his(String t_P_Company_his) {
 public void setT_P_CompanyNum_his(String t_P_CompanyNum_his) {
 	this.t_P_CompanyNum_his = t_P_CompanyNum_his;
 }
-public void setT_P_SocialSecurityBaseAmount_his(
-		BigDecimal t_P_SocialSecurityBaseAmount_his) {
-	this.t_P_SocialSecurityBaseAmount_his = t_P_SocialSecurityBaseAmount_his;
+public void setT_P_SalaryBalance_his(
+		BigDecimal t_P_SalaryBalance_his) {
+	this.t_P_SalaryBalance_his = t_P_SalaryBalance_his;
 }
 public void setT_P_ProvidentFund_his(BigDecimal t_P_ProvidentFund_his) {
 	this.t_P_ProvidentFund_his = t_P_ProvidentFund_his;

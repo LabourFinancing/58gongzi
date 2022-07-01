@@ -67,9 +67,15 @@
         <version.net.sf.ezmorph>1.0.6</version.net.sf.ezmorph>
         <version.net.sf.json-lib>2.4</version.net.sf.json-lib>
         <version.ehcache>2.5.0</version.ehcache>
-
         <kotlin.version>1.2.41</kotlin.version>
     </properties>
+
+<!--    <parent>-->
+<!--        <groupId>org.springframework.boot</groupId>-->
+<!--        <artifactId>spring-boot-starter-parent</artifactId>-->
+<!--        <version>2.0.6.RELEASE</version>-->
+<!--        <relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
+<!--    </parent>-->
 
     <dependencies>
         <dependency>
@@ -234,7 +240,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.70</version>
+            <version>1.2.7</version>
         </dependency>
 
         <!-- alipay -->
@@ -484,11 +490,6 @@
             <artifactId>httpclient</artifactId>
             <version>4.5.2</version>
         </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.7</version>
-        </dependency>
         <!--
         <dependency>
             <groupId>cn.com.sand.online</groupId>
@@ -575,6 +576,31 @@
             <version>RELEASE</version>
             <scope>compile</scope>
         </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter</artifactId>-->
+<!--        </dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-web</artifactId>-->
+<!--        </dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-test</artifactId>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>com.qucai</groupId>-->
+<!--            <artifactId>sandpay-ceas-sdk</artifactId>-->
+<!--            <version>1.0.0</version>-->
+<!--            <scope>system</scope>-->
+<!--            <systemPath>${project.basedir}/lib/sandpay-ceas-sdk-1.1.0.jar</systemPath>-->
+<!--        </dependency>-->
+
     </dependencies>
 
     <build>

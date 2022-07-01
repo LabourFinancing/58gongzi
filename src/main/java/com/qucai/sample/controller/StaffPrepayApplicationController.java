@@ -98,7 +98,7 @@ public class StaffPrepayApplicationController {
     		String t_Txn_ID, String t_Txn_PID,String t_Txn_Mobil,String SeesionLoginMobil,Date create_time,BigDecimal t_Txn_CreditPrepayCurrentNum, Integer tTxnPrepayDays,
     		BigDecimal t_P_CreditPrepaySalaryAmount,Integer t_P_PayrollDate,BigDecimal t_FProd_ServiceFee,BigDecimal t_FProd_Poundage,String t_FProd_TierPoundage,String t_Txn_PrepayClear,String t_P_Employmentstatus,
     		String t_FProd_Name,BigDecimal t_FProd_ServiceFee_Percent,BigDecimal t_FProd_Poundage_Percent,BigDecimal t_Txn_CreditPrepayBalanceNum,Integer t_Txn_PrepayCounts,Date t_Txn_PrepayDate,
-    		String t_P_EmploymentCategory,BigDecimal t_P_SocialSecurityBaseAmount,HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+    		String t_P_EmploymentCategory,BigDecimal t_P_SalaryBalance,HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 
 		if(ShiroSessionUtil.getLoginSession().getPlatform().equals("covid19")){
 			model.addAttribute("userName", ShiroSessionUtil.getLoginSession().getUserName());
@@ -228,7 +228,7 @@ public class StaffPrepayApplicationController {
         t_P_EmploymentCategory = staffPrepayApplicationNew.getT_P_EmploymentCategory();
         t_P_PayrollDate = staffPrepayApplicationNew.getT_P_PayrollDate();    
         t_P_Employmentstatus = staffPrepayApplicationNew.getT_P_Employmentstatus();
-        t_P_SocialSecurityBaseAmount = staffPrepayApplicationNew.getT_P_SocialSecurityBaseAmount();  //作为以后每个人的授额比例用
+        t_P_SalaryBalance = staffPrepayApplicationNew.getT_P_SalaryBalance();  //作为以后每个人的授额比例用
         paramMap.put("t_P_Probation", staffPrepayApplicationNew.getT_P_Probation());//添加元素
         List<StaffPrepayApplicationNew> StaffPrepayApplicationFPROD = staffPrepayApplicationService.findAuthFinanceProd(paramMap);
         
@@ -270,7 +270,7 @@ public class StaffPrepayApplicationController {
 				staffPrepayApplicationCredit.setT_Txn_CreditPrepayCurrentNum(new BigDecimal("0.00"));
 				t_Txn_CreditPrepayBalanceNum = new BigDecimal("0.00");
              } else if(t_Txn_CreditPrepayCurrentNum == null || t_Txn_PrepayClear == "0") {
-            	 BigDecimal CommonCreditPerc = t_P_CreditPrepaySalaryAmount.multiply(BigDecimal.valueOf(1.0)).setScale(2, BigDecimal.ROUND_DOWN);
+            	 BigDecimal CommonCreditPerc = t_P_CreditPrepaySalaryAmount.multiply(BigDecimal.valueOf(0.00)).setScale(2, BigDecimal.ROUND_DOWN); // 初始化授额改为0
             	 staffPrepayApplicationCredit.setT_Txn_CreditPrepayCurrentNum(CommonCreditPerc);
             	 t_Txn_CreditPrepayCurrentNum = CommonCreditPerc;
             	 staffPrepayApplicationCredit.setT_Txn_PrepayCounts(0);

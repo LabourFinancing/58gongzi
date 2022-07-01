@@ -118,7 +118,7 @@
 		t_P_PayrollDebitcardBankName,
 		t_P_PayrollDebitcardNum,
 		t_P_Probation,
-		t_P_SocialSecurityBaseAmount
+		t_P_SalaryBalance
 	</sql>
 	
 	<resultMap id="RecordPayment" type="com.qucai.sample.entity.StaffPrepayApplicationPayment">

@@ -38,7 +38,7 @@ public class StaffPrepayApplicationNew implements Serializable {
    
    private String t_P_Probation;
    
-   private BigDecimal t_P_SocialSecurityBaseAmount;
+   private BigDecimal t_P_SalaryBalance;
    
    private String t_FProd_ID;
    
@@ -124,8 +124,8 @@ public String getT_P_Probation() {
 	return t_P_Probation;
 }
 
-public BigDecimal getT_P_SocialSecurityBaseAmount() {
-	return t_P_SocialSecurityBaseAmount;
+public BigDecimal getT_P_SalaryBalance() {
+	return t_P_SalaryBalance;
 }
 
 public String getT_FProd_ID() {
@@ -245,9 +245,9 @@ public void setT_P_Probation(String t_P_Probation) {
 	this.t_P_Probation = t_P_Probation;
 }
 
-public void setT_P_SocialSecurityBaseAmount(
-		BigDecimal t_P_SocialSecurityBaseAmount) {
-	this.t_P_SocialSecurityBaseAmount = t_P_SocialSecurityBaseAmount;
+public void setT_P_SalaryBalance(
+		BigDecimal t_P_SalaryBalance) {
+	this.t_P_SalaryBalance = t_P_SalaryBalance;
 }
 
 public void setT_FProd_ID(String t_FProd_ID) {

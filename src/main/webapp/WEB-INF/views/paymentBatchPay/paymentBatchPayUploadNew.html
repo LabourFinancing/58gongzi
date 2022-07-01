@@ -570,9 +570,9 @@
             <div class="p-20 mt10">
                 <div class="clearfix grid-list-head" style="border-bottom: 0px;"></div>
             </div>
-            <div class="page-customerFinance p10" style="overflow: scroll;">
-                <div class="grid-list-head">
-                    <div class="grid-tab active">支付信息批量上传</div>
+            <div class="page-customerFinance p10">
+                <div class="grid-list-head" style="border-bottom:2px solid#4169E1">
+                    <div class="grid-tab active" style="background-color:#4169E1;border: 1px solid#4169E1">支付信息批量上传</div>
                 </div>
                 <div class="deliver">
                     <div class="variableSms">
@@ -612,12 +612,12 @@
                                             </div>
                                         </div>
                                     <div class="processTitle">
-                                        <label>收款账户<span class="required">*</span>
+                                        <label>到款账户<span class="required">*</span>
                                         </label>
                                         <div style="padding-left: 0px;">
                                             <select class="bs-select form-control" name="payrollDate" id="payrollDate">
-                                                <option value="0">个人企业电子钱包</option>
-                                                <option value="1">个人银行卡</option>
+                                                <option value="ewallet">个人企业电子钱包</option>
+                                                <option value="bankcard">个人银行卡</option>
                                             </select>
                                         </div>
                                     </div>
@@ -693,7 +693,7 @@
                             </div>
                             <div class="vSms-item">
                             <div class="processArea">
-                                <div style="margin-left: 200px;"><button id="btn_upSubmit" onclick="submitapplication()" style="padding:0%;" class="btn btn-lg btn-green search-btn ml80 send-btn">批量支付信息上传提交 </button>
+                                <div style="margin-left: 200px;"><button id="btn_upSubmit" onclick="submitapplication()" class="btn btn-lg search-btn ml80 send-btn" style="padding:0%;background-color:#4169E1;color:#ffffff;">批量支付信息上传提交 </button>
                                 </div>
                             </div>
                         </div></form>

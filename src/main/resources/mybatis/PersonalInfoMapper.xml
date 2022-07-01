@@ -13,14 +13,14 @@
 		<result column="t_P_Mobil" property="t_P_Mobil" jdbcType="VARCHAR" />
 		<result column="t_P_Phone" property="t_P_Phone" jdbcType="VARCHAR" />
 		<result column="t_P_Spouse" property="t_P_Spouse" jdbcType="VARCHAR" />
-		<result column="t_P_Spouse_Phone" property="t_P_Spouse_Phone" jdbcType="VARCHAR" />
+		<result column="t_P_CurrentDiscBatchAmt" property="t_P_CurrentDiscBatchAmt" jdbcType="VARCHAR" />
 		<result column="t_P_Contact1" property="t_P_Contact1" jdbcType="VARCHAR" />
 		<result column="t_P_Contact1Mobile" property="t_P_Contact1Mobile" jdbcType="VARCHAR" />
 		<result column="t_P_Payroll" property="t_P_Payroll" jdbcType="VARCHAR" />
 		<result column="t_P_Contact2Mobile" property="t_P_Contact2Mobile" jdbcType="VARCHAR" />
 		<result column="t_P_Company" property="t_P_Company" jdbcType="VARCHAR" />
 		<result column="t_P_CompanyNum" property="t_P_CompanyNum" jdbcType="VARCHAR" />
-		<result column="t_P_SocialSecurityBaseAmount" property="t_P_SocialSecurityBaseAmount" jdbcType="DECIMAL" />
+		<result column="t_P_SalaryBalance" property="t_P_SalaryBalance" jdbcType="DECIMAL" />
 		<result column="t_P_ProvidentFund" property="t_P_ProvidentFund" jdbcType="DECIMAL" />
 		<result column="t_P_Employmentstatus" property="t_P_Employmentstatus" jdbcType="VARCHAR" />
 		<result column="t_P_EmploymentCategory" property="t_P_EmploymentCategory" jdbcType="VARCHAR" />
@@ -56,14 +56,14 @@
 		a.t_P_Mobil,
 		a.t_P_Phone,
 		a.t_P_Spouse,
-		a.t_P_Spouse_Phone,
+		a.t_P_CurrentDiscBatchAmt,
 		a.t_P_Contact1,
 		a.t_P_Contact1Mobile, 
 		a.t_P_Payroll, 
 		a.t_P_Contact2Mobile, 
 		a.t_P_Company, 
 		a.t_P_CompanyNum,
-		a.t_P_SocialSecurityBaseAmount,
+		a.t_P_SalaryBalance,
 		a.t_P_ProvidentFund,
 		a.t_P_Employmentstatus,
 		a.t_P_EmploymentCategory,
@@ -204,8 +204,8 @@
 			<if test="t_P_Spouse != null">
 				t_P_Spouse,
 			</if>
-			<if test="t_P_Spouse_Phone != null">
-				t_P_Spouse_Phone,
+			<if test="t_P_CurrentDiscBatchAmt != null">
+				t_P_CurrentDiscBatchAmt,
 			</if>
 			<if test="t_P_Contact1 != null">
 				t_P_Contact1,
@@ -225,8 +225,8 @@
 			<if test="t_P_CompanyNum != null">
 				t_P_CompanyNum,
 			</if>
-			<if test="t_P_SocialSecurityBaseAmount != null">
-				t_P_SocialSecurityBaseAmount,
+			<if test="t_P_SalaryBalance != null">
+				t_P_SalaryBalance,
 			</if>
 			<if test="t_P_ProvidentFund != null">
 				t_P_ProvidentFund,
@@ -326,8 +326,8 @@
 			<if test="t_P_Spouse != null">
 				#{t_P_Spouse,jdbcType=VARCHAR},
 			</if>
-			<if test="t_P_Spouse_Phone != null">
-				#{t_P_Spouse_Phone,jdbcType=VARCHAR},
+			<if test="t_P_CurrentDiscBatchAmt != null">
+				#{t_P_CurrentDiscBatchAmt,jdbcType=VARCHAR},
 			</if>
 			<if test="t_P_Contact1 != null">
 				#{t_P_Contact1,jdbcType=VARCHAR},
@@ -347,8 +347,8 @@
 			<if test="t_P_CompanyNum != null">
 				#{t_P_CompanyNum,jdbcType=VARCHAR},
 			</if>
-			<if test="t_P_SocialSecurityBaseAmount != null">
-				#{t_P_SocialSecurityBaseAmount,jdbcType=DECIMAL},
+			<if test="t_P_SalaryBalance != null">
+				#{t_P_SalaryBalance,jdbcType=DECIMAL},
 			</if>
 			<if test="t_P_ProvidentFund != null">
 				#{t_P_ProvidentFund,jdbcType=DECIMAL},
@@ -490,8 +490,8 @@
 			<if test="t_P_Spouse != null">
 				t_P_Spouse = #{t_P_Spouse,jdbcType=VARCHAR},
 			</if>
-			<if test="t_P_Spouse_Phone != null">
-				t_P_Spouse_Phone = #{t_P_Spouse_Phone,jdbcType=VARCHAR},
+			<if test="t_P_CurrentDiscBatchAmt != null">
+				t_P_CurrentDiscBatchAmt = #{t_P_CurrentDiscBatchAmt,jdbcType=VARCHAR},
 			</if>
 			<if test="t_P_Contact1 != null">
 				t_P_Contact1 = #{t_P_Contact1,jdbcType=VARCHAR},
@@ -511,8 +511,8 @@
 			<if test="t_P_CompanyNum != null">
 				t_P_CompanyNum = #{t_P_CompanyNum,jdbcType=VARCHAR},
 			</if>
-			<if test="t_P_SocialSecurityBaseAmount != null">
-				t_P_SocialSecurityBaseAmount = #{t_P_SocialSecurityBaseAmount,jdbcType=DECIMAL},
+			<if test="t_P_SalaryBalance != null">
+				t_P_SalaryBalance = #{t_P_SalaryBalance,jdbcType=DECIMAL},
 			</if>
 			<if test="t_P_ProvidentFund != null">
 				t_P_ProvidentFund = #{t_P_ProvidentFund,jdbcType=DECIMAL},

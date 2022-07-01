@@ -627,6 +627,23 @@ input::-ms-input-placeholder {
   line-height: 30px;
   color: #999;
 }
+.grid-list-head-pymt {
+  border-bottom: 2px solid#4169E1;
+}
+.grid-list-head-pymt .grid-tab-pymt {
+  background-color: #4169E1;
+  border: 1px solid #f0f0f0;
+  border-bottom: 0 none;
+  line-height: 30px;
+  height: 30px;
+  text-align: center;
+  font-size: 14px;
+  display: inline-block;
+  width: 128px;
+}
+.grid-list-head-pymt .active {
+  color: #fff;
+}
 .grid-list-head {
   border-bottom: 2px solid#f36a5a;
 }

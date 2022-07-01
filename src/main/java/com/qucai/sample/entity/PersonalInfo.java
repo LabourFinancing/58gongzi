@@ -51,7 +51,7 @@ public class PersonalInfo implements Serializable {
 
    private String t_P_Spouse;
 
-   private String t_P_Spouse_Phone;
+   private String t_P_CurrentDiscBatchAmt;
 
    private String t_P_Contact1;
    
@@ -65,7 +65,7 @@ public class PersonalInfo implements Serializable {
 	
    private String t_P_CompanyNum;
 
-   private BigDecimal t_P_SocialSecurityBaseAmount;
+   private BigDecimal t_P_SalaryBalance;
 	
    private String t_P_ProvidentFund;
 
@@ -164,8 +164,8 @@ public String getT_P_Spouse() {
 	return t_P_Spouse;
 }
 
-public String getT_P_Spouse_Phone() {
-	return t_P_Spouse_Phone;
+public String getT_P_CurrentDiscBatchAmt() {
+	return t_P_CurrentDiscBatchAmt;
 }
 
 public String getT_P_Contact1() {
@@ -192,8 +192,8 @@ public String getT_P_CompanyNum() {
 	return t_P_CompanyNum;
 }
 
-public BigDecimal getT_P_SocialSecurityBaseAmount() {
-	return t_P_SocialSecurityBaseAmount;
+public BigDecimal getT_P_SalaryBalance() {
+	return t_P_SalaryBalance;
 }
 
 public String getT_P_ProvidentFund() {
@@ -324,8 +324,8 @@ public void setT_P_Spouse(String t_P_Spouse) {
 	this.t_P_Spouse = t_P_Spouse;
 }
 
-public void setT_P_Spouse_Phone(String t_P_Spouse_Phone) {
-	this.t_P_Spouse_Phone = t_P_Spouse_Phone;
+public void setT_P_CurrentDiscBatchAmt(String t_P_CurrentDiscBatchAmt) {
+	this.t_P_CurrentDiscBatchAmt = t_P_CurrentDiscBatchAmt;
 }
 
 public void setT_P_Contact1(String t_P_Contact1) {
@@ -352,9 +352,9 @@ public void setT_P_CompanyNum(String t_P_CompanyNum) {
 	this.t_P_CompanyNum = t_P_CompanyNum;
 }
 
-public void setT_P_SocialSecurityBaseAmount(
-		BigDecimal t_P_SocialSecurityBaseAmount) {
-	this.t_P_SocialSecurityBaseAmount = t_P_SocialSecurityBaseAmount;
+public void setT_P_SalaryBalance(
+		BigDecimal t_P_SalaryBalance) {
+	this.t_P_SalaryBalance = t_P_SalaryBalance;
 }
 
 public void setT_P_ProvidentFund(String t_P_ProvidentFund) {

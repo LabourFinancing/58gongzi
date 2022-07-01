@@ -80,7 +80,7 @@ jQuery.validator.addMethod("isPhone", function(value,element) {
 				type : {
 					required : true
 				},
-				t_P_SocialSecurityBaseAmount : {
+				t_P_SalaryBalance : {
 					maxlength : 5,
 					digits : true
 				},
@@ -96,11 +96,11 @@ jQuery.validator.addMethod("isPhone", function(value,element) {
 					digits : true,
 					isTel : true,
 				},
-				t_P_Spouse_Phone : {
+				t_P_CurrentDiscBatchAmt : {
 					digits : true,
 					isMobile : true,
 				},
-				t_P_SocialSecurityBaseAmount : {
+				t_P_SalaryBalance : {
 					maxlength : 5,
 					digits : true
 				},
@@ -336,7 +336,7 @@ jQuery.validator.addMethod("isPhone", function(value,element) {
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_P_Spouse_Phone" value="${personalInfo.t_P_Spouse_Phone}" readonly/>
+									name="t_P_CurrentDiscBatchAmt" value="${personalInfo.t_P_CurrentDiscBatchAmt}" readonly/>
 							</div>
 						</div>
 					</div>
@@ -431,7 +431,7 @@ jQuery.validator.addMethod("isPhone", function(value,element) {
 						<div class="col-sm-9">
 							<div class="input-icon right">
 								<i class="fa"></i> <input type="text" class="form-control"
-									name="t_P_SocialSecurityBaseAmount" value="${personalInfo.t_P_SocialSecurityBaseAmount}" readonly/>
+									name="t_P_SalaryBalance" value="${personalInfo.t_P_SalaryBalance}" readonly/>
 							</div>
 						</div>
 					</div>

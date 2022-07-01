@@ -24,8 +24,10 @@ public class PaymentBatchPayUpload implements Serializable {
 
 	private String batch_payment_fprodName;
    
+   private String batch_payment_ewalletcat;
+
    private String batch_payment_ProdCat;
-   
+
    private String batch_payment_PayrollName;
 
    private String batch_payment_Name;
@@ -86,6 +88,14 @@ public class PaymentBatchPayUpload implements Serializable {
 
 	public void setBatch_payment_fprodName(final String batch_payment_fprodName) {
 		this.batch_payment_fprodName = batch_payment_fprodName;
+	}
+
+	public String getBatch_payment_ewalletcat() {
+		return this.batch_payment_ewalletcat;
+	}
+
+	public void setBatch_payment_ewalletcat(final String batch_payment_ewalletcat) {
+		this.batch_payment_ewalletcat = batch_payment_ewalletcat;
 	}
 
 	public String getBatch_payment_ProdCat() {
@@ -279,5 +289,4 @@ public class PaymentBatchPayUpload implements Serializable {
 	public void setBatch_createtime(final Date batch_createtime) {
 		this.batch_createtime = batch_createtime;
 	}
-
 }

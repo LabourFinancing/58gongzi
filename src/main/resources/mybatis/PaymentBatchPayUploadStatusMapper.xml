@@ -56,7 +56,7 @@
 		parameterType="java.util.Map">
 		select
 		<include refid="Base_Column_List" />
-		from t_batch_paymentupload_status a
+		from t_batch_debitpaymentupload_status a
 		where a.t_batch_paymentUploadStatus_id = #{t_batch_paymentUploadId,jdbcType=VARCHAR}
 		order by a.create_time
 	</select>
@@ -65,7 +65,7 @@
 		parameterType="java.util.Map">
 		select
 		<include refid="Base_Column_List" />
-		from t_batch_paymentupload_status a
+		from t_batch_debitpaymentupload_status a
 		where 1=1
         <if test="t_batch_company != null and t_batch_company != 'ALL'" >
             and  a.t_batch_paymentcompany = #{t_batch_paymentcompany,jdbcType=VARCHAR}
@@ -80,7 +80,7 @@
 		parameterType="java.util.Map">
 		select
 		<include refid="Base_Column_List" />
-		from t_batch_paymentupload_status a
+		from t_batch_debitpaymentupload_status a
 		where 1=1
 		<if test="t_batch_paymenetUploadStatus_batchid != null">
 		and a.t_batch_paymenetUploadStatus_batchid like CONCAT('%',#{t_batch_paymenetUploadStatus_batchid},'%')
@@ -111,12 +111,12 @@
 	</select>
 	
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-		DELETE from t_batch_paymentupload_status
+		DELETE from t_batch_debitpaymentupload_status
 		WHERE t_batch_paymenetUploadStatus_batchid = #{t_batch_paymenetUploadStatus_batchid,jdbcType=VARCHAR}
 	</delete>
 
 <insert id="insertSelective" parameterType="com.qucai.sample.entity.PaymentBatchPayUploadStatus">
-		INSERT INTO t_batch_paymentupload_status
+		INSERT INTO t_batch_debitpaymentupload_status
 		(SELECT 
 		REPLACE(UUID(),"-",""),
 		#{t_batch_paymenetUploadStatus_batchid,jdbcType=VARCHAR},
@@ -140,12 +140,12 @@
 		"system",
 		NOW(),
 		#{creator,jdbcType=VARCHAR}
-		FROM t_batch_paymentupload a
+		FROM t_batch_debitpaymentupload a
 		WHERE a.batch_payment_batchID = #{batch_payment_batchID,jdbcType=VARCHAR} GROUP BY a.batch_payment_batchID)
 </insert>
 
 <update id="updateByPrimaryKeySelective" parameterType="com.qucai.sample.entity.PaymentBatchPayUploadStatus">
-	update t_batch_paymentupload_status
+	update t_batch_debitpaymentupload_status
 	<set>
 		<if test="t_batch_paymentUploadId != null">
 			t_batch_paymentUploadId = #{t_batch_paymentUploadId,jdbcType=VARCHAR},

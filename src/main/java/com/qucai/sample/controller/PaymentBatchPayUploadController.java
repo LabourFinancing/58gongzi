@@ -365,7 +365,7 @@ public class PaymentBatchPayUploadController {
                 paramSQLmap.put("batch_PB_payrolldate", payrollDate);
                 paramSQLmap.put("batch_PB_effectDate", EffectStartDate);
                 paramSQLmap.put("batch_PB_endDate", EffectEndDate);
-                paramSQLmap.put("batch_PB_flag", "1");
+                paramSQLmap.put("batch_PB_flag", "debitpayment");
                 paramSQLmap.put("batch_createtime", new Date());
                 paramSQLmap.put("batch_PB_fprod", FProd_name);
                 paramSQLmap.put("batch_creator", ShiroSessionUtil.getLoginSession().getUserName());
@@ -406,10 +406,8 @@ public class PaymentBatchPayUploadController {
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
                                 errRowData = null;
-//                                errRowData.append(String.valueOf("身份证错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow.getCell(j).getStringCellValue()).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserIdErr);
                                 rs.put("retMsg", "身份证错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow.getCell(j).getStringCellValue().toUpperCase() + "'");
                                 personalErrInfo.add(errRowData.toString());
-//                                return JsonBizTool.genJson(ExRetEnum.Pullin_UserIdErr, rs);
                             } else {
                                 paramSQLmap.put("batch_PB_PID", sheetRow.getCell(j).getStringCellValue().replaceAll(" ", ""));
                             }
@@ -425,7 +423,6 @@ public class PaymentBatchPayUploadController {
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
                                 errRowData.append(String.valueOf("银行卡错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow.getCell(j).getStringCellValue()).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserDebitCardErr);
-//                                rs.put("retMsg", "银行卡错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow.getCell(j).getStringCellValue() + "'");
                                 personalErrInfo.add(errRowData.toString());
                               return JsonBizTool.genJson(ExRetEnum.Pullin_UserDebitCardErr, rs);
                             } else {
@@ -441,7 +438,6 @@ public class PaymentBatchPayUploadController {
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
                                 errRowData.append(String.valueOf("手机号错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow.getCell(j).getStringCellValue()).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserMobileErr);
-//                                rs.put("retMsg", "手机号错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow.getCell(j).getStringCellValue() + "'");
                                 personalErrInfo.add(errRowData.toString());
 //                                return JsonBizTool.genJson(ExRetEnum.Pullin_UserMobileErr, rs);
                             } else {
@@ -457,7 +453,6 @@ public class PaymentBatchPayUploadController {
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
                                 errRowData.append(String.valueOf("授额错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow.getCell(j).getStringCellValue()).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserCreditLineErr);
-//                                rs.put("retMsg", "授额错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow.getCell(j).getStringCellValue() + "'");
                                 personalErrInfo.add(errRowData.toString());
 //                                return JsonBizTool.genJson(ExRetEnum.Pullin_UserCreditLineErr, rs);
                             } else {
@@ -502,7 +497,7 @@ public class PaymentBatchPayUploadController {
                 paramSQLmap.put("batch_PB_payrolldate", payrollDate);
                 paramSQLmap.put("batch_PB_effectDate", EffectStartDate);
                 paramSQLmap.put("batch_PB_endDate", EffectEndDate);
-                paramSQLmap.put("batch_PB_flag", "1");
+                paramSQLmap.put("batch_PB_flag", "debitpayment");
                 paramSQLmap.put("batch_createtime", new Date());
                 paramSQLmap.put("batch_PB_fprod", FProd_name);
                 paramSQLmap.put("batch_creator", ShiroSessionUtil.getLoginSession().getUserName());
@@ -607,8 +602,6 @@ public class PaymentBatchPayUploadController {
                 return JsonBizTool.genJson(ExRetEnum.Pullin_Fail, rs);
             }
         }
-        
-
 
         if(insertNum != 0){
             dataChkOk = true;

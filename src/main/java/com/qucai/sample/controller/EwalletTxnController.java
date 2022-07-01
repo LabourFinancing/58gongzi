@@ -1,4 +1,8 @@
 package com.qucai.sample.controller;
+/*
+Overall Control the Personal Ewallet, Including Ewallet initialization, Txn initialization
+Ewallet Updating/Refresh/Realtime renew.
+*/
 
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
@@ -424,6 +428,7 @@ public class EwalletTxnController {
             return rsEwalletTxnStatus;
         }
     }
+
     public static Map<String, Object> addMobileEwalletTxn(MobileEwalletDashboard mobileEwalletDashboard,String action,String txnCat,String cardAcc,
                                                           BigDecimal txnAmt, String walletTxn_PayerPID,String walletTxn_ReceiverID,String method,
                                                           String paymentID,String paymentStatus,Connection conn) throws SQLException {

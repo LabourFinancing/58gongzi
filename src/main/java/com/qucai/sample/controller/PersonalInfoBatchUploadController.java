@@ -387,7 +387,7 @@ public class PersonalInfoBatchUploadController {
                 paramSQLmap.put("batch_PB_payrolldate", payrollDate);
                 paramSQLmap.put("batch_PB_effectDate", EffectStartDate);
                 paramSQLmap.put("batch_PB_endDate", EffectEndDate);
-                paramSQLmap.put("batch_PB_flag", "1");
+                paramSQLmap.put("batch_PB_flag", "termpayment");
                 paramSQLmap.put("batch_createtime", new Date());
                 paramSQLmap.put("batch_PB_fprod", FProd_name);
                 paramSQLmap.put("batch_creator", ShiroSessionUtil.getLoginSession().getUserName());
@@ -524,7 +524,7 @@ public class PersonalInfoBatchUploadController {
                 paramSQLmap.put("batch_PB_payrolldate", payrollDate);
                 paramSQLmap.put("batch_PB_effectDate", EffectStartDate);
                 paramSQLmap.put("batch_PB_endDate", EffectEndDate);
-                paramSQLmap.put("batch_PB_flag", "1");
+                paramSQLmap.put("batch_PB_flag", "termpayment");
                 paramSQLmap.put("batch_createtime", new Date());
                 paramSQLmap.put("batch_PB_fprod", FProd_name);
                 paramSQLmap.put("batch_creator", ShiroSessionUtil.getLoginSession().getUserName());
