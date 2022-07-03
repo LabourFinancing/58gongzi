@@ -32,8 +32,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 /**
  * @author Spear Yao .
+ * Date: 1-July,2022
+ * Overall Control the Personal Ewallet Txn, Including Ewallet Txn initialization, Txn Triggering,Txn addressing
+ * Ewallet Txn Status Updating/Rollback
  */
 
 @Controller

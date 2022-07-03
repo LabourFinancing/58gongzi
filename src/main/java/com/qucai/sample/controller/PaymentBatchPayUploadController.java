@@ -907,7 +907,7 @@ public class PaymentBatchPayUploadController {
     }
 
 
-    @RequestMapping(value ="personalInfoBatcStatusOpenRefresh")
+    @RequestMapping(value ="personalInfoBatcStatusOpenRefresh")  // 刷新额度 开启授额 工资项重新定义 做结算支付使用
     @ResponseBody
     public String personalInfoBatcStatusOpenRefresh(String t_PIBU_Orgname, HttpServletRequest request,String batch_PB_batchID,String operationType,
                                                     HttpServletResponse response, Model model) {
@@ -922,9 +922,9 @@ public class PaymentBatchPayUploadController {
             e.printStackTrace();
         }
 
-        int updateBatchPersonalTxnClearingNum = paymentBatchPayUploadService.updateBatchPersonalTxnClearing(paramMap);
+        int updateBatchPersonalTxnClearingNum = paymentBatchPayUploadService.updateBatchPersonalTxnClearing(paramMap);   // checking update record - ewallet clearing
 
-        int deleteByRefreshBatchPersonalCreditNum = paymentBatchPayUploadService.deleteByRefreshBatchPersonalCredit(paramMap);
+        int deleteByRefreshBatchPersonalCreditNum = paymentBatchPayUploadService.deleteByRefreshBatchPersonalCredit(paramMap); // need to check, and remove from txn table which is ewallet salary related
 
         rs.put("ret", 0);
         return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);

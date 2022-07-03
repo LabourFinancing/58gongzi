@@ -35,8 +35,15 @@ public class PersonalInfoServiceImpl implements PersonalInfoService {
         return personalInfoDao.insertSelective(record);
     }
 
+    @Override
     public PersonalInfo selectByPrimaryKey(String t_P_id) {
         return personalInfoDao.selectByPrimaryKey(t_P_id);
+    }
+
+
+    @Override
+    public PersonalInfo findPrepayApplierCreditBalance(Map<String, Object> paramSearchMap) {
+        return personalInfoDao.findPrepayApplierCreditBalance(paramSearchMap);
     }
 
     @Override
@@ -61,6 +68,11 @@ public class PersonalInfoServiceImpl implements PersonalInfoService {
     @Override
     public List<PersonalInfo> findAgencyCompany(Map<String, Object> paramMap) {
         return personalInfoDao.findAgencyCompany(paramMap);
+    }
+
+    @Override
+    public boolean updatePrepayApplierCreditBalance(Map<String, Object> paramSearchMap) {
+        return true;
     }
 
     @Override

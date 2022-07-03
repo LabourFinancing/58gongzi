@@ -94,7 +94,7 @@
                         maxlength : 5,
                         digits : true
                     },
-                    t_P_Contact1Mobile : {
+                    t_P_PayrollBatchInfo : {
                         digits : true,
                         isMobile : true,
                     },
@@ -109,10 +109,6 @@
                     t_P_CurrentDiscBatchAmt : {
                         digits : true,
                         isMobile : true,
-                    },
-                    t_P_SalaryBalance : {
-                        maxlength : 5,
-                        digits : true
                     },
                     t_P_NetBaseSalary :{
                         required : true,
@@ -334,7 +330,7 @@
                 <div class="col-sm-9">
                     <div class="input-icon right">
                         <i class="fa"></i> <input type="text" class="form-control"
-                                                  name="t_P_Spouse" value="${personalInfo.t_P_Spouse}"/>
+                                                  name="t_P_DiscBatchInfo" value="${personalInfo.t_P_DiscBatchInfo}"/>
                     </div>
                 </div>
             </div>
@@ -367,7 +363,7 @@
                 <div class="col-sm-9">
                     <div class="input-icon right">
                         <i class="fa"></i> <input type="text" class="form-control"
-                                                  name="t_P_Contact1Mobile" value="${personalInfo.t_P_Contact1Mobile}"/>
+                                                  name="t_P_PayrollBatchInfo" value="${personalInfo.t_P_PayrollBatchInfo}"/>
                     </div>
                 </div>
             </div>
@@ -436,24 +432,24 @@
     </div>
 </div>
 <div class="form-group">
-    <label class="control-label col-sm-3">社保缴纳基数 <span
+    <label class="control-label col-sm-3">钱包工资余额 <span
         class="required"> * </span>
     </label>
     <div class="col-sm-9">
         <div class="input-icon right">
             <i class="fa"></i> <input type="text" class="form-control"
-                                      name="t_P_SalaryBalance" value="${personalInfo.t_P_SalaryBalance}"/>
+                                      name="t_P_SalaryBalance" value="${personalInfo.t_P_SalaryBalance}" readonly/>
         </div>
     </div>
 </div>
 <div class="form-group">
-    <label class="control-label col-sm-3">公积金缴纳数<span
+    <label class="control-label col-sm-3">当次调整额度数<span
         class="required"> * </span>
     </label>
     <div class="col-sm-9">
         <div class="input-icon right">
             <i class="fa"></i> <input type="text" class="form-control"
-                                      name="t_P_ProvidentFund" value="${personalInfo.t_P_ProvidentFund}"/>
+                                      name="t_P_ProvidentFund" value="${personalInfo.t_P_ProvidentFund}" readonly/>
         </div>
     </div>
 </div>
@@ -545,7 +541,7 @@
     </div>
 </div>
 <div class="form-group">
-    <label class="control-label col-sm-3" style="color:red;background-color:yellow;">月税后基本工资<span
+    <label class="control-label col-sm-3" style="color:red;background-color:yellow;">当次薪酬授额数<span
         class="required"> * </span>
     </label>
     <div class="col-sm-9">

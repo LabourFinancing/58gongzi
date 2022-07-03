@@ -12,10 +12,10 @@
 		<result column="t_P_HomeAddress" property="t_P_HomeAddress" jdbcType="VARCHAR" />
 		<result column="t_P_Mobil" property="t_P_Mobil" jdbcType="VARCHAR" />
 		<result column="t_P_Phone" property="t_P_Phone" jdbcType="VARCHAR" />
-		<result column="t_P_Spouse" property="t_P_Spouse" jdbcType="VARCHAR" />
+		<result column="t_P_DiscBatchInfo" property="t_P_DiscBatchInfo" jdbcType="VARCHAR" />
 		<result column="t_P_CurrentDiscBatchAmt" property="t_P_CurrentDiscBatchAmt" jdbcType="VARCHAR" />
 		<result column="t_P_Contact1" property="t_P_Contact1" jdbcType="VARCHAR" />
-		<result column="t_P_Contact1Mobile" property="t_P_Contact1Mobile" jdbcType="VARCHAR" />
+		<result column="t_P_PayrollBatchInfo" property="t_P_PayrollBatchInfo" jdbcType="VARCHAR" />
 		<result column="t_P_Payroll" property="t_P_Payroll" jdbcType="VARCHAR" />
 		<result column="t_P_Contact2Mobile" property="t_P_Contact2Mobile" jdbcType="VARCHAR" />
 		<result column="t_P_Company" property="t_P_Company" jdbcType="VARCHAR" />
@@ -55,10 +55,10 @@
 		a.t_P_HomeAddress,
 		a.t_P_Mobil,
 		a.t_P_Phone,
-		a.t_P_Spouse,
+		a.t_P_DiscBatchInfo,
 		a.t_P_CurrentDiscBatchAmt,
 		a.t_P_Contact1,
-		a.t_P_Contact1Mobile, 
+		a.t_P_PayrollBatchInfo,
 		a.t_P_Payroll, 
 		a.t_P_Contact2Mobile, 
 		a.t_P_Company, 
@@ -201,8 +201,8 @@
 			<if test="t_P_Phone != null">
 				t_P_Phone,
 			</if>
-			<if test="t_P_Spouse != null">
-				t_P_Spouse,
+			<if test="t_P_DiscBatchInfo != null">
+				t_P_DiscBatchInfo,
 			</if>
 			<if test="t_P_CurrentDiscBatchAmt != null">
 				t_P_CurrentDiscBatchAmt,
@@ -210,8 +210,8 @@
 			<if test="t_P_Contact1 != null">
 				t_P_Contact1,
 			</if>
-			<if test="t_P_Contact1Mobile != null">
-				t_P_Contact1Mobile,
+			<if test="t_P_PayrollBatchInfo != null">
+				t_P_PayrollBatchInfo,
 			</if>
 			<if test="t_P_Payroll != null">
 				t_P_Payroll,
@@ -323,8 +323,8 @@
 			<if test="t_P_Phone != null">
 				#{t_P_Phone,jdbcType=VARCHAR},
 			</if>
-			<if test="t_P_Spouse != null">
-				#{t_P_Spouse,jdbcType=VARCHAR},
+			<if test="t_P_DiscBatchInfo != null">
+				#{t_P_DiscBatchInfo,jdbcType=VARCHAR},
 			</if>
 			<if test="t_P_CurrentDiscBatchAmt != null">
 				#{t_P_CurrentDiscBatchAmt,jdbcType=VARCHAR},
@@ -332,8 +332,8 @@
 			<if test="t_P_Contact1 != null">
 				#{t_P_Contact1,jdbcType=VARCHAR},
 			</if>
-			<if test="t_P_Contact1Mobile != null">
-				#{t_P_Contact1Mobile,jdbcType=VARCHAR},
+			<if test="t_P_PayrollBatchInfo != null">
+				#{t_P_PayrollBatchInfo,jdbcType=VARCHAR},
 			</if>
 			<if test="t_P_Payroll != null">
 				#{t_P_Payroll,jdbcType=VARCHAR},
@@ -487,8 +487,8 @@
 			<if test="t_P_Phone != null">
 				t_P_Phone = #{t_P_Phone,jdbcType=VARCHAR},
 			</if>
-			<if test="t_P_Spouse != null">
-				t_P_Spouse = #{t_P_Spouse,jdbcType=VARCHAR},
+			<if test="t_P_DiscBatchInfo != null">
+				t_P_DiscBatchInfo = #{t_P_DiscBatchInfo,jdbcType=VARCHAR},
 			</if>
 			<if test="t_P_CurrentDiscBatchAmt != null">
 				t_P_CurrentDiscBatchAmt = #{t_P_CurrentDiscBatchAmt,jdbcType=VARCHAR},
@@ -496,8 +496,8 @@
 			<if test="t_P_Contact1 != null">
 				t_P_Contact1 = #{t_P_Contact1,jdbcType=VARCHAR},
 			</if>
-			<if test="t_P_Contact1Mobile != null">
-				t_P_Contact1Mobile = #{t_P_Contact1Mobile,jdbcType=VARCHAR},
+			<if test="t_P_PayrollBatchInfo != null">
+				t_P_PayrollBatchInfo = #{t_P_PayrollBatchInfo,jdbcType=VARCHAR},
 			</if>
 			<if test="t_P_Payroll != null">
 				t_P_Payroll = #{t_P_Payroll,jdbcType=VARCHAR},
@@ -594,6 +594,26 @@
 			and a.t_P_id != #{t_P_id}
 		</if>
 	</select>
+
+	<select id="findPrepayApplierCreditBalance" resultMap="BaseResultMap"
+			parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from t_personal_info a
+		where a.t_P_PID = #{personal_pid,jdbcType=VARCHAR}
+		and a.t_personal_company = #{personal_company,jdbcType=VARCHAR}
+		order by a.create_time DESC limit 1
+		for update
+	</select>
+
+	<update id="updatePrepayApplierCreditBalance" parameterType="java.util.Map">
+		update t_personal_info
+		<set>
+			t_P_NetMonthlyBonusAmount = #{newUpdateCreditBal,jdbcType=DECIMAL}
+		</set>
+		where t_personal_company = #{staffCompany,jdbcType=VARCHAR}
+		and t_P_PID = #{staffPid,,jdbcType=VARCHAR}
+	</update>
 	
    <select id="checkPersonalInfoMobil" resultType="java.lang.Integer"
 		parameterType="map">
@@ -609,7 +629,7 @@
 	<update id="updateCompanyStaffsCreditOn" parameterType="com.qucai.sample.entity.PersonalInfo">
 		update t_personal_info
 		<set>
-		t_P_Employmentstatus = "onjob"
+			t_P_NetMonthlyBonusAmount = #{newUpdateCreditBal,jdbcType=DECIMAL}
 		</set>
 		where t_personal_info.t_P_Company = #{t_TreasuryDB_OrgName_get,jdbcType=VARCHAR} 
 		and t_personal_info.t_P_Mobil not in ( select mobile from t_manager where t_manager.`status` = 0 ) 

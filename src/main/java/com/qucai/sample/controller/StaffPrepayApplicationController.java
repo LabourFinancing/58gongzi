@@ -210,8 +210,8 @@ public class StaffPrepayApplicationController {
 
         if (SeesionLoginMobil != null) {
         
-        StaffPrepayApplicationNew staffPrepayApplicationNew = staffPrepayApplicationService.findAuthPrepayApplier(SeesionLoginMobil);
-        StaffPrepayApplicationList staffPrepayApplicationCredit = staffPrepayApplicationService.findPrepayApplierCredit(SeesionLoginMobil);
+        StaffPrepayApplicationNew staffPrepayApplicationNew = staffPrepayApplicationService.findAuthPrepayApplier(SeesionLoginMobil);  // get t_manager(PC) mobile info align with personal mobile
+        StaffPrepayApplicationList staffPrepayApplicationCredit = staffPrepayApplicationService.findPrepayApplierCredit(SeesionLoginMobil);  // get credit from txn with personalinfo
         
 //* get User Personal info
         staffPrepayApplicationNew.getT_P_Name();
@@ -550,6 +550,7 @@ public class StaffPrepayApplicationController {
 			        	String remark = null;
 		        		String merchantId = null;
 		        		String PaymentSwitch = null;
+						boolean updateCreditBal = false;
                         // get payment vendor acc info	
 			        	if(PaymentTunnel.equalsIgnoreCase("电银支付")) {
 			        		if (!AgencyOrgnization.getT_O_OrgChinaebiAcc().equals(null)){
@@ -599,7 +600,16 @@ public class StaffPrepayApplicationController {
 								   staffPrepayApplicationPay.setRemark(remark);
 								   staffPrepayApplicationPay.setCompany(merchantId);
 						    	   staffPrepayApplicationService.insertPayment(staffPrepayApplicationPay);
-						    	   System.out.println("Err txn log:");
+						    	   //update personal discount balance done  >>>
+								Map<String, Object> paramSearchMap = new HashMap<String, Object>();
+								paramSearchMap.put("newUpdateCreditBal",staffPrepayApplication.getT_Txn_CreditPrepayBalanceNum());
+								paramSearchMap.put("staffPid",staffPrepayApplication.getT_Txn_PrepayApplierPID());
+								paramSearchMap.put("staffCompany",staffPrepayApplicationNew.getT_P_Company());
+								PersonalInfoService.findPrepayApplierCreditBalance(paramSearchMap);
+								updateCreditBal = PersonalInfoService.updatePrepayApplierCreditBalance(paramSearchMap); //update personalInfo DiscBalance
+								System.out.println(updateCreditBal);
+								//update personal discount balance done   <<<<
+									System.out.println("Err txn log:");
 						    	   System.out.println(TxnID);
 								   return JsonBizTool.genJson(ExRetEnum.PAY_OUTOFBALANCE,rs);
 						      }
@@ -618,7 +628,16 @@ public class StaffPrepayApplicationController {
 								   staffPrepayApplicationPay.setRemark(remark);
 								   staffPrepayApplicationPay.setCompany(merchantId);
 						    	   staffPrepayApplicationService.insertPayment(staffPrepayApplicationPay);
-						    	   System.out.println("Err txn log:");
+								//update personal discount balance done  >>>
+									Map<String, Object> paramSearchMap = new HashMap<String, Object>();
+									paramSearchMap.put("newUpdateCreditBal",staffPrepayApplication.getT_Txn_CreditPrepayBalanceNum());
+									paramSearchMap.put("staffPid",staffPrepayApplication.getT_Txn_PrepayApplierPID());
+									paramSearchMap.put("staffCompany",staffPrepayApplicationNew.getT_P_Company());
+									PersonalInfoService.findPrepayApplierCreditBalance(paramSearchMap);
+									updateCreditBal = PersonalInfoService.updatePrepayApplierCreditBalance(paramSearchMap); //update personalInfo DiscBalance
+									System.out.println(updateCreditBal);
+								//update personal discount balance done   <<<
+									System.out.println("Err txn log:");
 						    	   System.out.println(TxnID);
 								   return JsonBizTool.genJson(ExRetEnum.PAY_OUTOFBALANCE,rs);
 						      }
@@ -631,8 +650,9 @@ public class StaffPrepayApplicationController {
 							RCretData = RCretData.substring(RCretData.length()-4, RCretData.length());
 						}
 
-				      if (RCretData.equals("0000") || RCretData.equals("0001") || RCretData.equals("0002") || RCretData.equalsIgnoreCase("S") || RCretData.equalsIgnoreCase("P") || RCretData.equalsIgnoreCase("U")) {
-							int InsertRS = staffPrepayApplicationService.insertSelective(staffPrepayApplication);
+				      if (RCretData.equals("0000") || RCretData.equals("0001") || RCretData.equals("0002") || RCretData.equalsIgnoreCase("S") || RCretData.equalsIgnoreCase("P")
+							  || RCretData.equalsIgnoreCase("U") || updateCreditBal) {
+							int InsertRS = staffPrepayApplicationService.insertSelective(staffPrepayApplication);  // payment succ
 							String SMSCompanyName = ShiroSessionUtil.getLoginSession().getCompany_name();
 							String mobile = staffPrepayApplicationPay.getPhone();
 							String PaidAmt = staffPrepayApplication.getT_Txn_ApplyPrepayAmount().toString();

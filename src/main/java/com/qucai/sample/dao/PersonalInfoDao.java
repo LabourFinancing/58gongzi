@@ -48,7 +48,11 @@ public interface PersonalInfoDao {
     
     int checkPersonalInfoMobil(@Param("t_P_id") String t_P_id, @Param("t_P_Mobil") String t_P_Mobil);
 
-    
+    PersonalInfo findPrepayApplierCreditBalance(Map<String, Object> paramSearchMap);
+
+    boolean updatePrepayApplierCreditBalance(Map<String, Object> paramSearchMap);
+
+
     //企业端的资源
 //  List<FinanceProductGrant> findEntFinanceProductGrantAllList(String roleId);
 }

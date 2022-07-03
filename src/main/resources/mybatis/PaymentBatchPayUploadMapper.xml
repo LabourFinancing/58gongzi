@@ -14,6 +14,9 @@
 		<result column="batch_payment_vendorcompany" property="batch_payment_vendorcompany" jdbcType="INTEGER" />
 		<result column="batch_payment_mobile" property="batch_payment_mobile" jdbcType="VARCHAR" />
 		<result column="batch_payment_prevbatchID" property="batch_payment_prevbatchID" jdbcType="VARCHAR" />
+		<result column="batch_payment_prodName" property="batch_payment_prodName" jdbcType="VARCHAR" />
+		<result column="batch_payment_type" property="batch_payment_type" jdbcType="VARCHAR" />
+		<result column="batch_payment_currency" property="batch_payment_currency" jdbcType="VARCHAR" />
 		<result column="batch_payment_amt" property="batch_payment_amt" jdbcType="DECIMAL" />
 		<result column="batch_payment_personalbalAmt" property="batch_payment_personalbalAmt" jdbcType="DECIMAL" />
 		<result column="batch_payment_serviceFee" property="batch_payment_serviceFee" jdbcType="DECIMAL" />
@@ -45,6 +48,9 @@
 		a.batch_payment_vendorcompany,
 		a.batch_payment_mobile,
 		a.batch_payment_prevbatchID,
+		a.batch_payment_prodName,
+		a.batch_payment_type,
+		a.batch_payment_currency,
 		a.batch_payment_amt,
 		a.batch_payment_personalbalAmt,
 		a.batch_payment_serviceFee,
@@ -78,6 +84,9 @@
 			batch_payment_vendorcompany,
 			batch_payment_mobile,
 			batch_payment_prevbatchID,
+			batch_payment_prodName,
+			batch_payment_type,
+			batch_payment_currency,
 			batch_payment_amt,
 			batch_payment_personalbalAmt,
 			batch_payment_serviceFee,
@@ -109,6 +118,9 @@
             #{cell.batch_payment_vendorcompany,jdbcType=VARCHAR},
             #{cell.batch_payment_mobile,jdbcType=VARCHAR},
             #{cell.batch_payment_prevbatchID,jdbcType=VARCHAR},
+            #{cell.batch_payment_prodName,jdbcType=VARCHAR},
+            #{cell.batch_payment_type,jdbcType=VARCHAR},
+            #{cell.batch_payment_currency,jdbcType=VARCHAR},
             #{cell.batch_payment_amt,jdbcType=DECIMAL},
             #{cell.batch_payment_personalbalAmt,jdbcType=DECIMAL},
             #{cell.batch_payment_serviceFee,jdbcType=DECIMAL},
@@ -234,18 +246,18 @@ insert into t_manager ( select REPLACE(UUID(),"-",""),batch_mobile,substring(MD5
 	<insert id="insertManagerInfo"  parameterType="java.util.Map">
         insert into t_manager 
         (select REPLACE(UUID(),"-",""),
-        batch_PB_mobile,
+        batch_payment_mobile,
         substring(MD5(RAND()),1,6),
-        batch_PB_Name,
-        batch_PB_company,
-        batch_PB_mobile,
-        batch_PB_PID,
+        batch_payment_Name,
+        batch_payment_company,
+        batch_payment_mobile,
+        batch_payment_PID,
         "test@test.com",
         "",
         "1",
         NOW(),
-        NOW() from t_batch_personupload
-        where batch_PB_PID NOT IN (select t_P_PID from t_personal_info a JOIN t_batch_personupload b on a.t_P_PID = b.batch_PB_PID where b.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR} ) and batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR} )
+        NOW() from t_batch_debitpaymentupload
+        where batch_payment_PID NOT IN (select t_P_PID from t_personal_info a JOIN t_batch_debitpaymentupload b on a.t_P_PID = b.batch_payment_PID where b.batch_payment_batchID = #{batch_payment_batchID,jdbcType=VARCHAR} ) and batch_PB_batchID = #{batch_payment_batchID,jdbcType=VARCHAR} )
     </insert>
 <!-- 
 insert role manager info into tr_manager_role table
@@ -257,7 +269,7 @@ insert into tr_manager_role ( select id, "36e49be8d13e4a2081968148176a082c" from
          "36e49be8d13e4a2081968148176a082c" 
          from t_manager 
          where telephone in
-         (select batch_PB_PID from t_batch_personupload where batch_PB_PID NOT IN (select t_P_PID from t_personal_info a JOIN t_batch_personupload b on a.t_P_PID = b.batch_PB_PID where b.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}) and batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}));
+         (select batch_payment_PID from t_batch_debitpaymentupload where batch_payment_PID NOT IN (select t_P_PID from t_personal_info a JOIN t_batch_personupload b on a.t_P_PID = b.batch_payment_PID where b.batch_payment_PID = #{batch_payment_PID,jdbcType=VARCHAR}) and batch_payment_PID = #{batch_payment_PID,jdbcType=VARCHAR}));
     </insert>
 <!-- 
 insert role manager info into tr_manager_role table
@@ -269,46 +281,46 @@ insert into tr_manager_role ( select id, "a4ce0bbea6404a4ea4cab9b95ef53fa5" from
          "a4ce0bbea6404a4ea4cab9b95ef53fa5" 
          from t_manager 
          where telephone in
-         (select batch_PB_PID from t_batch_personupload where batch_PB_PID NOT IN (select t_P_PID from t_personal_info a JOIN t_batch_personupload b on a.t_P_PID = b.batch_PB_PID where b.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}) and batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}));
+         (select batch_payment_PID from t_batch_debitpaymentupload where batch_payment_PID NOT IN (select t_P_PID from t_personal_info a JOIN t_batch_debitpaymentupload b on a.t_P_PID = b.batch_PB_PID where b.batch_payment_PID = #{batch_payment_PID,jdbcType=VARCHAR}) and batch_payment_PID = #{batch_payment_PID,jdbcType=VARCHAR}));
     </insert>
     
 <!-- 
 insert role manager info into tr_manager_role table
 insert into t_personal_info (select REPLACE(UUID(),"-",""),batch_Name,"","0",batch_PB_PID,"","",batch_mobile,batch_mobile,"",batch_mobile,"",batch_mobile,"",batch_mobile,"三耀买菜","1",batch_credit,batch_credit,"onjob","vendor","1",batch_creator,"是","美团买菜","",batch_creditcard,batch_credit,batch_credit,"15",batch_credit,"15","15",NOW(),"0","","system",NOW(),"system",NOW() from t_batch_personupload where batch_PB_PID NOT IN (select t_P_PID from t_personal_info a JOIN t_batch_personupload b on a.t_P_PID = b.batch_PB_PID where b.batch_PB_batchID = "2021011901") and batch_PB_batchID = "2021011901");
- -->    
+ -->
  	<insert id="insertBatchPersonalInfo"  parameterType="java.util.Map">
-        insert into t_personal_info 
+        insert into t_personal_info
 		(select REPLACE(UUID(),"-",""),
-		batch_PB_Name,
+		batch_payment_Name,
 		"",
 		"0",
-		batch_PB_PID,
+		batch_payment_PID,
 		"",
 		"",
-		batch_PB_mobile,
-		batch_PB_mobile,
+		batch_payment_mobile,
+		batch_payment_mobile,
 		"",
-		batch_PB_mobile,
+		batch_payment_mobile,
 		"",
-		batch_PB_mobile,
+		batch_payment_mobile,
 		"",
-		batch_PB_mobile,
+		batch_payment_mobile,
 		#{t_P_Company,jdbcType=VARCHAR},
 		"1",
-		batch_PB_credit,
-		batch_PB_credit,
+		"0.00",
+		"0.00",
 		"pending",
 		"vendor",
 		"1",
-		batch_PB_fprod,
+		batch_payment_fprodName,
 		"是",
 		#{t_P_VendorCompany,jdbcType=VARCHAR},
 		"",
-		batch_PB_creditCard,
-		batch_PB_credit,
-		batch_PB_credit,
+		batch_payment_bankcard,
+		"0.00",
+		"0.00",
 		#{payrollDate,jdbcType=VARCHAR},
-		batch_PB_credit,
+		"0.00",
 		#{payrollDate,jdbcType=VARCHAR},
 		#{payrollDate,jdbcType=VARCHAR},
 		NOW(),
@@ -317,9 +329,9 @@ insert into t_personal_info (select REPLACE(UUID(),"-",""),batch_Name,"","0",bat
 		"system",
 		NOW(),
 		"system",
-		NOW() 
-		from t_batch_personupload
-		where batch_PB_PID NOT IN (select t_P_PID from t_personal_info a JOIN t_batch_personupload b on a.t_P_PID = b.batch_PB_PID where b.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}) and batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR})
+		NOW()
+		from t_batch_debitpaymentupload
+		where batch_payment_PID NOT IN (select t_P_PID from t_personal_info a JOIN t_batch_debitpaymentupload b on a.t_P_PID = b.batch_payment_PID where b.batch_payment_PID = #{batch_payment_PID,jdbcType=VARCHAR}) and batch_payment_PID = #{batch_payment_PID,jdbcType=VARCHAR})
     </insert>
 
 <!-- 
@@ -327,14 +339,14 @@ Update t_personal_info personal status to close
 UPDATE t_personal_info a JOIN t_batch_personupload b on a.t_P_PID = b.batch_PB_PID SET a.t_P_Employmentstatus = "pending" where b.batch_PB_batchID = "2021011901" 
 -->
 	<update id="updateBatchPersonalStatusClose" parameterType="java.util.Map">
-		update t_personal_info a,t_batch_personupload b,t_batch_personupload_status c
+		update t_personal_info a,t_batch_debitpaymentupload b,t_batch_debitpaymentupload_status c
  		SET a.t_P_Employmentstatus = "pending",
- 		c.t_batch_comment = "关闭状态"
-		where a.t_P_PID = b.batch_PB_PID 
-		AND b.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR} 
-		AND c.t_batch_perslUploadStatus_batchid = #{batch_PB_batchID,jdbcType=VARCHAR}
+ 		c.t_batch_paymentcomment = "关闭状态"
+		where a.t_P_PID = b.batch_payment_PID
+		AND b.batch_payment_batchID = #{batch_payment_batchID,jdbcType=VARCHAR}
+		AND c.t_batch_paymenetUploadStatus_batchid = #{batch_payment_batchID,jdbcType=VARCHAR}
 		<if test="batch_PB_fprod !=null">
-		and b.batch_PB_fprod = #{batch_PB_fprod,jdbcTypeVARCHAR}
+		and b.batch_payment_fprodName = #{batch_payment_fprodName,jdbcTypeVARCHAR}
 		</if>
 	</update>
 	
@@ -343,25 +355,25 @@ Update t_personal_info personal status to open
 UPDATE t_personal_info a JOIN t_batch_personupload b on a.t_P_PID = b.batch_PB_PID SET a.t_P_Employmentstatus = "pending" where b.batch_PB_batchID = "2021011901" 
 -->
 	<update id="updateBatchPersonalStatusOpen" parameterType="java.util.Map">
-		update t_personal_info a,t_batch_personupload b,t_batch_personupload_status c
+		update t_personal_info a,t_batch_debitpaymentupload b,t_batch_debitpaymentupload_status c
  		SET a.t_P_Employmentstatus = "onjob",
- 		c.t_batch_comment = "开启状态"
-		where a.t_P_PID = b.batch_PB_PID 
-		AND b.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR} 
-		AND c.t_batch_perslUploadStatus_batchid = #{batch_PB_batchID,jdbcType=VARCHAR}
-		<if test="batch_PB_fprod !=null">
-		and b.batch_PB_fprod = #{batch_PB_fprod,jdbcTypeVARCHAR}
+ 		c.t_batch_paymentcomment = "开启状态"
+		where a.t_P_PID = b.batch_payment_PID
+		AND b.batch_payment_batchID = #{batch_payment_batchID,jdbcType=VARCHAR}
+		AND c.t_batch_paymenetUploadStatus_batchid = #{batch_payment_batchID,jdbcType=VARCHAR}
+		<if test="batch_payment_fprodName !=null">
+		and b.batch_payment_fprodName = #{batch_payment_fprodName,jdbcTypeVARCHAR}
 		</if>
 	</update>	
 
 <!-- 
 Update t_personal_info credit, payrolldate,product_info
 UPDATE t_personal_info a JOIN t_batch_personupload b on a.t_P_PID = b.batch_PB_PID SET a.t_P_CreditPrepaySalaryAmount = b.batch_credit where b.batch_PB_batchID = "2021011901";  
--->
+New-function need to check personalinfo-->
 	<update id="updateBatchPersonalInfo" parameterType="java.util.Map">
 		update t_personal_info a 
-		JOIN t_batch_personupload b on a.t_P_PID = b.batch_PB_PID 
-		SET a.t_P_CreditPrepaySalaryAmount = b.batch_PB_credit,
+		JOIN t_batch_debitpaymentupload b on a.t_P_PID = b.batch_payment_PID
+		SET a.t_P_SalaryBalance = b.batch_payment_amt + a.t_P_SalaryBalance,
 		a.t_P_Probation = b.batch_PB_fprod,
 		a.t_P_PayrollDate = b.batch_PB_payrolldate
 		where b.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}

@@ -49,13 +49,13 @@ public class PersonalInfo implements Serializable {
    
    private String t_P_Phone;
 
-   private String t_P_Spouse;
+   private String t_P_DiscBatchInfo;
 
    private String t_P_CurrentDiscBatchAmt;
 
    private String t_P_Contact1;
    
-   private String t_P_Contact1Mobile;
+   private String t_P_PayrollBatchInfo;
 
    private String t_P_Payroll;
 
@@ -160,8 +160,8 @@ public String getT_P_Phone() {
 	return t_P_Phone;
 }
 
-public String getT_P_Spouse() {
-	return t_P_Spouse;
+public String getT_P_DiscBatchInfo() {
+	return t_P_DiscBatchInfo;
 }
 
 public String getT_P_CurrentDiscBatchAmt() {
@@ -172,8 +172,8 @@ public String getT_P_Contact1() {
 	return t_P_Contact1;
 }
 
-public String getT_P_Contact1Mobile() {
-	return t_P_Contact1Mobile;
+public String getT_P_PayrollBatchInfo() {
+	return t_P_PayrollBatchInfo;
 }
 
 public String getT_P_Payroll() {
@@ -320,8 +320,8 @@ public void setT_P_Phone(String t_P_Phone) {
 	this.t_P_Phone = t_P_Phone;
 }
 
-public void setT_P_Spouse(String t_P_Spouse) {
-	this.t_P_Spouse = t_P_Spouse;
+public void setT_P_DiscBatchInfo(String t_P_DiscBatchInfo) {
+	this.t_P_DiscBatchInfo = t_P_DiscBatchInfo;
 }
 
 public void setT_P_CurrentDiscBatchAmt(String t_P_CurrentDiscBatchAmt) {
@@ -332,8 +332,8 @@ public void setT_P_Contact1(String t_P_Contact1) {
 	this.t_P_Contact1 = t_P_Contact1;
 }
 
-public void setT_P_Contact1Mobile(String t_P_Contact1Mobile) {
-	this.t_P_Contact1Mobile = t_P_Contact1Mobile;
+public void setT_P_PayrollBatchInfo(String t_P_PayrollBatchInfo) {
+	this.t_P_PayrollBatchInfo = t_P_PayrollBatchInfo;
 }
 
 public void setT_P_Payroll(String t_P_Payroll) {

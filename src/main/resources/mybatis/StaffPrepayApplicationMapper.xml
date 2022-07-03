@@ -186,6 +186,7 @@
 		join t_personal_info m on m.t_P_Mobil = a.t_Txn_Mobil
 		where a.t_Txn_Mobil = m.t_P_Mobil
 		and m.t_P_Mobil = #{SeesionLoginMobil}
+		and m.t_P_PID =
 		order by a.create_time DESC limit 1
 	</select>
 	

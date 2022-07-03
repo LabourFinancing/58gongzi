@@ -52,10 +52,10 @@
       <result column="t_P_HomeAddress_his" property="t_P_HomeAddress_his" jdbcType="VARCHAR" />
       <result column="t_P_Mobil_his" property="t_P_Mobil_his" jdbcType="VARCHAR" />
       <result column="t_P_Phone_his" property="t_P_Phone_his" jdbcType="VARCHAR" />
-      <result column="t_P_Spouse_his" property="t_P_Spouse_his" jdbcType="VARCHAR" />
+      <result column="t_P_DiscBatchInfo_his" property="t_P_DiscBatchInfo_his" jdbcType="VARCHAR" />
       <result column="t_P_CurrentDiscBatchAmt_his" property="t_P_CurrentDiscBatchAmt_his" jdbcType="VARCHAR" />
       <result column="t_P_Contact1_his" property="t_P_Contact1_his" jdbcType="VARCHAR" />
-      <result column="t_P_Contact1Mobile_his" property="t_P_Contact1Mobile_his" jdbcType="VARCHAR" />
+      <result column="t_P_PayrollBatchInfo_his" property="t_P_PayrollBatchInfo_his" jdbcType="VARCHAR" />
       <result column="t_P_Payroll_his" property="t_P_Payroll_his" jdbcType="VARCHAR" />
       <result column="t_P_Contact2Mobile_his" property="t_P_Contact2Mobile_his" jdbcType="VARCHAR" />
       <result column="t_P_Company_his" property="t_P_Company_his" jdbcType="VARCHAR" />
@@ -135,10 +135,10 @@
       a.t_P_HomeAddress_his,
       a.t_P_Mobil_his,
       a.t_P_Phone_his,
-      a.t_P_Spouse_his,
+      a.t_P_DiscBatchInfo_his,
       a.t_P_CurrentDiscBatchAmt_his,
       a.t_P_Contact1_his,
-      a.t_P_Contact1Mobile_his,
+      a.t_P_PayrollBatchInfo_his,
       a.t_P_Payroll_his,
       a.t_P_Contact2Mobile_his,
       a.t_P_Company_his,

@@ -535,6 +535,22 @@
             }
         }
 
+        function datepickchk() {
+            var beginDate = document.getElementById("EffectStartDate").value;
+            var endDate = document.getElementById("EffectEndDate").value;
+            if (beginDate != "" && endDate != "") {
+                var d1 = new Date(beginDate.replace(/\-/g, "\/"));
+                var d2 = new Date(endDate.replace(/\-/g, "\/"));
+                if (d1 >= d2) {
+                    alert("开始日期不能大于结束日期");
+                    return
+                }
+            } else {
+                alert("请选择起始与结束日期");
+                return
+            }
+        }
+
     </script>
     <style>
         .ml20 {
@@ -572,7 +588,7 @@
             </div>
             <div class="page-customerFinance p10" style="overflow: scroll;">
                 <div class="grid-list-head">
-                    <div class="grid-tab active">员工信息批量上传</div>
+                    <div class="grid-tab active">员工信息及授额批量上传</div>
                 </div>
                 <div class="deliver">
                     <div class="variableSms">
@@ -725,10 +741,10 @@
                                                   -->
                                             </div>
                                             <input id="EffectStartDate" autocomplete="off" placeholder="请选择开始日期" type="text"
-                                                   rows="2" class="date-editor input-datepicker fl border input date-editor--date">
+                                                   rows="2" class="date-editor input-datepicker fl border input date-editor--date" onclick="javascript:;datepickchk(this.value)">
                                             <span data-v-51a81e9b="" class="fl p-5" style="line-height: 36px;">至</span>
                                             <input id="EffectEndDate" autocomplete="off" placeholder="请选择结束日期" type="text"
-                                                   rows="2" class="date-editor input-datepicker fl border input date-editor--date">
+                                                   rows="2" class="date-editor input-datepicker fl border input date-editor--date" onclick="javascript:;datepickchk(this.value)">
                                         </div>
                                     </div>
                                 </div>
@@ -736,7 +752,7 @@
                             </div>
                             <div class="vSms-item">
                             <div class="processArea">
-                                <div style="margin-left: 200px;"><button id="btn_upSubmit" onclick="submitapplication()" style="padding:0%;" class="btn btn-lg btn-green search-btn ml80 send-btn">员工信息上传任务提交 </button>
+                                <div style="margin-left: 200px;"><button id="btn_upSubmit" onclick="submitapplication()" style="padding:0%;" class="btn btn-lg btn-green search-btn ml80 send-btn">员工信息授额上传提交 </button>
                                 </div>
                             </div>
                         </div></form>

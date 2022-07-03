@@ -66,10 +66,10 @@ public class HistoricalTxnQuery implements Serializable {
    private String t_P_HomeAddress_his;
    private String t_P_Mobil_his;
    private String t_P_Phone_his;
-   private String t_P_Spouse_his;
+   private String t_P_DiscBatchInfo_his;
    private String t_P_CurrentDiscBatchAmt_his;
    private String t_P_Contact1_his;
-   private String t_P_Contact1Mobile_his;
+   private String t_P_PayrollBatchInfo_his;
    private String t_P_Payroll_his;
    private String t_P_Contact2Mobile_his;
    private String t_P_Company_his;
@@ -244,8 +244,8 @@ public String getT_P_Mobil_his() {
 public String getT_P_Phone_his() {
 	return t_P_Phone_his;
 }
-public String getT_P_Spouse_his() {
-	return t_P_Spouse_his;
+public String getT_P_DiscBatchInfo_his() {
+	return t_P_DiscBatchInfo_his;
 }
 public String getT_P_CurrentDiscBatchAmt_his() {
 	return t_P_CurrentDiscBatchAmt_his;
@@ -254,7 +254,7 @@ public String getT_P_Contact1_his() {
 	return t_P_Contact1_his;
 }
 public String getT_P_Contact1Mobil_his() {
-	return t_P_Contact1Mobile_his;
+	return t_P_PayrollBatchInfo_his;
 }
 public String getT_P_Payroll_his() {
 	return t_P_Payroll_his;
@@ -490,8 +490,8 @@ public void setT_P_Mobil_his(String t_P_Mobil_his) {
 public void setT_P_Phone_his(String t_P_Phone_his) {
 	this.t_P_Phone_his = t_P_Phone_his;
 }
-public void setT_P_Spouse_his(String t_P_Spouse_his) {
-	this.t_P_Spouse_his = t_P_Spouse_his;
+public void setT_P_DiscBatchInfo_his(String t_P_DiscBatchInfo_his) {
+	this.t_P_DiscBatchInfo_his = t_P_DiscBatchInfo_his;
 }
 public void setT_P_CurrentDiscBatchAmt_his(String t_P_CurrentDiscBatchAmt_his) {
 	this.t_P_CurrentDiscBatchAmt_his = t_P_CurrentDiscBatchAmt_his;
@@ -499,8 +499,8 @@ public void setT_P_CurrentDiscBatchAmt_his(String t_P_CurrentDiscBatchAmt_his) {
 public void setT_P_Contact1_his(String t_P_Contact1_his) {
 	this.t_P_Contact1_his = t_P_Contact1_his;
 }
-public void setT_P_Contact1Mobil_his(String t_P_Contact1Mobile_his) {
-	this.t_P_Contact1Mobile_his = t_P_Contact1Mobile_his;
+public void setT_P_Contact1Mobil_his(String t_P_PayrollBatchInfo_his) {
+	this.t_P_PayrollBatchInfo_his = t_P_PayrollBatchInfo_his;
 }
 public void setT_P_Payroll_his(String t_P_Payroll_his) {
 	this.t_P_Payroll_his = t_P_Payroll_his;

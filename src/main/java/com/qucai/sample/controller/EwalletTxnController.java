@@ -1,8 +1,4 @@
 package com.qucai.sample.controller;
-/*
-Overall Control the Personal Ewallet, Including Ewallet initialization, Txn initialization
-Ewallet Updating/Refresh/Realtime renew.
-*/
 
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
@@ -32,6 +28,13 @@ import java.math.BigDecimal;
 import java.sql.*;
 import java.util.*;
 import java.util.Date;
+
+/**
+ * @author Spear Yao .
+ * Date: 1-July,2022
+ * Overall Control the Personal Ewallet, Including Ewallet initialization, Txn initialization
+ * Ewallet Updating/Refresh/Realtime renew.
+ */
 
 
 @Controller
