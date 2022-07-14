@@ -59,7 +59,7 @@ public class PersonalInfo implements Serializable {
 
    private String t_P_Payroll;
 
-   private String t_P_Contact2Mobile;
+   private String t_P_ProductCode;
 
    private String t_P_Company;
 	
@@ -181,7 +181,7 @@ public String getT_P_Payroll() {
 }
 
 public String getT_P_ContactMobile2() {
-	return t_P_Contact2Mobile;
+	return t_P_ProductCode;
 }
 
 public String getT_P_Company() {
@@ -340,8 +340,8 @@ public void setT_P_Payroll(String t_P_Payroll) {
 	this.t_P_Payroll = t_P_Payroll;
 }
 
-public void setT_P_ContactMobile2(String t_P_Contact2Mobile) {
-	this.t_P_Contact2Mobile = t_P_Contact2Mobile;
+public void setT_P_ContactMobile2(String t_P_ProductCode) {
+	this.t_P_ProductCode = t_P_ProductCode;
 }
 
 public void setT_P_Company(String t_P_Company) {

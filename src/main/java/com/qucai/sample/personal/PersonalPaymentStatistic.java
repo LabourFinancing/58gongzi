@@ -1,15 +1,13 @@
-package com.qucai.sample.util;
+package com.qucai.sample.personal;
 /************************************************
  * Personal Ewallet Payment Management
  * Author : Spear Yao
  * Date : 29/07/2021
  ************************************************/
 
-import com.alibaba.fastjson.JSONObject;
-import com.qucai.sample.controller.EwalletTxnController;
-import com.qucai.sample.entity.StaffPrepayApplicationPayment;
+import com.qucai.sample.util.DBConnection;
+import com.qucai.sample.util.JsonTool;
 import com.qucai.sample.vo.MobileEwalletDashboard;
-import com.qucai.sample.sandpay.src.cn.com.sandpay.dsf.demo.AgentPayDemo;
 import com.qucai.sample.service.*;
 import com.qucai.sample.vo.MobilePersonalEwalletTxnStatistic;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.qucai.sample.util;
+package com.qucai.sample.personal;
 
 import com.qucai.sample.controller.PersonalMainController;
 import com.qucai.sample.controller.PersonalTreasuryCtrlController;

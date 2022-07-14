@@ -93,9 +93,10 @@ public class StaffPrepayApplicationController {
 	 */
 
 	@RequestMapping(value = {"staffPrepayApplicationNew"})
-//    @ResponseBody
+//    @ResponseBody // 钱包端传入手机号、企业名(所属名)、身份证号
     public String staffPrepayApplicationNew(StaffPrepayApplicationList staffPrepayApplication,@RequestParam( defaultValue = "0" ) Integer platform,String operationType,String FPROD_cate,
-    		String t_Txn_ID, String t_Txn_PID,String t_Txn_Mobil,String SeesionLoginMobil,Date create_time,BigDecimal t_Txn_CreditPrepayCurrentNum, Integer tTxnPrepayDays,
+											String SeesionLoginMobil,String t_Ewallet_titleName,String t_Ewallet_PID, // !!! ewallet system interface param
+											String t_Txn_ID, String t_Txn_PID,String t_Txn_Mobil,Date create_time,BigDecimal t_Txn_CreditPrepayCurrentNum, Integer tTxnPrepayDays,
     		BigDecimal t_P_CreditPrepaySalaryAmount,Integer t_P_PayrollDate,BigDecimal t_FProd_ServiceFee,BigDecimal t_FProd_Poundage,String t_FProd_TierPoundage,String t_Txn_PrepayClear,String t_P_Employmentstatus,
     		String t_FProd_Name,BigDecimal t_FProd_ServiceFee_Percent,BigDecimal t_FProd_Poundage_Percent,BigDecimal t_Txn_CreditPrepayBalanceNum,Integer t_Txn_PrepayCounts,Date t_Txn_PrepayDate,
     		String t_P_EmploymentCategory,BigDecimal t_P_SalaryBalance,HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
@@ -105,7 +106,7 @@ public class StaffPrepayApplicationController {
 			return "staffPrepayApplication/covid19passport";
 		}
 		//Verify Company Creditline
-        // <-- get personal info in company --> 
+        // <-- get personal info in company details -->  1.mobileapp -> 劳务费入口- > 公司列表 —> 该公司预支和工资资金详细信息
     	TreasuryDBInfo entityOverall = null;
     	entityOverall = new TreasuryDBInfo();
 		String t_TreasuryDB_OrgName =  ShiroSessionUtil.getLoginSession().getCompany_name();
@@ -119,7 +120,7 @@ public class StaffPrepayApplicationController {
 		Map<String, Object> rs = new HashMap<String, Object>();
 // <-- get personal info from manager -->
 
-// <-- Start checking Payment Account Balance -->
+// <-- Start checking Payment Account Balance --> extract a independenct module
     	if(PaymentTunnel.equalsIgnoreCase("电银支付")) {
     		if (!AgencyOrgnization.getT_O_OrgChinaebiAcc().equals(null)){
     			merchantId = AgencyOrgnization.getT_O_OrgChinaebiAcc();
@@ -206,11 +207,18 @@ public class StaffPrepayApplicationController {
     	Map<String,Object> paramMap = new HashMap<String, Object>();
     	model.addAttribute("t_FProd_Name", t_FProd_Name);																																																																																																																																																																																																				
 
-    	SeesionLoginMobil = ShiroSessionUtil.getLoginSession().getMobile();
+    	if(SeesionLoginMobil == null){   // 判断传入的手机号是否唯恐
+			SeesionLoginMobil = ShiroSessionUtil.getLoginSession().getMobile();
+			t_Ewallet_titleName = ShiroSessionUtil.getLoginSession().getCompany_name();
+		}
+		paramMap.put("SeesionLoginMobil",SeesionLoginMobil); // input ewallet/personal mobile number !!!
+		paramMap.put("t_Ewallet_titleName",t_Ewallet_titleName); // input ewallet/personal company/title name
+		paramMap.put("t_Ewallet_PID",t_Ewallet_PID); // input ewallet personal PID
 
         if (SeesionLoginMobil != null) {
         
-        StaffPrepayApplicationNew staffPrepayApplicationNew = staffPrepayApplicationService.findAuthPrepayApplier(SeesionLoginMobil);  // get t_manager(PC) mobile info align with personal mobile
+//        StaffPrepayApplicationNew staffPrepayApplicationNew = staffPrepayApplicationService.findAuthPrepayApplier(SeesionLoginMobil);  // get t_manager(PC) mobile info align with personal mobile
+        StaffPrepayApplicationNew staffPrepayApplicationNew = staffPrepayApplicationService.findAuthPrepayApplier(paramMap);  // get t_manager(PC) mobile info align with personal mobile
         StaffPrepayApplicationList staffPrepayApplicationCredit = staffPrepayApplicationService.findPrepayApplierCredit(SeesionLoginMobil);  // get credit from txn with personalinfo
         
 //* get User Personal info
@@ -230,19 +238,22 @@ public class StaffPrepayApplicationController {
         t_P_Employmentstatus = staffPrepayApplicationNew.getT_P_Employmentstatus();
         t_P_SalaryBalance = staffPrepayApplicationNew.getT_P_SalaryBalance();  //作为以后每个人的授额比例用
         paramMap.put("t_P_Probation", staffPrepayApplicationNew.getT_P_Probation());//添加元素
-        List<StaffPrepayApplicationNew> StaffPrepayApplicationFPROD = staffPrepayApplicationService.findAuthFinanceProd(paramMap);
+
+//        List<StaffPrepayApplicationNew> StaffPrepayApplicationFPROD = staffPrepayApplicationService.findAuthFinanceProd(paramMap);
+        List<StaffPrepayApplicationNew> StaffPrepayApplicationFPROD = staffPrepayApplicationService.findAuthSalaryOndemandProd(paramMap);
+
+        //* get personal salary ondemand prod fee creteria
         
-        
-        //* get personal prod info
+        //* <-- need to update, patch personl prod for service fee charging -global personal category control
         for(int i=0;i<StaffPrepayApplicationFPROD.size();i++){
-           	if(StaffPrepayApplicationFPROD.get(i).getT_FProd_category().equalsIgnoreCase(t_P_EmploymentCategory)){  
+           	if(StaffPrepayApplicationFPROD.get(i).getT_FProd_category().equalsIgnoreCase(t_P_EmploymentCategory)){
             	continue;
-        	  }else {StaffPrepayApplicationFPROD.remove(i);  
+        	  }else {StaffPrepayApplicationFPROD.remove(i);
             	 i--;
         	  }
-           }   
+           }
         
-        //* get finance product info
+        //* get finance product info - get charge service fee details
         staffPrepayApplicationNew.getT_FProd_Interest();
         t_FProd_ServiceFee = staffPrepayApplicationNew.getT_FProd_ServiceFee();
         t_FProd_Poundage = staffPrepayApplicationNew.getT_FProd_Poundage();
@@ -253,6 +264,8 @@ public class StaffPrepayApplicationController {
 		calendar.setTime(new Date()); // 放入你的日期
 		int date = calendar.get(Calendar.DATE);
 		int MaxDate = calendar.getMaximum(Calendar.DATE);
+
+		// <--- end personal prod info patch
 		
 // <-- Start calculate txn credit balance changes and charge fees -->
 		if (staffPrepayApplicationCredit == null) {
@@ -361,12 +374,13 @@ public class StaffPrepayApplicationController {
         }    
     }	
 	@RequestMapping(value = "addStaffPrepayApplication")
-	// 当判断页面的行为为add时,返回相应的add页面
+	// 当判断页面的行为为add时,返回相应的add页面 ， 钱包端传入手机号，企业名(所属名)，身份证做唯一识别预支
 	@ResponseBody
 	public String addStaffPrepayApplication(
 			StaffPrepayApplicationList staffPrepayApplication,
 			StaffPrepayApplicationPayment staffPrepayApplicationPay,
-			Integer platform, String operationType,String t_FProd_Name,String SeesionLoginMobil,
+			Integer platform, String operationType,String t_FProd_Name,
+			String SeesionLoginMobil,String t_Ewallet_titleName,String t_Ewallet_PID, // !!! ewallet system interface param
 			Integer t_P_PayrollDate,String t_Txn_PrepayDays,String SMScode,String SMScodeRec,String agreement,
 			BigDecimal t_FProd_Interest, BigDecimal t_FProd_ServiceFee,
 			BigDecimal t_Txn_ApplyPrepayAmount,Integer t_Txn_PrepayCounts,
@@ -396,7 +410,10 @@ public class StaffPrepayApplicationController {
 
 		model.addAttribute("platform", platform);
 		SeesionLoginMobil = ShiroSessionUtil.getLoginSession().getMobile();
-		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("SeesionLoginMobil",SeesionLoginMobil); // input ewallet/personal mobile number !!!
+		paramMap.put("t_Ewallet_titleName",t_Ewallet_titleName); // input ewallet/personal company/title name
+		paramMap.put("t_Ewallet_PID",t_Ewallet_PID); // input ewallet personal PID
 		
 		//common function
         // <--  Start get real-time prod info and personal status info to calc -->
@@ -404,7 +421,7 @@ public class StaffPrepayApplicationController {
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
         
 		StaffPrepayApplicationNew staffPrepayApplicationNew = staffPrepayApplicationService.findSelectedByFProdName(t_FProd_Name);
-		StaffPrepayApplicationNew staffPrepayApplicationPNow = staffPrepayApplicationService.findAuthPrepayApplier(SeesionLoginMobil);
+		StaffPrepayApplicationNew staffPrepayApplicationPNow = staffPrepayApplicationService.findAuthPrepayApplier(paramMap);
 		StaffPrepayApplicationList staffPrepayApplicationCredit = staffPrepayApplicationService.findPrepayApplierCredit(SeesionLoginMobil);
     	OrganizationInfo AgencyOrgnization = organizationInfoService.selectAgencyName(ShiroSessionUtil.getLoginSession().getCompany_name());
 		
@@ -535,11 +552,6 @@ public class StaffPrepayApplicationController {
 					staffPrepayApplicationPay.setReqReserved("全渠道");
 
 					String PaymentTunnel = AgencyOrgnization.getT_O_OrgPayrollBankaccount();  // get original paymenttunnel
-					
-//					System.out.println("SessionSMS:");  //debug using
-//					System.out.println(SessionSMS);  //debug using
-//					System.out.println("SMScodeRec:");  //debug using
-//					System.out.println(SMScodeRec);  //debug using
 					
 					if (SessionSMS.equals(SMScodeRec)){
 						String RCretDataF = "0008";
@@ -746,10 +758,10 @@ public class StaffPrepayApplicationController {
 									   treasuryDBInfoUpdateOverall.setT_TreasuryDB_Balance(tTreasuryDBBalanceOverall);
 									   RS = treasuryDBInfoService.updateByPrimaryKeySelective(treasuryDBInfoUpdateOverall);
 							         }
-// <-- ewallet function Start -->
+// <-- newfunction ewallet function Start -->
 //							  if (RS != 0){
 //							      //call ewallet balance update
-//                                  //call topup 提款到钱包余额
+//                                  //call topup 提款到钱包余额 new module needed
 //                                  // personal treasury mgt
 //                                  DBConnection dao = new DBConnection();
 //                                  Connection conn = dao.getConnection();
@@ -812,7 +824,8 @@ public class StaffPrepayApplicationController {
 	// 当判断页面的预支数值是否合法时,返回相应的add页面
 	@ResponseBody
 	public String CalcBalanceCreditflexsible(String t_FProd_Name,
-			String SeesionLoginMobil,Date t_Txn_PrepayDate,
+			String SeesionLoginMobil,String t_Ewallet_titleName,String t_Ewallet_PID, // !!! ewallet system interface param
+											 Date t_Txn_PrepayDate,
 			BigDecimal t_Txn_ApplyPrepayAmount,String t_Txn_PrepayClear,
 			BigDecimal t_Txn_CreditPrepayCurrentNum, String t_FProd_ID,
 			Integer t_P_PayrollDate, BigDecimal t_FProd_Interest,
@@ -1003,11 +1016,18 @@ public class StaffPrepayApplicationController {
 	 
 	 @RequestMapping(value = "SMSReq") //当判断页面的行为为add时,返回相应的add页面
 	 @ResponseBody
-	 public String SMSReq(String t_Txn_Mobil, HttpServletResponse response, HttpServletRequest request, Model model) {
+	 public String SMSReq(String t_Txn_Mobil, String SeesionLoginMobil,String t_Ewallet_titleName,String t_Ewallet_PID,
+						  HttpServletResponse response, HttpServletRequest request, Model model) {
 
-	 String SMScodeRec,SeesionLoginMobil,SMSMobile,SMSCompanyName;
-	 SeesionLoginMobil = ShiroSessionUtil.getLoginSession().getMobile();	 
-	 StaffPrepayApplicationNew staffPrepayApplicationNew = staffPrepayApplicationService.findAuthPrepayApplier(SeesionLoginMobil); 
+	 String SMScodeRec,SMSMobile,SMSCompanyName;
+	 if(SeesionLoginMobil == null) {
+		 SeesionLoginMobil = ShiroSessionUtil.getLoginSession().getMobile();
+	 }
+	 Map<String, Object> paramMap = new HashMap<String, Object>(); //findAuthPrepayApplier
+	 paramMap.put("SeesionLoginMobil",SeesionLoginMobil); // !!!
+	 paramMap.put("t_Ewallet_titleName",t_Ewallet_titleName);
+	 paramMap.put("t_Ewallet_PID",t_Ewallet_PID);
+	 StaffPrepayApplicationNew staffPrepayApplicationNew = staffPrepayApplicationService.findAuthPrepayApplier(paramMap);
          
 	 Map<String, Object> rs = new HashMap<String, Object>();
 		 model.addAttribute("t_Txn_Mobil",t_Txn_Mobil); 

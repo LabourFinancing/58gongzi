@@ -57,7 +57,7 @@
       <result column="t_P_Contact1_his" property="t_P_Contact1_his" jdbcType="VARCHAR" />
       <result column="t_P_PayrollBatchInfo_his" property="t_P_PayrollBatchInfo_his" jdbcType="VARCHAR" />
       <result column="t_P_Payroll_his" property="t_P_Payroll_his" jdbcType="VARCHAR" />
-      <result column="t_P_Contact2Mobile_his" property="t_P_Contact2Mobile_his" jdbcType="VARCHAR" />
+      <result column="t_P_ProductCode_his" property="t_P_ProductCode_his" jdbcType="VARCHAR" />
       <result column="t_P_Company_his" property="t_P_Company_his" jdbcType="VARCHAR" />
       <result column="t_P_CompanyNum_his" property="t_P_CompanyNum_his" jdbcType="VARCHAR" />
       <result column="t_P_SalaryBalance_his" property="t_P_SalaryBalance_his" jdbcType="DECIMAL" />
@@ -140,7 +140,7 @@
       a.t_P_Contact1_his,
       a.t_P_PayrollBatchInfo_his,
       a.t_P_Payroll_his,
-      a.t_P_Contact2Mobile_his,
+      a.t_P_ProductCode_his,
       a.t_P_Company_his,
       a.t_P_CompanyNum_his,
       a.t_P_SalaryBalance_his,

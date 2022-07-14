@@ -176,6 +176,10 @@ var ValueCnvrt = "";
 						<thead>
 							<tr>
 								<th>产品名称</th>
+								<@shiro.hasPermission name="TREASURYINFO_SUPERADMINVIEW">
+								<th>产品企业</th>
+								<th>产品经销商</th>
+								</@shiro.hasPermission>
 								<th>预支定价费率(日)</th>
 								<th>预支超期费率</th>
 								<th>交易费</th>
@@ -199,6 +203,10 @@ var ValueCnvrt = "";
 							<#list page.list as financeProduct>
 								<tr>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_Name}</td>
+									<@shiro.hasPermission name="TREASURYINFO_SUPERADMINVIEW">
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_OrgInfo}</td>
+									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_VendorOrgName}</td>
+									</@shiro.hasPermission>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_Interest.toString()}</td>
 								    <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_OverdueInt.toString()}</td>
 									<td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${financeProduct.t_FProd_ServiceFee.toString()}</td>

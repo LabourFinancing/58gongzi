@@ -52,12 +52,14 @@ public interface StaffPrepayApplicationService {
     
     List<StaffPrepayApplicationList> findAllNowList(Map<String, Object> paramMap);
 
-    StaffPrepayApplicationNew findAuthPrepayApplier(String SeesionLoginMobil);
+    StaffPrepayApplicationNew findAuthPrepayApplier(Map<String, Object> SeesionLoginMobil);
     
     List<StaffPrepayApplicationList> findRealTimeSearchList(Map<String, Object> paramMap);
 //    StaffPrepayApplicationNew selectAuthFinanceProd(String t_FProd_Name);
     
     List<StaffPrepayApplicationNew> findAuthFinanceProd(Map<String, Object> paramMap);
+
+    List<StaffPrepayApplicationNew> findAuthSalaryOndemandProd(Map<String, Object> paramMap);
     
     List<StaffPrepayApplicationList> findAllList(Map<String, Object> paramMap);
     

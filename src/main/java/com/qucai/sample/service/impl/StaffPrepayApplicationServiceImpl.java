@@ -88,7 +88,7 @@ public class StaffPrepayApplicationServiceImpl implements StaffPrepayApplication
     }    
     
     @Override
-    public StaffPrepayApplicationNew findAuthPrepayApplier(String SeesionLoginMobil) {
+    public StaffPrepayApplicationNew findAuthPrepayApplier(Map<String, Object> SeesionLoginMobil) {
     	return staffPrepayApplicationDao.findAuthPrepayApplier(SeesionLoginMobil);
     }
     
@@ -130,6 +130,13 @@ public class StaffPrepayApplicationServiceImpl implements StaffPrepayApplication
     public List<StaffPrepayApplicationNew> findAuthFinanceProd(Map<String, Object> paramMap) {
         List<StaffPrepayApplicationNew> StaffPrepayApplicationNew = staffPrepayApplicationDao.findAuthFinanceProd(paramMap);
     	return staffPrepayApplicationDao.findAuthFinanceProd(paramMap);
+    }
+
+
+    @Override
+    public List<StaffPrepayApplicationNew> findAuthSalaryOndemandProd(Map<String, Object> paramMap) {
+        List<StaffPrepayApplicationNew> StaffPrepayApplicationNew = staffPrepayApplicationDao.findAuthSalaryOndemandProd(paramMap);
+        return staffPrepayApplicationDao.findAuthSalaryOndemandProd(paramMap);
     }
     
     @Override

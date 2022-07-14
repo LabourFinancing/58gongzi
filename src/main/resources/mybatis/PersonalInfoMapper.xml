@@ -17,7 +17,7 @@
 		<result column="t_P_Contact1" property="t_P_Contact1" jdbcType="VARCHAR" />
 		<result column="t_P_PayrollBatchInfo" property="t_P_PayrollBatchInfo" jdbcType="VARCHAR" />
 		<result column="t_P_Payroll" property="t_P_Payroll" jdbcType="VARCHAR" />
-		<result column="t_P_Contact2Mobile" property="t_P_Contact2Mobile" jdbcType="VARCHAR" />
+		<result column="t_P_ProductCode" property="t_P_ProductCode" jdbcType="VARCHAR" />
 		<result column="t_P_Company" property="t_P_Company" jdbcType="VARCHAR" />
 		<result column="t_P_CompanyNum" property="t_P_CompanyNum" jdbcType="VARCHAR" />
 		<result column="t_P_SalaryBalance" property="t_P_SalaryBalance" jdbcType="DECIMAL" />
@@ -60,7 +60,7 @@
 		a.t_P_Contact1,
 		a.t_P_PayrollBatchInfo,
 		a.t_P_Payroll, 
-		a.t_P_Contact2Mobile, 
+		a.t_P_ProductCode,
 		a.t_P_Company, 
 		a.t_P_CompanyNum,
 		a.t_P_SalaryBalance,
@@ -216,8 +216,8 @@
 			<if test="t_P_Payroll != null">
 				t_P_Payroll,
 			</if>
-			<if test="t_P_Contact2Mobile != null">
-				t_P_Contact2Mobile,
+			<if test="t_P_ProductCode != null">
+				t_P_ProductCode,
 			</if>
 			<if test="t_P_Company != null">
 				t_P_Company,
@@ -338,8 +338,8 @@
 			<if test="t_P_Payroll != null">
 				#{t_P_Payroll,jdbcType=VARCHAR},
 			</if>
-			<if test="t_P_Contact2Mobile != null">
-				#{t_P_Contact2Mobile,jdbcType=VARCHAR},
+			<if test="t_P_ProductCode != null">
+				#{t_P_ProductCode,jdbcType=VARCHAR},
 			</if>
 			<if test="t_P_Company != null">
 				#{t_P_Company,jdbcType=VARCHAR},
@@ -502,8 +502,8 @@
 			<if test="t_P_Payroll != null">
 				t_P_Payroll = #{t_P_Payroll,jdbcType=VARCHAR},
 			</if>
-			<if test="t_P_Contact2Mobile != null">
-				t_P_Contact2Mobile = #{t_P_Contact2Mobile,jdbcType=VARCHAR},
+			<if test="t_P_ProductCode != null">
+				t_P_ProductCode = #{t_P_ProductCode,jdbcType=VARCHAR},
 			</if>
 			<if test="t_P_Company != null">
 				t_P_Company = #{t_P_Company,jdbcType=VARCHAR},

@@ -165,15 +165,22 @@
             RCcode,
             remark,
             reqReserved
-	</sql>	
-	
+	</sql>
+
+	<!-- !!! new function reconstruction -->
 	<select id="findAuthPrepayApplier" resultMap="findAuthPrepayApplierMap"
-		parameterType="java.lang.String">
+		parameterType="java.util.Map">
 		select
 		<include refid="findAuthPrepayApplier_Column_List" />
 		from t_personal_info a
 		left join t_manager m on a.t_P_Mobil = m.mobile
-    	where a.t_P_Mobil = #{SeesionLoginMobil}
+    	where a.t_P_Mobil = #{SeesionLoginMobil,jdbcType=VARCHAR}
+		<if test="t_Ewallet_titleName != null">
+			and a.t_P_Company = #{t_Ewallet_titleName,jdbcType=VARCHAR}
+		</if>
+		<if test="t_Ewallet_PID != null">
+			and a.t_P_PID = #{t_Ewallet_PID,jdbcType=VARCHAR}
+		</if>
 	</select>
 
 <!-- Get Initial Txn data on Refresh Month Creditline -->
@@ -265,6 +272,18 @@
 		and f.t_FProd_CorpPool = t_organization_info.t_O_Category
 		and f.t_FProd_category = t_personal_info.t_P_EmploymentCategory
 		and f.t_FProd_PersPool = #{t_P_Probation,jdbcType=VARCHAR}
+		GROUP BY t_FProd_Name
+	</select>
+
+	<select id="findAuthSalaryOndemandProd" resultMap="findAuthFinanceProdMap"
+			parameterType="java.lang.String">
+		select
+		<include refid="findAuthFinanceProd_Column_List" />
+		from t_fproduct_info f join t_organization_info on f.t_FProd_OrgInfo = t_organization_info.t_Org_Name
+		JOIN t_personal_info on f.t_FProd_OrgInfo = t_personal_info.t_P_Company
+		where t_FProd_Status = "on"
+		and f.t_FProd_Name = #{t_P_ProductName,jdbcType=VARCHAR}
+		and f.t_FProd_VendorOrgName = #{t_P_VendorEmployeeName,jdbcType=VARCHAR}
 		GROUP BY t_FProd_Name
 	</select>
 	

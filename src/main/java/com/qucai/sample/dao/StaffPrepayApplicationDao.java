@@ -55,6 +55,8 @@ public interface StaffPrepayApplicationDao {
     StaffPrepayApplicationNew findSelectedByFProdName(String t_FProd_Name);
     
     List<StaffPrepayApplicationNew> findAuthFinanceProd(Map<String, Object> paramMap);
+
+    List<StaffPrepayApplicationNew> findAuthSalaryOndemandProd(Map<String, Object> paramMap);
     
     List<StaffPrepayApplicationList> findAllList(Map<String, Object> paramMap);
     
