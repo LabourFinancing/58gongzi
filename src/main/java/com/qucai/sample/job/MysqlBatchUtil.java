@@ -45,7 +45,7 @@ public class MysqlBatchUtil {
 //            psts.setString(25, "t_Txn_ServiceFee" + i);
 //            psts.setString(26, "t_Txn_Poundage" + i);
 //            psts.setString(27, "t_Txn_InterestMargin" + i);
-//            psts.setString(28, "t_Txn_BankAccName" + i);
+//            psts.setString(28, "t_Txn_TitleName" + i);
 //            psts.setString(29, "t_Txn_BankAcc" + i);
 //            psts.setString(30, "t_Txn_SysUpdateDate" + i);
 //            psts.setString(31, "t_Txn_paystatus" + i);

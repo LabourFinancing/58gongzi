@@ -294,9 +294,7 @@ public class PersonalInfoBatchUploadController {
     @RequestMapping(value ="personalInfoBatchUploadAdd", method = {RequestMethod.GET})
     @ResponseBody
     public ResponseEntity<byte[]> downloadModel(@RequestParam("id") String id,HttpServletRequest req) throws InterruptedException {
-//        RedisClient.getInstance().put("progress_"+id,0,60*60);
         ResponseEntity<byte[]> download = personalInfoBatchUploadService.download("files/personalInfoBatchUpload/template.xlsx", id, req);
-//        RedisClient.getInstance().put("progress_"+id,100,60*60);
         return download;
     }
 
@@ -306,7 +304,7 @@ public class PersonalInfoBatchUploadController {
                          String payrollDate,String jobcat,Date EffectStartDate,Date EffectEndDate,Date TriggerTime,HttpServletResponse response, Model model) throws UnsupportedEncodingException {
         String CurrentCompany = ShiroSessionUtil.getLoginSession().getCompany_name();
 
-        // Sring result = ps.readExcelFile(file);
+        // String result = ps.readExcelFile(file);
         request.setCharacterEncoding("UTF-8");
         System.out.println("进入员工个人信息文件上传");
         System.out.println(file.getOriginalFilename());
@@ -333,19 +331,22 @@ public class PersonalInfoBatchUploadController {
             e.printStackTrace();
         }
 
+        //generate batchid
         if (TriggerTime == null) {
             StringBuffer ss = new StringBuffer();
+            String fileName = file.getOriginalFilename().substring(0,file.getOriginalFilename().lastIndexOf("."));
             if(personalInfoInputArea == null) {
-                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append(file.getOriginalFilename()).append("_").append(FProd_name).append("_").append("RT"));
+                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append(fileName).append("_").append(FProd_name).append("_").append("PR"));   // PR - personal realtime time trigger upload
             }else{
-                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append("temp").append("_").append(FProd_name).append("_").append("RT"));
+                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append("manual").append("_").append(FProd_name).append("_").append("PR"));
             }
         } else {
             StringBuffer ss = new StringBuffer();
+            String fileName = file.getOriginalFilename().substring(0,file.getOriginalFilename().lastIndexOf("."));
             if(personalInfoInputArea == null) {
-                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append(file.getOriginalFilename()).append("_").append(FProd_name).append("_").append("RT"));
+                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append(fileName).append("_").append(FProd_name).append("_").append("PT"));    // PT - personal time trigger upload
             }else{
-                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append("temp").append("_").append(FProd_name).append("_").append("RT"));
+                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append("manual").append("_").append(FProd_name).append("_").append("PT"));
             }
         }
         ArrayList<ArrayList<String>> row = new ArrayList<>();
@@ -429,9 +430,7 @@ public class PersonalInfoBatchUploadController {
                                 int colNum = j + 1;
                                 errRowData = null;
                                 errRowData.append(String.valueOf("身份证错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow.getCell(j).getStringCellValue()).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserIdErr).append("; ");;
-//                                rs.put("retMsg", "身份证错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow.getCell(j).getStringCellValue().toUpperCase() + "'");
                                 personalErrInfo.add(errRowData.toString());
-//                                return JsonBizTool.genJson(ExRetEnum.Pullin_UserIdErr, rs);
                             } else {
                                 paramSQLmap.put("batch_PB_PID", sheetRow.getCell(j).getStringCellValue().replaceAll(" ", ""));
                             }
@@ -447,7 +446,6 @@ public class PersonalInfoBatchUploadController {
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
                                 errRowData.append(String.valueOf("银行卡错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow.getCell(j).getStringCellValue()).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserDebitCardErr).append("; ");;
-//                                rs.put("retMsg", "银行卡错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow.getCell(j).getStringCellValue() + "'");
                                 personalErrInfo.add(errRowData.toString());
                               return JsonBizTool.genJson(ExRetEnum.Pullin_UserDebitCardErr, rs);
                             } else {
@@ -463,9 +461,7 @@ public class PersonalInfoBatchUploadController {
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
                                 errRowData.append(String.valueOf("手机号错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow.getCell(j).getStringCellValue()).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserMobileErr).append("; ");;
-//                                rs.put("retMsg", "手机号错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow.getCell(j).getStringCellValue() + "'");
                                 personalErrInfo.add(errRowData.toString());
-//                                return JsonBizTool.genJson(ExRetEnum.Pullin_UserMobileErr, rs);
                             } else {
                                 paramSQLmap.put("batch_PB_mobile", sheetRow.getCell(j).getStringCellValue().replaceAll(" ", ""));
                             }
@@ -479,9 +475,7 @@ public class PersonalInfoBatchUploadController {
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
                                 errRowData.append(String.valueOf("授额错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow.getCell(j).getStringCellValue()).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserCreditLineErr).append("; ");;
-//                                rs.put("retMsg", "授额错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow.getCell(j).getStringCellValue() + "'");
                                 personalErrInfo.add(errRowData.toString());
-//                                return JsonBizTool.genJson(ExRetEnum.Pullin_UserCreditLineErr, rs);
                             } else {
                                 paramSQLmap.put("batch_PB_credit", new BigDecimal(sheetRow.getCell(j).getStringCellValue()));
                                 paramSQLmap.put("batch_PB_balance", new BigDecimal(sheetRow.getCell(j).getStringCellValue()));
@@ -537,9 +531,7 @@ public class PersonalInfoBatchUploadController {
                 if (sheetRow.length != 5) {
                     dataChkOk = false;
                     errRowData.append(String.valueOf("姓名错误信息:")).append("第").append(i+1).append("行-").append(sheetRow[i].trim().replace(" ","")).append("'").append("-错误原因：").append(ExRetEnum.PullinMutiText_Err).append("; ");;
-//                    rs.put("retMsg", "该行数据错误: " + "第" + i+1 + "行-" + sheetRow[i].trim().replace(" ","") + "'");
                     personalErrInfo.add(errRowData.toString());
-//                    return JsonBizTool.genJson(ExRetEnum.PullinMutiText_Err, rs);
                 }
                 for (int j = 0; j < sheetRow.length; j++) {
                     if (j == 0 && sheetRow[j].contains(String.valueOf("员工"))) {
@@ -569,9 +561,7 @@ public class PersonalInfoBatchUploadController {
                                 int colNum = j + 1;
                                 dataChkOk = false;
                                 errRowData.append(String.valueOf("身份证错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow[j].trim().replace(" ","").toUpperCase() ).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserIdErr).append("; ");;
-//                                rs.put("retMsg", "身份证错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow[j].trim().replace(" ","").toUpperCase() + "'");
                                 personalErrInfo.add(errRowData.toString());
-//                                return JsonBizTool.genJson(ExRetEnum.Pullin_UserIdErr, rs);
                             } else {
                                 paramSQLmap.put("batch_PB_PID", sheetRow[j].trim().replace(" ",""));
                             }

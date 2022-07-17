@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class PymtChannelChk {
 
-    public Map<String, Object> TreasuryPoolChk(String ret, String msg) throws JSONException {
+    public static Map<String, Object> TreasuryPoolChk(String ret, String msg) throws JSONException {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("ret", ret);
         map.put("msg", msg);

@@ -55,7 +55,7 @@
 		select
 		<include refid="Base_Column_List" />
 		from t_manager
-		where mobile = #{mobile,jdbcType=VARCHAR}
+		where user_name = #{mobile,jdbcType=VARCHAR}
 	</select>
 	
 	<select id="findSearchList" resultMap="BaseResultMap"

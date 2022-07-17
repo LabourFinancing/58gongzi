@@ -50,7 +50,7 @@ public interface StaffPrepayApplicationDao {
     
 //    FinanceProduct selectBySearch(String t_FProd_Name, Date create_time);
 
-    StaffPrepayApplicationNew findAuthPrepayApplier(String seesionLoginMobil);
+    StaffPrepayApplicationNew findAuthPrepayApplier(Map<String, Object> seesionLoginMobil);
     
     StaffPrepayApplicationNew findSelectedByFProdName(String t_FProd_Name);
     

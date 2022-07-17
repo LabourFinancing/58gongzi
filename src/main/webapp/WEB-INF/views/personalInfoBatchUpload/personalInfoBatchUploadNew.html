@@ -32,6 +32,7 @@
 
 
     <script type="text/javascript">
+
         /*
         var userId = '<c:out value="${sessionScope.USER.userId}" />';
         var orgId = '<c:out value="${sessionScope.ORG.orgId}" />';
@@ -99,6 +100,7 @@
                     project.sendAjaxRequest(url, formData);
                 }
             };
+
             this.sendAjaxRequest = function(url,data){
                 console.log(document.getElementById("t_FPROD_Name").value);
                 if (document.getElementById("t_FPROD_Name").value == ""){
@@ -124,22 +126,32 @@
                                 batchIDrefresh();
                             }
                         },
+                        beforeSend: function(){
+                            var _PageHeight = document.documentElement.clientHeight,
+                                _PageWidth = document.documentElement.clientWidth;
+                            var _upLoadingTop = _PageHeight > 61 ? (_PageHeight - 61) / 2 : 0,
+                                _upLoadingLeft = _PageWidth > 215 ? (_PageWidth - 215) / 2 : 0;
+                            var _upLoadingHtml = '<div id="uploadingDiv" style="position:absolute;left:0;width:100%;height:' + _PageHeight + 'px;top:0;background:#f3f8ff;opacity:0.8;filter:alpha(opacity=80);z-index:10000;"><div style="position: absolute; cursor1: wait; left: ' + _upLoadingLeft + 'px; top:' + _upLoadingTop + 'px; width: auto; height: 50px; line-height: 45px; padding-left: 30px; padding-right: 20px; background: #fff url(http://www.58gongzi.com.cn/metronic/layouts/layout4/img/loading-spinner-blue.gif) no-repeat scroll 5px 10px; border: 2px solid #95B8E7; color: #696969; font-family:\'Microsoft YaHei\';">文件上传中，请等待...</div></div>';
+                            document.write(_upLoadingHtml);
+                        },
+                        complete: function() {
+                            var loadingMask = document.getElementById('uploadingDiv');
+                            loadingMask.parentNode.removeChild(loadingMask);
+                        },
                         error : function(rs) {
                             var result = eval("(" + rs + ")");
                             alert(result.retMsg);
                             alert("excel上传失败");
-                        },
-                        cache : false,
-                        contentType : false,
-                        processData : false
+                        }
+                        // cache : false,
+                        // contentType : false,
+                        // processData : false
                     });
                 };
             }
         }
 
-
         function removeSpan(innerVal){
-
             var enterTag = "<br>"
             var enterspace = "\n"
             var clearBegin = document.getElementById("PersonalInfoInputArea").innerHTML.replace(/<.*?>/img,"");

@@ -611,8 +611,8 @@
 		<set>
 			t_P_NetMonthlyBonusAmount = #{newUpdateCreditBal,jdbcType=DECIMAL}
 		</set>
-		where t_personal_company = #{staffCompany,jdbcType=VARCHAR}
-		and t_P_PID = #{staffPid,,jdbcType=VARCHAR}
+		where t_personal_company = #{t_Ewallet_titleName,jdbcType=VARCHAR}
+		and t_P_PID = #{t_Ewallet_PID,jdbcType=VARCHAR}
 	</update>
 	
    <select id="checkPersonalInfoMobil" resultType="java.lang.Integer"

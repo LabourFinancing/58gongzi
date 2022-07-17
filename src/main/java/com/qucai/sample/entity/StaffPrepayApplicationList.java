@@ -71,7 +71,7 @@ public class StaffPrepayApplicationList implements Serializable {
    
    private BigDecimal t_Txn_InterestMargin;
    
-   private String t_Txn_BankAccName;
+   private String t_Txn_TitleName;
    
    private String t_Txn_BankAcc;
    
@@ -209,8 +209,8 @@ public BigDecimal getT_Txn_InterestMargin() {
 	return t_Txn_InterestMargin;
 }
 
-public String getT_Txn_BankAccName() {
-	return t_Txn_BankAccName;
+public String getT_Txn_TitleName() {
+	return t_Txn_TitleName;
 }
 
 public String getT_Txn_BankAcc() {
@@ -375,8 +375,8 @@ public void setT_Txn_InterestMargin(BigDecimal t_Txn_InterestMargin) {
 	this.t_Txn_InterestMargin = t_Txn_InterestMargin;
 }
 
-public void setT_Txn_BankAccName(String t_Txn_BankAccName) {
-	this.t_Txn_BankAccName = t_Txn_BankAccName;
+public void setT_Txn_TitleName(String t_Txn_TitleName) {
+	this.t_Txn_TitleName = t_Txn_TitleName;
 }
 
 public void setT_Txn_BankAcc(String t_Txn_BankAcc) {

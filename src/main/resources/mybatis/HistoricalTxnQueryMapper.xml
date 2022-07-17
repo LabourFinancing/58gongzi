@@ -31,7 +31,7 @@
       <result column="t_Txn_Poundage_his" property="t_Txn_Poundage_his" jdbcType="DECIMAL" />
       <result column="t_Txn_TierPoundage_his" property="t_Txn_TierPoundage_his" jdbcType="DECIMAL" />
       <result column="t_Txn_InterestMargin_his" property="t_Txn_InterestMargin_his" jdbcType="DECIMAL" />
-      <result column="t_Txn_BankAccName_his" property="t_Txn_BankAccName_his" jdbcType="VARCHAR" />
+      <result column="t_Txn_TitleName_his" property="t_Txn_TitleName_his" jdbcType="VARCHAR" />
       <result column="t_Txn_BankAcc_his" property="t_Txn_BankAcc_his" jdbcType="VARCHAR" />
       <result column="t_Txn_SysUpdateDate_his" property="t_Txn_SysUpdateDate_his" jdbcType="TIMESTAMP" />
       <result column="t_Txn_Paystatus_his" property="t_Txn_Paystatus_his" jdbcType="VARCHAR" />
@@ -114,7 +114,7 @@
       a.t_Txn_Poundage_his,
       a.t_Txn_TierPoundage_his,
       a.t_Txn_InterestMargin_his,
-      a.t_Txn_BankAccName_his,
+      a.t_Txn_TitleName_his,
       CONCAT('\t',a.t_Txn_BankAcc_his) as t_Txn_BankAcc_his,
       a.t_Txn_SysUpdateDate_his,
       a.t_Txn_Paystatus_his,

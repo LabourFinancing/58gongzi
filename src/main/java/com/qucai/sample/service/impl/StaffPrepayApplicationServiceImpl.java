@@ -88,8 +88,8 @@ public class StaffPrepayApplicationServiceImpl implements StaffPrepayApplication
     }    
     
     @Override
-    public StaffPrepayApplicationNew findAuthPrepayApplier(Map<String, Object> SeesionLoginMobil) {
-    	return staffPrepayApplicationDao.findAuthPrepayApplier(SeesionLoginMobil);
+    public StaffPrepayApplicationNew findAuthPrepayApplier(Map<String, Object> paramMap) {
+    	return staffPrepayApplicationDao.findAuthPrepayApplier(paramMap);
     }
     
     @Override

@@ -14,7 +14,6 @@ import com.qucai.sample.vo.StaffPrepayApplicationNew;
 //import com.qucai.sample.entity.resource;
 
 public interface StaffPrepayApplicationService {
-    
 
     int insertSelective(StaffPrepayApplicationList record); 
     

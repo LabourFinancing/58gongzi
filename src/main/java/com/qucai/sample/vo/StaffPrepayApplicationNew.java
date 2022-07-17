@@ -21,7 +21,9 @@ public class StaffPrepayApplicationNew implements Serializable {
    private String t_P_Company;
    
    private String t_P_CompanyNum;
-   
+
+	private String t_P_VendorEmployeeName;
+
    private String t_P_Mobil;
    
    private String t_P_PayrollDebitcardBankName;
@@ -37,6 +39,8 @@ public class StaffPrepayApplicationNew implements Serializable {
    private String t_P_PayrollDebitcardNum;
    
    private String t_P_Probation;
+
+	private String t_P_ProductName;
    
    private BigDecimal t_P_SalaryBalance;
    
@@ -317,6 +321,24 @@ public void setT_FProd_PersPool(String t_FProd_PersPool) {
 public void setT_FProd_CorpPool(String t_FProd_CorpPool) {
 	this.t_FProd_CorpPool = t_FProd_CorpPool;
 }
+
+
+	public String getT_P_ProductName() {
+		return this.t_P_ProductName;
+	}
+
+	public void setT_P_ProductName(final String t_P_ProductName) {
+		this.t_P_ProductName = t_P_ProductName;
+	}
+
+	public String getT_P_VendorEmployeeName() {
+		return this.t_P_VendorEmployeeName;
+	}
+
+	public void setT_P_VendorEmployeeName(final String t_P_VendorEmployeeName) {
+		this.t_P_VendorEmployeeName = t_P_VendorEmployeeName;
+	}
+
 
 public BigDecimal getT_P_CurrentCreditline() {
 	return t_P_CurrentCreditline;

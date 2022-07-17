@@ -31,7 +31,7 @@
 		<result column="t_Txn_Poundage" property="t_Txn_Poundage" jdbcType="DECIMAL" />
 		<result column="t_Txn_TierPoundage" property="t_Txn_TierPoundage" jdbcType="DECIMAL" />
 		<result column="t_Txn_InterestMargin" property="t_Txn_InterestMargin" jdbcType="DECIMAL" />
-		<result column="t_Txn_BankAccName" property="t_Txn_BankAccName" jdbcType="VARCHAR" />
+		<result column="t_Txn_TitleName" property="t_Txn_TitleName" jdbcType="VARCHAR" />
 		<result column="t_Txn_BankAcc" property="t_Txn_BankAcc" jdbcType="VARCHAR" />
 		<result column="t_Txn_SysUpdateDate" property="t_Txn_SysUpdateDate" jdbcType="TIMESTAMP" />
 		<result column="t_Txn_Paystatus" property="t_Txn_Paystatus" jdbcType="VARCHAR" />
@@ -74,7 +74,7 @@
 		a.t_Txn_Poundage, 
 		a.t_Txn_TierPoundage, 
 		a.t_Txn_InterestMargin, 
-		a.t_Txn_BankAccName, 
+		a.t_Txn_TitleName,
 		a.t_Txn_BankAcc, 
 		a.t_Txn_SysUpdateDate, 
 		a.t_Txn_Paystatus, 
@@ -102,7 +102,8 @@
 	       <result column="t_P_EmploymentCategory" property="t_P_EmploymentCategory" jdbcType="VARCHAR" />	
 	       <result column="t_P_PayrollDebitcardBankName" property="t_P_PayrollDebitcardBankName" jdbcType="VARCHAR" />	
 	       <result column="t_P_Probation" property="t_P_Probation" jdbcType="VARCHAR" />	
-	       <result column="t_P_PayrollDebitcardNum" property="t_P_PayrollDebitcardNum" jdbcType="VARCHAR" />	
+	       <result column="t_P_ProductName" property="t_P_ProductName" jdbcType="VARCHAR" />
+	       <result column="t_P_PayrollDebitcardNum" property="t_P_PayrollDebitcardNum" jdbcType="VARCHAR" />
 	</resultMap>
 	
 	<sql id="findAuthPrepayApplier_Column_List">
@@ -118,6 +119,7 @@
 		t_P_PayrollDebitcardBankName,
 		t_P_PayrollDebitcardNum,
 		t_P_Probation,
+		t_P_ProductName,
 		t_P_SalaryBalance
 	</sql>
 	
@@ -192,17 +194,27 @@
 		from t_transaction_info a
 		join t_personal_info m on m.t_P_Mobil = a.t_Txn_Mobil
 		where a.t_Txn_Mobil = m.t_P_Mobil
-		and m.t_P_Mobil = #{SeesionLoginMobil}
-		and m.t_P_PID =
+		<if test="t_Ewallet_titleName != null">
+		and m.t_P_Company = #{t_Ewallet_titleName,jdbcType=VARCHAR}
+		</if>
+		<if test="t_Ewallet_PID != null">
+		and m.t_P_PID = #{t_Ewallet_PID,jdbcType=VARCHAR}
+		</if>
 		order by a.create_time DESC limit 1
 	</select>
 	
 	<select id="findPrepayApplierCreditBalance" resultMap="BaseResultMap"
-		parameterType="java.lang.String">
+		parameterType="java.util.Map">
 		select
 		<include refid="Base_Column_List" />
 		from t_transaction_info a
 		where a.t_Txn_Mobil = #{SeesionLoginMobil}
+		<if test="t_Ewallet_titleName != null" >
+		and a.t_Txn_TitleName = #{t_Ewallet_titleName,jdbcType=VARCHAR}
+		</if>
+		<if test="t_Ewallet_PID != null" >
+			and a.t_Txn_PrepayApplierPID = #{t_Ewallet_PID,jdbcType=VARCHAR}
+		</if>
 		order by a.create_time DESC limit 1
 		for update
 	</select>
@@ -276,14 +288,16 @@
 	</select>
 
 	<select id="findAuthSalaryOndemandProd" resultMap="findAuthFinanceProdMap"
-			parameterType="java.lang.String">
+			parameterType="java.util.Map">
 		select
 		<include refid="findAuthFinanceProd_Column_List" />
 		from t_fproduct_info f join t_organization_info on f.t_FProd_OrgInfo = t_organization_info.t_Org_Name
 		JOIN t_personal_info on f.t_FProd_OrgInfo = t_personal_info.t_P_Company
 		where t_FProd_Status = "on"
 		and f.t_FProd_Name = #{t_P_ProductName,jdbcType=VARCHAR}
+		<if test="t_P_VendorEmployeeName != null">
 		and f.t_FProd_VendorOrgName = #{t_P_VendorEmployeeName,jdbcType=VARCHAR}
+		</if>
 		GROUP BY t_FProd_Name
 	</select>
 	
@@ -419,8 +433,8 @@
 			<if test="t_Txn_InterestMargin != null">
 				t_Txn_InterestMargin,
 			</if>
-			<if test="t_Txn_BankAccName != null">
-				t_Txn_BankAccName,
+			<if test="t_Txn_TitleName != null">
+				t_Txn_TitleName,
 			</if>
 			<if test="t_Txn_BankAcc != null">
 				t_Txn_BankAcc,
@@ -541,8 +555,8 @@
 			<if test="t_Txn_InterestMargin != null">
 				#{t_Txn_InterestMargin,jdbcType=DECIMAL},
 			</if>
-			<if test="t_Txn_BankAccName != null">
-				#{t_Txn_BankAccName,jdbcType=VARCHAR},
+			<if test="t_Txn_TitleName != null">
+				#{t_Txn_TitleName,jdbcType=VARCHAR},
 			</if>
 			<if test="t_Txn_BankAcc != null">
 				#{t_Txn_BankAcc,jdbcType=VARCHAR},

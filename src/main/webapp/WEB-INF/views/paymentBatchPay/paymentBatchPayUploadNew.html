@@ -617,7 +617,9 @@
                                         <div style="padding-left: 0px;">
                                             <select class="bs-select form-control" name="payrollDate" id="payrollDate">
                                                 <option value="ewallet">个人企业电子钱包</option>
+                                                <@shiro.hasPermission name="TREASURYINFO_SUPERADMINVIEW">
                                                 <option value="bankcard">个人银行卡</option>
+                                                </@shiro.hasPermission>
                                             </select>
                                         </div>
                                     </div>

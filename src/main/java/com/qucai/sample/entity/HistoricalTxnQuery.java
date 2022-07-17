@@ -45,7 +45,7 @@ public class HistoricalTxnQuery implements Serializable {
    private BigDecimal t_Txn_Poundage_his;
    private BigDecimal t_Txn_TierPoundage_his;
    private BigDecimal t_Txn_InterestMargin_his;
-   private String t_Txn_BankAccName_his;
+   private String t_Txn_TitleName_his;
    private String t_Txn_BankAcc_his;
    private Date t_Txn_SysUpdateDate_his;
    private String t_Txn_Paystatus_his;
@@ -181,8 +181,8 @@ public BigDecimal getT_Txn_TierPoundage_his() {
 public BigDecimal getT_Txn_InterestMargin_his() {
 	return t_Txn_InterestMargin_his;
 }
-public String getT_Txn_BankAccName_his() {
-	return t_Txn_BankAccName_his;
+public String getT_Txn_TitleName_his() {
+	return t_Txn_TitleName_his;
 }
 public String getT_Txn_BankAcc_his() {
 	return t_Txn_BankAcc_his;
@@ -427,8 +427,8 @@ public void setT_Txn_TierPoundage_his(BigDecimal t_Txn_TierPoundage_his) {
 public void setT_Txn_InterestMargin_his(BigDecimal t_Txn_InterestMargin_his) {
 	this.t_Txn_InterestMargin_his = t_Txn_InterestMargin_his;
 }
-public void setT_Txn_BankAccName_his(String t_Txn_BankAccName_his) {
-	this.t_Txn_BankAccName_his = t_Txn_BankAccName_his;
+public void setT_Txn_TitleName_his(String t_Txn_TitleName_his) {
+	this.t_Txn_TitleName_his = t_Txn_TitleName_his;
 }
 public void setT_Txn_BankAcc_his(String t_Txn_BankAcc_his) {
 	this.t_Txn_BankAcc_his = t_Txn_BankAcc_his;
