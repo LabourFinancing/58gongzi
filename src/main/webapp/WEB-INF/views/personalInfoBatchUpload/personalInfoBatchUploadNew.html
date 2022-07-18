@@ -120,6 +120,7 @@
                             var result = eval("(" + data + ")");
                             if (result.ret == "-1") {
                                 alert(result.retMsg);
+                                document.getElementById("uploadFileStatus").innerHTML = "上传失败，请更正后重新上传！"
                                 download_txt('err.txt', result.personalErrInfo, 'txt')
                             } else if (result.ret == "0") {
                                 alert(result.retMsg);
