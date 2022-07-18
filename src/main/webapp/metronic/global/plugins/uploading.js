@@ -1,0 +1,5 @@
+var _PageHeight = document.documentElement.clientHeight,
+    _PageWidth = document.documentElement.clientWidth;
+var _upLoadingTop = _PageHeight > 61 ? (_PageHeight - 61) / 2 : 0,
+    _upLoadingLeft = _PageWidth > 215 ? (_PageWidth - 215) / 2 : 0;
+var _upLoadingHtml = '<div id="uploadingDiv" style="position:absolute;left:0;width:100%;height:' + _PageHeight + 'px;top:0;background:#f3f8ff;opacity:0.5;filter:alpha(opacity=80);z-index:10000;"><div style="position: absolute; cursor1: wait; left: ' + _upLoadingLeft + 'px; top:' + _upLoadingTop + 'px; width: auto; height: 50px; line-height: 45px; padding-left: 30px; padding-right: 20px; background: #fff url(http://www.58gongzi.com.cn/metronic/layouts/layout4/img/loading-spinner-blue.gif) no-repeat scroll 5px 10px; border: 2px solid #95B8E7; color: #696969; font-family:\'Microsoft YaHei\';">文件上传中，请等待...</div></div>';

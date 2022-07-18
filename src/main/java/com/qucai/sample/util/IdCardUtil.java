@@ -3,6 +3,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -113,65 +115,71 @@ public class IdCardUtil {
             if (idcard == null) {
                 return false;
             }
-     
-            // 非18位为假
-            int s=18;
-            if (idcard.length() != s) {
-                logger.error("身份证位数不正确!");
+            String idCard_regex="^\\d{15}|^\\d{17}([0-9]|X|x)$";  //验证18位⾝份证的正则表达式
+            Pattern pattern = Pattern.compile(idCard_regex);//模式
+            Matcher matcher = pattern.matcher(idcard);//适配器
+            System.out.println(matcher.matches());
+            if(!matcher.matches()){
                 return false;
             }
-            // 获取前17位
-            String idcard17 = idcard.substring(0, 17);
-     
-            // 前17位全部为数字
-            if (!isDigital(idcard17)) {
-                return false;
-            }
-     
-            String provinceid = idcard.substring(0, 2);
-            // 校验省份
-            if (!checkProvinceid(provinceid)) {
-                return false;
-            }
-     
-            // 校验出生日期
-            String birthday = idcard.substring(6, 14);
-     
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-     
-            try {
-                Date birthDate = sdf.parse(birthday);
-                String tmpDate = sdf.format(birthDate);
-                // 出生年月日不正确
-                if (!tmpDate.equals(birthday)) {
-                    return false;
-                }
-     
-            } catch (ParseException e1) {
-     
-                return false;
-            }
-     
-            // 获取第18位
-            String idcard18Code = idcard.substring(17, 18);
-     
-            char c[] = idcard17.toCharArray();
-     
-            int bit[] = converCharToInt(c);
-     
-            int sum17 = 0;
-     
-            sum17 = getPowerSum(bit);
-     
-            // 将和值与11取模得到余数进行校验码判断
-            String checkCode = getCheckCodeBySum(sum17);
-            if (null == checkCode) {
-                return false;
-            }
-            // 将身份证的第18位与算出来的校码进行匹配，不相等就为假
-            if (!idcard18Code.equalsIgnoreCase(checkCode)) {
-                return false;
-            }
+//            // 非18位为假
+//            int s=18;
+//            if (idcard.length() != s) {
+//                logger.error("身份证位数不正确!");
+//                return false;
+//            }
+//            // 获取前17位
+//            String idcard17 = idcard.substring(0, 17);
+//
+//            // 前17位全部为数字
+//            if (!isDigital(idcard17)) {
+//                return false;
+//            }
+//
+//            String provinceid = idcard.substring(0, 2);
+//            // 校验省份
+//            if (!checkProvinceid(provinceid)) {
+//                return false;
+//            }
+//
+//            // 校验出生日期
+//            String birthday = idcard.substring(6, 14);
+//
+//            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+//
+//            try {
+//                Date birthDate = sdf.parse(birthday);
+//                String tmpDate = sdf.format(birthDate);
+//                // 出生年月日不正确
+//                if (!tmpDate.equals(birthday)) {
+//                    return false;
+//                }
+//
+//            } catch (ParseException e1) {
+//
+//                return false;
+//            }
+//
+//            // 获取第18位
+//            String idcard18Code = idcard.substring(17, 18);
+//
+//            char c[] = idcard17.toCharArray();
+//
+//            int bit[] = converCharToInt(c);
+//
+//            int sum17 = 0;
+//
+//            sum17 = getPowerSum(bit);
+//
+//            // 将和值与11取模得到余数进行校验码判断
+//            String checkCode = getCheckCodeBySum(sum17);
+//            if (null == checkCode) {
+//                return false;
+//            }
+//            // 将身份证的第18位与算出来的校码进行匹配，不相等就为假
+//            if (!idcard18Code.equalsIgnoreCase(checkCode)) {
+//                return false;
+//            }
      //System.out.println("正确");
             return true;
         }
@@ -350,11 +358,12 @@ public class IdCardUtil {
      
         /**
          * 将和值与11取模得到余数进行校验码判断
-         * 
-         * @param checkCode
-         * @param sum17
+         *
          * @return 校验位
          */
+//                 * @param checkCode
+//         * @param sum17
+
         private static String getCheckCodeBySum(int sum17) {
             String checkCode = null;
             switch (sum17 % 11) {

@@ -274,7 +274,6 @@ public class PaymentBatchPayUploadController {
     public ResponseEntity<byte[]> downloadModel(@RequestParam("id") String id,HttpServletRequest req) throws InterruptedException {
 //        RedisClient.getInstance().put("progress_"+id,0,60*60);
         ResponseEntity<byte[]> download = paymentBatchPayUploadService.download("files/paymentBatchPayUpload/template.xlsx", id, req);
-//        RedisClient.getInstance().put("progress_"+id,100,60*60);
         return download;
     }
 
