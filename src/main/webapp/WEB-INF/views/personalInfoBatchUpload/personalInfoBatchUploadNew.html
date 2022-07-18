@@ -48,7 +48,8 @@
         var selected = false;
         var textareadata = true;
         var spanHTag = false;
-        var inputZinital = null
+        var inputZinital = null;
+        var inputchkok = true;
 
         var project;
         $(function(){
@@ -429,28 +430,45 @@
 
 
         function submitapplication() {
+            event.preventDefault();
             var obj=new Date();
             if(document.getElementById("t_FPROD_Name").value != ""){
+                document.getElementById("t_FPROD_Name").focus();
                 selected = true
+                inputchkok = false
+                return false;
             }
             if(document.getElementById("EffectStartDate").value == null || document.getElementById("EffectStartDate").value >= obj ){
                 alert("请选择起始有效日期，并且起始日期必须大于等于今天");
-                return;
+                document.getElementById("EffectStartDate").focus();
+                inputchkok = false
+                return false;
             }
-            if(document.getElementById("EffectEndDate").value == null || document.getElementById("EffectEndDate").value <= document.getElementById("EffectStartDate").value ){
+            if(document.getElementById("EffectEndDate").value == null || document.getElementById("EffectEndDate").value >= obj ){
+                alert("请选择起始有效日期，并且起始日期必须大于等于今天");
+                document.getElementById("EffectEndDate").focus();
+                inputchkok = false
+                return false;
+            }
+            if(document.getElementById("EffectEndDate").value <= document.getElementById("EffectStartDate").value ){
+                document.getElementById("EffectEndDate").focus();
                 alert("请选择结束有效日期，并且结束时间必须大于起始日期");
-                return;
+                inputchkok = false
+                return false;
             }
             if(!uploaded && !selected){
+                document.getElementById("uploadbtn").focus();
                 alert("请先添加产品或选择企业及相关产品,并点先上传员工信息文件后，再提交更新");
-                alert("请选择企业及相关产品,点先上传员工信息文件，再提交更新");
-                return;
+                inputchkok = false
+                return false;
             }
             if(!selected){
+                document.getElementById("batch_PB_batchID").focus();
                 alert("请选择企业及相关产品,再提交更新");
-                return;
+                inputchkok = false
+                return false;
             }
-            else{
+            if(inputchkok){
                 $.ajax({
                     url : "/sample_war_exploded/PersonalInfoBatchUploadController/personalInfoBatchUpdateSub?operationType=filerefresh&t_FPROD_Name=" + encodeURI(encodeURI($("#t_FPROD_Name").val())) +
                         "&t_PIBU_Orgname=" + encodeURI(encodeURI($("#t_PIBU_Orgname").val())) +
@@ -469,7 +487,6 @@
                         if(result.ret == "0") {
                             console.log(dataUpload);
                             alert(result.retMsg);
-                            return;
                         } else {
                             $.toptip('产品出错，请联系技术支持', 'error');
                         }
@@ -477,12 +494,11 @@
                     error: function(dataUpload) {
                         var result = eval("(" + dataUpload + ")");
                         alert(result.msg, "cancel");
-                        return;
                     }
                 });
             }
+            // 设置点击submit之后不刷新当前页面
         }
-
 
         function kickoutcheck(dataC){
             if (dataC.match("index")){
@@ -521,7 +537,6 @@
             var t_batch_perslUploadStatus_batchid_value = document.getElementById("batch_PB_batchID").value;
             if(t_batch_perslUploadStatus_batchid_value === ""){
                 alert("批次文件为空，请先导入选择后查看详情")
-                return
             }
             var openWindowWidth = $(document).width() * 0.8 + "px";
             var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
@@ -555,13 +570,13 @@
                 var d2 = new Date(endDate.replace(/\-/g, "\/"));
                 if (d1 >= d2) {
                     alert("开始日期不能大于结束日期");
-                    return
                 }
             } else {
                 alert("请选择起始与结束日期");
-                return
             }
         }
+
+
 
     </script>
     <style>
@@ -604,7 +619,7 @@
                 </div>
                 <div class="deliver">
                     <div class="variableSms">
-                        <form enctype="multipart/form-data" id="excelUpload" class="form-horizontal">
+                        <form enctype="multipart/form-data" id="excelUpload" name="excelUpload" class="form-horizontal">
                             <div class="vSms-item">
                                 <div class="iconLine">
                                     <div class="numberIcon">1</div>
@@ -768,6 +783,7 @@
                                 </div>
                             </div>
                         </div></form>
+                        <iframe id="iFrame" name="iframe" src="about:blank" style="display:none;"></iframe>
                     </div>
                 </div>
             </div>
@@ -775,8 +791,6 @@
     </div>
 
     <script>
-        console.log(document.getElementById("PersonalInfoInputArea").innerText);
-
         //弹窗开关
         var setMas = function () {
             const a = document.getElementsByClassName('maskNew')[0]
@@ -819,7 +833,6 @@
             o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w)));
             return o;
         }
-
 
     </script>
     <style>

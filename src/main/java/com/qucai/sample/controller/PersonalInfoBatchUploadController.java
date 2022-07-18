@@ -791,13 +791,13 @@ public class PersonalInfoBatchUploadController {
             rs.put("retMsg",succNum);
             return JsonBizTool.genJson(ExRetEnum.UPLOADSUCCESS, rs);
         }else{
-            String uploadfaile = String.valueOf(ss.append("插入失败，请检查更正数据后再上传"));
-            rs.put("retMsg",uploadfaile);
+            String personalErrInfoList = String.join(",",personalErrInfo);
+            rs.put("retMsg","插入失败，请检查相关记录并更正后再上传!");
+            rs.put("personalErrInfo",personalErrInfoList);
             return JsonBizTool.genJson(ExRetEnum.Pullin_Fail, rs);
         }
 
     }
-
 
 
     @RequestMapping(value = "personalInfoBatchUpdateSub")
