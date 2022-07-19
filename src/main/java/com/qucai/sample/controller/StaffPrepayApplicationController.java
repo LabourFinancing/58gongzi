@@ -95,7 +95,7 @@ public class StaffPrepayApplicationController {
 	@RequestMapping(value = {"staffPrepayApplicationNew"})
 //    @ResponseBody // 钱包端传入手机号、企业名(所属名)、身份证号
     public String staffPrepayApplicationNew(StaffPrepayApplicationList staffPrepayApplication,@RequestParam( defaultValue = "0" ) Integer platform,String operationType,String FPROD_cate,
-											String SeesionLoginMobil,String t_Ewallet_titleName,String t_Ewallet_PID, // !!! ewallet system interface param
+											String SeesionLoginMobil,String t_Ewallet_titleName,String t_Ewallet_PID, // !!! ewallet system interface param,SeesionLoginMobile get through API post/session login
 											String t_Txn_ID, String t_Txn_PID,String t_Txn_Mobil,Date create_time,BigDecimal t_Txn_CreditPrepayCurrentNum, Integer tTxnPrepayDays,
     		BigDecimal t_P_CreditPrepaySalaryAmount,Integer t_P_PayrollDate,BigDecimal t_FProd_ServiceFee,BigDecimal t_FProd_Poundage,String t_FProd_TierPoundage,String t_Txn_PrepayClear,String t_P_Employmentstatus,
     		String t_FProd_Name,BigDecimal t_FProd_ServiceFee_Percent,BigDecimal t_FProd_Poundage_Percent,BigDecimal t_Txn_CreditPrepayBalanceNum,Integer t_Txn_PrepayCounts,Date t_Txn_PrepayDate,
@@ -214,7 +214,7 @@ public class StaffPrepayApplicationController {
 			SeesionLoginMobil = ShiroSessionUtil.getLoginSession().getMobile();
 			t_Ewallet_titleName = ShiroSessionUtil.getLoginSession().getCompany_name();
 		}
-		paramMap.put("SeesionLoginMobil",SeesionLoginMobil); // input ewallet/personal mobile number !!!
+		paramMap.put("SeesionLoginMobil",SeesionLoginMobil); // input ewallet/personal mobile number !!! perional info plag
 		paramMap.put("t_Ewallet_titleName",t_Ewallet_titleName); // input ewallet/personal company/title name
 		paramMap.put("t_Ewallet_PID",t_Ewallet_PID); // input ewallet personal PID
 

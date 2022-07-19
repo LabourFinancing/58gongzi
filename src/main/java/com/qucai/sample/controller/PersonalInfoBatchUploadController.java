@@ -415,7 +415,7 @@ public class PersonalInfoBatchUploadController {
                     }
                     //		将每一个单元格的值装入列集合
                     switch (j) {
-                        case 0:
+                        case 0: // 检查姓名
                             sheetRow.getCell(j).setCellType(XSSFCell.CELL_TYPE_STRING);
                             sheetRow.getCell(j).setCellType(Cell.CELL_TYPE_STRING);
                             System.out.println(sheetRow.getCell(j).getStringCellValue());
@@ -423,6 +423,7 @@ public class PersonalInfoBatchUploadController {
                                 dataChkOk = false;
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
+                                errRowData = new StringBuffer();
                                 errRowData.append(String.valueOf("姓名错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow.getCell(j).getStringCellValue()).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserNameErr.getMsg()).append(";\n");
                                 rs.put("retMsg", errRowData);
                                 personalErrInfo.add(errRowData.toString());
@@ -431,7 +432,7 @@ public class PersonalInfoBatchUploadController {
                                 paramSQLmap.put("batch_PB_Name", sheetRow.getCell(j).getStringCellValue().replaceAll(" ", ""));
                             }
                             break;
-                        case 1:
+                        case 1: // 检查
                             sheetRow.getCell(j).setCellType(XSSFCell.CELL_TYPE_STRING);
                             sheetRow.getCell(j).setCellType(Cell.CELL_TYPE_STRING);
                             System.out.println(sheetRow.getCell(j).getStringCellValue());
@@ -441,8 +442,8 @@ public class PersonalInfoBatchUploadController {
                                 dataChkOk = false;
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
-                                errRowData = null;
-                                errRowData.append(String.valueOf("身份证错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow.getCell(j).getStringCellValue()).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserIdErr.getMsg()).append(";\n");
+                                errRowData = new StringBuffer();
+                                errRowData.append(String.valueOf("身份证错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow.getCell(j).getStringCellValue()).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserIdErr.getMsg()).append(";\n");;
                                 personalErrInfo.add(errRowData.toString());
                             } else {
                                 paramSQLmap.put("batch_PB_PID", sheetRow.getCell(j).getStringCellValue().replaceAll(" ", ""));
@@ -458,9 +459,9 @@ public class PersonalInfoBatchUploadController {
                                 dataChkOk = false;
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
+                                errRowData = new StringBuffer();
                                 errRowData.append(String.valueOf("银行卡错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow.getCell(j).getStringCellValue()).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserDebitCardErr.getMsg()).append(";\n");
                                 personalErrInfo.add(errRowData.toString());
-                              return JsonBizTool.genJson(ExRetEnum.Pullin_UserDebitCardErr, rs);
                             } else {
                                 paramSQLmap.put("batch_PB_creditCard", sheetRow.getCell(j).getStringCellValue().replaceAll(" ", "").toUpperCase());
                             }
@@ -471,8 +472,10 @@ public class PersonalInfoBatchUploadController {
                             System.out.println(sheetRow.getCell(j).getStringCellValue());
                             boolean ISChineseMobile = Tool.isChinaPhoneLegal(sheetRow.getCell(j).getStringCellValue());
                             if (sheetRow.getCell(j).getStringCellValue() == null || !ISChineseMobile) {
+                                dataChkOk = false;
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
+                                errRowData = new StringBuffer();
                                 errRowData.append(String.valueOf("手机号错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow.getCell(j).getStringCellValue()).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserMobileErr.getMsg()).append(";\n");
                                 personalErrInfo.add(errRowData.toString());
                             } else {
@@ -487,6 +490,7 @@ public class PersonalInfoBatchUploadController {
                                 dataChkOk = false;
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
+                                errRowData = new StringBuffer();
                                 errRowData.append(String.valueOf("授额错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow.getCell(j).getStringCellValue()).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserCreditLineErr.getMsg()).append(";\n");
                                 personalErrInfo.add(errRowData.toString());
                             } else {
@@ -504,9 +508,8 @@ public class PersonalInfoBatchUploadController {
             if(dataChkOk) {
                 insertNum = personalInfoBatchUploadService.insertCustomerMachineByBatch(cell);
             }else{
-                String personalErrInfoList = String.join(",",personalErrInfo);
                 rs.put("retMsg","文件上传失败，请更正错误信息后重新上传！");
-                rs.put("personalErrInfo",personalErrInfoList);
+                rs.put("personalErrInfo",personalErrInfo);
                 return JsonBizTool.genJson(ExRetEnum.Pullin_Fail, rs);
             }
         }else{
@@ -558,6 +561,7 @@ public class PersonalInfoBatchUploadController {
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
                                 dataChkOk = false;
+                                errRowData = new StringBuffer();
                                 errRowData.append(String.valueOf("姓名错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow[j].trim().replace(" ","")).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserNameErr.getMsg()).append(";\n");
                                 personalErrInfo.add(errRowData.toString());
                                 break;
@@ -573,6 +577,7 @@ public class PersonalInfoBatchUploadController {
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
                                 dataChkOk = false;
+                                errRowData = new StringBuffer();
                                 errRowData.append(String.valueOf("身份证错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow[j].trim().replace(" ","").toUpperCase() ).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserIdErr.getMsg()).append(";\n");
                                 personalErrInfo.add(errRowData.toString());
                             } else {
@@ -587,6 +592,7 @@ public class PersonalInfoBatchUploadController {
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
                                 dataChkOk = false;
+                                errRowData = new StringBuffer();
                                 errRowData.append(String.valueOf("银行卡错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow[j].trim().replace(" ","")).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserDebitCardErr.getMsg()).append(";\n");
                                 personalErrInfo.add(errRowData.toString());
                             } else {
@@ -600,6 +606,7 @@ public class PersonalInfoBatchUploadController {
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
                                 dataChkOk = false;
+                                errRowData = new StringBuffer();
                                 errRowData.append(String.valueOf("手机号错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow[j].trim().replace(" ","")).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserMobileErr.getMsg()).append(";\n");
                                 personalErrInfo.add(errRowData.toString());
                             } else {
@@ -612,6 +619,7 @@ public class PersonalInfoBatchUploadController {
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
                                 dataChkOk = false;
+                                errRowData = new StringBuffer();
                                 errRowData.append(String.valueOf("授额错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow[j].trim().replace(" ","")).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserCreditLineErr.getMsg()).append(";\n");
                                 personalErrInfo.add(errRowData.toString());
                             } else {
@@ -658,6 +666,7 @@ public class PersonalInfoBatchUploadController {
             if (errRcsDupDebitCard != null) {
                 int deleteUpload = personalInfoBatchUploadService.deleteByPrimaryKey(batch_PB_batchID);
                 dataChkOk = false;
+                errRowData = new StringBuffer();
                 errRowData.append(String.valueOf("重复银行卡记录信息:")).append(errRcsDupDebitCard).append("-错误原因：").append(ExRetEnum.Pullin_FailDupDebitCardErr.getMsg()).append(";\n");;
                 personalErrInfo.add(errRowData.toString());
             }
@@ -681,6 +690,7 @@ public class PersonalInfoBatchUploadController {
             if (errRcsDupMobileMgr != null) {
                 int deleteUpload = personalInfoBatchUploadService.deleteByPrimaryKey(batch_PB_batchID);
                 dataChkOk = false;
+                errRowData = new StringBuffer();
                 errRowData.append(String.valueOf("与系统主人员信息表重复手机号或一个身份证多个手机号记录信息:")).append(errRcsDupMobileMgr).append("-错误原因：").append(ExRetEnum.Pullin_FailDupMgrMobileErr.getMsg()).append(";\n");;
                 personalErrInfo.add(errRowData.toString());
             }
@@ -703,6 +713,7 @@ public class PersonalInfoBatchUploadController {
             if (errRcsDupMobilePer != null) {
                 int deleteUpload = personalInfoBatchUploadService.deleteByPrimaryKey(batch_PB_batchID);
                 dataChkOk = false;
+                errRowData = new StringBuffer();
                 errRowData.append(String.valueOf("与系统个人信息表重复手机号或一个身份证多个手机号记录信息:")).append(errRcsDupMobilePer).append("-错误原因：").append(ExRetEnum.Pullin_FailDupPerMobileErr.getMsg()).append(";\n");;
                 personalErrInfo.add(errRowData.toString());
             }
@@ -725,6 +736,7 @@ public class PersonalInfoBatchUploadController {
             if (errRcsDupPID != null) {
                 int deleteUpload = personalInfoBatchUploadService.deleteByPrimaryKey(batch_PB_batchID);
                 dataChkOk = false;
+                errRowData = new StringBuffer();
                 errRowData.append(String.valueOf("与系统个人信息表重复身份证或一个手机号多个身份证记录信息:")).append(errRcsDupPID).append("-错误原因：").append(ExRetEnum.Pullin_FailDupPIDErr.getMsg()).append(";\n");;
                 personalErrInfo.add(errRowData.toString());
             }
@@ -747,6 +759,7 @@ public class PersonalInfoBatchUploadController {
             if (errBatchDupMobile != null) {
                 int deleteUpload = personalInfoBatchUploadService.deleteByPrimaryKey(batch_PB_batchID);
                 dataChkOk = false;
+                errRowData = new StringBuffer();
                 errRowData.append(String.valueOf("上传表中有重复手机号记录信息:")).append(errBatchDupMobile).append("-错误原因：").append(ExRetEnum.Pullin_FailDupBatchMobileErr.getMsg()).append(";\n");;
                 personalErrInfo.add(errRowData.toString());
             }
@@ -769,6 +782,7 @@ public class PersonalInfoBatchUploadController {
             if (errBatchDupPID != null) {
                 int deleteUpload = personalInfoBatchUploadService.deleteByPrimaryKey(batch_PB_batchID);
                 dataChkOk = false;
+                errRowData = new StringBuffer();
                 errRowData.append(String.valueOf("上传表中有重复身份证记录信息:")).append(errBatchDupPID).append("-错误原因：").append(ExRetEnum.Pullin_FailDupBatchPIDErr.getMsg()).append(";\n");;
                 personalErrInfo.add(errRowData.toString());
             }
@@ -791,6 +805,7 @@ public class PersonalInfoBatchUploadController {
             if (errBatchDupDebitCard != null) {
                 int deleteUpload = personalInfoBatchUploadService.deleteByPrimaryKey(batch_PB_batchID);
                 dataChkOk = false;
+                errRowData = new StringBuffer();
                 errRowData.append(String.valueOf("上传表中有重复银行卡记录信息:")).append(errBatchDupDebitCard).append("-错误原因：").append(ExRetEnum.Pullin_FailDupDebitCardErr.getMsg()).append(";\n");
                 personalErrInfo.add(errRowData.toString());
             }

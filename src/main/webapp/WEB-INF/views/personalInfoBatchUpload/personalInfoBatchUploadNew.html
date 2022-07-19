@@ -62,14 +62,17 @@
                 //模拟上传excel
                 $("#uploadEventBtn").unbind("click").bind("click", function () {
                     $("#uploadEventFile").click();
+                    document.getElementById("uploadFileStatus").innerHTML = "";
                 });
                 $("#uploadEventFile").bind("change", function () {
                     $("#uploadEventPath").attr("value", $("#uploadEventFile").val());
                 });
                 if ($("#uploadEventFile").val() == "") {
                     document.getElementById("uploadbtn").disabled = true;
+                    document.getElementById("uploadFileStatus").innerHTML = "";
                 } else {
                     document.getElementById("uploadbtn").disabled = false;
+                    document.getElementById("uploadFileStatus").innerHTML = "";
                 }
             };
             //点击上传按钮
@@ -119,11 +122,10 @@
                         success: function (data) {
                             var result = eval("(" + data + ")");
                             if (result.ret == "-1") {
-                                alert(result.retMsg);
                                 document.getElementById("uploadFileStatus").innerHTML = "上传失败，请更正后重新上传！"
+                                alert(result.retMsg);
                                 download_txt('err.txt', result.personalErrInfo, 'txt')
                             } else if (result.ret == "0") {
-                                alert(result.retMsg);
                                 document.getElementById("uploadFileStatus").innerHTML = "上传成功"
                                 uploaded = true
                                 batchIDrefresh()
@@ -132,13 +134,11 @@
                         beforeSend: function(){
                           document.getElementById("uploadFileStatus").innerHTML = '<div style="cursor1: wait; width: 200px; height: 30px; line-height: 28px;padding-left: 30px; padding-right: 1px; background: #fff url(http://www.58gongzi.com.cn/metronic/layouts/layout4/img/loading-spinner-blue.gif) no-repeat scroll 5px 5px; font-family:\'Microsoft YaHei\';font-size:12px">文件上传中，请等待...</div>'
                         },
-                        complete: function(){
-                            document.getElementById("uploadFileStatus").innerHTML = ""
-                        },
                         error: function (rs) {
                             var result = eval("(" + rs + ")");
+                            document.getElementById("uploadFileStatus").innerHTML = "excel上传错误，请更正信息后上传"
                             alert(result.retMsg);
-                            alert("excel上传失败");
+                            download_txt('err.txt', result.personalErrInfo, 'txt')
                         }
                     })
                 }
@@ -198,7 +198,9 @@
                 textareadatafmt =true;
             }
             if(inputZ !="" && !spanHTag) {
+                document.getElementById("uploadEventFile").value = "";
                 document.getElementById("uploadEventFile").disabled = true;
+                document.getElementById("uploadFileStatus").innerHTML = "";
                 // var format = /^((([\u4e00-\u9fa5]{2,13})\,(\d{15})\,(([1-9]{1})(\d{15}))\,(1[3-9]\d{9})\,((([1-9]{1})\d*)\;))|(([\u4e00-\u9fa5]{1,10})\,(\d{15})\,(d{16})\,(1[3-9]\d{9})\,((([1-9]{1})\d*)\;))|(([\u4e00-\u9fa5]{1,10})\,(\d{15})\,(d{18})\,(1[3-9]\d{9})\,((([1-9]{1})\d*)\;))|(([\u4e00-\u9fa5]{1,10})\,(\d{18})\,(d{18})\,(1[3-9]\d{9})\,((([1-9]{1})\d*)\;))|(([\u4e00-\u9fa5]{1,10})\,(\d{18})\,(d{18})\,(1[3-9]\d{9})\,((([1-9]{1})\d*)\;))|(([\u4e00-\u9fa5]{1,10})\,(\d{18})\,(([1-9]{1})(\d{15}))\,(1[3-9]\d{9})\,((([1-9]{1})\d*)\;))|(([\u4e00-\u9fa5]{1,10})\,(\d{17}(\d|X|x))\,(([1-9]{1})(\d{15}))\,(1[3-9]\d{9})\,((([1-9]{1})\d*)\;))|(([\u4e00-\u9fa5]{1,10})\,(\d{17}(\d|X|x))\,(d{16})\,(1[3-9]\d{9})\,((([1-9]{1})\d*)\;))|(([\u4e00-\u9fa5]{1,10})\,(\d{17}(\d|X|x))\,(d{18})\,(1[3-9]\d{9})\,((([1-9]{1})\d*)\;))){1,}$/
                 var format = /^(([\u4e00-\u9fa5A-z0-9]+)\,([\u4e00-\u9fa5A-z0-9]+)\,([\u4e00-\u9fa5A-z0-9]+)\,([\u4e00-\u9fa5A-z0-9]+)\,(([\u4e00-\u9fa5A-z0-9]+)\;)){1,}$/
                 if (!format.test(inputZ) ) {
