@@ -932,8 +932,6 @@ public class PersonalInfoBatchUploadController {
 
     }
 
-
-
     // CLose PersonalBatchStatus	
     @RequestMapping(value ="personalInfoBatcStatusClose")
     @ResponseBody
@@ -955,7 +953,6 @@ public class PersonalInfoBatchUploadController {
 
         rs.put("ret", 0);
         return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
-//    return "personalInfoBatchUpload/personalInfoBatchUploadNew";
     }
 
 
@@ -980,7 +977,6 @@ public class PersonalInfoBatchUploadController {
 
         rs.put("ret", 0);
         return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
-//    return "personalInfoBatchUpload/personalInfoBatchUploadNew";
     }
 
 }

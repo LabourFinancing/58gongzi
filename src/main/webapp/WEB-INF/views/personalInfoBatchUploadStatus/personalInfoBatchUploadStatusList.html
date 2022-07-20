@@ -37,27 +37,29 @@ function page(n,s){
 
 
 function batchcreditOpen(t_batch_perslUploadStatus_batchid){
-	$.ajax({
-		url: '${ctx}/PersonalInfoBatchUploadStatusController/batchCreditCtrl?t_batch_perslUploadStatus_batchid='+encodeURI(encodeURI(t_batch_perslUploadStatus_batchid))+'&operationType=on',
-		type: 'POST',
-		async: true,
-		cache: false,
-		contentType: "application/x-www-form-urlencoded; charset=utf-8", 
-		processData: false,
-		success: function(data) {
-			var result = eval("(" + data + ")");
-			if (result.ret == 0){
-			    alert("授额开启");
-			}else{
-			    alert("授额开启失败");
+	if(confirm("确定开启授额么？此操作不可逆")) {
+		$.ajax({
+			url: '${ctx}/PersonalInfoBatchUploadStatusController/batchCreditCtrl?t_batch_perslUploadStatus_batchid=' + encodeURI(encodeURI(t_batch_perslUploadStatus_batchid)) + '&operationType=on',
+			type: 'POST',
+			async: true,
+			cache: false,
+			contentType: "application/x-www-form-urlencoded; charset=utf-8",
+			processData: false,
+			success: function (data) {
+				var result = eval("(" + data + ")");
+				if (result.ret == 0) {
+					alert("授额已开启");
+				} else {
+					alert("授额开启失败");
+				}
+				window.location.reload();
+			},
+			error: function (data) {
+				alert("授额开启失败");
+				window.location.reload();
 			}
-			window.location.reload();
-		},
-		error: function(data) {
-			alert("授额开启失败");
-			window.location.reload();
-		}
-	});
+		});
+	}
 }
 
 function batchcreditClose(t_batch_perslUploadStatus_batchid){
@@ -71,7 +73,7 @@ function batchcreditClose(t_batch_perslUploadStatus_batchid){
 		success: function(data) {
 			var result = eval("(" + data + ")");
 			if (result.ret == 0){
-			    alert("授额关闭");
+			    alert("授额已关闭");
 			}else{
 			    alert("授额关闭失败");
 			}
@@ -85,51 +87,55 @@ function batchcreditClose(t_batch_perslUploadStatus_batchid){
 }
 
 function batchcreditRefresh(t_batch_perslUploadStatus_batchid){
-	$.ajax({
-		url: '${ctx}/PersonalInfoBatchUploadStatusController/batchCreditCtrl?t_batch_perslUploadStatus_batchid='+encodeURI(encodeURI(t_batch_perslUploadStatus_batchid))+'&operationType=refresh',
-		type: 'POST',
-		async: true,
-		cache: false,
-		contentType: "application/x-www-form-urlencoded; charset=utf-8", 
-		processData: false,
-		success: function(data) {
-			var result = eval("(" + data + ")");
-			if (result.ret == 0){
-			    alert("授额刷新");
-			}else{
-			    alert("授额刷新失败");
+	if(confirm("确定刷新授额吗？此操作不可逆")) {
+		$.ajax({
+			url: '${ctx}/PersonalInfoBatchUploadStatusController/batchCreditCtrl?t_batch_perslUploadStatus_batchid=' + encodeURI(encodeURI(t_batch_perslUploadStatus_batchid)) + '&operationType=refresh',
+			type: 'POST',
+			async: true,
+			cache: false,
+			contentType: "application/x-www-form-urlencoded; charset=utf-8",
+			processData: false,
+			success: function (data) {
+				var result = eval("(" + data + ")");
+				if (result.ret == 0) {
+					alert("授额已刷新");
+				} else {
+					alert("授额刷新失败");
+				}
+				window.location.reload();
+			},
+			error: function (data) {
+				alert("授额刷新失败");
+				window.location.reload();
 			}
-			window.location.reload();
-		},
-		error: function(data) {
-			alert("授额刷新失败");
-			window.location.reload();
-		}
-	});
+		});
+	}
 }
 
 function batchcreditClear(t_batch_perslUploadStatus_batchid){
-	$.ajax({
-		url: '${ctx}/PersonalInfoBatchUploadStatusController/batchCreditCtrl?t_batch_perslUploadStatus_batchid='+encodeURI(encodeURI(t_batch_perslUploadStatus_batchid))+'&operationType=clear',
-		type: 'POST',
-		async: true,
-		cache: false,
-		contentType: "application/x-www-form-urlencoded; charset=utf-8", 
-		processData: false,
-		success: function(data) {
-			var result = eval("(" + data + ")");
-			if (result.ret == 0){
-			    alert("结算刷新");
-			}else{
-			    alert("结算刷新失败");
+	if(confirm("确定要结算么？此操作不可逆")) {
+		$.ajax({
+			url: '${ctx}/PersonalInfoBatchUploadStatusController/batchCreditCtrl?t_batch_perslUploadStatus_batchid=' + encodeURI(encodeURI(t_batch_perslUploadStatus_batchid)) + '&operationType=clear',
+			type: 'POST',
+			async: true,
+			cache: false,
+			contentType: "application/x-www-form-urlencoded; charset=utf-8",
+			processData: false,
+			success: function (data) {
+				var result = eval("(" + data + ")");
+				if (result.ret == 0) {
+					alert("已结算刷新");
+				} else {
+					alert("结算刷新失败");
+				}
+				window.location.reload();
+			},
+			error: function (data) {
+				alert("结算刷新失败");
+				window.location.reload();
 			}
-			window.location.reload();
-		},
-		error: function(data) {
-			alert("结算刷新失败");
-			window.location.reload();
-		}
-	});
+		});
+	}
 }
 
 
@@ -167,7 +173,7 @@ function openDetails(t_batch_perslUploadStatus_batchid){
 }
 
 function batchcreditDelete(t_batch_perslUploadStatus_batchid){
-	if(window.confirm('你确定要删除吗？')){
+	if(window.confirm('你确定要删除吗？此操作不可逆')){
 	$.ajax({
 		url: '${ctx}/PersonalInfoBatchUploadStatusController/deletepersonalInfoBatchUploadStatus?t_batch_perslUploadStatus_batchid='+encodeURI(encodeURI(t_batch_perslUploadStatus_batchid))+'&operationType=off',
 		type: 'POST',
@@ -285,7 +291,7 @@ border-radius: 10px;
 									<div class="form-group">
 										<label class="control-label col-sm-3" style="padding-right: 0">备注:</label>
 										<div class="col-sm-8" style="padding-left: 1;">
-											<input type="text" class="form-control" name="remark" value="${personalInfoBatchUploadStatus.remark}" />
+											<input type="text" class="form-control" name="remark" value="${personalInfoBatchUploadStatus.t_batch_remark}" />
 										</div>
 						            </div>
 						            </td>
@@ -321,6 +327,7 @@ border-radius: 10px;
                                             <th>上传总记录数</th>
                                             <th>作用起始时间</th>
                                             <th>作用结束时间</th>
+                                            <th>批次授额状态</th>
                                             <th>结算状态</th>
                                             <th>公司名</th>
                                             <th>经销商公司名</th>
@@ -331,7 +338,7 @@ border-radius: 10px;
                                             <th>批次类别</th>
                                             <th>批次注释</th>
                                             <th>备注</th>
-                                            <th>完成状态</th>
+                                            <th>完成情况</th>
                                             <th>最后更新时间</th>
                                             <th>操作</th>
                                         </tr>
@@ -342,6 +349,7 @@ border-radius: 10px;
                                             <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_perslUploadPer_num}</td>
                                             <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_EffectStartDate?string("yyyy-MM-dd HH:mm:ss")}</td>
                                             <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_EffectEndDate?string("yyyy-MM-dd HH:mm:ss")}</td>
+                                            <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_perslUploadEffectStatus}</td>
                                             <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_perslUploadClearStatus}</td>
                                             <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_company}</td>
                                             <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.t_batch_vendorCompany}</td>

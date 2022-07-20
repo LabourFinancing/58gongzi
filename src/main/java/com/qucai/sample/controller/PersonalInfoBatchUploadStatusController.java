@@ -306,11 +306,11 @@ public class PersonalInfoBatchUploadStatusController {
 		}
 		paramMap.put("batch_PB_batchID",t_batch_perslUploadStatus_batchid);
 		paramMap.put("t_batch_perslUploadStatus_batchid",t_batch_perslUploadStatus_batchid);
-    	int deletePerUploadRs = personalInfoBatchUploadService.deleteByRefreshBatchPersonalCredit(paramMap);
+    	int deletePerUploadRs = personalInfoBatchUploadService.deleteByPrimaryKey(t_batch_perslUploadStatus_batchid);
     	model.addAttribute("platform", platform);
 	  	  if( deletePerUploadRs != 0){
 	  		  int deletePerUploadStatus = personalInfoBatchUploadStatusService.deleteByPrimaryKey(t_batch_perslUploadStatus_batchid);
-	  		  if (deletePerUploadStatus == 1){
+	  		  if (deletePerUploadStatus != 1){
 	          	return JsonBizTool.genJson(ExRetEnum.SUCCESS);
 	  		  }
 		  }else{

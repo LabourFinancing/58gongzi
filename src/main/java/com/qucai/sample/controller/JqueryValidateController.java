@@ -102,6 +102,10 @@ public class JqueryValidateController {
 		if(0 != platform && 1 != platform && 2 != platform) {
     		return "false";
     	}
+		String str = t_FProd_Name;
+		if(Tool.isSpecialChar(str)){
+		    return "false";
+        }
 		boolean rs = financeProductService.existFinanceProductName(t_FProd_ID, t_FProd_Name, platform);
         if(rs){
             return "false";

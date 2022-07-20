@@ -187,7 +187,7 @@ SELECT * FROM t_batch_personupload where batch_PB_creditCard in (SELECT batch_PB
 		select
 		<include refid="Base_Column_List" />
 		from t_batch_personupload a where a.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}
-		and a.batch_PB_creditCard in (SELECT batch_PB_creditCard FROM (SELECT batch_PB_creditCard, COUNT(batch_PB_creditCard) AS ct FROM t_batch_personupload where batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR} GROUP BY batch_PB_creditCard) AS nt WHERE nt.ct>1)
+		and a.batch_PB_creditCard in (SELECT batch_PB_creditCard FROM (SELECT batch_PB_creditCard, COUNT(batch_PB	_creditCard) AS ct FROM t_batch_personupload where batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR} GROUP BY batch_PB_creditCard) AS nt WHERE nt.ct>1)
 	</select>
 
 	<select id="checkDuplicateBatchUploadDebitCard" resultMap="BaseResultMap">
@@ -299,7 +299,7 @@ UPDATE t_personal_info a JOIN t_batch_personupload b on a.t_P_PID = b.batch_PB_P
 	<update id="updateBatchPersonalStatusClose" parameterType="java.util.Map">
 		update t_personal_info a,t_batch_personupload b,t_batch_personupload_status c
  		SET a.t_P_Employmentstatus = "pending",
- 		c.t_batch_comment = "关闭状态"
+ 		c.t_batch_perslUploadEffectStatus = "关闭状态"
 		where a.t_P_PID = b.batch_PB_PID 
 		AND b.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR} 
 		AND c.t_batch_perslUploadStatus_batchid = #{batch_PB_batchID,jdbcType=VARCHAR}
@@ -315,7 +315,7 @@ UPDATE t_personal_info a JOIN t_batch_personupload b on a.t_P_PID = b.batch_PB_P
 	<update id="updateBatchPersonalStatusOpen" parameterType="java.util.Map">
 		update t_personal_info a,t_batch_personupload b,t_batch_personupload_status c
  		SET a.t_P_Employmentstatus = "onjob",
- 		c.t_batch_comment = "开启状态"
+ 		c.t_batch_perslUploadEffectStatus = "开启状态"
 		where a.t_P_PID = b.batch_PB_PID 
 		AND b.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR} 
 		AND c.t_batch_perslUploadStatus_batchid = #{batch_PB_batchID,jdbcType=VARCHAR}

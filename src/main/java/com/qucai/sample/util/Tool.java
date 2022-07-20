@@ -276,4 +276,14 @@ public class Tool {
         return list;
     }
 
+    /**
+     * 查看是否含有特殊自负
+     */
+    public static boolean isSpecialChar(String str) {
+        String regEx = "[ _`[email protected]#$%^&*+=|{}‘:;‘,\\[\\].<>/?~！@#￥%……&*()——+|{}【】‘；：”“’。，、]|\n|\r|\t";
+        Pattern p = Pattern.compile(regEx);
+        Matcher m = p.matcher(str);
+        return m.find();
+    }
+
 }

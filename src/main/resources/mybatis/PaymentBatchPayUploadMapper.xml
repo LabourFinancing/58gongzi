@@ -309,7 +309,7 @@ insert into t_personal_info (select REPLACE(UUID(),"-",""),batch_Name,"","0",bat
 		"1",
 		"0.00",
 		"0.00",
-		"pending",
+		"新上传",
 		"vendor",
 		"1",
 		batch_payment_fprodName,
@@ -341,7 +341,7 @@ UPDATE t_personal_info a JOIN t_batch_personupload b on a.t_P_PID = b.batch_PB_P
 	<update id="updateBatchPersonalStatusClose" parameterType="java.util.Map">
 		update t_personal_info a,t_batch_debitpaymentupload b,t_batch_debitpaymentupload_status c
  		SET a.t_P_Employmentstatus = "pending",
- 		c.t_batch_paymentcomment = "关闭状态"
+ 		c.t_batch_paymentUploadClearStatus = "关闭状态"
 		where a.t_P_PID = b.batch_payment_PID
 		AND b.batch_payment_batchID = #{batch_payment_batchID,jdbcType=VARCHAR}
 		AND c.t_batch_paymenetUploadStatus_batchid = #{batch_payment_batchID,jdbcType=VARCHAR}
@@ -357,7 +357,7 @@ UPDATE t_personal_info a JOIN t_batch_personupload b on a.t_P_PID = b.batch_PB_P
 	<update id="updateBatchPersonalStatusOpen" parameterType="java.util.Map">
 		update t_personal_info a,t_batch_debitpaymentupload b,t_batch_debitpaymentupload_status c
  		SET a.t_P_Employmentstatus = "onjob",
- 		c.t_batch_paymentcomment = "开启状态"
+ 		c.t_batch_paymentUploadClearStatus = "开启状态"
 		where a.t_P_PID = b.batch_payment_PID
 		AND b.batch_payment_batchID = #{batch_payment_batchID,jdbcType=VARCHAR}
 		AND c.t_batch_paymenetUploadStatus_batchid = #{batch_payment_batchID,jdbcType=VARCHAR}
