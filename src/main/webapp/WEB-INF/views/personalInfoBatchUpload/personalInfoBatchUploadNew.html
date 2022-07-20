@@ -423,18 +423,10 @@
             });
         }
 
-
         function submitapplication() {
             event.preventDefault();
             var inputchkok = true;
             var obj=new Date();
-            if(document.getElementById("t_FPROD_Name").value === "" || document.getElementById("t_FPROD_Name").value == null){
-                alert("请选择企业及相关产品");
-                document.getElementById("t_FPROD_Name").focus();
-                selected = true
-                inputchkok = false
-                return
-            }
             if(document.getElementById("EffectStartDate").value === "" || document.getElementById("EffectStartDate").value == null || document.getElementById("EffectStartDate").value > obj ){
                 alert("请选择起始有效日期，并且起始日期必须大于等于今天");
                 document.getElementById("EffectStartDate").focus();
@@ -453,27 +445,15 @@
                 inputchkok = false
                 return
             }
-            if(!uploaded && !selected){
-                document.getElementById("uploadbtn").focus();
-                alert("请先添加产品或选择企业及相关产品,并点先上传员工信息文件后，再提交更新");
-                inputchkok = false
-                return
-            }
-            if(document.getElementById("PersonalInfoInputArea").innerText !== "" && document.getElementById("uploadEventFile").value == ""){
-                document.getElementById("uploadbtn").focus();
+            if(document.getElementById("PersonalInfoInputArea").innerText !== ""){
+                document.getElementById("PersonalInfoInputArea").focus();
                 alert("请先上传个人信息后，再绑定提交");
                 inputchkok = false
                 return
             }
-            if(document.getElementById("uploadEventFile").value != "" && document.getElementById("uploadEventFile").value == ""){
+            if(document.getElementById("uploadEventFile").value != ""){
                 document.getElementById("uploadbtn").focus();
                 alert("请先上传个人信息后，再绑定提交");
-                inputchkok = false
-                return
-            }
-            if(!selected){
-                document.getElementById("batch_PB_batchID").focus();
-                alert("请选择企业及相关产品,再提交更新");
                 inputchkok = false
                 return
             }

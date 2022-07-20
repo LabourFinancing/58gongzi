@@ -397,6 +397,7 @@ public class PersonalInfoBatchUploadController {
                 paramSQLmap.put("batch_PB_ID", Tool.uuid());
                 paramSQLmap.put("batch_PB_batchID", batch_PB_batchID);
                 paramSQLmap.put("batch_PB_company", t_PIBU_Orgname);
+                paramSQLmap.put("batch_PB_ProdName", FProd_name);
                 paramSQLmap.put("batch_PB_vendorcompany", organizationInfo.getT_O_OrgPending());
                 paramSQLmap.put("batch_PB_payrolldate", payrollDate);
                 paramSQLmap.put("batch_PB_effectDate", EffectStartDate);
@@ -532,6 +533,7 @@ public class PersonalInfoBatchUploadController {
                 paramSQLmap.put("batch_PB_ID", Tool.uuid());
                 paramSQLmap.put("batch_PB_batchID", batch_PB_batchID);
                 paramSQLmap.put("batch_PB_company", t_PIBU_Orgname);
+                paramSQLmap.put("batch_PB_ProdName", FProd_name);
                 paramSQLmap.put("batch_PB_vendorcompany", organizationInfo.getT_O_OrgPending());
                 paramSQLmap.put("batch_PB_payrolldate", payrollDate);
                 paramSQLmap.put("batch_PB_effectDate", EffectStartDate);
@@ -648,7 +650,7 @@ public class PersonalInfoBatchUploadController {
 
         if(insertNum != 0){
             dataChkOk = true;
-            //check dup debit card in upload batch
+            //check dup debit card in upload batch 上传文件中银行卡号重复检查
             List<PersonalInfoBatchUpload> retcode = personalInfoBatchUploadService.duplicateDebitCardChk(batch_PB_batchID);
             String errRcsDupDebitCard = null;
             if (retcode.size() != 0 || !retcode.isEmpty()){
@@ -672,7 +674,7 @@ public class PersonalInfoBatchUploadController {
             }
 
 
-            // check dup mobile with Manager Table
+            // check dup mobile with Manager Table - manager表身份证与上传身份证已存在但手机号不同检查
             List<PersonalInfoBatchUpload> retcode1 = personalInfoBatchUploadService.duplicateMobileChkTmanager(batch_PB_batchID);
             String errRcsDupMobileMgr = null;
             if (retcode1.size() != 0 || !retcode1.isEmpty()){
@@ -695,7 +697,7 @@ public class PersonalInfoBatchUploadController {
                 personalErrInfo.add(errRowData.toString());
             }
 
-            // check dup Mobile with t_personal table
+            // check dup Mobile with t_personal table - personal表身份证与上传身份证已存在但手机号不同检查
             List<PersonalInfoBatchUpload> retcode2 = personalInfoBatchUploadService.duplicateMobileChkTperson(batch_PB_batchID);
             String errRcsDupMobilePer = null;
             if (retcode2.size() != 0 || !retcode2.isEmpty()){
@@ -718,7 +720,7 @@ public class PersonalInfoBatchUploadController {
                 personalErrInfo.add(errRowData.toString());
             }
 
-            // check dup personal id with Manager table
+            // check dup personal id with Manager table - manager表手机号与上传手机号已存在但身份证不同检查
             List<PersonalInfoBatchUpload> retcode3 = personalInfoBatchUploadService.duplicatePIDChk(batch_PB_batchID);
             String errRcsDupPID = null;
             if (retcode3.size() != 0 || !retcode3.isEmpty()){
@@ -741,7 +743,7 @@ public class PersonalInfoBatchUploadController {
                 personalErrInfo.add(errRowData.toString());
             }
 
-            //check dup mobile in the batch uploaded
+            //check dup mobile in the batch uploaded - 上传表中手机号有重复检查
             List<PersonalInfoBatchUpload> retcode4 = personalInfoBatchUploadService.checkDuplicateBatchUploadMobil(batch_PB_batchID);
             String errBatchDupMobile = null;
             if (retcode4.size() != 0 || !retcode4.isEmpty()){
@@ -764,7 +766,7 @@ public class PersonalInfoBatchUploadController {
                 personalErrInfo.add(errRowData.toString());
             }
 
-            //check dup personal id in the batch uploaded
+            //check dup personal id in the batch uploaded - 上传表中身份证有重复检查
             List<PersonalInfoBatchUpload> retcode5 = personalInfoBatchUploadService.checkDuplicateBatchUploadPID(batch_PB_batchID);
             String errBatchDupPID = null;
             if (retcode5.size() != 0 || !retcode5.isEmpty()){
@@ -787,7 +789,7 @@ public class PersonalInfoBatchUploadController {
                 personalErrInfo.add(errRowData.toString());
             }
 
-            //check dup debit card in the batch uploaded
+            //check dup debit card in the batch uploaded - 上传表中银行卡号有重复检查
             List<PersonalInfoBatchUpload> retcode6 = personalInfoBatchUploadService.checkDuplicateBatchUploadDebitCard(batch_PB_batchID);
             String errBatchDupDebitCard = null;
             if (retcode6.size() != 0 || !retcode6.isEmpty()){
@@ -827,7 +829,7 @@ public class PersonalInfoBatchUploadController {
 
     }
 
-
+// bind batch uploadfile to trigger debitline propose - no need to bind Corp and Prod Again , just schedule the trigger time and batch bind - !!! 多项检查下，这里的批次人员绑定的实际意义
     @RequestMapping(value = "personalInfoBatchUpdateSub")
     @ResponseBody
     public String PersonalInfoBatchUpdateSub(HttpServletRequest request,PersonalInfoBatchUpload personalInfoBatchUpload,String personalInfoInputArea,

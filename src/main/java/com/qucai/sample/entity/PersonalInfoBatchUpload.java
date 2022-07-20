@@ -28,6 +28,8 @@ public class PersonalInfoBatchUpload implements Serializable {
    
    private String batch_PB_PID;
 
+	private String batch_PB_ProdName;
+
    private String batch_PB_company;
    
    private String batch_PB_vendorcompany;
@@ -209,6 +211,16 @@ public String getBatch_PB_flag() {
 public void setBatch_PB_flag(String batch_PB_flag) {
 	this.batch_PB_flag = batch_PB_flag;
 }
+
+
+	public String getBatch_PB_ProdName() {
+		return this.batch_PB_ProdName;
+	}
+
+	public void setBatch_PB_ProdName(final String batch_PB_ProdName) {
+		this.batch_PB_ProdName = batch_PB_ProdName;
+	}
+
 
  
 }

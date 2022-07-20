@@ -7,6 +7,7 @@
 		<result column="batch_PB_batchID" property="batch_PB_batchID" jdbcType="VARCHAR" />
 		<result column="batch_PB_Name" property="batch_PB_Name" jdbcType="VARCHAR" />
 		<result column="batch_PB_PID" property="batch_PB_PID" jdbcType="VARCHAR" />
+		<result column="batch_PB_ProdName" property="batch_PB_ProdName" jdbcType="VARCHAR" />
 		<result column="batch_PB_company" property="batch_PB_company" jdbcType="VARCHAR" />
 		<result column="batch_PB_vendorcompany" property="batch_PB_vendorcompany" jdbcType="VARCHAR" />
 		<result column="batch_PB_fprod" property="batch_PB_fprod" jdbcType="VARCHAR" />
@@ -28,7 +29,8 @@
 		a.batch_PB_ID,
 		a.batch_PB_batchID, 
 		a.batch_PB_Name, 
-		a.batch_PB_PID, 
+		a.batch_PB_PID,
+		a.batch_PB_ProdName,
 		a.batch_PB_company, 
 		a.batch_PB_vendorcompany, 
 		a.batch_PB_fprod,
@@ -52,7 +54,8 @@
 		batch_PB_ID, 
 		batch_PB_batchID, 
 		batch_PB_Name, 
-		batch_PB_PID, 
+		batch_PB_PID,
+		batch_PB_ProdName,
 		batch_PB_company, 
 		batch_PB_vendorcompany, 
 		batch_PB_fprod,
@@ -75,6 +78,7 @@
             #{cell.batch_PB_batchID,jdbcType=VARCHAR},
             #{cell.batch_PB_Name,jdbcType=VARCHAR},
             #{cell.batch_PB_PID,jdbcType=VARCHAR},
+			#{cell.batch_PB_ProdName,jdbcType=VARCHAR},
             #{cell.batch_PB_company,jdbcType=VARCHAR},
             #{cell.batch_PB_vendorcompany,jdbcType=VARCHAR},
             #{cell.batch_PB_fprod,jdbcType=VARCHAR},
