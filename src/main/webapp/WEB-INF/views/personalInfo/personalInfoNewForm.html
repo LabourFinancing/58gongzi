@@ -53,18 +53,18 @@ jQuery.validator.addMethod("isTel", function(value,element) {
 			errorClass : 'help-block help-block-error', // default input error message class
 			focusInvalid : false, // do not focus the last invalid input
 			rules : {
-				t_P_PID : {
-					maxlength : 18,
-					required : true,
-					IDCard : true,
-					remote : "${ctx}/jqueryValidateController/checkPersonalInfoName?platform=${platform}" + "&t_P_id=" + $("#t_P_id").val()
-				},
-				t_P_Mobil : {
-					required : true,
-					digits : true,
-					isMobile : true,
-					remote : "${ctx}/jqueryValidateController/checkPersonalInfoModil?platform=${platform}" + "&t_P_Mobil=" + $("#t_P_Mobil").val()
-				},
+				// t_P_PID : { // !!!newfunction 可以重复 - pending
+				// 	maxlength : 18,
+				// 	required : true,
+				// 	IDCard : true,
+				// 	remote : "${ctx}/jqueryValidateController/checkPersonalInfoName?platform=${platform}" + "&t_P_id=" + $("#t_P_id").val()
+				// },
+				// t_P_Mobil : { // !!!newfunction 可以重复 - pending
+				// 	required : true,
+				// 	digits : true,
+				// 	isMobile : true,
+				// 	remote : "${ctx}/jqueryValidateController/checkPersonalInfoModil?platform=${platform}" + "&t_P_Mobil=" + $("#t_P_Mobil").val()
+				// },
 				type : {
 					required : true
 				},
@@ -76,10 +76,10 @@ jQuery.validator.addMethod("isTel", function(value,element) {
 					digits : true,
 					isMobile : true
 				},
-				t_P_ProductCode : {
-					digits : true,
-					isMobile : true
-				},
+				// t_P_ProductCode : {
+				// 	digits : true,
+				// 	isMobile : true
+				// },
 				t_P_Phone : {
 					digits : true,
 					isTel : true

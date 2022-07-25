@@ -646,8 +646,7 @@ public class PersonalInfoBatchUploadController {
             }
         }
 
-
-
+        // !!! newfunction uploading critirea -  pid&company unique checking
         if(insertNum != 0){
             dataChkOk = true;
             //check dup debit card in upload batch 上传文件中银行卡号重复检查

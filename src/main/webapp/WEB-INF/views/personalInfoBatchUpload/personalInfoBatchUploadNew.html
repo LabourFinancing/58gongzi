@@ -397,7 +397,6 @@
                     var result = eval("(" + dataFProdC + ")");
                     // console.log(result.FinanceProduct);
                     if(result.ret == "0") {
-                        // console.log(dataFProdC);
                         var FProdNameSelect = document.getElementById("t_FPROD_Name");
                         FProdNameSelect.options.length=0;/**清空下拉框的值*/
                         if((result.FinanceProduct!=null)&&(result.FinanceProduct.length!=0)) {
@@ -412,7 +411,7 @@
                             op.value =  null;
                             FProdNameSelect.options.add(op);
                         }
-                    } else {f
+                    } else {
                         $.toptip('产品出错，请联系技术支持', 'error');
                     }
                 },
@@ -430,7 +429,7 @@
                 alert("请选择起始有效日期，并且起始日期必须大于等于今天");
                 document.getElementById("EffectStartDate").focus();
                 inputchkok = false
-                return false
+                return
             }
             if(document.getElementById("EffectEndDate").value === "" || document.getElementById("EffectEndDate").value == null || document.getElementById("EffectEndDate").value > obj ){
                 alert("请选择起始有效日期，并且起始日期必须大于等于今天");
@@ -473,7 +472,6 @@
                         kickoutcheck(dataUpload);
                         var result = eval("(" + dataUpload + ")");
                         if(result.ret == "0") {
-                            // console.log(dataUpload);
                             alert(result.retMsg);
                         } else {
                             $.toptip('产品出错，请联系技术支持', 'error');
@@ -485,7 +483,6 @@
                     }
                 });
             }
-            // 设置点击submit之后不刷新当前页面
         }
 
         function kickoutcheck(dataC){
@@ -542,7 +539,6 @@
         }
 
         function chkuploadfile(val){
-            // console.log(val)
             if(val === null){
                 document.getElementById("uploadbtn").disabled = true;
             }else{
@@ -563,9 +559,6 @@
                 alert("请选择起始与结束日期");
             }
         }
-
-
-
     </script>
     <style>
         .ml20 {
@@ -632,7 +625,7 @@
                                         </div>
                                     </div>
                                         <div class="processTitle">
-                                            <label>工资产品名<span class="required">*</span>
+                                            <label>授额产品名<span class="required">*</span>
                                             </label>
                                             <div style="padding-left: 0px;">
                                                 <select class="bs-select form-control" data-live-search="true" name="t_FPROD_Name" id="t_FPROD_Name">
@@ -643,7 +636,7 @@
                                             </div>
                                         </div>
                                     <div class="processTitle">
-                                        <label>发薪日<span class="required">*</span>
+                                        <label>授额发薪日<span class="required">*</span>
                                         </label>
                                         <div style="padding-left: 0px;">
                                             <select class="bs-select form-control" name="payrollDate" id="payrollDate">
@@ -691,7 +684,7 @@
                                     <div>
                                         <div id="uploader-demo" class="templateArea">
                                             <div id="fileList" class="uploader-list"></div>
-                                            <button id="uploadbtn" type="button" class="btn btn-green btn-warning" onclick="project.uploadBtn()" disabled="disabled">上传批次文件</button><div id="uploadFileStatus"></div>
+                                            <button id="uploadbtn" type="button" class="btn btn-green btn-warning" onclick="project.uploadBtn()" disabled="disabled">上传批量授额文件</button><div id="uploadFileStatus"></div>
                                         </div><br>
                                         <div id="downLoadxls" class="downloadTempDiv"><a href="#" class="btn btn-success btn-sm" onclick="javascript:;downLoadTemplate('5d96a465c9bd400aaad8184a57661e49')">下载模板</a>
                                         </div>

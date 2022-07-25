@@ -22,7 +22,7 @@ public class PaymentBatchPayUpload implements Serializable {
 	
    private String batch_payment_batchID;
 
-	private String batch_payment_fprodName;
+	private String batch_payment_paymentbatchid;
    
    private String batch_payment_ewalletcat;
 
@@ -41,7 +41,13 @@ public class PaymentBatchPayUpload implements Serializable {
    private String batch_payment_mobile;
 
    private String batch_payment_prevbatchID;
-	
+
+   private String batch_payment_prodName;
+
+   private String batch_payment_type;
+
+   private String batch_payment_currency;
+
    private BigDecimal batch_payment_amt;
    
    private BigDecimal batch_payment_personalbalAmt;
@@ -74,6 +80,9 @@ public class PaymentBatchPayUpload implements Serializable {
 
 	private Date batch_createtime;
 
+	private String batch_creator;
+
+
 	public String getBatch_payment_batchID() {
 		return this.batch_payment_batchID;
 	}
@@ -82,12 +91,12 @@ public class PaymentBatchPayUpload implements Serializable {
 		this.batch_payment_batchID = batch_payment_batchID;
 	}
 
-	public String getBatch_payment_fprodName() {
-		return this.batch_payment_fprodName;
+	public String getBatch_payment_paymentbatchid() {
+		return this.batch_payment_paymentbatchid;
 	}
 
-	public void setBatch_payment_fprodName(final String batch_payment_fprodName) {
-		this.batch_payment_fprodName = batch_payment_fprodName;
+	public void setBatch_payment_paymentbatchid(final String batch_payment_paymentbatchid) {
+		this.batch_payment_paymentbatchid = batch_payment_paymentbatchid;
 	}
 
 	public String getBatch_payment_ewalletcat() {
@@ -160,6 +169,30 @@ public class PaymentBatchPayUpload implements Serializable {
 
 	public void setBatch_payment_prevbatchID(final String batch_payment_prevbatchID) {
 		this.batch_payment_prevbatchID = batch_payment_prevbatchID;
+	}
+
+	public String getBatch_payment_prodName() {
+		return this.batch_payment_prodName;
+	}
+
+	public void setBatch_payment_prodName(final String batch_payment_prodName) {
+		this.batch_payment_prodName = batch_payment_prodName;
+	}
+
+	public String getBatch_payment_type() {
+		return this.batch_payment_type;
+	}
+
+	public void setBatch_payment_type(final String batch_payment_type) {
+		this.batch_payment_type = batch_payment_type;
+	}
+
+	public String getBatch_payment_currency() {
+		return this.batch_payment_currency;
+	}
+
+	public void setBatch_payment_currency(final String batch_payment_currency) {
+		this.batch_payment_currency = batch_payment_currency;
 	}
 
 	public BigDecimal getBatch_payment_amt() {
@@ -289,4 +322,13 @@ public class PaymentBatchPayUpload implements Serializable {
 	public void setBatch_createtime(final Date batch_createtime) {
 		this.batch_createtime = batch_createtime;
 	}
+
+	public String getBatch_creator() {
+		return this.batch_creator;
+	}
+
+	public void setBatch_creator(final String batch_creator) {
+		this.batch_creator = batch_creator;
+	}
+
 }

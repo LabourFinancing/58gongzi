@@ -4,14 +4,14 @@
 
 	<resultMap id="BaseResultMap" type="com.qucai.sample.entity.PaymentBatchPayUpload">
 		<result column="batch_payment_batchID" property="batch_payment_batchID" jdbcType="VARCHAR" />
-		<result column="batch_payment_fprodName" property="batch_payment_fprodName" jdbcType="VARCHAR" />
+		<result column="batch_payment_paymentbatchid" property="batch_payment_paymentbatchid" jdbcType="VARCHAR" />
 		<result column="batch_payment_ewalletcat" property="batch_payment_ewalletcat" jdbcType="VARCHAR" />
 		<result column="batch_payment_ProdCat" property="batch_payment_ProdCat" jdbcType="VARCHAR" />
 		<result column="batch_payment_PayrollName" property="batch_payment_PayrollName" jdbcType="VARCHAR" />
 		<result column="batch_payment_Name" property="batch_payment_Name" jdbcType="VARCHAR" />
 		<result column="batch_payment_PID" property="batch_payment_PID" jdbcType="VARCHAR" />
 		<result column="batch_payment_company" property="batch_payment_company" jdbcType="VARCHAR" />
-		<result column="batch_payment_vendorcompany" property="batch_payment_vendorcompany" jdbcType="INTEGER" />
+		<result column="batch_payment_vendorcompany" property="batch_payment_vendorcompany" jdbcType="VARCHAR" />
 		<result column="batch_payment_mobile" property="batch_payment_mobile" jdbcType="VARCHAR" />
 		<result column="batch_payment_prevbatchID" property="batch_payment_prevbatchID" jdbcType="VARCHAR" />
 		<result column="batch_payment_prodName" property="batch_payment_prodName" jdbcType="VARCHAR" />
@@ -29,16 +29,16 @@
 		<result column="batch_payment_personalPool" property="batch_payment_personalPool" jdbcType="VARCHAR" />
 		<result column="batch_payment_OrgPool" property="batch_payment_OrgPool" jdbcType="VARCHAR" />
 		<result column="batch_payment_bankcard" property="batch_payment_bankcard" jdbcType="VARCHAR" />
-		<result column="batch_payment_starttime" property="batch_PB_clearCategory" jdbcType="TIMESTAMP" />
-		<result column="batch_payment_endtime" property="batch_PB_effectDate" jdbcType="TIMESTAMP" />
+		<result column="batch_payment_starttime" property="batch_payment_starttime" jdbcType="TIMESTAMP" />
+		<result column="batch_payment_endtime" property="batch_payment_endtime" jdbcType="TIMESTAMP" />
 		<result column="batch_payment_status" property="batch_payment_status" jdbcType="VARCHAR" />
 		<result column="batch_createtime" property="batch_createtime" jdbcType="TIMESTAMP" />
-		<result column="batch_creator" property="batch_PB_uploadRemark" jdbcType="VARCHAR" />
+		<result column="batch_creator" property="batch_creator" jdbcType="VARCHAR" />
 	</resultMap>
 	
 	<sql id="Base_Column_List">
 		a.batch_payment_batchID,
-		a.batch_payment_fprodName,
+		a.batch_payment_paymentbatchid,
 		a.batch_payment_ewalletcat,
 		a.batch_payment_ProdCat,
 		a.batch_payment_PayrollName,
@@ -72,72 +72,74 @@
 
 	<insert id="insertCustomerMachineByBatch"  parameterType="java.util.List">
         insert into t_batch_debitpaymentupload
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-			batch_payment_batchID,
-			batch_payment_fprodName,
-			batch_payment_ewalletcat,
-			batch_payment_ProdCat,
-			batch_payment_PayrollName,
-			batch_payment_Name,
-			batch_payment_PID,
-			batch_payment_company,
-			batch_payment_vendorcompany,
-			batch_payment_mobile,
-			batch_payment_prevbatchID,
-			batch_payment_prodName,
-			batch_payment_type,
-			batch_payment_currency,
-			batch_payment_amt,
-			batch_payment_personalbalAmt,
-			batch_payment_serviceFee,
-			batch_payment_prevbalance,
-			batch_payment_category,
-			batch_paymentClearID,
-			batch_paymentOrg,
-			batch_payment_remark,
-			batch_payment_comment,
-			batch_payment_personalPool,
-			batch_payment_OrgPool,
-			batch_payment_bankcard,
-			batch_payment_starttime,
-			batch_payment_endtime,
-			batch_payment_status,
-			batch_createtime,
-			batch_creator
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+		batch_payment_batchID,
+		batch_payment_paymentbatchid,
+		batch_payment_ewalletcat,
+		batch_payment_ProdCat,
+		batch_payment_PayrollName,
+		batch_payment_Name,
+		batch_payment_PID,
+		batch_payment_company,
+		batch_payment_vendorcompany,
+		batch_payment_mobile,
+		batch_payment_prevbatchID,
+		batch_payment_prodName,
+		batch_payment_type,
+		batch_payment_currency,
+		batch_payment_amt,
+		batch_payment_personalbalAmt,
+		batch_payment_serviceFee,
+		batch_payment_prevbalance,
+		batch_payment_category,
+		batch_paymentClearID,
+		batch_paymentOrg,
+		batch_payment_remark,
+		batch_payment_comment,
+		batch_payment_personalPool,
+		batch_payment_OrgPool,
+		batch_payment_bankcard,
+		batch_payment_starttime,
+		batch_payment_endtime,
+		batch_payment_status,
+		batch_createtime,
+		batch_creator
 		</trim>
-        values 
-        <foreach collection="list" separator="," item="cell">
-            (#{cell.batch_payment_batchID,jdbcType=VARCHAR},
-            #{cell.batch_payment_fprodName,jdbcType=VARCHAR},
-            #{cell.batch_payment_ewalletcat,jdbcType=VARCHAR},
-            #{cell.batch_payment_ProdCat,jdbcType=VARCHAR},
-            #{cell.batch_payment_PayrollName,jdbcType=VARCHAR},
-            #{cell.batch_payment_Name,jdbcType=VARCHAR},
-            #{cell.batch_payment_PID,jdbcType=VARCHAR},
-            #{cell.batch_payment_company,jdbcType=VARCHAR},
-            #{cell.batch_payment_vendorcompany,jdbcType=VARCHAR},
-            #{cell.batch_payment_mobile,jdbcType=VARCHAR},
-            #{cell.batch_payment_prevbatchID,jdbcType=VARCHAR},
-            #{cell.batch_payment_prodName,jdbcType=VARCHAR},
-            #{cell.batch_payment_type,jdbcType=VARCHAR},
-            #{cell.batch_payment_currency,jdbcType=VARCHAR},
-            #{cell.batch_payment_amt,jdbcType=DECIMAL},
-            #{cell.batch_payment_personalbalAmt,jdbcType=DECIMAL},
-            #{cell.batch_payment_serviceFee,jdbcType=DECIMAL},
-            #{cell.batch_payment_prevbalance,jdbcType=DECIMAL},
-            #{cell.batch_payment_category,jdbcType=VARCHAR},
-            #{cell.batch_paymentClearID,jdbcType=VARCHAR},
-            #{cell.batch_paymentOrg,jdbcType=VARCHAR},
-            #{cell.batch_payment_remark,jdbcType=VARCHAR},
-			#{cell.batch_payment_comment,jdbcType=VARCHAR},
-			#{cell.batch_payment_OrgPool,jdbcType=VARCHAR},
-			#{cell.batch_payment_bankcard,jdbcType=VARCHAR},
-			#{cell.batch_payment_starttime,jdbcType=TIMESTAMP},
-			#{cell.batch_payment_status,jdbcType=VARCHAR},
-			#{cell.batch_createtime,jdbcType=TIMESTAMP},
-            #{cell.batch_creator,jdbcType=VARCHAR})
-        </foreach>
-    </insert>
+		values
+		<foreach collection="list" separator="," item="cell">
+		(#{cell.batch_payment_batchID,jdbcType=VARCHAR},
+		#{cell.batch_payment_paymentbatchid,jdbcType=VARCHAR},
+		#{cell.batch_payment_ewalletcat,jdbcType=VARCHAR},
+		#{cell.batch_payment_ProdCat,jdbcType=VARCHAR},
+		#{cell.batch_payment_PayrollName,jdbcType=VARCHAR},
+		#{cell.batch_payment_Name,jdbcType=VARCHAR},
+		#{cell.batch_payment_PID,jdbcType=VARCHAR},
+		#{cell.batch_payment_company,jdbcType=VARCHAR},
+		#{cell.batch_payment_vendorcompany,jdbcType=VARCHAR},
+		#{cell.batch_payment_mobile,jdbcType=VARCHAR},
+		#{cell.batch_payment_prevbatchID,jdbcType=VARCHAR},
+		#{cell.batch_payment_prodName,jdbcType=VARCHAR},
+		#{cell.batch_payment_type,jdbcType=VARCHAR},
+		#{cell.batch_payment_currency,jdbcType=VARCHAR},
+		#{cell.batch_payment_amt,jdbcType=DECIMAL},
+		#{cell.batch_payment_personalbalAmt,jdbcType=DECIMAL},
+		#{cell.batch_payment_serviceFee,jdbcType=DECIMAL},
+		#{cell.batch_payment_prevbalance,jdbcType=DECIMAL},
+		#{cell.batch_payment_category,jdbcType=VARCHAR},
+		#{cell.batch_paymentClearID,jdbcType=VARCHAR},
+		#{cell.batch_paymentOrg,jdbcType=VARCHAR},
+		#{cell.batch_payment_remark,jdbcType=VARCHAR},
+		#{cell.batch_payment_comment,jdbcType=VARCHAR},
+		#{cell.batch_payment_personalPool,jdbcType=VARCHAR},
+		#{cell.batch_payment_OrgPool,jdbcType=VARCHAR},
+		#{cell.batch_payment_bankcard,jdbcType=VARCHAR},
+		#{cell.batch_payment_starttime,jdbcType=TIMESTAMP},
+		#{cell.batch_payment_endtime,jdbcType=TIMESTAMP},
+		#{cell.batch_payment_status,jdbcType=VARCHAR},
+		#{cell.batch_createtime,jdbcType=TIMESTAMP},
+		#{cell.batch_creator,jdbcType=VARCHAR})
+		</foreach>
+	</insert>
 	
 	<select id="SelectAllBatchList" resultMap="BaseResultMap"
 		parameterType="java.util.Map">
@@ -193,7 +195,7 @@
 		 <include refid="Base_Column_List" />
 		 from t_batch_debitpaymentupload a where a.batch_payment_batchID = #{batch_payment_batchID,jdbcType=VARCHAR}
 		 and a.batch_payment_mobile not in
-		 ( select t_P_Mobil from t_personal_info where t_personal_info.t_P_PID in ( select batch_PB_PID from t_batch_debitpaymentupload where batch_payment_batchID = #{batch_payment_batchID,jdbcType=VARCHAR}))
+		 ( select t_P_Mobil from t_personal_info where t_personal_info.t_P_PID in ( select batch_payment_paymentbatchid from t_batch_debitpaymentupload where batch_payment_batchID = #{batch_payment_batchID,jdbcType=VARCHAR}))
 	</select>
 
 	<select id="checkDuplicateBatchUploadMobil" resultMap="BaseResultMap">
@@ -257,7 +259,7 @@ insert into t_manager ( select REPLACE(UUID(),"-",""),batch_mobile,substring(MD5
         "1",
         NOW(),
         NOW() from t_batch_debitpaymentupload
-        where batch_payment_PID NOT IN (select t_P_PID from t_personal_info a JOIN t_batch_debitpaymentupload b on a.t_P_PID = b.batch_payment_PID where b.batch_payment_batchID = #{batch_payment_batchID,jdbcType=VARCHAR} ) and batch_PB_batchID = #{batch_payment_batchID,jdbcType=VARCHAR} )
+        where batch_payment_PID NOT IN (select t_P_PID from t_personal_info a JOIN t_batch_debitpaymentupload b on a.t_P_PID = b.batch_payment_PID where b.batch_payment_paymentbatchid = #{batch_payment_paymentbatchid,jdbcType=VARCHAR} ) and batch_payment_paymentbatchid = #{batch_payment_paymentbatchid,jdbcType=VARCHAR} )
     </insert>
 <!-- 
 insert role manager info into tr_manager_role table
@@ -312,7 +314,7 @@ insert into t_personal_info (select REPLACE(UUID(),"-",""),batch_Name,"","0",bat
 		"新上传",
 		"vendor",
 		"1",
-		batch_payment_fprodName,
+		batch_payment_paymentbatchid,
 		"是",
 		#{t_P_VendorCompany,jdbcType=VARCHAR},
 		"",
@@ -343,10 +345,10 @@ UPDATE t_personal_info a JOIN t_batch_personupload b on a.t_P_PID = b.batch_PB_P
  		SET a.t_P_Employmentstatus = "pending",
  		c.t_batch_paymentUploadClearStatus = "关闭状态"
 		where a.t_P_PID = b.batch_payment_PID
-		AND b.batch_payment_batchID = #{batch_payment_batchID,jdbcType=VARCHAR}
-		AND c.t_batch_paymenetUploadStatus_batchid = #{batch_payment_batchID,jdbcType=VARCHAR}
+		AND b.batch_payment_paymentbatchid = #{batch_payment_paymentbatchid,jdbcType=VARCHAR}
+		AND c.t_batch_paymenetUploadStatus_batchid = #{batch_payment_paymentbatchid,jdbcType=VARCHAR}
 		<if test="batch_PB_fprod !=null">
-		and b.batch_payment_fprodName = #{batch_payment_fprodName,jdbcTypeVARCHAR}
+		and b.batch_payment_paymentbatchid = #{batch_payment_paymentbatchid,jdbcTypeVARCHAR}
 		</if>
 	</update>
 	
@@ -361,8 +363,8 @@ UPDATE t_personal_info a JOIN t_batch_personupload b on a.t_P_PID = b.batch_PB_P
 		where a.t_P_PID = b.batch_payment_PID
 		AND b.batch_payment_batchID = #{batch_payment_batchID,jdbcType=VARCHAR}
 		AND c.t_batch_paymenetUploadStatus_batchid = #{batch_payment_batchID,jdbcType=VARCHAR}
-		<if test="batch_payment_fprodName !=null">
-		and b.batch_payment_fprodName = #{batch_payment_fprodName,jdbcTypeVARCHAR}
+		<if test="batch_payment_paymentbatchid !=null">
+		and b.batch_payment_paymentbatchid = #{batch_payment_paymentbatchid,jdbcTypeVARCHAR}
 		</if>
 	</update>	
 
@@ -376,7 +378,7 @@ New-function need to check personalinfo-->
 		SET a.t_P_SalaryBalance = b.batch_payment_amt + a.t_P_SalaryBalance,
 		a.t_P_Probation = b.batch_PB_fprod,
 		a.t_P_PayrollDate = b.batch_PB_payrolldate
-		where b.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}
+		where b.batch_payment_paymentbatchid = #{batch_payment_paymentbatchid,jdbcType=VARCHAR}
 	</update>
 	
 <!-- 

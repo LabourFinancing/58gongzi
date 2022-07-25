@@ -95,7 +95,7 @@ public class StaffPrepayApplicationController {
 	@RequestMapping(value = {"staffPrepayApplicationNew"})
 //    @ResponseBody // 钱包端传入手机号、企业名(所属名)、身份证号
     public String staffPrepayApplicationNew(StaffPrepayApplicationList staffPrepayApplication,@RequestParam( defaultValue = "0" ) Integer platform,String operationType,String FPROD_cate,
-											String SeesionLoginMobil,String t_Ewallet_titleName,String t_Ewallet_PID, // !!! ewallet system interface param,SeesionLoginMobile get through API post/session login
+											String SeesionLoginMobil,String t_Ewallet_titleName,String t_Ewallet_PID, // !!! ewallet system interface param,SeesionLoginMobile get through API post/session login t_Ewallet_titleName（企业名授权名）
 											String t_Txn_ID, String t_Txn_PID,String t_Txn_Mobil,Date create_time,BigDecimal t_Txn_CreditPrepayCurrentNum, Integer tTxnPrepayDays,
     		BigDecimal t_P_CreditPrepaySalaryAmount,Integer t_P_PayrollDate,BigDecimal t_FProd_ServiceFee,BigDecimal t_FProd_Poundage,String t_FProd_TierPoundage,String t_Txn_PrepayClear,String t_P_Employmentstatus,
     		String t_FProd_Name,BigDecimal t_FProd_ServiceFee_Percent,BigDecimal t_FProd_Poundage_Percent,BigDecimal t_Txn_CreditPrepayBalanceNum,Integer t_Txn_PrepayCounts,Date t_Txn_PrepayDate,
@@ -103,6 +103,7 @@ public class StaffPrepayApplicationController {
 
 		//Verify Company Creditline
         // <-- get personal info in company details -->  1.mobileapp -> 劳务费入口- > 公司列表 —> 该公司预支和工资资金详细信息
+		// 一个身份证&对应一个t_manager ，对应多个t_personal_info
     	TreasuryDBInfo entityOverall = new TreasuryDBInfo();
     	String t_TreasuryDB_OrgName = null,t_O_OrgName = null;
 
@@ -223,7 +224,8 @@ public class StaffPrepayApplicationController {
         StaffPrepayApplicationNew staffPrepayApplicationNew = staffPrepayApplicationService.findAuthPrepayApplier(paramMap);  // get personalinfo within FProd(salary-on-demand charge fee creteria) info align with personal mobile,titlename,pid
         StaffPrepayApplicationList staffPrepayApplicationCredit = staffPrepayApplicationService.findPrepayApplierCredit(SeesionLoginMobil);  // get credit from txn with personalinfo
         
-//* !!! newfunction ewallet interface big reconstruction --  get User Personal info
+//* !!! newfunction ewallet interface big reconstruction - get User Personal info,pid&company filter patch get all personal info from personal ewallet, get personal prod info from personal
+
         staffPrepayApplicationNew.getT_P_Name();
         staffPrepayApplicationNew.getT_P_PID();
         staffPrepayApplicationNew.getT_P_Company();

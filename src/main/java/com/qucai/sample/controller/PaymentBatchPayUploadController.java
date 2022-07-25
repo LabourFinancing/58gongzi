@@ -279,15 +279,18 @@ public class PaymentBatchPayUploadController {
 
     @RequestMapping(value="paymentBatchPayUploadPullin")
     @ResponseBody
-    public String upload(HttpServletRequest request,MultipartFile file,PaymentBatchPayUpload paymentBatchPayUpload,String personalInfoInputArea,String t_PIBU_Orgname,String t_FPROD_Name,
+    public String upload(HttpServletRequest request,MultipartFile uploadEventFile,PaymentBatchPayUpload paymentBatchPayUpload,String PaymentBatchPayInputArea,String t_PIBU_Orgname,String t_FPROD_Name,
                          String payrollDate,String jobcat,Date EffectStartDate,Date EffectEndDate,Date TriggerTime,HttpServletResponse response, Model model) throws UnsupportedEncodingException {
         String CurrentCompany = ShiroSessionUtil.getLoginSession().getCompany_name();
 
         // Sring result = ps.readExcelFile(file);
         request.setCharacterEncoding("UTF-8");
         System.out.println("进入员工个人信息文件上传");
-        System.out.println(file.getOriginalFilename());
-        System.out.print(personalInfoInputArea);
+        if (uploadEventFile != null){
+            System.out.println(uploadEventFile.getOriginalFilename());
+        }else {
+            System.out.print(PaymentBatchPayInputArea);
+        }
         model.addAttribute("TriggerTime", TriggerTime);
         System.out.println(t_FPROD_Name);
         OrganizationInfo organizationInfo = organizationInfoService.selectAgencyName(t_PIBU_Orgname);
@@ -310,19 +313,32 @@ public class PaymentBatchPayUploadController {
             e.printStackTrace();
         }
 
+        //generate batchid
         if (TriggerTime == null) {
             StringBuffer ss = new StringBuffer();
-            if(personalInfoInputArea == null) {
-                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append(file.getOriginalFilename()).append("_").append(FProd_name).append("_").append("RT"));
+            String fileName = null;
+            if(uploadEventFile != null) {
+                fileName = uploadEventFile.getOriginalFilename().substring(0, uploadEventFile.getOriginalFilename().lastIndexOf("."));
             }else{
-                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append("temp").append("_").append(FProd_name).append("_").append("RT"));
+                fileName = t_PIBU_Orgname + "_manual";
+            }
+            if(PaymentBatchPayInputArea == null) {
+                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append(fileName).append("_").append(FProd_name).append("_").append("PR"));   // PR - personal realtime time trigger upload
+            }else{
+                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append("manual").append("_").append(FProd_name).append("_").append("PR"));
             }
         } else {
             StringBuffer ss = new StringBuffer();
-            if(personalInfoInputArea == null) {
-                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append(file.getOriginalFilename()).append("_").append(FProd_name).append("_").append("RT"));
+            String fileName = null;
+            if(uploadEventFile != null) {
+                fileName = uploadEventFile.getOriginalFilename().substring(0, uploadEventFile.getOriginalFilename().lastIndexOf("."));
             }else{
-                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append("temp").append("_").append(FProd_name).append("_").append("RT"));
+                fileName = t_PIBU_Orgname + "_manual";
+            }
+            if(PaymentBatchPayInputArea == null) {
+                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append(fileName).append("_").append(FProd_name).append("_").append("PT"));    // PT - personal time trigger upload
+            }else{
+                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append("manual").append("_").append(FProd_name).append("_").append("PT"));
             }
         }
         ArrayList<ArrayList<String>> row = new ArrayList<>();
@@ -333,11 +349,11 @@ public class PaymentBatchPayUploadController {
         Boolean dataChkOk = true;
         Map<String, Object> rs = new HashMap<String, Object>(); // err Msg
 
-        if (personalInfoInputArea == null) {
-            String filename = file.getOriginalFilename();
+        if (PaymentBatchPayInputArea == null || PaymentBatchPayInputArea == "") {
+            String filename = uploadEventFile.getOriginalFilename();
             Workbook workbook = null;
             try {
-                InputStream Exlfile = file.getInputStream();
+                InputStream Exlfile = uploadEventFile.getInputStream();
                 if (judegExcelEdition(filename)) {
                     workbook = new XSSFWorkbook(Exlfile);
                 } else {
@@ -357,16 +373,31 @@ public class PaymentBatchPayUploadController {
             Readxlscells:
             for (int i = 0; i < sheet.getPhysicalNumberOfRows(); i++) {
                 Map<String, Object> paramSQLmap = new HashMap<String, Object>();
-                paramSQLmap.put("batch_PB_ID", Tool.uuid());
-                paramSQLmap.put("batch_PB_batchID", batch_PB_batchID);
-                paramSQLmap.put("batch_PB_company", t_PIBU_Orgname);
-                paramSQLmap.put("batch_PB_vendorcompany", organizationInfo.getT_O_OrgPending());
-                paramSQLmap.put("batch_PB_payrolldate", payrollDate);
-                paramSQLmap.put("batch_PB_effectDate", EffectStartDate);
-                paramSQLmap.put("batch_PB_endDate", EffectEndDate);
-                paramSQLmap.put("batch_PB_flag", "debitpayment");
+                paramSQLmap.put("batch_payment_batchID", Tool.uuid());
+                paramSQLmap.put("batch_payment_paymentbatchid", batch_PB_batchID);
+                paramSQLmap.put("batch_payment_ewalletcat", payrollDate);
+                paramSQLmap.put("batch_payment_ProdCat", "debitpayment");
+                paramSQLmap.put("batch_payment_PayrollName", "");
+                paramSQLmap.put("batch_payment_company", t_PIBU_Orgname);
+                paramSQLmap.put("batch_payment_vendorcompany", organizationInfo.getT_O_OrgPending());
+                paramSQLmap.put("batch_payment_prevbatchID", "initial");
+                paramSQLmap.put("batch_payment_prodName", FProd_name);
+                paramSQLmap.put("batch_payment_type", "debitpayment");
+                paramSQLmap.put("batch_payment_currency", "");
+                paramSQLmap.put("batch_payment_serviceFee", new BigDecimal("0.00"));
+                paramSQLmap.put("batch_payment_personalbalAmt", new BigDecimal("0.00"));
+                paramSQLmap.put("batch_payment_category", "");
+                paramSQLmap.put("batch_paymentClearID", "");
+                paramSQLmap.put("batch_paymentOrg", "");
+                paramSQLmap.put("batch_paymentOrg", "");
+                paramSQLmap.put("batch_payment_remark", "");
+                paramSQLmap.put("batch_payment_comment", "");
+                paramSQLmap.put("batch_payment_personalPool", "");
+                paramSQLmap.put("batch_payment_OrgPool", "");
+                paramSQLmap.put("batch_payment_endtime", EffectEndDate);
+                paramSQLmap.put("batch_payment_ewalletcat", "debitpayment");
                 paramSQLmap.put("batch_createtime", new Date());
-                paramSQLmap.put("batch_PB_fprod", FProd_name);
+                paramSQLmap.put("batch_payment_prodName", FProd_name);
                 paramSQLmap.put("batch_creator", ShiroSessionUtil.getLoginSession().getUserName());
                 //循环获取工作表的每一行
                 Row sheetRow = sheet.getRow(i);
@@ -378,7 +409,7 @@ public class PaymentBatchPayUploadController {
                     }
                     //		将每一个单元格的值装入列集合
                     switch (j) {
-                        case 0:
+                        case 0: // 检查姓名
                             sheetRow.getCell(j).setCellType(XSSFCell.CELL_TYPE_STRING);
                             sheetRow.getCell(j).setCellType(Cell.CELL_TYPE_STRING);
                             System.out.println(sheetRow.getCell(j).getStringCellValue());
@@ -386,29 +417,30 @@ public class PaymentBatchPayUploadController {
                                 dataChkOk = false;
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
-                                errRowData.append(String.valueOf("姓名错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow.getCell(j).getStringCellValue()).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserNameErr);
+                                errRowData = new StringBuffer();
+                                errRowData.append(String.valueOf("姓名错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow.getCell(j).getStringCellValue()).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserNameErr.getMsg()).append(";\n");
                                 rs.put("retMsg", errRowData);
                                 personalErrInfo.add(errRowData.toString());
                                 break Readxlscells;
                             } else {
-                                paramSQLmap.put("batch_PB_Name", sheetRow.getCell(j).getStringCellValue().replaceAll(" ", ""));
+                                paramSQLmap.put("batch_payment_Name", sheetRow.getCell(j).getStringCellValue().replaceAll(" ", ""));
                             }
                             break;
-                        case 1:
+                        case 1: // 检查
                             sheetRow.getCell(j).setCellType(XSSFCell.CELL_TYPE_STRING);
                             sheetRow.getCell(j).setCellType(Cell.CELL_TYPE_STRING);
                             System.out.println(sheetRow.getCell(j).getStringCellValue());
-                            boolean IsPIDcard = IdCardUtil.validate18Idcard(sheetRow.getCell(j).getStringCellValue());
+                            boolean IsPIDcard = IdCardUtil.isValidatedAllIdcard(sheetRow.getCell(j).getStringCellValue());
                             boolean IDerr = sheetRow.getCell(j).getStringCellValue().contains("E");
                             if (sheetRow.getCell(j).getStringCellValue() == null || !IsPIDcard || IDerr) {
                                 dataChkOk = false;
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
-                                errRowData = null;
-                                rs.put("retMsg", "身份证错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow.getCell(j).getStringCellValue().toUpperCase() + "'");
+                                errRowData = new StringBuffer();
+                                errRowData.append(String.valueOf("身份证错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow.getCell(j).getStringCellValue()).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserIdErr.getMsg()).append(";\n");;
                                 personalErrInfo.add(errRowData.toString());
                             } else {
-                                paramSQLmap.put("batch_PB_PID", sheetRow.getCell(j).getStringCellValue().replaceAll(" ", ""));
+                                paramSQLmap.put("batch_payment_PID", sheetRow.getCell(j).getStringCellValue().replaceAll(" ", ""));
                             }
                             break;
                         case 2:
@@ -421,11 +453,11 @@ public class PaymentBatchPayUploadController {
                                 dataChkOk = false;
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
-                                errRowData.append(String.valueOf("银行卡错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow.getCell(j).getStringCellValue()).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserDebitCardErr);
+                                errRowData = new StringBuffer();
+                                errRowData.append(String.valueOf("银行卡错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow.getCell(j).getStringCellValue()).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserDebitCardErr.getMsg()).append(";\n");
                                 personalErrInfo.add(errRowData.toString());
-                              return JsonBizTool.genJson(ExRetEnum.Pullin_UserDebitCardErr, rs);
                             } else {
-                                paramSQLmap.put("batch_PB_creditCard", sheetRow.getCell(j).getStringCellValue().replaceAll(" ", "").toUpperCase());
+                                paramSQLmap.put("batch_payment_bankcard", sheetRow.getCell(j).getStringCellValue().replaceAll(" ", "").toUpperCase());
                             }
                             break;
                         case 3:
@@ -434,13 +466,14 @@ public class PaymentBatchPayUploadController {
                             System.out.println(sheetRow.getCell(j).getStringCellValue());
                             boolean ISChineseMobile = Tool.isChinaPhoneLegal(sheetRow.getCell(j).getStringCellValue());
                             if (sheetRow.getCell(j).getStringCellValue() == null || !ISChineseMobile) {
+                                dataChkOk = false;
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
-                                errRowData.append(String.valueOf("手机号错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow.getCell(j).getStringCellValue()).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserMobileErr);
+                                errRowData = new StringBuffer();
+                                errRowData.append(String.valueOf("手机号错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow.getCell(j).getStringCellValue()).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserMobileErr.getMsg()).append(";\n");
                                 personalErrInfo.add(errRowData.toString());
-//                                return JsonBizTool.genJson(ExRetEnum.Pullin_UserMobileErr, rs);
                             } else {
-                                paramSQLmap.put("batch_PB_mobile", sheetRow.getCell(j).getStringCellValue().replaceAll(" ", ""));
+                                paramSQLmap.put("batch_payment_mobile", sheetRow.getCell(j).getStringCellValue().replaceAll(" ", ""));
                             }
                             break;
                         case 4:
@@ -451,18 +484,17 @@ public class PaymentBatchPayUploadController {
                                 dataChkOk = false;
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
-                                errRowData.append(String.valueOf("授额错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow.getCell(j).getStringCellValue()).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserCreditLineErr);
+                                errRowData = new StringBuffer();
+                                errRowData.append(String.valueOf("授额错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow.getCell(j).getStringCellValue()).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserCreditLineErr.getMsg()).append(";\n");
                                 personalErrInfo.add(errRowData.toString());
-//                                return JsonBizTool.genJson(ExRetEnum.Pullin_UserCreditLineErr, rs);
                             } else {
-                                paramSQLmap.put("batch_PB_credit", new BigDecimal(sheetRow.getCell(j).getStringCellValue()));
-                                paramSQLmap.put("batch_PB_balance", new BigDecimal(sheetRow.getCell(j).getStringCellValue()));
+                                paramSQLmap.put("batch_payment_amt", new BigDecimal(sheetRow.getCell(j).getStringCellValue()));
                             }
                             break;
                     }
                 }
                 //将装有每一列的集合装入大集合
-                if (paramSQLmap.get("batch_PB_PID") != null) {
+                if (paramSQLmap.get("batch_payment_PID") != null) {
                     cell.add(paramSQLmap);
                 }
             }
@@ -476,7 +508,7 @@ public class PaymentBatchPayUploadController {
             //get data from personalInfoInputArea
             String personalInfoArray = null;
             try {
-                personalInfoArray = URLDecoder.decode(personalInfoInputArea, "UTF-8");
+                personalInfoArray = URLDecoder.decode(PaymentBatchPayInputArea, "UTF-8");
             } catch (UnsupportedEncodingException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -489,16 +521,31 @@ public class PaymentBatchPayUploadController {
 
             for (int i = 0; i < personal_col_info.length; i++) {
                 Map<String, Object> paramSQLmap = new HashMap<String, Object>();
-                paramSQLmap.put("batch_PB_ID", Tool.uuid());
-                paramSQLmap.put("batch_PB_batchID", batch_PB_batchID);
-                paramSQLmap.put("batch_PB_company", t_PIBU_Orgname);
-                paramSQLmap.put("batch_PB_vendorcompany", organizationInfo.getT_O_OrgPending());
-                paramSQLmap.put("batch_PB_payrolldate", payrollDate);
-                paramSQLmap.put("batch_PB_effectDate", EffectStartDate);
-                paramSQLmap.put("batch_PB_endDate", EffectEndDate);
-                paramSQLmap.put("batch_PB_flag", "debitpayment");
+                paramSQLmap.put("batch_payment_batchID", Tool.uuid());
+                paramSQLmap.put("batch_payment_paymentbatchid", batch_PB_batchID);
+                paramSQLmap.put("batch_payment_ewalletcat", payrollDate);
+                paramSQLmap.put("batch_payment_ProdCat", "debitpayment");
+                paramSQLmap.put("batch_payment_PayrollName", "");
+                paramSQLmap.put("batch_payment_company", t_PIBU_Orgname);
+                paramSQLmap.put("batch_payment_vendorcompany", organizationInfo.getT_O_OrgPending());
+                paramSQLmap.put("batch_payment_prevbatchID", "initial");
+                paramSQLmap.put("batch_payment_prodName", FProd_name);
+                paramSQLmap.put("batch_payment_type", "debitpayment");
+                paramSQLmap.put("batch_payment_currency", "");
+                paramSQLmap.put("batch_payment_serviceFee", new BigDecimal("0.00"));
+                paramSQLmap.put("batch_payment_personalbalAmt", new BigDecimal("0.00"));
+                paramSQLmap.put("batch_payment_category", "");
+                paramSQLmap.put("batch_paymentClearID", "");
+                paramSQLmap.put("batch_paymentOrg", "");
+                paramSQLmap.put("batch_paymentOrg", "");
+                paramSQLmap.put("batch_payment_remark", "");
+                paramSQLmap.put("batch_payment_comment", "");
+                paramSQLmap.put("batch_payment_personalPool", "");
+                paramSQLmap.put("batch_payment_OrgPool", "");
+                paramSQLmap.put("batch_payment_endtime", EffectEndDate);
+                paramSQLmap.put("batch_payment_ewalletcat", "debitpayment");
                 paramSQLmap.put("batch_createtime", new Date());
-                paramSQLmap.put("batch_PB_fprod", FProd_name);
+                paramSQLmap.put("batch_payment_prodName", FProd_name);
                 paramSQLmap.put("batch_creator", ShiroSessionUtil.getLoginSession().getUserName());
                 //循环获取工作表的每一行
                 String[] sheetRow = personal_col_info[i].split(",");
@@ -506,10 +553,8 @@ public class PaymentBatchPayUploadController {
                 //		ArrayList<String> cell = new ArrayList<>();
                 if (sheetRow.length != 5) {
                     dataChkOk = false;
-                    errRowData.append(String.valueOf("姓名错误信息:")).append("第").append(i+1).append("行-").append(sheetRow[i].trim().replace(" ","")).append("'").append("-错误原因：").append(ExRetEnum.PullinMutiText_Err);
-//                    rs.put("retMsg", "该行数据错误: " + "第" + i+1 + "行-" + sheetRow[i].trim().replace(" ","") + "'");
+                    errRowData.append(String.valueOf("姓名错误信息:")).append("第").append(i+1).append("行-").append(sheetRow[i].trim().replace(" ","")).append("'").append("-错误原因：").append(ExRetEnum.PullinMutiText_Err.getMsg()).append(";\n");
                     personalErrInfo.add(errRowData.toString());
-//                    return JsonBizTool.genJson(ExRetEnum.PullinMutiText_Err, rs);
                 }
                 for (int j = 0; j < sheetRow.length; j++) {
                     if (j == 0 && sheetRow[j].contains(String.valueOf("员工"))) {
@@ -523,27 +568,27 @@ public class PaymentBatchPayUploadController {
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
                                 dataChkOk = false;
-                                errRowData.append(String.valueOf("姓名错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow[j].trim().replace(" ","")).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserNameErr);
+                                errRowData = new StringBuffer();
+                                errRowData.append(String.valueOf("姓名错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow[j].trim().replace(" ","")).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserNameErr.getMsg()).append(";\n");
                                 personalErrInfo.add(errRowData.toString());
                                 break;
                             } else {
-                                paramSQLmap.put("batch_PB_Name", sheetRow[j].trim().replace(" ",""));
+                                paramSQLmap.put("batch_payment_Name", sheetRow[j].trim().replace(" ",""));
                             }
                             break;
                         case 1:
                             System.out.println(sheetRow[j]);
-                            boolean IsPIDcard = IdCardUtil.validate18Idcard(sheetRow[j].trim().replace(" ",""));
+                            boolean IsPIDcard = IdCardUtil.isValidatedAllIdcard(sheetRow[j].trim().replace(" ",""));
                             boolean IDerr = sheetRow[j].trim().replace(" ","").contains("E");
                             if (sheetRow[j].trim().replace(" ","") == null || !IsPIDcard || IDerr) {
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
                                 dataChkOk = false;
-                                errRowData.append(String.valueOf("身份证错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow[j].trim().replace(" ","").toUpperCase() ).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserIdErr);
-//                                rs.put("retMsg", "身份证错误信息: " + "第" + rowNum + "行-" + "第" + colNum + "列 :" + "'" + sheetRow[j].trim().replace(" ","").toUpperCase() + "'");
+                                errRowData = new StringBuffer();
+                                errRowData.append(String.valueOf("身份证错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow[j].trim().replace(" ","").toUpperCase() ).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserIdErr.getMsg()).append(";\n");
                                 personalErrInfo.add(errRowData.toString());
-//                                return JsonBizTool.genJson(ExRetEnum.Pullin_UserIdErr, rs);
                             } else {
-                                paramSQLmap.put("batch_PB_PID", sheetRow[j].trim().replace(" ",""));
+                                paramSQLmap.put("batch_payment_PID", sheetRow[j].trim().replace(" ",""));
                             }
                             break;
                         case 2:
@@ -554,10 +599,11 @@ public class PaymentBatchPayUploadController {
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
                                 dataChkOk = false;
-                                errRowData.append(String.valueOf("银行卡错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow[j].trim().replace(" ","")).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserDebitCardErr);
+                                errRowData = new StringBuffer();
+                                errRowData.append(String.valueOf("银行卡错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow[j].trim().replace(" ","")).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserDebitCardErr.getMsg()).append(";\n");
                                 personalErrInfo.add(errRowData.toString());
                             } else {
-                                paramSQLmap.put("batch_PB_creditCard", sheetRow[j].trim().replace(" ","").toUpperCase());
+                                paramSQLmap.put("batch_payment_bankcard", sheetRow[j].trim().replace(" ","").toUpperCase());
                             }
                             break;
                         case 3:
@@ -567,10 +613,11 @@ public class PaymentBatchPayUploadController {
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
                                 dataChkOk = false;
-                                errRowData.append(String.valueOf("手机号错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow[j].trim().replace(" ","")).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserMobileErr);
+                                errRowData = new StringBuffer();
+                                errRowData.append(String.valueOf("手机号错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow[j].trim().replace(" ","")).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserMobileErr.getMsg()).append(";\n");
                                 personalErrInfo.add(errRowData.toString());
                             } else {
-                                paramSQLmap.put("batch_PB_mobile", sheetRow[j].trim().replace(" ",""));
+                                paramSQLmap.put("batch_payment_mobile", sheetRow[j].trim().replace(" ",""));
                             }
                             break;
                         case 4:
@@ -579,32 +626,33 @@ public class PaymentBatchPayUploadController {
                                 int rowNum = i + 1;
                                 int colNum = j + 1;
                                 dataChkOk = false;
-                                errRowData.append(String.valueOf("授额错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow[j].trim().replace(" ","")).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserCreditLineErr);
+                                errRowData = new StringBuffer();
+                                errRowData.append(String.valueOf("授额错误信息:")).append("第").append(rowNum).append("行-").append("第").append(colNum).append("列:").append("'").append(sheetRow[j].trim().replace(" ","")).append("'").append("-错误原因：").append(ExRetEnum.Pullin_UserCreditLineErr.getMsg()).append(";\n");
                                 personalErrInfo.add(errRowData.toString());
                             } else {
-                                paramSQLmap.put("batch_PB_credit", new BigDecimal(sheetRow[j].trim().replace(" ","")));
-                                paramSQLmap.put("batch_PB_balance", new BigDecimal(sheetRow[j].trim().replace(" ","")));
+                                paramSQLmap.put("batch_payment_amt", new BigDecimal(sheetRow[j].trim().replace(" ","")));
                             }
                             break;
                     }
                 }
                 //将装有每一列的集合装入大集合
-                if (paramSQLmap.get("batch_PB_PID") != null) {
+                if (paramSQLmap.get("batch_payment_PID") != null) {
                     cell.add(paramSQLmap);
                 }
             }
             if(dataChkOk) {
                 insertNum = paymentBatchPayUploadService.insertCustomerMachineByBatch(cell);
             }else{
+                String personalErrInfoList = String.join(",",personalErrInfo);
                 rs.put("retMsg","插入失败，请检查相关记录并更正后再上传!");
-                rs.put("personalErrInfo",personalErrInfo);
+                rs.put("personalErrInfo",personalErrInfoList);
                 return JsonBizTool.genJson(ExRetEnum.Pullin_Fail, rs);
             }
         }
 
         if(insertNum != 0){
             dataChkOk = true;
-            //check dup debit card in upload batch
+            //check dup debit card in upload batch 上传文件中银行卡号重复检查
             List<PaymentBatchPayUpload> retcode = paymentBatchPayUploadService.duplicateDebitCardChk(batch_PB_batchID);
             String errRcsDupDebitCard = null;
             if (retcode.size() != 0 || !retcode.isEmpty()){
@@ -622,12 +670,13 @@ public class PaymentBatchPayUploadController {
             if (errRcsDupDebitCard != null) {
                 int deleteUpload = paymentBatchPayUploadService.deleteByPrimaryKey(batch_PB_batchID);
                 dataChkOk = false;
-                errRowData.append(String.valueOf("重复银行卡记录信息:")).append(errRcsDupDebitCard).append("-错误原因：").append(ExRetEnum.Pullin_FailDupDebitCardErr);
+                errRowData = new StringBuffer();
+                errRowData.append(String.valueOf("重复银行卡记录信息:")).append(errRcsDupDebitCard).append("-错误原因：").append(ExRetEnum.Pullin_FailDupDebitCardErr.getMsg()).append(";\n");;
                 personalErrInfo.add(errRowData.toString());
             }
 
 
-            // check dup mobile with Manager Table
+            // check dup mobile with Manager Table - manager表身份证与上传身份证已存在但手机号不同检查
             List<PaymentBatchPayUpload> retcode1 = paymentBatchPayUploadService.duplicateMobileChkTmanager(batch_PB_batchID);
             String errRcsDupMobileMgr = null;
             if (retcode1.size() != 0 || !retcode1.isEmpty()){
@@ -645,11 +694,12 @@ public class PaymentBatchPayUploadController {
             if (errRcsDupMobileMgr != null) {
                 int deleteUpload = paymentBatchPayUploadService.deleteByPrimaryKey(batch_PB_batchID);
                 dataChkOk = false;
-                errRowData.append(String.valueOf("与系统主人员信息表重复手机号或一个身份证多个手机号记录信息:")).append(errRcsDupMobileMgr).append("-错误原因：").append(ExRetEnum.Pullin_FailDupMgrMobileErr);
+                errRowData = new StringBuffer();
+                errRowData.append(String.valueOf("与系统主人员信息表重复手机号或一个身份证多个手机号记录信息:")).append(errRcsDupMobileMgr).append("-错误原因：").append(ExRetEnum.Pullin_FailDupMgrMobileErr.getMsg()).append(";\n");;
                 personalErrInfo.add(errRowData.toString());
             }
 
-            // check dup Mobile with t_personal table
+            // check dup Mobile with t_personal table - personal表身份证与上传身份证已存在但手机号不同检查
             List<PaymentBatchPayUpload> retcode2 = paymentBatchPayUploadService.duplicateMobileChkTperson(batch_PB_batchID);
             String errRcsDupMobilePer = null;
             if (retcode2.size() != 0 || !retcode2.isEmpty()){
@@ -667,11 +717,12 @@ public class PaymentBatchPayUploadController {
             if (errRcsDupMobilePer != null) {
                 int deleteUpload = paymentBatchPayUploadService.deleteByPrimaryKey(batch_PB_batchID);
                 dataChkOk = false;
-                errRowData.append(String.valueOf("与系统个人信息表重复手机号或一个身份证多个手机号记录信息:")).append(errRcsDupMobilePer).append("-错误原因：").append(ExRetEnum.Pullin_FailDupPerMobileErr);
+                errRowData = new StringBuffer();
+                errRowData.append(String.valueOf("与系统个人信息表重复手机号或一个身份证多个手机号记录信息:")).append(errRcsDupMobilePer).append("-错误原因：").append(ExRetEnum.Pullin_FailDupPerMobileErr.getMsg()).append(";\n");;
                 personalErrInfo.add(errRowData.toString());
             }
 
-            // check dup personal id with Manager table
+            // check dup personal id with Manager table - manager表手机号与上传手机号已存在但身份证不同检查
             List<PaymentBatchPayUpload> retcode3 = paymentBatchPayUploadService.duplicatePIDChk(batch_PB_batchID);
             String errRcsDupPID = null;
             if (retcode3.size() != 0 || !retcode3.isEmpty()){
@@ -689,11 +740,12 @@ public class PaymentBatchPayUploadController {
             if (errRcsDupPID != null) {
                 int deleteUpload = paymentBatchPayUploadService.deleteByPrimaryKey(batch_PB_batchID);
                 dataChkOk = false;
-                errRowData.append(String.valueOf("与系统个人信息表重复身份证或一个手机号多个身份证记录信息:")).append(errRcsDupPID).append("-错误原因：").append(ExRetEnum.Pullin_FailDupPIDErr);
+                errRowData = new StringBuffer();
+                errRowData.append(String.valueOf("与系统个人信息表重复身份证或一个手机号多个身份证记录信息:")).append(errRcsDupPID).append("-错误原因：").append(ExRetEnum.Pullin_FailDupPIDErr.getMsg()).append(";\n");;
                 personalErrInfo.add(errRowData.toString());
             }
 
-            //check dup mobile in the batch uploaded
+            //check dup mobile in the batch uploaded - 上传表中手机号有重复检查
             List<PaymentBatchPayUpload> retcode4 = paymentBatchPayUploadService.checkDuplicateBatchUploadMobil(batch_PB_batchID);
             String errBatchDupMobile = null;
             if (retcode4.size() != 0 || !retcode4.isEmpty()){
@@ -711,11 +763,12 @@ public class PaymentBatchPayUploadController {
             if (errBatchDupMobile != null) {
                 int deleteUpload = paymentBatchPayUploadService.deleteByPrimaryKey(batch_PB_batchID);
                 dataChkOk = false;
-                errRowData.append(String.valueOf("上传表中有重复手机号记录信息:")).append(errBatchDupMobile).append("-错误原因：").append(ExRetEnum.Pullin_FailDupBatchMobileErr);
+                errRowData = new StringBuffer();
+                errRowData.append(String.valueOf("上传表中有重复手机号记录信息:")).append(errBatchDupMobile).append("-错误原因：").append(ExRetEnum.Pullin_FailDupBatchMobileErr.getMsg()).append(";\n");;
                 personalErrInfo.add(errRowData.toString());
             }
 
-            //check dup personal id in the batch uploaded
+            //check dup personal id in the batch uploaded - 上传表中身份证有重复检查
             List<PaymentBatchPayUpload> retcode5 = paymentBatchPayUploadService.checkDuplicateBatchUploadPID(batch_PB_batchID);
             String errBatchDupPID = null;
             if (retcode5.size() != 0 || !retcode5.isEmpty()){
@@ -733,11 +786,12 @@ public class PaymentBatchPayUploadController {
             if (errBatchDupPID != null) {
                 int deleteUpload = paymentBatchPayUploadService.deleteByPrimaryKey(batch_PB_batchID);
                 dataChkOk = false;
-                errRowData.append(String.valueOf("上传表中有重复身份证记录信息:")).append(errBatchDupPID).append("-错误原因：").append(ExRetEnum.Pullin_FailDupBatchPIDErr);
+                errRowData = new StringBuffer();
+                errRowData.append(String.valueOf("上传表中有重复身份证记录信息:")).append(errBatchDupPID).append("-错误原因：").append(ExRetEnum.Pullin_FailDupBatchPIDErr.getMsg()).append(";\n");;
                 personalErrInfo.add(errRowData.toString());
             }
 
-            //check dup debit card in the batch uploaded
+            //check dup debit card in the batch uploaded - 上传表中银行卡号有重复检查
             List<PaymentBatchPayUpload> retcode6 = paymentBatchPayUploadService.checkDuplicateBatchUploadDebitCard(batch_PB_batchID);
             String errBatchDupDebitCard = null;
             if (retcode6.size() != 0 || !retcode6.isEmpty()){
@@ -755,7 +809,8 @@ public class PaymentBatchPayUploadController {
             if (errBatchDupDebitCard != null) {
                 int deleteUpload = paymentBatchPayUploadService.deleteByPrimaryKey(batch_PB_batchID);
                 dataChkOk = false;
-                errRowData.append(String.valueOf("上传表中有重复银行卡记录信息:")).append(errBatchDupDebitCard).append("-错误原因：").append(ExRetEnum.Pullin_FailDupDebitCardErr);
+                errRowData = new StringBuffer();
+                errRowData.append(String.valueOf("上传表中有重复银行卡记录信息:")).append(errBatchDupDebitCard).append("-错误原因：").append(ExRetEnum.Pullin_FailDupDebitCardErr.getMsg()).append(";\n");
                 personalErrInfo.add(errRowData.toString());
             }
         }
@@ -768,15 +823,15 @@ public class PaymentBatchPayUploadController {
             rs.put("retMsg",succNum);
             return JsonBizTool.genJson(ExRetEnum.UPLOADSUCCESS, rs);
         }else{
-            String uploadfaile = String.valueOf(ss.append("插入失败，请检查更正数据后再上传"));
-            rs.put("retMsg",uploadfaile);
+            String personalErrInfoList = String.join(",",personalErrInfo);
+            rs.put("retMsg","插入失败，请检查相关记录并更正后再上传!");
+            rs.put("personalErrInfo",personalErrInfoList);
             return JsonBizTool.genJson(ExRetEnum.Pullin_Fail, rs);
         }
 
     }
 
-
-
+// bind batch uploadfile to trigger debitline propose - no need to bind Corp and Prod Again , just schedule the trigger time and batch bind - !!! 多项检查下，这里的批次人员绑定的实际意义
     @RequestMapping(value = "personalInfoBatchUpdateSub")
     @ResponseBody
     public String PersonalInfoBatchUpdateSub(HttpServletRequest request,PaymentBatchPayUpload paymentBatchPayUpload,String personalInfoInputArea,
@@ -799,6 +854,11 @@ public class PaymentBatchPayUploadController {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
+        //!!! newfunction start combine personal payroll information - prod -> org - > batchpay
+
+
+        //end combine
 
         paramMap.put("batch_PB_batchID",paymentBatchPayUpload.getBatch_payment_batchID());
         paramMap.put("t_P_VendorCompany", organizationInfo.getT_O_OrgPending());//添加元素
@@ -879,8 +939,6 @@ public class PaymentBatchPayUploadController {
 
     }
 
-
-
     // CLose PersonalBatchStatus	
     @RequestMapping(value ="personalInfoBatcStatusClose")
     @ResponseBody
@@ -902,7 +960,6 @@ public class PaymentBatchPayUploadController {
 
         rs.put("ret", 0);
         return JsonBizTool.genJson(ExRetEnum.SUCCESS, rs);
-//    return "paymentBatchPayUpload/paymentBatchPayUploadNew";
     }
 
 
