@@ -145,7 +145,12 @@ public class StaffPrepayApplicationController {
         	    PaymentSwitch = "shsd";
         	    JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId);
               String BalanceData = (String) JSONretdata.get("balance");
-              BigDecimal Sandebalance = (new BigDecimal(BalanceData)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
+				BigDecimal Sandebalance = new BigDecimal(0.00).setScale(2,BigDecimal.ROUND_DOWN);
+				if(BalanceData == null){
+					Sandebalance = BigDecimal.valueOf(100.00).setScale(2,BigDecimal.ROUND_DOWN);
+			  	}else {
+					Sandebalance = (new BigDecimal(BalanceData)).divide(new BigDecimal(100)).setScale(2, BigDecimal.ROUND_DOWN);
+				}
 //                BigDecimal Sandebalance = new BigDecimal("131.18").setScale(2, BigDecimal.ROUND_DOWN);  // debug using
 				InitialBalance = Sandebalance;
   				System.out.println("Query Sande balance:");
@@ -174,7 +179,12 @@ public class StaffPrepayApplicationController {
         	    PaymentSwitch = "shsd";
         	    JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId);
   		    	String BalanceData = (String) JSONretdata.get("balance");
-  		    	BigDecimal Sandebalance = (new BigDecimal(BalanceData)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
+				BigDecimal Sandebalance = new BigDecimal(0.00).setScale(2,BigDecimal.ROUND_DOWN);
+				if(BalanceData == null){
+					Sandebalance = BigDecimal.valueOf(100.00).setScale(2,BigDecimal.ROUND_DOWN);
+				}else {
+					Sandebalance = (new BigDecimal(BalanceData)).divide(new BigDecimal(100)).setScale(2, BigDecimal.ROUND_DOWN);
+				}
 				InitialBalance = Sandebalance;
   				System.out.println("Query Sande balance:");
   				System.out.println(Sandebalance);
@@ -457,7 +467,7 @@ public class StaffPrepayApplicationController {
 		t_FProd_ServiceFee = staffPrepayApplicationNew.getT_FProd_ServiceFee();
 		t_FProd_Poundage = staffPrepayApplicationNew.getT_FProd_Poundage();
 		t_FProd_ETxnAmtLimit = staffPrepayApplicationNew.getT_FProd_ETxnAmtLimit();
-		t_FProd_TierPoundage = staffPrepayApplicationNew.getT_FProd_TierPoundage();;
+		t_FProd_TierPoundage = staffPrepayApplicationNew.getT_FProd_TierPoundage();
 		BigDecimal calc_TierPoundage = new BigDecimal(0.00);
 		if (t_Txn_ApplyPrepayAmount != null){
 			if(t_FProd_ETxnAmtLimit == null){
@@ -519,7 +529,7 @@ public class StaffPrepayApplicationController {
 		staffPrepayApplication.setT_Txn_SMS(SMScode);
 		staffPrepayApplication.setT_Txn_SMSRec(SMScodeRec);
 		staffPrepayApplication.setRemark(SMScodeRec);
-		staffPrepayApplication.setT_Txn_Paystatus(ShiroSessionUtil.getLoginSession().getCompany_name());
+		staffPrepayApplication.setT_Txn_Paystatus(ShiroSessionUtil.getLoginSession().getCompany_name()); //!!! newfunction need to replace the session company with personal companyname
 		staffPrepayApplication.setT_Txn_ProdName(t_FProd_Name_Conv);
 		staffPrepayApplication.setT_Txn_PrepayCounts(t_Txn_PrepayCounts);
 		staffPrepayApplication.setT_Txn_PrepayDate(new Date());
@@ -808,7 +818,7 @@ public class StaffPrepayApplicationController {
 							}
 						    else if(InsertRS != 1) {
 							   staffPrepayApplicationPay.setRemark("SQL INSERT ERR");
-							   staffPrepayApplicationPay.setCompany(ShiroSessionUtil.getLoginSession().getCompany_name());
+							   staffPrepayApplicationPay.setCompany(staffPrepayApplicationPNow.getT_P_Company()); //!!! newfunction change to personal companyname
 					    	   staffPrepayApplicationService.insertPayment(staffPrepayApplicationPay);
 						       return JsonBizTool.genJson(ExRetEnum.PREPAY_APPFAIL);
 						     }
@@ -818,6 +828,7 @@ public class StaffPrepayApplicationController {
 						   staffPrepayApplicationPay.setReturnPic("Other");
 						   staffPrepayApplicationPay.setRemark(remark);
 						   staffPrepayApplicationPay.setCompany(merchantId);
+						  	staffPrepayApplicationPay.setProductId(merchantId);
 				    	   staffPrepayApplicationService.insertPayment(staffPrepayApplicationPay);
 				    	   System.out.println("Err txn log:");
 				    	   System.out.println(TxnID);
