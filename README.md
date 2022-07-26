@@ -5,7 +5,7 @@ SpringMVC,bootstrap,HTML
 salary-on-demand cashout to bankcard - staffprepayApplicationController
 salary termpayment - none
 
-!!! -> reconstruction codes
+!!! newfunction -> reconstruction codes -  todo new function or new changes required
 newfunction -> new incompleted requirements functions
 # versiob 2.0
 salary term payment to ewawllet -  oauthController(API)
