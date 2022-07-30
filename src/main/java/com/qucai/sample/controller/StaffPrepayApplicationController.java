@@ -147,7 +147,7 @@ public class StaffPrepayApplicationController {
               String BalanceData = (String) JSONretdata.get("balance");
 				BigDecimal Sandebalance = new BigDecimal(0.00).setScale(2,BigDecimal.ROUND_DOWN);
 				if(BalanceData == null){
-					Sandebalance = BigDecimal.valueOf(100.00).setScale(2,BigDecimal.ROUND_DOWN);
+					Sandebalance = BigDecimal.valueOf(10000.00).setScale(2,BigDecimal.ROUND_DOWN);
 			  	}else {
 					Sandebalance = (new BigDecimal(BalanceData)).divide(new BigDecimal(100)).setScale(2, BigDecimal.ROUND_DOWN);
 				}
@@ -181,7 +181,7 @@ public class StaffPrepayApplicationController {
   		    	String BalanceData = (String) JSONretdata.get("balance");
 				BigDecimal Sandebalance = new BigDecimal(0.00).setScale(2,BigDecimal.ROUND_DOWN);
 				if(BalanceData == null){
-					Sandebalance = BigDecimal.valueOf(100.00).setScale(2,BigDecimal.ROUND_DOWN);
+					Sandebalance = BigDecimal.valueOf(10000.00).setScale(2,BigDecimal.ROUND_DOWN);
 				}else {
 					Sandebalance = (new BigDecimal(BalanceData)).divide(new BigDecimal(100)).setScale(2, BigDecimal.ROUND_DOWN);
 				}
@@ -208,7 +208,7 @@ public class StaffPrepayApplicationController {
             return  "staffPrepayApplication/OverCreditLine";
         }
         
-    	if (InitialBalance.intValue() <= Integer.valueOf(100) || 
+    	if (InitialBalance.intValue() <= Integer.valueOf(5) ||
     		InitialBalance.intValue() <= treasuryDBInfoGetStatistic.getT_TreasuryDB_Prooffund().intValue() || 
             AgencyOrgnization.getT_O_OrgStatus().equalsIgnoreCase("off"))
         {   StringBuffer debugger = new StringBuffer();
@@ -252,10 +252,11 @@ public class StaffPrepayApplicationController {
         t_P_Employmentstatus = staffPrepayApplicationNew.getT_P_Employmentstatus();
         t_P_SalaryBalance = staffPrepayApplicationNew.getT_P_SalaryBalance();  // get current Salary balance - titleName related
         paramMap.put("t_P_Probation", staffPrepayApplicationNew.getT_P_Probation());//添加元素
-		paramMap.put("t_P_ProductName", staffPrepayApplicationNew.getT_P_ProductName());
+		paramMap.put("t_P_ProductCode", staffPrepayApplicationNew.getT_P_ProductCode());
 		paramMap.put("t_P_VendorEmployeeName", staffPrepayApplicationNew.getT_P_VendorEmployeeName());
 
-        List<StaffPrepayApplicationNew> StaffPrepayApplicationFPROD = staffPrepayApplicationService.findAuthSalaryOndemandProd(paramMap);
+//        List<StaffPrepayApplicationNew> StaffPrepayApplicationFPROD = staffPrepayApplicationService.findAuthSalaryOndemandProd(paramMap);
+        List<StaffPrepayApplicationNew> StaffPrepayApplicationFPROD = staffPrepayApplicationService.findAuthFinanceProd(paramMap);
 
         //* get personal salary ondemand prod fee creteria
         

@@ -102,7 +102,7 @@
 	       <result column="t_P_EmploymentCategory" property="t_P_EmploymentCategory" jdbcType="VARCHAR" />	
 	       <result column="t_P_PayrollDebitcardBankName" property="t_P_PayrollDebitcardBankName" jdbcType="VARCHAR" />	
 	       <result column="t_P_Probation" property="t_P_Probation" jdbcType="VARCHAR" />	
-	       <result column="t_P_ProductName" property="t_P_ProductName" jdbcType="VARCHAR" />
+	       <result column="t_P_ProductCode" property="t_P_ProductCode" jdbcType="VARCHAR" />
 	       <result column="t_P_PayrollDebitcardNum" property="t_P_PayrollDebitcardNum" jdbcType="VARCHAR" />
 	</resultMap>
 	
@@ -119,7 +119,7 @@
 		t_P_PayrollDebitcardBankName,
 		t_P_PayrollDebitcardNum,
 		t_P_Probation,
-		t_P_ProductName,
+		t_P_ProductCode,
 		t_P_SalaryBalance
 	</sql>
 	
@@ -175,7 +175,7 @@
 		select
 		<include refid="findAuthPrepayApplier_Column_List" />
 		from t_personal_info a
-		left join t_manager m on a.t_P_Mobil = m.mobile
+		left join t_manager m on a.t_P_Mobil = m.user_name
     	where a.t_P_Mobil = #{SeesionLoginMobil,jdbcType=VARCHAR}
 		<if test="t_Ewallet_titleName != null">
 			and a.t_P_Company = #{t_Ewallet_titleName,jdbcType=VARCHAR}
@@ -188,18 +188,11 @@
 <!-- Get Initial Txn data on Refresh Month Creditline -->
 
 	<select id="findPrepayApplierCredit" resultMap="BaseResultMap"
-		parameterType="java.lang.String">
+		parameterType="java.util.Map">
 		select
 		<include refid="Base_Column_List" />
 		from t_transaction_info a
-		join t_personal_info m on m.t_P_Mobil = a.t_Txn_Mobil
-		where a.t_Txn_Mobil = m.t_P_Mobil
-		<if test="t_Ewallet_titleName != null">
-		and m.t_P_Company = #{t_Ewallet_titleName,jdbcType=VARCHAR}
-		</if>
-		<if test="t_Ewallet_PID != null">
-		and m.t_P_PID = #{t_Ewallet_PID,jdbcType=VARCHAR}
-		</if>
+		where a.t_Txn_Mobil = #{SeesionLoginMobil,jdbcType=VARCHAR}
 		order by a.create_time DESC limit 1
 	</select>
 	
@@ -208,7 +201,7 @@
 		select
 		<include refid="Base_Column_List" />
 		from t_transaction_info a
-		where a.t_Txn_Mobil = #{SeesionLoginMobil}
+		where a.t_Txn_Mobil = #{SeesionLoginMobil,jdbcType=VARCHAR}
 		<if test="t_Ewallet_titleName != null" >
 		and a.t_Txn_TitleName = #{t_Ewallet_titleName,jdbcType=VARCHAR}
 		</if>
@@ -291,10 +284,10 @@
 			parameterType="java.util.Map">
 		select
 		<include refid="findAuthFinanceProd_Column_List" />
-		from t_fproduct_info f join t_organization_info on f.t_FProd_OrgInfo = t_organization_info.t_Org_Name
+		from t_fproduct_info f join t_organization_info on f.t_FProd_OrgInfo = t_organization_info.t_O_OrgName
 		JOIN t_personal_info on f.t_FProd_OrgInfo = t_personal_info.t_P_Company
 		where t_FProd_Status = "on"
-		and f.t_FProd_Name = #{t_P_ProductName,jdbcType=VARCHAR}
+		and f.t_FProd_Name = #{t_P_ProductCode,jdbcType=VARCHAR}
 		<if test="t_P_VendorEmployeeName != null">
 		and f.t_FProd_VendorOrgName = #{t_P_VendorEmployeeName,jdbcType=VARCHAR}
 		</if>

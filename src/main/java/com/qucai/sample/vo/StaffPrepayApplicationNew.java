@@ -40,7 +40,7 @@ public class StaffPrepayApplicationNew implements Serializable {
    
    private String t_P_Probation;
 
-	private String t_P_ProductName;
+	private String t_P_ProductCode;
    
    private BigDecimal t_P_SalaryBalance;
    
@@ -323,12 +323,12 @@ public void setT_FProd_CorpPool(String t_FProd_CorpPool) {
 }
 
 
-	public String getT_P_ProductName() {
-		return this.t_P_ProductName;
+	public String getT_P_ProductCode() {
+		return this.t_P_ProductCode;
 	}
 
-	public void setT_P_ProductName(final String t_P_ProductName) {
-		this.t_P_ProductName = t_P_ProductName;
+	public void setT_P_ProductCode(final String t_P_ProductCode) {
+		this.t_P_ProductCode = t_P_ProductCode;
 	}
 
 	public String getT_P_VendorEmployeeName() {
