@@ -100,10 +100,12 @@
 	       <result column="t_P_PayrollDate" property="t_P_PayrollDate" jdbcType="INTEGER" />	
 	       <result column="t_P_Employmentstatus" property="t_P_Employmentstatus" jdbcType="VARCHAR" />	
 	       <result column="t_P_EmploymentCategory" property="t_P_EmploymentCategory" jdbcType="VARCHAR" />	
-	       <result column="t_P_PayrollDebitcardBankName" property="t_P_PayrollDebitcardBankName" jdbcType="VARCHAR" />	
-	       <result column="t_P_Probation" property="t_P_Probation" jdbcType="VARCHAR" />	
+	       <result column="t_P_PayrollDebitcardBankName" property="t_P_PayrollDebitcardBankName" jdbcType="VARCHAR" />
+			<result column="t_P_PayrollDebitcardNum" property="t_P_PayrollDebitcardBankName" jdbcType="VARCHAR" />
+			<result column="t_P_Probation" property="t_P_Probation" jdbcType="VARCHAR" />
 	       <result column="t_P_ProductCode" property="t_P_ProductCode" jdbcType="VARCHAR" />
-	       <result column="t_P_PayrollDebitcardNum" property="t_P_PayrollDebitcardNum" jdbcType="VARCHAR" />
+	       <result column="t_P_SalaryBalance" property="t_P_SalaryBalance" jdbcType="DECIMAL" />
+			<result column="t_P_NetBaseSalary" property="t_P_NetBaseSalary" jdbcType="DECIMAL" />
 	</resultMap>
 	
 	<sql id="findAuthPrepayApplier_Column_List">
@@ -120,7 +122,8 @@
 		t_P_PayrollDebitcardNum,
 		t_P_Probation,
 		t_P_ProductCode,
-		t_P_SalaryBalance
+		t_P_SalaryBalance,
+		t_P_NetBaseSalary
 	</sql>
 	
 	<resultMap id="RecordPayment" type="com.qucai.sample.entity.StaffPrepayApplicationPayment">

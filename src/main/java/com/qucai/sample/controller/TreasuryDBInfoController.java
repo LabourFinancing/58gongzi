@@ -136,7 +136,8 @@ public class TreasuryDBInfoController {
                                 paramSQLmap.put("ChinaebiBalance", ebibalance);
                                 PayrollChannel = organizationInfoService.selectAgencyName(Org_paymentinfo[0]);
                             }else{
-                                paramSQLmap.put("ChinaebiBalance", "00.00");
+								ebibalance = new BigDecimal(00.01).setScale(2, BigDecimal.ROUND_DOWN); // set default value to debugging
+								paramSQLmap.put("ChinaebiBalance", "00.00");
 		  				        break;
                             }
                                 String CurrentPaymentACC = "0";
@@ -182,7 +183,11 @@ public class TreasuryDBInfoController {
 				        	Map<String, Object> SandBalArray = new HashMap<String, Object>();
 				        	if(tt==0){
 				        		JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId); // query Sande Balance
-				  		    	BalanceData = (String) JSONretdata.get("balance");
+				  		    	if(JSONretdata.get("respCode").toString().equalsIgnoreCase("1005")){
+									BalanceData = "00.01";
+								}else {
+									BalanceData = (String) JSONretdata.get("balance");
+								}
 				  		    	SandBalArray.put("merchantId", merchantId);
 				  		    	SandBalArray.put("BalanceData", BalanceData);
 				  		    	ArraySandBalance.add(SandBalArray);
@@ -190,11 +195,19 @@ public class TreasuryDBInfoController {
 				        	}else{
 				        		for(int h=0; h<ArraySandBalance.size();h++){
 				        			if(ArraySandBalance.get(h).get("merchantId").toString().equalsIgnoreCase(merchantId)){
-				        				BalanceData = ArraySandBalance.get(h).get("BalanceData").toString();
+				        				if(ArraySandBalance.get(h).get("BalanceData").toString() != null) {
+											BalanceData = ArraySandBalance.get(h).get("BalanceData").toString();
+										}else{
+											BalanceData = "00.01";
+										}
 				        				break;
 				        			}else{
 						        		JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId); // query Sande Balance
-						  		    	BalanceData = (String) JSONretdata.get("balance");
+										if(JSONretdata.get("respCode").toString().equalsIgnoreCase("1005")){
+											BalanceData = "00.01";
+										}else {
+											BalanceData = (String) JSONretdata.get("balance");
+										}
 						  		    	SandBalArray.put("merchantId", merchantId);
 						  		    	SandBalArray.put("BalanceData", BalanceData);
 						  		    	ArraySandBalance.add(SandBalArray);
@@ -207,8 +220,12 @@ public class TreasuryDBInfoController {
 		  		        	//input all orgs Sande acc balance into treasurydb
 //			  				JSONObject obj = (JSONObject) JSON.parse(JSONretdata);
 //			  		    	String BalanceData = (String) obj.get("balance");
-			  		    	BigDecimal Sandebalance = (new BigDecimal(BalanceData)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
-//			  		        balanceQuery = "12000"; // debug using
+								BigDecimal Sandebalance = new BigDecimal("0.00");
+								if(BalanceData != null) {
+									 Sandebalance = (new BigDecimal(BalanceData)).divide(new BigDecimal(100)).setScale(2, BigDecimal.ROUND_DOWN);
+								}else{
+									 Sandebalance = new BigDecimal(00.01).setScale(2, BigDecimal.ROUND_DOWN);
+								}
 			  				System.out.println("Query Sande balance:");
 			  				System.out.println(balanceQuery);
 			  				System.out.println("BigDecimal balance:");
@@ -270,7 +287,8 @@ public class TreasuryDBInfoController {
                                     System.out.println(ebibalance);
                                     paramSQLmap.put("ChinaebiBalance", ebibalance);
                                 }else{
-                                    paramSQLmap.put("ChinaebiBalance", "00.00");
+									ebibalance = new BigDecimal(00.01).setScale(2, BigDecimal.ROUND_DOWN); // set default value to debugging
+									paramSQLmap.put("ChinaebiBalance", "00.00");
                                     break;
                                 }
 			  				    
@@ -328,7 +346,11 @@ public class TreasuryDBInfoController {
 						        	Map<String, Object> SandBalArray = new HashMap<String, Object>();
 						        	if(tt==0){
 						        		JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId); // query Sande Balance
-						  		    	BalanceData = (String) JSONretdata.get("balance");
+										if(JSONretdata.get("respCode").toString().equalsIgnoreCase("1005")){
+											BalanceData = "00.01";
+										}else {
+											BalanceData = (String) JSONretdata.get("balance");
+										}
 						  		    	SandBalArray.put("merchantId", merchantId);
 						  		    	SandBalArray.put("BalanceData", BalanceData);
 						  		    	ArraySandBalance.add(SandBalArray);
@@ -336,11 +358,19 @@ public class TreasuryDBInfoController {
 						        	}else{
 						        		for(int h=0; h<ArraySandBalance.size();h++){
 						        			if(ArraySandBalance.get(h).get("merchantId").toString().equalsIgnoreCase(merchantId)){
-						        				BalanceData = ArraySandBalance.get(h).get("BalanceData").toString();
-						        				break;
+												if(ArraySandBalance.get(h).get("BalanceData").toString() != null) {
+													BalanceData = ArraySandBalance.get(h).get("BalanceData").toString();
+												}else{
+													BalanceData = "00.01";
+												}
+												break;
 						        			}else{
 								        		JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId); // query Sande Balance
-								  		    	BalanceData = (String) JSONretdata.get("balance");
+												if(JSONretdata.get("respCode").toString().equalsIgnoreCase("1005")){
+													BalanceData = "00.01";
+												}else {
+													BalanceData = (String) JSONretdata.get("balance");
+												}
 								  		    	SandBalArray.put("merchantId", merchantId);
 								  		    	SandBalArray.put("BalanceData", BalanceData);
 								  		    	ArraySandBalance.add(SandBalArray);
@@ -403,7 +433,7 @@ public class TreasuryDBInfoController {
                    System.out.println(ebibalance);
                }else{
                    String balanceQuery = "00.00"; //  Chinaebipay branch
-                   ebibalance = new BigDecimal(00.00);
+				   ebibalance = new BigDecimal(00.01).setScale(2, BigDecimal.ROUND_DOWN); // set default value to debugging
                }
 
 			   TreasuryDBStatisticOverAll.setT_TreasuryDB_BoPRatio(ebibalance);
@@ -415,7 +445,11 @@ public class TreasuryDBInfoController {
 		if (AgencyOrgnization.getT_O_OrgName().equals("ALL")){
 		    merchantId = "S2135052";
             JSONObject obj = MerBalanceQueryDemo.main(merchantId);
-	    	BalanceData = (String) obj.get("balance");
+			if(obj.get("respCode").toString().equalsIgnoreCase("1005")){
+				BalanceData = "00.01";
+			}else {
+				BalanceData = (String) obj.get("balance");
+			}
 			System.out.print("sandpay:");
 			System.out.print(obj);
 //	    	String BalanceDatanewStr = BalanceData.replaceFirst("^0*", "");
@@ -509,7 +543,8 @@ public class TreasuryDBInfoController {
                                 PayrollChannel = organizationInfoService.selectAgencyName(Org_paymentinfo[0]);
                             }else{
                                 paramSQLmap.put("ChinaebiBalance", "00.00");
-                                break;
+								ebibalance = new BigDecimal(00.01).setScale(2, BigDecimal.ROUND_DOWN); // set default value to debugging
+								break;
                             }
 			  		  	    String CurrentPaymentACC = null;
 		  		        	if (AgencyOrgnization.getT_O_OrgPayrollBankaccount().equalsIgnoreCase("电银支付")){
@@ -554,7 +589,11 @@ public class TreasuryDBInfoController {
 				        	Map<String, Object> SandBalArray = new HashMap<String, Object>();
 				        	if(tt == 0){
 				        		JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId); // query Sande Balance
-				  		    	BalanceData = (String) JSONretdata.get("balance");
+								if(JSONretdata.get("respCode").toString().equalsIgnoreCase("1005")){
+									BalanceData = "00.01";
+								}else {
+									BalanceData = (String) JSONretdata.get("balance");
+								}
 				  		    	SandBalArray.put("merchantId", merchantId);
 				  		    	SandBalArray.put("BalanceData", BalanceData);
 				  		    	ArraySandBalance.add(SandBalArray);
@@ -562,11 +601,19 @@ public class TreasuryDBInfoController {
 				        	}else{
 				        		for(int h=0; h<ArraySandBalance.size();h++){
 				        			if(ArraySandBalance.get(h).get("merchantId").toString().equalsIgnoreCase(merchantId)){
-				        				BalanceData = ArraySandBalance.get(h).get("BalanceData").toString();
+										if(ArraySandBalance.get(h).get("BalanceData").toString() != null) {
+											BalanceData = ArraySandBalance.get(h).get("BalanceData").toString();
+										}else{
+											BalanceData = "00.01";
+										}
 				        				break;
 				        			}else{
 						        		JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId); // query Sande Balance
-						  		    	BalanceData = (String) JSONretdata.get("balance");
+										if(JSONretdata.get("respCode").toString().equalsIgnoreCase("1005")){
+											BalanceData = "00.01";
+										}else {
+											BalanceData = (String) JSONretdata.get("balance");
+										}
 						  		    	SandBalArray.put("merchantId", merchantId);
 						  		    	SandBalArray.put("BalanceData", BalanceData);
 						  		    	ArraySandBalance.add(SandBalArray);
@@ -578,8 +625,12 @@ public class TreasuryDBInfoController {
 //		  		        	//input all orgs Sande acc balance into treasurydb
 //			  				JSONObject obj = (JSONObject) JSON.parse(JSONretdata);
 //			  		    	String BalanceData = (String) obj.get("balance");
-			  		    	BigDecimal Sandebalance = (new BigDecimal(BalanceData)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
-//			  		        balanceQuery = "12000"; // debug using
+								BigDecimal Sandebalance = new BigDecimal("0.00");
+								if(BalanceData != null) {
+									 Sandebalance = (new BigDecimal(BalanceData)).divide(new BigDecimal(100)).setScale(2, BigDecimal.ROUND_DOWN);
+								}else{
+									 Sandebalance = new BigDecimal(00.01).setScale(2, BigDecimal.ROUND_DOWN);
+								}
 			  				System.out.println("Query Sande balance:");
 			  				System.out.println(balanceQuery);
 			  				System.out.println("BigDecimal balance:");
@@ -641,7 +692,8 @@ public class TreasuryDBInfoController {
                                     System.out.println(ebibalance);
                                     paramSQLmap.put("ChinaebiBalance", ebibalance);
                                 }else{
-                                    paramSQLmap.put("ChinaebiBalance", "00.00");
+									ebibalance = new BigDecimal(00.01).setScale(2, BigDecimal.ROUND_DOWN); // set default value to debugging
+									paramSQLmap.put("ChinaebiBalance", "00.00");
                                     break;
                                 }
 		  		        	}
@@ -698,7 +750,11 @@ public class TreasuryDBInfoController {
 						        	Map<String, Object> SandBalArray = new HashMap<String, Object>();
 						        	if(tt ==0){
 						        		JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId); // query Sande Balance
-						  		    	BalanceData = (String) JSONretdata.get("balance");
+										if(JSONretdata.get("respCode").toString().equalsIgnoreCase("1005")){
+											BalanceData = "00.01";
+										}else {
+											BalanceData = (String) JSONretdata.get("balance");
+										}
 						  		    	SandBalArray.put("merchantId", merchantId);
 						  		    	SandBalArray.put("BalanceData", BalanceData);
 						  		    	ArraySandBalance.add(SandBalArray);
@@ -706,11 +762,19 @@ public class TreasuryDBInfoController {
 						        	}else{
 						        		for(int h=0; h<ArraySandBalance.size();h++){
 						        			if(ArraySandBalance.get(h).get("merchantId").toString().equalsIgnoreCase(merchantId)){
-						        				BalanceData = ArraySandBalance.get(h).get("BalanceData").toString();
+												if(ArraySandBalance.get(h).get("BalanceData").toString() != null) {
+													BalanceData = ArraySandBalance.get(h).get("BalanceData").toString();
+												}else{
+													BalanceData = "00.01";
+												}
 						        				break;
 						        			}else{
 								        		JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId); // query Sande Balance
-								  		    	BalanceData = (String) JSONretdata.get("balance");
+												if(JSONretdata.get("respCode").toString().equalsIgnoreCase("1005")){
+													BalanceData = "00.01";
+												}else {
+													BalanceData = (String) JSONretdata.get("balance");
+												}
 								  		    	SandBalArray.put("merchantId", merchantId);
 								  		    	SandBalArray.put("BalanceData", BalanceData);
 								  		    	ArraySandBalance.add(SandBalArray);
@@ -722,8 +786,12 @@ public class TreasuryDBInfoController {
 //				  		        	//input all orgs Sande acc balance into treasurydb
 //					  				JSONObject obj = (JSONObject) JSON.parse(JSONretdata);
 //					  		    	String BalanceData = (String) obj.get("balance");
-					  		    	Sandebalance = (new BigDecimal(BalanceData)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
-		//			  		        balanceQuery = "12000";
+									if(BalanceData != null) {
+										Sandebalance = (new BigDecimal(BalanceData)).divide(new BigDecimal(100)).setScale(2, BigDecimal.ROUND_DOWN);
+									}else{
+										Sandebalance = new BigDecimal(00.01).setScale(2, BigDecimal.ROUND_DOWN);
+									}
+					  		    	//			  		        balanceQuery = "12000";
 					  				System.out.println("Query Sande balance:");
 					  				System.out.println(balanceQuery);
 					  				System.out.println("BigDecimal balance:");
@@ -761,15 +829,19 @@ public class TreasuryDBInfoController {
 		if (AgencyOrgnization.getT_O_OrgName().equals("ALL")){
 			   merchantId = "872684173615000";
 			   String retData = AmtQueryServlet.main(merchantId);
-			   System.out.println("Query Chinaebipay String:");
-			   System.out.println(retData);
-			   JSONObject obj = (JSONObject) JSON.parse(retData);
-			   String balanceQuery = (String) obj.get("transAmt"); //  Chinaebipay branch
-			   ebibalance = (new BigDecimal(balanceQuery)).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_DOWN);
-			   System.out.println("Query Chinaebipay balance:");
-			   System.out.println(balanceQuery);
-			   System.out.println("BigDecimal balance:");
-			   System.out.println(ebibalance);
+			   if(retData != null) {
+				   System.out.println("Query Chinaebipay String:");
+				   System.out.println(retData);
+				   JSONObject obj = (JSONObject) JSON.parse(retData);
+				   String balanceQuery = (String) obj.get("transAmt"); //  Chinaebipay branch
+				   ebibalance = (new BigDecimal(balanceQuery)).divide(new BigDecimal(100)).setScale(2, BigDecimal.ROUND_DOWN);
+				   System.out.println("Query Chinaebipay balance:");
+				   System.out.println(balanceQuery);
+				   System.out.println("BigDecimal balance:");
+				   System.out.println(ebibalance);
+			   }else{
+				   ebibalance = new BigDecimal(00.01).setScale(2, BigDecimal.ROUND_DOWN); // set default value to debugging
+			   }
 
 			   TreasuryDBStatisticOverAll.setT_TreasuryDB_BoPRatio(ebibalance);
 		}
@@ -808,7 +880,11 @@ public class TreasuryDBInfoController {
     	if (ShiroSessionUtil.getLoginSession().getCompany_name().equals("ALL")) {
 		    merchantId = "S2135052";
             JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId);
-	    	BalanceData = (String) JSONretdata.get("balance");
+			if(JSONretdata.get("respCode").toString().equalsIgnoreCase("1005")){
+				BalanceData = "00.01";
+			}else {
+				BalanceData = (String) JSONretdata.get("balance");
+			}
 			System.out.print("Chinaebi:");
 			System.out.print(JSONretdata);
 	    	String BalanceDatanewStr = BalanceData.replaceFirst("^0*", ""); 

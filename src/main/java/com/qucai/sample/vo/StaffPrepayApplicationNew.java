@@ -43,6 +43,8 @@ public class StaffPrepayApplicationNew implements Serializable {
 	private String t_P_ProductCode;
    
    private BigDecimal t_P_SalaryBalance;
+
+	private BigDecimal t_P_NetBaseSalary;
    
    private String t_FProd_ID;
    
@@ -347,5 +349,14 @@ public BigDecimal getT_P_CurrentCreditline() {
 public void setT_P_CurrentCreditline(BigDecimal t_P_CurrentCreditline) {
 	this.t_P_CurrentCreditline = t_P_CurrentCreditline;
 }
+
+
+	public BigDecimal getT_P_NetBaseSalary() {
+		return this.t_P_NetBaseSalary;
+	}
+
+	public void setT_P_NetBaseSalary(final BigDecimal t_P_NetBaseSalary) {
+		this.t_P_NetBaseSalary = t_P_NetBaseSalary;
+	}
    
 }

@@ -299,11 +299,18 @@ public class StaffPrepayApplicationController {
 				staffPrepayApplicationCredit.setT_Txn_CreditPrepayCurrentNum(new BigDecimal("0.00"));
 				t_Txn_CreditPrepayBalanceNum = new BigDecimal("0.00");
              } else if(t_Txn_CreditPrepayCurrentNum == null || t_Txn_PrepayClear == "0") {
-            	 BigDecimal CommonCreditPerc = t_P_CreditPrepaySalaryAmount.multiply(BigDecimal.valueOf(0.00)).setScale(2, BigDecimal.ROUND_DOWN); // 初始化授额改为0
-            	 staffPrepayApplicationCredit.setT_Txn_CreditPrepayCurrentNum(CommonCreditPerc);
-            	 t_Txn_CreditPrepayCurrentNum = CommonCreditPerc;
-            	 staffPrepayApplicationCredit.setT_Txn_PrepayCounts(0);
-		    	 t_Txn_CreditPrepayBalanceNum = new BigDecimal("0.00"); 
+	        	if(staffPrepayApplicationNew.getT_P_NetBaseSalary()!= null) {
+					t_Txn_CreditPrepayCurrentNum = staffPrepayApplicationNew.getT_P_NetBaseSalary();
+					staffPrepayApplicationCredit.setT_Txn_CreditPrepayCurrentNum(t_Txn_CreditPrepayCurrentNum);
+					staffPrepayApplicationCredit.setT_Txn_PrepayCounts(0);
+					t_Txn_CreditPrepayBalanceNum = new BigDecimal("0.00");
+				}else {
+					BigDecimal CommonCreditPerc = t_P_CreditPrepaySalaryAmount.multiply(BigDecimal.valueOf(10.00)).setScale(2, BigDecimal.ROUND_DOWN); // 初始化授额改为工资的10%
+					staffPrepayApplicationCredit.setT_Txn_CreditPrepayCurrentNum(CommonCreditPerc);
+					t_Txn_CreditPrepayCurrentNum = CommonCreditPerc;
+					staffPrepayApplicationCredit.setT_Txn_PrepayCounts(0);
+					t_Txn_CreditPrepayBalanceNum = new BigDecimal("0.00");
+				}
              } else {
             	 staffPrepayApplicationCredit.setT_Txn_CreditPrepayCurrentNum(t_Txn_CreditPrepayBalanceNum);
             	 if (t_Txn_PrepayCounts == null){
