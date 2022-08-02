@@ -105,13 +105,25 @@
 		where a.t_P_Company = #{t_P_Company,jdbcType=VARCHAR}
 	</select>
 	
-	<select id="findSubCompany" resultMap="BaseResultMap"
-		parameterType="java.lang.String">
-		select 
+	<select id="findPersonalFirmList" resultMap="BaseResultMap"
+			parameterType="java.util.Map">
+		select
 		<include refid="Base_Column_List" />
-		from t_personal_info a 
+		from t_personal_info a
 		where
- 		a.t_P_VendorEmployeeName = #{t_P_VendorCompany,jdbcType=VARCHAR}
+		<if test="t_P_UserName != null" >
+			a.t_P_Mobil = #{t_P_UserName,jdbcType=VARCHAR}
+		</if>
+	</select>
+
+
+	<select id="findSubCompany" resultMap="BaseResultMap"
+			parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_personal_info a
+		where
+		a.t_P_VendorEmployeeName = #{t_P_VendorCompany,jdbcType=VARCHAR}
 		group by a.t_P_Company
 	</select>
 	

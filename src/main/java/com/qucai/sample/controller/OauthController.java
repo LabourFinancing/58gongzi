@@ -15,9 +15,7 @@ import java.math.BigDecimal;
 import java.net.URLDecoder;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,6 +38,7 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -58,6 +57,9 @@ public class OauthController {
 
     @Autowired
     private ManagerService managerService;
+
+    @Autowired
+    private PersonalInfoService personalInfoService;
 
     @Autowired
     private PersonalMainService personalMainService;
@@ -1305,6 +1307,26 @@ public class OauthController {
             if (subject.isAuthenticated()) {
                 subject.logout();
             }
+        }
+    }
+
+    @RequestMapping(value = "staffPrepayApplicationFirmList")
+    public String staffPrepayApplicationFirmList(HttpServletResponse response,
+                                                 HttpServletRequest request,Integer platform, Model model) {
+        String t_P_UserName = ShiroSessionUtil.getLoginSession().getUserName();
+        Map<String, Object> paramSearchMap = new HashMap<String, Object>();
+        String t_Ewallet_titleName = null,t_P_FirmLists = null;
+        paramSearchMap.put("t_P_UserName",t_P_UserName);
+        model.addAttribute("platform", platform);
+        List<PersonalInfo> PersonalInfoFirmList = personalInfoService.findPersonalFirmList(paramSearchMap);
+        if(PersonalInfoFirmList.size() == 0){
+            return "redirect:/OrganizationDashboardController/dashboard";
+        }
+        else if (PersonalInfoFirmList.size() == 1){
+            return "redirect:/StaffPrepayApplicationController/staffPrepayApplicationNew";
+        }else{
+            model.addAttribute("t_P_FirmLists",PersonalInfoFirmList);
+            return  "staffPrepayApplication/staffPrepayApplicationFirms";
         }
     }
 }

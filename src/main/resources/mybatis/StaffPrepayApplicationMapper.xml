@@ -240,14 +240,17 @@
 
 	<resultMap id="findAuthFinanceProdMap" type="com.qucai.sample.vo.StaffPrepayApplicationNew">
 	       <result column="t_FProd_ID" property="t_FProd_ID" jdbcType="VARCHAR" />	
-	       <result column="t_FProd_Name" property="t_FProd_Name" jdbcType="VARCHAR" />	
-	       <result column="t_FProd_Interest" property="t_FProd_Interest" jdbcType="DECIMAL" />	
+	       <result column="t_FProd_Name" property="t_FProd_Name" jdbcType="VARCHAR" />
+			<result column="t_FProd_OrgInfo" property="t_FProd_OrgInfo" jdbcType="VARCHAR" />
+			<result column="t_FProd_VendorOrgName" property="t_FProd_VendorOrgName" jdbcType="VARCHAR" />
+			<result column="t_FProd_Interest" property="t_FProd_Interest" jdbcType="DECIMAL" />
 	       <result column="t_FProd_OverdueInt" property="t_FProd_OverdueInt" jdbcType="DECIMAL" />	
 	       <result column="t_FProd_ServiceFee" property="t_FProd_ServiceFee" jdbcType="DECIMAL" />	
 	       <result column="t_FProd_Poundage" property="t_FProd_Poundage" jdbcType="DECIMAL" />	
 	       <result column="t_FProd_ETxnAmtLimit" property="t_FProd_ETxnAmtLimit" jdbcType="DECIMAL" />	
-	       <result column="t_FProd_TierPoundage" property="t_FProd_TierPoundage" jdbcType="VARCHAR" />	
-	       <result column="t_FProd_Status" property="t_FProd_Status" jdbcType="VARCHAR" />	
+	       <result column="t_FProd_TierPoundage" property="t_FProd_TierPoundage" jdbcType="VARCHAR" />
+			<result column="t_FProd_MainCat" property="t_FProd_MainCat" jdbcType="VARCHAR" />
+			<result column="t_FProd_Status" property="t_FProd_Status" jdbcType="VARCHAR" />
 	       <result column="t_FProd_SysupdateDate" property="t_FProd_SysupdateDate" jdbcType="TIMESTAMP" />	
 	       <result column="t_FProd_category" property="t_FProd_category" jdbcType="VARCHAR" />	
 	       <result column="t_FProd_CorpPool" property="t_FProd_CorpPool" jdbcType="VARCHAR" />	
@@ -256,32 +259,40 @@
 	
 	<sql id="findAuthFinanceProd_Column_List">
 		t_FProd_ID, 
-		t_FProd_Name, 
+		t_FProd_Name,
+		t_FProd_OrgInfo,
+		t_FProd_VendorOrgName,
 		t_FProd_Interest, 
 		t_FProd_OverdueInt, 
 		t_FProd_ServiceFee,
 		t_FProd_Poundage,
 		t_FProd_ETxnAmtLimit,
 		t_FProd_TierPoundage,
+		t_FProd_MainCat,
 		t_FProd_Status,
 		t_FProd_SysupdateDate,
 		t_FProd_category,
 		t_FProd_CorpPool,
 		t_FProd_PersPool
 	</sql>	
-	
+
+	<!--
 	<select id="findAuthFinanceProd" resultMap="findAuthFinanceProdMap"
-		parameterType="java.lang.String">
+			parameterType="java.util.Map">
 		select
 		<include refid="findAuthFinanceProd_Column_List" />
 		from t_fproduct_info f join t_organization_info on f.t_FProd_CorpPool = t_organization_info.t_O_Category 
 		JOIN t_personal_info on f.t_FProd_category = t_personal_info.t_P_EmploymentCategory
 		where t_FProd_Status = "on"
+		<if test="t_P_Company != null">
+		and f.t_FProd_OrgInfo = #{t_P_Company,jdbcType=VARCHAR}
+		</if>
 		and f.t_FProd_CorpPool = t_organization_info.t_O_Category
 		and f.t_FProd_category = t_personal_info.t_P_EmploymentCategory
 		and f.t_FProd_PersPool = #{t_P_Probation,jdbcType=VARCHAR}
 		GROUP BY t_FProd_Name
 	</select>
+	-->
 
 	<select id="findAuthSalaryOndemandProd" resultMap="findAuthFinanceProdMap"
 			parameterType="java.util.Map">
@@ -297,15 +308,17 @@
 		GROUP BY t_FProd_Name
 	</select>
 	
-<!-- old version, without VIP and Identify control
+<!-- old version, without VIP and Identify control -->
 	<select id="findAuthFinanceProd" resultMap="findAuthFinanceProdMap"
-		parameterType="java.lang.String">
+			parameterType="java.util.Map">
 		select
 		<include refid="findAuthFinanceProd_Column_List" />
 		from t_fproduct_info
 		where t_FProd_Status = "on"
-	</select> 
--->	
+		and t_FProd_OrgInfo = #{t_P_Company,jdbcType=VARCHAR}
+		and t_FProd_PersPool = #{t_P_Probation,jdbcType=VARCHAR}
+	</select>
+
 	<select id="findSelectedByFProdName" resultMap="findAuthFinanceProdMap"
 		parameterType="java.lang.String">
 		select

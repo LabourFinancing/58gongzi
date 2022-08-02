@@ -64,6 +64,11 @@ public class PersonalInfoServiceImpl implements PersonalInfoService {
     public List<PersonalInfo> findSubCompany(Map<String, Object> paramMap) {
         return personalInfoDao.findSubCompany(paramMap);
     }
+
+    @Override
+    public List<PersonalInfo> findPersonalFirmList(Map<String, Object> paramSearchMap) {
+        return personalInfoDao.findPersonalFirmList(paramSearchMap);
+    }
     
     @Override
     public List<PersonalInfo> findAgencyCompany(Map<String, Object> paramMap) {

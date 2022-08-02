@@ -25,7 +25,9 @@ public interface PersonalInfoDao {
 	int updateCompanyStaffsCreditOff(String t_TreasuryDB_OrgName);
 	
 	List<PersonalInfo> findSubCompany(Map<String, Object> paramMap);
-	
+
+	List<PersonalInfo> findPersonalFirmList(Map<String, Object> paramSearchMap);
+
 	List<PersonalInfo> findAgencyCompany(Map<String, Object> paramMap);
     
     List<PersonalInfo> findAllList(Map<String, Object> paramMap);

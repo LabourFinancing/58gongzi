@@ -3,11 +3,7 @@ package com.qucai.sample.controller;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -93,7 +89,7 @@ public class StaffPrepayApplicationController {
 	 */
 
 	@RequestMapping(value = {"staffPrepayApplicationNew"})
-//    @ResponseBody // 钱包端传入手机号、企业名(所属名)、身份证号
+// 钱包端传入手机号、企业名(所属名)、身份证号
     public String staffPrepayApplicationNew(StaffPrepayApplicationList staffPrepayApplication,@RequestParam( defaultValue = "0" ) Integer platform,String operationType,String FPROD_cate,
 											String SeesionLoginMobil,String t_Ewallet_titleName,String t_Ewallet_PID, // !!! ewallet system interface param,SeesionLoginMobile get through API post/session login t_Ewallet_titleName（企业名授权名）
 											String t_Txn_ID, String t_Txn_PID,String t_Txn_Mobil,Date create_time,BigDecimal t_Txn_CreditPrepayCurrentNum, Integer tTxnPrepayDays,
@@ -222,7 +218,7 @@ public class StaffPrepayApplicationController {
     	model.addAttribute("t_FProd_Name", t_FProd_Name);																																																																																																																																																																																																				
 
     	if(SeesionLoginMobil == null){   // 判断传入的手机号是否唯恐
-			SeesionLoginMobil = ShiroSessionUtil.getLoginSession().getMobile();
+			SeesionLoginMobil = ShiroSessionUtil.getLoginSession().getUserName();
 			t_Ewallet_titleName = ShiroSessionUtil.getLoginSession().getCompany_name();
 		}
 		paramMap.put("SeesionLoginMobil",SeesionLoginMobil); // input ewallet/personal mobile number !!! perional info plag
@@ -253,6 +249,7 @@ public class StaffPrepayApplicationController {
         t_P_SalaryBalance = staffPrepayApplicationNew.getT_P_SalaryBalance();  // get current Salary balance - titleName related
         paramMap.put("t_P_Probation", staffPrepayApplicationNew.getT_P_Probation());//添加元素
 		paramMap.put("t_P_ProductCode", staffPrepayApplicationNew.getT_P_ProductCode());
+		paramMap.put("t_P_Company",t_Ewallet_titleName);
 		paramMap.put("t_P_VendorEmployeeName", staffPrepayApplicationNew.getT_P_VendorEmployeeName());
 
 //        List<StaffPrepayApplicationNew> StaffPrepayApplicationFPROD = staffPrepayApplicationService.findAuthSalaryOndemandProd(paramMap);
@@ -433,7 +430,7 @@ public class StaffPrepayApplicationController {
 		// return "RiskControlController/RiskControlControllerMain";
 
 		model.addAttribute("platform", platform);
-		SeesionLoginMobil = ShiroSessionUtil.getLoginSession().getMobile();
+		SeesionLoginMobil = ShiroSessionUtil.getLoginSession().getUserName();
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("SeesionLoginMobil",SeesionLoginMobil); // input ewallet/personal mobile number !!!
 		paramMap.put("t_Ewallet_titleName",t_Ewallet_titleName); // input ewallet/personal company/title name
@@ -870,7 +867,7 @@ public class StaffPrepayApplicationController {
 				t_Txn_CreditPrepayBalanceNum);
 		model.addAttribute("t_P_PayrollDate", t_P_PayrollDate);
 		model.addAttribute("t_FProd_Name", t_FProd_Name);
-		SeesionLoginMobil = ShiroSessionUtil.getLoginSession().getMobile();
+		SeesionLoginMobil = ShiroSessionUtil.getLoginSession().getUserName();
 		Map<String, Object> rs = new HashMap<String, Object>();
 		
 		StaffPrepayApplicationList staffPrepayApplicationCredit = staffPrepayApplicationService
@@ -1031,7 +1028,7 @@ public class StaffPrepayApplicationController {
 	 public String staffPrepayApplicationDetails(String t_Txn_id, HttpServletResponse response,
 			 HttpServletRequest request,Integer platform, Model model) {
      	model.addAttribute("platform", platform);
-		String SeesionLoginMobil = ShiroSessionUtil.getLoginSession().getMobile();
+		String SeesionLoginMobil = ShiroSessionUtil.getLoginSession().getUserName();
 		if (SeesionLoginMobil != null){
 			StaffPrepayApplicationList staffPrepayApplicationCredit = null;
 			staffPrepayApplicationCredit = staffPrepayApplicationService.findPrepayApplierCredit(SeesionLoginMobil);
@@ -1049,7 +1046,7 @@ public class StaffPrepayApplicationController {
 
 	 String SMScodeRec,SMSMobile,SMSCompanyName;
 	 if(SeesionLoginMobil == null) {
-		 SeesionLoginMobil = ShiroSessionUtil.getLoginSession().getMobile();
+		 SeesionLoginMobil = ShiroSessionUtil.getLoginSession().getUserName();
 	 }
 	 Map<String, Object> paramMap = new HashMap<String, Object>(); //findAuthPrepayApplier
 	 paramMap.put("SeesionLoginMobil",SeesionLoginMobil); // !!!
@@ -1089,7 +1086,7 @@ public class StaffPrepayApplicationController {
 	 public String SMSVerify(StaffPrepayApplicationNew staffPrepayApplicationNew,String SMScodeRec,String SMScode,String SeesionLoginMobil,
 	 HttpServletResponse response, HttpServletRequest request, Model model) {
 		 
-	 SeesionLoginMobil = ShiroSessionUtil.getLoginSession().getMobile();	 
+	 SeesionLoginMobil = ShiroSessionUtil.getLoginSession().getUserName();
 		 
 	 Map<String, Object> rs = new HashMap<String, Object>();
          

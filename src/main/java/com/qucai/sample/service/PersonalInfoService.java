@@ -48,7 +48,9 @@ public interface PersonalInfoService {
 	List<PersonalInfo> findSearchCompanyDist(Map<String, Object> paramSearchMap);
 
 	List<PersonalInfo> findSubCompany(Map<String, Object> paramMap);
-	
+
+	List<PersonalInfo> findPersonalFirmList(Map<String, Object> paramSearchMap);
+
 	List<PersonalInfo> findAgencyCompany(Map<String, Object> paramMap);
 
     boolean updatePrepayApplierCreditBalance(Map<String, Object> paramSearchMap);

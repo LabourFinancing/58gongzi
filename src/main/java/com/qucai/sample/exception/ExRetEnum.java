@@ -55,6 +55,7 @@ public enum ExRetEnum implements RetEnumIntf {
     ORG_Regfail("-1","企业注册失败，请联系客服！"),
     Manager_Regfail("-1","用户注册失败，请联系客服！"),
 	MobileCmpy_Regfail("2","您所输入的手机号已在该企业注册，请重新输入"),
+	FirmEntry("3","企业页面跳转"),
     //New User Reg
     Manager_NewSucc("1", "注册成功，请管理员通过后登陆使用"),
 	

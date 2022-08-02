@@ -144,49 +144,10 @@
     <script type="text/javascript">
         var user_name = $("#userName").val();
 
-        window.onload = function ()//用window的onload事件，窗体加载完毕的时候
-        {
-            //single login
-            var href = location.href;
-            if (href.indexOf("kickout") > 0) {
-                alert("您的账号在另一台设备上登录,如非本人操作，请立即修改密码！");
-            }
+        var t_P_FirmLists = "${t_Ewallet_titleName}";
+        console.log(t_P_FirmLists);
+        $("#t_Ewallet_titleName option[value='"+t_P_FirmLists+"']").attr("selected","selected");
 
-            var gid = getQueryVar("gid", "");
-            if (gid === 'lianfeng') {
-                document.all.logo_login.src = "${ctx}/metronic/pages/img/lianfen_logo.png";
-                document.getElementById("ServiceInfo").style.display = "none";
-            }
-            else if
-            (gid.length === 64) {
-                $.ajax({
-                    url: "/index?gid=" + gid,
-                    type: 'POST',
-                    async: true,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    success: function (data) {
-                        var result = eval("(" + data + ")");
-                        console.info(data);
-                        if (result.ret == "-1") {
-                            $("#msg").html("<font color='#f50000' style='font-weight:bold;'>" + result.msg + "</font>")
-                        } else if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent) && result.host == "M") {
-                            window.location.href = "${ctx}/StaffPrepayApplicationController/staffPrepayApplicationNew";
-                            mobileview = true;
-                        } else {
-                            window.location.href = "${request.getContextPath()}/mainFrame";
-                            mobileview = false;
-                        }
-                    },
-                    error: function (data) {
-                        var result = eval("(" + data + ")");
-                        alert(result.msg);
-                    },
-                });
-            }
-            ;
-        }
         $(document).ready(
             function () {
                 var form = $('#loginForm');
@@ -235,7 +196,7 @@
                     submitHandler: function (form) {
                         var formData = new FormData($('#loginForm')[0]);
                         $.ajax({
-                            url: "${ctx}/oauthController/login?type=login",
+                            url: "${ctx}/StaffPrepayApplicationController/staffPrepayApplicationNew?platform=2",
                             type: 'POST',
                             data: formData,
                             async: true,
@@ -244,19 +205,10 @@
                             processData: false,
                             success: function (data) {
                                 console.log('-----------success---------', data)
-                                var result = eval("(" + data + ")");
-                                if (result.ret == "-1") {
-                                    $("#msg").html("<font color='#f50000' style='font-weight:bold;'>" + result.msg + "</font>")
-                                } else if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent) && result.host == "M") {
-                                    window.location.href = "${ctx}/oauthController/staffPrepayApplicationFirmList";
-                                } else {
-                                    window.location.href = "${request.getContextPath()}/mainFrame";
-                                }
                             },
                             error: function (data, b,c) {
                                 console.log('---------error-----------', data,b,c)
-                                var result = eval("(" + data + ")");
-                                alert(result.msg);
+                                window.location.href = "${ctx}/StaffPrepayApplicationController/FirmClosed";
                             },
                         });
                     }
@@ -272,39 +224,6 @@
                 });
             });
 
-        function openReset() {
-            if (document.getElementById("userName").value == null) {
-                alert("请输入用户名")
-            } else {
-                $.ajax({
-                    type: 'POST',
-                    url: "${ctx}/oauthController/login?type=resendPWD" + "&userName=" + $("#userName").val(),
-                    async: true,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    success: function (data) {
-                        var result = eval("(" + data + ")");
-                        alert(result.msg);
-                    },
-                    error: function (data) {
-                        alert("用户不存在,请重新输入")
-                    }
-                });
-            }
-            return;
-        }
-        function getQueryVar(name, defVal) {
-            var re = new RegExp('.*[?&]' + name + '=([^&#]*)');
-            var match = document.location.href.match(re);
-            if (typeof defVal === 'undefined') {
-                defVal = null;
-            }
-            if (match) {
-                return decodeURIComponent(match[1]);
-            }
-            return defVal;
-        }
     </script>
 
 </head>
@@ -324,33 +243,25 @@
     <div class="content">
         <!-- BEGIN LOGIN FORM -->
         <form id="loginForm" class="login-form" method="post" novalidate="novalidate">
-            <h3 class="form-title">登录</h3>
+            <h3 class="select-title" style="text-align: center">请选择</h3>
             <div class="alert alert-danger display-hide">
                 <button class="close" data-close="alert"></button>
-                <span> 请输入用户名和密码. </span>
+                <span></span>
             </div>
             <div class="form-group">
                 <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-                <label class="control-label visible-ie8 visible-ie9"><img id="l-img1" class="lable-img l-img1"
-                                                                          src="${ctx}/metronic/mobile/imgs/user-name.png" alt=""></label> <input
-                    class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off"
-                    placeholder="输入你的用户名/手机号" id="userName" name="userName">
+                <label class="control-label visible-ie8 visible-ie9"></label>
             </div>
             <div class="form-group">
-                <label class="control-label visible-ie8 visible-ie9"><img id="l-img2" class="lable-img l-img2"
-                                                                          src="${ctx}/metronic/mobile/imgs/pwd.png" alt=""></label><input
-                    class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off"
-                    placeholder="输入您的密码" id="password" name="password">
-                <!--默认闭眼图-->
+                <select class="bs-select form-control" data-live-search="true" name="t_Ewallet_titleName" id="t_Ewallet_titleName">
+                    <#list t_P_FirmLists as t_P_FirmLists>
+                    <option value="${t_P_FirmLists.t_P_Company}">${t_P_FirmLists.t_P_Company}</option>
+                </#list>
+                </select>
             </div>
-            <div class="form-group"><input class="form-control form-control-solid placeholder-no-fix" type="hidden"
-                                           autocomplete="off" id="platform" name="platform">
-            </div>
-
             <div id="msg"></div>
             <div class="form-actions">
-                <button type="submit" class="btn green uppercase togomaincon">登录</button>
-                <a type="button" class="bgu" name="PWresend" id="PWresend" onclick="openReset()">找回密码</a>
+                <button type="submit" class="btn green uppercase togomaincon">确定</button>
             </div>
         </form>
         <!-- END LOGIN FORM -->
@@ -364,12 +275,6 @@
             </div>
         </form>
         <!-- END FORGOT PASSWORD FORM -->
-    </div>
-    <div class="copyright">QQ客服：161909537 <br> QQ客服：2368200770</div>
-    <div class="copyright" id="copyrighticp" name="copyrighticp">Copyright © 2020高孚信科 <a href="http://www.miitbeian.gov.cn/">沪ICP备20023417号-1</a>
-        <div id="copyrightsec" name="copyrightsec" style="width:300px;margin:0 auto; padding:20px 0;">
-            <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=35062202000124" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="${ctx}/metronic/pages/img/ghs.png" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">沪公网安备 35062202000124号</p></a>
-        </div>
     </div>
     <script src="${ctx}/metronic/mobile/user/changestyle.js" type="text/javascript"></script>
     <script type="text/javascript">
