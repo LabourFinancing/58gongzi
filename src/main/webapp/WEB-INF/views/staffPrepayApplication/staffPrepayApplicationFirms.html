@@ -142,88 +142,12 @@
         }
     </style>
     <script type="text/javascript">
-        var user_name = $("#userName").val();
-
-        var t_P_FirmLists = "${t_Ewallet_titleName}";
-        console.log(t_P_FirmLists);
-        $("#t_Ewallet_titleName option[value='"+t_P_FirmLists+"']").attr("selected","selected");
-
-        $(document).ready(
-            function () {
-                var form = $('#loginForm');
-                form.validate({
-                    errorElement: 'span', //default input error message container
-                    errorClass: 'error-color', // default input error message class
-                    focusInvalid: false, // do not focus the last invalid input
-                    rules: {
-                        userName: {
-                            required: true
-                        },
-                        password: {
-                            required: true
-                        }
-                    },
-                    messages: {
-                        userName: {
-                            required: "<font color='#f50000' style='font-weight:bold;'>请填入用户名</font>"
-                        },
-                        password: {
-                            required: "<font color='#f50000' style='font-weight:bold;'>请填入密码</font>"
-                        }
-                    },
-
-                    invalidHandler: function (event, validator) { //display error alert on form submit
-                        App.scrollTo(form, 0);
-                    },
-
-                    highlight: function (element) { // hightlight error inputs
-                        $(element).closest('.form-group').removeClass(
-                            "has-success").addClass('has-error'); // set error class to the control group
-                    },
-
-                    unhighlight: function (element) { // revert the change done by hightlight
-
-                    },
-
-                    success: function (label, element) {
-                        var icon = $(element).parent('.input-icon').children(
-                            'i');
-                        $(element).closest('.form-group').removeClass(
-                            'has-error').addClass('has-success'); // set success class to the control group
-                        icon.removeClass("fa-warning").addClass("fa-check");
-                    },
-
-                    submitHandler: function (form) {
-                        var formData = new FormData($('#loginForm')[0]);
-                        $.ajax({
-                            url: "${ctx}/StaffPrepayApplicationController/staffPrepayApplicationNew?platform=2",
-                            type: 'POST',
-                            data: formData,
-                            async: true,
-                            cache: false,
-                            contentType: false,
-                            processData: false,
-                            success: function (data) {
-                                console.log('-----------success---------', data)
-                            },
-                            error: function (data, b,c) {
-                                console.log('---------error-----------', data,b,c)
-                                window.location.href = "${ctx}/StaffPrepayApplicationController/FirmClosed";
-                            },
-                        });
-                    }
-                });
-
-                $('.login-form input').keypress(function (e) {
-                    if (e.which == 13) {
-                        if ($('.login-form').validate().form()) {
-                            $('.login-form').submit(); //form validation success, call ajax form submit
-                        }
-                        return false;
-                    }
-                });
-            });
-
+        function firmselect() {
+            var t_Ewallet_titleName_val = $("#t_Ewallet_titleName").find("option:selected").text();
+            console.log(t_Ewallet_titleName_val);
+            window.location.href = "${ctx}/StaffPrepayApplicationController/staffPrepayApplicationNew";
+            // window.location.href = '${ctx}/StaffPrepayApplicationController/staffPrepayApplicationNew?t_Ewallet_titleName=' + t_Ewallet_titleName_val;
+        }
     </script>
 
 </head>
@@ -235,14 +159,14 @@
     <!-- END SIDEBAR TOGGLER BUTTON -->
     <!-- BEGIN LOGO -->
     <div class="logo">
-        <a href="index.html"> <img id="logo_login" src="${ctx}/metronic/mobile/imgs/login-banner.png" alt="">
+        <a href="index.html"> <img id="logo_login" src="${ctx}/metronic/mobile/imgs/login-banner.png">
         </a>
     </div>
     <!-- END LOGO -->
     <!-- BEGIN LOGIN -->
     <div class="content">
         <!-- BEGIN LOGIN FORM -->
-        <form id="loginForm" class="login-form" method="post" novalidate="novalidate">
+        <form id="firmListForm" class="login-form" novalidate="novalidate">
             <h3 class="select-title" style="text-align: center">请选择</h3>
             <div class="alert alert-danger display-hide">
                 <button class="close" data-close="alert"></button>
@@ -255,25 +179,17 @@
             <div class="form-group">
                 <select class="bs-select form-control" data-live-search="true" name="t_Ewallet_titleName" id="t_Ewallet_titleName">
                     <#list t_P_FirmLists as t_P_FirmLists>
-                    <option value="${t_P_FirmLists.t_P_Company}">${t_P_FirmLists.t_P_Company}</option>
+                    <option class="bs-option" value="${t_P_FirmLists.t_P_Company}">${t_P_FirmLists.t_P_Company}</option>
                 </#list>
                 </select>
             </div>
             <div id="msg"></div>
             <div class="form-actions">
-                <button type="submit" class="btn green uppercase togomaincon">确定</button>
+                <button class="btn btn-green uppercase togomaincon" onclick="firmselect()">确定</button>
             </div>
         </form>
         <!-- END LOGIN FORM -->
         <!-- BEGIN FORGOT PASSWORD FORM -->
-        <form class="forget-form" action="index.html" method="post">
-            <h3 class="font-green">Forget Password ?</h3>
-            <p>Enter your e-mail address below to reset your password.</p>
-            <div class="form-actions">
-                <button type="button" id="back-btn" class="btn btn-default">Back</button>
-                <button type="submit" class="btn btn-success uppercase pull-right">Submit</button>
-            </div>
-        </form>
         <!-- END FORGOT PASSWORD FORM -->
     </div>
     <script src="${ctx}/metronic/mobile/user/changestyle.js" type="text/javascript"></script>
@@ -313,38 +229,16 @@
             var Agents = ["Android", "iPhone",
                 "SymbianOS", "Windows Phone",
                 "iPad", "iPod"];
-            document.getElementById("copyrighticp").style.visibility = "visible";
-            document.getElementById("copyrightsec").style.visibility = "visible";
             var mobileview = true;
             for (var v = 0; v < Agents.length; v++) {
                 if (userAgentInfo.indexOf(Agents[v]) > 0) {
                     mobileview = false;
-                    document.getElementById("copyrighticp").style.visibility = "hidden";
-                    document.getElementById("copyrightsec").style.visibility = "hidden";
                     break;
                 }
             }
             return mobileview;
         }
 
-        function eyectl() {
-            //获取元素（两种方式都可以）
-            var input = document.getElementById('password')
-            var imgs = document.getElementById('l-img2');
-            //下面是一个判断每次点击的效果
-            var flag = 0;
-            imgs.onclick = function () {
-                if (flag == 0) {
-                    input.type = 'text';
-                    imgs.src = '${ctx}/metronic/mobile/imgs/pwdopen.png';//睁眼图
-                    flag = 1;
-                } else {
-                    input.type = 'password';
-                    imgs.src = '${ctx}/metronic/mobile/imgs/pwd.png';//闭眼图
-                    flag = 0;
-                }
-            }
-        }
     </script>
 </body>
 

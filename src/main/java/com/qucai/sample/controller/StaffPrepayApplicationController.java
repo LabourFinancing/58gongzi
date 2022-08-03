@@ -90,7 +90,7 @@ public class StaffPrepayApplicationController {
 
 	@RequestMapping(value = {"staffPrepayApplicationNew"})
 // 钱包端传入手机号、企业名(所属名)、身份证号
-    public String staffPrepayApplicationNew(StaffPrepayApplicationList staffPrepayApplication,@RequestParam( defaultValue = "0" ) Integer platform,String operationType,String FPROD_cate,
+    public String staffPrepayApplicationNew(StaffPrepayApplicationList staffPrepayApplication,Integer platform,String operationType,
 											String SeesionLoginMobil,String t_Ewallet_titleName,String t_Ewallet_PID, // !!! ewallet system interface param,SeesionLoginMobile get through API post/session login t_Ewallet_titleName（企业名授权名）
 											String t_Txn_ID, String t_Txn_PID,String t_Txn_Mobil,Date create_time,BigDecimal t_Txn_CreditPrepayCurrentNum, Integer tTxnPrepayDays,
     		BigDecimal t_P_CreditPrepaySalaryAmount,Integer t_P_PayrollDate,BigDecimal t_FProd_ServiceFee,BigDecimal t_FProd_Poundage,String t_FProd_TierPoundage,String t_Txn_PrepayClear,String t_P_Employmentstatus,
@@ -114,6 +114,9 @@ public class StaffPrepayApplicationController {
     	//get titleName Treasury and Info
     	TreasuryDBInfo treasuryDBInfoGetStatistic = TreasuryDBInfoService.StatisticOverall(t_TreasuryDB_OrgName);
     	OrganizationInfo AgencyOrgnization = organizationInfoService.selectAgencyName(t_O_OrgName);
+		if(treasuryDBInfoGetStatistic == null || AgencyOrgnization == null){
+			return "staffPrepayApplication/TreasurySetupReq.html";
+		}
     	
 		String PaymentTunnel = AgencyOrgnization.getT_O_OrgPayrollBankaccount();  // get original paymenttunnel
     	String merchantId = null, PaymentSwitch = null;

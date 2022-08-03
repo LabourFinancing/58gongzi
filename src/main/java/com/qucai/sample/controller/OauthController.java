@@ -1311,14 +1311,18 @@ public class OauthController {
     }
 
     @RequestMapping(value = "staffPrepayApplicationFirmList")
-    public String staffPrepayApplicationFirmList(HttpServletResponse response,
+    public String staffPrepayApplicationFirmList(HttpServletResponse response,String t_Ewallet_titleName,
                                                  HttpServletRequest request,Integer platform, Model model) {
         String t_P_UserName = ShiroSessionUtil.getLoginSession().getUserName();
         Map<String, Object> paramSearchMap = new HashMap<String, Object>();
-        String t_Ewallet_titleName = null,t_P_FirmLists = null;
+        String t_P_FirmLists = null;
         paramSearchMap.put("t_P_UserName",t_P_UserName);
         model.addAttribute("platform", platform);
         List<PersonalInfo> PersonalInfoFirmList = personalInfoService.findPersonalFirmList(paramSearchMap);
+        if(t_Ewallet_titleName != null){
+            model.addAttribute("t_Ewallet_titleName",t_Ewallet_titleName);
+            return "redirect:/StaffPrepayApplicationController/staffPrepayApplicationNew";
+        }
         if(PersonalInfoFirmList.size() == 0){
             return "redirect:/OrganizationDashboardController/dashboard";
         }

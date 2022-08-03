@@ -134,7 +134,7 @@ public class IndexController {
             } else if (host.equals("M")) {
                 return "redirect:/OrganizationDashboardController/ewalletdashboard";
             } else {
-                return "redirect:/StaffPrepayApplicationController/staffPrepayApplicationNew";
+                return "StaffPrepayApplicationController/staffPrepayApplicationNew";
             }
         }
         return "login";  
