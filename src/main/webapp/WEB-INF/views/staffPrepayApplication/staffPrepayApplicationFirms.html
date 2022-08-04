@@ -22,12 +22,13 @@
     <link rel="shortcut icon" href="${ctx}/metronic/global/img/58gongzi-3.png" type="image/x-icon" />
     <script src="${ctx}/metronic/global/plugins/loading.js" type="text/javascript"></script>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
+
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all" rel="stylesheet"
           type="text/css">
     <link href="${ctx}/metronic/mobile/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="${ctx}/metronic/mobile/css/simple-line-icons.min.css">
     <link rel="stylesheet" href="${ctx}/metronic/mobile/css/bootstrap.min.css">
-    <link rel="stylesheet" href="${ctx}/metronic/mobile/css/uniform.default.css">
+<!--    <link rel="stylesheet" href="${ctx}/metronic/mobile/css/uniform.default.css">-->
     <link rel="stylesheet" href="${ctx}/metronic/mobile/css/bootstrap-switch.min.css">
     <!-- END GLOBAL MANDATORY STYLES -->
 
@@ -47,7 +48,8 @@
     <link rel="stylesheet" href="${ctx}/metronic/mobile/css/copybootrstap.css">
     <!-- <link href="/plugins/layer/skin/layer.css" rel="stylesheet" type="text/css"> -->
     <link rel="stylesheet" href="${ctx}/metronic/mobile/layer/skin/layer.css">
-    <link rel="stylesheet" href="${ctx}/metronic/mobile/user/login.css">
+    <link rel="stylesheet" href="${ctx}/metronic/mobile/user/firmlist.css">
+    <link rel="stylesheet" href="${ctx}/metronic/mobile/css/commons.css">
     <!-- mask -->
 
     <style>
@@ -154,12 +156,12 @@
 <!-- END HEAD -->
 
 <body>
-<div class=" login">
+<div class="login">
     <div class="menu-toggler sidebar-toggler"></div>
     <!-- END SIDEBAR TOGGLER BUTTON -->
     <!-- BEGIN LOGO -->
     <div class="logo">
-        <a href="index.html"> <img id="logo_login" src="${ctx}/metronic/mobile/imgs/login-banner.png">
+        <a> <img id="logo_login" src="${ctx}/metronic/mobile/imgs/login-banner.png">
         </a>
     </div>
     <!-- END LOGO -->
@@ -167,7 +169,7 @@
     <div class="content">
         <!-- BEGIN LOGIN FORM -->
         <form id="firmListForm" class="login-form" novalidate="novalidate">
-            <h3 class="select-title" style="text-align: center">请选择</h3>
+            <h3 class="select-title" style="text-align: center;font-size:18px">请选择</h3>
             <div class="alert alert-danger display-hide">
                 <button class="close" data-close="alert"></button>
                 <span></span>
@@ -177,15 +179,15 @@
                 <label class="control-label visible-ie8 visible-ie9"></label>
             </div>
             <div class="form-group">
-                <select class="bs-select form-control" data-live-search="true" name="t_Ewallet_titleName" id="t_Ewallet_titleName">
+                <select class="form-control bs-select" data-live-search="true" name="t_Ewallet_titleName" id="t_Ewallet_titleName">
                     <#list t_P_FirmLists as t_P_FirmLists>
-                    <option class="bs-option" value="${t_P_FirmLists.t_P_Company}">${t_P_FirmLists.t_P_Company}</option>
-                </#list>
+                    <option value="${t_P_FirmLists.t_P_Company}">${t_P_FirmLists.t_P_Company}</option>
+                    </#list>
                 </select>
             </div>
             <div id="msg"></div>
             <div class="form-actions">
-                <button class="btn btn-green uppercase togomaincon" onclick="firmselect()">确定</button>
+                <button class="btn btn-green uppercase togomaincon" style="font-size:16px" onclick="firmselect()">确定</button>
             </div>
         </form>
         <!-- END LOGIN FORM -->

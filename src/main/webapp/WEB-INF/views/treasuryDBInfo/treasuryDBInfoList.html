@@ -255,6 +255,7 @@ input.font-opstyle:hover{color:red}
 	                            	<td style="width:18px;height:18px"><span id="t_TreasuryDB_TotAmtDailyFail"><span>￥</span>${TreasuryDBStatisticOverAll.t_TreasuryDB_TotAmtDailyFail}<span>元</span></td>
 	                            </tr>
 	                            </@shiro.hasPermission>
+								<@shiro.hasPermission name="TREASURYINFO_SUPERADMINVIEW">
 	                            <tr>
 	                            	<td style="width:60px;height:18px">杉德支付平台</td>
 	                            	<td><span id="18554095zhyes">￥${TreasuryDBStatisticOverAll.t_TreasuryDB_RiskMargin}元</span></td>
@@ -275,6 +276,7 @@ input.font-opstyle:hover{color:red}
 	                            	<td><span id="Chinaebidrcgjyzjes">￥ 元</span></td>
 	                            	<td><span id="Chinaebidrsbjyzjes">￥  元</span></td>
 	                            </tr>
+							</@shiro.hasPermission>
 	                        </thead>
 	                    </table>
 	                </div>				

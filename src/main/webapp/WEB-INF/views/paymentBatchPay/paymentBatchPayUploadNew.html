@@ -560,6 +560,17 @@
                 alert("请选择起始与结束日期");
             }
         }
+
+        function paydivswitch(payswitch){
+            switch (payswitch){
+                case "batchpay": document.getElementById("prepaybatches").style.display = "none";
+                    break;
+                case "clearprepay": document.getElementById("prepaybatches").style.display = "";
+                    break;
+                default : document.getElementById("prepaybatches").style.display = "none";
+                    break;
+            }
+        }
     </script>
     <style>
         .ml20 {
@@ -679,16 +690,27 @@
                                     <div class="lineY"></div>
                                 </div>
                                 <div class="processArea">
-                                    <div class="processTitle">
+                                    <div class="form-group">
+                                    <div class="radio-inline">
+                                        <div class="radio-inline">
+                                            <input type="radio" name="batchpay" id="batchpay" value="batchpay" checked="checked" onclick="paydivswitch(this.value)"/>批量支付
+                                        </div>
+                                        <div class="radio-inline">
+                                            <input type="radio" name="batchpay" id="clearprepay" value="clearprepay" onclick="paydivswitch(this.value)"/>预支结余支付
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <br>
+                                    <div id="paybatches" class="processTitle">
                                         <div>
-                                        <label>绑定批次<span class="required"> * </span>
+                                        <label>绑定支付批次<span class="required"> * </span>
                                         </label>
                                         </div>
                                     <div style="display:inline-block;width:800px">
                                         <div style="margin-left:0px;width:115%;display:inline-block;">
                                             <div style="width:100%;display:inline-block;">
-                                                <select class="bs-select form-control" data-live-search="true" name="batch_PB_batchID"
-                                                        id="batch_PB_batchID">
+                                                <select class="bs-select form-control" data-live-search="true" name="prepaybatch_PB_batchID"
+                                                        id="prepaybatch_PB_batchID">
                                                     <#list paymentBatchPayUpload as paymentBatchPayUpload>
                                                     <option value="${paymentBatchPayUpload.batch_PB_batchID}">
                                                         ${paymentBatchPayUpload.batch_PB_batchID} </option>
@@ -706,6 +728,34 @@
                                             <a id="detaillist" style="width:20%;margin-right: 0px;" href="#" onclick="javascript:;openDetails()">查看详情</a>
                                         </div>
                                     </div>
+                                    </div>
+                                    <div id="prepaybatches" class="processTitle" style="display:none">
+                                        <div>
+                                            <label style="color:indianred">绑定预支批次<span class="required"> * </span>
+                                            </label>
+                                        </div>
+                                        <div style="display:inline-block;width:800px">
+                                            <div style="margin-left:0px;width:115%;display:inline-block;">
+                                                <div style="width:100%;display:inline-block;">
+                                                    <select class="bs-select form-control" data-live-search="true" name="batch_PB_batchID"
+                                                            id="batch_PB_batchID">
+                                                        <#list paymentBatchPayUpload as paymentBatchPayUpload>
+                                                        <option value="${paymentBatchPayUpload.batch_PB_batchID}">
+                                                            ${paymentBatchPayUpload.batch_PB_batchID} </option>
+                                                    </#list>
+                                                </div>
+                                            </div>
+                                            <div style="margin-left:0px;width:1000%;">
+                                                <div style="width:150%;">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="display:inline-block">
+                                            <div style="margin-left:0px;display:inline-block">
+                                                <a id="prepaydetaillist" style="width:20%;margin-right: 0px;" href="#" onclick="javascript:;openDetails()">查看详情</a>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="processTitle">
                                         <label>支付日期:<span class="required">*</span>

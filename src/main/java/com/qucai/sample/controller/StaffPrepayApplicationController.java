@@ -150,7 +150,6 @@ public class StaffPrepayApplicationController {
 			  	}else {
 					Sandebalance = (new BigDecimal(BalanceData)).divide(new BigDecimal(100)).setScale(2, BigDecimal.ROUND_DOWN);
 				}
-//                BigDecimal Sandebalance = new BigDecimal("131.18").setScale(2, BigDecimal.ROUND_DOWN);  // debug using
 				InitialBalance = Sandebalance;
   				System.out.println("Query Sande balance:");
   				System.out.println(Sandebalance);
