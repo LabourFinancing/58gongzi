@@ -232,9 +232,15 @@ public class PersonalInfoBatchUploadStatusController {
 
        	  model.addAttribute("platform", platform);
           Map<String, Object> paramMap = new HashMap<String, Object>();// 申明一个新对象
+		try {
+			t_batch_perslUploadStatus_batchid = URLDecoder.decode(t_batch_perslUploadStatus_batchid, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
           paramMap.put("typeEnd", 1);      //给typeEnd对象赋值
           paramMap.put("platform", platform); //给platform,赋值为前台拿进来的值
-  		  paramMap.put("batch_PB_batchID",t_batch_perslUploadStatus_batchid);
+		  paramMap.put("batch_PB_batchID",t_batch_perslUploadStatus_batchid);
           String t_P_Company = ShiroSessionUtil.getLoginSession().getCompany_name();
          if (OperationTypeConstant.NEW.equals(operationType)) { //用OperationTypeConstant函数封装的赋值函数方法判断值是否相等,并调用相应的页面        	 
            if (t_P_Company.equals("ALL")){
@@ -247,23 +253,10 @@ public class PersonalInfoBatchUploadStatusController {
            }
         	return "personalInfoBatchUploadStatus/personalInfoNewForm";
           } else if (OperationTypeConstant.EDIT.equals(operationType)) {
-      		try {
-    			t_batch_perslUploadStatus_batchid = URLDecoder.decode(t_batch_perslUploadStatus_batchid, "UTF-8");
-    		} catch (UnsupportedEncodingException e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
-    		}
         	  personalInfoBatchUploadStatus = personalInfoBatchUploadStatusService.selectByPrimaryKey(t_batch_perslUploadStatus_batchid);
            	  model.addAttribute("personalInfoBatchUploadStatus", personalInfoBatchUploadStatus);
               return "personalInfoBatchUploadStatus/personalInfoBatchUploadEditForm";
           } else if (OperationTypeConstant.LIST.equals(operationType)) {
-        		try {
-        			t_batch_perslUploadStatus_batchid = URLDecoder.decode(t_batch_perslUploadStatus_batchid, "UTF-8");
-        		} catch (UnsupportedEncodingException e) {
-        			// TODO Auto-generated catch block
-        			e.printStackTrace();
-        		}
-        	  paramMap.put("batch_PB_batchID", t_batch_perslUploadStatus_batchid);
         	  PersonalInfoBatchUpload entity = null;
 //        	  List<HistoricalTxnQuery> historicalTxnQuerySearch = historicalTxnQueryService.findSearchList(paramMap); //refresh personal txn statistic
 			  List<PersonalInfoBatchUpload> PersonalInfoBatchUploadList = personalInfoBatchUploadService.SelectAllBatchList(paramMap);

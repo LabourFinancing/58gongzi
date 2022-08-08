@@ -353,9 +353,9 @@ public class PersonalInfoBatchUploadController {
                 fileName = t_PIBU_Orgname + "_manual";
             }
             if(personalInfoInputArea == null) {
-                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append(fileName).append("_").append(FProd_name).append("_").append("PR"));   // PR - personal realtime time trigger upload
+                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append(fileName).append("_").append(FProd_name).append("_").append("PR")).replaceAll(" ","").trim();   // PR - personal realtime time trigger upload
             }else{
-                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append("手工上传").append("_").append(FProd_name).append("_").append("PR"));
+                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append("手工上传").append("_").append(FProd_name).append("_").append("PR")).replaceAll(" ","").trim();
             }
         } else {
             StringBuffer ss = new StringBuffer();
@@ -366,9 +366,9 @@ public class PersonalInfoBatchUploadController {
                 fileName = t_PIBU_Orgname + "_manual";
             }
             if(personalInfoInputArea == null) {
-                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append(fileName).append("_").append(FProd_name).append("_").append("PT"));    // PT - personal time trigger upload
+                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append(fileName).append("_").append(FProd_name).append("_").append("PT")).replaceAll(" ","").trim();    // PT - personal time trigger upload
             }else{
-                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append("手工上传").append("_").append(FProd_name).append("_").append("PT"));
+                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append("手工上传").append("_").append(FProd_name).append("_").append("PT")).replaceAll(" ","").trim();
             }
         }
         ArrayList<ArrayList<String>> row = new ArrayList<>();
@@ -671,99 +671,6 @@ public class PersonalInfoBatchUploadController {
         // !!! newfunction uploading critirea -  pid&company unique checking
         if(insertNum != 0){
             dataChkOk = true;
-            //check dup debit card in upload batch 上传文件中银行卡号重复检查
-            List<PersonalInfoBatchUpload> retcode = personalInfoBatchUploadService.duplicateDebitCardChk(batch_PB_batchID);
-            String errRcsDupDebitCard = null;
-            if (retcode.size() != 0 || !retcode.isEmpty()){
-                StringBuffer errRecord = new StringBuffer();
-                for (int i = 0; i < retcode.size(); i++) {
-                    if (i == 0) {
-                        errRecord.append("'").append(retcode.get(i).getBatch_PB_Name()).append("-").append(retcode.get(i).getBatch_PB_creditCard());
-                    } else {
-                        errRecord.append(",").append("'").append(retcode.get(i).getBatch_PB_Name()).append("-").append(retcode.get(i).getBatch_PB_creditCard()).append("'");
-                    }
-                }
-                errRcsDupDebitCard = new String(errRecord);
-            }
-
-            if (errRcsDupDebitCard != null) {
-                int deleteUpload = personalInfoBatchUploadService.deleteByPrimaryKey(batch_PB_batchID);
-                dataChkOk = false;
-                errRowData = new StringBuffer();
-                errRowData.append(String.valueOf("重复银行卡记录信息:")).append(errRcsDupDebitCard).append("-错误原因：").append(ExRetEnum.Pullin_FailDupDebitCardErr.getMsg()).append(";\n");;
-                personalErrInfo.add(errRowData.toString());
-            }
-
-
-            // check dup mobile with Manager Table - manager表身份证与上传身份证已存在但手机号不同检查
-            List<PersonalInfoBatchUpload> retcode1 = personalInfoBatchUploadService.duplicateMobileChkTmanager(batch_PB_batchID); // !!! new function
-            String errRcsDupMobileMgr = null;
-            if (retcode1.size() != 0 || !retcode1.isEmpty()){
-                StringBuffer errRecord = new StringBuffer();
-                for (int i = 0; i < retcode1.size(); i++) {
-                    if (i == 0) {
-                        errRecord.append("'").append(retcode1.get(i).getBatch_PB_Name()).append("-").append(retcode1.get(i).getBatch_PB_mobile());
-                    } else {
-                        errRecord.append(",").append("'").append(retcode1.get(i).getBatch_PB_Name()).append("-").append(retcode1.get(i).getBatch_PB_mobile()).append("'");
-                    }
-                }
-                errRcsDupMobileMgr = new String(errRecord);
-            }
-
-            if (errRcsDupMobileMgr != null) {
-                int deleteUpload = personalInfoBatchUploadService.deleteByPrimaryKey(batch_PB_batchID);
-                dataChkOk = false;
-                errRowData = new StringBuffer();
-                errRowData.append(String.valueOf("与系统主人员信息表重复手机号或一个身份证多个手机号记录信息:")).append(errRcsDupMobileMgr).append("-错误原因：").append(ExRetEnum.Pullin_FailDupMgrMobileErr.getMsg()).append(";\n");;
-                personalErrInfo.add(errRowData.toString());
-            }
-
-            // check dup Mobile with t_personal table - personal表身份证与上传身份证已存在但手机号不同检查
-            List<PersonalInfoBatchUpload> retcode2 = personalInfoBatchUploadService.duplicateMobileChkTperson(batch_PB_batchID); //!!! new function
-            String errRcsDupMobilePer = null;
-            if (retcode2.size() != 0 || !retcode2.isEmpty()){
-                StringBuffer errRecord = new StringBuffer();
-                for (int i = 0; i < retcode2.size(); i++) {
-                    if (i == 0) {
-                        errRecord.append("'").append(retcode2.get(i).getBatch_PB_Name()).append("-").append(retcode2.get(i).getBatch_PB_mobile());
-                    } else {
-                        errRecord.append(",").append("'").append(retcode2.get(i).getBatch_PB_Name()).append("-").append(retcode2.get(i).getBatch_PB_mobile()).append("'");
-                    }
-                }
-                errRcsDupMobilePer = new String(errRecord);
-            }
-
-            if (errRcsDupMobilePer != null) {
-                int deleteUpload = personalInfoBatchUploadService.deleteByPrimaryKey(batch_PB_batchID);
-                dataChkOk = false;
-                errRowData = new StringBuffer();
-                errRowData.append(String.valueOf("与系统个人信息表重复手机号或一个身份证多个手机号记录信息:")).append(errRcsDupMobilePer).append("-错误原因：").append(ExRetEnum.Pullin_FailDupPerMobileErr.getMsg()).append(";\n");;
-                personalErrInfo.add(errRowData.toString());
-            }
-
-            // check dup personal id with Manager table - manager表手机号与上传手机号已存在但身份证不同检查 //!!! new function
-            List<PersonalInfoBatchUpload> retcode3 = personalInfoBatchUploadService.duplicatePIDChk(batch_PB_batchID);
-            String errRcsDupPID = null;
-            if (retcode3.size() != 0 || !retcode3.isEmpty()){
-                StringBuffer errRecord = new StringBuffer();
-                for (int i = 0; i < retcode3.size(); i++) {
-                    if (i == 0) {
-                        errRecord.append("'").append(retcode3.get(i).getBatch_PB_Name()).append("-").append(retcode3.get(i).getBatch_PB_PID());
-                    } else {
-                        errRecord.append(",").append("'").append(retcode3.get(i).getBatch_PB_Name()).append("-").append(retcode3.get(i).getBatch_PB_PID()).append("'");
-                    }
-                }
-                errRcsDupPID = new String(errRecord);
-            }
-
-            if (errRcsDupPID != null) {
-                int deleteUpload = personalInfoBatchUploadService.deleteByPrimaryKey(batch_PB_batchID);
-                dataChkOk = false;
-                errRowData = new StringBuffer();
-                errRowData.append(String.valueOf("与系统个人信息表重复身份证或一个手机号多个身份证记录信息:")).append(errRcsDupPID).append("-错误原因：").append(ExRetEnum.Pullin_FailDupPIDErr.getMsg()).append(";\n");;
-                personalErrInfo.add(errRowData.toString());
-            }
-
             //check dup mobile in the batch uploaded - 上传表中手机号有重复检查
             List<PersonalInfoBatchUpload> retcode4 = personalInfoBatchUploadService.checkDuplicateBatchUploadMobil(batch_PB_batchID);
             String errBatchDupMobile = null;
@@ -832,6 +739,54 @@ public class PersonalInfoBatchUploadController {
                 errRowData.append(String.valueOf("上传表中有重复银行卡记录信息:")).append(errBatchDupDebitCard).append("-错误原因：").append(ExRetEnum.Pullin_FailDupDebitCardErr.getMsg()).append(";\n");
                 personalErrInfo.add(errRowData.toString());
             }
+
+            // check dup mobile with Manager Table - manager表身份证与上传身份证已存在但手机号不同检查
+//            List<PersonalInfoBatchUpload> retcode1 = personalInfoBatchUploadService.duplicateMobileChkTmanager(batch_PB_batchID); // !!! new function∂
+            List<PersonalInfoBatchUpload> retcode1 = personalInfoBatchUploadService.duplicateMobileChkTmanager(batch_PB_batchID); // !!! new function∂
+            String errRcsDupMobileMgr = null;
+            if (retcode1.size() != 0 || !retcode1.isEmpty()){
+                StringBuffer errRecord = new StringBuffer();
+                for (int i = 0; i < retcode1.size(); i++) {
+                    if (i == 0) {
+                        errRecord.append("'").append(retcode1.get(i).getBatch_PB_Name()).append("-").append(retcode1.get(i).getBatch_PB_mobile());
+                    } else {
+                        errRecord.append(",").append("'").append(retcode1.get(i).getBatch_PB_Name()).append("-").append(retcode1.get(i).getBatch_PB_mobile()).append("'");
+                    }
+                }
+                errRcsDupMobileMgr = new String(errRecord);
+            }
+
+            if (errRcsDupMobileMgr != null) {
+                int deleteUpload = personalInfoBatchUploadService.deleteByPrimaryKey(batch_PB_batchID);
+                dataChkOk = false;
+                errRowData = new StringBuffer();
+                errRowData.append(String.valueOf("与系统主人员信息表重复手机号或一个身份证多个手机号记录信息:")).append(errRcsDupMobileMgr).append("-错误原因：").append(ExRetEnum.Pullin_FailDupMgrMobileErr.getMsg()).append(";\n");;
+                personalErrInfo.add(errRowData.toString());
+            }
+
+            // check dup Mobile with t_personal table - personal表身份证与上传身份证已存在但手机号不同,或手机号已存在但身份证不同检查
+            List<PersonalInfoBatchUpload> retcode2 = personalInfoBatchUploadService.duplicateMobileChkTperson(batch_PB_batchID); //!!! new function
+            String errRcsDupMobilePer = null;
+            if (retcode2.size() != 0 || !retcode2.isEmpty()){
+                StringBuffer errRecord = new StringBuffer();
+                for (int i = 0; i < retcode2.size(); i++) {
+                    if (i == 0) {
+                        errRecord.append("'").append(retcode2.get(i).getBatch_PB_Name()).append("-").append(retcode2.get(i).getBatch_PB_mobile());
+                    } else {
+                        errRecord.append(",").append("'").append(retcode2.get(i).getBatch_PB_Name()).append("-").append(retcode2.get(i).getBatch_PB_mobile()).append("'");
+                    }
+                }
+                errRcsDupMobilePer = new String(errRecord);
+            }
+
+            if (errRcsDupMobilePer != null) {
+                int deleteUpload = personalInfoBatchUploadService.deleteByPrimaryKey(batch_PB_batchID);
+                dataChkOk = false;
+                errRowData = new StringBuffer();
+                errRowData.append(String.valueOf("与系统个人信息表重复手机号或一个身份证多个手机号记录信息:")).append(errRcsDupMobilePer).append("-错误原因：").append(ExRetEnum.Pullin_FailDupPerMobileErr.getMsg()).append(";\n");;
+                personalErrInfo.add(errRowData.toString());
+            }
+
         }
 
 
@@ -847,7 +802,6 @@ public class PersonalInfoBatchUploadController {
             rs.put("personalErrInfo",personalErrInfoList);
             return JsonBizTool.genJson(ExRetEnum.Pullin_Fail, rs);
         }
-
     }
 
 // bind batch uploadfile to trigger debitline propose - no need to bind Corp and Prod Again , just schedule the trigger time and batch bind - !!! 多项检查下，这里的批次人员绑定的实际意义

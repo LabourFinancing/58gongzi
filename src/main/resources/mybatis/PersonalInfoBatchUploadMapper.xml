@@ -138,20 +138,42 @@
 	</delete>
 
 
+<!--	<select id="duplicateMobileChkTmanager" resultMap="BaseResultMap">-->
+<!--		 select-->
+<!--		 <include refid="Base_Column_List" />-->
+<!--		 from t_batch_personupload a where a.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}-->
+<!--		 and a.batch_PB_mobile not in -->
+<!--		 ( select user_name from t_manager where t_manager.telephone in ( select batch_PB_PID from t_batch_personupload where batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}) )-->
+<!--	</select>-->
+
 	<select id="duplicateMobileChkTmanager" resultMap="BaseResultMap">
-		 select
-		 <include refid="Base_Column_List" />
-		 from t_batch_personupload a where a.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}
-		 and a.batch_PB_mobile not in 
-		 ( select mobile from t_manager where t_manager.telephone in ( select batch_PB_PID from t_batch_personupload where batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}) )
+		select
+		<include refid="Base_Column_List" />
+		from t_batch_personupload a join t_manager b on a.batch_PB_mobile = b.user_name
+		where a.batch_PB_PID != b.telephone
+		and a.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}
 	</select>
 	
+<!--	<select id="duplicateMobileChkTperson" resultMap="BaseResultMap">-->
+<!--	     select-->
+<!--		 <include refid="Base_Column_List" />-->
+<!--		 from t_batch_personupload a where a.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}-->
+<!--		 and a.batch_PB_mobile not in -->
+<!--		 ( select t_P_Mobil from t_personal_info where t_personal_info.t_P_PID in ( select batch_PB_PID from t_batch_personupload where batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}))-->
+<!--	</select>-->
+
 	<select id="duplicateMobileChkTperson" resultMap="BaseResultMap">
-	     select
-		 <include refid="Base_Column_List" />
-		 from t_batch_personupload a where a.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}
-		 and a.batch_PB_mobile not in 
-		 ( select t_P_Mobil from t_personal_info where t_personal_info.t_P_PID in ( select batch_PB_PID from t_batch_personupload where batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}))
+		select
+		<include refid="Base_Column_List" />
+		from t_batch_personupload a join t_personal_info b on a.batch_PB_mobile = b.t_P_Mobil
+		where a.batch_PB_PID != b.t_P_PID
+		and a.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}
+		union
+		select
+		<include refid="Base_Column_List" />
+		from t_batch_personupload a join t_personal_info b on a.batch_PB_PID = b.t_P_PID
+		where a.batch_PB_mobile != b.t_P_Mobil
+		and a.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}
 	</select>
 
 	<select id="checkDuplicateBatchUploadMobil" resultMap="BaseResultMap">

@@ -15,7 +15,14 @@
 <#include "/common/jsResource.html">
 
 <script type="text/javascript">
-
+	window.onload = function(){
+		var Mpcl = document.querySelectorAll('.col-xs-push-1');
+		for(var i=0; i<Mpcl.length;i++){
+			switch (Mpcl[i].innerText) {
+				case "0": Mpcl[i].innerText = "即时发薪";break;
+			}
+		};
+	}
 //download excel
 var idTmr;  
 function  getExplorer() {  
