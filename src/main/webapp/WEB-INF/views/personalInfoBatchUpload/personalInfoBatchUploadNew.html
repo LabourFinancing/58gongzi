@@ -48,6 +48,8 @@
         var textareadata = true;
         var spanHTag = false;
         var inputZinital = null;
+        var FprodSelectedText = null;
+        var FprodSelectedValue = null;
 
         var project;
         $(function(){
@@ -78,6 +80,7 @@
             //点击上传按钮
             this.uploadBtn = function () {
                 var uploadEventFile = $("#uploadEventFile").val();
+                console
                 if (uploadEventFile == '' && document.getElementById("PersonalInfoInputArea").innerText == '') {
                     alert("请选择excel或者输入用户信息,再上传");
                     return;
@@ -109,8 +112,18 @@
                     document.getElementById("t_FPROD_Name").focus;
                     return;
                 } else {
+                    var FprodList = document.getElementById("t_FPROD_Name");
+                    console.log(FprodList.options)
+                    for(i=0; i<FprodList.options.length; i++){
+                        if(FprodList.options[i].selected == true){
+                            FprodSelectedText = FprodList.options[i].innerText;
+                            FprodSelectedValue = FprodList.options[i].value;
+                            console.log(FprodSelectedText)
+                        }
+                    }
                     $.ajax({
-                        url: "/sample_war_exploded/PersonalInfoBatchUploadController/personalInfoBatchUploadPullin?operationType=fileupload&t_FPROD_Name=" + encodeURI(encodeURI($("#t_FPROD_Name").val())) +
+                        url: "/sample_war_exploded/PersonalInfoBatchUploadController/personalInfoBatchUploadPullin?operationType=fileupload&t_FPRODSel_id=" + encodeURI(encodeURI(FprodSelectedValue)) +
+                            "&t_FPRODSel_Name=" + encodeURI(encodeURI(FprodSelectedText)) +
                             "&personalInfoInputArea=" + encodeURI(encodeURI(document.getElementById("PersonalInfoInputArea").innerText)),
                         type: "post",
                         // contentType: "application/x-www-form-urlencoded; charset=utf-8",
@@ -124,7 +137,11 @@
                             if (result.ret == "-1") {
                                 document.getElementById("uploadFileStatus").innerHTML = "上传失败，请更正后重新上传！"
                                 alert(result.retMsg);
-                                download_txt('err.txt', result.personalErrInfo, 'txt')
+                                if(result.personalErrInfo == null){
+                                    download_txt('err.txt', result.retMsg, 'txt')
+                                }else {
+                                    download_txt('err.txt', result.personalErrInfo, 'txt')
+                                }
                             } else if (result.ret == "0") {
                                 document.getElementById("uploadFileStatus").innerHTML = "上传成功"
                                 uploaded = true
@@ -400,7 +417,7 @@
                         var FProdNameSelect = document.getElementById("t_FPROD_Name");
                         FProdNameSelect.options.length=0;/**清空下拉框的值*/
                         if((result.FinanceProduct!=null)&&(result.FinanceProduct.length!=0)) {
-                            for(var i=0; i<=result.FinanceProduct.length; i++){
+                            for(var i=0; i<result.FinanceProduct.length; i++){
                                 var op = new Option();
                                 op.text = result.FinanceProduct[i].t_FProd_Name + " - " + result.FinanceProduct[i].remark;
                                 op.value = result.FinanceProduct[i].t_FProd_PersPool;
@@ -457,7 +474,7 @@
             }
             if(inputchkok){
                 $.ajax({
-                    url : "/sample_war_exploded/PersonalInfoBatchUploadController/personalInfoBatchUpdateSub?operationType=filerefresh&t_FPROD_Name=" + encodeURI(encodeURI($("#t_FPROD_Name").val())) +
+                    url : "/sample_war_exploded/PersonalInfoBatchUploadController/personalInfoBatchUpdateSub?operationType=filerefresh&t_FPROD_id=" + encodeURI(encodeURI($("#t_FPROD_Name").val)) +
                         "&t_PIBU_Orgname=" + encodeURI(encodeURI($("#t_PIBU_Orgname").val())) +
                         "&batch_PB_batchID=" + encodeURI(encodeURI($("#batch_PB_batchID").val())) +
                         "&EffectStartDate=" + document.getElementById("EffectStartDate").value +
@@ -630,7 +647,7 @@
                                             <div style="padding-left: 0px;">
                                                 <select class="bs-select form-control" data-live-search="true" name="t_FPROD_Name" id="t_FPROD_Name">
                                                     <#list FinanceProduct as FinanceProductList>
-                                                    <option value="${FinanceProductList.t_FProd_PersPool}">${FinanceProductList.t_FProd_Name} - ${FinanceProductList.remark}</option>
+                                                    <option value="${FinanceProductList.t_FPROD_id}">${FinanceProductList.t_FProd_Name}</option>
                                                 </#list>
                                                 </select>
                                             </div>

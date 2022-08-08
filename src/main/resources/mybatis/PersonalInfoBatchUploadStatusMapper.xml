@@ -216,5 +216,16 @@
 	</set>
 	where t_batch_perslUploadId = #{t_batch_perslUploadId,jdbcType=VARCHAR}
 </update>
+
+	<select id="checkBatchPersonalClearStatus" resultType="java.lang.Integer"
+			parameterType="map">
+		select
+		count(*)
+		from t_batch_personupload_status a
+		where a.t_batch_perslUploadClearStatus = "未结算"
+		<if test="t_batch_company != null and t_batch_company != 'ALL'">
+			and a.t_batch_company != #{t_batch_company}
+		</if>
+	</select>
 </mapper>
  

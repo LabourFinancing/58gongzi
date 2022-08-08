@@ -298,3 +298,40 @@
         font-size: 13px
     }
 }
+@media (max-width: 320px) {
+    .login .content,.login .logo {
+        margin-top:10px
+    }
+    .login .logo>a>img {
+        top: -11px;
+
+    }
+    .login .logo_s>a>img{
+        width: 320px!important;
+    }
+    .login .content {
+        width: 300px;
+        margin-left: -46%;
+    }
+    .login .width300{
+        width: 300px!important;
+        margin-left: -46%!important;
+    }
+    .login .content h3 {
+        font-size: 22px
+    }
+
+    .forget-password {
+        display: inline-block;
+        margin-top: 20px
+    }
+
+    .login-options .social-icons {
+        float: left;
+        padding-top: 3px
+    }
+
+    .login .checkbox {
+        font-size: 13px
+    }
+}

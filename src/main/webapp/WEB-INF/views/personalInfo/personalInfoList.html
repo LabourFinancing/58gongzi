@@ -28,6 +28,22 @@
 /*
 *参考 http://blog.csdn.net/lzwglory/article/details/17549725
 **/
+
+window.onload = function(){
+	var Mpcl = document.querySelectorAll('.col-xs-push-1');
+	for(var i=0; i<Mpcl.length;i++){
+		switch (Mpcl[i].innerText) {
+			case "expired": Mpcl[i].innerText = "已离职";break;
+			case "onjob": Mpcl[i].innerText = "在职";break;
+			case "resigning": Mpcl[i].innerText = "已提离职";break;
+			case "pending": Mpcl[i].innerText = "暂停";break;
+			case "vendor": Mpcl[i].innerText = "外包工";break;
+			case "parttime": Mpcl[i].innerText = "小时工";break;
+			case "directhire": Mpcl[i].innerText = "直聘工";break;
+		}
+	};
+}
+
 function page(n,s){
 	$("#pageNum").val(n);
 	$("#pageSize").val(s);
@@ -230,7 +246,9 @@ a:hover{color:red}
                                 <th>当次调整额度</th>
                                 <th>用工状态</th>
                                 <th>用工性质</th>
+								<@shiro.hasPermission name="TREASURYINFO_SUPERADMINVIEW">
                                 <th>员工信用等级</th>
+								</@shiro.hasPermission>
                                 <th>工作年限</th>
                                 <th>工资卡号</th>
                                 <th>当次薪酬授额数</th>
@@ -258,7 +276,9 @@ a:hover{color:red}
                                 <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_ProvidentFund}</td>
                                 <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_Employmentstatus}</td>
                                 <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_EmploymentCategory}</td>
+								<@shiro.hasPermission name="TREASURYINFO_SUPERADMINVIEW">
                                 <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_Probation}</td>
+								</@shiro.hasPermission>
                                 <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_WorkYears}</td>
                                 <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_PayrollDebitcardNum}</td>
                                 <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfo.t_P_NetBaseSalary}</td>

@@ -187,7 +187,7 @@ SELECT * FROM t_batch_personupload where batch_PB_creditCard in (SELECT batch_PB
 		select
 		<include refid="Base_Column_List" />
 		from t_batch_personupload a where a.batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR}
-		and a.batch_PB_creditCard in (SELECT batch_PB_creditCard FROM (SELECT batch_PB_creditCard, COUNT(batch_PB	_creditCard) AS ct FROM t_batch_personupload where batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR} GROUP BY batch_PB_creditCard) AS nt WHERE nt.ct>1)
+		and a.batch_PB_creditCard in (SELECT batch_PB_creditCard FROM (SELECT batch_PB_creditCard, COUNT(batch_PB_creditCard) AS ct FROM t_batch_personupload where batch_PB_batchID = #{batch_PB_batchID,jdbcType=VARCHAR} GROUP BY batch_PB_creditCard) AS nt WHERE nt.ct>1)
 	</select>
 
 	<select id="checkDuplicateBatchUploadDebitCard" resultMap="BaseResultMap">

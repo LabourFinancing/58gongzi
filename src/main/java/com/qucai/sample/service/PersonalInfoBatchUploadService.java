@@ -15,11 +15,6 @@ import com.qucai.sample.entity.PersonalInfoBatchUpload;
 
 public interface PersonalInfoBatchUploadService {
     /**
-     * @param targetPath
-     * @param orgId
-     * @param deptId
-     * @param password
-     * @param upFile
      * @return
      */
 //  public Map<String, Object> uploadOrgUser(String targetPath, Integer orgId, Integer deptId, String password, MultipartFile upFile);
@@ -74,6 +69,4 @@ public interface PersonalInfoBatchUploadService {
 	List<PersonalInfoBatchUpload> checkDuplicateBatchUploadDebitCard(String batch_PB_batchID);
 
 	List<PersonalInfoBatchUpload> SelectAllBatchList(Map<String, Object> paramMap);
-
-
 }

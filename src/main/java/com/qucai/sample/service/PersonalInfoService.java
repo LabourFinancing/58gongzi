@@ -17,6 +17,8 @@ public interface PersonalInfoService {
 	PersonalInfo selectByPrimaryKey(String t_P_id);
     
 	int updateCompanyStaffsCreditOn(String t_TreasuryDB_OrgName_get);
+
+    int updateCompanyStaffsCreditBalance(String t_TreasuryDB_OrgName_get);
 	
 	int updateCompanyStaffsCreditOff(String t_TreasuryDB_OrgName_get);
 /*

@@ -300,10 +300,11 @@ public class PersonalInfoBatchUploadController {
 
     @RequestMapping(value="personalInfoBatchUploadPullin")
     @ResponseBody
-    public String upload(HttpServletRequest request,MultipartFile uploadEventFile,PersonalInfoBatchUpload personalInfoBatchUpload,String personalInfoInputArea,String t_PIBU_Orgname,String t_FPROD_Name,
-                         String payrollDate,String jobcat,Date EffectStartDate,Date EffectEndDate,Date TriggerTime,HttpServletResponse response, Model model) throws UnsupportedEncodingException {
+    public String upload(HttpServletRequest request,MultipartFile uploadEventFile,PersonalInfoBatchUpload personalInfoBatchUpload,String personalInfoInputArea,
+                         String t_PIBU_Orgname,String t_FPRODSel_Name,String t_FPRODSel_id,String payrollDate,String jobcat,Date EffectStartDate,Date EffectEndDate,
+                         Date TriggerTime,HttpServletResponse response, Model model) throws UnsupportedEncodingException {
         String CurrentCompany = ShiroSessionUtil.getLoginSession().getCompany_name();
-
+        Map<String, Object> rs = new HashMap<String, Object>(); // err Msg
         // String result = ps.readExcelFile(file);
         request.setCharacterEncoding("UTF-8");
         System.out.println("进入员工个人信息文件上传");
@@ -313,7 +314,6 @@ public class PersonalInfoBatchUploadController {
             System.out.print(personalInfoInputArea);
         }
         model.addAttribute("TriggerTime", TriggerTime);
-        System.out.println(t_FPROD_Name);
         OrganizationInfo organizationInfo = organizationInfoService.selectAgencyName(t_PIBU_Orgname);
         Date date = new Date();//获取当前的日期
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -323,15 +323,24 @@ public class PersonalInfoBatchUploadController {
         if(EffectEndDate == null){
             EffectEndDate = EffectStartDate;
         }
-        String datestr = Tool.PayId();
-        String batch_PB_batchID = null;
-        String FProd_name = null;
+        String datestr = Tool.BatchPayId();
+        String batch_PB_batchID = null,FProd_name = null,t_FProd_ID = null;
+
         Integer insertNum = 0;
         try {
-            FProd_name = URLDecoder.decode(t_FPROD_Name, "UTF-8");
+            FProd_name = URLDecoder.decode(t_FPRODSel_Name, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        }
+
+        try {
+            t_FProd_ID = URLDecoder.decode(t_FPRODSel_id, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            rs.put("retMsg","插入失败，服务器繁忙，请稍后再试!");
+            return JsonBizTool.genJson(ExRetEnum.Pullin_Fail, rs);
         }
 
         //generate batchid
@@ -346,7 +355,7 @@ public class PersonalInfoBatchUploadController {
             if(personalInfoInputArea == null) {
                 batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append(fileName).append("_").append(FProd_name).append("_").append("PR"));   // PR - personal realtime time trigger upload
             }else{
-                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append("manual").append("_").append(FProd_name).append("_").append("PR"));
+                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append("手工上传").append("_").append(FProd_name).append("_").append("PR"));
             }
         } else {
             StringBuffer ss = new StringBuffer();
@@ -359,7 +368,7 @@ public class PersonalInfoBatchUploadController {
             if(personalInfoInputArea == null) {
                 batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append(fileName).append("_").append(FProd_name).append("_").append("PT"));    // PT - personal time trigger upload
             }else{
-                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append("manual").append("_").append(FProd_name).append("_").append("PT"));
+                batch_PB_batchID = String.valueOf(ss.append(datestr.substring(0, (datestr.length()))).append("_").append(t_PIBU_Orgname).append("_").append("手工上传").append("_").append(FProd_name).append("_").append("PT"));
             }
         }
         ArrayList<ArrayList<String>> row = new ArrayList<>();
@@ -368,7 +377,7 @@ public class PersonalInfoBatchUploadController {
         List<String> personalErrInfo = new ArrayList<String>();
         StringBuffer errRowData =  new StringBuffer();
         Boolean dataChkOk = true;
-        Map<String, Object> rs = new HashMap<String, Object>(); // err Msg
+
 
         if (personalInfoInputArea == null || personalInfoInputArea == "") {
             String filename = uploadEventFile.getOriginalFilename();
@@ -383,10 +392,21 @@ public class PersonalInfoBatchUploadController {
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
+                rs.put("retMsg","插入失败，服务器繁忙，请稍后再试!");
+                return JsonBizTool.genJson(ExRetEnum.Pullin_Fail, rs);
             }
 
             //获取第一张工作表
-            Sheet sheet = workbook.getSheetAt(0);
+            Sheet sheet = null;
+            try {
+                sheet = workbook.getSheetAt(0);
+            }catch (Exception e){
+                e.printStackTrace();
+                rs.put("personalErrInfo",null);
+                rs.put("retMsg","插入失败，文件有误!");
+                return JsonBizTool.genJson(ExRetEnum.Pullin_Fail, rs);
+            }
+
             //从第二行开始获取 getLastRowNum
             System.out.println("表总共多少行: " + sheet.getLastRowNum());
             System.out.println("实际共多少行: " + sheet.getPhysicalNumberOfRows());
@@ -404,7 +424,7 @@ public class PersonalInfoBatchUploadController {
                 paramSQLmap.put("batch_PB_endDate", EffectEndDate);
                 paramSQLmap.put("batch_PB_flag", "termpayment");
                 paramSQLmap.put("batch_createtime", new Date());
-                paramSQLmap.put("batch_PB_fprod", FProd_name);
+                paramSQLmap.put("batch_PB_fprod", t_FProd_ID);
                 paramSQLmap.put("batch_creator", ShiroSessionUtil.getLoginSession().getUserName());
                 //循环获取工作表的每一行
                 Row sheetRow = sheet.getRow(i);
@@ -521,6 +541,8 @@ public class PersonalInfoBatchUploadController {
             } catch (UnsupportedEncodingException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
+                rs.put("retMsg","插入失败，文件错误");
+                return JsonBizTool.genJson(ExRetEnum.Pullin_Fail, rs);
             }
             //获取第一张工作表
             //从第二行开始获取 getLastRowNum
@@ -674,7 +696,7 @@ public class PersonalInfoBatchUploadController {
 
 
             // check dup mobile with Manager Table - manager表身份证与上传身份证已存在但手机号不同检查
-            List<PersonalInfoBatchUpload> retcode1 = personalInfoBatchUploadService.duplicateMobileChkTmanager(batch_PB_batchID);
+            List<PersonalInfoBatchUpload> retcode1 = personalInfoBatchUploadService.duplicateMobileChkTmanager(batch_PB_batchID); // !!! new function
             String errRcsDupMobileMgr = null;
             if (retcode1.size() != 0 || !retcode1.isEmpty()){
                 StringBuffer errRecord = new StringBuffer();
@@ -697,7 +719,7 @@ public class PersonalInfoBatchUploadController {
             }
 
             // check dup Mobile with t_personal table - personal表身份证与上传身份证已存在但手机号不同检查
-            List<PersonalInfoBatchUpload> retcode2 = personalInfoBatchUploadService.duplicateMobileChkTperson(batch_PB_batchID);
+            List<PersonalInfoBatchUpload> retcode2 = personalInfoBatchUploadService.duplicateMobileChkTperson(batch_PB_batchID); //!!! new function
             String errRcsDupMobilePer = null;
             if (retcode2.size() != 0 || !retcode2.isEmpty()){
                 StringBuffer errRecord = new StringBuffer();
@@ -719,7 +741,7 @@ public class PersonalInfoBatchUploadController {
                 personalErrInfo.add(errRowData.toString());
             }
 
-            // check dup personal id with Manager table - manager表手机号与上传手机号已存在但身份证不同检查
+            // check dup personal id with Manager table - manager表手机号与上传手机号已存在但身份证不同检查 //!!! new function
             List<PersonalInfoBatchUpload> retcode3 = personalInfoBatchUploadService.duplicatePIDChk(batch_PB_batchID);
             String errRcsDupPID = null;
             if (retcode3.size() != 0 || !retcode3.isEmpty()){
@@ -832,7 +854,8 @@ public class PersonalInfoBatchUploadController {
     @RequestMapping(value = "personalInfoBatchUpdateSub")
     @ResponseBody
     public String PersonalInfoBatchUpdateSub(HttpServletRequest request,PersonalInfoBatchUpload personalInfoBatchUpload,String personalInfoInputArea,
-                                             String batch_PB_batchID,String t_PIBU_Orgname,String t_FPROD_Name,String payrollDate,String jobcat,Date EffectStartDate,Date EffectEndDate,
+                                             String batch_PB_batchID,String t_PIBU_Orgname,String t_FPROD_Name,String t_FPROD_id,String payrollDate,
+                                             String jobcat,Date EffectStartDate,Date EffectEndDate,
                                              Date TriggerTime,HttpServletResponse response, Model model) throws UnsupportedEncodingException{
         String CurrentCompany = ShiroSessionUtil.getLoginSession().getCompany_name();
         OrganizationInfo organizationInfo = organizationInfoService.selectAgencyName(CurrentCompany);

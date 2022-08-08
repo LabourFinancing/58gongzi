@@ -55,6 +55,12 @@ public class PersonalInfoServiceImpl implements PersonalInfoService {
     public int updateCompanyStaffsCreditOn(String t_TreasuryDB_OrgName_get) {
         return personalInfoDao.updateCompanyStaffsCreditOn(t_TreasuryDB_OrgName_get);
     }
+
+    @Override
+    public int updateCompanyStaffsCreditBalance(String t_TreasuryDB_OrgName_get) {
+        return 0;
+    }
+
     @Override
     public int updateCompanyStaffsCreditOff(String t_TreasuryDB_OrgName_get) {
         return personalInfoDao.updateCompanyStaffsCreditOff(t_TreasuryDB_OrgName_get);

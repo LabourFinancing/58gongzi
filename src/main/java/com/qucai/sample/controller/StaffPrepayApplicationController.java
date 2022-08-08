@@ -445,7 +445,7 @@ public class StaffPrepayApplicationController {
         
 		StaffPrepayApplicationNew staffPrepayApplicationNew = staffPrepayApplicationService.findSelectedByFProdName(t_FProd_Name);
 		StaffPrepayApplicationNew staffPrepayApplicationPNow = staffPrepayApplicationService.findAuthPrepayApplier(paramMap);
-		StaffPrepayApplicationList staffPrepayApplicationCredit = staffPrepayApplicationService.findPrepayApplierCredit(SeesionLoginMobil);
+		StaffPrepayApplicationList staffPrepayApplicationCredit = staffPrepayApplicationService.findPrepayApplierCredit(SeesionLoginMobil);  // !!! new function get creditbal from personalInfo
     	OrganizationInfo AgencyOrgnization = organizationInfoService.selectAgencyName(ShiroSessionUtil.getLoginSession().getCompany_name());
 		
 		if (staffPrepayApplicationCredit != null & ShiroSessionUtil.getLoginSession().getRemark() != null){
@@ -620,14 +620,15 @@ public class StaffPrepayApplicationController {
 			        			return JsonBizTool.genJson(ExRetEnum.PAY_ACC_FAIL,rs);
 			        		}
 			        	}
-			        	// payment start
+			        	// payment personal bankcard start <<< new function !!! payment to sub acc if ewallet channel is on.else payment to personal bank card
+						// payment to private bacnkcard at first !!!
 						if (PaymentSwitch.equals("shsd")){
 							staffPrepayApplication.setPlatform(merchantId);
 							staffPrepayApplicationPay.setVersion("sandpay");
 							staffPrepayApplication.setT_Txn_ClearOrg("sandpay");
 
 							//payto goldmanfuks sandpay pub account for cashout preparation
-                            JSONObject obj = AgentPayDemo.main(staffPrepayApplicationPay,merchantId);  // sandpay ,trigger Payment
+                            JSONObject obj = AgentPayDemo.main(staffPrepayApplicationPay,merchantId);  // sandpay ,trigger Payment channel flag, new function
                             
 				        	RCretData = (String) obj.get("respCode"); //  sandpay branch
 				        	remark = (String) obj.get("respDesc"); //  sandpay branch
@@ -637,7 +638,7 @@ public class StaffPrepayApplicationController {
 								   staffPrepayApplicationPay.setRemark(remark);
 								   staffPrepayApplicationPay.setCompany(merchantId);
 						    	   staffPrepayApplicationService.insertPayment(staffPrepayApplicationPay);
-						    	   //update personal discount balance done  >>>
+						    	   //update personal discount balance done ewallet deduct    >>>
 								Map<String, Object> paramSearchMap = new HashMap<String, Object>();
 								paramSearchMap.put("newUpdateCreditBal",staffPrepayApplication.getT_Txn_CreditPrepayBalanceNum());
 								paramSearchMap.put("t_Ewallet_PID",staffPrepayApplication.getT_Txn_PrepayApplierPID());
@@ -654,7 +655,9 @@ public class StaffPrepayApplicationController {
 							staffPrepayApplicationPay.setCompany(merchantId);
 							staffPrepayApplicationPay.setVersion("Chinaebi");
 							staffPrepayApplication.setT_Txn_ClearOrg("Chinaebi");
-							String retData = PayServlet.main(staffPrepayApplicationPay,merchantId);  // Chinaebipay trigger Payment
+
+							String retData = PayServlet.main(staffPrepayApplicationPay,merchantId);  // Chinaebipay trigger Payment channel flag, new function
+
 							JSONObject obj = (JSONObject) JSON.parse(retData);
 				        	RCretData = (String) obj.get("transState"); //  Chinaebipay branch
 				        	String RespMsg = (String) obj.get("rspCode"); //  Chinaebipay branch
@@ -665,7 +668,7 @@ public class StaffPrepayApplicationController {
 								   staffPrepayApplicationPay.setRemark(remark);
 								   staffPrepayApplicationPay.setCompany(merchantId);
 						    	   staffPrepayApplicationService.insertPayment(staffPrepayApplicationPay);
-								//update personal discount balance done  >>>
+								//update personal discount balance done,ewallet deduct   >>>
 									Map<String, Object> paramSearchMap = new HashMap<String, Object>();
 									paramSearchMap.put("newUpdateCreditBal",staffPrepayApplication.getT_Txn_CreditPrepayBalanceNum());
 									paramSearchMap.put("t_Ewallet_PID",staffPrepayApplication.getT_Txn_PrepayApplierPID());
@@ -689,7 +692,14 @@ public class StaffPrepayApplicationController {
 
 				      if (RCretData.equals("0000") || RCretData.equals("0001") || RCretData.equals("0002") || RCretData.equalsIgnoreCase("S") || RCretData.equalsIgnoreCase("P")
 							  || RCretData.equalsIgnoreCase("U") || updateCreditBal) {
+						  Map<String, Object> paramSearchMap = new HashMap<String, Object>();
+						  paramSearchMap.put("newUpdateCreditBal",staffPrepayApplication.getT_Txn_CreditPrepayBalanceNum());
+						  paramSearchMap.put("t_Ewallet_PID",staffPrepayApplication.getT_Txn_PrepayApplierPID());
+						  paramSearchMap.put("t_Ewallet_titleName",staffPrepayApplicationNew.getT_P_Company());
+
 							int InsertRS = staffPrepayApplicationService.insertSelective(staffPrepayApplication);  // payment succ
+						  	PersonalInfoService.findPrepayApplierCreditBalance(paramSearchMap);
+						  	updateCreditBal = PersonalInfoService.updatePrepayApplierCreditBalance(paramSearchMap); //update personalInfo DiscBalance
 							String SMSCompanyName = ShiroSessionUtil.getLoginSession().getCompany_name();
 							String mobile = staffPrepayApplicationPay.getPhone();
 							String PaidAmt = staffPrepayApplication.getT_Txn_ApplyPrepayAmount().toString();
@@ -1067,8 +1077,8 @@ public class StaffPrepayApplicationController {
 		 
 		 SMSCompanyName = staffPrepayApplicationNew.getT_P_Company();
 		 
-//		String SMScodeInit = String.valueOf(((Math.random()*9+1)*100000));	// test using		
-//		SMScodeRec =  SMScodeInit.substring(0,SMScodeInit.indexOf(".")); // test using
+//		String SMScodeInit = String.valueOf(((Math.random()*9+1)*100000));	// debug using
+//		SMScodeRec =  SMScodeInit.substring(0,SMScodeInit.indexOf(".")); // debug using
 		 
 		 SMScodeRec = HttpJsonExample.SMSReCode(SMSMobile,SMSCompanyName).toString();
 		 

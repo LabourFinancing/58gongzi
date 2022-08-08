@@ -48,7 +48,14 @@ function batchcreditOpen(t_batch_perslUploadStatus_batchid){
 			success: function (data) {
 				var result = eval("(" + data + ")");
 				if (result.ret == 0) {
-					alert("授额已开启");
+					if(result.clearstatus == -1) {
+						console.log('未结算批次数 - ' + result.checkstat)
+						alert("您尚有批次未结算，请结算后再开启！")
+						return;
+					}
+					if(result.clearstatus == 0) {
+						alert("授额已开启");
+					}
 				} else {
 					alert("授额开启失败");
 				}
@@ -97,6 +104,11 @@ function batchcreditRefresh(t_batch_perslUploadStatus_batchid){
 			processData: false,
 			success: function (data) {
 				var result = eval("(" + data + ")");
+				if(result.clearstatus == -1) {
+					console.log('未结算批次数 - ' + result.checkstat)
+					alert("您尚有批次未结算，请结算后再刷新！")
+					return;
+				}
 				if (result.ret == 0) {
 					alert("授额已刷新");
 				} else {
@@ -112,10 +124,18 @@ function batchcreditRefresh(t_batch_perslUploadStatus_batchid){
 	}
 }
 
-function batchcreditClear(t_batch_perslUploadStatus_batchid){
+function batchcreditClear(data){
+	var t_batch_perslUploadStatus_details = $(data);
+	var t_batch_perslUploadStatus_batchID = t_batch_perslUploadStatus_details.attr("batchId")
+	var t_batch_perslUploadEffectStatus = t_batch_perslUploadStatus_details.attr("batchStat")
+	var t_batch_perslUploadClearStatus = t_batch_perslUploadStatus_details.attr("clearStat")
+	if(t_batch_perslUploadEffectStatus != "关闭状态"){
+		alert("请先关闭此批次授额，再做结算！")
+		return;
+	}
 	if(confirm("确定要结算么？此操作不可逆")) {
 		$.ajax({
-			url: '${ctx}/PersonalInfoBatchUploadStatusController/batchCreditCtrl?t_batch_perslUploadStatus_batchid=' + encodeURI(encodeURI(t_batch_perslUploadStatus_batchid)) + '&operationType=clear',
+			url: '${ctx}/PersonalInfoBatchUploadStatusController/batchCreditCtrl?t_batch_perslUploadStatus_batchid=' + encodeURI(encodeURI(t_batch_perslUploadStatus_batchID)) + '&operationType=clear',
 			type: 'POST',
 			async: true,
 			cache: false,
@@ -156,7 +176,14 @@ function openEdit(t_batch_perslUploadStatus_batchid){
 	});
 }
 
-function openDetails(t_batch_perslUploadStatus_batchid){
+function openDetails(data){
+	var t_batch_perslUploadStatus_details = $(data);
+	var t_batch_perslUploadStatus_batchID = t_batch_perslUploadStatus_details.attr("batchId")
+	var t_batch_perslUploadEffectStatus = t_batch_perslUploadStatus_details.attr("batchStat")
+	var t_batch_perslUploadClearStatus = t_batch_perslUploadStatus_details.attr("clearStat")
+	if(t_batch_perslUploadEffectStatus != "关闭状态"){
+		alert("如果是结算操作，请先关闭此批次授额，再下载结算详情！")
+	}
 	var openWindowWidth = $(document).width() * 0.8 + "px";
 	var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
 	layer.open({
@@ -165,7 +192,7 @@ function openDetails(t_batch_perslUploadStatus_batchid){
 		offset : offsetH,
 		fix: false, //不固定
 		maxmin: true,
-		content: '${ctx}/PersonalInfoBatchUploadStatusController/form?t_batch_perslUploadStatus_batchid='+encodeURI(encodeURI(t_batch_perslUploadStatus_batchid))+'&operationType=list&platform=0',
+		content: '${ctx}/PersonalInfoBatchUploadStatusController/form?t_batch_perslUploadStatus_batchid='+encodeURI(encodeURI(t_batch_perslUploadStatus_batchID))+'&operationType=list&platform=0',
 		success: function(layero, index){
 		    layer.iframeAuto(index);
 		}
@@ -364,7 +391,8 @@ border-radius: 10px;
                                             <td class="col-xs-push-1" style="word-wrap:break-word;word-break:break-all;">${personalInfoBatchUploadStatus.modify_time?string("yyyy-MM-dd HH:mm:ss")}</td>
                                             <td class="col-xs-push-2" style="word-wrap:break-word;word-break:break-all;">
                                                 <@shiro.hasPermission name="PERSONALINFO_EDIT">
-                                                <a href="#" class="btn btn-link btn-xs font-opstyle" onclick="openDetails('${personalInfoBatchUploadStatus.t_batch_perslUploadStatus_batchid}')">批次详情</a>
+                                                <a href="#" class="btn btn-link btn-xs font-opstyle" onclick="openDetails(this)" batchId=${personalInfoBatchUploadStatus.t_batch_perslUploadStatus_batchid}
+												   batchStat=${personalInfoBatchUploadStatus.t_batch_perslUploadEffectStatus} clearStat=${personalInfoBatchUploadStatus.t_batch_perslUploadClearStatus}>批次详情</a>
                                             </@shiro.hasPermission>
                                             <@shiro.hasPermission name="PERSONALINFO_EDIT">
                                             <a href="#" class="btn btn-link btn-xs font-opstyle" onclick="openEdit('${personalInfoBatchUploadStatus.t_batch_perslUploadStatus_batchid}')">编辑</a>
@@ -373,7 +401,7 @@ border-radius: 10px;
                                         <a type="button" href="#" onclick="batchcreditDelete('${personalInfoBatchUploadStatus.t_batch_perslUploadStatus_batchid}')" class="btn btn-link btn-xs font-opstyle">删除</a>
                                         </@shiro.hasPermission>
                                         <@shiro.hasPermission name="PERSONALINFO_DELETE">
-                                        <input type="button" href="#" onclick="batchcreditClear('${personalInfoBatchUploadStatus.t_batch_perslUploadStatus_batchid}')" class="btn btn-link btn-xs font-opstyle" value="结算">
+                                        <input type="button" href="#" onclick="batchcreditClear(this)" class="btn btn-link btn-xs font-opstyle" value="结算">
                                     </@shiro.hasPermission>
                                     </br>
                                         <@shiro.hasPermission name="PERSONALINFO_DELETE">

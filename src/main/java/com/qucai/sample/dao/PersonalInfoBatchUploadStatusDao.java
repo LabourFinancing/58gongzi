@@ -47,6 +47,10 @@ public interface PersonalInfoBatchUploadStatusDao {
     PageInfo<PersonalInfoBatchUploadStatus> findSearchList(PageParam pp,Map<String, Object>paramSearchMap);
 
 	int updateByPrimaryKeySelective(PersonalInfoBatchUploadStatus record);
+
+    int checkBatchPersonalClearStatus(Map<String, Object> paramMap);
+
+    Boolean selectByPrimaryKey(Map<String, Object> paramMap);
     
 //   List<FinanceProduct> findTreetableList(Map<String, Object> paramMap);
     

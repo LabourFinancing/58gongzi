@@ -35,6 +35,8 @@ public interface PersonalInfoBatchUploadStatusService {
     PageInfo<PersonalInfoBatchUploadStatus> findSearchList(PageParam pp,Map<String, Object>paramSearchMap);
 
 	int insertSelective(Map<String, Object> paramSearchMap);
+
+    int checkBatchPersonalClearStatus(Map<String, Object> paramMap);
     
 //   List<FinanceProduct> findTreetableList(Map<String, Object> paramMap);
     

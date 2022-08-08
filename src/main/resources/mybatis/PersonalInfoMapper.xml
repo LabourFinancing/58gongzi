@@ -456,7 +456,7 @@
 			<include refid="Base_Column_List" />, 
 			(
 				SELECT
-					count(1)
+					(1)
 				FROM
 					tr_role_resource
 				WHERE
@@ -613,6 +613,7 @@
 		<include refid="Base_Column_List" />
 		from t_personal_info a
 		where a.t_P_PID = #{personal_pid,jdbcType=VARCHAR}
+		and a.t_personal_company = #{personal_company,jdbcType=VARCHAR}
 		and a.t_personal_company = #{personal_company,jdbcType=VARCHAR}
 		order by a.create_time DESC limit 1
 		for update

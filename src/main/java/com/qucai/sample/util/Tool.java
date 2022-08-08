@@ -191,6 +191,15 @@ public class Tool {
         return PayId;
     }
 
+    public static String BatchPayId() {
+        SimpleDateFormat BatchPayIdHead = new SimpleDateFormat("yyyyMMddHHmmss");
+        double PayRadom = ((Math.random() * 9 + 1) * 100);
+        String PayNum = String.valueOf(PayRadom).substring(0, String.valueOf(PayRadom).indexOf("."));
+        StringBuffer ps = new StringBuffer();
+        String BatchPayId = String.valueOf(ps.append(BatchPayIdHead.format(new Date()).toString()));
+        return BatchPayId;
+    }
+
     public static String BrowserFilter(HttpServletRequest request) {
         String userName = ShiroSessionUtil.getLoginSession().getUserName();
         String[] mobileAgents = {"iphone", "android", "ipad", "phone", "mobile", "wap", "netfront", "java", "opera mobi",

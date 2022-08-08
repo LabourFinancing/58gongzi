@@ -203,20 +203,20 @@ public class DataRefreshTTJob {
 		logger.info("定时每5分钟成功交易总记录统计结束：" + RS);
 	}
 	
-	@Scheduled(cron = "0 0 6,14,22 * * ?") 
-	public void RealTimeBalanceCredit() throws Exception {
-		logger.info("定时每天6,14,22点更新个人剩余额度开始：" + System.currentTimeMillis());
-	    String sql = "update t_personal_info, "
-	    		+ "(select t_Txn_PrepayApplierPID,t_Txn_CreditPrepayBalanceNum from t_transaction_info where t_Txn_Num in "
-	    		+ "(select MAX(t_Txn_Num) from t_transaction_info group by t_transaction_info.t_Txn_PrepayApplierPID)) as t1 "
-	    		+ "set t_P_NetMonthlyBonusAmount = t1.t_Txn_CreditPrepayBalanceNum where t_personal_info.t_P_PID = t1.t_Txn_PrepayApplierPID";
-	    String connectStr = "jdbc:mysql://localhost:3306/sample?rewriteBatchedStatements=true&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=true";
-	    String username = "root";
-	    String password = "Spearsharp1983";
-
-     boolean RS = MysqlBatchUtil.SQLDataPatch(sql,connectStr,username,password);
-		logger.info("定时每5分钟成功交易总记录统计结束：" + RS);
-	}
+//	@Scheduled(cron = "0 0 6,14,22 * * ?")
+//	public void RealTimeBalanceCredit() throws Exception {
+//		logger.info("定时每天6,14,22点更新个人剩余额度开始：" + System.currentTimeMillis());
+//	    String sql = "update t_personal_info, "
+//	    		+ "(select t_Txn_PrepayApplierPID,t_Txn_CreditPrepayBalanceNum from t_transaction_info where t_Txn_Num in "
+//	    		+ "(select MAX(t_Txn_Num) from t_transaction_info group by t_transaction_info.t_Txn_PrepayApplierPID)) as t1 "
+//	    		+ "set t_P_NetMonthlyBonusAmount = t1.t_Txn_CreditPrepayBalanceNum where t_personal_info.t_P_PID = t1.t_Txn_PrepayApplierPID";
+//	    String connectStr = "jdbc:mysql://localhost:3306/sample?rewriteBatchedStatements=true&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=true";
+//	    String username = "root";
+//	    String password = "Spearsharp1983";
+//
+//     boolean RS = MysqlBatchUtil.SQLDataPatch(sql,connectStr,username,password);
+//		logger.info("定时每5分钟成功交易总记录统计结束：" + RS);
+//	}
 	
 	@Scheduled(cron = "0 0 6 * * ?")
 	public void CreditStatusRefresh() throws Exception {

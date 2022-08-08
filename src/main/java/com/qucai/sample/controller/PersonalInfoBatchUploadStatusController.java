@@ -17,6 +17,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.qucai.sample.entity.*;
+import com.qucai.sample.service.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jasper.tagplugins.jstl.Util;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -39,19 +41,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.github.pagehelper.PageInfo;
 import com.qucai.sample.OperationTypeConstant;
 import com.qucai.sample.common.PageParam;
-import com.qucai.sample.entity.FinanceProduct;
-import com.qucai.sample.entity.OrganizationInfo;
-import com.qucai.sample.entity.PersonalInfo;
-import com.qucai.sample.entity.PersonalInfoBatchUpload;
-import com.qucai.sample.entity.PersonalInfoBatchUploadStatus;
-import com.qucai.sample.entity.StaffPrepayApplicationList;
 import com.qucai.sample.exception.ExRetEnum;
-import com.qucai.sample.service.FinanceProductService;
-import com.qucai.sample.service.OrganizationInfoService;
-import com.qucai.sample.service.PersonalInfoBatchUploadService;
-import com.qucai.sample.service.PersonalInfoBatchUploadStatusService;
-import com.qucai.sample.service.PersonalInfoService;
-import com.qucai.sample.service.StaffPrepayApplicationService;
 import com.qucai.sample.util.IdCardUtil;
 import com.qucai.sample.util.JsonBizTool;
 import com.qucai.sample.util.ShiroSessionUtil;
@@ -68,6 +58,9 @@ public class PersonalInfoBatchUploadStatusController {
 	
     @Autowired
     private PersonalInfoService personalInfoService; //申明一个对象
+
+	@Autowired
+	private HistoricalTxnQueryService historicalTxnQueryService; //申明一个对象
     
     @Autowired
     private OrganizationInfoService organizationInfoService;
@@ -272,7 +265,8 @@ public class PersonalInfoBatchUploadStatusController {
         		}
         	  paramMap.put("batch_PB_batchID", t_batch_perslUploadStatus_batchid);
         	  PersonalInfoBatchUpload entity = null;
-        	  List<PersonalInfoBatchUpload> PersonalInfoBatchUploadList = personalInfoBatchUploadService.SelectAllBatchList(paramMap);
+//        	  List<HistoricalTxnQuery> historicalTxnQuerySearch = historicalTxnQueryService.findSearchList(paramMap); //refresh personal txn statistic
+			  List<PersonalInfoBatchUpload> PersonalInfoBatchUploadList = personalInfoBatchUploadService.SelectAllBatchList(paramMap);
         	  model.addAttribute("PersonalInfoBatchUpload",PersonalInfoBatchUploadList);
               return "personalInfoBatchUpload/personalInfoBatchUploadList";
           } else if (OperationTypeConstant.CLEAR.equals(operationType)) {
@@ -325,6 +319,7 @@ public class PersonalInfoBatchUploadStatusController {
     		String t_batch_perslUploadStatus_batchid,Integer platform,String operationType,HttpServletRequest request,
             HttpServletResponse response, Model model) {
     	String t_batch_perslUploadStatus_id = null;
+
     	try {
 			t_batch_perslUploadStatus_id = URLDecoder.decode(t_batch_perslUploadStatus_batchid, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
@@ -334,7 +329,9 @@ public class PersonalInfoBatchUploadStatusController {
         model.addAttribute("platform", platform);
 		Map<String, Object> paramMap = new HashMap<String, Object>();//新建map对象
 		Map<String, Object> rs = new HashMap<String, Object>();//新建map对象
-		
+
+		paramMap.put("typeEnd", 1);      //给typeEnd对象赋值
+		paramMap.put("platform", platform); //给platform,赋值为前台拿进来的值
 		paramMap.put("batch_PB_batchID",t_batch_perslUploadStatus_id);
 
     	switch(operationType){
@@ -347,22 +344,43 @@ public class PersonalInfoBatchUploadStatusController {
             }
             break;
     	case "on" :
-    		int oncnt = personalInfoBatchUploadService.updateBatchPersonalStatusOpen(paramMap);
-            if(oncnt != 0){
-    			rs.put("retData","0");
-            }else{
-      	        return JsonBizTool.genJson(ExRetEnum.FAIL);
-            }
+    		int checkstat =  personalInfoBatchUploadStatusService.checkBatchPersonalClearStatus(paramMap);
+			if(checkstat > 1){
+				rs.put("checkstat", checkstat);
+				rs.put("clearstatus","-1");
+			}else{
+				int oncnt = personalInfoBatchUploadService.updateBatchPersonalStatusOpen(paramMap);
+				if(oncnt != 0){
+					rs.put("retData","0");
+				}else{
+					return JsonBizTool.genJson(ExRetEnum.FAIL);
+				}
+			}
             break;
     	case "refersh" :
-    		int refreshcnt = personalInfoBatchUploadService.updateBatchPersonalInfo(paramMap);
-            if(refreshcnt != 0){
-    			rs.put("retData","0");
-            }else{
-      	        return JsonBizTool.genJson(ExRetEnum.FAIL);
-            }
+    		 checkstat = Integer.valueOf(0);
+			 checkstat =  personalInfoBatchUploadStatusService.checkBatchPersonalClearStatus(paramMap);
+			if(checkstat > 1){
+				rs.put("checkstat", checkstat);
+				rs.put("clearstatus","-1");
+			}else{
+				int refreshcnt = personalInfoBatchUploadService.updateBatchPersonalInfo(paramMap);
+				if(refreshcnt != 0){
+					rs.put("retData","0");
+				}else{
+					return JsonBizTool.genJson(ExRetEnum.FAIL);
+				}
+			}
             break;
-    	}
+		case "clear" :
+			int ClearStatus = personalInfoBatchUploadService.updateBatchPersonalTxnClearing(paramMap);
+			if( ClearStatus != 0){
+				rs.put("retData","0");
+			}else{
+				return JsonBizTool.genJson(ExRetEnum.FAIL);
+			}
+			break;
+		}
 		return JsonBizTool.genJson(ExRetEnum.SUCCESS,rs);
     }
 

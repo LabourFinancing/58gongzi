@@ -81,6 +81,10 @@ public class PersonalInfoBatchUploadStatusServiceImpl implements PersonalInfoBat
         return new PageInfo<PersonalInfoBatchUploadStatus>(list);
     }
 
+    @Override
+    public int checkBatchPersonalClearStatus(Map<String, Object> paramMap) {
+        return PersonalInfoBatchUploadStatusDao.checkBatchPersonalClearStatus(paramMap);
+    }
     /*
     public List<FinanceProduct> findTreetableList(Map<String, Object> paramMap) {
         List<FinanceProduct> rList = financeProductDao.findAllList(paramMap);
