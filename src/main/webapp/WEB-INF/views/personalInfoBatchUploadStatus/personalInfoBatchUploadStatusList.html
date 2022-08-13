@@ -125,10 +125,9 @@ function batchcreditRefresh(t_batch_perslUploadStatus_batchid){
 }
 
 function batchcreditClear(data){
-	var t_batch_perslUploadStatus_details = $(data);
-	var t_batch_perslUploadStatus_batchID = t_batch_perslUploadStatus_details.attr('batchId')
-	var t_batch_perslUploadEffectStatus = t_batch_perslUploadStatus_details.attr('batchStat').value.value;
-	var t_batch_perslUploadClearStatus = t_batch_perslUploadStatus_details.attr('clearStat')
+	var t_batch_perslUploadStatus_batchID = data.getAttribute("batchId")
+	var t_batch_perslUploadEffectStatus = data.getAttribute("batchStat")
+	var t_batch_perslUploadClearStatus = data.getAttribute("clearStat")
 	if(t_batch_perslUploadEffectStatus != "关闭状态"){
 		alert("请先关闭此批次授额，再做结算！")
 		return;
@@ -177,21 +176,9 @@ function openEdit(t_batch_perslUploadStatus_batchid){
 }
 
 function openDetails(data){
-	var t_batch_perslUploadStatus_details = $(data);
-	var tr = $(data).parent().parent();//tr对象
-	var tdcon = [];//本行所有数据
-	tr.find('td').each(function(i,td){
-		if(i==4){
-			var t_batch_perslUploadEffectStatus = tr.find('td').val();
-		}
-		if($(td).find('a').length == 0){//过滤修改列
-			tdcon.push($(td).html());
-		}
-	});
-	console.log(tdcon);//最终结果
-	var t_batch_perslUploadStatus_batchID = t_batch_perslUploadStatus_details.attr('batchId').value
-	var t_batch_perslUploadEffectStatus = t_batch_perslUploadStatus_details.attr("batchStat").value
-	var t_batch_perslUploadClearStatus = t_batch_perslUploadStatus_details.attr("clearStat").value
+	var t_batch_perslUploadStatus_batchID = data.getAttribute("batchId")
+	var t_batch_perslUploadEffectStatus = data.getAttribute("batchStat")
+	var t_batch_perslUploadClearStatus = data.getAttribute("clearStat")
 	if(t_batch_perslUploadEffectStatus != "关闭状态"){
 		alert("如果是结算操作，请先关闭此批次授额，再下载结算详情！")
 	}
@@ -412,7 +399,8 @@ border-radius: 10px;
                                         <a type="button" href="#" onclick="batchcreditDelete('${personalInfoBatchUploadStatus.t_batch_perslUploadStatus_batchid}')" class="btn btn-link btn-xs font-opstyle">删除</a>
                                         </@shiro.hasPermission>
                                         <@shiro.hasPermission name="PERSONALINFO_DELETE">
-                                        <input type="button" href="#" onclick="batchcreditClear(this)" class="btn btn-link btn-xs font-opstyle" value="结算">
+                                        <input type="button" href="#" onclick="batchcreditClear(this)" batchId=${personalInfoBatchUploadStatus.t_batch_perslUploadStatus_batchid}
+											   batchStat=${personalInfoBatchUploadStatus.t_batch_perslUploadEffectStatus} clearStat=${personalInfoBatchUploadStatus.t_batch_perslUploadClearStatus} class="btn btn-link btn-xs font-opstyle" value="结算">
                                     </@shiro.hasPermission>
                                     </br>
                                         <@shiro.hasPermission name="PERSONALINFO_DELETE">

@@ -179,8 +179,8 @@ public class PersonalInfoBatchUploadStatusController {
         	paramSearchMap.put("t_batch_vendorCompany", t_batch_vendorCompany);//添加元素
         	paramSearchMap.put("t_batch_remark", remark);//添加元素
 			if (t_O_OrgName.equals("ALL")){
-				paramSearchMap.put("t_batch_company", "ALL");//添加元素
-				paramSearchMap.put("t_batch_vendorCompany", "ALL");
+				paramSearchMap.put("t_batch_company", t_batch_company);//添加元素
+				paramSearchMap.put("t_batch_vendorCompany", t_batch_vendorCompany);
 			}else {
 				//Flag on Agency or not
 				if (AgencyOrgnization.getT_O_listOrg().equals("on")){
