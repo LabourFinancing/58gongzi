@@ -167,7 +167,7 @@
             and a.t_WalletTxn_ApplierPID like CONCAT('%',#{t_P_ApplierPID},'%')
         </if>
         <if test="t_WalletTxn_PayerName != null">
-		and a.t_P_Name like CONCAT('%',#{t_P_Name},'%')
+		and a.t_P_Name like CONCAT('%',#{t_WalletTxn_PayerName},'%')
 		</if>	
 		<if test="t_WalletTxn_PayerPID != null" >
 		and a.t_WalletTxn_PayerPID like CONCAT('%',#{t_WalletTxn_PayerPID},'%')

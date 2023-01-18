@@ -528,7 +528,7 @@ function openReset(obj){
                 <div class="weui-cell wcbf">
                     <div class="weui-cell__hd"><label class="weui-label">工资卡号</label></div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" type="text" name="t_P_CompanyNum" value="${staffPrepayApplicationNew.t_P_PayrollDebitcardNum}"  readonly="">
+                        <input class="weui-input" type="text" name="t_P_PayrollDebitcardNum" id="t_P_PayrollDebitcardNum" value="${staffPrepayApplicationNew.t_P_PayrollDebitcardNum}"  readonly="">
                     </div>
                 </div>
             </div>
@@ -746,6 +746,7 @@ $(function(){
 	mainconstyle()
 	usehelp()
 	hidepid()
+    hidebankcard()
 	var lineHeight=$('.div-class_in').css('height')
 	if(lineHeight != '24px'){
 		$('.wcbfleft').addClass('addheight');
@@ -784,6 +785,13 @@ function hidepid(){
 	hidepid = pid.replace(/(\w{6})\w*(\w{4})/, '$1******$2');
 	var hidepidhtml = document.getElementById("t_Txn_PrepayApplierPID");
 	hidepidhtml.value = hidepid;
+}
+
+function hidebankcard(){
+    let bankcard = "${staffPrepayApplicationNew.t_P_PayrollDebitcardNum}";
+    hidebankcard = bankcard.replace(/(\w{6})\w*(\w{4})/, '$1******$2');
+    var hidebankcardhtml = document.getElementById("t_P_PayrollDebitcardNum");
+    hidebankcardhtml.value = hidebankcard;
 }
 
 function closebtn(){

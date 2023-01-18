@@ -539,20 +539,21 @@
             var t_batch_perslUploadStatus_batchid_value = document.getElementById("batch_PB_batchID").value;
             if(t_batch_perslUploadStatus_batchid_value === ""){
                 alert("批次文件为空，请先导入选择后查看详情")
+            }else {
+                var openWindowWidth = $(document).width() * 0.8 + "px";
+                var offsetH = ($(window).height() / 5 - 20 > 120 ? 120 : $(window).height() / 5 - 20) + "px";
+                layer.open({
+                    type: 2,
+                    area: openWindowWidth,
+                    offset: offsetH,
+                    fix: false, //不固定
+                    maxmin: true,
+                    content: '${ctx}/PersonalInfoBatchUploadStatusController/form?t_batch_perslUploadStatus_batchid=' + encodeURI(encodeURI(t_batch_perslUploadStatus_batchid_value)) + '&operationType=list&platform=0',
+                    success: function (layero, index) {
+                        layer.iframeAuto(index);
+                    }
+                });
             }
-            var openWindowWidth = $(document).width() * 0.8 + "px";
-            var offsetH = ($(window).height()/5 - 20 > 120 ? 120 : $(window).height()/5 - 20) + "px";
-            layer.open({
-                type: 2,
-                area: openWindowWidth,
-                offset : offsetH,
-                fix: false, //不固定
-                maxmin: true,
-                content: '${ctx}/PersonalInfoBatchUploadStatusController/form?t_batch_perslUploadStatus_batchid='+encodeURI(encodeURI(t_batch_perslUploadStatus_batchid_value))+'&operationType=list&platform=0',
-                success: function(layero, index){
-                    layer.iframeAuto(index);
-                }
-            });
         }
 
         function chkuploadfile(val){

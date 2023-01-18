@@ -143,11 +143,11 @@ var tableToExcel = (function() {
 
 // select all
 
-function openVoucher() {
+function openVoucher(id) {
 
     $.ajax({
         url: "${ctx}/HistoricalTxnQueryController/printVoucher?operationType=printVoucher",
-        data : {"HisTxnSelectedIDs":${HistoricalTxnQuery.t_Txn_Num_his}},
+        data : {"HisTxnSelectedIDs": id },
         dataType: "json",
         traditional: true,
         type: "POST",
@@ -192,7 +192,6 @@ function ClearAll(ClearSubmit){
             type: "POST",
             async : false,
             cache : false,
-            //traditional: true,  
             success: function (responseJSON) {
                 // your logic  
                 alert('结算完成');

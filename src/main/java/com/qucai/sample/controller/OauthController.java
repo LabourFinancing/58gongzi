@@ -1250,7 +1250,6 @@ public class OauthController {
             }
             return JsonBizTool.genJson(ExRetEnum.SUCCESS);
         }
-        
 
         if (type.equals("resendPWD")) {
             token.setRememberMe(true);

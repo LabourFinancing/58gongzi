@@ -36,7 +36,11 @@ public class IndexController {
     @RequestMapping("index")
     public String index(@RequestParam(required = false) String gid,String from, String form,String method, String phone,String host,String SMSsendcode,
                         byte[] SMSstr,HttpServletRequest request, HttpServletResponse response) throws Exception {
+        //http://localhost:8080/sample/index?from=apitest    // api test
 
+        if(from!=null&&from.equals("apitest")){
+            return  "redirect:userGuide.html";
+        }
         //钱包登陆预支入口 http://localhost:8080/sample_war_exploded/index?from=wechat&_base64=1&code=base64:JCQ5JCQ4JCQ0JCQxJCQ2JCQ3JGUxNG42MW82OWgzNXAx&return=https%3A%2F%2Fwww.58gognzi.com.cn
         if((from!=null&&from.equals("wechat")) || form!=null&&form.equals("wechat")){
             System.out.print("from wechat");

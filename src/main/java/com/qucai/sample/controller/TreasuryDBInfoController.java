@@ -183,10 +183,14 @@ public class TreasuryDBInfoController {
 				        	Map<String, Object> SandBalArray = new HashMap<String, Object>();
 				        	if(tt==0){
 				        		JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId); // query Sande Balance
-				  		    	if(JSONretdata.get("respCode").toString().equalsIgnoreCase("1005")){
-									BalanceData = "00.01";
+								if(JSONretdata.get("respCode").equals(null)){
+									BalanceData = "00.00";
 								}else {
-									BalanceData = (String) JSONretdata.get("balance");
+									if (JSONretdata.get("respCode").toString().equalsIgnoreCase("1005")) {
+										BalanceData = "00.01";
+									} else {
+										BalanceData = (String) JSONretdata.get("balance");
+									}
 								}
 				  		    	SandBalArray.put("merchantId", merchantId);
 				  		    	SandBalArray.put("BalanceData", BalanceData);
@@ -203,10 +207,14 @@ public class TreasuryDBInfoController {
 				        				break;
 				        			}else{
 						        		JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId); // query Sande Balance
-										if(JSONretdata.get("respCode").toString().equalsIgnoreCase("1005")){
-											BalanceData = "00.01";
+										if(JSONretdata.get("respCode").equals(null)){
+											BalanceData = "00.00";
 										}else {
-											BalanceData = (String) JSONretdata.get("balance");
+											if (JSONretdata.get("respCode").toString().equalsIgnoreCase("1005")) {
+												BalanceData = "00.01";
+											} else {
+												BalanceData = (String) JSONretdata.get("balance");
+											}
 										}
 						  		    	SandBalArray.put("merchantId", merchantId);
 						  		    	SandBalArray.put("BalanceData", BalanceData);
@@ -346,10 +354,14 @@ public class TreasuryDBInfoController {
 						        	Map<String, Object> SandBalArray = new HashMap<String, Object>();
 						        	if(tt==0){
 						        		JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId); // query Sande Balance
-										if(JSONretdata.get("respCode").toString().equalsIgnoreCase("1005")){
-											BalanceData = "00.01";
+										if(JSONretdata.get("respCode").equals(null)){
+											BalanceData = "00.00";
 										}else {
-											BalanceData = (String) JSONretdata.get("balance");
+											if (JSONretdata.get("respCode").toString().equalsIgnoreCase("1005")) {
+												BalanceData = "00.01";
+											} else {
+												BalanceData = (String) JSONretdata.get("balance");
+											}
 										}
 						  		    	SandBalArray.put("merchantId", merchantId);
 						  		    	SandBalArray.put("BalanceData", BalanceData);
@@ -366,10 +378,14 @@ public class TreasuryDBInfoController {
 												break;
 						        			}else{
 								        		JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId); // query Sande Balance
-												if(JSONretdata.get("respCode").toString().equalsIgnoreCase("1005")){
-													BalanceData = "00.01";
+												if(JSONretdata.get("respCode").equals(null)){
+													BalanceData = "00.00";
 												}else {
-													BalanceData = (String) JSONretdata.get("balance");
+													if (JSONretdata.get("respCode").toString().equalsIgnoreCase("1005")) {
+														BalanceData = "00.01";
+													} else {
+														BalanceData = (String) JSONretdata.get("balance");
+													}
 												}
 								  		    	SandBalArray.put("merchantId", merchantId);
 								  		    	SandBalArray.put("BalanceData", BalanceData);
@@ -445,10 +461,14 @@ public class TreasuryDBInfoController {
 		if (AgencyOrgnization.getT_O_OrgName().equals("ALL")){
 		    merchantId = "S2135052";
             JSONObject obj = MerBalanceQueryDemo.main(merchantId);
-			if(obj.get("respCode").toString().equalsIgnoreCase("1005")){
-				BalanceData = "00.01";
+			if(obj.get("respCode").equals(null)){
+				BalanceData = "00.00";
 			}else {
-				BalanceData = (String) obj.get("balance");
+				if (obj.get("respCode").toString().equalsIgnoreCase("1005")) {
+					BalanceData = "00.01";
+				} else {
+					BalanceData = (String) obj.get("balance");
+				}
 			}
 			System.out.print("sandpay:");
 			System.out.print(obj);
@@ -589,10 +609,14 @@ public class TreasuryDBInfoController {
 				        	Map<String, Object> SandBalArray = new HashMap<String, Object>();
 				        	if(tt == 0){
 				        		JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId); // query Sande Balance
-								if(JSONretdata.get("respCode").toString().equalsIgnoreCase("1005")){
-									BalanceData = "00.01";
+								if(JSONretdata.get("respCode").equals(null)){
+									BalanceData = "00.00";
 								}else {
-									BalanceData = (String) JSONretdata.get("balance");
+									if (JSONretdata.get("respCode").toString().equalsIgnoreCase("1005")) {
+										BalanceData = "00.01";
+									} else {
+										BalanceData = (String) JSONretdata.get("balance");
+									}
 								}
 				  		    	SandBalArray.put("merchantId", merchantId);
 				  		    	SandBalArray.put("BalanceData", BalanceData);
@@ -609,10 +633,14 @@ public class TreasuryDBInfoController {
 				        				break;
 				        			}else{
 						        		JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId); // query Sande Balance
-										if(JSONretdata.get("respCode").toString().equalsIgnoreCase("1005")){
-											BalanceData = "00.01";
+										if(JSONretdata.get("respCode").equals(null)){
+											BalanceData = "00.00";
 										}else {
-											BalanceData = (String) JSONretdata.get("balance");
+											if (JSONretdata.get("respCode").toString().equalsIgnoreCase("1005")) {
+												BalanceData = "00.01";
+											} else {
+												BalanceData = (String) JSONretdata.get("balance");
+											}
 										}
 						  		    	SandBalArray.put("merchantId", merchantId);
 						  		    	SandBalArray.put("BalanceData", BalanceData);
@@ -750,10 +778,14 @@ public class TreasuryDBInfoController {
 						        	Map<String, Object> SandBalArray = new HashMap<String, Object>();
 						        	if(tt ==0){
 						        		JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId); // query Sande Balance
-										if(JSONretdata.get("respCode").toString().equalsIgnoreCase("1005")){
-											BalanceData = "00.01";
+										if(JSONretdata.get("respCode").equals(null)){
+											BalanceData = "00.00";
 										}else {
-											BalanceData = (String) JSONretdata.get("balance");
+											if (JSONretdata.get("respCode").toString().equalsIgnoreCase("1005")) {
+												BalanceData = "00.01";
+											} else {
+												BalanceData = (String) JSONretdata.get("balance");
+											}
 										}
 						  		    	SandBalArray.put("merchantId", merchantId);
 						  		    	SandBalArray.put("BalanceData", BalanceData);
@@ -770,10 +802,14 @@ public class TreasuryDBInfoController {
 						        				break;
 						        			}else{
 								        		JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId); // query Sande Balance
-												if(JSONretdata.get("respCode").toString().equalsIgnoreCase("1005")){
-													BalanceData = "00.01";
+												if(JSONretdata.get("respCode").equals(null)){
+													BalanceData = "00.00";
 												}else {
-													BalanceData = (String) JSONretdata.get("balance");
+													if (JSONretdata.get("respCode").toString().equalsIgnoreCase("1005")) {
+														BalanceData = "00.01";
+													} else {
+														BalanceData = (String) JSONretdata.get("balance");
+													}
 												}
 								  		    	SandBalArray.put("merchantId", merchantId);
 								  		    	SandBalArray.put("BalanceData", BalanceData);
@@ -880,10 +916,14 @@ public class TreasuryDBInfoController {
     	if (ShiroSessionUtil.getLoginSession().getCompany_name().equals("ALL")) {
 		    merchantId = "S2135052";
             JSONObject JSONretdata = MerBalanceQueryDemo.main(merchantId);
-			if(JSONretdata.get("respCode").toString().equalsIgnoreCase("1005")){
+			if(JSONretdata.get("respCode").equals(null)){
 				BalanceData = "00.01";
 			}else {
-				BalanceData = (String) JSONretdata.get("balance");
+				if (JSONretdata.get("respCode").toString().equalsIgnoreCase("1005")) {
+					BalanceData = "00.01";
+				} else {
+					BalanceData = (String) JSONretdata.get("balance");
+				}
 			}
 			System.out.print("Chinaebi:");
 			System.out.print(JSONretdata);
